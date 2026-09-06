@@ -17,6 +17,11 @@ export interface SemanticSpan {
    * Semantic token type defined by the active pack.
    */
   tokenType: string;
+
+  /**
+   * Semantic modifiers defined by the active pack.
+   */
+  modifiers?: readonly string[];
 }
 
 export interface HighlightResult {
