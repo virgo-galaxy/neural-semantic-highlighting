@@ -1,33 +1,87 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 
 import { describe, expect, it } from "vitest";
 
-import type { HighlightResult } from "../src/core/result.js";
+import type { PackManifest } from "../src/core/manifest.js";
+import type { HighlightResult, SemanticSpan } from "../src/core/result.js";
+import type { PackSchema } from "../src/core/schema.js";
 
-interface GoldFixture extends HighlightResult {
-  documentKind: string;
+interface GoldSpan extends SemanticSpan {
+  text: string;
 }
 
+interface GoldFixture extends Omit<HighlightResult, "spans"> {
+  documentKind: string;
+  spans: GoldSpan[];
+}
+
+const packUrl = new URL("../packs/typescript/", import.meta.url);
+const fixturesUrl = new URL("fixtures/", packUrl);
+
+const manifest = JSON.parse(
+  await readFile(new URL("manifest.json", packUrl), "utf8"),
+) as PackManifest;
+
+const schema = JSON.parse(await readFile(new URL("schema.json", packUrl), "utf8")) as PackSchema;
+
+const fixtureEntries = await readdir(fixturesUrl, {
+  withFileTypes: true,
+});
+
+const fixtureNames = fixtureEntries
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name);
+
+const documentKinds = new Set(manifest.documentKinds.map((kind) => kind.id));
+const tokenTypes = new Set(schema.tokenTypes.map((tokenType) => tokenType.id));
+const tokenModifiers = new Set(schema.tokenModifiers.map((modifier) => modifier.id));
+
 describe("TypeScript gold fixtures", () => {
-  it("validates variable declaration", async () => {
-    const fixture = new URL("../packs/typescript/fixtures/variable-declaration/", import.meta.url);
+  for (const fixtureName of fixtureNames) {
+    it(`validates ${fixtureName}`, async () => {
+      const fixtureUrl = new URL(`${fixtureName}/`, fixturesUrl);
+      const files = await readdir(fixtureUrl);
 
-    const source = await readFile(new URL("source.ts", fixture), "utf8");
+      const sourceFiles = files.filter((file) => file === "source" || file.startsWith("source."));
 
-    const expected = JSON.parse(
-      await readFile(new URL("expected.json", fixture), "utf8"),
-    ) as GoldFixture;
+      expect(sourceFiles).toHaveLength(1);
 
-    expect(expected.documentKind).toBe("typescript");
-    expect(expected.offsetEncoding).toBe("utf-16");
+      const sourceFile = sourceFiles[0];
 
-    for (const span of expected.spans) {
-      expect(Number.isInteger(span.start)).toBe(true);
-      expect(Number.isInteger(span.end)).toBe(true);
+      if (!sourceFile) {
+        throw new Error(`Fixture "${fixtureName}" does not contain a source file.`);
+      }
 
-      expect(span.start).toBeGreaterThanOrEqual(0);
-      expect(span.end).toBeGreaterThan(span.start);
-      expect(span.end).toBeLessThanOrEqual(source.length);
-    }
-  });
+      const source = await readFile(new URL(sourceFile, fixtureUrl), "utf8");
+
+      const expected = JSON.parse(
+        await readFile(new URL("expected.json", fixtureUrl), "utf8"),
+      ) as GoldFixture;
+
+      expect(documentKinds.has(expected.documentKind)).toBe(true);
+      expect(expected.offsetEncoding).toBe("utf-16");
+
+      let previousEnd = 0;
+
+      for (const span of expected.spans) {
+        expect(Number.isInteger(span.start)).toBe(true);
+        expect(Number.isInteger(span.end)).toBe(true);
+
+        expect(span.start).toBeGreaterThanOrEqual(0);
+        expect(span.start).toBeGreaterThanOrEqual(previousEnd);
+        expect(span.end).toBeGreaterThan(span.start);
+        expect(span.end).toBeLessThanOrEqual(source.length);
+
+        expect(source.slice(span.start, span.end)).toBe(span.text);
+
+        expect(tokenTypes.has(span.tokenType)).toBe(true);
+
+        for (const modifier of span.modifiers ?? []) {
+          expect(tokenModifiers.has(modifier)).toBe(true);
+        }
+
+        previousEnd = span.end;
+      }
+    });
+  }
 });
