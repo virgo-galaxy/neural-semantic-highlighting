@@ -13,7 +13,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "all": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm build"
+    "test": "vitest run",
+    "all": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build"
   },
   "devEngines": {
     "packageManager": {
@@ -29,6 +30,7 @@
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "prettier": "^3.9.6",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "typescript-eslint": "^8.69.0"
+    "typescript-eslint": "^8.69.0",
+    "vitest": "^5.0.0"
   }
 }
