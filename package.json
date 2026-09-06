@@ -1,14 +1,19 @@
 {
   "name": "neural-semantic-highlighting",
   "version": "0.1.0",
-  "description": "Neural semantic code highlighting engine",
+  "description": "Runtime-agnostic neural semantic highlighting engine",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "all": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm build"
   },
   "devEngines": {
     "packageManager": {
@@ -18,6 +23,12 @@
     }
   },
   "devDependencies": {
-    "typescript": "^7.0.2"
+    "@eslint/js": "^10.0.1",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "eslint": "^10.10.0",
+    "eslint-plugin-simple-import-sort": "^14.0.0",
+    "prettier": "^3.9.6",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.69.0"
   }
 }
