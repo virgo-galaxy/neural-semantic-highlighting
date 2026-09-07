@@ -470,7 +470,10 @@ def build_or_load_documents(
     if show_progress:
         print(
             f"Encoding {split}: "
-            f"{total} documents",
+            f"0/{total} docs | "
+            f"0.0 docs/s | "
+            f"ETA --:--",
+            end="",
             flush=True,
         )
 
@@ -510,12 +513,17 @@ def build_or_load_documents(
             )
 
             print(
-                f"  {index:>5}/{total} "
-                f"docs "
-                f"({rate:,.1f} docs/s, "
-                f"ETA {format_duration(remaining)})",
+                f"\r\033[K"
+                f"Encoding {split}: "
+                f"{index}/{total} docs | "
+                f"{rate:,.1f} docs/s | "
+                f"ETA {format_duration(remaining)}",
+                end="",
                 flush=True,
             )
+
+    if show_progress:
+        print()
 
     if use_cache:
         CACHE_DIRECTORY.mkdir(
