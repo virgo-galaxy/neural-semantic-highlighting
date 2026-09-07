@@ -132,6 +132,9 @@ function classifyLexicalToken(kind: ts.SyntaxKind): string | undefined {
 
     case ts.SyntaxKind.StringLiteral:
     case ts.SyntaxKind.NoSubstitutionTemplateLiteral:
+    case ts.SyntaxKind.TemplateHead:
+    case ts.SyntaxKind.TemplateMiddle:
+    case ts.SyntaxKind.TemplateTail:
       return "string";
 
     case ts.SyntaxKind.RegularExpressionLiteral:
@@ -510,15 +513,38 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
   }
 
   const scanner = ts.createScanner(ts.ScriptTarget.Latest, false, languageVariant, request.source);
+  const templateExpressionBraceDepths: number[] = [];
 
   for (let kind = scanner.scan(); kind !== ts.SyntaxKind.EndOfFileToken; kind = scanner.scan()) {
-    const tokenType = classifyLexicalToken(kind);
+    const templateDepthIndex = templateExpressionBraceDepths.length - 1;
 
-    if (!tokenType) {
-      continue;
+    if (templateDepthIndex >= 0) {
+      if (kind === ts.SyntaxKind.OpenBraceToken) {
+        templateExpressionBraceDepths[templateDepthIndex] += 1;
+      } else if (kind === ts.SyntaxKind.CloseBraceToken) {
+        const braceDepth = templateExpressionBraceDepths[templateDepthIndex];
+
+        if (braceDepth > 0) {
+          templateExpressionBraceDepths[templateDepthIndex] = braceDepth - 1;
+        } else {
+          kind = scanner.reScanTemplateToken(false);
+
+          if (kind === ts.SyntaxKind.TemplateTail) {
+            templateExpressionBraceDepths.pop();
+          }
+        }
+      }
     }
 
-    addSpan(scanner.getTokenPos(), scanner.getTextPos(), tokenType);
+    const tokenType = classifyLexicalToken(kind);
+
+    if (tokenType) {
+      addSpan(scanner.getTokenPos(), scanner.getTextPos(), tokenType);
+    }
+
+    if (kind === ts.SyntaxKind.TemplateHead) {
+      templateExpressionBraceDepths.push(0);
+    }
   }
 
   function isJsxTagIdentifier(node: ts.Identifier): boolean {
