@@ -18,8 +18,6 @@ const repositoriesRoot = join(datasetRoot, "repos");
 const outputDirectory = join(datasetRoot, "typescript");
 const outputPath = join(outputDirectory, "sample.json");
 
-const samplesPerRepository = 100;
-
 const ignoredDirectories = new Set([
   ".git",
   "node_modules",
@@ -28,12 +26,8 @@ const ignoredDirectories = new Set([
   "coverage",
   "vendor",
   "generated",
-
-  // Generated compiler/test artifacts.
   "baselines",
   "testdata",
-
-  // Fixture and snapshot data.
   "fixtures",
   "__fixtures__",
   "__testfixtures__",
@@ -140,11 +134,9 @@ for (const repository of repositories) {
 
   candidates.sort((left, right) => left.hash.localeCompare(right.hash));
 
-  const selected = candidates.slice(0, samplesPerRepository);
+  sample.push(...candidates);
 
-  sample.push(...selected);
-
-  console.log(`${repository}: ${selected.length}/${candidates.length} files selected`);
+  console.log(`${repository}: ${candidates.length} files selected`);
 }
 
 await mkdir(outputDirectory, {

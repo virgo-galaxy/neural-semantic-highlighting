@@ -4,14 +4,6 @@ import { join } from "node:path";
 
 import type { HighlightResult } from "@/core/result.js";
 
-interface SampleEntry {
-  repository: string;
-  path: string;
-  documentKind: string;
-  size: number;
-  hash: string;
-}
-
 interface LabeledSample {
   repository: string;
   path: string;
@@ -20,83 +12,103 @@ interface LabeledSample {
   result: HighlightResult;
 }
 
+interface HoldoutEntry {
+  repository: string;
+  path: string;
+  documentKind: string;
+  split: "validation" | "test";
+}
+
 const datasetRoot =
   process.env.NSH_DATASET_ROOT ?? join(homedir(), "Datasets", "neural-semantic-highlighting");
 
 const typescriptDatasetRoot = join(datasetRoot, "typescript");
 
-const samplePath = join(typescriptDatasetRoot, "sample.json");
 const labeledSamplePath = join(typescriptDatasetRoot, "labeled-sample.json");
 
 const trainPath = join(typescriptDatasetRoot, "train.json");
 const validationPath = join(typescriptDatasetRoot, "validation.json");
 const testPath = join(typescriptDatasetRoot, "test.json");
 
+const holdoutPath = join(process.cwd(), "packs", "typescript", "dataset", "holdout.json");
+
 function key(repository: string, path: string): string {
   return `${repository}:${path}`;
 }
 
-const sample = JSON.parse(await readFile(samplePath, "utf8")) as SampleEntry[];
-
 const labeled = JSON.parse(await readFile(labeledSamplePath, "utf8")) as LabeledSample[];
+const holdout = JSON.parse(await readFile(holdoutPath, "utf8")) as HoldoutEntry[];
 
-const sampleByKey = new Map(sample.map((entry) => [key(entry.repository, entry.path), entry]));
+const holdoutByKey = new Map<string, HoldoutEntry>();
 
-const byRepository = new Map<string, LabeledSample[]>();
+for (const entry of holdout) {
+  const entryKey = key(entry.repository, entry.path);
 
-for (const entry of labeled) {
-  const entries = byRepository.get(entry.repository) ?? [];
+  if (holdoutByKey.has(entryKey)) {
+    throw new Error(`Duplicate holdout entry: ${entryKey}`);
+  }
 
-  entries.push(entry);
-
-  byRepository.set(entry.repository, entries);
+  holdoutByKey.set(entryKey, entry);
 }
 
 const train: LabeledSample[] = [];
 const validation: LabeledSample[] = [];
 const test: LabeledSample[] = [];
 
-for (const repository of [...byRepository.keys()].sort()) {
-  const entries = byRepository.get(repository);
+const foundHoldoutKeys = new Set<string>();
 
-  if (!entries) {
+for (const entry of labeled) {
+  const entryKey = key(entry.repository, entry.path);
+  const holdoutEntry = holdoutByKey.get(entryKey);
+
+  if (!holdoutEntry) {
+    train.push(entry);
     continue;
   }
 
-  const sorted = [...entries].sort((left, right) => {
-    const leftSample = sampleByKey.get(key(left.repository, left.path));
-    const rightSample = sampleByKey.get(key(right.repository, right.path));
+  if (entry.documentKind !== holdoutEntry.documentKind) {
+    throw new Error(
+      `${entryKey}: document kind changed from "${holdoutEntry.documentKind}" to "${entry.documentKind}"`,
+    );
+  }
 
-    if (!leftSample || !rightSample) {
-      throw new Error(`Missing sample metadata while splitting repository "${repository}".`);
-    }
+  foundHoldoutKeys.add(entryKey);
 
-    return leftSample.hash.localeCompare(rightSample.hash);
-  });
-
-  const trainEnd = Math.floor(sorted.length * 0.8);
-  const validationEnd = trainEnd + Math.floor(sorted.length * 0.1);
-
-  train.push(...sorted.slice(0, trainEnd));
-  validation.push(...sorted.slice(trainEnd, validationEnd));
-  test.push(...sorted.slice(validationEnd));
-
-  console.log(
-    `${repository}: train=${trainEnd}, validation=${validationEnd - trainEnd}, test=${
-      sorted.length - validationEnd
-    }`,
-  );
+  if (holdoutEntry.split === "validation") {
+    validation.push(entry);
+  } else {
+    test.push(entry);
+  }
 }
+
+for (const entryKey of holdoutByKey.keys()) {
+  if (!foundHoldoutKeys.has(entryKey)) {
+    throw new Error(`Frozen holdout entry is missing from the expanded corpus: ${entryKey}`);
+  }
+}
+
+train.sort((left, right) =>
+  key(left.repository, left.path).localeCompare(key(right.repository, right.path)),
+);
+
+validation.sort((left, right) =>
+  key(left.repository, left.path).localeCompare(key(right.repository, right.path)),
+);
+
+test.sort((left, right) =>
+  key(left.repository, left.path).localeCompare(key(right.repository, right.path)),
+);
 
 await writeFile(trainPath, `${JSON.stringify(train, null, 2)}\n`, "utf8");
 await writeFile(validationPath, `${JSON.stringify(validation, null, 2)}\n`, "utf8");
 await writeFile(testPath, `${JSON.stringify(test, null, 2)}\n`, "utf8");
 
 console.log("");
-console.log("TypeScript Dataset Split");
-console.log("------------------------");
+console.log("TypeScript Expanded Dataset Split");
+console.log("--------------------------------");
 console.log(`Train:      ${train.length}`);
 console.log(`Validation: ${validation.length}`);
 console.log(`Test:       ${test.length}`);
 console.log("");
+console.log(`Frozen holdout entries: ${holdout.length}`);
 console.log(`Written to ${typescriptDatasetRoot}`);
