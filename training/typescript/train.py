@@ -1332,6 +1332,9 @@ def save_checkpoint(
     validation_metrics: dict[str, float],
     max_length: int,
     epoch: int,
+    best_score: float,
+    best_epoch: int,
+    epochs_without_improvement: int,
 ) -> None:
     output_path.parent.mkdir(
         parents=True,
@@ -1387,6 +1390,17 @@ def save_checkpoint(
             "validation": (
                 validation_metrics
             ),
+            "training_state": {
+                "best_score": (
+                    best_score
+                ),
+                "best_epoch": (
+                    best_epoch
+                ),
+                "epochs_without_improvement": (
+                    epochs_without_improvement
+                ),
+            },
         },
         output_path,
     )
@@ -1410,12 +1424,13 @@ def move_optimizer_state_to_device(
 
 def load_resume_checkpoint(
     checkpoint_path: Path,
+    best_checkpoint_path: Path,
     model: SemanticTransformer,
     optimizer: torch.optim.Optimizer,
     dataset: TypeScriptSemanticDataset,
     device: torch.device,
     fallback_epoch: int,
-) -> tuple[int, float]:
+) -> tuple[int, float, int, int]:
     checkpoint = torch.load(
         checkpoint_path,
         map_location="cpu",
@@ -1507,16 +1522,113 @@ def load_resume_checkpoint(
         {},
     )
 
-    best_score = float(
+    resume_score = float(
         validation.get(
             "exact_span_macro_f1",
             -1.0,
         )
     )
 
+    training_state = checkpoint.get(
+        "training_state",
+        {},
+    )
+
+    best_score = float(
+        training_state.get(
+            "best_score",
+            resume_score,
+        )
+    )
+
+    best_epoch = int(
+        training_state.get(
+            "best_epoch",
+            checkpoint_epoch,
+        )
+    )
+
+    epochs_without_improvement = int(
+        training_state.get(
+            "epochs_without_improvement",
+            0,
+        )
+    )
+
+    has_training_state = bool(
+        training_state
+    )
+
+    if best_checkpoint_path.exists():
+        best_checkpoint = torch.load(
+            best_checkpoint_path,
+            map_location="cpu",
+        )
+
+        if (
+            best_checkpoint.get("format")
+            == "nsh-typescript-v2-multitask"
+        ):
+            best_validation = (
+                best_checkpoint.get(
+                    "validation",
+                    {},
+                )
+            )
+
+            best_training_state = (
+                best_checkpoint.get(
+                    "training_state",
+                    {},
+                )
+            )
+
+            persisted_best_score = float(
+                best_training_state.get(
+                    "best_score",
+                    best_validation.get(
+                        "exact_span_macro_f1",
+                        -1.0,
+                    ),
+                )
+            )
+
+            persisted_best_epoch = int(
+                best_training_state.get(
+                    "best_epoch",
+                    best_checkpoint.get(
+                        "epoch",
+                        0,
+                    ),
+                )
+            )
+
+            if (
+                persisted_best_score
+                > best_score
+            ):
+                best_score = (
+                    persisted_best_score
+                )
+                best_epoch = (
+                    persisted_best_epoch
+                )
+
+            if (
+                not has_training_state
+                and best_epoch > 0
+            ):
+                epochs_without_improvement = max(
+                    0,
+                    checkpoint_epoch
+                    - best_epoch,
+                )
+
     return (
         checkpoint_epoch,
         best_score,
+        best_epoch,
+        epochs_without_improvement,
     )
 
 
@@ -1705,6 +1817,8 @@ def main() -> None:
 
     start_epoch = 0
     best_score = -1.0
+    best_epoch = 0
+    epochs_without_improvement = 0
 
     if args.resume is not None:
         print(
@@ -1716,8 +1830,11 @@ def main() -> None:
         (
             start_epoch,
             best_score,
+            best_epoch,
+            epochs_without_improvement,
         ) = load_resume_checkpoint(
             args.resume,
+            args.output,
             model,
             optimizer,
             train_dataset,
@@ -1734,7 +1851,15 @@ def main() -> None:
         print(
             "Existing best "
             "exact-span macro F1: "
-            f"{best_score:.4f}",
+            f"{best_score:.4f} "
+            f"(epoch {best_epoch})",
+            flush=True,
+        )
+
+        print(
+            "Epochs without "
+            "improvement: "
+            f"{epochs_without_improvement}",
             flush=True,
         )
 
@@ -1806,8 +1931,6 @@ def main() -> None:
             ),
         )
     )
-
-    epochs_without_improvement = 0
 
     for local_epoch in range(
         1,
@@ -1934,6 +2057,21 @@ def main() -> None:
 
         print("")
 
+        score = metrics[
+            "exact_span_macro_f1"
+        ]
+
+        is_new_best = (
+            score > best_score
+        )
+
+        if is_new_best:
+            best_score = score
+            best_epoch = global_epoch
+            epochs_without_improvement = 0
+        else:
+            epochs_without_improvement += 1
+
         save_checkpoint(
             model=model,
             optimizer=optimizer,
@@ -1946,16 +2084,14 @@ def main() -> None:
                 args.max_length
             ),
             epoch=global_epoch,
+            best_score=best_score,
+            best_epoch=best_epoch,
+            epochs_without_improvement=(
+                epochs_without_improvement
+            ),
         )
 
-        score = metrics[
-            "exact_span_macro_f1"
-        ]
-
-        if score > best_score:
-            best_score = score
-            epochs_without_improvement = 0
-
+        if is_new_best:
             save_checkpoint(
                 model=model,
                 optimizer=optimizer,
@@ -1970,6 +2106,9 @@ def main() -> None:
                     args.max_length
                 ),
                 epoch=global_epoch,
+                best_score=best_score,
+                best_epoch=best_epoch,
+                epochs_without_improvement=0,
             )
 
             print(
@@ -1980,8 +2119,6 @@ def main() -> None:
 
             print("")
         else:
-            epochs_without_improvement += 1
-
             print(
                 "  no new macro-F1 "
                 "best "
@@ -2010,7 +2147,8 @@ def main() -> None:
 
     print(
         "Best exact span macro F1: "
-        f"{best_score:.4f}"
+        f"{best_score:.4f} "
+        f"(epoch {best_epoch})"
     )
 
     print(

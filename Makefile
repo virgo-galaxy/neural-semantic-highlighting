@@ -12,8 +12,7 @@ PYTHON := .venv/bin/python
 EPOCHS ?= 8
 BATCH_SIZE ?= 16
 PATIENCE ?= 3
-RESUME ?= artifacts/typescript/v2-multitask/best.pt
-RESUME_EPOCH ?= 8
+RESUME ?= artifacts/typescript/v2-multitask/last.pt
 
 check:
 	pnpm all
@@ -37,8 +36,7 @@ continue-typescript:
 		--epochs $(EPOCHS) \
 		--batch-size $(BATCH_SIZE) \
 		--patience $(PATIENCE) \
-		--resume $(RESUME) \
-		--resume-epoch $(RESUME_EPOCH)
+		--resume $(RESUME)
 
 evaluate-typescript:
 	$(PYTHON) training/typescript/evaluate.py
