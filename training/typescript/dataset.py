@@ -24,7 +24,11 @@ SCHEMA_PATH = REPOSITORY_ROOT / "packs" / "typescript" / "schema.json"
 
 PAD_BYTE_ID = 256
 IGNORE_LABEL_ID = -100
-OUTSIDE_TAG_ID = 0
+
+BOUNDARY_OUTSIDE_ID = 0
+BOUNDARY_BEGIN_ID = 1
+BOUNDARY_INSIDE_ID = 2
+NUMBER_OF_BOUNDARY_CLASSES = 3
 
 
 @dataclass(frozen=True)
@@ -33,14 +37,14 @@ class SemanticSchema:
     modifiers: tuple[str, ...]
 
     @property
-    def token_type_to_index(self) -> dict[str, int]:
+    def token_type_to_id(self) -> dict[str, int]:
         return {
             token_type: index
             for index, token_type in enumerate(self.token_types)
         }
 
     @property
-    def modifier_to_index(self) -> dict[str, int]:
+    def modifier_to_id(self) -> dict[str, int]:
         return {
             modifier: index
             for index, modifier in enumerate(self.modifiers)
@@ -50,63 +54,13 @@ class SemanticSchema:
     def number_of_token_types(self) -> int:
         return len(self.token_types)
 
-    @property
-    def number_of_semantic_tag_classes(self) -> int:
-        return 1 + 2 * len(self.token_types)
 
-    @property
-    def semantic_tag_names(self) -> tuple[str, ...]:
-        return (
-            "O",
-            *(f"B-{token_type}" for token_type in self.token_types),
-            *(f"I-{token_type}" for token_type in self.token_types),
-        )
-
-    def begin_tag_id(self, token_type: str) -> int:
-        return 1 + self.token_type_to_index[token_type]
-
-    def inside_tag_id(self, token_type: str) -> int:
-        return (
-            1
-            + self.number_of_token_types
-            + self.token_type_to_index[token_type]
-        )
-
-    def decode_tag_id(self, tag_id: int) -> tuple[str, str] | None:
-        if tag_id == OUTSIDE_TAG_ID:
-            return None
-
-        if 1 <= tag_id <= self.number_of_token_types:
-            return (
-                "B",
-                self.token_types[tag_id - 1],
-            )
-
-        inside_index = (
-            tag_id
-            - 1
-            - self.number_of_token_types
-        )
-
-        if 0 <= inside_index < self.number_of_token_types:
-            return (
-                "I",
-                self.token_types[inside_index],
-            )
-
-        raise ValueError(f"Unknown semantic tag id {tag_id}.")
-
-    def collapse_tag_id_to_token_type_id(
-        self,
-        tag_id: int,
-    ) -> int:
-        if tag_id <= OUTSIDE_TAG_ID:
-            return OUTSIDE_TAG_ID
-
-        return (
-            (tag_id - 1)
-            % self.number_of_token_types
-        ) + 1
+@dataclass(frozen=True)
+class GoldSpan:
+    start: int
+    end: int
+    token_type: str
+    modifiers: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -116,8 +70,10 @@ class EncodedDocument:
     document_kind: str
     source: str
     input_ids: torch.Tensor
-    semantic_tag_labels: torch.Tensor
+    boundary_labels: torch.Tensor
+    token_type_labels: torch.Tensor
     modifier_labels: torch.Tensor
+    gold_spans: tuple[GoldSpan, ...]
 
 
 @dataclass(frozen=True)
@@ -148,41 +104,30 @@ def build_source_boundaries(
     source: str,
 ) -> tuple[
     dict[int, int],
+    dict[int, int],
     tuple[int, ...],
 ]:
-    utf16_to_utf8 = {
-        0: 0,
-    }
-
+    utf16_to_utf8 = {0: 0}
+    utf16_to_character_index = {0: 0}
     character_byte_starts: list[int] = []
 
     utf16_offset = 0
     utf8_offset = 0
 
-    for character in source:
-        character_byte_starts.append(
-            utf8_offset
-        )
+    for character_index, character in enumerate(source):
+        character_byte_starts.append(utf8_offset)
 
         utf16_offset += (
-            len(
-                character.encode(
-                    "utf-16-le"
-                )
-            )
-            // 2
+            len(character.encode("utf-16-le")) // 2
         )
+        utf8_offset += len(character.encode("utf-8"))
 
-        utf8_offset += len(
-            character.encode("utf-8")
-        )
-
-        utf16_to_utf8[
-            utf16_offset
-        ] = utf8_offset
+        utf16_to_utf8[utf16_offset] = utf8_offset
+        utf16_to_character_index[utf16_offset] = character_index + 1
 
     return (
         utf16_to_utf8,
+        utf16_to_character_index,
         tuple(character_byte_starts),
     )
 
@@ -199,7 +144,13 @@ def encode_document(
         dtype=torch.long,
     )
 
-    semantic_tag_labels = torch.full(
+    boundary_labels = torch.full(
+        (len(source_bytes),),
+        IGNORE_LABEL_ID,
+        dtype=torch.long,
+    )
+
+    token_type_labels = torch.full(
         (len(source_bytes),),
         IGNORE_LABEL_ID,
         dtype=torch.long,
@@ -215,23 +166,24 @@ def encode_document(
 
     (
         utf16_to_utf8,
+        utf16_to_character_index,
         character_byte_starts,
     ) = build_source_boundaries(source)
 
-    # Only the first byte of each Unicode character is supervised.
-    # UTF-8 continuation bytes remain part of the model input/context,
-    # but do not create duplicate semantic decisions.
     if character_byte_starts:
-        semantic_tag_labels[
-            torch.tensor(
-                character_byte_starts,
-                dtype=torch.long,
-            )
-        ] = OUTSIDE_TAG_ID
+        character_start_tensor = torch.tensor(
+            character_byte_starts,
+            dtype=torch.long,
+        )
 
-    modifier_to_index = (
-        schema.modifier_to_index
-    )
+        boundary_labels[
+            character_start_tensor
+        ] = BOUNDARY_OUTSIDE_ID
+
+    token_type_to_id = schema.token_type_to_id
+    modifier_to_id = schema.modifier_to_id
+
+    gold_spans: list[GoldSpan] = []
 
     for span in sample["result"]["spans"]:
         utf16_start = span["start"]
@@ -249,64 +201,49 @@ def encode_document(
                 f"span end {utf16_end} is not a valid UTF-16 boundary"
             )
 
-        byte_start = utf16_to_utf8[
-            utf16_start
-        ]
+        start_character_index = utf16_to_character_index[utf16_start]
+        end_character_index = utf16_to_character_index[utf16_end]
 
-        byte_end = utf16_to_utf8[
-            utf16_end
-        ]
-
-        token_type = span["tokenType"]
-
-        if (
-            token_type
-            not in schema.token_type_to_index
-        ):
-            raise ValueError(
-                f'{sample["repository"]}/{sample["path"]}: '
-                f'unknown token type "{token_type}"'
-            )
-
-        span_character_starts = [
-            byte_offset
-            for byte_offset
-            in character_byte_starts
-            if byte_start
-            <= byte_offset
-            < byte_end
+        span_character_starts = character_byte_starts[
+            start_character_index:end_character_index
         ]
 
         if not span_character_starts:
             raise ValueError(
                 f'{sample["repository"]}/{sample["path"]}: '
-                f"semantic span {utf16_start}-{utf16_end} "
-                "contains no Unicode character boundary"
+                f"semantic span {utf16_start}-{utf16_end} contains no characters"
             )
 
-        semantic_tag_labels[
+        token_type = span["tokenType"]
+
+        if token_type not in token_type_to_id:
+            raise ValueError(
+                f'{sample["repository"]}/{sample["path"]}: '
+                f'unknown token type "{token_type}"'
+            )
+
+        token_type_id = token_type_to_id[token_type]
+
+        boundary_labels[
             span_character_starts[0]
-        ] = schema.begin_tag_id(
-            token_type
+        ] = BOUNDARY_BEGIN_ID
+
+        for byte_offset in span_character_starts[1:]:
+            boundary_labels[
+                byte_offset
+            ] = BOUNDARY_INSIDE_ID
+
+        for byte_offset in span_character_starts:
+            token_type_labels[
+                byte_offset
+            ] = token_type_id
+
+        span_modifiers = tuple(
+            span.get("modifiers", [])
         )
 
-        for byte_offset in (
-            span_character_starts[1:]
-        ):
-            semantic_tag_labels[
-                byte_offset
-            ] = schema.inside_tag_id(
-                token_type
-            )
-
-        for modifier in span.get(
-            "modifiers",
-            [],
-        ):
-            if (
-                modifier
-                not in modifier_to_index
-            ):
+        for modifier in span_modifiers:
+            if modifier not in modifier_to_id:
                 raise ValueError(
                     f'{sample["repository"]}/{sample["path"]}: '
                     f'unknown modifier "{modifier}"'
@@ -314,21 +251,28 @@ def encode_document(
 
             modifier_labels[
                 span_character_starts[0],
-                modifier_to_index[modifier],
+                modifier_to_id[modifier],
             ] = 1
+
+        gold_spans.append(
+            GoldSpan(
+                start=utf16_start,
+                end=utf16_end,
+                token_type=token_type,
+                modifiers=span_modifiers,
+            )
+        )
 
     return EncodedDocument(
         repository=sample["repository"],
         path=sample["path"],
-        document_kind=sample[
-            "documentKind"
-        ],
+        document_kind=sample["documentKind"],
         source=source,
         input_ids=input_ids,
-        semantic_tag_labels=(
-            semantic_tag_labels
-        ),
+        boundary_labels=boundary_labels,
+        token_type_labels=token_type_labels,
         modifier_labels=modifier_labels,
+        gold_spans=tuple(gold_spans),
     )
 
 
@@ -351,36 +295,21 @@ class TypeScriptSemanticDataset(Dataset):
         self.schema = load_schema()
         self.max_length = max_length
 
-        split_path = (
-            TYPESCRIPT_DATASET_ROOT
-            / f"{split}.json"
-        )
+        split_path = TYPESCRIPT_DATASET_ROOT / f"{split}.json"
 
         samples = json.loads(
-            split_path.read_text(
-                encoding="utf-8"
-            )
+            split_path.read_text(encoding="utf-8")
         )
 
         self.documents = [
-            encode_document(
-                sample,
-                self.schema,
-            )
+            encode_document(sample, self.schema)
             for sample in samples
         ]
 
-        self.windows: list[
-            WindowReference
-        ] = []
+        self.windows: list[WindowReference] = []
 
-        for (
-            document_index,
-            document,
-        ) in enumerate(self.documents):
-            length = (
-                document.input_ids.shape[0]
-            )
+        for document_index, document in enumerate(self.documents):
+            length = document.input_ids.shape[0]
 
             for start in range(
                 0,
@@ -388,16 +317,13 @@ class TypeScriptSemanticDataset(Dataset):
                 self.max_length,
             ):
                 end = min(
-                    start
-                    + self.max_length,
+                    start + self.max_length,
                     length,
                 )
 
                 self.windows.append(
                     WindowReference(
-                        document_index=(
-                            document_index
-                        ),
+                        document_index=document_index,
                         start=start,
                         end=end,
                     )
@@ -411,14 +337,9 @@ class TypeScriptSemanticDataset(Dataset):
         index: int,
     ) -> dict[str, torch.Tensor]:
         window = self.windows[index]
+        document = self.documents[window.document_index]
 
-        document = self.documents[
-            window.document_index
-        ]
-
-        length = (
-            window.end - window.start
-        )
+        length = window.end - window.start
 
         input_ids = torch.full(
             (self.max_length,),
@@ -431,7 +352,13 @@ class TypeScriptSemanticDataset(Dataset):
             dtype=torch.bool,
         )
 
-        semantic_tag_labels = torch.full(
+        boundary_labels = torch.full(
+            (self.max_length,),
+            IGNORE_LABEL_ID,
+            dtype=torch.long,
+        )
+
+        token_type_labels = torch.full(
             (self.max_length,),
             IGNORE_LABEL_ID,
             dtype=torch.long,
@@ -445,47 +372,36 @@ class TypeScriptSemanticDataset(Dataset):
             dtype=torch.float32,
         )
 
-        input_ids[:length] = (
-            document.input_ids[
-                window.start : window.end
-            ]
-        )
+        input_ids[:length] = document.input_ids[
+            window.start:window.end
+        ]
 
         attention_mask[:length] = True
 
-        semantic_tag_labels[:length] = (
-            document.semantic_tag_labels[
-                window.start : window.end
-            ]
-        )
+        boundary_labels[:length] = document.boundary_labels[
+            window.start:window.end
+        ]
 
-        modifier_labels[:length] = (
-            document.modifier_labels[
-                window.start : window.end
-            ].float()
-        )
+        token_type_labels[:length] = document.token_type_labels[
+            window.start:window.end
+        ]
+
+        modifier_labels[:length] = document.modifier_labels[
+            window.start:window.end
+        ].float()
 
         return {
             "input_ids": input_ids,
-            "attention_mask": (
-                attention_mask
-            ),
-            "semantic_tag_labels": (
-                semantic_tag_labels
-            ),
-            "modifier_labels": (
-                modifier_labels
-            ),
+            "attention_mask": attention_mask,
+            "boundary_labels": boundary_labels,
+            "token_type_labels": token_type_labels,
+            "modifier_labels": modifier_labels,
         }
 
 
 def main() -> None:
-    print(
-        "Neural Semantic Highlighting"
-    )
-    print(
-        "TypeScript BIO Training Dataset"
-    )
+    print("Neural Semantic Highlighting")
+    print("TypeScript V2 Multitask Dataset")
     print("")
 
     for split in (
@@ -493,11 +409,7 @@ def main() -> None:
         "validation",
         "test",
     ):
-        dataset = (
-            TypeScriptSemanticDataset(
-                split
-            )
-        )
+        dataset = TypeScriptSemanticDataset(split)
 
         print(
             f"{split}: "
@@ -508,23 +420,10 @@ def main() -> None:
     schema = load_schema()
 
     print("")
-    print(
-        "Semantic tag classes: "
-        f"{schema.number_of_semantic_tag_classes} "
-        "(O + B/I for each token type)"
-    )
-    print(
-        f"Token types: "
-        f"{schema.number_of_token_types}"
-    )
-    print(
-        f"Modifiers: "
-        f"{len(schema.modifiers)}"
-    )
-    print(
-        "Byte vocabulary: "
-        "257 (256 bytes + PAD)"
-    )
+    print("Boundary classes: 3 (O / B / I)")
+    print(f"Token types: {schema.number_of_token_types}")
+    print(f"Modifiers: {len(schema.modifiers)}")
+    print("Byte vocabulary: 257 (256 bytes + PAD)")
 
 
 if __name__ == "__main__":

@@ -8,18 +8,22 @@ from pathlib import Path
 import torch
 
 from dataset import (
+    BOUNDARY_BEGIN_ID,
+    BOUNDARY_INSIDE_ID,
+    BOUNDARY_OUTSIDE_ID,
     PAD_BYTE_ID,
+    EncodedDocument,
     TypeScriptSemanticDataset,
 )
 from model import SemanticTransformer
 
 
 DEFAULT_CHECKPOINT_PATH = Path(
-    "artifacts/typescript/v1-bio/best.pt"
+    "artifacts/typescript/v2-multitask/best.pt"
 )
 
 DEFAULT_OUTPUT_PATH = Path(
-    "artifacts/typescript/v1-bio/test-metrics.json"
+    "artifacts/typescript/v2-multitask/test-metrics.json"
 )
 
 
@@ -31,10 +35,11 @@ class CharacterPoint:
 
 
 @dataclass(frozen=True)
-class Span:
+class PredictedSpan:
     start: int
     end: int
     token_type: str
+    modifiers: tuple[str, ...]
 
 
 def select_device() -> torch.device:
@@ -45,6 +50,33 @@ def select_device() -> torch.device:
         return torch.device("cuda")
 
     return torch.device("cpu")
+
+
+def build_character_points(
+    source: str,
+) -> list[CharacterPoint]:
+    points: list[CharacterPoint] = []
+
+    utf16_offset = 0
+    byte_offset = 0
+
+    for character in source:
+        utf16_length = (
+            len(character.encode("utf-16-le")) // 2
+        )
+
+        points.append(
+            CharacterPoint(
+                utf16_start=utf16_offset,
+                utf16_end=utf16_offset + utf16_length,
+                byte_start=byte_offset,
+            )
+        )
+
+        utf16_offset += utf16_length
+        byte_offset += len(character.encode("utf-8"))
+
+    return points
 
 
 def load_model(
@@ -59,20 +91,16 @@ def load_model(
 
     if (
         checkpoint.get("format")
-        != "nsh-typescript-v1-bio"
+        != "nsh-typescript-v2-multitask"
     ):
         raise ValueError(
             "Checkpoint is not an NSH "
-            "TypeScript V1 BIO checkpoint."
+            "TypeScript V2 multitask checkpoint."
         )
-
-    checkpoint_schema = (
-        checkpoint["schema"]
-    )
 
     if (
         tuple(
-            checkpoint_schema[
+            checkpoint["schema"][
                 "token_types"
             ]
         )
@@ -80,13 +108,12 @@ def load_model(
     ):
         raise ValueError(
             "Checkpoint token-type schema "
-            "does not match the current "
-            "TypeScript schema."
+            "does not match the current schema."
         )
 
     if (
         tuple(
-            checkpoint_schema[
+            checkpoint["schema"][
                 "modifiers"
             ]
         )
@@ -94,19 +121,21 @@ def load_model(
     ):
         raise ValueError(
             "Checkpoint modifier schema "
-            "does not match the current "
-            "TypeScript schema."
+            "does not match the current schema."
         )
 
     config = checkpoint["config"]
 
     model = SemanticTransformer(
-        vocab_size=(
-            config["vocab_size"]
-        ),
-        number_of_semantic_tag_classes=(
+        vocab_size=config["vocab_size"],
+        number_of_boundary_classes=(
             config[
-                "number_of_semantic_tag_classes"
+                "number_of_boundary_classes"
+            ]
+        ),
+        number_of_token_types=(
+            config[
+                "number_of_token_types"
             ]
         ),
         number_of_modifiers=(
@@ -114,9 +143,7 @@ def load_model(
                 "number_of_modifiers"
             ]
         ),
-        max_length=(
-            config["max_length"]
-        ),
+        max_length=config["max_length"],
         embedding_dimension=(
             config[
                 "embedding_dimension"
@@ -145,48 +172,6 @@ def load_model(
     return model, checkpoint
 
 
-def build_character_points(
-    source: str,
-) -> list[CharacterPoint]:
-    points: list[
-        CharacterPoint
-    ] = []
-
-    utf16_offset = 0
-    byte_offset = 0
-
-    for character in source:
-        utf16_length = (
-            len(
-                character.encode(
-                    "utf-16-le"
-                )
-            )
-            // 2
-        )
-
-        points.append(
-            CharacterPoint(
-                utf16_start=(
-                    utf16_offset
-                ),
-                utf16_end=(
-                    utf16_offset
-                    + utf16_length
-                ),
-                byte_start=byte_offset,
-            )
-        )
-
-        utf16_offset += utf16_length
-
-        byte_offset += len(
-            character.encode("utf-8")
-        )
-
-    return points
-
-
 def predict_document_logits(
     model: SemanticTransformer,
     source: str,
@@ -196,35 +181,22 @@ def predict_document_logits(
 ) -> tuple[
     torch.Tensor,
     torch.Tensor,
+    torch.Tensor,
 ]:
-    source_bytes = source.encode(
-        "utf-8"
-    )
+    source_bytes = source.encode("utf-8")
 
-    byte_count = len(source_bytes)
-
-    if byte_count == 0:
-        return (
-            torch.empty((0, 0)),
-            torch.empty((0, 0)),
-        )
-
-    tag_chunks: list[
-        torch.Tensor
-    ] = []
-
-    modifier_chunks: list[
-        torch.Tensor
-    ] = []
+    boundary_chunks: list[torch.Tensor] = []
+    token_type_chunks: list[torch.Tensor] = []
+    modifier_chunks: list[torch.Tensor] = []
 
     with torch.no_grad():
         for start in range(
             0,
-            byte_count,
+            len(source_bytes),
             max_length,
         ):
             chunk = source_bytes[
-                start : start + max_length
+                start:start + max_length
             ]
 
             length = len(chunk)
@@ -242,29 +214,30 @@ def predict_document_logits(
                 device=device,
             )
 
-            input_ids[
-                0,
-                :length,
-            ] = torch.tensor(
+            input_ids[0, :length] = torch.tensor(
                 list(chunk),
                 dtype=torch.long,
                 device=device,
             )
 
-            attention_mask[
-                0,
-                :length,
-            ] = True
+            attention_mask[0, :length] = True
 
             output = model(
                 input_ids=input_ids,
-                attention_mask=(
-                    attention_mask
-                ),
+                attention_mask=attention_mask,
             )
 
-            tag_chunks.append(
-                output.semantic_tag_logits[
+            boundary_chunks.append(
+                output.boundary_logits[
+                    0,
+                    :length,
+                ]
+                .detach()
+                .cpu()
+            )
+
+            token_type_chunks.append(
+                output.token_type_logits[
                     0,
                     :length,
                 ]
@@ -281,271 +254,144 @@ def predict_document_logits(
                 .cpu()
             )
 
-    return (
-        torch.cat(
-            tag_chunks,
-            dim=0,
-        ),
-        torch.cat(
-            modifier_chunks,
-            dim=0,
-        ),
-    )
-
-
-def decode_bio_spans(
-    source: str,
-    tag_ids_by_character: list[int],
-    dataset: TypeScriptSemanticDataset,
-) -> list[Span]:
-    points = build_character_points(
-        source
-    )
-
-    spans: list[Span] = []
-
-    current_start: int | None = None
-    current_end: int | None = None
-    current_type: str | None = None
-
-    def flush() -> None:
-        nonlocal current_start
-        nonlocal current_end
-        nonlocal current_type
-
-        if (
-            current_start is not None
-            and current_end is not None
-            and current_type is not None
-        ):
-            spans.append(
-                Span(
-                    start=current_start,
-                    end=current_end,
-                    token_type=(
-                        current_type
-                    ),
-                )
-            )
-
-        current_start = None
-        current_end = None
-        current_type = None
-
-    for point, tag_id in zip(
-        points,
-        tag_ids_by_character,
-        strict=True,
-    ):
-        decoded = (
-            dataset.schema.decode_tag_id(
-                tag_id
-            )
+    if not boundary_chunks:
+        return (
+            torch.empty((0, 3)),
+            torch.empty((0, 0)),
+            torch.empty((0, 0)),
         )
 
-        if decoded is None:
-            flush()
-            continue
-
-        prefix, token_type = decoded
-
-        if prefix == "B":
-            flush()
-            current_start = (
-                point.utf16_start
-            )
-            current_end = point.utf16_end
-            current_type = token_type
-            continue
-
-        # Repair invalid I-X transitions as a new B-X.
-        if (
-            current_type
-            != token_type
-            or current_start is None
-        ):
-            flush()
-            current_start = (
-                point.utf16_start
-            )
-            current_end = point.utf16_end
-            current_type = token_type
-            continue
-
-        current_end = point.utf16_end
-
-    flush()
-
-    return spans
+    return (
+        torch.cat(boundary_chunks, dim=0),
+        torch.cat(token_type_chunks, dim=0),
+        torch.cat(modifier_chunks, dim=0),
+    )
 
 
-def gold_spans_from_document(
-    document,
+def decode_predicted_spans(
+    document: EncodedDocument,
+    boundary_logits: torch.Tensor,
+    token_type_logits: torch.Tensor,
+    modifier_logits: torch.Tensor,
     dataset: TypeScriptSemanticDataset,
-) -> list[Span]:
+    *,
+    modifier_threshold: float = 0.60,
+) -> list[PredictedSpan]:
     points = build_character_points(
         document.source
     )
 
-    tag_ids = [
+    if not points:
+        return []
+
+    boundary_ids = [
         int(
-            document.semantic_tag_labels[
+            boundary_logits[
                 point.byte_start
-            ].item()
+            ]
+            .argmax()
+            .item()
         )
         for point in points
     ]
 
-    return decode_bio_spans(
-        document.source,
-        tag_ids,
-        dataset,
-    )
+    span_ranges: list[
+        tuple[int, int]
+    ] = []
 
+    current_start: int | None = None
 
-def score_spans(
-    predicted: list[Span],
-    gold: list[Span],
-    token_types: tuple[str, ...],
-) -> dict:
-    predicted_set = {
-        (
-            span.start,
-            span.end,
-            span.token_type,
-        )
-        for span in predicted
-    }
+    def flush(end_index: int) -> None:
+        nonlocal current_start
 
-    gold_set = {
-        (
-            span.start,
-            span.end,
-            span.token_type,
-        )
-        for span in gold
-    }
+        if current_start is not None:
+            span_ranges.append(
+                (
+                    current_start,
+                    end_index,
+                )
+            )
 
-    true_positive = len(
-        predicted_set & gold_set
-    )
+        current_start = None
 
-    false_positive = len(
-        predicted_set - gold_set
-    )
+    for index, boundary_id in enumerate(
+        boundary_ids
+    ):
+        if boundary_id == BOUNDARY_OUTSIDE_ID:
+            flush(index)
+            continue
 
-    false_negative = len(
-        gold_set - predicted_set
-    )
+        if boundary_id == BOUNDARY_BEGIN_ID:
+            flush(index)
+            current_start = index
+            continue
 
-    precision = (
-        true_positive
-        / max(
-            1,
-            true_positive
-            + false_positive,
-        )
-    )
+        if boundary_id == BOUNDARY_INSIDE_ID:
+            if current_start is None:
+                current_start = index
+            continue
 
-    recall = (
-        true_positive
-        / max(
-            1,
-            true_positive
-            + false_negative,
-        )
-    )
+    flush(len(points))
 
-    f1 = (
-        2.0
-        * precision
-        * recall
-        / max(
-            1e-12,
-            precision + recall,
-        )
-    )
+    spans: list[PredictedSpan] = []
 
-    per_type = {}
+    for start_index, end_index in span_ranges:
+        span_points = points[
+            start_index:end_index
+        ]
 
-    macro_values = []
-
-    for token_type in token_types:
-        predicted_type = {
-            item
-            for item in predicted_set
-            if item[2] == token_type
-        }
-
-        gold_type = {
-            item
-            for item in gold_set
-            if item[2] == token_type
-        }
-
-        tp = len(
-            predicted_type & gold_type
+        byte_positions = torch.tensor(
+            [
+                point.byte_start
+                for point in span_points
+            ],
+            dtype=torch.long,
         )
 
-        fp = len(
-            predicted_type - gold_type
+        mean_type_logits = (
+            token_type_logits[
+                byte_positions
+            ].mean(dim=0)
         )
 
-        fn = len(
-            gold_type - predicted_type
+        token_type_id = int(
+            mean_type_logits.argmax().item()
         )
 
-        type_precision = (
-            tp
-            / max(1, tp + fp)
+        start_point = span_points[0]
+        end_point = span_points[-1]
+
+        modifier_probabilities = torch.sigmoid(
+            modifier_logits[
+                start_point.byte_start
+            ]
         )
 
-        type_recall = (
-            tp
-            / max(1, tp + fn)
+        predicted_modifiers = tuple(
+            modifier
+            for modifier, probability
+            in zip(
+                dataset.schema.modifiers,
+                modifier_probabilities.tolist(),
+                strict=True,
+            )
+            if probability >= modifier_threshold
         )
 
-        type_f1 = (
-            2.0
-            * type_precision
-            * type_recall
-            / max(
-                1e-12,
-                type_precision
-                + type_recall,
+        spans.append(
+            PredictedSpan(
+                start=start_point.utf16_start,
+                end=end_point.utf16_end,
+                token_type=(
+                    dataset.schema.token_types[
+                        token_type_id
+                    ]
+                ),
+                modifiers=predicted_modifiers,
             )
         )
 
-        support = len(gold_type)
-
-        per_type[token_type] = {
-            "precision": (
-                type_precision
-            ),
-            "recall": type_recall,
-            "f1": type_f1,
-            "support": support,
-        }
-
-        if support > 0:
-            macro_values.append(
-                type_f1
-            )
-
-    span_macro_f1 = (
-        sum(macro_values)
-        / len(macro_values)
-        if macro_values
-        else 0.0
-    )
-
-    return {
-        "precision": precision,
-        "recall": recall,
-        "f1": f1,
-        "macro_f1": span_macro_f1,
-        "per_type": per_type,
-    }
+    return spans
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -554,9 +400,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--checkpoint",
         type=Path,
-        default=(
-            DEFAULT_CHECKPOINT_PATH
-        ),
+        default=DEFAULT_CHECKPOINT_PATH,
     )
 
     parser.add_argument(
@@ -582,52 +426,56 @@ def main() -> None:
         "config"
     ]["max_length"]
 
-    test_dataset = (
-        TypeScriptSemanticDataset(
-            "test",
-            max_length=max_length,
-        )
+    test_dataset = TypeScriptSemanticDataset(
+        "test",
+        max_length=max_length,
     )
 
-    model, checkpoint = (
-        load_model(
-            args.checkpoint,
-            test_dataset,
-            device,
-        )
+    model, checkpoint = load_model(
+        args.checkpoint,
+        test_dataset,
+        device,
     )
 
-    all_predicted: list[
-        tuple[str, Span]
-    ] = []
+    predicted_set: set[
+        tuple[str, int, int, str]
+    ] = set()
 
-    all_gold: list[
-        tuple[str, Span]
-    ] = []
+    gold_set: set[
+        tuple[str, int, int, str]
+    ] = set()
 
+    per_type_predicted = {
+        token_type: set()
+        for token_type
+        in test_dataset.schema.token_types
+    }
+
+    per_type_gold = {
+        token_type: set()
+        for token_type
+        in test_dataset.schema.token_types
+    }
+
+    print("Neural Semantic Highlighting")
     print(
-        "Neural Semantic Highlighting"
-    )
-    print(
-        "TypeScript V1 BIO Evaluation"
+        "TypeScript V2 Multitask Evaluation"
     )
     print("")
     print(f"Device: {device}")
     print(
-        f"Checkpoint: "
-        f"{args.checkpoint}"
+        f"Checkpoint: {args.checkpoint}"
     )
     print(
-        "Test documents: "
+        f"Test documents: "
         f"{len(test_dataset.documents)}"
     )
 
-    for document in (
-        test_dataset.documents
-    ):
+    for document in test_dataset.documents:
         (
-            tag_logits,
-            _,
+            boundary_logits,
+            token_type_logits,
+            modifier_logits,
         ) = predict_document_logits(
             model,
             document.source,
@@ -635,36 +483,12 @@ def main() -> None:
             device=device,
         )
 
-        points = (
-            build_character_points(
-                document.source
-            )
-        )
-
-        predicted_tag_ids = [
-            int(
-                tag_logits[
-                    point.byte_start
-                ]
-                .argmax()
-                .item()
-            )
-            for point in points
-        ]
-
-        predicted_spans = (
-            decode_bio_spans(
-                document.source,
-                predicted_tag_ids,
-                test_dataset,
-            )
-        )
-
-        gold_spans = (
-            gold_spans_from_document(
-                document,
-                test_dataset,
-            )
+        predicted_spans = decode_predicted_spans(
+            document,
+            boundary_logits,
+            token_type_logits,
+            modifier_logits,
+            test_dataset,
         )
 
         key = (
@@ -672,39 +496,33 @@ def main() -> None:
             f"{document.path}"
         )
 
-        all_predicted.extend(
-            (key, span)
-            for span
-            in predicted_spans
-        )
+        for span in predicted_spans:
+            item = (
+                key,
+                span.start,
+                span.end,
+                span.token_type,
+            )
 
-        all_gold.extend(
-            (key, span)
-            for span
-            in gold_spans
-        )
+            predicted_set.add(item)
 
-    # Include the document key in exact matching so equal offsets
-    # from different files never collide.
-    predicted_set = {
-        (
-            key,
-            span.start,
-            span.end,
-            span.token_type,
-        )
-        for key, span in all_predicted
-    }
+            per_type_predicted[
+                span.token_type
+            ].add(item)
 
-    gold_set = {
-        (
-            key,
-            span.start,
-            span.end,
-            span.token_type,
-        )
-        for key, span in all_gold
-    }
+        for span in document.gold_spans:
+            item = (
+                key,
+                span.start,
+                span.end,
+                span.token_type,
+            )
+
+            gold_set.add(item)
+
+            per_type_gold[
+                span.token_type
+            ].add(item)
 
     tp = len(
         predicted_set & gold_set
@@ -716,10 +534,15 @@ def main() -> None:
         gold_set - predicted_set
     )
 
-    precision = tp / max(1, tp + fp)
-    recall = tp / max(1, tp + fn)
+    precision = (
+        tp / max(1, tp + fp)
+    )
 
-    span_f1 = (
+    recall = (
+        tp / max(1, tp + fn)
+    )
+
+    f1 = (
         2.0
         * precision
         * recall
@@ -730,33 +553,31 @@ def main() -> None:
     )
 
     per_type = {}
-    macro_values = []
+    macro_values: list[float] = []
 
     for token_type in (
         test_dataset.schema.token_types
     ):
-        predicted_type = {
-            item
-            for item in predicted_set
-            if item[3] == token_type
-        }
+        predicted = (
+            per_type_predicted[
+                token_type
+            ]
+        )
 
-        gold_type = {
-            item
-            for item in gold_set
-            if item[3] == token_type
-        }
+        gold = per_type_gold[
+            token_type
+        ]
 
         type_tp = len(
-            predicted_type & gold_type
+            predicted & gold
         )
 
         type_fp = len(
-            predicted_type - gold_type
+            predicted - gold
         )
 
         type_fn = len(
-            gold_type - predicted_type
+            gold - predicted
         )
 
         type_precision = (
@@ -786,12 +607,10 @@ def main() -> None:
             )
         )
 
-        support = len(gold_type)
+        support = len(gold)
 
         per_type[token_type] = {
-            "precision": (
-                type_precision
-            ),
+            "precision": type_precision,
             "recall": type_recall,
             "f1": type_f1,
             "support": support,
@@ -802,7 +621,7 @@ def main() -> None:
                 type_f1
             )
 
-    span_macro_f1 = (
+    macro_f1 = (
         sum(macro_values)
         / len(macro_values)
         if macro_values
@@ -810,14 +629,10 @@ def main() -> None:
     )
 
     metrics = {
-        "span_exact_precision": (
-            precision
-        ),
+        "span_exact_precision": precision,
         "span_exact_recall": recall,
-        "span_exact_f1": span_f1,
-        "span_exact_macro_f1": (
-            span_macro_f1
-        ),
+        "span_exact_f1": f1,
+        "span_exact_macro_f1": macro_f1,
         "predicted_spans": len(
             predicted_set
         ),
@@ -832,28 +647,23 @@ def main() -> None:
     print("Exact semantic spans")
     print("--------------------")
     print(
-        "Precision: "
-        f"{precision:.4f}"
+        f"Precision: {precision:.4f}"
     )
     print(
-        "Recall:    "
-        f"{recall:.4f}"
+        f"Recall:    {recall:.4f}"
     )
     print(
-        "F1:        "
-        f"{span_f1:.4f}"
+        f"F1:        {f1:.4f}"
     )
     print(
-        "Macro F1:  "
-        f"{span_macro_f1:.4f}"
+        f"Macro F1:  {macro_f1:.4f}"
     )
     print(
         "Predicted: "
         f"{len(predicted_set)}"
     )
     print(
-        "Gold:      "
-        f"{len(gold_set)}"
+        f"Gold:      {len(gold_set)}"
     )
 
     print("")
@@ -895,8 +705,7 @@ def main() -> None:
 
     print("")
     print(
-        f"Written to "
-        f"{args.output}"
+        f"Written to {args.output}"
     )
 
 

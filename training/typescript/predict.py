@@ -7,12 +7,17 @@ from pathlib import Path
 
 import torch
 
-from dataset import PAD_BYTE_ID
+from dataset import (
+    BOUNDARY_BEGIN_ID,
+    BOUNDARY_INSIDE_ID,
+    BOUNDARY_OUTSIDE_ID,
+    PAD_BYTE_ID,
+)
 from model import SemanticTransformer
 
 
 DEFAULT_CHECKPOINT_PATH = Path(
-    "artifacts/typescript/v1-bio/best.pt"
+    "artifacts/typescript/v2-multitask/best.pt"
 )
 
 DEFAULT_SOURCE = """class UserService {
@@ -61,22 +66,25 @@ def load_model(
 
     if (
         checkpoint.get("format")
-        != "nsh-typescript-v1-bio"
+        != "nsh-typescript-v2-multitask"
     ):
         raise ValueError(
             "Checkpoint is not an NSH "
-            "TypeScript V1 BIO checkpoint."
+            "TypeScript V2 multitask checkpoint."
         )
 
     config = checkpoint["config"]
 
     model = SemanticTransformer(
-        vocab_size=(
-            config["vocab_size"]
-        ),
-        number_of_semantic_tag_classes=(
+        vocab_size=config["vocab_size"],
+        number_of_boundary_classes=(
             config[
-                "number_of_semantic_tag_classes"
+                "number_of_boundary_classes"
+            ]
+        ),
+        number_of_token_types=(
+            config[
+                "number_of_token_types"
             ]
         ),
         number_of_modifiers=(
@@ -84,9 +92,7 @@ def load_model(
                 "number_of_modifiers"
             ]
         ),
-        max_length=(
-            config["max_length"]
-        ),
+        max_length=config["max_length"],
         embedding_dimension=(
             config[
                 "embedding_dimension"
@@ -118,42 +124,27 @@ def load_model(
 def build_character_points(
     source: str,
 ) -> list[CharacterPoint]:
-    points: list[
-        CharacterPoint
-    ] = []
+    points: list[CharacterPoint] = []
 
     utf16_offset = 0
     byte_offset = 0
 
     for character in source:
         utf16_length = (
-            len(
-                character.encode(
-                    "utf-16-le"
-                )
-            )
-            // 2
+            len(character.encode("utf-16-le")) // 2
         )
 
         points.append(
             CharacterPoint(
-                utf16_start=(
-                    utf16_offset
-                ),
-                utf16_end=(
-                    utf16_offset
-                    + utf16_length
-                ),
+                utf16_start=utf16_offset,
+                utf16_end=utf16_offset + utf16_length,
                 byte_start=byte_offset,
                 text=character,
             )
         )
 
         utf16_offset += utf16_length
-
-        byte_offset += len(
-            character.encode("utf-8")
-        )
+        byte_offset += len(character.encode("utf-8"))
 
     return points
 
@@ -167,30 +158,22 @@ def predict_logits(
 ) -> tuple[
     torch.Tensor,
     torch.Tensor,
+    torch.Tensor,
 ]:
-    source_bytes = source.encode(
-        "utf-8"
-    )
+    source_bytes = source.encode("utf-8")
 
-    byte_count = len(source_bytes)
-
-    if byte_count == 0:
-        return (
-            torch.empty((0, 0)),
-            torch.empty((0, 0)),
-        )
-
-    tag_chunks = []
-    modifier_chunks = []
+    boundary_chunks: list[torch.Tensor] = []
+    token_type_chunks: list[torch.Tensor] = []
+    modifier_chunks: list[torch.Tensor] = []
 
     with torch.no_grad():
         for start in range(
             0,
-            byte_count,
+            len(source_bytes),
             max_length,
         ):
             chunk = source_bytes[
-                start : start + max_length
+                start:start + max_length
             ]
 
             length = len(chunk)
@@ -208,29 +191,30 @@ def predict_logits(
                 device=device,
             )
 
-            input_ids[
-                0,
-                :length,
-            ] = torch.tensor(
+            input_ids[0, :length] = torch.tensor(
                 list(chunk),
                 dtype=torch.long,
                 device=device,
             )
 
-            attention_mask[
-                0,
-                :length,
-            ] = True
+            attention_mask[0, :length] = True
 
             output = model(
                 input_ids=input_ids,
-                attention_mask=(
-                    attention_mask
-                ),
+                attention_mask=attention_mask,
             )
 
-            tag_chunks.append(
-                output.semantic_tag_logits[
+            boundary_chunks.append(
+                output.boundary_logits[
+                    0,
+                    :length,
+                ]
+                .detach()
+                .cpu()
+            )
+
+            token_type_chunks.append(
+                output.token_type_logits[
                     0,
                     :length,
                 ]
@@ -247,68 +231,24 @@ def predict_logits(
                 .cpu()
             )
 
+    if not boundary_chunks:
+        return (
+            torch.empty((0, 3)),
+            torch.empty((0, 0)),
+            torch.empty((0, 0)),
+        )
+
     return (
-        torch.cat(
-            tag_chunks,
-            dim=0,
-        ),
-        torch.cat(
-            modifier_chunks,
-            dim=0,
-        ),
-    )
-
-
-def decode_tag_id(
-    tag_id: int,
-    token_types: tuple[str, ...],
-) -> tuple[str, str] | None:
-    if tag_id == 0:
-        return None
-
-    number_of_token_types = len(
-        token_types
-    )
-
-    if (
-        1
-        <= tag_id
-        <= number_of_token_types
-    ):
-        return (
-            "B",
-            token_types[
-                tag_id - 1
-            ],
-        )
-
-    inside_index = (
-        tag_id
-        - 1
-        - number_of_token_types
-    )
-
-    if (
-        0
-        <= inside_index
-        < number_of_token_types
-    ):
-        return (
-            "I",
-            token_types[
-                inside_index
-            ],
-        )
-
-    raise ValueError(
-        f"Unknown semantic tag id "
-        f"{tag_id}."
+        torch.cat(boundary_chunks, dim=0),
+        torch.cat(token_type_chunks, dim=0),
+        torch.cat(modifier_chunks, dim=0),
     )
 
 
 def decode_predictions(
     source: str,
-    tag_logits: torch.Tensor,
+    boundary_logits: torch.Tensor,
+    token_type_logits: torch.Tensor,
     modifier_logits: torch.Tensor,
     *,
     token_types: tuple[str, ...],
@@ -319,179 +259,119 @@ def decode_predictions(
         source
     )
 
-    spans: list[
-        PredictedSpan
-    ] = []
+    if not points:
+        return []
 
-    current_start: int | None = None
-    current_end: int | None = None
-    current_text = ""
-    current_type: str | None = None
-    current_modifiers: tuple[
-        str,
-        ...
-    ] = ()
-
-    def flush() -> None:
-        nonlocal current_start
-        nonlocal current_end
-        nonlocal current_text
-        nonlocal current_type
-        nonlocal current_modifiers
-
-        if (
-            current_start is not None
-            and current_end is not None
-            and current_type is not None
-        ):
-            spans.append(
-                PredictedSpan(
-                    start=current_start,
-                    end=current_end,
-                    text=current_text,
-                    token_type=(
-                        current_type
-                    ),
-                    modifiers=(
-                        current_modifiers
-                    ),
-                )
-            )
-
-        current_start = None
-        current_end = None
-        current_text = ""
-        current_type = None
-        current_modifiers = ()
-
-    for point in points:
-        tag_id = int(
-            tag_logits[
+    boundary_ids = [
+        int(
+            boundary_logits[
                 point.byte_start
             ]
             .argmax()
             .item()
         )
+        for point in points
+    ]
 
-        decoded = decode_tag_id(
-            tag_id,
-            token_types,
+    span_ranges: list[
+        tuple[int, int]
+    ] = []
+
+    current_start: int | None = None
+
+    def flush(end_index: int) -> None:
+        nonlocal current_start
+
+        if current_start is not None:
+            span_ranges.append(
+                (
+                    current_start,
+                    end_index,
+                )
+            )
+
+        current_start = None
+
+    for index, boundary_id in enumerate(
+        boundary_ids
+    ):
+        if boundary_id == BOUNDARY_OUTSIDE_ID:
+            flush(index)
+            continue
+
+        if boundary_id == BOUNDARY_BEGIN_ID:
+            flush(index)
+            current_start = index
+            continue
+
+        if boundary_id == BOUNDARY_INSIDE_ID:
+            if current_start is None:
+                current_start = index
+            continue
+
+    flush(len(points))
+
+    spans: list[PredictedSpan] = []
+
+    for start_index, end_index in span_ranges:
+        span_points = points[
+            start_index:end_index
+        ]
+
+        byte_positions = torch.tensor(
+            [
+                point.byte_start
+                for point in span_points
+            ],
+            dtype=torch.long,
         )
 
-        if decoded is None:
-            flush()
-            continue
+        mean_type_logits = (
+            token_type_logits[
+                byte_positions
+            ].mean(dim=0)
+        )
 
-        prefix, token_type = decoded
+        token_type_id = int(
+            mean_type_logits.argmax().item()
+        )
 
-        if prefix == "B":
-            flush()
+        start_point = span_points[0]
+        end_point = span_points[-1]
 
-            probabilities = (
-                torch.sigmoid(
-                    modifier_logits[
-                        point.byte_start
-                    ]
-                )
+        modifier_probabilities = torch.sigmoid(
+            modifier_logits[
+                start_point.byte_start
+            ]
+        )
+
+        predicted_modifiers = tuple(
+            modifier
+            for modifier, probability
+            in zip(
+                modifiers,
+                modifier_probabilities.tolist(),
+                strict=True,
             )
+            if probability >= modifier_threshold
+        )
 
-            predicted_modifiers = (
-                tuple(
-                    modifier
-                    for (
-                        modifier,
-                        probability,
-                    ) in zip(
-                        modifiers,
-                        probabilities.tolist(),
-                        strict=True,
-                    )
-                    if probability
-                    >= modifier_threshold
-                )
+        spans.append(
+            PredictedSpan(
+                start=start_point.utf16_start,
+                end=end_point.utf16_end,
+                text="".join(
+                    point.text
+                    for point in span_points
+                ),
+                token_type=token_types[
+                    token_type_id
+                ],
+                modifiers=predicted_modifiers,
             )
-
-            current_start = (
-                point.utf16_start
-            )
-            current_end = (
-                point.utf16_end
-            )
-            current_text = point.text
-            current_type = token_type
-            current_modifiers = (
-                predicted_modifiers
-            )
-
-            continue
-
-        if (
-            current_type
-            != token_type
-            or current_start is None
-        ):
-            # Repair invalid I-X transitions as a new span.
-            flush()
-
-            current_start = (
-                point.utf16_start
-            )
-            current_end = (
-                point.utf16_end
-            )
-            current_text = point.text
-            current_type = token_type
-            current_modifiers = ()
-
-            continue
-
-        current_end = point.utf16_end
-        current_text += point.text
-
-    flush()
+        )
 
     return spans
-
-
-def print_predictions(
-    source: str,
-    spans: list[PredictedSpan],
-) -> None:
-    print("")
-    print("Source")
-    print("------")
-    print(source.rstrip())
-    print("")
-    print(
-        "Predicted semantic spans"
-    )
-    print(
-        "------------------------"
-    )
-
-    if not spans:
-        print("(none)")
-        return
-
-    for span in spans:
-        modifier_text = ""
-
-        if span.modifiers:
-            modifier_text = (
-                " ["
-                + ", ".join(
-                    span.modifiers
-                )
-                + "]"
-            )
-
-        print(
-            f"{span.start:>4}:"
-            f"{span.end:<4} "
-            f"{json.dumps(span.text, ensure_ascii=False):<28} "
-            f"-> {span.token_type}"
-            f"{modifier_text}"
-        )
 
 
 def read_source(
@@ -525,9 +405,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--checkpoint",
         type=Path,
-        default=(
-            DEFAULT_CHECKPOINT_PATH
-        ),
+        default=DEFAULT_CHECKPOINT_PATH,
     )
 
     parser.add_argument(
@@ -574,66 +452,85 @@ def main() -> None:
         file_path=args.file,
     )
 
-    token_types = tuple(
-        checkpoint["schema"][
-            "token_types"
-        ]
-    )
-
-    modifiers = tuple(
-        checkpoint["schema"][
-            "modifiers"
-        ]
-    )
-
-    max_length = checkpoint[
-        "config"
-    ]["max_length"]
-
     (
-        tag_logits,
+        boundary_logits,
+        token_type_logits,
         modifier_logits,
     ) = predict_logits(
         model,
         source,
-        max_length=max_length,
+        max_length=(
+            checkpoint["config"][
+                "max_length"
+            ]
+        ),
         device=device,
     )
 
-    spans = (
-        decode_predictions(
-            source,
-            tag_logits,
-            modifier_logits,
-            token_types=(
-                token_types
-            ),
-            modifiers=modifiers,
-            modifier_threshold=(
-                args.modifier_threshold
-            ),
-        )
-        if source
-        else []
+    spans = decode_predictions(
+        source,
+        boundary_logits,
+        token_type_logits,
+        modifier_logits,
+        token_types=tuple(
+            checkpoint["schema"][
+                "token_types"
+            ]
+        ),
+        modifiers=tuple(
+            checkpoint["schema"][
+                "modifiers"
+            ]
+        ),
+        modifier_threshold=(
+            args.modifier_threshold
+        ),
     )
 
+    print("Neural Semantic Highlighting")
     print(
-        "Neural Semantic Highlighting"
-    )
-    print(
-        "TypeScript V1 BIO Prediction"
+        "TypeScript V2 Multitask Prediction"
     )
     print("")
     print(f"Device: {device}")
     print(
-        f"Checkpoint: "
-        f"{args.checkpoint}"
+        f"Checkpoint: {args.checkpoint}"
+    )
+    print("")
+    print("Source")
+    print("------")
+    print(source.rstrip())
+    print("")
+    print(
+        "Predicted semantic spans"
+    )
+    print(
+        "------------------------"
     )
 
-    print_predictions(
-        source,
-        spans,
-    )
+    if not spans:
+        print("(none)")
+        return
+
+    for span in spans:
+        modifier_text = ""
+
+        if span.modifiers:
+            modifier_text = (
+                " ["
+                + ", ".join(
+                    span.modifiers
+                )
+                + "]"
+            )
+
+        print(
+            f"{span.start:>4}:"
+            f"{span.end:<4} "
+            f"{json.dumps(span.text, ensure_ascii=False):<28} "
+            f"-> {span.token_type}"
+            f"{modifier_text}"
+        )
 
 
 if __name__ == "__main__":

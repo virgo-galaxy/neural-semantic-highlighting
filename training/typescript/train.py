@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import random
+from dataclasses import dataclass
 from pathlib import Path
 
 import torch
@@ -10,8 +11,13 @@ from torch import nn
 from torch.utils.data import DataLoader
 
 from dataset import (
+    BOUNDARY_BEGIN_ID,
+    BOUNDARY_INSIDE_ID,
+    BOUNDARY_OUTSIDE_ID,
     IGNORE_LABEL_ID,
-    OUTSIDE_TAG_ID,
+    NUMBER_OF_BOUNDARY_CLASSES,
+    PAD_BYTE_ID,
+    EncodedDocument,
     TypeScriptSemanticDataset,
 )
 from model import (
@@ -21,8 +27,23 @@ from model import (
 
 
 DEFAULT_OUTPUT_PATH = Path(
-    "artifacts/typescript/v1-bio/best.pt"
+    "artifacts/typescript/v2-multitask/best.pt"
 )
+
+
+@dataclass(frozen=True)
+class CharacterPoint:
+    utf16_start: int
+    utf16_end: int
+    byte_start: int
+
+
+@dataclass(frozen=True)
+class PredictedSpan:
+    start: int
+    end: int
+    token_type: str
+    modifiers: tuple[str, ...]
 
 
 def select_device() -> torch.device:
@@ -35,30 +56,52 @@ def select_device() -> torch.device:
     return torch.device("cpu")
 
 
-def build_semantic_tag_class_weights(
-    dataset: TypeScriptSemanticDataset,
-) -> torch.Tensor:
-    number_of_classes = (
-        dataset.schema
-        .number_of_semantic_tag_classes
-    )
+def build_character_points(
+    source: str,
+) -> list[CharacterPoint]:
+    points: list[CharacterPoint] = []
 
+    utf16_offset = 0
+    byte_offset = 0
+
+    for character in source:
+        utf16_length = (
+            len(character.encode("utf-16-le")) // 2
+        )
+
+        points.append(
+            CharacterPoint(
+                utf16_start=utf16_offset,
+                utf16_end=utf16_offset + utf16_length,
+                byte_start=byte_offset,
+            )
+        )
+
+        utf16_offset += utf16_length
+        byte_offset += len(character.encode("utf-8"))
+
+    return points
+
+
+def build_class_weights(
+    labels: list[torch.Tensor],
+    number_of_classes: int,
+    *,
+    min_weight: float,
+    max_weight: float,
+) -> torch.Tensor:
     counts = torch.zeros(
         number_of_classes,
         dtype=torch.long,
     )
 
-    for document in dataset.documents:
-        labels = (
-            document.semantic_tag_labels
-        )
-
-        valid_labels = labels[
-            labels != IGNORE_LABEL_ID
+    for label_tensor in labels:
+        valid = label_tensor[
+            label_tensor != IGNORE_LABEL_ID
         ]
 
         counts += torch.bincount(
-            valid_labels,
+            valid,
             minlength=number_of_classes,
         )
 
@@ -76,21 +119,44 @@ def build_semantic_tag_class_weights(
         )
     )
 
-    weights[present] /= (
-        weights[present].mean()
-    )
+    weights[present] /= weights[present].mean()
 
-    # Boundary classes are naturally rarer than inside classes,
-    # so inverse-square-root weighting gives them extra attention
-    # without letting a tiny class dominate the objective.
     weights = weights.clamp(
-        min=0.25,
-        max=4.0,
+        min=min_weight,
+        max=max_weight,
     )
 
     weights[~present] = 0.0
 
     return weights
+
+
+def build_boundary_class_weights(
+    dataset: TypeScriptSemanticDataset,
+) -> torch.Tensor:
+    return build_class_weights(
+        [
+            document.boundary_labels
+            for document in dataset.documents
+        ],
+        NUMBER_OF_BOUNDARY_CLASSES,
+        min_weight=0.5,
+        max_weight=2.0,
+    )
+
+
+def build_token_type_class_weights(
+    dataset: TypeScriptSemanticDataset,
+) -> torch.Tensor:
+    return build_class_weights(
+        [
+            document.token_type_labels
+            for document in dataset.documents
+        ],
+        dataset.schema.number_of_token_types,
+        min_weight=0.25,
+        max_weight=4.0,
+    )
 
 
 def build_modifier_positive_weights(
@@ -107,22 +173,10 @@ def build_modifier_positive_weights(
 
     begin_count = 0
 
-    number_of_token_types = (
-        dataset.schema
-        .number_of_token_types
-    )
-
     for document in dataset.documents:
-        labels = (
-            document.semantic_tag_labels
-        )
-
         begin_mask = (
-            (labels >= 1)
-            & (
-                labels
-                <= number_of_token_types
-            )
+            document.boundary_labels
+            == BOUNDARY_BEGIN_ID
         )
 
         begin_count += int(
@@ -139,8 +193,7 @@ def build_modifier_positive_weights(
             )
 
     negative_counts = (
-        begin_count
-        - positive_counts
+        begin_count - positive_counts
     )
 
     positive_weights = (
@@ -148,13 +201,9 @@ def build_modifier_positive_weights(
         / positive_counts.clamp_min(1.0)
     )
 
-    # V0 over-predicted rare modifiers. V1 keeps the correction
-    # deliberately conservative.
-    positive_weights = (
-        positive_weights.clamp(
-            min=1.0,
-            max=4.0,
-        )
+    positive_weights = positive_weights.clamp(
+        min=1.0,
+        max=4.0,
     )
 
     positive_weights[
@@ -164,43 +213,719 @@ def build_modifier_positive_weights(
     return positive_weights
 
 
-def collapse_tag_ids_to_token_type_ids(
-    tag_ids: torch.Tensor,
-    number_of_token_types: int,
-) -> torch.Tensor:
-    result = torch.zeros_like(
-        tag_ids
-    )
+def predict_document_logits(
+    model: SemanticTransformer,
+    source: str,
+    *,
+    max_length: int,
+    device: torch.device,
+) -> tuple[
+    torch.Tensor,
+    torch.Tensor,
+    torch.Tensor,
+]:
+    source_bytes = source.encode("utf-8")
 
-    semantic_mask = (
-        tag_ids > OUTSIDE_TAG_ID
-    )
-
-    result[semantic_mask] = (
-        (
-            tag_ids[semantic_mask]
-            - 1
+    if not source_bytes:
+        return (
+            torch.empty((0, 3)),
+            torch.empty((0, 0)),
+            torch.empty((0, 0)),
         )
-        % number_of_token_types
-    ) + 1
 
-    return result
+    boundary_chunks: list[torch.Tensor] = []
+    token_type_chunks: list[torch.Tensor] = []
+    modifier_chunks: list[torch.Tensor] = []
+
+    with torch.no_grad():
+        for start in range(
+            0,
+            len(source_bytes),
+            max_length,
+        ):
+            chunk = source_bytes[
+                start:start + max_length
+            ]
+
+            length = len(chunk)
+
+            input_ids = torch.full(
+                (1, max_length),
+                PAD_BYTE_ID,
+                dtype=torch.long,
+                device=device,
+            )
+
+            attention_mask = torch.zeros(
+                (1, max_length),
+                dtype=torch.bool,
+                device=device,
+            )
+
+            input_ids[0, :length] = torch.tensor(
+                list(chunk),
+                dtype=torch.long,
+                device=device,
+            )
+
+            attention_mask[0, :length] = True
+
+            output = model(
+                input_ids=input_ids,
+                attention_mask=attention_mask,
+            )
+
+            boundary_chunks.append(
+                output.boundary_logits[
+                    0,
+                    :length,
+                ]
+                .detach()
+                .cpu()
+            )
+
+            token_type_chunks.append(
+                output.token_type_logits[
+                    0,
+                    :length,
+                ]
+                .detach()
+                .cpu()
+            )
+
+            modifier_chunks.append(
+                output.modifier_logits[
+                    0,
+                    :length,
+                ]
+                .detach()
+                .cpu()
+            )
+
+    return (
+        torch.cat(boundary_chunks, dim=0),
+        torch.cat(token_type_chunks, dim=0),
+        torch.cat(modifier_chunks, dim=0),
+    )
+
+
+def decode_predicted_spans(
+    document: EncodedDocument,
+    boundary_logits: torch.Tensor,
+    token_type_logits: torch.Tensor,
+    modifier_logits: torch.Tensor,
+    dataset: TypeScriptSemanticDataset,
+    *,
+    modifier_threshold: float = 0.60,
+) -> list[PredictedSpan]:
+    points = build_character_points(
+        document.source
+    )
+
+    if not points:
+        return []
+
+    boundary_ids = [
+        int(
+            boundary_logits[
+                point.byte_start
+            ]
+            .argmax()
+            .item()
+        )
+        for point in points
+    ]
+
+    span_ranges: list[
+        tuple[int, int]
+    ] = []
+
+    current_start: int | None = None
+
+    def flush(end_index: int) -> None:
+        nonlocal current_start
+
+        if current_start is not None:
+            span_ranges.append(
+                (
+                    current_start,
+                    end_index,
+                )
+            )
+
+        current_start = None
+
+    for index, boundary_id in enumerate(
+        boundary_ids
+    ):
+        if boundary_id == BOUNDARY_OUTSIDE_ID:
+            flush(index)
+            continue
+
+        if boundary_id == BOUNDARY_BEGIN_ID:
+            flush(index)
+            current_start = index
+            continue
+
+        if boundary_id == BOUNDARY_INSIDE_ID:
+            if current_start is None:
+                current_start = index
+            continue
+
+        raise ValueError(
+            f"Unknown boundary id {boundary_id}."
+        )
+
+    flush(len(points))
+
+    spans: list[PredictedSpan] = []
+
+    token_types = dataset.schema.token_types
+    modifiers = dataset.schema.modifiers
+
+    for start_index, end_index in span_ranges:
+        span_points = points[
+            start_index:end_index
+        ]
+
+        byte_positions = torch.tensor(
+            [
+                point.byte_start
+                for point in span_points
+            ],
+            dtype=torch.long,
+        )
+
+        mean_type_logits = (
+            token_type_logits[
+                byte_positions
+            ].mean(dim=0)
+        )
+
+        token_type_id = int(
+            mean_type_logits.argmax().item()
+        )
+
+        start_point = span_points[0]
+        end_point = span_points[-1]
+
+        modifier_probabilities = torch.sigmoid(
+            modifier_logits[
+                start_point.byte_start
+            ]
+        )
+
+        predicted_modifiers = tuple(
+            modifier
+            for modifier, probability
+            in zip(
+                modifiers,
+                modifier_probabilities.tolist(),
+                strict=True,
+            )
+            if probability >= modifier_threshold
+        )
+
+        spans.append(
+            PredictedSpan(
+                start=start_point.utf16_start,
+                end=end_point.utf16_end,
+                token_type=token_types[
+                    token_type_id
+                ],
+                modifiers=predicted_modifiers,
+            )
+        )
+
+    return spans
+
+
+def exact_span_metrics(
+    dataset: TypeScriptSemanticDataset,
+    model: SemanticTransformer,
+    device: torch.device,
+) -> dict[str, float]:
+    predicted_set: set[
+        tuple[str, int, int, str]
+    ] = set()
+
+    gold_set: set[
+        tuple[str, int, int, str]
+    ] = set()
+
+    per_type_predicted: dict[
+        str,
+        set[tuple[str, int, int, str]],
+    ] = {
+        token_type: set()
+        for token_type
+        in dataset.schema.token_types
+    }
+
+    per_type_gold: dict[
+        str,
+        set[tuple[str, int, int, str]],
+    ] = {
+        token_type: set()
+        for token_type
+        in dataset.schema.token_types
+    }
+
+    for document in dataset.documents:
+        (
+            boundary_logits,
+            token_type_logits,
+            modifier_logits,
+        ) = predict_document_logits(
+            model,
+            document.source,
+            max_length=dataset.max_length,
+            device=device,
+        )
+
+        predicted_spans = decode_predicted_spans(
+            document,
+            boundary_logits,
+            token_type_logits,
+            modifier_logits,
+            dataset,
+        )
+
+        document_key = (
+            f"{document.repository}:"
+            f"{document.path}"
+        )
+
+        for span in predicted_spans:
+            item = (
+                document_key,
+                span.start,
+                span.end,
+                span.token_type,
+            )
+
+            predicted_set.add(item)
+
+            per_type_predicted[
+                span.token_type
+            ].add(item)
+
+        for span in document.gold_spans:
+            item = (
+                document_key,
+                span.start,
+                span.end,
+                span.token_type,
+            )
+
+            gold_set.add(item)
+
+            per_type_gold[
+                span.token_type
+            ].add(item)
+
+    true_positive = len(
+        predicted_set & gold_set
+    )
+
+    false_positive = len(
+        predicted_set - gold_set
+    )
+
+    false_negative = len(
+        gold_set - predicted_set
+    )
+
+    precision = (
+        true_positive
+        / max(
+            1,
+            true_positive
+            + false_positive,
+        )
+    )
+
+    recall = (
+        true_positive
+        / max(
+            1,
+            true_positive
+            + false_negative,
+        )
+    )
+
+    f1 = (
+        2.0
+        * precision
+        * recall
+        / max(
+            1e-12,
+            precision + recall,
+        )
+    )
+
+    macro_values: list[float] = []
+
+    for token_type in (
+        dataset.schema.token_types
+    ):
+        predicted = (
+            per_type_predicted[
+                token_type
+            ]
+        )
+
+        gold = per_type_gold[
+            token_type
+        ]
+
+        if not gold:
+            continue
+
+        tp = len(predicted & gold)
+        fp = len(predicted - gold)
+        fn = len(gold - predicted)
+
+        type_precision = (
+            tp / max(1, tp + fp)
+        )
+
+        type_recall = (
+            tp / max(1, tp + fn)
+        )
+
+        type_f1 = (
+            2.0
+            * type_precision
+            * type_recall
+            / max(
+                1e-12,
+                type_precision
+                + type_recall,
+            )
+        )
+
+        macro_values.append(type_f1)
+
+    macro_f1 = (
+        sum(macro_values)
+        / len(macro_values)
+        if macro_values
+        else 0.0
+    )
+
+    return {
+        "exact_span_precision": precision,
+        "exact_span_recall": recall,
+        "exact_span_f1": f1,
+        "exact_span_macro_f1": macro_f1,
+        "predicted_spans": float(
+            len(predicted_set)
+        ),
+        "gold_spans": float(
+            len(gold_set)
+        ),
+    }
+
+
+def diagnostic_metrics(
+    model: SemanticTransformer,
+    loader: DataLoader,
+    dataset: TypeScriptSemanticDataset,
+    device: torch.device,
+) -> dict[str, float]:
+    boundary_confusion = torch.zeros(
+        (
+            NUMBER_OF_BOUNDARY_CLASSES,
+            NUMBER_OF_BOUNDARY_CLASSES,
+        ),
+        dtype=torch.long,
+    )
+
+    token_type_count = (
+        dataset.schema.number_of_token_types
+    )
+
+    token_type_confusion = torch.zeros(
+        (
+            token_type_count,
+            token_type_count,
+        ),
+        dtype=torch.long,
+    )
+
+    modifier_tp = 0
+    modifier_fp = 0
+    modifier_fn = 0
+
+    model.eval()
+
+    with torch.no_grad():
+        for batch in loader:
+            input_ids = batch[
+                "input_ids"
+            ].to(device)
+
+            attention_mask = batch[
+                "attention_mask"
+            ].to(device)
+
+            boundary_labels = batch[
+                "boundary_labels"
+            ].to(device)
+
+            token_type_labels = batch[
+                "token_type_labels"
+            ].to(device)
+
+            modifier_labels = batch[
+                "modifier_labels"
+            ].to(device)
+
+            output = model(
+                input_ids=input_ids,
+                attention_mask=attention_mask,
+            )
+
+            boundary_predictions = (
+                output.boundary_logits.argmax(
+                    dim=-1
+                )
+            )
+
+            boundary_valid = (
+                boundary_labels
+                != IGNORE_LABEL_ID
+            )
+
+            boundary_targets = (
+                boundary_labels[
+                    boundary_valid
+                ]
+                .detach()
+                .cpu()
+            )
+
+            boundary_predicted = (
+                boundary_predictions[
+                    boundary_valid
+                ]
+                .detach()
+                .cpu()
+            )
+
+            boundary_indices = (
+                boundary_targets
+                * NUMBER_OF_BOUNDARY_CLASSES
+                + boundary_predicted
+            )
+
+            boundary_confusion += torch.bincount(
+                boundary_indices,
+                minlength=(
+                    NUMBER_OF_BOUNDARY_CLASSES
+                    * NUMBER_OF_BOUNDARY_CLASSES
+                ),
+            ).reshape(
+                NUMBER_OF_BOUNDARY_CLASSES,
+                NUMBER_OF_BOUNDARY_CLASSES,
+            )
+
+            type_predictions = (
+                output.token_type_logits.argmax(
+                    dim=-1
+                )
+            )
+
+            type_valid = (
+                token_type_labels
+                != IGNORE_LABEL_ID
+            )
+
+            type_targets = (
+                token_type_labels[
+                    type_valid
+                ]
+                .detach()
+                .cpu()
+            )
+
+            type_predicted = (
+                type_predictions[
+                    type_valid
+                ]
+                .detach()
+                .cpu()
+            )
+
+            type_indices = (
+                type_targets
+                * token_type_count
+                + type_predicted
+            )
+
+            token_type_confusion += torch.bincount(
+                type_indices,
+                minlength=(
+                    token_type_count
+                    * token_type_count
+                ),
+            ).reshape(
+                token_type_count,
+                token_type_count,
+            )
+
+            begin_mask = (
+                boundary_labels
+                == BOUNDARY_BEGIN_ID
+            )
+
+            if begin_mask.any():
+                modifier_predictions = (
+                    torch.sigmoid(
+                        output.modifier_logits[
+                            begin_mask
+                        ]
+                    )
+                    >= 0.60
+                )
+
+                modifier_targets = (
+                    modifier_labels[
+                        begin_mask
+                    ]
+                    >= 0.5
+                )
+
+                modifier_tp += int(
+                    (
+                        modifier_predictions
+                        & modifier_targets
+                    )
+                    .sum()
+                    .item()
+                )
+
+                modifier_fp += int(
+                    (
+                        modifier_predictions
+                        & ~modifier_targets
+                    )
+                    .sum()
+                    .item()
+                )
+
+                modifier_fn += int(
+                    (
+                        ~modifier_predictions
+                        & modifier_targets
+                    )
+                    .sum()
+                    .item()
+                )
+
+    def macro_f1(
+        confusion: torch.Tensor,
+    ) -> float:
+        true_positive = (
+            confusion.diag().float()
+        )
+
+        support = confusion.sum(
+            dim=1
+        ).float()
+
+        predicted_support = confusion.sum(
+            dim=0
+        ).float()
+
+        precision = (
+            true_positive
+            / predicted_support.clamp_min(
+                1.0
+            )
+        )
+
+        recall = (
+            true_positive
+            / support.clamp_min(1.0)
+        )
+
+        f1 = (
+            2.0
+            * precision
+            * recall
+            / (
+                precision + recall
+            ).clamp_min(1e-12)
+        )
+
+        present = support > 0
+
+        return (
+            f1[present].mean().item()
+            if present.any()
+            else 0.0
+        )
+
+    modifier_precision = (
+        modifier_tp
+        / max(
+            1,
+            modifier_tp + modifier_fp,
+        )
+    )
+
+    modifier_recall = (
+        modifier_tp
+        / max(
+            1,
+            modifier_tp + modifier_fn,
+        )
+    )
+
+    modifier_f1 = (
+        2.0
+        * modifier_precision
+        * modifier_recall
+        / max(
+            1e-12,
+            modifier_precision
+            + modifier_recall,
+        )
+    )
+
+    return {
+        "boundary_macro_f1": macro_f1(
+            boundary_confusion
+        ),
+        "token_type_macro_f1": macro_f1(
+            token_type_confusion
+        ),
+        "modifier_f1": modifier_f1,
+    }
 
 
 def train_epoch(
     model: SemanticTransformer,
     loader: DataLoader,
     optimizer: torch.optim.Optimizer,
-    semantic_tag_loss_function: nn.CrossEntropyLoss,
+    boundary_loss_function: nn.CrossEntropyLoss,
+    token_type_loss_function: nn.CrossEntropyLoss,
     modifier_positive_weights: torch.Tensor,
     device: torch.device,
-    number_of_token_types: int,
     modifier_loss_weight: float,
-) -> tuple[float, float, float]:
+) -> tuple[
+    float,
+    float,
+    float,
+    float,
+]:
     model.train()
 
     total_loss = 0.0
-    total_tag_loss = 0.0
+    total_boundary_loss = 0.0
+    total_type_loss = 0.0
     total_modifier_loss = 0.0
 
     for step, batch in enumerate(
@@ -215,8 +940,12 @@ def train_epoch(
             "attention_mask"
         ].to(device)
 
-        semantic_tag_labels = batch[
-            "semantic_tag_labels"
+        boundary_labels = batch[
+            "boundary_labels"
+        ].to(device)
+
+        token_type_labels = batch[
+            "token_type_labels"
         ].to(device)
 
         modifier_labels = batch[
@@ -229,35 +958,40 @@ def train_epoch(
 
         output = model(
             input_ids=input_ids,
-            attention_mask=(
-                attention_mask
-            ),
+            attention_mask=attention_mask,
         )
 
-        semantic_tag_loss = (
-            semantic_tag_loss_function(
-                output.semantic_tag_logits.reshape(
+        boundary_loss = (
+            boundary_loss_function(
+                output.boundary_logits.reshape(
                     -1,
-                    output.semantic_tag_logits.shape[
+                    output.boundary_logits.shape[
                         -1
                     ],
                 ),
-                semantic_tag_labels.reshape(
-                    -1
+                boundary_labels.reshape(-1),
+            )
+        )
+
+        token_type_loss = (
+            token_type_loss_function(
+                output.token_type_logits.reshape(
+                    -1,
+                    output.token_type_logits.shape[
+                        -1
+                    ],
                 ),
+                token_type_labels.reshape(-1),
             )
         )
 
         begin_mask = (
-            (semantic_tag_labels >= 1)
-            & (
-                semantic_tag_labels
-                <= number_of_token_types
-            )
+            boundary_labels
+            == BOUNDARY_BEGIN_ID
         )
 
         if begin_mask.any():
-            modifier_loss_matrix = (
+            modifier_loss = (
                 F.binary_cross_entropy_with_logits(
                     output.modifier_logits[
                         begin_mask
@@ -268,12 +1002,7 @@ def train_epoch(
                     pos_weight=(
                         modifier_positive_weights
                     ),
-                    reduction="none",
                 )
-            )
-
-            modifier_loss = (
-                modifier_loss_matrix.mean()
             )
         else:
             modifier_loss = torch.zeros(
@@ -282,7 +1011,8 @@ def train_epoch(
             )
 
         loss = (
-            semantic_tag_loss
+            boundary_loss
+            + token_type_loss
             + modifier_loss_weight
             * modifier_loss
         )
@@ -300,8 +1030,12 @@ def train_epoch(
             loss.item()
         )
 
-        total_tag_loss += float(
-            semantic_tag_loss.item()
+        total_boundary_loss += float(
+            boundary_loss.item()
+        )
+
+        total_type_loss += float(
+            token_type_loss.item()
         )
 
         total_modifier_loss += float(
@@ -316,364 +1050,19 @@ def train_epoch(
                 f"  step "
                 f"{step:>4}/{len(loader)} "
                 f"loss={loss.item():.4f} "
-                f"tag={semantic_tag_loss.item():.4f} "
+                f"boundary={boundary_loss.item():.4f} "
+                f"type={token_type_loss.item():.4f} "
                 f"modifier={modifier_loss.item():.4f}"
             )
 
-    number_of_batches = len(
-        loader
-    )
+    batches = len(loader)
 
     return (
-        total_loss / number_of_batches,
-        total_tag_loss
-        / number_of_batches,
-        total_modifier_loss
-        / number_of_batches,
+        total_loss / batches,
+        total_boundary_loss / batches,
+        total_type_loss / batches,
+        total_modifier_loss / batches,
     )
-
-
-def evaluate(
-    model: SemanticTransformer,
-    loader: DataLoader,
-    device: torch.device,
-    number_of_semantic_tag_classes: int,
-    number_of_token_types: int,
-) -> dict[str, float]:
-    model.eval()
-
-    tag_confusion = torch.zeros(
-        (
-            number_of_semantic_tag_classes,
-            number_of_semantic_tag_classes,
-        ),
-        dtype=torch.long,
-    )
-
-    type_confusion = torch.zeros(
-        (
-            number_of_token_types + 1,
-            number_of_token_types + 1,
-        ),
-        dtype=torch.long,
-    )
-
-    modifier_true_positive = 0
-    modifier_false_positive = 0
-    modifier_false_negative = 0
-
-    with torch.no_grad():
-        for batch in loader:
-            input_ids = batch[
-                "input_ids"
-            ].to(device)
-
-            attention_mask = batch[
-                "attention_mask"
-            ].to(device)
-
-            semantic_tag_labels = (
-                batch[
-                    "semantic_tag_labels"
-                ].to(device)
-            )
-
-            modifier_labels = batch[
-                "modifier_labels"
-            ].to(device)
-
-            output = model(
-                input_ids=input_ids,
-                attention_mask=(
-                    attention_mask
-                ),
-            )
-
-            predictions = (
-                output.semantic_tag_logits.argmax(
-                    dim=-1
-                )
-            )
-
-            valid_mask = (
-                semantic_tag_labels
-                != IGNORE_LABEL_ID
-            )
-
-            targets = (
-                semantic_tag_labels[
-                    valid_mask
-                ]
-                .detach()
-                .cpu()
-            )
-
-            predicted = (
-                predictions[
-                    valid_mask
-                ]
-                .detach()
-                .cpu()
-            )
-
-            tag_indices = (
-                targets
-                * number_of_semantic_tag_classes
-                + predicted
-            )
-
-            tag_confusion += torch.bincount(
-                tag_indices,
-                minlength=(
-                    number_of_semantic_tag_classes
-                    * number_of_semantic_tag_classes
-                ),
-            ).reshape(
-                number_of_semantic_tag_classes,
-                number_of_semantic_tag_classes,
-            )
-
-            target_types = (
-                collapse_tag_ids_to_token_type_ids(
-                    targets,
-                    number_of_token_types,
-                )
-            )
-
-            predicted_types = (
-                collapse_tag_ids_to_token_type_ids(
-                    predicted,
-                    number_of_token_types,
-                )
-            )
-
-            type_indices = (
-                target_types
-                * (number_of_token_types + 1)
-                + predicted_types
-            )
-
-            type_confusion += torch.bincount(
-                type_indices,
-                minlength=(
-                    (number_of_token_types + 1)
-                    * (number_of_token_types + 1)
-                ),
-            ).reshape(
-                number_of_token_types + 1,
-                number_of_token_types + 1,
-            )
-
-            begin_mask = (
-                (semantic_tag_labels >= 1)
-                & (
-                    semantic_tag_labels
-                    <= number_of_token_types
-                )
-            )
-
-            if begin_mask.any():
-                modifier_predictions = (
-                    torch.sigmoid(
-                        output.modifier_logits[
-                            begin_mask
-                        ]
-                    )
-                    >= 0.5
-                )
-
-                modifier_targets = (
-                    modifier_labels[
-                        begin_mask
-                    ]
-                    >= 0.5
-                )
-
-                modifier_true_positive += int(
-                    (
-                        modifier_predictions
-                        & modifier_targets
-                    )
-                    .sum()
-                    .item()
-                )
-
-                modifier_false_positive += int(
-                    (
-                        modifier_predictions
-                        & ~modifier_targets
-                    )
-                    .sum()
-                    .item()
-                )
-
-                modifier_false_negative += int(
-                    (
-                        ~modifier_predictions
-                        & modifier_targets
-                    )
-                    .sum()
-                    .item()
-                )
-
-    tag_true_positive = (
-        tag_confusion.diag().float()
-    )
-
-    tag_support = (
-        tag_confusion.sum(
-            dim=1
-        ).float()
-    )
-
-    tag_prediction_support = (
-        tag_confusion.sum(
-            dim=0
-        ).float()
-    )
-
-    tag_precision = (
-        tag_true_positive
-        / tag_prediction_support.clamp_min(
-            1.0
-        )
-    )
-
-    tag_recall = (
-        tag_true_positive
-        / tag_support.clamp_min(1.0)
-    )
-
-    tag_f1 = (
-        2.0
-        * tag_precision
-        * tag_recall
-        / (
-            tag_precision
-            + tag_recall
-        ).clamp_min(1e-12)
-    )
-
-    tag_present = tag_support > 0
-
-    tag_macro_f1 = (
-        tag_f1[tag_present]
-        .mean()
-        .item()
-        if tag_present.any()
-        else 0.0
-    )
-
-    type_true_positive = (
-        type_confusion.diag().float()
-    )
-
-    type_support = (
-        type_confusion.sum(
-            dim=1
-        ).float()
-    )
-
-    type_prediction_support = (
-        type_confusion.sum(
-            dim=0
-        ).float()
-    )
-
-    type_precision = (
-        type_true_positive
-        / type_prediction_support.clamp_min(
-            1.0
-        )
-    )
-
-    type_recall = (
-        type_true_positive
-        / type_support.clamp_min(
-            1.0
-        )
-    )
-
-    type_f1 = (
-        2.0
-        * type_precision
-        * type_recall
-        / (
-            type_precision
-            + type_recall
-        ).clamp_min(1e-12)
-    )
-
-    semantic_support = (
-        type_support[1:]
-    )
-
-    semantic_correct = (
-        type_true_positive[1:].sum()
-    )
-
-    semantic_type_accuracy = (
-        semantic_correct
-        / semantic_support.sum().clamp_min(
-            1.0
-        )
-    ).item()
-
-    semantic_present = (
-        semantic_support > 0
-    )
-
-    semantic_type_macro_f1 = (
-        type_f1[1:][semantic_present]
-        .mean()
-        .item()
-        if semantic_present.any()
-        else 0.0
-    )
-
-    modifier_precision = (
-        modifier_true_positive
-        / max(
-            1,
-            modifier_true_positive
-            + modifier_false_positive,
-        )
-    )
-
-    modifier_recall = (
-        modifier_true_positive
-        / max(
-            1,
-            modifier_true_positive
-            + modifier_false_negative,
-        )
-    )
-
-    modifier_f1 = (
-        2.0
-        * modifier_precision
-        * modifier_recall
-        / max(
-            1e-12,
-            modifier_precision
-            + modifier_recall,
-        )
-    )
-
-    return {
-        "tag_macro_f1": (
-            tag_macro_f1
-        ),
-        "semantic_type_accuracy": (
-            semantic_type_accuracy
-        ),
-        "semantic_type_macro_f1": (
-            semantic_type_macro_f1
-        ),
-        "modifier_f1": (
-            modifier_f1
-        ),
-    }
 
 
 def save_checkpoint(
@@ -696,13 +1085,14 @@ def save_checkpoint(
 
     torch.save(
         {
-            "format": "nsh-typescript-v1-bio",
+            "format": (
+                "nsh-typescript-v2-multitask"
+            ),
             "model_state_dict": state_dict,
             "config": {
                 "vocab_size": 257,
-                "number_of_semantic_tag_classes": (
-                    dataset.schema
-                    .number_of_semantic_tag_classes
+                "number_of_boundary_classes": (
+                    NUMBER_OF_BOUNDARY_CLASSES
                 ),
                 "number_of_token_types": (
                     dataset.schema
@@ -724,14 +1114,8 @@ def save_checkpoint(
                 "modifiers": list(
                     dataset.schema.modifiers
                 ),
-                "semantic_tags": list(
-                    dataset.schema
-                    .semantic_tag_names
-                ),
             },
-            "validation": (
-                validation_metrics
-            ),
+            "validation": validation_metrics,
         },
         output_path,
     )
@@ -793,21 +1177,17 @@ def main() -> None:
 
     device = select_device()
 
+    print("Neural Semantic Highlighting")
     print(
-        "Neural Semantic Highlighting"
-    )
-    print(
-        "TypeScript BIO Semantic Training"
+        "TypeScript V2 Multitask Training"
     )
     print("")
     print(f"Device: {device}")
     print("")
 
-    train_dataset = (
-        TypeScriptSemanticDataset(
-            "train",
-            max_length=args.max_length,
-        )
+    train_dataset = TypeScriptSemanticDataset(
+        "train",
+        max_length=args.max_length,
     )
 
     validation_dataset = (
@@ -838,9 +1218,12 @@ def main() -> None:
 
     model = SemanticTransformer(
         vocab_size=257,
-        number_of_semantic_tag_classes=(
+        number_of_boundary_classes=(
+            NUMBER_OF_BOUNDARY_CLASSES
+        ),
+        number_of_token_types=(
             train_dataset.schema
-            .number_of_semantic_tag_classes
+            .number_of_token_types
         ),
         number_of_modifiers=len(
             train_dataset.schema.modifiers
@@ -849,12 +1232,16 @@ def main() -> None:
     ).to(device)
 
     print(
-        "Parameters: "
+        f"Parameters: "
         f"{count_parameters(model):,}"
     )
     print(
-        "Semantic tag classes: "
-        f"{train_dataset.schema.number_of_semantic_tag_classes}"
+        "Boundary classes: 3 "
+        "(O / B / I)"
+    )
+    print(
+        "Token types: "
+        f"{train_dataset.schema.number_of_token_types}"
     )
     print(
         f"Train windows: "
@@ -866,8 +1253,14 @@ def main() -> None:
     )
     print("")
 
-    semantic_tag_class_weights = (
-        build_semantic_tag_class_weights(
+    boundary_weights = (
+        build_boundary_class_weights(
+            train_dataset
+        ).to(device)
+    )
+
+    token_type_weights = (
+        build_token_type_class_weights(
             train_dataset
         ).to(device)
     )
@@ -878,14 +1271,17 @@ def main() -> None:
         ).to(device)
     )
 
-    semantic_tag_loss_function = (
+    boundary_loss_function = (
         nn.CrossEntropyLoss(
-            weight=(
-                semantic_tag_class_weights
-            ),
-            ignore_index=(
-                IGNORE_LABEL_ID
-            ),
+            weight=boundary_weights,
+            ignore_index=IGNORE_LABEL_ID,
+        )
+    )
+
+    token_type_loss_function = (
+        nn.CrossEntropyLoss(
+            weight=token_type_weights,
+            ignore_index=IGNORE_LABEL_ID,
         )
     )
 
@@ -908,75 +1304,92 @@ def main() -> None:
 
         (
             training_loss,
-            tag_loss,
+            boundary_loss,
+            token_type_loss,
             modifier_loss,
         ) = train_epoch(
             model=model,
             loader=train_loader,
             optimizer=optimizer,
-            semantic_tag_loss_function=(
-                semantic_tag_loss_function
+            boundary_loss_function=(
+                boundary_loss_function
+            ),
+            token_type_loss_function=(
+                token_type_loss_function
             ),
             modifier_positive_weights=(
                 modifier_positive_weights
             ),
             device=device,
-            number_of_token_types=(
-                train_dataset.schema
-                .number_of_token_types
-            ),
             modifier_loss_weight=(
                 args.modifier_loss_weight
             ),
         )
 
-        metrics = evaluate(
-            model=model,
-            loader=validation_loader,
-            device=device,
-            number_of_semantic_tag_classes=(
-                train_dataset.schema
-                .number_of_semantic_tag_classes
-            ),
-            number_of_token_types=(
-                train_dataset.schema
-                .number_of_token_types
-            ),
+        diagnostics = diagnostic_metrics(
+            model,
+            validation_loader,
+            validation_dataset,
+            device,
         )
+
+        exact = exact_span_metrics(
+            validation_dataset,
+            model,
+            device,
+        )
+
+        metrics = {
+            **diagnostics,
+            **exact,
+        }
 
         print("")
         print(
-            "  train loss:            "
+            "  train loss:          "
             f"{training_loss:.4f}"
         )
         print(
-            "  semantic tag loss:     "
-            f"{tag_loss:.4f}"
+            "  boundary loss:       "
+            f"{boundary_loss:.4f}"
         )
         print(
-            "  modifier loss:         "
+            "  token type loss:     "
+            f"{token_type_loss:.4f}"
+        )
+        print(
+            "  modifier loss:       "
             f"{modifier_loss:.4f}"
         )
         print(
-            "  tag macro F1:          "
-            f"{metrics['tag_macro_f1']:.4f}"
+            "  boundary macro F1:   "
+            f"{metrics['boundary_macro_f1']:.4f}"
         )
         print(
-            "  semantic type accuracy:"
-            f" {metrics['semantic_type_accuracy']:.4f}"
+            "  token type macro F1: "
+            f"{metrics['token_type_macro_f1']:.4f}"
         )
         print(
-            "  semantic type macro F1:"
-            f" {metrics['semantic_type_macro_f1']:.4f}"
+            "  exact span F1:       "
+            f"{metrics['exact_span_f1']:.4f}"
         )
         print(
-            "  modifier F1:           "
+            "  exact span macro F1: "
+            f"{metrics['exact_span_macro_f1']:.4f}"
+        )
+        print(
+            "  predicted/gold spans:"
+            f" {int(metrics['predicted_spans'])}"
+            f"/{int(metrics['gold_spans'])}"
+        )
+        print(
+            "  modifier F1:         "
             f"{metrics['modifier_f1']:.4f}"
         )
         print("")
 
         score = metrics[
-            "semantic_type_macro_f1"
+            "exact_span_macro_f1"
         ]
 
         if score > best_score:
@@ -985,15 +1398,9 @@ def main() -> None:
             save_checkpoint(
                 model=model,
                 dataset=train_dataset,
-                output_path=(
-                    args.output
-                ),
-                validation_metrics=(
-                    metrics
-                ),
-                max_length=(
-                    args.max_length
-                ),
+                output_path=args.output,
+                validation_metrics=metrics,
+                max_length=args.max_length,
             )
 
             print(
@@ -1005,11 +1412,12 @@ def main() -> None:
 
     print("Training complete.")
     print(
-        "Best semantic type macro F1: "
+        "Best exact span macro F1: "
         f"{best_score:.4f}"
     )
     print(
-        f"Checkpoint: {args.output}"
+        f"Checkpoint: "
+        f"{args.output}"
     )
 
 

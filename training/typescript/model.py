@@ -8,7 +8,8 @@ from torch import nn
 
 @dataclass
 class SemanticModelOutput:
-    semantic_tag_logits: torch.Tensor
+    boundary_logits: torch.Tensor
+    token_type_logits: torch.Tensor
     modifier_logits: torch.Tensor
 
 
@@ -17,7 +18,8 @@ class SemanticTransformer(nn.Module):
         self,
         *,
         vocab_size: int,
-        number_of_semantic_tag_classes: int,
+        number_of_boundary_classes: int,
+        number_of_token_types: int,
         number_of_modifiers: int,
         max_length: int = 512,
         embedding_dimension: int = 128,
@@ -42,35 +44,34 @@ class SemanticTransformer(nn.Module):
             embedding_dimension,
         )
 
-        encoder_layer = (
-            nn.TransformerEncoderLayer(
-                d_model=embedding_dimension,
-                nhead=number_of_heads,
-                dim_feedforward=(
-                    feed_forward_dimension
-                ),
-                dropout=dropout,
-                activation="gelu",
-                batch_first=True,
-                norm_first=True,
-            )
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embedding_dimension,
+            nhead=number_of_heads,
+            dim_feedforward=feed_forward_dimension,
+            dropout=dropout,
+            activation="gelu",
+            batch_first=True,
+            norm_first=True,
         )
 
-        self.encoder = (
-            nn.TransformerEncoder(
-                encoder_layer,
-                num_layers=number_of_layers,
-                enable_nested_tensor=False,
-            )
+        self.encoder = nn.TransformerEncoder(
+            encoder_layer,
+            num_layers=number_of_layers,
+            enable_nested_tensor=False,
         )
 
         self.final_norm = nn.LayerNorm(
             embedding_dimension
         )
 
-        self.semantic_tag_head = nn.Linear(
+        self.boundary_head = nn.Linear(
             embedding_dimension,
-            number_of_semantic_tag_classes,
+            number_of_boundary_classes,
+        )
+
+        self.token_type_head = nn.Linear(
+            embedding_dimension,
+            number_of_token_types,
         )
 
         self.modifier_head = nn.Linear(
@@ -83,20 +84,12 @@ class SemanticTransformer(nn.Module):
         input_ids: torch.Tensor,
         attention_mask: torch.Tensor,
     ) -> SemanticModelOutput:
-        (
-            batch_size,
-            sequence_length,
-        ) = input_ids.shape
+        batch_size, sequence_length = input_ids.shape
 
-        if (
-            sequence_length
-            > self.max_length
-        ):
+        if sequence_length > self.max_length:
             raise ValueError(
-                f"Sequence length "
-                f"{sequence_length} exceeds "
-                f"maximum length "
-                f"{self.max_length}."
+                f"Sequence length {sequence_length} exceeds "
+                f"maximum length {self.max_length}."
             )
 
         positions = torch.arange(
@@ -111,16 +104,12 @@ class SemanticTransformer(nn.Module):
 
         hidden_states = (
             self.byte_embedding(input_ids)
-            + self.position_embedding(
-                positions
-            )
+            + self.position_embedding(positions)
         )
 
         hidden_states = self.encoder(
             hidden_states,
-            src_key_padding_mask=(
-                ~attention_mask
-            ),
+            src_key_padding_mask=~attention_mask,
         )
 
         hidden_states = self.final_norm(
@@ -128,15 +117,14 @@ class SemanticTransformer(nn.Module):
         )
 
         return SemanticModelOutput(
-            semantic_tag_logits=(
-                self.semantic_tag_head(
-                    hidden_states
-                )
+            boundary_logits=self.boundary_head(
+                hidden_states
             ),
-            modifier_logits=(
-                self.modifier_head(
-                    hidden_states
-                )
+            token_type_logits=self.token_type_head(
+                hidden_states
+            ),
+            modifier_logits=self.modifier_head(
+                hidden_states
             ),
         )
 
@@ -146,8 +134,7 @@ def count_parameters(
 ) -> int:
     return sum(
         parameter.numel()
-        for parameter
-        in model.parameters()
+        for parameter in model.parameters()
         if parameter.requires_grad
     )
 
@@ -155,7 +142,8 @@ def count_parameters(
 def main() -> None:
     model = SemanticTransformer(
         vocab_size=257,
-        number_of_semantic_tag_classes=49,
+        number_of_boundary_classes=3,
+        number_of_token_types=24,
         number_of_modifiers=14,
     )
 
@@ -176,23 +164,22 @@ def main() -> None:
         attention_mask=attention_mask,
     )
 
-    print(
-        "Neural Semantic Highlighting"
-    )
-    print(
-        "TypeScript BIO Semantic Transformer"
-    )
+    print("Neural Semantic Highlighting")
+    print("TypeScript V2 Multitask Transformer")
     print("")
     print(
-        "Parameters: "
-        f"{count_parameters(model):,}"
+        f"Parameters: {count_parameters(model):,}"
     )
     print(
-        "Semantic tag logits: "
-        f"{tuple(output.semantic_tag_logits.shape)}"
+        "Boundary logits:   "
+        f"{tuple(output.boundary_logits.shape)}"
     )
     print(
-        "Modifier logits:     "
+        "Token type logits: "
+        f"{tuple(output.token_type_logits.shape)}"
+    )
+    print(
+        "Modifier logits:   "
         f"{tuple(output.modifier_logits.shape)}"
     )
 
