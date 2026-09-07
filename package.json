@@ -14,6 +14,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
+    "dataset:collect:typescript": "tsx packs/typescript/dataset/collect.ts",
+    "dataset:label:typescript": "tsx packs/typescript/dataset/label-sample.ts",
+    "dataset:review:typescript": "tsx packs/typescript/dataset/review-sample.ts",
     "all": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build"
   },
   "devEngines": {
@@ -30,6 +33,7 @@
     "eslint": "^10.10.0",
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "prettier": "^3.9.6",
+    "tsx": "^4.23.13",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.69.0",
     "vitest": "^5.0.0"

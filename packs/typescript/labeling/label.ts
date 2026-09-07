@@ -160,6 +160,7 @@ function createProgramContext(
     target: ts.ScriptTarget.Latest,
     module: ts.ModuleKind.ESNext,
     jsx: ts.JsxEmit.Preserve,
+    allowJs: true,
     noLib: true,
     noResolve: true,
   };
