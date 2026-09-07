@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import random
+import time
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -30,6 +32,10 @@ DEFAULT_OUTPUT_PATH = Path(
     "artifacts/typescript/v2-multitask/best.pt"
 )
 
+DEFAULT_LAST_OUTPUT_PATH = Path(
+    "artifacts/typescript/v2-multitask/last.pt"
+)
+
 
 @dataclass(frozen=True)
 class CharacterPoint:
@@ -56,29 +62,72 @@ def select_device() -> torch.device:
     return torch.device("cpu")
 
 
+def format_duration(seconds: float) -> str:
+    seconds = max(0, int(seconds))
+
+    hours, remainder = divmod(
+        seconds,
+        3600,
+    )
+
+    minutes, seconds = divmod(
+        remainder,
+        60,
+    )
+
+    if hours > 0:
+        return (
+            f"{hours:02d}:"
+            f"{minutes:02d}:"
+            f"{seconds:02d}"
+        )
+
+    return (
+        f"{minutes:02d}:"
+        f"{seconds:02d}"
+    )
+
+
 def build_character_points(
     source: str,
 ) -> list[CharacterPoint]:
-    points: list[CharacterPoint] = []
+    points: list[
+        CharacterPoint
+    ] = []
 
     utf16_offset = 0
     byte_offset = 0
 
     for character in source:
         utf16_length = (
-            len(character.encode("utf-16-le")) // 2
+            len(
+                character.encode(
+                    "utf-16-le"
+                )
+            )
+            // 2
         )
 
         points.append(
             CharacterPoint(
-                utf16_start=utf16_offset,
-                utf16_end=utf16_offset + utf16_length,
+                utf16_start=(
+                    utf16_offset
+                ),
+                utf16_end=(
+                    utf16_offset
+                    + utf16_length
+                ),
                 byte_start=byte_offset,
             )
         )
 
-        utf16_offset += utf16_length
-        byte_offset += len(character.encode("utf-8"))
+        utf16_offset += (
+            utf16_length
+        )
+
+        byte_offset += len(
+            character.encode("utf-8")
+        )
 
     return points
 
@@ -97,7 +146,8 @@ def build_class_weights(
 
     for label_tensor in labels:
         valid = label_tensor[
-            label_tensor != IGNORE_LABEL_ID
+            label_tensor
+            != IGNORE_LABEL_ID
         ]
 
         counts += torch.bincount(
@@ -119,7 +169,9 @@ def build_class_weights(
         )
     )
 
-    weights[present] /= weights[present].mean()
+    weights[present] /= (
+        weights[present].mean()
+    )
 
     weights = weights.clamp(
         min=min_weight,
@@ -137,7 +189,8 @@ def build_boundary_class_weights(
     return build_class_weights(
         [
             document.boundary_labels
-            for document in dataset.documents
+            for document
+            in dataset.documents
         ],
         NUMBER_OF_BOUNDARY_CLASSES,
         min_weight=0.5,
@@ -151,7 +204,8 @@ def build_token_type_class_weights(
     return build_class_weights(
         [
             document.token_type_labels
-            for document in dataset.documents
+            for document
+            in dataset.documents
         ],
         dataset.schema.number_of_token_types,
         min_weight=0.25,
@@ -193,7 +247,8 @@ def build_modifier_positive_weights(
             )
 
     negative_counts = (
-        begin_count - positive_counts
+        begin_count
+        - positive_counts
     )
 
     positive_weights = (
@@ -201,9 +256,11 @@ def build_modifier_positive_weights(
         / positive_counts.clamp_min(1.0)
     )
 
-    positive_weights = positive_weights.clamp(
-        min=1.0,
-        max=4.0,
+    positive_weights = (
+        positive_weights.clamp(
+            min=1.0,
+            max=4.0,
+        )
     )
 
     positive_weights[
@@ -224,7 +281,9 @@ def predict_document_logits(
     torch.Tensor,
     torch.Tensor,
 ]:
-    source_bytes = source.encode("utf-8")
+    source_bytes = source.encode(
+        "utf-8"
+    )
 
     if not source_bytes:
         return (
@@ -233,9 +292,17 @@ def predict_document_logits(
             torch.empty((0, 0)),
         )
 
-    boundary_chunks: list[torch.Tensor] = []
-    token_type_chunks: list[torch.Tensor] = []
-    modifier_chunks: list[torch.Tensor] = []
+    boundary_chunks: list[
+        torch.Tensor
+    ] = []
+
+    token_type_chunks: list[
+        torch.Tensor
+    ] = []
+
+    modifier_chunks: list[
+        torch.Tensor
+    ] = []
 
     with torch.no_grad():
         for start in range(
@@ -244,7 +311,8 @@ def predict_document_logits(
             max_length,
         ):
             chunk = source_bytes[
-                start:start + max_length
+                start:
+                start + max_length
             ]
 
             length = len(chunk)
@@ -262,17 +330,25 @@ def predict_document_logits(
                 device=device,
             )
 
-            input_ids[0, :length] = torch.tensor(
+            input_ids[
+                0,
+                :length,
+            ] = torch.tensor(
                 list(chunk),
                 dtype=torch.long,
                 device=device,
             )
 
-            attention_mask[0, :length] = True
+            attention_mask[
+                0,
+                :length,
+            ] = True
 
             output = model(
                 input_ids=input_ids,
-                attention_mask=attention_mask,
+                attention_mask=(
+                    attention_mask
+                ),
             )
 
             boundary_chunks.append(
@@ -303,9 +379,18 @@ def predict_document_logits(
             )
 
     return (
-        torch.cat(boundary_chunks, dim=0),
-        torch.cat(token_type_chunks, dim=0),
-        torch.cat(modifier_chunks, dim=0),
+        torch.cat(
+            boundary_chunks,
+            dim=0,
+        ),
+        torch.cat(
+            token_type_chunks,
+            dim=0,
+        ),
+        torch.cat(
+            modifier_chunks,
+            dim=0,
+        ),
     )
 
 
@@ -340,9 +425,13 @@ def decode_predicted_spans(
         tuple[int, int]
     ] = []
 
-    current_start: int | None = None
+    current_start: int | None = (
+        None
+    )
 
-    def flush(end_index: int) -> None:
+    def flush(
+        end_index: int,
+    ) -> None:
         nonlocal current_start
 
         if current_start is not None:
@@ -355,35 +444,57 @@ def decode_predicted_spans(
 
         current_start = None
 
-    for index, boundary_id in enumerate(
-        boundary_ids
-    ):
-        if boundary_id == BOUNDARY_OUTSIDE_ID:
+    for (
+        index,
+        boundary_id,
+    ) in enumerate(boundary_ids):
+        if (
+            boundary_id
+            == BOUNDARY_OUTSIDE_ID
+        ):
             flush(index)
             continue
 
-        if boundary_id == BOUNDARY_BEGIN_ID:
+        if (
+            boundary_id
+            == BOUNDARY_BEGIN_ID
+        ):
             flush(index)
             current_start = index
             continue
 
-        if boundary_id == BOUNDARY_INSIDE_ID:
+        if (
+            boundary_id
+            == BOUNDARY_INSIDE_ID
+        ):
             if current_start is None:
                 current_start = index
+
             continue
 
         raise ValueError(
-            f"Unknown boundary id {boundary_id}."
+            f"Unknown boundary id "
+            f"{boundary_id}."
         )
 
     flush(len(points))
 
-    spans: list[PredictedSpan] = []
+    spans: list[
+        PredictedSpan
+    ] = []
 
-    token_types = dataset.schema.token_types
-    modifiers = dataset.schema.modifiers
+    token_types = (
+        dataset.schema.token_types
+    )
 
-    for start_index, end_index in span_ranges:
+    modifiers = (
+        dataset.schema.modifiers
+    )
+
+    for (
+        start_index,
+        end_index,
+    ) in span_ranges:
         span_points = points[
             start_index:end_index
         ]
@@ -391,7 +502,8 @@ def decode_predicted_spans(
         byte_positions = torch.tensor(
             [
                 point.byte_start
-                for point in span_points
+                for point
+                in span_points
             ],
             dtype=torch.long,
         )
@@ -409,31 +521,44 @@ def decode_predicted_spans(
         start_point = span_points[0]
         end_point = span_points[-1]
 
-        modifier_probabilities = torch.sigmoid(
-            modifier_logits[
-                start_point.byte_start
-            ]
+        modifier_probabilities = (
+            torch.sigmoid(
+                modifier_logits[
+                    start_point.byte_start
+                ]
+            )
         )
 
         predicted_modifiers = tuple(
             modifier
-            for modifier, probability
-            in zip(
+            for (
+                modifier,
+                probability,
+            ) in zip(
                 modifiers,
                 modifier_probabilities.tolist(),
                 strict=True,
             )
-            if probability >= modifier_threshold
+            if probability
+            >= modifier_threshold
         )
 
         spans.append(
             PredictedSpan(
-                start=start_point.utf16_start,
-                end=end_point.utf16_end,
-                token_type=token_types[
-                    token_type_id
-                ],
-                modifiers=predicted_modifiers,
+                start=(
+                    start_point.utf16_start
+                ),
+                end=(
+                    end_point.utf16_end
+                ),
+                token_type=(
+                    token_types[
+                        token_type_id
+                    ]
+                ),
+                modifiers=(
+                    predicted_modifiers
+                ),
             )
         )
 
@@ -455,7 +580,14 @@ def exact_span_metrics(
 
     per_type_predicted: dict[
         str,
-        set[tuple[str, int, int, str]],
+        set[
+            tuple[
+                str,
+                int,
+                int,
+                str,
+            ]
+        ],
     ] = {
         token_type: set()
         for token_type
@@ -464,14 +596,23 @@ def exact_span_metrics(
 
     per_type_gold: dict[
         str,
-        set[tuple[str, int, int, str]],
+        set[
+            tuple[
+                str,
+                int,
+                int,
+                str,
+            ]
+        ],
     ] = {
         token_type: set()
         for token_type
         in dataset.schema.token_types
     }
 
-    for document in dataset.documents:
+    for document in (
+        dataset.documents
+    ):
         (
             boundary_logits,
             token_type_logits,
@@ -479,16 +620,20 @@ def exact_span_metrics(
         ) = predict_document_logits(
             model,
             document.source,
-            max_length=dataset.max_length,
+            max_length=(
+                dataset.max_length
+            ),
             device=device,
         )
 
-        predicted_spans = decode_predicted_spans(
-            document,
-            boundary_logits,
-            token_type_logits,
-            modifier_logits,
-            dataset,
+        predicted_spans = (
+            decode_predicted_spans(
+                document,
+                boundary_logits,
+                token_type_logits,
+                modifier_logits,
+                dataset,
+            )
         )
 
         document_key = (
@@ -510,7 +655,9 @@ def exact_span_metrics(
                 span.token_type
             ].add(item)
 
-        for span in document.gold_spans:
+        for span in (
+            document.gold_spans
+        ):
             item = (
                 document_key,
                 span.start,
@@ -564,7 +711,9 @@ def exact_span_metrics(
         )
     )
 
-    macro_values: list[float] = []
+    macro_values: list[
+        float
+    ] = []
 
     for token_type in (
         dataset.schema.token_types
@@ -582,16 +731,26 @@ def exact_span_metrics(
         if not gold:
             continue
 
-        tp = len(predicted & gold)
-        fp = len(predicted - gold)
-        fn = len(gold - predicted)
+        tp = len(
+            predicted & gold
+        )
+
+        fp = len(
+            predicted - gold
+        )
+
+        fn = len(
+            gold - predicted
+        )
 
         type_precision = (
-            tp / max(1, tp + fp)
+            tp
+            / max(1, tp + fp)
         )
 
         type_recall = (
-            tp / max(1, tp + fn)
+            tp
+            / max(1, tp + fn)
         )
 
         type_f1 = (
@@ -605,7 +764,9 @@ def exact_span_metrics(
             )
         )
 
-        macro_values.append(type_f1)
+        macro_values.append(
+            type_f1
+        )
 
     macro_f1 = (
         sum(macro_values)
@@ -615,10 +776,14 @@ def exact_span_metrics(
     )
 
     return {
-        "exact_span_precision": precision,
+        "exact_span_precision": (
+            precision
+        ),
         "exact_span_recall": recall,
         "exact_span_f1": f1,
-        "exact_span_macro_f1": macro_f1,
+        "exact_span_macro_f1": (
+            macro_f1
+        ),
         "predicted_spans": float(
             len(predicted_set)
         ),
@@ -634,24 +799,29 @@ def diagnostic_metrics(
     dataset: TypeScriptSemanticDataset,
     device: torch.device,
 ) -> dict[str, float]:
-    boundary_confusion = torch.zeros(
-        (
-            NUMBER_OF_BOUNDARY_CLASSES,
-            NUMBER_OF_BOUNDARY_CLASSES,
-        ),
-        dtype=torch.long,
+    boundary_confusion = (
+        torch.zeros(
+            (
+                NUMBER_OF_BOUNDARY_CLASSES,
+                NUMBER_OF_BOUNDARY_CLASSES,
+            ),
+            dtype=torch.long,
+        )
     )
 
     token_type_count = (
-        dataset.schema.number_of_token_types
+        dataset.schema
+        .number_of_token_types
     )
 
-    token_type_confusion = torch.zeros(
-        (
-            token_type_count,
-            token_type_count,
-        ),
-        dtype=torch.long,
+    token_type_confusion = (
+        torch.zeros(
+            (
+                token_type_count,
+                token_type_count,
+            ),
+            dtype=torch.long,
+        )
     )
 
     modifier_tp = 0
@@ -684,7 +854,9 @@ def diagnostic_metrics(
 
             output = model(
                 input_ids=input_ids,
-                attention_mask=attention_mask,
+                attention_mask=(
+                    attention_mask
+                ),
             )
 
             boundary_predictions = (
@@ -720,15 +892,17 @@ def diagnostic_metrics(
                 + boundary_predicted
             )
 
-            boundary_confusion += torch.bincount(
-                boundary_indices,
-                minlength=(
-                    NUMBER_OF_BOUNDARY_CLASSES
-                    * NUMBER_OF_BOUNDARY_CLASSES
-                ),
-            ).reshape(
-                NUMBER_OF_BOUNDARY_CLASSES,
-                NUMBER_OF_BOUNDARY_CLASSES,
+            boundary_confusion += (
+                torch.bincount(
+                    boundary_indices,
+                    minlength=(
+                        NUMBER_OF_BOUNDARY_CLASSES
+                        * NUMBER_OF_BOUNDARY_CLASSES
+                    ),
+                ).reshape(
+                    NUMBER_OF_BOUNDARY_CLASSES,
+                    NUMBER_OF_BOUNDARY_CLASSES,
+                )
             )
 
             type_predictions = (
@@ -764,15 +938,17 @@ def diagnostic_metrics(
                 + type_predicted
             )
 
-            token_type_confusion += torch.bincount(
-                type_indices,
-                minlength=(
-                    token_type_count
-                    * token_type_count
-                ),
-            ).reshape(
-                token_type_count,
-                token_type_count,
+            token_type_confusion += (
+                torch.bincount(
+                    type_indices,
+                    minlength=(
+                        token_type_count
+                        * token_type_count
+                    ),
+                ).reshape(
+                    token_type_count,
+                    token_type_count,
+                )
             )
 
             begin_mask = (
@@ -831,13 +1007,17 @@ def diagnostic_metrics(
             confusion.diag().float()
         )
 
-        support = confusion.sum(
-            dim=1
-        ).float()
+        support = (
+            confusion.sum(
+                dim=1
+            ).float()
+        )
 
-        predicted_support = confusion.sum(
-            dim=0
-        ).float()
+        predicted_support = (
+            confusion.sum(
+                dim=0
+            ).float()
+        )
 
         precision = (
             true_positive
@@ -863,7 +1043,9 @@ def diagnostic_metrics(
         present = support > 0
 
         return (
-            f1[present].mean().item()
+            f1[present]
+            .mean()
+            .item()
             if present.any()
             else 0.0
         )
@@ -872,7 +1054,8 @@ def diagnostic_metrics(
         modifier_tp
         / max(
             1,
-            modifier_tp + modifier_fp,
+            modifier_tp
+            + modifier_fp,
         )
     )
 
@@ -880,7 +1063,8 @@ def diagnostic_metrics(
         modifier_tp
         / max(
             1,
-            modifier_tp + modifier_fn,
+            modifier_tp
+            + modifier_fn,
         )
     )
 
@@ -896,13 +1080,19 @@ def diagnostic_metrics(
     )
 
     return {
-        "boundary_macro_f1": macro_f1(
-            boundary_confusion
+        "boundary_macro_f1": (
+            macro_f1(
+                boundary_confusion
+            )
         ),
-        "token_type_macro_f1": macro_f1(
-            token_type_confusion
+        "token_type_macro_f1": (
+            macro_f1(
+                token_type_confusion
+            )
         ),
-        "modifier_f1": modifier_f1,
+        "modifier_f1": (
+            modifier_f1
+        ),
     }
 
 
@@ -920,6 +1110,7 @@ def train_epoch(
     float,
     float,
     float,
+    float,
 ]:
     model.train()
 
@@ -928,7 +1119,13 @@ def train_epoch(
     total_type_loss = 0.0
     total_modifier_loss = 0.0
 
-    for step, batch in enumerate(
+    processed_windows = 0
+    started = time.perf_counter()
+
+    for (
+        step,
+        batch,
+    ) in enumerate(
         loader,
         start=1,
     ):
@@ -958,7 +1155,9 @@ def train_epoch(
 
         output = model(
             input_ids=input_ids,
-            attention_mask=attention_mask,
+            attention_mask=(
+                attention_mask
+            ),
         )
 
         boundary_loss = (
@@ -969,7 +1168,9 @@ def train_epoch(
                         -1
                     ],
                 ),
-                boundary_labels.reshape(-1),
+                boundary_labels.reshape(
+                    -1
+                ),
             )
         )
 
@@ -981,7 +1182,9 @@ def train_epoch(
                         -1
                     ],
                 ),
-                token_type_labels.reshape(-1),
+                token_type_labels.reshape(
+                    -1
+                ),
             )
         )
 
@@ -1042,35 +1245,93 @@ def train_epoch(
             modifier_loss.item()
         )
 
+        processed_windows += int(
+            input_ids.shape[0]
+        )
+
         if (
             step % 25 == 0
             or step == len(loader)
         ):
+            elapsed = (
+                time.perf_counter()
+                - started
+            )
+
+            rate = (
+                processed_windows
+                / elapsed
+                if elapsed > 0
+                else 0.0
+            )
+
+            remaining = (
+                (
+                    len(loader.dataset)
+                    - processed_windows
+                )
+                / rate
+                if rate > 0
+                else 0.0
+            )
+
             print(
                 f"  step "
                 f"{step:>4}/{len(loader)} "
                 f"loss={loss.item():.4f} "
                 f"boundary={boundary_loss.item():.4f} "
                 f"type={token_type_loss.item():.4f} "
-                f"modifier={modifier_loss.item():.4f}"
+                f"modifier={modifier_loss.item():.4f} "
+                f"{rate:,.1f} win/s "
+                f"ETA={format_duration(remaining)}",
+                flush=True,
             )
 
     batches = len(loader)
+
+    elapsed = (
+        time.perf_counter()
+        - started
+    )
 
     return (
         total_loss / batches,
         total_boundary_loss / batches,
         total_type_loss / batches,
         total_modifier_loss / batches,
+        elapsed,
     )
+
+
+def cpu_optimizer_state_dict(
+    optimizer: torch.optim.Optimizer,
+) -> dict:
+    state_dict = copy.deepcopy(
+        optimizer.state_dict()
+    )
+
+    for state in (
+        state_dict["state"].values()
+    ):
+        for key, value in list(
+            state.items()
+        ):
+            if torch.is_tensor(value):
+                state[key] = (
+                    value.detach().cpu()
+                )
+
+    return state_dict
 
 
 def save_checkpoint(
     model: SemanticTransformer,
+    optimizer: torch.optim.Optimizer,
     dataset: TypeScriptSemanticDataset,
     output_path: Path,
     validation_metrics: dict[str, float],
     max_length: int,
+    epoch: int,
 ) -> None:
     output_path.parent.mkdir(
         parents=True,
@@ -1088,7 +1349,15 @@ def save_checkpoint(
             "format": (
                 "nsh-typescript-v2-multitask"
             ),
-            "model_state_dict": state_dict,
+            "epoch": epoch,
+            "model_state_dict": (
+                state_dict
+            ),
+            "optimizer_state_dict": (
+                cpu_optimizer_state_dict(
+                    optimizer
+                )
+            ),
             "config": {
                 "vocab_size": 257,
                 "number_of_boundary_classes": (
@@ -1115,9 +1384,139 @@ def save_checkpoint(
                     dataset.schema.modifiers
                 ),
             },
-            "validation": validation_metrics,
+            "validation": (
+                validation_metrics
+            ),
         },
         output_path,
+    )
+
+
+def move_optimizer_state_to_device(
+    optimizer: torch.optim.Optimizer,
+    device: torch.device,
+) -> None:
+    for state in (
+        optimizer.state.values()
+    ):
+        for key, value in list(
+            state.items()
+        ):
+            if torch.is_tensor(value):
+                state[key] = value.to(
+                    device
+                )
+
+
+def load_resume_checkpoint(
+    checkpoint_path: Path,
+    model: SemanticTransformer,
+    optimizer: torch.optim.Optimizer,
+    dataset: TypeScriptSemanticDataset,
+    device: torch.device,
+    fallback_epoch: int,
+) -> tuple[int, float]:
+    checkpoint = torch.load(
+        checkpoint_path,
+        map_location="cpu",
+    )
+
+    if (
+        checkpoint.get("format")
+        != "nsh-typescript-v2-multitask"
+    ):
+        raise ValueError(
+            "Resume checkpoint is not "
+            "an NSH TypeScript V2 "
+            "multitask checkpoint."
+        )
+
+    if (
+        tuple(
+            checkpoint["schema"][
+                "token_types"
+            ]
+        )
+        != dataset.schema.token_types
+    ):
+        raise ValueError(
+            "Resume checkpoint "
+            "token-type schema does "
+            "not match the current "
+            "dataset."
+        )
+
+    if (
+        tuple(
+            checkpoint["schema"][
+                "modifiers"
+            ]
+        )
+        != dataset.schema.modifiers
+    ):
+        raise ValueError(
+            "Resume checkpoint "
+            "modifier schema does "
+            "not match the current "
+            "dataset."
+        )
+
+    model.load_state_dict(
+        checkpoint[
+            "model_state_dict"
+        ]
+    )
+
+    if (
+        "optimizer_state_dict"
+        in checkpoint
+    ):
+        optimizer.load_state_dict(
+            checkpoint[
+                "optimizer_state_dict"
+            ]
+        )
+
+        move_optimizer_state_to_device(
+            optimizer,
+            device,
+        )
+
+        print(
+            "Loaded optimizer state.",
+            flush=True,
+        )
+    else:
+        print(
+            "Checkpoint has no "
+            "optimizer state; "
+            "continuing with a fresh "
+            "AdamW optimizer.",
+            flush=True,
+        )
+
+    checkpoint_epoch = int(
+        checkpoint.get(
+            "epoch",
+            fallback_epoch,
+        )
+    )
+
+    validation = checkpoint.get(
+        "validation",
+        {},
+    )
+
+    best_score = float(
+        validation.get(
+            "exact_span_macro_f1",
+            -1.0,
+        )
+    )
+
+    return (
+        checkpoint_epoch,
+        best_score,
     )
 
 
@@ -1128,6 +1527,10 @@ def parse_arguments() -> argparse.Namespace:
         "--epochs",
         type=int,
         default=8,
+        help=(
+            "Number of epochs to run "
+            "in this invocation."
+        ),
     )
 
     parser.add_argument(
@@ -1166,6 +1569,44 @@ def parse_arguments() -> argparse.Namespace:
         default=DEFAULT_OUTPUT_PATH,
     )
 
+    parser.add_argument(
+        "--last-output",
+        type=Path,
+        default=(
+            DEFAULT_LAST_OUTPUT_PATH
+        ),
+    )
+
+    parser.add_argument(
+        "--resume",
+        type=Path,
+    )
+
+    parser.add_argument(
+        "--resume-epoch",
+        type=int,
+        default=0,
+        help=(
+            "Fallback epoch number "
+            "for older checkpoints "
+            "that do not contain an "
+            "epoch field."
+        ),
+    )
+
+    parser.add_argument(
+        "--patience",
+        type=int,
+        default=3,
+        help=(
+            "Stop after this many "
+            "epochs without improving "
+            "validation exact-span "
+            "macro F1. Use 0 to "
+            "disable early stopping."
+        ),
+    )
+
     return parser.parse_args()
 
 
@@ -1177,7 +1618,9 @@ def main() -> None:
 
     device = select_device()
 
-    print("Neural Semantic Highlighting")
+    print(
+        "Neural Semantic Highlighting"
+    )
     print(
         "TypeScript V2 Multitask Training"
     )
@@ -1185,15 +1628,36 @@ def main() -> None:
     print(f"Device: {device}")
     print("")
 
-    train_dataset = TypeScriptSemanticDataset(
-        "train",
-        max_length=args.max_length,
+    print(
+        "Preparing train dataset...",
+        flush=True,
+    )
+
+    train_dataset = (
+        TypeScriptSemanticDataset(
+            "train",
+            max_length=(
+                args.max_length
+            ),
+            use_cache=True,
+            show_progress=True,
+        )
+    )
+
+    print(
+        "Preparing validation "
+        "dataset...",
+        flush=True,
     )
 
     validation_dataset = (
         TypeScriptSemanticDataset(
             "validation",
-            max_length=args.max_length,
+            max_length=(
+                args.max_length
+            ),
+            use_cache=True,
+            show_progress=True,
         )
     )
 
@@ -1228,29 +1692,83 @@ def main() -> None:
         number_of_modifiers=len(
             train_dataset.schema.modifiers
         ),
-        max_length=args.max_length,
+        max_length=(
+            args.max_length
+        ),
     ).to(device)
 
+    optimizer = torch.optim.AdamW(
+        model.parameters(),
+        lr=args.learning_rate,
+        weight_decay=0.01,
+    )
+
+    start_epoch = 0
+    best_score = -1.0
+
+    if args.resume is not None:
+        print(
+            f"Resuming from: "
+            f"{args.resume}",
+            flush=True,
+        )
+
+        (
+            start_epoch,
+            best_score,
+        ) = load_resume_checkpoint(
+            args.resume,
+            model,
+            optimizer,
+            train_dataset,
+            device,
+            args.resume_epoch,
+        )
+
+        print(
+            f"Resume epoch: "
+            f"{start_epoch}",
+            flush=True,
+        )
+
+        print(
+            "Existing best "
+            "exact-span macro F1: "
+            f"{best_score:.4f}",
+            flush=True,
+        )
+
+    print("")
     print(
         f"Parameters: "
         f"{count_parameters(model):,}"
     )
+
     print(
-        "Boundary classes: 3 "
-        "(O / B / I)"
+        "Boundary classes: "
+        "3 (O / B / I)"
     )
+
     print(
         "Token types: "
         f"{train_dataset.schema.number_of_token_types}"
     )
+
     print(
         f"Train windows: "
         f"{len(train_dataset)}"
     )
+
     print(
         "Validation windows: "
         f"{len(validation_dataset)}"
     )
+
+    print(
+        f"Batch size: "
+        f"{args.batch_size}"
+    )
+
     print("")
 
     boundary_weights = (
@@ -1274,32 +1792,37 @@ def main() -> None:
     boundary_loss_function = (
         nn.CrossEntropyLoss(
             weight=boundary_weights,
-            ignore_index=IGNORE_LABEL_ID,
+            ignore_index=(
+                IGNORE_LABEL_ID
+            ),
         )
     )
 
     token_type_loss_function = (
         nn.CrossEntropyLoss(
             weight=token_type_weights,
-            ignore_index=IGNORE_LABEL_ID,
+            ignore_index=(
+                IGNORE_LABEL_ID
+            ),
         )
     )
 
-    optimizer = torch.optim.AdamW(
-        model.parameters(),
-        lr=args.learning_rate,
-        weight_decay=0.01,
-    )
+    epochs_without_improvement = 0
 
-    best_score = -1.0
-
-    for epoch in range(
+    for local_epoch in range(
         1,
         args.epochs + 1,
     ):
+        global_epoch = (
+            start_epoch
+            + local_epoch
+        )
+
         print(
             f"Epoch "
-            f"{epoch}/{args.epochs}"
+            f"{global_epoch} "
+            f"(run {local_epoch}/"
+            f"{args.epochs})"
         )
 
         (
@@ -1307,6 +1830,7 @@ def main() -> None:
             boundary_loss,
             token_type_loss,
             modifier_loss,
+            epoch_seconds,
         ) = train_epoch(
             model=model,
             loader=train_loader,
@@ -1326,11 +1850,18 @@ def main() -> None:
             ),
         )
 
-        diagnostics = diagnostic_metrics(
-            model,
-            validation_loader,
-            validation_dataset,
-            device,
+        print(
+            "  validating...",
+            flush=True,
+        )
+
+        diagnostics = (
+            diagnostic_metrics(
+                model,
+                validation_loader,
+                validation_dataset,
+                device,
+            )
         )
 
         exact = exact_span_metrics(
@@ -1349,44 +1880,73 @@ def main() -> None:
             "  train loss:          "
             f"{training_loss:.4f}"
         )
+
         print(
             "  boundary loss:       "
             f"{boundary_loss:.4f}"
         )
+
         print(
             "  token type loss:     "
             f"{token_type_loss:.4f}"
         )
+
         print(
             "  modifier loss:       "
             f"{modifier_loss:.4f}"
         )
+
         print(
             "  boundary macro F1:   "
             f"{metrics['boundary_macro_f1']:.4f}"
         )
+
         print(
             "  token type macro F1: "
             f"{metrics['token_type_macro_f1']:.4f}"
         )
+
         print(
             "  exact span F1:       "
             f"{metrics['exact_span_f1']:.4f}"
         )
+
         print(
             "  exact span macro F1: "
             f"{metrics['exact_span_macro_f1']:.4f}"
         )
+
         print(
             "  predicted/gold spans:"
             f" {int(metrics['predicted_spans'])}"
             f"/{int(metrics['gold_spans'])}"
         )
+
         print(
             "  modifier F1:         "
             f"{metrics['modifier_f1']:.4f}"
         )
+
+        print(
+            "  epoch time:          "
+            f"{format_duration(epoch_seconds)}"
+        )
+
         print("")
+
+        save_checkpoint(
+            model=model,
+            optimizer=optimizer,
+            dataset=train_dataset,
+            output_path=(
+                args.last_output
+            ),
+            validation_metrics=metrics,
+            max_length=(
+                args.max_length
+            ),
+            epoch=global_epoch,
+        )
 
         score = metrics[
             "exact_span_macro_f1"
@@ -1394,13 +1954,22 @@ def main() -> None:
 
         if score > best_score:
             best_score = score
+            epochs_without_improvement = 0
 
             save_checkpoint(
                 model=model,
+                optimizer=optimizer,
                 dataset=train_dataset,
-                output_path=args.output,
-                validation_metrics=metrics,
-                max_length=args.max_length,
+                output_path=(
+                    args.output
+                ),
+                validation_metrics=(
+                    metrics
+                ),
+                max_length=(
+                    args.max_length
+                ),
+                epoch=global_epoch,
             )
 
             print(
@@ -1408,16 +1977,50 @@ def main() -> None:
                 "checkpoint to "
                 f"{args.output}"
             )
+
+            print("")
+        else:
+            epochs_without_improvement += 1
+
+            print(
+                "  no new macro-F1 "
+                "best "
+                f"({epochs_without_improvement}"
+                f"/{args.patience})"
+            )
+
             print("")
 
+        if (
+            args.patience > 0
+            and epochs_without_improvement
+            >= args.patience
+        ):
+            print(
+                "Early stopping: "
+                "validation exact-span "
+                "macro F1 did not "
+                "improve.",
+                flush=True,
+            )
+
+            break
+
     print("Training complete.")
+
     print(
         "Best exact span macro F1: "
         f"{best_score:.4f}"
     )
+
     print(
-        f"Checkpoint: "
+        f"Best checkpoint: "
         f"{args.output}"
+    )
+
+    print(
+        f"Last checkpoint: "
+        f"{args.last_output}"
     )
 
 

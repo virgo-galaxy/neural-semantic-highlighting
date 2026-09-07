@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -21,6 +23,9 @@ DATASET_ROOT = Path(
 
 TYPESCRIPT_DATASET_ROOT = DATASET_ROOT / "typescript"
 SCHEMA_PATH = REPOSITORY_ROOT / "packs" / "typescript" / "schema.json"
+
+CACHE_FORMAT_VERSION = "nsh-typescript-v2-multitask-cache-v1"
+CACHE_DIRECTORY = TYPESCRIPT_DATASET_ROOT / ".cache" / "v2-multitask"
 
 PAD_BYTE_ID = 256
 IGNORE_LABEL_ID = -100
@@ -276,12 +281,295 @@ def encode_document(
     )
 
 
+def serialize_document(
+    document: EncodedDocument,
+) -> dict[str, Any]:
+    return {
+        "repository": document.repository,
+        "path": document.path,
+        "document_kind": document.document_kind,
+        "source": document.source,
+        "input_ids": document.input_ids,
+        "boundary_labels": document.boundary_labels,
+        "token_type_labels": document.token_type_labels,
+        "modifier_labels": document.modifier_labels,
+        "gold_spans": [
+            {
+                "start": span.start,
+                "end": span.end,
+                "token_type": span.token_type,
+                "modifiers": list(span.modifiers),
+            }
+            for span in document.gold_spans
+        ],
+    }
+
+
+def deserialize_document(
+    data: dict[str, Any],
+) -> EncodedDocument:
+    return EncodedDocument(
+        repository=data["repository"],
+        path=data["path"],
+        document_kind=data["document_kind"],
+        source=data["source"],
+        input_ids=data["input_ids"],
+        boundary_labels=data["boundary_labels"],
+        token_type_labels=data["token_type_labels"],
+        modifier_labels=data["modifier_labels"],
+        gold_spans=tuple(
+            GoldSpan(
+                start=span["start"],
+                end=span["end"],
+                token_type=span["token_type"],
+                modifiers=tuple(span["modifiers"]),
+            )
+            for span in data["gold_spans"]
+        ),
+    )
+
+
+def format_duration(seconds: float) -> str:
+    seconds = max(0, int(seconds))
+
+    hours, remainder = divmod(
+        seconds,
+        3600,
+    )
+
+    minutes, seconds = divmod(
+        remainder,
+        60,
+    )
+
+    if hours > 0:
+        return (
+            f"{hours:02d}:"
+            f"{minutes:02d}:"
+            f"{seconds:02d}"
+        )
+
+    return (
+        f"{minutes:02d}:"
+        f"{seconds:02d}"
+    )
+
+
+def cache_key(
+    split_bytes: bytes,
+    schema_bytes: bytes,
+) -> str:
+    digest = hashlib.sha256()
+
+    digest.update(
+        CACHE_FORMAT_VERSION.encode(
+            "utf-8"
+        )
+    )
+
+    digest.update(b"\0")
+    digest.update(schema_bytes)
+    digest.update(b"\0")
+    digest.update(split_bytes)
+
+    return digest.hexdigest()[:16]
+
+
+def build_or_load_documents(
+    split: str,
+    schema: SemanticSchema,
+    *,
+    use_cache: bool,
+    show_progress: bool,
+) -> list[EncodedDocument]:
+    split_path = (
+        TYPESCRIPT_DATASET_ROOT
+        / f"{split}.json"
+    )
+
+    if show_progress:
+        print(
+            f"Reading {split} split...",
+            flush=True,
+        )
+
+    split_bytes = split_path.read_bytes()
+    schema_bytes = SCHEMA_PATH.read_bytes()
+
+    key = cache_key(
+        split_bytes,
+        schema_bytes,
+    )
+
+    cache_path = (
+        CACHE_DIRECTORY
+        / f"{split}-{key}.pt"
+    )
+
+    if (
+        use_cache
+        and cache_path.exists()
+    ):
+        started = time.perf_counter()
+
+        if show_progress:
+            print(
+                f"Loading {split} cache: "
+                f"{cache_path}",
+                flush=True,
+            )
+
+        payload = torch.load(
+            cache_path,
+            map_location="cpu",
+            weights_only=False,
+        )
+
+        if (
+            payload.get("format")
+            != CACHE_FORMAT_VERSION
+        ):
+            raise ValueError(
+                f"Unsupported cache format "
+                f'in "{cache_path}".'
+            )
+
+        documents = [
+            deserialize_document(
+                document
+            )
+            for document in payload[
+                "documents"
+            ]
+        ]
+
+        if show_progress:
+            elapsed = (
+                time.perf_counter()
+                - started
+            )
+
+            print(
+                f"Loaded {split}: "
+                f"{len(documents)} documents "
+                f"in {format_duration(elapsed)}",
+                flush=True,
+            )
+
+        return documents
+
+    samples = json.loads(split_bytes)
+
+    documents: list[
+        EncodedDocument
+    ] = []
+
+    total = len(samples)
+    started = time.perf_counter()
+
+    if show_progress:
+        print(
+            f"Encoding {split}: "
+            f"{total} documents",
+            flush=True,
+        )
+
+    for index, sample in enumerate(
+        samples,
+        start=1,
+    ):
+        documents.append(
+            encode_document(
+                sample,
+                schema,
+            )
+        )
+
+        if (
+            show_progress
+            and (
+                index % 100 == 0
+                or index == total
+            )
+        ):
+            elapsed = (
+                time.perf_counter()
+                - started
+            )
+
+            rate = (
+                index / elapsed
+                if elapsed > 0
+                else 0.0
+            )
+
+            remaining = (
+                (total - index) / rate
+                if rate > 0
+                else 0.0
+            )
+
+            print(
+                f"  {index:>5}/{total} "
+                f"docs "
+                f"({rate:,.1f} docs/s, "
+                f"ETA {format_duration(remaining)})",
+                flush=True,
+            )
+
+    if use_cache:
+        CACHE_DIRECTORY.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        if show_progress:
+            print(
+                f"Saving {split} cache: "
+                f"{cache_path}",
+                flush=True,
+            )
+
+        torch.save(
+            {
+                "format": (
+                    CACHE_FORMAT_VERSION
+                ),
+                "documents": [
+                    serialize_document(
+                        document
+                    )
+                    for document
+                    in documents
+                ],
+            },
+            cache_path,
+        )
+
+    if show_progress:
+        elapsed = (
+            time.perf_counter()
+            - started
+        )
+
+        print(
+            f"Prepared {split}: "
+            f"{len(documents)} documents "
+            f"in {format_duration(elapsed)}",
+            flush=True,
+        )
+
+    return documents
+
+
 class TypeScriptSemanticDataset(Dataset):
     def __init__(
         self,
         split: str,
         *,
         max_length: int = 512,
+        use_cache: bool = True,
+        show_progress: bool = True,
     ) -> None:
         if split not in {
             "train",
@@ -295,21 +583,28 @@ class TypeScriptSemanticDataset(Dataset):
         self.schema = load_schema()
         self.max_length = max_length
 
-        split_path = TYPESCRIPT_DATASET_ROOT / f"{split}.json"
-
-        samples = json.loads(
-            split_path.read_text(encoding="utf-8")
+        self.documents = (
+            build_or_load_documents(
+                split,
+                self.schema,
+                use_cache=use_cache,
+                show_progress=(
+                    show_progress
+                ),
+            )
         )
 
-        self.documents = [
-            encode_document(sample, self.schema)
-            for sample in samples
-        ]
+        self.windows: list[
+            WindowReference
+        ] = []
 
-        self.windows: list[WindowReference] = []
-
-        for document_index, document in enumerate(self.documents):
-            length = document.input_ids.shape[0]
+        for (
+            document_index,
+            document,
+        ) in enumerate(self.documents):
+            length = (
+                document.input_ids.shape[0]
+            )
 
             for start in range(
                 0,
@@ -317,17 +612,28 @@ class TypeScriptSemanticDataset(Dataset):
                 self.max_length,
             ):
                 end = min(
-                    start + self.max_length,
+                    start
+                    + self.max_length,
                     length,
                 )
 
                 self.windows.append(
                     WindowReference(
-                        document_index=document_index,
+                        document_index=(
+                            document_index
+                        ),
                         start=start,
                         end=end,
                     )
                 )
+
+        if show_progress:
+            print(
+                f"Built {split}: "
+                f"{len(self.documents)} documents, "
+                f"{len(self.windows)} windows",
+                flush=True,
+            )
 
     def __len__(self) -> int:
         return len(self.windows)
@@ -337,9 +643,13 @@ class TypeScriptSemanticDataset(Dataset):
         index: int,
     ) -> dict[str, torch.Tensor]:
         window = self.windows[index]
-        document = self.documents[window.document_index]
+        document = self.documents[
+            window.document_index
+        ]
 
-        length = window.end - window.start
+        length = (
+            window.end - window.start
+        )
 
         input_ids = torch.full(
             (self.max_length,),
@@ -372,23 +682,31 @@ class TypeScriptSemanticDataset(Dataset):
             dtype=torch.float32,
         )
 
-        input_ids[:length] = document.input_ids[
-            window.start:window.end
-        ]
+        input_ids[:length] = (
+            document.input_ids[
+                window.start:window.end
+            ]
+        )
 
         attention_mask[:length] = True
 
-        boundary_labels[:length] = document.boundary_labels[
-            window.start:window.end
-        ]
+        boundary_labels[:length] = (
+            document.boundary_labels[
+                window.start:window.end
+            ]
+        )
 
-        token_type_labels[:length] = document.token_type_labels[
-            window.start:window.end
-        ]
+        token_type_labels[:length] = (
+            document.token_type_labels[
+                window.start:window.end
+            ]
+        )
 
-        modifier_labels[:length] = document.modifier_labels[
-            window.start:window.end
-        ].float()
+        modifier_labels[:length] = (
+            document.modifier_labels[
+                window.start:window.end
+            ].float()
+        )
 
         return {
             "input_ids": input_ids,
@@ -400,8 +718,12 @@ class TypeScriptSemanticDataset(Dataset):
 
 
 def main() -> None:
-    print("Neural Semantic Highlighting")
-    print("TypeScript V2 Multitask Dataset")
+    print(
+        "Neural Semantic Highlighting"
+    )
+    print(
+        "TypeScript V2 Multitask Dataset"
+    )
     print("")
 
     for split in (
@@ -409,7 +731,12 @@ def main() -> None:
         "validation",
         "test",
     ):
-        dataset = TypeScriptSemanticDataset(split)
+        dataset = (
+            TypeScriptSemanticDataset(
+                split,
+                show_progress=True,
+            )
+        )
 
         print(
             f"{split}: "
@@ -420,10 +747,22 @@ def main() -> None:
     schema = load_schema()
 
     print("")
-    print("Boundary classes: 3 (O / B / I)")
-    print(f"Token types: {schema.number_of_token_types}")
-    print(f"Modifiers: {len(schema.modifiers)}")
-    print("Byte vocabulary: 257 (256 bytes + PAD)")
+    print(
+        "Boundary classes: "
+        "3 (O / B / I)"
+    )
+    print(
+        f"Token types: "
+        f"{schema.number_of_token_types}"
+    )
+    print(
+        f"Modifiers: "
+        f"{len(schema.modifiers)}"
+    )
+    print(
+        "Byte vocabulary: "
+        "257 (256 bytes + PAD)"
+    )
 
 
 if __name__ == "__main__":
