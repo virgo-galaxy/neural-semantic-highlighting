@@ -37,6 +37,10 @@ const operatorKinds = new Set<ts.SyntaxKind>([
   ts.SyntaxKind.GreaterThanToken,
   ts.SyntaxKind.LessThanEqualsToken,
   ts.SyntaxKind.GreaterThanEqualsToken,
+  ts.SyntaxKind.AmpersandToken,
+  ts.SyntaxKind.BarToken,
+  ts.SyntaxKind.CaretToken,
+  ts.SyntaxKind.EqualsGreaterThanToken,
 ]);
 
 const punctuationKinds = new Set<ts.SyntaxKind>([
@@ -242,6 +246,46 @@ function getSemanticModifiers(node: ts.Node): string[] {
   return modifiers;
 }
 
+function isTypeOnlyImportSpecifier(node: ts.ImportSpecifier): boolean {
+  if (node.isTypeOnly) {
+    return true;
+  }
+
+  let current: ts.Node | undefined = node.parent;
+
+  while (current) {
+    if (ts.isImportClause(current)) {
+      return current.isTypeOnly;
+    }
+
+    if (ts.isImportDeclaration(current)) {
+      break;
+    }
+
+    current = current.parent;
+  }
+
+  return false;
+}
+
+function isTypeOnlyExportSpecifier(node: ts.ExportSpecifier): boolean {
+  if (node.isTypeOnly) {
+    return true;
+  }
+
+  let current: ts.Node | undefined = node.parent;
+
+  while (current) {
+    if (ts.isExportDeclaration(current)) {
+      return current.isTypeOnly;
+    }
+
+    current = current.parent;
+  }
+
+  return false;
+}
+
 function getDeclarationTokenType(declaration: ts.Declaration): string | undefined {
   if (ts.isClassDeclaration(declaration) || ts.isClassExpression(declaration)) {
     return "class";
@@ -278,6 +322,8 @@ function getDeclarationTokenType(declaration: ts.Declaration): string | undefine
   if (
     ts.isPropertyDeclaration(declaration) ||
     ts.isPropertySignature(declaration) ||
+    ts.isPropertyAssignment(declaration) ||
+    ts.isShorthandPropertyAssignment(declaration) ||
     ts.isGetAccessorDeclaration(declaration) ||
     ts.isSetAccessorDeclaration(declaration)
   ) {
@@ -307,7 +353,7 @@ function getDeclarationTokenType(declaration: ts.Declaration): string | undefine
   }
 
   if (ts.isImportSpecifier(declaration)) {
-    return declaration.isTypeOnly ? "type" : "variable";
+    return isTypeOnlyImportSpecifier(declaration) ? "type" : "variable";
   }
 
   if (ts.isTypeAliasDeclaration(declaration)) {
@@ -332,6 +378,8 @@ function isHandledDeclarationName(node: ts.Identifier): boolean {
     (ts.isMethodSignature(parent) && parent.name === node) ||
     (ts.isPropertyDeclaration(parent) && parent.name === node) ||
     (ts.isPropertySignature(parent) && parent.name === node) ||
+    (ts.isPropertyAssignment(parent) && parent.name === node) ||
+    (ts.isShorthandPropertyAssignment(parent) && parent.name === node) ||
     (ts.isGetAccessorDeclaration(parent) && parent.name === node) ||
     (ts.isSetAccessorDeclaration(parent) && parent.name === node) ||
     (ts.isParameter(parent) && parent.name === node) ||
@@ -429,7 +477,10 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
     return undefined;
   }
 
-  function addAngleBrackets(owner: ts.Node, nodes: ts.NodeArray<ts.Node> | undefined): void {
+  function addAngleBrackets<T extends ts.Node>(
+    owner: ts.Node,
+    nodes: ts.NodeArray<T> | undefined,
+  ): void {
     if (!nodes?.length) {
       return;
     }
@@ -470,6 +521,81 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
     addSpan(scanner.getTokenPos(), scanner.getTextPos(), tokenType);
   }
 
+  function isJsxTagIdentifier(node: ts.Identifier): boolean {
+    let current: ts.Node = node;
+
+    while (
+      ts.isPropertyAccessExpression(current.parent) &&
+      (current.parent.expression === current || current.parent.name === current)
+    ) {
+      current = current.parent;
+    }
+
+    const parent = current.parent;
+
+    return (
+      (ts.isJsxOpeningElement(parent) ||
+        ts.isJsxSelfClosingElement(parent) ||
+        ts.isJsxClosingElement(parent)) &&
+      parent.tagName === current
+    );
+  }
+
+  function addJsxTagName(node: ts.JsxTagNameExpression): void {
+    if (ts.isIdentifier(node)) {
+      addNodeSpan(node, "tag");
+      return;
+    }
+
+    if (ts.isPropertyAccessExpression(node)) {
+      if (ts.isIdentifier(node.expression)) {
+        addNodeSpan(node.expression, "tag");
+      } else if (ts.isPropertyAccessExpression(node.expression)) {
+        addJsxTagName(node.expression);
+      }
+
+      const dotStart = node.expression.getEnd();
+      const dotEnd = node.name.getStart(sourceFile);
+      const dotOffset = request.source.indexOf(".", dotStart);
+
+      if (dotOffset >= dotStart && dotOffset < dotEnd) {
+        addSpan(dotOffset, dotOffset + 1, "punctuation");
+      }
+
+      addNodeSpan(node.name, "tag");
+    }
+  }
+
+  function getQualifiedTypeTokenType(node: ts.Identifier): string | undefined {
+    let current: ts.Node = node;
+
+    while (ts.isQualifiedName(current.parent)) {
+      current = current.parent;
+    }
+
+    if (!ts.isQualifiedName(current)) {
+      return undefined;
+    }
+
+    const container = current.parent;
+
+    if (!ts.isTypeReferenceNode(container) && !ts.isExpressionWithTypeArguments(container)) {
+      return undefined;
+    }
+
+    return current.right === node ? "type" : "namespace";
+  }
+
+  function classifyNewExpressionIdentifier(node: ts.Identifier): string {
+    const resolvedTokenType = getTokenTypeFromSymbol(node) ?? knownTokenTypes.get(node.text);
+
+    if (resolvedTokenType === "function" || resolvedTokenType === "class") {
+      return resolvedTokenType;
+    }
+
+    return /^[A-Z]/.test(node.text) ? "class" : "function";
+  }
+
   function classifyIdentifier(node: ts.Identifier): void {
     const parent = node.parent;
 
@@ -478,18 +604,21 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       return;
     }
 
-    if (
-      (ts.isJsxOpeningElement(parent) ||
-        ts.isJsxSelfClosingElement(parent) ||
-        ts.isJsxClosingElement(parent)) &&
-      parent.tagName === node
-    ) {
+    if (isJsxTagIdentifier(node)) {
       addNodeSpan(node, "tag");
       return;
     }
 
     if (ts.isJsxAttribute(parent) && parent.name === node) {
       addNodeSpan(node, "attribute");
+      return;
+    }
+
+    if (
+      (ts.isPropertyAssignment(parent) || ts.isShorthandPropertyAssignment(parent)) &&
+      parent.name === node
+    ) {
+      addNodeSpan(node, "property", ["declaration"]);
       return;
     }
 
@@ -514,6 +643,13 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       return;
     }
 
+    const qualifiedTypeTokenType = getQualifiedTypeTokenType(node);
+
+    if (qualifiedTypeTokenType) {
+      addNodeSpan(node, qualifiedTypeTokenType);
+      return;
+    }
+
     if (
       ts.isTypeReferenceNode(parent) ||
       ts.isExpressionWithTypeArguments(parent) ||
@@ -526,10 +662,20 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
     if (ts.isExportSpecifier(parent)) {
       addNodeSpan(
         node,
-        getTokenTypeFromSymbol(node) ??
-          knownTokenTypes.get(node.text) ??
-          (parent.isTypeOnly ? "type" : "variable"),
+        isTypeOnlyExportSpecifier(parent)
+          ? "type"
+          : (getTokenTypeFromSymbol(node) ?? knownTokenTypes.get(node.text) ?? "variable"),
       );
+      return;
+    }
+
+    if (ts.isCallExpression(parent) && parent.expression === node) {
+      addNodeSpan(node, "function");
+      return;
+    }
+
+    if (ts.isNewExpression(parent) && parent.expression === node) {
+      addNodeSpan(node, classifyNewExpressionIdentifier(node));
       return;
     }
 
@@ -537,11 +683,6 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
 
     if (symbolTokenType) {
       addNodeSpan(node, symbolTokenType);
-      return;
-    }
-
-    if (ts.isCallExpression(parent) && parent.expression === node) {
-      addNodeSpan(node, "function");
       return;
     }
 
@@ -615,6 +756,13 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       }
     }
 
+    if (
+      (ts.isPropertyAssignment(node) || ts.isShorthandPropertyAssignment(node)) &&
+      ts.isIdentifier(node.name)
+    ) {
+      addNodeSpan(node.name, "property", ["declaration"]);
+    }
+
     if (ts.isGetAccessorDeclaration(node) && ts.isIdentifier(node.name)) {
       addNodeSpan(node.name, "property", ["declaration", "getter", ...getSemanticModifiers(node)]);
     }
@@ -677,7 +825,7 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
     }
 
     if (ts.isImportSpecifier(node)) {
-      const tokenType = node.isTypeOnly ? "type" : "variable";
+      const tokenType = isTypeOnlyImportSpecifier(node) ? "type" : "variable";
       knownTokenTypes.set(node.name.text, tokenType);
       addNodeSpan(node.name, tokenType, ["declaration"]);
     }
@@ -698,6 +846,18 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       }
     }
 
+    if (ts.isCallExpression(node)) {
+      addAngleBrackets(node, node.typeArguments);
+    }
+
+    if (ts.isNewExpression(node)) {
+      addAngleBrackets(node, node.typeArguments);
+
+      if (ts.isIdentifier(node.expression)) {
+        addNodeSpan(node.expression, classifyNewExpressionIdentifier(node.expression));
+      }
+    }
+
     if (ts.isDecorator(node) && ts.isIdentifier(node.expression)) {
       addNodeSpan(node.expression, "decorator");
     }
@@ -710,7 +870,7 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
         addSpan(start, start + 1, "punctuation");
       }
 
-      addNodeSpan(node.tagName, "tag");
+      addJsxTagName(node.tagName);
 
       for (const attribute of node.attributes.properties) {
         if (!ts.isJsxAttribute(attribute)) {
@@ -752,7 +912,7 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
         addSpan(start + 1, start + 2, "punctuation");
       }
 
-      addNodeSpan(node.tagName, "tag");
+      addJsxTagName(node.tagName);
 
       if (request.source[end - 1] === ">") {
         addSpan(end - 1, end, "punctuation");

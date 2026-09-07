@@ -18,7 +18,7 @@ const repositoriesRoot = join(datasetRoot, "repos");
 const outputDirectory = join(datasetRoot, "typescript");
 const outputPath = join(outputDirectory, "sample.json");
 
-const samplesPerRepository = 10;
+const samplesPerRepository = 100;
 
 const ignoredDirectories = new Set([
   ".git",
@@ -28,6 +28,16 @@ const ignoredDirectories = new Set([
   "coverage",
   "vendor",
   "generated",
+
+  // Generated compiler/test artifacts.
+  "baselines",
+  "testdata",
+
+  // Fixture and snapshot data.
+  "fixtures",
+  "__fixtures__",
+  "__testfixtures__",
+  "__snapshots__",
 ]);
 
 const documentKinds: readonly {
