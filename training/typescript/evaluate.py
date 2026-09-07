@@ -2,29 +2,49 @@ from __future__ import annotations
 
 import argparse
 import json
+from dataclasses import dataclass
 from pathlib import Path
 
 import torch
-from torch.utils.data import DataLoader
 
-from dataset import OUTSIDE_TOKEN_ID, TypeScriptSemanticDataset
+from dataset import (
+    PAD_BYTE_ID,
+    TypeScriptSemanticDataset,
+)
 from model import SemanticTransformer
 
 
-DEFAULT_CHECKPOINT_PATH = Path("artifacts/typescript/best.pt")
-DEFAULT_OUTPUT_PATH = Path("artifacts/typescript/test-metrics.json")
+DEFAULT_CHECKPOINT_PATH = Path(
+    "artifacts/typescript/v1-bio/best.pt"
+)
+
+DEFAULT_OUTPUT_PATH = Path(
+    "artifacts/typescript/v1-bio/test-metrics.json"
+)
+
+
+@dataclass(frozen=True)
+class CharacterPoint:
+    utf16_start: int
+    utf16_end: int
+    byte_start: int
+
+
+@dataclass(frozen=True)
+class Span:
+    start: int
+    end: int
+    token_type: str
 
 
 def select_device() -> torch.device:
     if torch.backends.mps.is_available():
         return torch.device("mps")
+
     if torch.cuda.is_available():
         return torch.device("cuda")
+
     return torch.device("cpu")
-
-
-def safe_divide(numerator: torch.Tensor, denominator: torch.Tensor) -> torch.Tensor:
-    return numerator / denominator.clamp_min(1.0)
 
 
 def load_model(
@@ -32,272 +52,500 @@ def load_model(
     dataset: TypeScriptSemanticDataset,
     device: torch.device,
 ) -> tuple[SemanticTransformer, dict]:
-    checkpoint = torch.load(checkpoint_path, map_location="cpu")
+    checkpoint = torch.load(
+        checkpoint_path,
+        map_location="cpu",
+    )
 
-    checkpoint_schema = checkpoint["schema"]
-
-    if tuple(checkpoint_schema["token_types"]) != dataset.schema.token_types:
+    if (
+        checkpoint.get("format")
+        != "nsh-typescript-v1-bio"
+    ):
         raise ValueError(
-            "Checkpoint token-type schema does not match the current TypeScript schema."
+            "Checkpoint is not an NSH "
+            "TypeScript V1 BIO checkpoint."
         )
 
-    if tuple(checkpoint_schema["modifiers"]) != dataset.schema.modifiers:
+    checkpoint_schema = (
+        checkpoint["schema"]
+    )
+
+    if (
+        tuple(
+            checkpoint_schema[
+                "token_types"
+            ]
+        )
+        != dataset.schema.token_types
+    ):
         raise ValueError(
-            "Checkpoint modifier schema does not match the current TypeScript schema."
+            "Checkpoint token-type schema "
+            "does not match the current "
+            "TypeScript schema."
+        )
+
+    if (
+        tuple(
+            checkpoint_schema[
+                "modifiers"
+            ]
+        )
+        != dataset.schema.modifiers
+    ):
+        raise ValueError(
+            "Checkpoint modifier schema "
+            "does not match the current "
+            "TypeScript schema."
         )
 
     config = checkpoint["config"]
 
     model = SemanticTransformer(
-        vocab_size=config["vocab_size"],
-        number_of_token_classes=config["number_of_token_classes"],
-        number_of_modifiers=config["number_of_modifiers"],
-        max_length=config["max_length"],
-        embedding_dimension=config["embedding_dimension"],
-        number_of_heads=config["number_of_heads"],
-        number_of_layers=config["number_of_layers"],
-        feed_forward_dimension=config["feed_forward_dimension"],
+        vocab_size=(
+            config["vocab_size"]
+        ),
+        number_of_semantic_tag_classes=(
+            config[
+                "number_of_semantic_tag_classes"
+            ]
+        ),
+        number_of_modifiers=(
+            config[
+                "number_of_modifiers"
+            ]
+        ),
+        max_length=(
+            config["max_length"]
+        ),
+        embedding_dimension=(
+            config[
+                "embedding_dimension"
+            ]
+        ),
+        number_of_heads=(
+            config["number_of_heads"]
+        ),
+        number_of_layers=(
+            config["number_of_layers"]
+        ),
+        feed_forward_dimension=(
+            config[
+                "feed_forward_dimension"
+            ]
+        ),
     )
 
-    model.load_state_dict(checkpoint["model_state_dict"])
+    model.load_state_dict(
+        checkpoint["model_state_dict"]
+    )
+
     model.to(device)
     model.eval()
 
     return model, checkpoint
 
 
-def evaluate(
-    model: SemanticTransformer,
-    loader: DataLoader,
-    dataset: TypeScriptSemanticDataset,
-    device: torch.device,
-) -> dict:
-    number_of_token_classes = dataset.schema.number_of_token_classes
-    number_of_modifiers = len(dataset.schema.modifiers)
+def build_character_points(
+    source: str,
+) -> list[CharacterPoint]:
+    points: list[
+        CharacterPoint
+    ] = []
 
-    confusion = torch.zeros(
-        (number_of_token_classes, number_of_token_classes),
-        dtype=torch.long,
+    utf16_offset = 0
+    byte_offset = 0
+
+    for character in source:
+        utf16_length = (
+            len(
+                character.encode(
+                    "utf-16-le"
+                )
+            )
+            // 2
+        )
+
+        points.append(
+            CharacterPoint(
+                utf16_start=(
+                    utf16_offset
+                ),
+                utf16_end=(
+                    utf16_offset
+                    + utf16_length
+                ),
+                byte_start=byte_offset,
+            )
+        )
+
+        utf16_offset += utf16_length
+
+        byte_offset += len(
+            character.encode("utf-8")
+        )
+
+    return points
+
+
+def predict_document_logits(
+    model: SemanticTransformer,
+    source: str,
+    *,
+    max_length: int,
+    device: torch.device,
+) -> tuple[
+    torch.Tensor,
+    torch.Tensor,
+]:
+    source_bytes = source.encode(
+        "utf-8"
     )
 
-    modifier_true_positive = torch.zeros(number_of_modifiers, dtype=torch.long)
-    modifier_false_positive = torch.zeros(number_of_modifiers, dtype=torch.long)
-    modifier_false_negative = torch.zeros(number_of_modifiers, dtype=torch.long)
+    byte_count = len(source_bytes)
+
+    if byte_count == 0:
+        return (
+            torch.empty((0, 0)),
+            torch.empty((0, 0)),
+        )
+
+    tag_chunks: list[
+        torch.Tensor
+    ] = []
+
+    modifier_chunks: list[
+        torch.Tensor
+    ] = []
 
     with torch.no_grad():
-        for batch in loader:
-            input_ids = batch["input_ids"].to(device)
-            attention_mask = batch["attention_mask"].to(device)
-            token_type_labels = batch["token_type_labels"].to(device)
-            modifier_labels = batch["modifier_labels"].to(device)
+        for start in range(
+            0,
+            byte_count,
+            max_length,
+        ):
+            chunk = source_bytes[
+                start : start + max_length
+            ]
+
+            length = len(chunk)
+
+            input_ids = torch.full(
+                (1, max_length),
+                PAD_BYTE_ID,
+                dtype=torch.long,
+                device=device,
+            )
+
+            attention_mask = torch.zeros(
+                (1, max_length),
+                dtype=torch.bool,
+                device=device,
+            )
+
+            input_ids[
+                0,
+                :length,
+            ] = torch.tensor(
+                list(chunk),
+                dtype=torch.long,
+                device=device,
+            )
+
+            attention_mask[
+                0,
+                :length,
+            ] = True
 
             output = model(
                 input_ids=input_ids,
-                attention_mask=attention_mask,
+                attention_mask=(
+                    attention_mask
+                ),
             )
 
-            token_predictions = output.token_type_logits.argmax(dim=-1)
-
-            valid_mask = token_type_labels != -100
-
-            targets = token_type_labels[valid_mask].detach().cpu()
-            predictions = token_predictions[valid_mask].detach().cpu()
-
-            indices = targets * number_of_token_classes + predictions
-
-            confusion += torch.bincount(
-                indices,
-                minlength=number_of_token_classes * number_of_token_classes,
-            ).reshape(number_of_token_classes, number_of_token_classes)
-
-            semantic_mask = valid_mask & (
-                token_type_labels != OUTSIDE_TOKEN_ID
+            tag_chunks.append(
+                output.semantic_tag_logits[
+                    0,
+                    :length,
+                ]
+                .detach()
+                .cpu()
             )
 
-            if semantic_mask.any():
-                predicted_modifiers = (
-                    torch.sigmoid(output.modifier_logits[semantic_mask]) >= 0.5
-                ).detach().cpu()
+            modifier_chunks.append(
+                output.modifier_logits[
+                    0,
+                    :length,
+                ]
+                .detach()
+                .cpu()
+            )
 
-                target_modifiers = (
-                    modifier_labels[semantic_mask] >= 0.5
-                ).detach().cpu()
+    return (
+        torch.cat(
+            tag_chunks,
+            dim=0,
+        ),
+        torch.cat(
+            modifier_chunks,
+            dim=0,
+        ),
+    )
 
-                modifier_true_positive += (
-                    predicted_modifiers & target_modifiers
-                ).sum(dim=0)
 
-                modifier_false_positive += (
-                    predicted_modifiers & ~target_modifiers
-                ).sum(dim=0)
+def decode_bio_spans(
+    source: str,
+    tag_ids_by_character: list[int],
+    dataset: TypeScriptSemanticDataset,
+) -> list[Span]:
+    points = build_character_points(
+        source
+    )
 
-                modifier_false_negative += (
-                    ~predicted_modifiers & target_modifiers
-                ).sum(dim=0)
+    spans: list[Span] = []
 
-    true_positive = confusion.diag().float()
-    target_support = confusion.sum(dim=1).float()
-    prediction_support = confusion.sum(dim=0).float()
+    current_start: int | None = None
+    current_end: int | None = None
+    current_type: str | None = None
 
-    precision = safe_divide(true_positive, prediction_support)
-    recall = safe_divide(true_positive, target_support)
+    def flush() -> None:
+        nonlocal current_start
+        nonlocal current_end
+        nonlocal current_type
+
+        if (
+            current_start is not None
+            and current_end is not None
+            and current_type is not None
+        ):
+            spans.append(
+                Span(
+                    start=current_start,
+                    end=current_end,
+                    token_type=(
+                        current_type
+                    ),
+                )
+            )
+
+        current_start = None
+        current_end = None
+        current_type = None
+
+    for point, tag_id in zip(
+        points,
+        tag_ids_by_character,
+        strict=True,
+    ):
+        decoded = (
+            dataset.schema.decode_tag_id(
+                tag_id
+            )
+        )
+
+        if decoded is None:
+            flush()
+            continue
+
+        prefix, token_type = decoded
+
+        if prefix == "B":
+            flush()
+            current_start = (
+                point.utf16_start
+            )
+            current_end = point.utf16_end
+            current_type = token_type
+            continue
+
+        # Repair invalid I-X transitions as a new B-X.
+        if (
+            current_type
+            != token_type
+            or current_start is None
+        ):
+            flush()
+            current_start = (
+                point.utf16_start
+            )
+            current_end = point.utf16_end
+            current_type = token_type
+            continue
+
+        current_end = point.utf16_end
+
+    flush()
+
+    return spans
+
+
+def gold_spans_from_document(
+    document,
+    dataset: TypeScriptSemanticDataset,
+) -> list[Span]:
+    points = build_character_points(
+        document.source
+    )
+
+    tag_ids = [
+        int(
+            document.semantic_tag_labels[
+                point.byte_start
+            ].item()
+        )
+        for point in points
+    ]
+
+    return decode_bio_spans(
+        document.source,
+        tag_ids,
+        dataset,
+    )
+
+
+def score_spans(
+    predicted: list[Span],
+    gold: list[Span],
+    token_types: tuple[str, ...],
+) -> dict:
+    predicted_set = {
+        (
+            span.start,
+            span.end,
+            span.token_type,
+        )
+        for span in predicted
+    }
+
+    gold_set = {
+        (
+            span.start,
+            span.end,
+            span.token_type,
+        )
+        for span in gold
+    }
+
+    true_positive = len(
+        predicted_set & gold_set
+    )
+
+    false_positive = len(
+        predicted_set - gold_set
+    )
+
+    false_negative = len(
+        gold_set - predicted_set
+    )
+
+    precision = (
+        true_positive
+        / max(
+            1,
+            true_positive
+            + false_positive,
+        )
+    )
+
+    recall = (
+        true_positive
+        / max(
+            1,
+            true_positive
+            + false_negative,
+        )
+    )
 
     f1 = (
         2.0
         * precision
         * recall
-        / (precision + recall).clamp_min(1e-12)
-    )
-
-    overall_accuracy = (
-        true_positive.sum() / confusion.sum().clamp_min(1)
-    ).item()
-
-    semantic_support = target_support[1:]
-    semantic_correct = true_positive[1:].sum()
-
-    semantic_accuracy = (
-        semantic_correct / semantic_support.sum().clamp_min(1.0)
-    ).item()
-
-    semantic_present = semantic_support > 0
-
-    if semantic_present.any():
-        semantic_macro_f1 = f1[1:][semantic_present].mean().item()
-    else:
-        semantic_macro_f1 = 0.0
-
-    token_names = ("O", *dataset.schema.token_types)
-
-    token_metrics: dict[str, dict[str, float | int]] = {}
-
-    for class_id, token_name in enumerate(token_names):
-        token_metrics[token_name] = {
-            "precision": float(precision[class_id].item()),
-            "recall": float(recall[class_id].item()),
-            "f1": float(f1[class_id].item()),
-            "support": int(target_support[class_id].item()),
-        }
-
-    modifier_true_positive_f = modifier_true_positive.float()
-    modifier_false_positive_f = modifier_false_positive.float()
-    modifier_false_negative_f = modifier_false_negative.float()
-
-    modifier_precision = safe_divide(
-        modifier_true_positive_f,
-        modifier_true_positive_f + modifier_false_positive_f,
-    )
-
-    modifier_recall = safe_divide(
-        modifier_true_positive_f,
-        modifier_true_positive_f + modifier_false_negative_f,
-    )
-
-    modifier_f1 = (
-        2.0
-        * modifier_precision
-        * modifier_recall
-        / (modifier_precision + modifier_recall).clamp_min(1e-12)
-    )
-
-    total_tp = int(modifier_true_positive.sum().item())
-    total_fp = int(modifier_false_positive.sum().item())
-    total_fn = int(modifier_false_negative.sum().item())
-
-    modifier_micro_precision = total_tp / max(1, total_tp + total_fp)
-    modifier_micro_recall = total_tp / max(1, total_tp + total_fn)
-
-    modifier_micro_f1 = (
-        2.0
-        * modifier_micro_precision
-        * modifier_micro_recall
         / max(
             1e-12,
-            modifier_micro_precision + modifier_micro_recall,
+            precision + recall,
         )
     )
 
-    modifier_metrics: dict[str, dict[str, float | int]] = {}
+    per_type = {}
 
-    for modifier_id, modifier_name in enumerate(dataset.schema.modifiers):
-        support = int(
-            (
-                modifier_true_positive[modifier_id]
-                + modifier_false_negative[modifier_id]
-            ).item()
+    macro_values = []
+
+    for token_type in token_types:
+        predicted_type = {
+            item
+            for item in predicted_set
+            if item[2] == token_type
+        }
+
+        gold_type = {
+            item
+            for item in gold_set
+            if item[2] == token_type
+        }
+
+        tp = len(
+            predicted_type & gold_type
         )
 
-        modifier_metrics[modifier_name] = {
-            "precision": float(modifier_precision[modifier_id].item()),
-            "recall": float(modifier_recall[modifier_id].item()),
-            "f1": float(modifier_f1[modifier_id].item()),
+        fp = len(
+            predicted_type - gold_type
+        )
+
+        fn = len(
+            gold_type - predicted_type
+        )
+
+        type_precision = (
+            tp
+            / max(1, tp + fp)
+        )
+
+        type_recall = (
+            tp
+            / max(1, tp + fn)
+        )
+
+        type_f1 = (
+            2.0
+            * type_precision
+            * type_recall
+            / max(
+                1e-12,
+                type_precision
+                + type_recall,
+            )
+        )
+
+        support = len(gold_type)
+
+        per_type[token_type] = {
+            "precision": (
+                type_precision
+            ),
+            "recall": type_recall,
+            "f1": type_f1,
             "support": support,
         }
 
+        if support > 0:
+            macro_values.append(
+                type_f1
+            )
+
+    span_macro_f1 = (
+        sum(macro_values)
+        / len(macro_values)
+        if macro_values
+        else 0.0
+    )
+
     return {
-        "overall_accuracy": overall_accuracy,
-        "semantic_accuracy": semantic_accuracy,
-        "semantic_macro_f1": semantic_macro_f1,
-        "modifier_micro_f1": modifier_micro_f1,
-        "token_types": token_metrics,
-        "modifiers": modifier_metrics,
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
+        "macro_f1": span_macro_f1,
+        "per_type": per_type,
     }
-
-
-def print_metrics(metrics: dict, validation_metrics: dict | None) -> None:
-    print("")
-    print("Test summary")
-    print("------------")
-    print(f"Overall accuracy:    {metrics['overall_accuracy']:.4f}")
-    print(f"Semantic accuracy:   {metrics['semantic_accuracy']:.4f}")
-    print(f"Semantic macro F1:   {metrics['semantic_macro_f1']:.4f}")
-    print(f"Modifier micro F1:   {metrics['modifier_micro_f1']:.4f}")
-
-    if validation_metrics is not None:
-        validation_macro_f1 = validation_metrics.get("semantic_macro_f1")
-
-        if validation_macro_f1 is not None:
-            print(f"Validation macro F1: {validation_macro_f1:.4f}")
-
-    print("")
-    print("Token types")
-    print("-----------")
-    print(
-        f"{'token type':<18}"
-        f"{'precision':>11}"
-        f"{'recall':>11}"
-        f"{'f1':>11}"
-        f"{'support':>12}"
-    )
-
-    for token_name, values in metrics["token_types"].items():
-        print(
-            f"{token_name:<18}"
-            f"{values['precision']:>11.4f}"
-            f"{values['recall']:>11.4f}"
-            f"{values['f1']:>11.4f}"
-            f"{values['support']:>12}"
-        )
-
-    print("")
-    print("Modifiers")
-    print("---------")
-    print(
-        f"{'modifier':<18}"
-        f"{'precision':>11}"
-        f"{'recall':>11}"
-        f"{'f1':>11}"
-        f"{'support':>12}"
-    )
-
-    for modifier_name, values in metrics["modifiers"].items():
-        print(
-            f"{modifier_name:<18}"
-            f"{values['precision']:>11.4f}"
-            f"{values['recall']:>11.4f}"
-            f"{values['f1']:>11.4f}"
-            f"{values['support']:>12}"
-        )
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -306,7 +554,9 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--checkpoint",
         type=Path,
-        default=DEFAULT_CHECKPOINT_PATH,
+        default=(
+            DEFAULT_CHECKPOINT_PATH
+        ),
     )
 
     parser.add_argument(
@@ -315,64 +565,318 @@ def parse_arguments() -> argparse.Namespace:
         default=DEFAULT_OUTPUT_PATH,
     )
 
-    parser.add_argument(
-        "--batch-size",
-        type=int,
-        default=16,
-    )
-
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_arguments()
-    device = select_device()
 
-    print("Neural Semantic Highlighting")
-    print("TypeScript Semantic Evaluation")
-    print("")
-    print(f"Device:     {device}")
-    print(f"Checkpoint: {args.checkpoint}")
+    device = select_device()
 
     checkpoint = torch.load(
         args.checkpoint,
         map_location="cpu",
     )
 
-    max_length = checkpoint["config"]["max_length"]
+    max_length = checkpoint[
+        "config"
+    ]["max_length"]
 
-    test_dataset = TypeScriptSemanticDataset(
-        "test",
-        max_length=max_length,
+    test_dataset = (
+        TypeScriptSemanticDataset(
+            "test",
+            max_length=max_length,
+        )
     )
 
-    test_loader = DataLoader(
-        test_dataset,
-        batch_size=args.batch_size,
-        shuffle=False,
-        num_workers=0,
+    model, checkpoint = (
+        load_model(
+            args.checkpoint,
+            test_dataset,
+            device,
+        )
     )
 
-    model, checkpoint = load_model(
-        checkpoint_path=args.checkpoint,
-        dataset=test_dataset,
-        device=device,
+    all_predicted: list[
+        tuple[str, Span]
+    ] = []
+
+    all_gold: list[
+        tuple[str, Span]
+    ] = []
+
+    print(
+        "Neural Semantic Highlighting"
+    )
+    print(
+        "TypeScript V1 BIO Evaluation"
+    )
+    print("")
+    print(f"Device: {device}")
+    print(
+        f"Checkpoint: "
+        f"{args.checkpoint}"
+    )
+    print(
+        "Test documents: "
+        f"{len(test_dataset.documents)}"
     )
 
-    print(f"Test documents: {len(test_dataset.documents)}")
-    print(f"Test windows:   {len(test_dataset)}")
+    for document in (
+        test_dataset.documents
+    ):
+        (
+            tag_logits,
+            _,
+        ) = predict_document_logits(
+            model,
+            document.source,
+            max_length=max_length,
+            device=device,
+        )
 
-    metrics = evaluate(
-        model=model,
-        loader=test_loader,
-        dataset=test_dataset,
-        device=device,
+        points = (
+            build_character_points(
+                document.source
+            )
+        )
+
+        predicted_tag_ids = [
+            int(
+                tag_logits[
+                    point.byte_start
+                ]
+                .argmax()
+                .item()
+            )
+            for point in points
+        ]
+
+        predicted_spans = (
+            decode_bio_spans(
+                document.source,
+                predicted_tag_ids,
+                test_dataset,
+            )
+        )
+
+        gold_spans = (
+            gold_spans_from_document(
+                document,
+                test_dataset,
+            )
+        )
+
+        key = (
+            f"{document.repository}:"
+            f"{document.path}"
+        )
+
+        all_predicted.extend(
+            (key, span)
+            for span
+            in predicted_spans
+        )
+
+        all_gold.extend(
+            (key, span)
+            for span
+            in gold_spans
+        )
+
+    # Include the document key in exact matching so equal offsets
+    # from different files never collide.
+    predicted_set = {
+        (
+            key,
+            span.start,
+            span.end,
+            span.token_type,
+        )
+        for key, span in all_predicted
+    }
+
+    gold_set = {
+        (
+            key,
+            span.start,
+            span.end,
+            span.token_type,
+        )
+        for key, span in all_gold
+    }
+
+    tp = len(
+        predicted_set & gold_set
+    )
+    fp = len(
+        predicted_set - gold_set
+    )
+    fn = len(
+        gold_set - predicted_set
     )
 
-    print_metrics(
-        metrics,
-        checkpoint.get("validation"),
+    precision = tp / max(1, tp + fp)
+    recall = tp / max(1, tp + fn)
+
+    span_f1 = (
+        2.0
+        * precision
+        * recall
+        / max(
+            1e-12,
+            precision + recall,
+        )
     )
+
+    per_type = {}
+    macro_values = []
+
+    for token_type in (
+        test_dataset.schema.token_types
+    ):
+        predicted_type = {
+            item
+            for item in predicted_set
+            if item[3] == token_type
+        }
+
+        gold_type = {
+            item
+            for item in gold_set
+            if item[3] == token_type
+        }
+
+        type_tp = len(
+            predicted_type & gold_type
+        )
+
+        type_fp = len(
+            predicted_type - gold_type
+        )
+
+        type_fn = len(
+            gold_type - predicted_type
+        )
+
+        type_precision = (
+            type_tp
+            / max(
+                1,
+                type_tp + type_fp,
+            )
+        )
+
+        type_recall = (
+            type_tp
+            / max(
+                1,
+                type_tp + type_fn,
+            )
+        )
+
+        type_f1 = (
+            2.0
+            * type_precision
+            * type_recall
+            / max(
+                1e-12,
+                type_precision
+                + type_recall,
+            )
+        )
+
+        support = len(gold_type)
+
+        per_type[token_type] = {
+            "precision": (
+                type_precision
+            ),
+            "recall": type_recall,
+            "f1": type_f1,
+            "support": support,
+        }
+
+        if support > 0:
+            macro_values.append(
+                type_f1
+            )
+
+    span_macro_f1 = (
+        sum(macro_values)
+        / len(macro_values)
+        if macro_values
+        else 0.0
+    )
+
+    metrics = {
+        "span_exact_precision": (
+            precision
+        ),
+        "span_exact_recall": recall,
+        "span_exact_f1": span_f1,
+        "span_exact_macro_f1": (
+            span_macro_f1
+        ),
+        "predicted_spans": len(
+            predicted_set
+        ),
+        "gold_spans": len(gold_set),
+        "token_types": per_type,
+        "validation": checkpoint.get(
+            "validation"
+        ),
+    }
+
+    print("")
+    print("Exact semantic spans")
+    print("--------------------")
+    print(
+        "Precision: "
+        f"{precision:.4f}"
+    )
+    print(
+        "Recall:    "
+        f"{recall:.4f}"
+    )
+    print(
+        "F1:        "
+        f"{span_f1:.4f}"
+    )
+    print(
+        "Macro F1:  "
+        f"{span_macro_f1:.4f}"
+    )
+    print(
+        "Predicted: "
+        f"{len(predicted_set)}"
+    )
+    print(
+        "Gold:      "
+        f"{len(gold_set)}"
+    )
+
+    print("")
+    print("Per token type")
+    print("--------------")
+    print(
+        f"{'token type':<18}"
+        f"{'precision':>11}"
+        f"{'recall':>11}"
+        f"{'f1':>11}"
+        f"{'support':>12}"
+    )
+
+    for token_type, values in (
+        per_type.items()
+    ):
+        print(
+            f"{token_type:<18}"
+            f"{values['precision']:>11.4f}"
+            f"{values['recall']:>11.4f}"
+            f"{values['f1']:>11.4f}"
+            f"{values['support']:>12}"
+        )
 
     args.output.parent.mkdir(
         parents=True,
@@ -390,7 +894,10 @@ def main() -> None:
     )
 
     print("")
-    print(f"Written to {args.output}")
+    print(
+        f"Written to "
+        f"{args.output}"
+    )
 
 
 if __name__ == "__main__":
