@@ -512,6 +512,37 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
     }
   }
 
+  const jsxTextRanges: Array<{ start: number; end: number }> = [];
+
+  function collectJsxTextRanges(node: ts.Node): void {
+    if (ts.isJsxText(node)) {
+      jsxTextRanges.push({
+        start: node.getFullStart(),
+        end: node.getEnd(),
+      });
+      return;
+    }
+
+    ts.forEachChild(node, collectJsxTextRanges);
+  }
+
+  collectJsxTextRanges(sourceFile);
+
+  let jsxTextRangeIndex = 0;
+
+  function overlapsJsxText(start: number, end: number): boolean {
+    while (
+      jsxTextRangeIndex < jsxTextRanges.length &&
+      jsxTextRanges[jsxTextRangeIndex]!.end <= start
+    ) {
+      jsxTextRangeIndex += 1;
+    }
+
+    const range = jsxTextRanges[jsxTextRangeIndex];
+
+    return range !== undefined && range.start < end && start < range.end;
+  }
+
   const scanner = ts.createScanner(ts.ScriptTarget.Latest, false, languageVariant, request.source);
   const templateExpressionBraceDepths: number[] = [];
 
@@ -536,10 +567,12 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       }
     }
 
+    const tokenStart = scanner.getTokenPos();
+    const tokenEnd = scanner.getTextPos();
     const tokenType = classifyLexicalToken(kind);
 
-    if (tokenType) {
-      addSpan(scanner.getTokenPos(), scanner.getTextPos(), tokenType);
+    if (tokenType && !overlapsJsxText(tokenStart, tokenEnd)) {
+      addSpan(tokenStart, tokenEnd, tokenType);
     }
 
     if (kind === ts.SyntaxKind.TemplateHead) {
@@ -923,6 +956,33 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
 
       if (request.source[end - 2] === "/") {
         addSpan(end - 2, end - 1, "punctuation");
+      }
+    }
+
+    if (ts.isJsxFragment(node)) {
+      const openingStart = node.openingFragment.getStart(sourceFile);
+      const openingEnd = node.openingFragment.getEnd();
+      const closingStart = node.closingFragment.getStart(sourceFile);
+      const closingEnd = node.closingFragment.getEnd();
+
+      if (request.source[openingStart] === "<") {
+        addSpan(openingStart, openingStart + 1, "punctuation");
+      }
+
+      if (request.source[openingEnd - 1] === ">") {
+        addSpan(openingEnd - 1, openingEnd, "punctuation");
+      }
+
+      if (request.source[closingStart] === "<") {
+        addSpan(closingStart, closingStart + 1, "punctuation");
+      }
+
+      if (request.source[closingStart + 1] === "/") {
+        addSpan(closingStart + 1, closingStart + 2, "punctuation");
+      }
+
+      if (request.source[closingEnd - 1] === ">") {
+        addSpan(closingEnd - 1, closingEnd, "punctuation");
       }
     }
 
