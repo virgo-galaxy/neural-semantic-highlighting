@@ -58,11 +58,6 @@ const punctuationKinds = new Set<ts.SyntaxKind>([
   ts.SyntaxKind.AtToken,
 ]);
 
-interface ProgramContext {
-  sourceFile: ts.SourceFile;
-  checker: ts.TypeChecker;
-}
-
 function getScriptKind(documentKind: string): ts.ScriptKind {
   switch (documentKind) {
     case "javascript":
@@ -156,53 +151,18 @@ function classifyLexicalToken(kind: ts.SyntaxKind): string | undefined {
   return undefined;
 }
 
-function createProgramContext(
+function createSourceFile(
   source: string,
   documentKind: string,
   scriptKind: ts.ScriptKind,
-): ProgramContext {
-  const fileName = getVirtualFileName(documentKind);
-
-  const options: ts.CompilerOptions = {
-    target: ts.ScriptTarget.Latest,
-    module: ts.ModuleKind.ESNext,
-    jsx: ts.JsxEmit.Preserve,
-    allowJs: true,
-    noLib: true,
-    noResolve: true,
-  };
-
-  const sourceFile = ts.createSourceFile(
-    fileName,
+): ts.SourceFile {
+  return ts.createSourceFile(
+    getVirtualFileName(documentKind),
     source,
     ts.ScriptTarget.Latest,
     true,
     scriptKind,
   );
-
-  const host = ts.createCompilerHost(options, true);
-
-  host.getSourceFile = (requestedFileName) =>
-    requestedFileName === fileName ? sourceFile : undefined;
-  host.fileExists = (requestedFileName) => requestedFileName === fileName;
-  host.readFile = (requestedFileName) => (requestedFileName === fileName ? source : undefined);
-
-  const program = ts.createProgram({
-    rootNames: [fileName],
-    options,
-    host,
-  });
-
-  const programSourceFile = program.getSourceFile(fileName);
-
-  if (!programSourceFile) {
-    throw new Error(`Failed to create TypeScript source file "${fileName}".`);
-  }
-
-  return {
-    sourceFile: programSourceFile,
-    checker: program.getTypeChecker(),
-  };
 }
 
 function hasQuestionToken(node: ts.Node): boolean {
@@ -289,83 +249,6 @@ function isTypeOnlyExportSpecifier(node: ts.ExportSpecifier): boolean {
   return false;
 }
 
-function getDeclarationTokenType(declaration: ts.Declaration): string | undefined {
-  if (ts.isClassDeclaration(declaration) || ts.isClassExpression(declaration)) {
-    return "class";
-  }
-
-  if (ts.isInterfaceDeclaration(declaration)) {
-    return "interface";
-  }
-
-  if (ts.isEnumDeclaration(declaration)) {
-    return "enum";
-  }
-
-  if (ts.isEnumMember(declaration)) {
-    return "enum-member";
-  }
-
-  if (ts.isTypeParameterDeclaration(declaration)) {
-    return "type-parameter";
-  }
-
-  if (
-    ts.isFunctionDeclaration(declaration) ||
-    ts.isFunctionExpression(declaration) ||
-    ts.isArrowFunction(declaration)
-  ) {
-    return "function";
-  }
-
-  if (ts.isMethodDeclaration(declaration) || ts.isMethodSignature(declaration)) {
-    return "method";
-  }
-
-  if (
-    ts.isPropertyDeclaration(declaration) ||
-    ts.isPropertySignature(declaration) ||
-    ts.isPropertyAssignment(declaration) ||
-    ts.isShorthandPropertyAssignment(declaration) ||
-    ts.isGetAccessorDeclaration(declaration) ||
-    ts.isSetAccessorDeclaration(declaration)
-  ) {
-    return "property";
-  }
-
-  if (ts.isParameter(declaration)) {
-    return "parameter";
-  }
-
-  if (ts.isVariableDeclaration(declaration)) {
-    return "variable";
-  }
-
-  if (ts.isBindingElement(declaration)) {
-    let parent: ts.Node = declaration.parent;
-
-    while (!ts.isParameter(parent) && !ts.isVariableDeclaration(parent)) {
-      parent = parent.parent;
-    }
-
-    return ts.isParameter(parent) ? "parameter" : "variable";
-  }
-
-  if (ts.isNamespaceImport(declaration)) {
-    return "namespace";
-  }
-
-  if (ts.isImportSpecifier(declaration)) {
-    return isTypeOnlyImportSpecifier(declaration) ? "type" : "variable";
-  }
-
-  if (ts.isTypeAliasDeclaration(declaration)) {
-    return "type";
-  }
-
-  return undefined;
-}
-
 function isHandledDeclarationName(node: ts.Identifier): boolean {
   const parent = node.parent;
 
@@ -373,6 +256,8 @@ function isHandledDeclarationName(node: ts.Identifier): boolean {
     (ts.isClassDeclaration(parent) && parent.name === node) ||
     (ts.isClassExpression(parent) && parent.name === node) ||
     (ts.isInterfaceDeclaration(parent) && parent.name === node) ||
+    (ts.isTypeAliasDeclaration(parent) && parent.name === node) ||
+    (ts.isModuleDeclaration(parent) && parent.name === node) ||
     (ts.isEnumDeclaration(parent) && parent.name === node) ||
     (ts.isEnumMember(parent) && parent.name === node) ||
     (ts.isFunctionDeclaration(parent) && parent.name === node) ||
@@ -401,14 +286,13 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       ? ts.LanguageVariant.JSX
       : ts.LanguageVariant.Standard;
 
-  const { sourceFile, checker } = createProgramContext(
+  const sourceFile = createSourceFile(
     request.source,
     request.documentKind,
     scriptKind,
   );
 
   let spans: SemanticSpan[] = [];
-  const knownTokenTypes = new Map<string, string>();
 
   function overlaps(left: SemanticSpan, right: SemanticSpan): boolean {
     return left.start < right.end && right.start < left.end;
@@ -453,31 +337,11 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       return;
     }
 
-    knownTokenTypes.set(name.text, tokenType);
-
     addNodeSpan(name, tokenType, [
       "declaration",
       ...getSemanticModifiers(declaration),
       ...extraModifiers,
     ]);
-  }
-
-  function getTokenTypeFromSymbol(node: ts.Identifier): string | undefined {
-    const symbol = checker.getSymbolAtLocation(node);
-
-    if (!symbol) {
-      return undefined;
-    }
-
-    for (const declaration of symbol.getDeclarations() ?? []) {
-      const tokenType = getDeclarationTokenType(declaration);
-
-      if (tokenType) {
-        return tokenType;
-      }
-    }
-
-    return undefined;
   }
 
   function addAngleBrackets<T extends ts.Node>(
@@ -645,15 +509,6 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
     return current.right === node ? "type" : "namespace";
   }
 
-  function classifyNewExpressionIdentifier(node: ts.Identifier): string {
-    const resolvedTokenType = getTokenTypeFromSymbol(node) ?? knownTokenTypes.get(node.text);
-
-    if (resolvedTokenType === "function" || resolvedTokenType === "class") {
-      return resolvedTokenType;
-    }
-
-    return /^[A-Z]/.test(node.text) ? "class" : "function";
-  }
 
   function classifyIdentifier(node: ts.Identifier): void {
     const parent = node.parent;
@@ -686,13 +541,6 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
     }
 
     if (ts.isPropertyAccessExpression(parent) && parent.name === node) {
-      const symbolTokenType = getTokenTypeFromSymbol(node);
-
-      if (symbolTokenType) {
-        addNodeSpan(node, symbolTokenType);
-        return;
-      }
-
       if (ts.isCallExpression(parent.parent) && parent.parent.expression === parent) {
         addNodeSpan(node, "method");
       } else {
@@ -714,16 +562,14 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       ts.isExpressionWithTypeArguments(parent) ||
       ts.isTypeQueryNode(parent)
     ) {
-      addNodeSpan(node, getTokenTypeFromSymbol(node) ?? "type");
+      addNodeSpan(node, "type");
       return;
     }
 
     if (ts.isExportSpecifier(parent)) {
       addNodeSpan(
         node,
-        isTypeOnlyExportSpecifier(parent)
-          ? "type"
-          : (getTokenTypeFromSymbol(node) ?? knownTokenTypes.get(node.text) ?? "variable"),
+        isTypeOnlyExportSpecifier(parent) ? "type" : "variable",
       );
       return;
     }
@@ -734,14 +580,7 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
     }
 
     if (ts.isNewExpression(parent) && parent.expression === node) {
-      addNodeSpan(node, classifyNewExpressionIdentifier(node));
-      return;
-    }
-
-    const symbolTokenType = getTokenTypeFromSymbol(node);
-
-    if (symbolTokenType) {
-      addNodeSpan(node, symbolTokenType);
+      addNodeSpan(node, "class");
       return;
     }
 
@@ -762,12 +601,20 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       addAngleBrackets(node, node.typeParameters);
     }
 
+    if (ts.isTypeAliasDeclaration(node)) {
+      addDeclarationName(node.name, "type", node);
+      addAngleBrackets(node, node.typeParameters);
+    }
+
+    if (ts.isModuleDeclaration(node) && ts.isIdentifier(node.name)) {
+      addDeclarationName(node.name, "namespace", node);
+    }
+
     if (ts.isEnumDeclaration(node)) {
       addDeclarationName(node.name, "enum", node);
     }
 
     if (ts.isEnumMember(node) && ts.isIdentifier(node.name)) {
-      knownTokenTypes.set(node.name.text, "enum-member");
       addNodeSpan(node.name, "enum-member", ["declaration"]);
     }
 
@@ -810,7 +657,6 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
 
     if (ts.isPropertyDeclaration(node) || ts.isPropertySignature(node)) {
       if (ts.isIdentifier(node.name)) {
-        knownTokenTypes.set(node.name.text, "property");
         addNodeSpan(node.name, "property", ["declaration", ...getSemanticModifiers(node)]);
       }
     }
@@ -861,7 +707,6 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
 
       const visitBinding = (bindingNode: ts.Node): void => {
         if (ts.isIdentifier(bindingNode)) {
-          knownTokenTypes.set(bindingNode.text, "variable");
           addNodeSpan(bindingNode, "variable", modifiers);
           return;
         }
@@ -873,7 +718,6 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
     }
 
     if (ts.isNamespaceImport(node)) {
-      knownTokenTypes.set(node.name.text, "namespace");
       addNodeSpan(node.name, "namespace", ["declaration"]);
 
       const starPosition = request.source.indexOf("*", node.getStart(sourceFile));
@@ -885,7 +729,6 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
 
     if (ts.isImportSpecifier(node)) {
       const tokenType = isTypeOnlyImportSpecifier(node) ? "type" : "variable";
-      knownTokenTypes.set(node.name.text, tokenType);
       addNodeSpan(node.name, tokenType, ["declaration"]);
     }
 
@@ -893,7 +736,7 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       addAngleBrackets(node, node.typeArguments);
 
       if (ts.isIdentifier(node.typeName)) {
-        addNodeSpan(node.typeName, getTokenTypeFromSymbol(node.typeName) ?? "type");
+        addNodeSpan(node.typeName, "type");
       }
     }
 
@@ -901,7 +744,7 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       addAngleBrackets(node, node.typeArguments);
 
       if (ts.isIdentifier(node.expression)) {
-        addNodeSpan(node.expression, getTokenTypeFromSymbol(node.expression) ?? "type");
+        addNodeSpan(node.expression, "type");
       }
     }
 
@@ -913,7 +756,7 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       addAngleBrackets(node, node.typeArguments);
 
       if (ts.isIdentifier(node.expression)) {
-        addNodeSpan(node.expression, classifyNewExpressionIdentifier(node.expression));
+        addNodeSpan(node.expression, "class");
       }
     }
 
