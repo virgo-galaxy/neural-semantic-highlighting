@@ -20,6 +20,8 @@
 	inspect-v3-windows-typescript \
 	train-v3-typescript \
 	continue-v3-typescript \
+	validate-regexp-challenge-typescript \
+	challenge-regexp-typescript \
 	evaluate-typescript \
 	predict-typescript \
 	benchmark-typescript \
@@ -41,6 +43,11 @@ DUAL_VIEW_PATIENCE ?= 16
 V3_OUTPUT_DIR ?= artifacts/typescript/v3-local-role-dual-view-hard-string
 V3_EPOCHS ?= 20
 V3_PATIENCE ?= 20
+REGEXP_CHALLENGE_CHECKPOINT ?= artifacts/typescript/v2-multitask-train-dual-view50/best-epoch20.pt
+REGEXP_CHALLENGE_OUTPUT ?= artifacts/typescript/v2-multitask-train-dual-view50/regexp-challenge-epoch20.json
+REGEXP_CHALLENGE_STRIDE ?= 256
+REGEXP_CHALLENGE_FUSION ?= uniform
+REGEXP_CHALLENGE_MAX_ERRORS ?= 40
 BENCHMARK_WINDOWS ?= 8192
 BENCHMARK_WARMUP_STEPS ?= 5
 BENCHMARK_BATCH_SIZES ?= 16 32 64 128
@@ -203,6 +210,18 @@ continue-v3-typescript:
 		--output $(V3_OUTPUT_DIR)/best.pt \
 		--last-output $(V3_OUTPUT_DIR)/last.pt \
 		--resume $(V3_OUTPUT_DIR)/last.pt
+
+validate-regexp-challenge-typescript:
+	$(PYTHON) training/typescript/regexp_challenge.py \
+		--validate-only
+
+challenge-regexp-typescript:
+	$(PYTHON) training/typescript/regexp_challenge.py \
+		--checkpoint $(REGEXP_CHALLENGE_CHECKPOINT) \
+		--stride $(REGEXP_CHALLENGE_STRIDE) \
+		--fusion $(REGEXP_CHALLENGE_FUSION) \
+		--max-errors $(REGEXP_CHALLENGE_MAX_ERRORS) \
+		--output $(REGEXP_CHALLENGE_OUTPUT)
 
 evaluate-typescript:
 	$(PYTHON) training/typescript/evaluate.py

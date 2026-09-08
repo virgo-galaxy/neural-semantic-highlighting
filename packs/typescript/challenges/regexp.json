@@ -1,0 +1,1126 @@
+{
+  "format": "nsh-typescript-regexp-challenge-v1",
+  "description": "Standalone RegExp literal challenge set. Markers ⟦...⟧ define expected regexp spans and are removed before inference. This file must never be merged into train/validation/test.",
+  "cases": [
+    {
+      "id": "positive-basic-001",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re1 = ⟦/abc/⟧;",
+      "note": "plain literal"
+    },
+    {
+      "id": "positive-basic-002",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re2 = ⟦/foo/g⟧;",
+      "note": "global"
+    },
+    {
+      "id": "positive-basic-003",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re3 = ⟦/foo/i⟧;",
+      "note": "ignore case"
+    },
+    {
+      "id": "positive-basic-004",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re4 = ⟦/foo/m⟧;",
+      "note": "multiline"
+    },
+    {
+      "id": "positive-basic-005",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re5 = ⟦/foo/s⟧;",
+      "note": "dotAll"
+    },
+    {
+      "id": "positive-basic-006",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re6 = ⟦/foo/u⟧;",
+      "note": "unicode"
+    },
+    {
+      "id": "positive-basic-007",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re7 = ⟦/foo/y⟧;",
+      "note": "sticky"
+    },
+    {
+      "id": "positive-basic-008",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re8 = ⟦/foo/d⟧;",
+      "note": "indices"
+    },
+    {
+      "id": "positive-basic-009",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re9 = ⟦/foo/gi⟧;",
+      "note": "combined flags"
+    },
+    {
+      "id": "positive-basic-010",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re10 = ⟦/foo/gim⟧;",
+      "note": "three flags"
+    },
+    {
+      "id": "positive-basic-011",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re11 = ⟦/^abc$/⟧;",
+      "note": "anchors"
+    },
+    {
+      "id": "positive-basic-012",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re12 = ⟦/a.b/⟧;",
+      "note": "dot"
+    },
+    {
+      "id": "positive-basic-013",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re13 = ⟦/a+/⟧;",
+      "note": "plus quantifier"
+    },
+    {
+      "id": "positive-basic-014",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re14 = ⟦/a{2,4}/⟧;",
+      "note": "range quantifier"
+    },
+    {
+      "id": "positive-basic-015",
+      "category": "positive/basic",
+      "documentKind": "typescript",
+      "source": "const re15 = ⟦/a?/⟧;",
+      "note": "optional quantifier"
+    },
+    {
+      "id": "positive-escape-001",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern1: RegExp = ⟦/a\\/b/⟧;",
+      "note": "escaped slash"
+    },
+    {
+      "id": "positive-escape-002",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern2: RegExp = ⟦/\\d+/⟧;",
+      "note": "digit escape"
+    },
+    {
+      "id": "positive-escape-003",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern3: RegExp = ⟦/\\w+/⟧;",
+      "note": "word escape"
+    },
+    {
+      "id": "positive-escape-004",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern4: RegExp = ⟦/\\s*/⟧;",
+      "note": "space escape"
+    },
+    {
+      "id": "positive-escape-005",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern5: RegExp = ⟦/\\bword\\b/⟧;",
+      "note": "word boundary"
+    },
+    {
+      "id": "positive-escape-006",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern6: RegExp = ⟦/\\x41+/⟧;",
+      "note": "hex escape"
+    },
+    {
+      "id": "positive-escape-007",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern7: RegExp = ⟦/\\u0041+/⟧;",
+      "note": "unicode escape"
+    },
+    {
+      "id": "positive-escape-008",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern8: RegExp = ⟦/\\cA/⟧;",
+      "note": "control escape"
+    },
+    {
+      "id": "positive-escape-009",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern9: RegExp = ⟦/[abc]/⟧;",
+      "note": "simple class"
+    },
+    {
+      "id": "positive-escape-010",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern10: RegExp = ⟦/[^abc]/⟧;",
+      "note": "negated class"
+    },
+    {
+      "id": "positive-escape-011",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern11: RegExp = ⟦/[a-z]/⟧;",
+      "note": "range class"
+    },
+    {
+      "id": "positive-escape-012",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern12: RegExp = ⟦/[A-Za-z0-9_]+/⟧;",
+      "note": "identifier-ish class"
+    },
+    {
+      "id": "positive-escape-013",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern13: RegExp = ⟦/[/\\\\]/⟧;",
+      "note": "slash and backslash class"
+    },
+    {
+      "id": "positive-escape-014",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern14: RegExp = ⟦/[-_]/⟧;",
+      "note": "hyphen class"
+    },
+    {
+      "id": "positive-escape-015",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern15: RegExp = ⟦/[\\]\\[]/⟧;",
+      "note": "bracket escapes"
+    },
+    {
+      "id": "positive-escape-016",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern16: RegExp = ⟦/\\p{L}+/u⟧;",
+      "note": "unicode property"
+    },
+    {
+      "id": "positive-escape-017",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern17: RegExp = ⟦/\\P{Number}+/u⟧;",
+      "note": "negative unicode property"
+    },
+    {
+      "id": "positive-escape-018",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern18: RegExp = ⟦/[\\u4e00-\\u9fff]+/u⟧;",
+      "note": "CJK range"
+    },
+    {
+      "id": "positive-escape-019",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern19: RegExp = ⟦/\\0/⟧;",
+      "note": "null escape"
+    },
+    {
+      "id": "positive-escape-020",
+      "category": "positive/escape-class",
+      "documentKind": "typescript",
+      "source": "let pattern20: RegExp = ⟦/\\n\\r\\t/⟧;",
+      "note": "control chars"
+    },
+    {
+      "id": "positive-group-001",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher1 = ⟦/(foo)/⟧;",
+      "note": "capture"
+    },
+    {
+      "id": "positive-group-002",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher2 = ⟦/(?:foo|bar)/⟧;",
+      "note": "non-capture"
+    },
+    {
+      "id": "positive-group-003",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher3 = ⟦/(foo|bar)+/⟧;",
+      "note": "alternation capture"
+    },
+    {
+      "id": "positive-group-004",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher4 = ⟦/^foo(?=bar)/⟧;",
+      "note": "lookahead"
+    },
+    {
+      "id": "positive-group-005",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher5 = ⟦/^foo(?!bar)/⟧;",
+      "note": "negative lookahead"
+    },
+    {
+      "id": "positive-group-006",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher6 = ⟦/(?<=foo)bar/⟧;",
+      "note": "lookbehind"
+    },
+    {
+      "id": "positive-group-007",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher7 = ⟦/(?<!foo)bar/⟧;",
+      "note": "negative lookbehind"
+    },
+    {
+      "id": "positive-group-008",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher8 = ⟦/(?<name>foo)/⟧;",
+      "note": "named capture"
+    },
+    {
+      "id": "positive-group-009",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher9 = ⟦/(a)\\1/⟧;",
+      "note": "backreference"
+    },
+    {
+      "id": "positive-group-010",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher10 = ⟦/(?<x>a)\\k<x>/⟧;",
+      "note": "named backreference"
+    },
+    {
+      "id": "positive-group-011",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher11 = ⟦/((a)(b))/⟧;",
+      "note": "nested groups"
+    },
+    {
+      "id": "positive-group-012",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher12 = ⟦/(?:a(?:b(?:c)))/⟧;",
+      "note": "deep noncapture"
+    },
+    {
+      "id": "positive-group-013",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher13 = ⟦/a|b|c/⟧;",
+      "note": "alternation"
+    },
+    {
+      "id": "positive-group-014",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher14 = ⟦/(?:foo){2,}/⟧;",
+      "note": "group quantifier"
+    },
+    {
+      "id": "positive-group-015",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher15 = ⟦/(?=.{8,})(?=.*[A-Z])(?=.*\\d).*/⟧;",
+      "note": "password-ish"
+    },
+    {
+      "id": "positive-group-016",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher16 = ⟦/^\\s*(.*?)\\s*$/⟧;",
+      "note": "lazy capture"
+    },
+    {
+      "id": "positive-group-017",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher17 = ⟦/(?:https?):\\/\\/[^\\s]+/⟧;",
+      "note": "url-like"
+    },
+    {
+      "id": "positive-group-018",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher18 = ⟦/(?:(?:a|b)c)+/⟧;",
+      "note": "nested alternation"
+    },
+    {
+      "id": "positive-group-019",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher19 = ⟦/^(?:[a-z]+\\.)+[a-z]{2,}$/i⟧;",
+      "note": "domain-like"
+    },
+    {
+      "id": "positive-group-020",
+      "category": "positive/group-assertion",
+      "documentKind": "typescript",
+      "source": "const matcher20 = ⟦/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/⟧;",
+      "note": "email-like"
+    },
+    {
+      "id": "positive-context-001",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const re = ⟦/foo/⟧;",
+      "note": "assignment"
+    },
+    {
+      "id": "positive-context-002",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "let re; re = ⟦/foo/⟧;",
+      "note": "later assignment"
+    },
+    {
+      "id": "positive-context-003",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "returnValue(⟦/foo/⟧);",
+      "note": "call argument"
+    },
+    {
+      "id": "positive-context-004",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const list = [1, ⟦/foo/⟧, 3];",
+      "note": "array element"
+    },
+    {
+      "id": "positive-context-005",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const obj = { re: ⟦/foo/⟧ };",
+      "note": "object value"
+    },
+    {
+      "id": "positive-context-006",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const pick = ok ? ⟦/yes/⟧ : ⟦/no/⟧;",
+      "note": "ternary two regex"
+    },
+    {
+      "id": "positive-context-007",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const pick = left || ⟦/fallback/⟧;",
+      "note": "logical or rhs"
+    },
+    {
+      "id": "positive-context-008",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const pick = left && ⟦/guarded/⟧;",
+      "note": "logical and rhs"
+    },
+    {
+      "id": "positive-context-009",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const pick = left ?? ⟦/default/⟧;",
+      "note": "nullish rhs"
+    },
+    {
+      "id": "positive-context-010",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "function make() { return ⟦/returned/gi⟧; }",
+      "note": "return"
+    },
+    {
+      "id": "positive-context-011",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "function fail() { throw ⟦/thrown/⟧; }",
+      "note": "throw expression"
+    },
+    {
+      "id": "positive-context-012",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "async function f(){ const x = await Promise.resolve(⟦/awaited/⟧); }",
+      "note": "await context"
+    },
+    {
+      "id": "positive-context-013",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "function* g(){ yield ⟦/yielded/⟧; }",
+      "note": "yield context"
+    },
+    {
+      "id": "positive-context-014",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const fn = (x = ⟦/default/⟧) => x;",
+      "note": "default parameter value"
+    },
+    {
+      "id": "positive-context-015",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const { re = ⟦/fallback/⟧ } = source;",
+      "note": "destructure default"
+    },
+    {
+      "id": "positive-context-016",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "for (const re of [⟦/a/⟧, ⟦/b/⟧]) console.log(re);",
+      "note": "for-of array"
+    },
+    {
+      "id": "positive-context-017",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "switch (x) { case \"a\": use(⟦/case/⟧); break; }",
+      "note": "switch body"
+    },
+    {
+      "id": "positive-context-018",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "if (ready) { ⟦/block/⟧.test(value); }",
+      "note": "block expression statement"
+    },
+    {
+      "id": "positive-context-019",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "try { use(⟦/try/⟧) } catch { use(⟦/catch/⟧) }",
+      "note": "try catch"
+    },
+    {
+      "id": "positive-context-020",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const result = !⟦/negated/⟧.test(text);",
+      "note": "unary before regex"
+    },
+    {
+      "id": "positive-context-021",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const result = (⟦/paren/⟧).test(text);",
+      "note": "parenthesized"
+    },
+    {
+      "id": "positive-context-022",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const result = new RegExp(\"x\").source + ⟦/literal/⟧.source;",
+      "note": "after plus"
+    },
+    {
+      "id": "positive-context-023",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const result = `${⟦/inside-template-expression/⟧.source}`;",
+      "note": "inside template expression"
+    },
+    {
+      "id": "positive-context-024",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const re = /* lead */ ⟦/after-comment/⟧ /* tail */;",
+      "note": "surrounded comments"
+    },
+    {
+      "id": "positive-context-025",
+      "category": "positive/context",
+      "documentKind": "typescript",
+      "source": "const re =\n  ⟦/multiline-position/⟧\n;",
+      "note": "newline positioning"
+    },
+    {
+      "id": "positive-special-001",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "const re: RegExp = ⟦/typed/⟧;",
+      "note": "typed variable"
+    },
+    {
+      "id": "positive-special-002",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "const re = ⟦/satisfies/⟧ satisfies RegExp;",
+      "note": "satisfies"
+    },
+    {
+      "id": "positive-special-003",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "const re = ⟦/asserted/⟧ as RegExp;",
+      "note": "as assertion"
+    },
+    {
+      "id": "positive-special-004",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "function useRegex(re: RegExp = ⟦/default/⟧) {}",
+      "note": "typed parameter default"
+    },
+    {
+      "id": "positive-special-005",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "class A { re: RegExp = ⟦/field/⟧; }",
+      "note": "class field"
+    },
+    {
+      "id": "positive-special-006",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "class A { static re = ⟦/static/⟧; }",
+      "note": "static field"
+    },
+    {
+      "id": "positive-special-007",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "const tuple = [⟦/first/⟧, 1] as const;",
+      "note": "as const tuple"
+    },
+    {
+      "id": "positive-special-008",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "const map = new Map([[\"x\", ⟦/map-value/⟧]]);",
+      "note": "generic-ish call"
+    },
+    {
+      "id": "positive-special-009",
+      "category": "positive/typescript-tsx",
+      "documentKind": "tsx",
+      "source": "const node = <div data-match={⟦/tsx/⟧.test(value)} />;",
+      "note": "jsx attribute expression"
+    },
+    {
+      "id": "positive-special-010",
+      "category": "positive/typescript-tsx",
+      "documentKind": "tsx",
+      "source": "const node = <>{⟦/fragment/⟧.exec(value)?.[0]}</>;",
+      "note": "jsx fragment expression"
+    },
+    {
+      "id": "positive-special-011",
+      "category": "positive/typescript-tsx",
+      "documentKind": "tsx",
+      "source": "const node = condition ? <A value={⟦/a/⟧} /> : <B value={⟦/b/⟧} />;",
+      "note": "jsx ternary"
+    },
+    {
+      "id": "positive-special-012",
+      "category": "positive/typescript-tsx",
+      "documentKind": "tsx",
+      "source": "const node = <div>{items.filter(x => ⟦/item/⟧.test(x)).join(\",\")}</div>;",
+      "note": "jsx child expression"
+    },
+    {
+      "id": "positive-special-013",
+      "category": "positive/typescript-tsx",
+      "documentKind": "tsx",
+      "source": "const props = { pattern: ⟦/spread/⟧ }; const node = <X {...props} />;",
+      "note": "jsx spread source"
+    },
+    {
+      "id": "positive-special-014",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "type Box = { re: RegExp }; const box: Box = { re: ⟦/boxed/⟧ };",
+      "note": "object typed"
+    },
+    {
+      "id": "positive-special-015",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "const re = identity<RegExp>(⟦/generic-call/⟧);",
+      "note": "generic call"
+    },
+    {
+      "id": "positive-special-016",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "declare function take(re: RegExp): void; take(⟦/declared-call/⟧);",
+      "note": "declaration plus call"
+    },
+    {
+      "id": "positive-special-017",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "namespace N { export const re = ⟦/namespace/⟧; }",
+      "note": "namespace"
+    },
+    {
+      "id": "positive-special-018",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "enum E { A = \"a\" }; const re = E.A === \"a\" ? ⟦/enum/⟧ : ⟦/other/⟧;",
+      "note": "enum context"
+    },
+    {
+      "id": "positive-special-019",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "const re = (() => ⟦/iife/⟧)();",
+      "note": "iife return"
+    },
+    {
+      "id": "positive-special-020",
+      "category": "positive/typescript-tsx",
+      "documentKind": "typescript",
+      "source": "const re = { get value() { return ⟦/getter/⟧; } }.value;",
+      "note": "getter return"
+    },
+    {
+      "id": "negative-division-001",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = a / b;",
+      "note": "binary division"
+    },
+    {
+      "id": "negative-division-002",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = a / b / c;",
+      "note": "chained division"
+    },
+    {
+      "id": "negative-division-003",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = (a + b) / c;",
+      "note": "paren lhs division"
+    },
+    {
+      "id": "negative-division-004",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = fn() / 2;",
+      "note": "call result division"
+    },
+    {
+      "id": "negative-division-005",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = arr[i] / total;",
+      "note": "index division"
+    },
+    {
+      "id": "negative-division-006",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = obj.value / total;",
+      "note": "property division"
+    },
+    {
+      "id": "negative-division-007",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = a++ / b;",
+      "note": "postfix division"
+    },
+    {
+      "id": "negative-division-008",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = --a / b;",
+      "note": "prefix division"
+    },
+    {
+      "id": "negative-division-009",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = a / (b + c);",
+      "note": "division paren rhs"
+    },
+    {
+      "id": "negative-division-010",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = a / -b;",
+      "note": "division unary rhs"
+    },
+    {
+      "id": "negative-division-011",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = a / +b;",
+      "note": "division unary plus"
+    },
+    {
+      "id": "negative-division-012",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = a / (b ? c : d);",
+      "note": "division ternary rhs"
+    },
+    {
+      "id": "negative-division-013",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = a / awaitValue;",
+      "note": "identifier rhs"
+    },
+    {
+      "id": "negative-division-014",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "x /= 2;",
+      "note": "division assignment"
+    },
+    {
+      "id": "negative-division-015",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "obj.count /= factor;",
+      "note": "property division assignment"
+    },
+    {
+      "id": "negative-division-016",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "arr[i] /= 2;",
+      "note": "index division assignment"
+    },
+    {
+      "id": "negative-division-017",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const ratio: number = used / total;",
+      "note": "typescript division"
+    },
+    {
+      "id": "negative-division-018",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const ratio = (used as number) / total;",
+      "note": "assertion then division"
+    },
+    {
+      "id": "negative-division-019",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "return numerator / denominator;",
+      "note": "return division"
+    },
+    {
+      "id": "negative-division-020",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "yield numerator / denominator;",
+      "note": "yield division"
+    },
+    {
+      "id": "negative-division-021",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = a/*note*/ / /*note*/b;",
+      "note": "comments around division"
+    },
+    {
+      "id": "negative-division-022",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = a\n  / b;",
+      "note": "newline before division"
+    },
+    {
+      "id": "negative-division-023",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = a /\n  b;",
+      "note": "newline after division"
+    },
+    {
+      "id": "negative-division-024",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = foo?.bar / baz;",
+      "note": "optional chain division"
+    },
+    {
+      "id": "negative-division-025",
+      "category": "negative/division",
+      "documentKind": "typescript",
+      "source": "const x = (foo ?? 1) / (bar ?? 1);",
+      "note": "nullish operands division"
+    },
+    {
+      "id": "negative-string-001",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const s = \"/abc/\";",
+      "note": "double string"
+    },
+    {
+      "id": "negative-string-002",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const s = '/abc/';",
+      "note": "single string"
+    },
+    {
+      "id": "negative-string-003",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const s = ` /abc/ `;",
+      "note": "template text"
+    },
+    {
+      "id": "negative-string-004",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const url = \"https://example.com/a/b\";",
+      "note": "url string"
+    },
+    {
+      "id": "negative-string-005",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const path = 'src/foo/bar.ts';",
+      "note": "path string"
+    },
+    {
+      "id": "negative-string-006",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const command = \"sed /foo/bar/\";",
+      "note": "regex-like command string"
+    },
+    {
+      "id": "negative-string-007",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const markdown = \"`/abc/`\";",
+      "note": "markdown-like"
+    },
+    {
+      "id": "negative-string-008",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const css = \"calc(100% / 3)\";",
+      "note": "css-like division text"
+    },
+    {
+      "id": "negative-string-009",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const s = String.raw`/foo\\/bar/`;",
+      "note": "raw template"
+    },
+    {
+      "id": "negative-string-010",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const s = `<script>const x = a / b;</script>`;",
+      "note": "embedded js as text"
+    },
+    {
+      "id": "negative-string-011",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const s = `<style>.x{width:calc(100% / 2)}</style>`;",
+      "note": "embedded css as text"
+    },
+    {
+      "id": "negative-string-012",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const s = `${value} / not-regexp /`;",
+      "note": "template text after interpolation"
+    },
+    {
+      "id": "negative-string-013",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const s = \"// /abc/\";",
+      "note": "comment-looking string"
+    },
+    {
+      "id": "negative-string-014",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const s = \"/* /abc/ */\";",
+      "note": "block-comment-looking string"
+    },
+    {
+      "id": "negative-string-015",
+      "category": "negative/string-template",
+      "documentKind": "typescript",
+      "source": "const s = \"return /abc/.test(x)\";",
+      "note": "code-looking string"
+    },
+    {
+      "id": "negative-comment-001",
+      "category": "negative/comment",
+      "documentKind": "typescript",
+      "source": "// /abc/ should stay a comment\nconst x = 1;",
+      "note": "line comment"
+    },
+    {
+      "id": "negative-comment-002",
+      "category": "negative/comment",
+      "documentKind": "typescript",
+      "source": "/* /abc/ should stay a comment */ const x = 1;",
+      "note": "block comment"
+    },
+    {
+      "id": "negative-comment-003",
+      "category": "negative/comment",
+      "documentKind": "typescript",
+      "source": "/** Example: /abc/.test(x) */ function f() {}",
+      "note": "jsdoc"
+    },
+    {
+      "id": "negative-comment-004",
+      "category": "negative/comment",
+      "documentKind": "typescript",
+      "source": "// URL https://example.com/a/b\nconst x = 1;",
+      "note": "url comment"
+    },
+    {
+      "id": "negative-comment-005",
+      "category": "negative/comment",
+      "documentKind": "typescript",
+      "source": "// divide: a / b / c\nconst x = 1;",
+      "note": "division comment"
+    },
+    {
+      "id": "negative-comment-006",
+      "category": "negative/comment",
+      "documentKind": "typescript",
+      "source": "/* regex examples: /a/, /b/g, /c/i */ const x = 1;",
+      "note": "many regex-looking comments"
+    },
+    {
+      "id": "negative-comment-007",
+      "category": "negative/comment",
+      "documentKind": "typescript",
+      "source": "// @example return /foo/.test(value)\nconst x = 1;",
+      "note": "doc example line"
+    },
+    {
+      "id": "negative-comment-008",
+      "category": "negative/comment",
+      "documentKind": "typescript",
+      "source": "/*\n * const re = /foo/g\n * re.test(x)\n */\nconst x = 1;",
+      "note": "multiline code comment"
+    },
+    {
+      "id": "negative-comment-009",
+      "category": "negative/comment",
+      "documentKind": "typescript",
+      "source": "// slash slash //// slash\nconst x = 1;",
+      "note": "slash-heavy comment"
+    },
+    {
+      "id": "negative-comment-010",
+      "category": "negative/comment",
+      "documentKind": "typescript",
+      "source": "/* / / /= // /// */ const x = 1;",
+      "note": "operator-like comment"
+    },
+    {
+      "id": "negative-jsx-001",
+      "category": "negative/jsx-slash",
+      "documentKind": "tsx",
+      "source": "const node = <div />;",
+      "note": "self closing"
+    },
+    {
+      "id": "negative-jsx-002",
+      "category": "negative/jsx-slash",
+      "documentKind": "tsx",
+      "source": "const node = <div></div>;",
+      "note": "closing tag"
+    },
+    {
+      "id": "negative-jsx-003",
+      "category": "negative/jsx-slash",
+      "documentKind": "tsx",
+      "source": "const node = <A.B></A.B>;",
+      "note": "qualified closing tag"
+    },
+    {
+      "id": "negative-jsx-004",
+      "category": "negative/jsx-slash",
+      "documentKind": "tsx",
+      "source": "const node = <div>{a / b}</div>;",
+      "note": "division in jsx expression"
+    },
+    {
+      "id": "negative-jsx-005",
+      "category": "negative/jsx-slash",
+      "documentKind": "tsx",
+      "source": "const node = <div data-value={a / b} />;",
+      "note": "division jsx attr"
+    },
+    {
+      "id": "negative-jsx-006",
+      "category": "negative/jsx-slash",
+      "documentKind": "tsx",
+      "source": "const node = <>{\"/abc/\"}</>;",
+      "note": "regex-like jsx string"
+    },
+    {
+      "id": "negative-jsx-007",
+      "category": "negative/jsx-slash",
+      "documentKind": "tsx",
+      "source": "const node = <div>https://example.com/a/b</div>;",
+      "note": "url jsx text"
+    },
+    {
+      "id": "negative-jsx-008",
+      "category": "negative/jsx-slash",
+      "documentKind": "tsx",
+      "source": "const node = condition ? <A /> : <B />;",
+      "note": "ternary jsx tags"
+    },
+    {
+      "id": "negative-jsx-009",
+      "category": "negative/jsx-slash",
+      "documentKind": "tsx",
+      "source": "const node = <div>{`/abc/`}</div>;",
+      "note": "template jsx expression"
+    },
+    {
+      "id": "negative-jsx-010",
+      "category": "negative/jsx-slash",
+      "documentKind": "tsx",
+      "source": "const node = <div>{/* /abc/ */ value}</div>;",
+      "note": "comment in jsx expression"
+    }
+  ]
+}
