@@ -7,6 +7,9 @@
 	inspect-overlap-windows-typescript \
 	train-overlap-typescript \
 	continue-overlap-typescript \
+	inspect-span-aware-windows-typescript \
+	train-span-aware-typescript \
+	continue-span-aware-typescript \
 	evaluate-typescript \
 	predict-typescript \
 	benchmark-typescript \
@@ -20,6 +23,7 @@ PATIENCE ?= 5
 TRAIN_STRIDE ?= 512
 OVERLAP_TRAIN_STRIDE ?= 256
 OVERLAP_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-overlap256
+SPAN_AWARE_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-span-aware
 BENCHMARK_WINDOWS ?= 8192
 BENCHMARK_WARMUP_STEPS ?= 5
 BENCHMARK_BATCH_SIZES ?= 16 32 64 128
@@ -75,6 +79,32 @@ continue-overlap-typescript:
 		--output $(OVERLAP_OUTPUT_DIR)/best.pt \
 		--last-output $(OVERLAP_OUTPUT_DIR)/last.pt \
 		--resume $(OVERLAP_OUTPUT_DIR)/last.pt
+
+inspect-span-aware-windows-typescript:
+	$(PYTHON) training/typescript/dataset.py \
+		--train-window-strategy span-aware \
+		--train-stride 512
+
+train-span-aware-typescript:
+	$(PYTHON) training/typescript/train.py \
+		--epochs $(EPOCHS) \
+		--batch-size $(BATCH_SIZE) \
+		--patience $(PATIENCE) \
+		--train-window-strategy span-aware \
+		--train-stride 512 \
+		--output $(SPAN_AWARE_OUTPUT_DIR)/best.pt \
+		--last-output $(SPAN_AWARE_OUTPUT_DIR)/last.pt
+
+continue-span-aware-typescript:
+	$(PYTHON) training/typescript/train.py \
+		--epochs $(EPOCHS) \
+		--batch-size $(BATCH_SIZE) \
+		--patience $(PATIENCE) \
+		--train-window-strategy span-aware \
+		--train-stride 512 \
+		--output $(SPAN_AWARE_OUTPUT_DIR)/best.pt \
+		--last-output $(SPAN_AWARE_OUTPUT_DIR)/last.pt \
+		--resume $(SPAN_AWARE_OUTPUT_DIR)/last.pt
 
 evaluate-typescript:
 	$(PYTHON) training/typescript/evaluate.py

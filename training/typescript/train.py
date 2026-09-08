@@ -1375,6 +1375,9 @@ def save_checkpoint(
                 ),
                 "max_length": max_length,
                 "train_stride": dataset.stride,
+                "train_window_strategy": (
+                    dataset.window_strategy
+                ),
                 "embedding_dimension": 128,
                 "number_of_heads": 4,
                 "number_of_layers": 4,
@@ -1502,6 +1505,27 @@ def load_resume_checkpoint(
             f"({checkpoint_train_stride}) does not "
             "match the current train stride "
             f"({dataset.stride})."
+        )
+
+    checkpoint_window_strategy = str(
+        checkpoint.get(
+            "config",
+            {},
+        ).get(
+            "train_window_strategy",
+            "fixed",
+        )
+    )
+
+    if (
+        checkpoint_window_strategy
+        != dataset.window_strategy
+    ):
+        raise ValueError(
+            "Resume checkpoint train window strategy "
+            f"({checkpoint_window_strategy}) does not "
+            "match the current strategy "
+            f"({dataset.window_strategy})."
         )
 
     model.load_state_dict(
@@ -1703,6 +1727,21 @@ def parse_arguments() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--train-window-strategy",
+        choices=(
+            "fixed",
+            "span-aware",
+        ),
+        default="fixed",
+        help=(
+            "Train-window construction strategy. "
+            "span-aware moves candidate cuts to Gold-span "
+            "beginnings instead of splitting spans when "
+            "possible."
+        ),
+    )
+
+    parser.add_argument(
         "--modifier-loss-weight",
         type=float,
         default=0.10,
@@ -1793,6 +1832,9 @@ def main() -> None:
             stride=(
                 args.train_stride
             ),
+            window_strategy=(
+                args.train_window_strategy
+            ),
             use_cache=True,
             show_progress=True,
         )
@@ -1813,6 +1855,7 @@ def main() -> None:
             stride=(
                 args.max_length
             ),
+            window_strategy="fixed",
             use_cache=True,
             show_progress=True,
         )
@@ -1933,6 +1976,31 @@ def main() -> None:
         f"Train stride: "
         f"{train_dataset.stride}"
     )
+
+    print(
+        "Train window strategy: "
+        f"{train_dataset.window_strategy}"
+    )
+
+    if (
+        train_dataset.window_strategy
+        == "span-aware"
+    ):
+        stats = train_dataset.windowing_stats
+        print(
+            "Adjusted span cuts: "
+            f"{stats.adjusted_span_cuts}"
+        )
+        print(
+            "Unavoidable inside starts: "
+            f"{stats.unavoidable_inside_starts}"
+        )
+        print(
+            "Span-cut shift avg/p95/max: "
+            f"{(stats.total_shift_bytes / max(1, stats.adjusted_span_cuts)):.1f}/"
+            f"{stats.p95_shift_bytes}/"
+            f"{stats.max_shift_bytes} bytes"
+        )
 
     print(
         "Validation windows: "

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import bisect
 import hashlib
 import json
 import os
@@ -87,6 +88,31 @@ class WindowReference:
     document_index: int
     start: int
     end: int
+
+
+@dataclass(frozen=True)
+class WindowingStats:
+    adjusted_span_cuts: int = 0
+    adjusted_character_cuts: int = 0
+    unavoidable_inside_starts: int = 0
+    total_shift_bytes: int = 0
+    max_shift_bytes: int = 0
+    shift_bytes: tuple[int, ...] = ()
+
+    @property
+    def p95_shift_bytes(self) -> int:
+        if not self.shift_bytes:
+            return 0
+
+        ordered = sorted(self.shift_bytes)
+        index = max(
+            0,
+            min(
+                len(ordered) - 1,
+                (95 * len(ordered) + 99) // 100 - 1,
+            ),
+        )
+        return ordered[index]
 
 
 def load_schema() -> SemanticSchema:
@@ -571,6 +597,205 @@ def build_or_load_documents(
     return documents
 
 
+def _valid_character_starts(
+    document: EncodedDocument,
+) -> list[int]:
+    starts = torch.nonzero(
+        document.boundary_labels
+        != IGNORE_LABEL_ID,
+        as_tuple=False,
+    ).flatten().tolist()
+
+    starts.append(
+        int(document.input_ids.shape[0])
+    )
+
+    return starts
+
+
+def _snap_cut_to_character_boundary(
+    target: int,
+    character_starts: list[int],
+) -> int:
+    index = bisect.bisect_right(
+        character_starts,
+        target,
+    ) - 1
+
+    return character_starts[max(0, index)]
+
+
+def _find_active_span_start(
+    document: EncodedDocument,
+    cut: int,
+    character_starts: list[int],
+) -> int | None:
+    if cut >= document.input_ids.shape[0]:
+        return None
+
+    if (
+        int(document.boundary_labels[cut].item())
+        != BOUNDARY_INSIDE_ID
+    ):
+        return None
+
+    # Walk left over character starts until we reach the B
+    # that opened the currently active semantic span.
+    position_index = max(
+        0,
+        bisect.bisect_left(
+            character_starts,
+            cut,
+        ) - 1,
+    )
+
+    for index in range(position_index, -1, -1):
+        position = character_starts[index]
+
+        if position >= document.input_ids.shape[0]:
+            continue
+
+        label = int(
+            document.boundary_labels[position].item()
+        )
+
+        if label == BOUNDARY_BEGIN_ID:
+            return position
+
+        if label == BOUNDARY_OUTSIDE_ID:
+            return None
+
+    return None
+
+
+def build_fixed_windows(
+    document_index: int,
+    document: EncodedDocument,
+    *,
+    max_length: int,
+    stride: int,
+) -> list[WindowReference]:
+    length = int(document.input_ids.shape[0])
+
+    return [
+        WindowReference(
+            document_index=document_index,
+            start=start,
+            end=min(start + max_length, length),
+        )
+        for start in range(0, length, stride)
+    ]
+
+
+def build_span_aware_windows(
+    document_index: int,
+    document: EncodedDocument,
+    *,
+    max_length: int,
+) -> tuple[list[WindowReference], WindowingStats]:
+    length = int(document.input_ids.shape[0])
+
+    if length == 0:
+        return [], WindowingStats()
+
+    character_starts = _valid_character_starts(
+        document
+    )
+
+    windows: list[WindowReference] = []
+    adjusted_span_cuts = 0
+    adjusted_character_cuts = 0
+    unavoidable_inside_starts = 0
+    shifts: list[int] = []
+
+    cursor = 0
+
+    while cursor < length:
+        target = min(
+            cursor + max_length,
+            length,
+        )
+
+        if target == length:
+            end = length
+        else:
+            end = _snap_cut_to_character_boundary(
+                target,
+                character_starts,
+            )
+
+            if end != target:
+                adjusted_character_cuts += 1
+
+            active_span_start = (
+                _find_active_span_start(
+                    document,
+                    end,
+                    character_starts,
+                )
+            )
+
+            if (
+                active_span_start is not None
+                and active_span_start > cursor
+            ):
+                shift = end - active_span_start
+                end = active_span_start
+                adjusted_span_cuts += 1
+                shifts.append(shift)
+
+        if end <= cursor:
+            # This can only happen for an unavoidable span that
+            # itself is longer than max_length. In that case we
+            # must make progress even though the next window may
+            # begin inside the span.
+            end = _snap_cut_to_character_boundary(
+                min(cursor + max_length, length),
+                character_starts,
+            )
+
+            if end <= cursor:
+                end = min(
+                    cursor + max_length,
+                    length,
+                )
+
+        windows.append(
+            WindowReference(
+                document_index=document_index,
+                start=cursor,
+                end=end,
+            )
+        )
+
+        cursor = end
+
+        if (
+            cursor < length
+            and cursor < document.boundary_labels.shape[0]
+            and int(
+                document.boundary_labels[cursor].item()
+            ) == BOUNDARY_INSIDE_ID
+        ):
+            unavoidable_inside_starts += 1
+
+    return (
+        windows,
+        WindowingStats(
+            adjusted_span_cuts=adjusted_span_cuts,
+            adjusted_character_cuts=(
+                adjusted_character_cuts
+            ),
+            unavoidable_inside_starts=(
+                unavoidable_inside_starts
+            ),
+            total_shift_bytes=sum(shifts),
+            max_shift_bytes=max(shifts, default=0),
+            shift_bytes=tuple(shifts),
+        ),
+    )
+
+
 class TypeScriptSemanticDataset(Dataset):
     def __init__(
         self,
@@ -578,6 +803,7 @@ class TypeScriptSemanticDataset(Dataset):
         *,
         max_length: int = 512,
         stride: int | None = None,
+        window_strategy: str = "fixed",
         use_cache: bool = True,
         show_progress: bool = True,
     ) -> None:
@@ -590,8 +816,18 @@ class TypeScriptSemanticDataset(Dataset):
                 f'Unknown dataset split "{split}".'
             )
 
+        if window_strategy not in {
+            "fixed",
+            "span-aware",
+        }:
+            raise ValueError(
+                "Window strategy must be fixed or "
+                f"span-aware, got {window_strategy!r}."
+            )
+
         self.schema = load_schema()
         self.max_length = max_length
+        self.window_strategy = window_strategy
         self.stride = (
             max_length
             if stride is None
@@ -607,6 +843,17 @@ class TypeScriptSemanticDataset(Dataset):
                 f"1..{self.max_length}, got {self.stride}."
             )
 
+        if (
+            self.window_strategy == "span-aware"
+            and self.stride != self.max_length
+        ):
+            raise ValueError(
+                "Span-aware windowing uses a dynamic cursor "
+                "and requires stride=max_length. "
+                f"Got stride={self.stride}, "
+                f"max_length={self.max_length}."
+            )
+
         self.documents = (
             build_or_load_documents(
                 split,
@@ -618,38 +865,61 @@ class TypeScriptSemanticDataset(Dataset):
             )
         )
 
-        self.windows: list[
-            WindowReference
-        ] = []
+        self.windows: list[WindowReference] = []
+
+        total_adjusted_span_cuts = 0
+        total_adjusted_character_cuts = 0
+        total_unavoidable_inside_starts = 0
+        all_shifts: list[int] = []
 
         for (
             document_index,
             document,
         ) in enumerate(self.documents):
-            length = (
-                document.input_ids.shape[0]
+            if self.window_strategy == "fixed":
+                document_windows = build_fixed_windows(
+                    document_index,
+                    document,
+                    max_length=self.max_length,
+                    stride=self.stride,
+                )
+                stats = WindowingStats()
+            else:
+                (
+                    document_windows,
+                    stats,
+                ) = build_span_aware_windows(
+                    document_index,
+                    document,
+                    max_length=self.max_length,
+                )
+
+            self.windows.extend(document_windows)
+            total_adjusted_span_cuts += (
+                stats.adjusted_span_cuts
             )
+            total_adjusted_character_cuts += (
+                stats.adjusted_character_cuts
+            )
+            total_unavoidable_inside_starts += (
+                stats.unavoidable_inside_starts
+            )
+            all_shifts.extend(stats.shift_bytes)
 
-            for start in range(
-                0,
-                length,
-                self.stride,
-            ):
-                end = min(
-                    start
-                    + self.max_length,
-                    length,
-                )
-
-                self.windows.append(
-                    WindowReference(
-                        document_index=(
-                            document_index
-                        ),
-                        start=start,
-                        end=end,
-                    )
-                )
+        self.windowing_stats = WindowingStats(
+            adjusted_span_cuts=(
+                total_adjusted_span_cuts
+            ),
+            adjusted_character_cuts=(
+                total_adjusted_character_cuts
+            ),
+            unavoidable_inside_starts=(
+                total_unavoidable_inside_starts
+            ),
+            total_shift_bytes=sum(all_shifts),
+            max_shift_bytes=max(all_shifts, default=0),
+            shift_bytes=tuple(all_shifts),
+        )
 
         if show_progress:
             print(
@@ -657,9 +927,25 @@ class TypeScriptSemanticDataset(Dataset):
                 f"{len(self.documents)} documents, "
                 f"{len(self.windows)} windows "
                 f"(window={self.max_length}, "
+                f"strategy={self.window_strategy}, "
                 f"stride={self.stride})",
                 flush=True,
             )
+
+            if self.window_strategy == "span-aware":
+                stats = self.windowing_stats
+                print(
+                    "  span-aware cuts: "
+                    f"adjusted={stats.adjusted_span_cuts}, "
+                    "unavoidable-inside-starts="
+                    f"{stats.unavoidable_inside_starts}, "
+                    "avg-shift="
+                    f"{(stats.total_shift_bytes / max(1, stats.adjusted_span_cuts)):.1f}B, "
+                    f"p95-shift={stats.p95_shift_bytes}B, "
+                    f"max-shift={stats.max_shift_bytes}B",
+                    flush=True,
+                )
+
 
     def __len__(self) -> int:
         return len(self.windows)
@@ -763,6 +1049,20 @@ def parse_arguments() -> argparse.Namespace:
         ),
     )
 
+    parser.add_argument(
+        "--train-window-strategy",
+        choices=(
+            "fixed",
+            "span-aware",
+        ),
+        default="fixed",
+        help=(
+            "Train window strategy. span-aware moves a "
+            "candidate cut backward to the beginning of an "
+            "active Gold span instead of splitting it."
+        ),
+    )
+
     return parser.parse_args()
 
 
@@ -791,6 +1091,11 @@ def main() -> None:
                     if split == "train"
                     else args.max_length
                 ),
+                window_strategy=(
+                    args.train_window_strategy
+                    if split == "train"
+                    else "fixed"
+                ),
                 show_progress=True,
             )
         )
@@ -799,6 +1104,7 @@ def main() -> None:
             f"{split}: "
             f"{len(dataset.documents)} documents, "
             f"{len(dataset)} windows, "
+            f"strategy={dataset.window_strategy}, "
             f"stride={dataset.stride}"
         )
 
