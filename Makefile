@@ -17,6 +17,9 @@
 	inspect-dual-view-windows-typescript \
 	train-dual-view-typescript \
 	continue-dual-view-typescript \
+	inspect-v3-windows-typescript \
+	train-v3-typescript \
+	continue-v3-typescript \
 	evaluate-typescript \
 	predict-typescript \
 	benchmark-typescript \
@@ -35,6 +38,9 @@ STRING_AWARE_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-string-aware
 DUAL_VIEW_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-dual-view50
 DUAL_VIEW_EPOCHS ?= 16
 DUAL_VIEW_PATIENCE ?= 16
+V3_OUTPUT_DIR ?= artifacts/typescript/v3-local-role-dual-view-hard-string
+V3_EPOCHS ?= 20
+V3_PATIENCE ?= 20
 BENCHMARK_WINDOWS ?= 8192
 BENCHMARK_WARMUP_STEPS ?= 5
 BENCHMARK_BATCH_SIZES ?= 16 32 64 128
@@ -171,6 +177,32 @@ continue-dual-view-typescript:
 		--output $(DUAL_VIEW_OUTPUT_DIR)/best.pt \
 		--last-output $(DUAL_VIEW_OUTPUT_DIR)/last.pt \
 		--resume $(DUAL_VIEW_OUTPUT_DIR)/last.pt
+
+inspect-v3-windows-typescript:
+	$(PYTHON) training/typescript/dataset.py \
+		--train-window-strategy dual-view-hard-string \
+		--train-stride 512
+
+train-v3-typescript:
+	$(PYTHON) training/typescript/train.py \
+		--epochs $(V3_EPOCHS) \
+		--batch-size $(BATCH_SIZE) \
+		--patience $(V3_PATIENCE) \
+		--train-window-strategy dual-view-hard-string \
+		--train-stride 512 \
+		--output $(V3_OUTPUT_DIR)/best.pt \
+		--last-output $(V3_OUTPUT_DIR)/last.pt
+
+continue-v3-typescript:
+	$(PYTHON) training/typescript/train.py \
+		--epochs $(V3_EPOCHS) \
+		--batch-size $(BATCH_SIZE) \
+		--patience $(V3_PATIENCE) \
+		--train-window-strategy dual-view-hard-string \
+		--train-stride 512 \
+		--output $(V3_OUTPUT_DIR)/best.pt \
+		--last-output $(V3_OUTPUT_DIR)/last.pt \
+		--resume $(V3_OUTPUT_DIR)/last.pt
 
 evaluate-typescript:
 	$(PYTHON) training/typescript/evaluate.py

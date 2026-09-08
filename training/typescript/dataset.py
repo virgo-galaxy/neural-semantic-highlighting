@@ -116,6 +116,17 @@ class WindowingStats:
         return ordered[index]
 
 
+@dataclass(frozen=True)
+class HardStringStats:
+    eligible_spans: int = 0
+    over_context_spans: int = 0
+    generated_windows: int = 0
+    min_span_bytes: int = 0
+    first_inside_offset_bytes: int = 0
+    step_bytes: int = 0
+    min_remaining_bytes: int = 0
+
+
 def load_schema() -> SemanticSchema:
     data = json.loads(
         SCHEMA_PATH.read_text(encoding="utf-8")
@@ -865,6 +876,159 @@ def build_dual_view_windows(
     )
 
 
+def build_hard_string_windows(
+    document_index: int,
+    document: EncodedDocument,
+    *,
+    max_length: int,
+    string_token_type: str = "string",
+) -> tuple[list[WindowReference], HardStringStats]:
+    """Build a small deterministic continuation curriculum for long strings.
+
+    The ordinary fixed view already teaches arbitrary runtime cuts, while the
+    span-aware view teaches clean boundaries. This third view only adds novel
+    starts *inside* long Gold string spans so code-looking template/string
+    bodies are seen without their opener more often.
+    """
+
+    length = int(document.input_ids.shape[0])
+
+    if length == 0:
+        return [], HardStringStats()
+
+    min_span_bytes = max(2, max_length // 2)
+    first_inside_offset = max(1, max_length // 4)
+    step_bytes = max(1, max_length // 2)
+    min_remaining_bytes = max(1, max_length // 8)
+
+    (
+        utf16_to_utf8,
+        _,
+        character_starts_tuple,
+    ) = build_source_boundaries(document.source)
+
+    character_starts = list(character_starts_tuple)
+    character_starts.append(length)
+
+    windows: list[WindowReference] = []
+    eligible_spans = 0
+    over_context_spans = 0
+
+    for span in document.gold_spans:
+        if span.token_type != string_token_type:
+            continue
+
+        span_start = utf16_to_utf8.get(span.start)
+        span_end = utf16_to_utf8.get(span.end)
+
+        if span_start is None or span_end is None:
+            continue
+
+        span_length = span_end - span_start
+
+        if span_length < min_span_bytes:
+            continue
+
+        eligible_spans += 1
+
+        if span_length > max_length:
+            over_context_spans += 1
+
+        candidate = span_start + first_inside_offset
+        seen_starts: set[int] = set()
+
+        while candidate < span_end:
+            remaining = span_end - candidate
+
+            if remaining < min_remaining_bytes:
+                break
+
+            start = _snap_cut_to_character_boundary(
+                candidate,
+                character_starts,
+            )
+
+            if start <= span_start:
+                candidate += step_bytes
+                continue
+
+            if start >= span_end:
+                break
+
+            if start in seen_starts:
+                candidate += step_bytes
+                continue
+
+            seen_starts.add(start)
+
+            windows.append(
+                WindowReference(
+                    document_index=document_index,
+                    start=start,
+                    end=min(start + max_length, length),
+                )
+            )
+
+            candidate += step_bytes
+
+    return (
+        windows,
+        HardStringStats(
+            eligible_spans=eligible_spans,
+            over_context_spans=over_context_spans,
+            generated_windows=len(windows),
+            min_span_bytes=min_span_bytes,
+            first_inside_offset_bytes=(
+                first_inside_offset
+            ),
+            step_bytes=step_bytes,
+            min_remaining_bytes=min_remaining_bytes,
+        ),
+    )
+
+
+def build_dual_view_hard_string_windows(
+    document_index: int,
+    document: EncodedDocument,
+    *,
+    max_length: int,
+) -> tuple[
+    list[WindowReference],
+    WindowingStats,
+    HardStringStats,
+    int,
+    int,
+    int,
+]:
+    (
+        dual_view_windows,
+        windowing_stats,
+        fixed_count,
+        span_aware_count,
+    ) = build_dual_view_windows(
+        document_index,
+        document,
+        max_length=max_length,
+    )
+
+    hard_string_windows, hard_string_stats = (
+        build_hard_string_windows(
+            document_index,
+            document,
+            max_length=max_length,
+        )
+    )
+
+    return (
+        dual_view_windows + hard_string_windows,
+        windowing_stats,
+        hard_string_stats,
+        fixed_count,
+        span_aware_count,
+        len(hard_string_windows),
+    )
+
+
 class TypeScriptSemanticDataset(Dataset):
     def __init__(
         self,
@@ -890,10 +1054,12 @@ class TypeScriptSemanticDataset(Dataset):
             "span-aware",
             "string-aware",
             "dual-view",
+            "dual-view-hard-string",
         }:
             raise ValueError(
                 "Window strategy must be fixed, span-aware, "
-                "string-aware, or dual-view, got "
+                "string-aware, dual-view, or "
+                "dual-view-hard-string, got "
                 f"{window_strategy!r}."
             )
 
@@ -920,6 +1086,7 @@ class TypeScriptSemanticDataset(Dataset):
                 "span-aware",
                 "string-aware",
                 "dual-view",
+                "dual-view-hard-string",
             }
             and self.stride != self.max_length
         ):
@@ -944,6 +1111,10 @@ class TypeScriptSemanticDataset(Dataset):
         self.windows: list[WindowReference] = []
         self.fixed_view_window_count = 0
         self.span_aware_view_window_count = 0
+        self.hard_string_window_count = 0
+        self.hard_string_eligible_span_count = 0
+        self.hard_string_over_context_span_count = 0
+        self.hard_string_stats = HardStringStats()
 
         total_adjusted_span_cuts = 0
         total_adjusted_character_cuts = 0
@@ -963,8 +1134,10 @@ class TypeScriptSemanticDataset(Dataset):
                     stride=self.stride,
                 )
                 stats = WindowingStats()
+                hard_string_stats = HardStringStats()
                 fixed_view_count = len(document_windows)
                 span_aware_view_count = 0
+                hard_string_view_count = 0
             elif self.window_strategy == "dual-view":
                 (
                     document_windows,
@@ -972,6 +1145,21 @@ class TypeScriptSemanticDataset(Dataset):
                     fixed_view_count,
                     span_aware_view_count,
                 ) = build_dual_view_windows(
+                    document_index,
+                    document,
+                    max_length=self.max_length,
+                )
+                hard_string_stats = HardStringStats()
+                hard_string_view_count = 0
+            elif self.window_strategy == "dual-view-hard-string":
+                (
+                    document_windows,
+                    stats,
+                    hard_string_stats,
+                    fixed_view_count,
+                    span_aware_view_count,
+                    hard_string_view_count,
+                ) = build_dual_view_hard_string_windows(
                     document_index,
                     document,
                     max_length=self.max_length,
@@ -1001,12 +1189,25 @@ class TypeScriptSemanticDataset(Dataset):
                 )
                 fixed_view_count = 0
                 span_aware_view_count = len(document_windows)
+                hard_string_stats = HardStringStats()
+                hard_string_view_count = 0
 
             self.windows.extend(document_windows)
             self.fixed_view_window_count += fixed_view_count
             self.span_aware_view_window_count += (
                 span_aware_view_count
             )
+            self.hard_string_window_count += (
+                hard_string_view_count
+            )
+            self.hard_string_eligible_span_count += (
+                hard_string_stats.eligible_spans
+            )
+            self.hard_string_over_context_span_count += (
+                hard_string_stats.over_context_spans
+            )
+            if hard_string_stats.min_span_bytes:
+                self.hard_string_stats = hard_string_stats
             total_adjusted_span_cuts += (
                 stats.adjusted_span_cuts
             )
@@ -1050,27 +1251,58 @@ class TypeScriptSemanticDataset(Dataset):
                 flush=True,
             )
 
-            if self.window_strategy == "dual-view":
+            if self.window_strategy in {
+                "dual-view",
+                "dual-view-hard-string",
+            }:
                 total_views = max(1, len(self.windows))
-                print(
+                mix = (
                     "  dual-view mix: "
                     f"fixed={self.fixed_view_window_count} "
                     f"({self.fixed_view_window_count / total_views:.2%}), "
                     "span-aware="
                     f"{self.span_aware_view_window_count} "
-                    f"({self.span_aware_view_window_count / total_views:.2%})",
-                    flush=True,
+                    f"({self.span_aware_view_window_count / total_views:.2%})"
                 )
+
+                if self.window_strategy == "dual-view-hard-string":
+                    mix += (
+                        ", hard-string="
+                        f"{self.hard_string_window_count} "
+                        f"({self.hard_string_window_count / total_views:.2%})"
+                    )
+
+                print(mix, flush=True)
+
+                if self.window_strategy == "dual-view-hard-string":
+                    hard = self.hard_string_stats
+                    print(
+                        "  hard-string curriculum: "
+                        f"eligible-spans={self.hard_string_eligible_span_count}, "
+                        "over-context-spans="
+                        f"{self.hard_string_over_context_span_count}, "
+                        f"windows={self.hard_string_window_count}, "
+                        f"min-span={hard.min_span_bytes}B, "
+                        "first-inside="
+                        f"{hard.first_inside_offset_bytes}B, "
+                        f"step={hard.step_bytes}B, "
+                        f"min-remaining={hard.min_remaining_bytes}B",
+                        flush=True,
+                    )
 
             if self.window_strategy in {
                 "span-aware",
                 "string-aware",
                 "dual-view",
+                "dual-view-hard-string",
             }:
                 stats = self.windowing_stats
                 label = (
                     "dual-view span-aware"
-                    if self.window_strategy == "dual-view"
+                    if self.window_strategy in {
+                        "dual-view",
+                        "dual-view-hard-string",
+                    }
                     else self.window_strategy
                 )
                 print(
@@ -1197,13 +1429,17 @@ def parse_arguments() -> argparse.Namespace:
             "span-aware",
             "string-aware",
             "dual-view",
+            "dual-view-hard-string",
         ),
         default="fixed",
         help=(
             "Train window strategy. span-aware protects all "
             "Gold spans. string-aware only protects string "
             "spans. dual-view keeps both the full fixed view "
-            "and the full span-aware view for mixed training."
+            "and the full span-aware view for mixed training. "
+            "dual-view-hard-string adds a small deterministic "
+            "continuation curriculum for string spans at least "
+            "half a context window long."
         ),
     )
 
@@ -1217,7 +1453,7 @@ def main() -> None:
         "Neural Semantic Highlighting"
     )
     print(
-        "TypeScript V2 Multitask Dataset"
+        "TypeScript Multitask Dataset"
     )
     print("")
 

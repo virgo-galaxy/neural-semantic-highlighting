@@ -1733,6 +1733,7 @@ def parse_arguments() -> argparse.Namespace:
             "span-aware",
             "string-aware",
             "dual-view",
+            "dual-view-hard-string",
         ),
         default="fixed",
         help=(
@@ -1741,7 +1742,9 @@ def parse_arguments() -> argparse.Namespace:
             "string-aware only protects string spans. "
             "dual-view keeps both the complete fixed view "
             "and complete span-aware view; use half as many "
-            "epochs to keep the optimizer-step budget fair."
+            "epochs to keep the optimizer-step budget fair. "
+            "dual-view-hard-string adds a small deterministic "
+            "continuation curriculum for long string spans."
         ),
     )
 
@@ -1816,7 +1819,7 @@ def main() -> None:
         "Neural Semantic Highlighting"
     )
     print(
-        "TypeScript V2 Multitask Training"
+        "TypeScript Multitask Training"
     )
     print("")
     print(f"Device: {device}")
@@ -1986,9 +1989,12 @@ def main() -> None:
         f"{train_dataset.window_strategy}"
     )
 
-    if train_dataset.window_strategy == "dual-view":
+    if train_dataset.window_strategy in {
+        "dual-view",
+        "dual-view-hard-string",
+    }:
         total_views = max(1, len(train_dataset))
-        print(
+        mix = (
             "Dual-view fixed/span-aware windows: "
             f"{train_dataset.fixed_view_window_count}/"
             f"{train_dataset.span_aware_view_window_count} "
@@ -1996,10 +2002,36 @@ def main() -> None:
             f"{train_dataset.span_aware_view_window_count / total_views:.2%})"
         )
 
+        if train_dataset.window_strategy == "dual-view-hard-string":
+            mix += (
+                ", hard-string="
+                f"{train_dataset.hard_string_window_count} "
+                f"({train_dataset.hard_string_window_count / total_views:.2%})"
+            )
+
+        print(mix)
+
+        if train_dataset.window_strategy == "dual-view-hard-string":
+            hard = train_dataset.hard_string_stats
+            print(
+                "Hard-string curriculum eligible/over-context/windows: "
+                f"{train_dataset.hard_string_eligible_span_count}/"
+                f"{train_dataset.hard_string_over_context_span_count}/"
+                f"{train_dataset.hard_string_window_count}"
+            )
+            print(
+                "Hard-string min-span/first-inside/step/min-remaining: "
+                f"{hard.min_span_bytes}/"
+                f"{hard.first_inside_offset_bytes}/"
+                f"{hard.step_bytes}/"
+                f"{hard.min_remaining_bytes} bytes"
+            )
+
     if train_dataset.window_strategy in {
         "span-aware",
         "string-aware",
         "dual-view",
+        "dual-view-hard-string",
     }:
         stats = train_dataset.windowing_stats
         print(
