@@ -1732,14 +1732,16 @@ def parse_arguments() -> argparse.Namespace:
             "fixed",
             "span-aware",
             "string-aware",
+            "dual-view",
         ),
         default="fixed",
         help=(
             "Train-window construction strategy. "
             "span-aware protects all Gold spans. "
-            "string-aware only protects string spans so "
-            "comment continuation examples remain in the "
-            "training distribution."
+            "string-aware only protects string spans. "
+            "dual-view keeps both the complete fixed view "
+            "and complete span-aware view; use half as many "
+            "epochs to keep the optimizer-step budget fair."
         ),
     )
 
@@ -1984,9 +1986,20 @@ def main() -> None:
         f"{train_dataset.window_strategy}"
     )
 
+    if train_dataset.window_strategy == "dual-view":
+        total_views = max(1, len(train_dataset))
+        print(
+            "Dual-view fixed/span-aware windows: "
+            f"{train_dataset.fixed_view_window_count}/"
+            f"{train_dataset.span_aware_view_window_count} "
+            f"({train_dataset.fixed_view_window_count / total_views:.2%}/"
+            f"{train_dataset.span_aware_view_window_count / total_views:.2%})"
+        )
+
     if train_dataset.window_strategy in {
         "span-aware",
         "string-aware",
+        "dual-view",
     }:
         stats = train_dataset.windowing_stats
         print(

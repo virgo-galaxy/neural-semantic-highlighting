@@ -14,6 +14,9 @@
 	inspect-string-aware-windows-typescript \
 	train-string-aware-typescript \
 	continue-string-aware-typescript \
+	inspect-dual-view-windows-typescript \
+	train-dual-view-typescript \
+	continue-dual-view-typescript \
 	evaluate-typescript \
 	predict-typescript \
 	benchmark-typescript \
@@ -29,6 +32,9 @@ OVERLAP_TRAIN_STRIDE ?= 256
 OVERLAP_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-overlap256
 SPAN_AWARE_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-span-aware
 STRING_AWARE_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-string-aware
+DUAL_VIEW_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-dual-view50
+DUAL_VIEW_EPOCHS ?= 16
+DUAL_VIEW_PATIENCE ?= 16
 BENCHMARK_WINDOWS ?= 8192
 BENCHMARK_WARMUP_STEPS ?= 5
 BENCHMARK_BATCH_SIZES ?= 16 32 64 128
@@ -139,6 +145,32 @@ continue-string-aware-typescript:
 		--output $(STRING_AWARE_OUTPUT_DIR)/best.pt \
 		--last-output $(STRING_AWARE_OUTPUT_DIR)/last.pt \
 		--resume $(STRING_AWARE_OUTPUT_DIR)/last.pt
+
+inspect-dual-view-windows-typescript:
+	$(PYTHON) training/typescript/dataset.py \
+		--train-window-strategy dual-view \
+		--train-stride 512
+
+train-dual-view-typescript:
+	$(PYTHON) training/typescript/train.py \
+		--epochs $(DUAL_VIEW_EPOCHS) \
+		--batch-size $(BATCH_SIZE) \
+		--patience $(DUAL_VIEW_PATIENCE) \
+		--train-window-strategy dual-view \
+		--train-stride 512 \
+		--output $(DUAL_VIEW_OUTPUT_DIR)/best.pt \
+		--last-output $(DUAL_VIEW_OUTPUT_DIR)/last.pt
+
+continue-dual-view-typescript:
+	$(PYTHON) training/typescript/train.py \
+		--epochs $(DUAL_VIEW_EPOCHS) \
+		--batch-size $(BATCH_SIZE) \
+		--patience $(DUAL_VIEW_PATIENCE) \
+		--train-window-strategy dual-view \
+		--train-stride 512 \
+		--output $(DUAL_VIEW_OUTPUT_DIR)/best.pt \
+		--last-output $(DUAL_VIEW_OUTPUT_DIR)/last.pt \
+		--resume $(DUAL_VIEW_OUTPUT_DIR)/last.pt
 
 evaluate-typescript:
 	$(PYTHON) training/typescript/evaluate.py

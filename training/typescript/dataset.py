@@ -827,6 +827,44 @@ def build_span_aware_windows(
     )
 
 
+def build_dual_view_windows(
+    document_index: int,
+    document: EncodedDocument,
+    *,
+    max_length: int,
+) -> tuple[
+    list[WindowReference],
+    WindowingStats,
+    int,
+    int,
+]:
+    # Keep both complete views. The fixed view teaches recovery when a
+    # runtime window starts in the middle of a span; the span-aware view
+    # teaches clean span starts and ends. We intentionally do not dedupe
+    # identical windows: dual-view training runs for half as many epochs,
+    # so identical regions keep roughly the same total exposure budget.
+    fixed_windows = build_fixed_windows(
+        document_index,
+        document,
+        max_length=max_length,
+        stride=max_length,
+    )
+
+    span_aware_windows, stats = build_span_aware_windows(
+        document_index,
+        document,
+        max_length=max_length,
+        protected_token_type_ids=None,
+    )
+
+    return (
+        fixed_windows + span_aware_windows,
+        stats,
+        len(fixed_windows),
+        len(span_aware_windows),
+    )
+
+
 class TypeScriptSemanticDataset(Dataset):
     def __init__(
         self,
@@ -851,10 +889,11 @@ class TypeScriptSemanticDataset(Dataset):
             "fixed",
             "span-aware",
             "string-aware",
+            "dual-view",
         }:
             raise ValueError(
                 "Window strategy must be fixed, span-aware, "
-                "or string-aware, got "
+                "string-aware, or dual-view, got "
                 f"{window_strategy!r}."
             )
 
@@ -880,6 +919,7 @@ class TypeScriptSemanticDataset(Dataset):
             self.window_strategy in {
                 "span-aware",
                 "string-aware",
+                "dual-view",
             }
             and self.stride != self.max_length
         ):
@@ -902,6 +942,8 @@ class TypeScriptSemanticDataset(Dataset):
         )
 
         self.windows: list[WindowReference] = []
+        self.fixed_view_window_count = 0
+        self.span_aware_view_window_count = 0
 
         total_adjusted_span_cuts = 0
         total_adjusted_character_cuts = 0
@@ -921,6 +963,19 @@ class TypeScriptSemanticDataset(Dataset):
                     stride=self.stride,
                 )
                 stats = WindowingStats()
+                fixed_view_count = len(document_windows)
+                span_aware_view_count = 0
+            elif self.window_strategy == "dual-view":
+                (
+                    document_windows,
+                    stats,
+                    fixed_view_count,
+                    span_aware_view_count,
+                ) = build_dual_view_windows(
+                    document_index,
+                    document,
+                    max_length=self.max_length,
+                )
             else:
                 protected_token_type_ids = None
 
@@ -944,8 +999,14 @@ class TypeScriptSemanticDataset(Dataset):
                         protected_token_type_ids
                     ),
                 )
+                fixed_view_count = 0
+                span_aware_view_count = len(document_windows)
 
             self.windows.extend(document_windows)
+            self.fixed_view_window_count += fixed_view_count
+            self.span_aware_view_window_count += (
+                span_aware_view_count
+            )
             total_adjusted_span_cuts += (
                 stats.adjusted_span_cuts
             )
@@ -989,13 +1050,31 @@ class TypeScriptSemanticDataset(Dataset):
                 flush=True,
             )
 
+            if self.window_strategy == "dual-view":
+                total_views = max(1, len(self.windows))
+                print(
+                    "  dual-view mix: "
+                    f"fixed={self.fixed_view_window_count} "
+                    f"({self.fixed_view_window_count / total_views:.2%}), "
+                    "span-aware="
+                    f"{self.span_aware_view_window_count} "
+                    f"({self.span_aware_view_window_count / total_views:.2%})",
+                    flush=True,
+                )
+
             if self.window_strategy in {
                 "span-aware",
                 "string-aware",
+                "dual-view",
             }:
                 stats = self.windowing_stats
+                label = (
+                    "dual-view span-aware"
+                    if self.window_strategy == "dual-view"
+                    else self.window_strategy
+                )
                 print(
-                    f"  {self.window_strategy} cuts: "
+                    f"  {label} cuts: "
                     f"adjusted={stats.adjusted_span_cuts}, "
                     "unavoidable-protected-inside-starts="
                     f"{stats.unavoidable_inside_starts}, "
@@ -1117,13 +1196,14 @@ def parse_arguments() -> argparse.Namespace:
             "fixed",
             "span-aware",
             "string-aware",
+            "dual-view",
         ),
         default="fixed",
         help=(
             "Train window strategy. span-aware protects all "
             "Gold spans. string-aware only protects string "
-            "spans, preserving mid-comment continuation "
-            "training."
+            "spans. dual-view keeps both the full fixed view "
+            "and the full span-aware view for mixed training."
         ),
     )
 

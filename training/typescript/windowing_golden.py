@@ -10,6 +10,7 @@ from dataset import (
     EncodedDocument,
     GoldSpan,
     WindowReference,
+    build_dual_view_windows,
     build_span_aware_windows,
 )
 
@@ -133,6 +134,47 @@ def run_case(
     print(f"PASS  {name}")
 
 
+def run_dual_view_case(
+    name: str,
+    *,
+    document: EncodedDocument,
+    expected_windows: list[tuple[int, int]],
+    expected_fixed_count: int,
+    expected_span_aware_count: int,
+    expected_adjusted: int,
+) -> None:
+    (
+        windows,
+        stats,
+        fixed_count,
+        span_aware_count,
+    ) = build_dual_view_windows(
+        0,
+        document,
+        max_length=MAX_LENGTH,
+    )
+
+    actual_windows = window_pairs(windows)
+
+    assert actual_windows == expected_windows, (
+        f"{name}: windows {actual_windows} != {expected_windows}"
+    )
+    assert fixed_count == expected_fixed_count, (
+        f"{name}: fixed_count {fixed_count} "
+        f"!= {expected_fixed_count}"
+    )
+    assert span_aware_count == expected_span_aware_count, (
+        f"{name}: span_aware_count {span_aware_count} "
+        f"!= {expected_span_aware_count}"
+    )
+    assert stats.adjusted_span_cuts == expected_adjusted, (
+        f"{name}: adjusted {stats.adjusted_span_cuts} "
+        f"!= {expected_adjusted}"
+    )
+
+    print(f"PASS  {name}")
+
+
 def main() -> None:
     # Golden 1: a normal string crossing the candidate cut is protected.
     # The cut moves from 8 back to the string start at 6.
@@ -202,8 +244,48 @@ def main() -> None:
         expected_allowed_unprotected=0,
     )
 
+    # Golden 6: dual-view keeps the complete fixed view and the complete
+    # all-span-aware view. The fixed half teaches continuation; the
+    # adaptive half teaches clean semantic boundaries.
+    run_dual_view_case(
+        "dual-view keeps both complete views",
+        document=make_document(
+            16,
+            [(6, 10, STRING_ID, "string")],
+        ),
+        expected_windows=[
+            (0, 8),
+            (8, 16),
+            (0, 6),
+            (6, 14),
+            (14, 16),
+        ],
+        expected_fixed_count=2,
+        expected_span_aware_count=3,
+        expected_adjusted=1,
+    )
+
+    # Golden 7: if both views happen to produce the same windows, retain
+    # both copies. With half as many epochs this preserves roughly the
+    # same total exposure budget as the 32-epoch fixed baseline.
+    run_dual_view_case(
+        "dual-view retains identical view copies",
+        document=make_document(18, []),
+        expected_windows=[
+            (0, 8),
+            (8, 16),
+            (16, 18),
+            (0, 8),
+            (8, 16),
+            (16, 18),
+        ],
+        expected_fixed_count=3,
+        expected_span_aware_count=3,
+        expected_adjusted=0,
+    )
+
     print("")
-    print("String-aware windowing golden cases: 5/5 passed")
+    print("Windowing golden cases: 7/7 passed")
 
 
 if __name__ == "__main__":
