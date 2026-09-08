@@ -40,7 +40,7 @@ STRING_AWARE_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-string-aware
 DUAL_VIEW_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-dual-view50
 DUAL_VIEW_EPOCHS ?= 16
 DUAL_VIEW_PATIENCE ?= 16
-V3_OUTPUT_DIR ?= artifacts/typescript/v3-local-role-dual-view-hard-string
+V3_OUTPUT_DIR ?= artifacts/typescript/v3-local-role-dual-view-hard-string-regexp
 V3_EPOCHS ?= 20
 V3_PATIENCE ?= 20
 REGEXP_CHALLENGE_CHECKPOINT ?= artifacts/typescript/v2-multitask-train-dual-view50/best-epoch20.pt
@@ -187,7 +187,7 @@ continue-dual-view-typescript:
 
 inspect-v3-windows-typescript:
 	$(PYTHON) training/typescript/dataset.py \
-		--train-window-strategy dual-view-hard-string \
+		--train-window-strategy dual-view-hard-string-regexp \
 		--train-stride 512
 
 train-v3-typescript:
@@ -195,7 +195,7 @@ train-v3-typescript:
 		--epochs $(V3_EPOCHS) \
 		--batch-size $(BATCH_SIZE) \
 		--patience $(V3_PATIENCE) \
-		--train-window-strategy dual-view-hard-string \
+		--train-window-strategy dual-view-hard-string-regexp \
 		--train-stride 512 \
 		--output $(V3_OUTPUT_DIR)/best.pt \
 		--last-output $(V3_OUTPUT_DIR)/last.pt
@@ -205,7 +205,7 @@ continue-v3-typescript:
 		--epochs $(V3_EPOCHS) \
 		--batch-size $(BATCH_SIZE) \
 		--patience $(V3_PATIENCE) \
-		--train-window-strategy dual-view-hard-string \
+		--train-window-strategy dual-view-hard-string-regexp \
 		--train-stride 512 \
 		--output $(V3_OUTPUT_DIR)/best.pt \
 		--last-output $(V3_OUTPUT_DIR)/last.pt \

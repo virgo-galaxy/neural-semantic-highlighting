@@ -1734,6 +1734,7 @@ def parse_arguments() -> argparse.Namespace:
             "string-aware",
             "dual-view",
             "dual-view-hard-string",
+            "dual-view-hard-string-regexp",
         ),
         default="fixed",
         help=(
@@ -1744,7 +1745,9 @@ def parse_arguments() -> argparse.Namespace:
             "and complete span-aware view; use half as many "
             "epochs to keep the optimizer-step budget fair. "
             "dual-view-hard-string adds a small deterministic "
-            "continuation curriculum for long string spans."
+            "continuation curriculum for long string spans. "
+            "dual-view-hard-string-regexp additionally reinforces "
+            "regexp boundaries plus a controlled slash-negative set."
         ),
     )
 
@@ -1992,6 +1995,7 @@ def main() -> None:
     if train_dataset.window_strategy in {
         "dual-view",
         "dual-view-hard-string",
+        "dual-view-hard-string-regexp",
     }:
         total_views = max(1, len(train_dataset))
         mix = (
@@ -2002,16 +2006,29 @@ def main() -> None:
             f"{train_dataset.span_aware_view_window_count / total_views:.2%})"
         )
 
-        if train_dataset.window_strategy == "dual-view-hard-string":
+        if train_dataset.window_strategy in {
+            "dual-view-hard-string",
+            "dual-view-hard-string-regexp",
+        }:
             mix += (
                 ", hard-string="
                 f"{train_dataset.hard_string_window_count} "
                 f"({train_dataset.hard_string_window_count / total_views:.2%})"
             )
 
+        if train_dataset.window_strategy == "dual-view-hard-string-regexp":
+            mix += (
+                ", hard-regexp="
+                f"{train_dataset.hard_regexp_window_count} "
+                f"({train_dataset.hard_regexp_window_count / total_views:.2%})"
+            )
+
         print(mix)
 
-        if train_dataset.window_strategy == "dual-view-hard-string":
+        if train_dataset.window_strategy in {
+            "dual-view-hard-string",
+            "dual-view-hard-string-regexp",
+        }:
             hard = train_dataset.hard_string_stats
             print(
                 "Hard-string curriculum eligible/over-context/windows: "
@@ -2027,11 +2044,29 @@ def main() -> None:
                 f"{hard.min_remaining_bytes} bytes"
             )
 
+        if train_dataset.window_strategy == "dual-view-hard-string-regexp":
+            hard_regexp = train_dataset.hard_regexp_stats
+            print(
+                "Hard-regexp spans/over-context/positive/operator-slash/negative/windows: "
+                f"{train_dataset.hard_regexp_span_count}/"
+                f"{train_dataset.hard_regexp_over_context_span_count}/"
+                f"{train_dataset.hard_regexp_positive_window_count}/"
+                f"{train_dataset.hard_regexp_operator_slash_candidate_count}/"
+                f"{train_dataset.hard_regexp_negative_window_count}/"
+                f"{train_dataset.hard_regexp_window_count}"
+            )
+            print(
+                "Hard-regexp context-before/negative-divisor: "
+                f"{hard_regexp.context_before_bytes}/"
+                f"{hard_regexp.negative_divisor}"
+            )
+
     if train_dataset.window_strategy in {
         "span-aware",
         "string-aware",
         "dual-view",
         "dual-view-hard-string",
+        "dual-view-hard-string-regexp",
     }:
         stats = train_dataset.windowing_stats
         print(

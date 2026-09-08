@@ -127,6 +127,18 @@ class HardStringStats:
     min_remaining_bytes: int = 0
 
 
+@dataclass(frozen=True)
+class HardRegexpStats:
+    regexp_spans: int = 0
+    over_context_spans: int = 0
+    positive_windows: int = 0
+    operator_slash_candidates: int = 0
+    negative_windows: int = 0
+    generated_windows: int = 0
+    context_before_bytes: int = 0
+    negative_divisor: int = 0
+
+
 def load_schema() -> SemanticSchema:
     data = json.loads(
         SCHEMA_PATH.read_text(encoding="utf-8")
@@ -1029,6 +1041,245 @@ def build_dual_view_hard_string_windows(
     )
 
 
+def _window_around_anchor(
+    document_index: int,
+    *,
+    anchor: int,
+    length: int,
+    max_length: int,
+    character_starts: list[int],
+    context_before: int,
+) -> WindowReference:
+    target = max(0, anchor - context_before)
+    start = _snap_cut_to_character_boundary(
+        target,
+        character_starts,
+    )
+
+    return WindowReference(
+        document_index=document_index,
+        start=start,
+        end=min(start + max_length, length),
+    )
+
+
+def _evenly_select_positions(
+    positions: list[int],
+    limit: int,
+) -> list[int]:
+    if limit <= 0 or not positions:
+        return []
+
+    if len(positions) <= limit:
+        return list(positions)
+
+    if limit == 1:
+        return [positions[len(positions) // 2]]
+
+    last = len(positions) - 1
+    indexes = [
+        (index * last) // (limit - 1)
+        for index in range(limit)
+    ]
+
+    return [positions[index] for index in indexes]
+
+
+def build_hard_regexp_windows(
+    document_index: int,
+    document: EncodedDocument,
+    *,
+    max_length: int,
+    operator_token_type_id: int,
+    regexp_token_type: str = "regexp",
+    negative_divisor: int = 1,
+) -> tuple[list[WindowReference], HardRegexpStats]:
+    """Upweight exact regexp boundaries plus a small slash-negative set.
+
+    Every Gold regexp contributes one context-rich view with the opener and
+    closing slash/flags visible when the span fits in one context. Very long
+    regexps also get an end-boundary view. To avoid teaching that every slash
+    starts a regexp, Gold operator slashes (division and `/=`) are also added
+    as hard negatives. These are scarce in the training corpus, so the default
+    keeps every candidate instead of restricting negatives to documents that
+    already contain a regexp.
+    """
+
+    length = int(document.input_ids.shape[0])
+
+    if length == 0:
+        return [], HardRegexpStats()
+
+    context_before = max(1, max_length // 4)
+    negative_divisor = max(1, negative_divisor)
+
+    (
+        utf16_to_utf8,
+        _,
+        character_starts_tuple,
+    ) = build_source_boundaries(document.source)
+
+    character_starts = list(character_starts_tuple)
+    character_starts.append(length)
+
+    positive_windows: list[WindowReference] = []
+    regexp_span_count = 0
+    over_context_spans = 0
+
+    for span in document.gold_spans:
+        if span.token_type != regexp_token_type:
+            continue
+
+        span_start = utf16_to_utf8.get(span.start)
+        span_end = utf16_to_utf8.get(span.end)
+
+        if span_start is None or span_end is None:
+            continue
+
+        regexp_span_count += 1
+
+        first_window = _window_around_anchor(
+            document_index,
+            anchor=span_start,
+            length=length,
+            max_length=max_length,
+            character_starts=character_starts,
+            context_before=context_before,
+        )
+        positive_windows.append(first_window)
+
+        if span_end - span_start > max_length:
+            over_context_spans += 1
+            end_target = max(
+                0,
+                span_end - max_length + context_before,
+            )
+            end_start = _snap_cut_to_character_boundary(
+                end_target,
+                character_starts,
+            )
+            end_window = WindowReference(
+                document_index=document_index,
+                start=end_start,
+                end=min(end_start + max_length, length),
+            )
+
+            if (
+                end_window.start != first_window.start
+                or end_window.end != first_window.end
+            ):
+                positive_windows.append(end_window)
+
+    operator_slash_candidates: list[int] = []
+
+    for character, byte_start in zip(
+        document.source,
+        character_starts_tuple,
+        strict=True,
+    ):
+        if character != "/":
+            continue
+
+        if byte_start >= document.token_type_labels.shape[0]:
+            continue
+
+        if int(document.token_type_labels[byte_start].item()) != operator_token_type_id:
+            continue
+
+        operator_slash_candidates.append(byte_start)
+
+    negative_budget = 0
+
+    if operator_slash_candidates:
+        negative_budget = max(
+            1,
+            len(operator_slash_candidates) // negative_divisor,
+        )
+
+    selected_negative_positions = _evenly_select_positions(
+        operator_slash_candidates,
+        min(negative_budget, len(operator_slash_candidates)),
+    )
+
+    negative_windows = [
+        _window_around_anchor(
+            document_index,
+            anchor=position,
+            length=length,
+            max_length=max_length,
+            character_starts=character_starts,
+            context_before=context_before,
+        )
+        for position in selected_negative_positions
+    ]
+
+    windows = positive_windows + negative_windows
+
+    return (
+        windows,
+        HardRegexpStats(
+            regexp_spans=regexp_span_count,
+            over_context_spans=over_context_spans,
+            positive_windows=len(positive_windows),
+            operator_slash_candidates=len(operator_slash_candidates),
+            negative_windows=len(negative_windows),
+            generated_windows=len(windows),
+            context_before_bytes=context_before,
+            negative_divisor=negative_divisor,
+        ),
+    )
+
+
+def build_dual_view_hard_string_regexp_windows(
+    document_index: int,
+    document: EncodedDocument,
+    *,
+    max_length: int,
+    operator_token_type_id: int,
+) -> tuple[
+    list[WindowReference],
+    WindowingStats,
+    HardStringStats,
+    HardRegexpStats,
+    int,
+    int,
+    int,
+    int,
+]:
+    (
+        base_windows,
+        windowing_stats,
+        hard_string_stats,
+        fixed_count,
+        span_aware_count,
+        hard_string_count,
+    ) = build_dual_view_hard_string_windows(
+        document_index,
+        document,
+        max_length=max_length,
+    )
+
+    hard_regexp_windows, hard_regexp_stats = (
+        build_hard_regexp_windows(
+            document_index,
+            document,
+            max_length=max_length,
+            operator_token_type_id=operator_token_type_id,
+        )
+    )
+
+    return (
+        base_windows + hard_regexp_windows,
+        windowing_stats,
+        hard_string_stats,
+        hard_regexp_stats,
+        fixed_count,
+        span_aware_count,
+        hard_string_count,
+        len(hard_regexp_windows),
+    )
+
+
 class TypeScriptSemanticDataset(Dataset):
     def __init__(
         self,
@@ -1055,11 +1306,12 @@ class TypeScriptSemanticDataset(Dataset):
             "string-aware",
             "dual-view",
             "dual-view-hard-string",
+            "dual-view-hard-string-regexp",
         }:
             raise ValueError(
                 "Window strategy must be fixed, span-aware, "
-                "string-aware, dual-view, or "
-                "dual-view-hard-string, got "
+                "string-aware, dual-view, dual-view-hard-string, "
+                "or dual-view-hard-string-regexp, got "
                 f"{window_strategy!r}."
             )
 
@@ -1087,6 +1339,7 @@ class TypeScriptSemanticDataset(Dataset):
                 "string-aware",
                 "dual-view",
                 "dual-view-hard-string",
+                "dual-view-hard-string-regexp",
             }
             and self.stride != self.max_length
         ):
@@ -1115,6 +1368,13 @@ class TypeScriptSemanticDataset(Dataset):
         self.hard_string_eligible_span_count = 0
         self.hard_string_over_context_span_count = 0
         self.hard_string_stats = HardStringStats()
+        self.hard_regexp_window_count = 0
+        self.hard_regexp_span_count = 0
+        self.hard_regexp_over_context_span_count = 0
+        self.hard_regexp_positive_window_count = 0
+        self.hard_regexp_operator_slash_candidate_count = 0
+        self.hard_regexp_negative_window_count = 0
+        self.hard_regexp_stats = HardRegexpStats()
 
         total_adjusted_span_cuts = 0
         total_adjusted_character_cuts = 0
@@ -1135,9 +1395,11 @@ class TypeScriptSemanticDataset(Dataset):
                 )
                 stats = WindowingStats()
                 hard_string_stats = HardStringStats()
+                hard_regexp_stats = HardRegexpStats()
                 fixed_view_count = len(document_windows)
                 span_aware_view_count = 0
                 hard_string_view_count = 0
+                hard_regexp_view_count = 0
             elif self.window_strategy == "dual-view":
                 (
                     document_windows,
@@ -1150,7 +1412,9 @@ class TypeScriptSemanticDataset(Dataset):
                     max_length=self.max_length,
                 )
                 hard_string_stats = HardStringStats()
+                hard_regexp_stats = HardRegexpStats()
                 hard_string_view_count = 0
+                hard_regexp_view_count = 0
             elif self.window_strategy == "dual-view-hard-string":
                 (
                     document_windows,
@@ -1163,6 +1427,26 @@ class TypeScriptSemanticDataset(Dataset):
                     document_index,
                     document,
                     max_length=self.max_length,
+                )
+                hard_regexp_stats = HardRegexpStats()
+                hard_regexp_view_count = 0
+            elif self.window_strategy == "dual-view-hard-string-regexp":
+                (
+                    document_windows,
+                    stats,
+                    hard_string_stats,
+                    hard_regexp_stats,
+                    fixed_view_count,
+                    span_aware_view_count,
+                    hard_string_view_count,
+                    hard_regexp_view_count,
+                ) = build_dual_view_hard_string_regexp_windows(
+                    document_index,
+                    document,
+                    max_length=self.max_length,
+                    operator_token_type_id=(
+                        self.schema.token_type_to_id["operator"]
+                    ),
                 )
             else:
                 protected_token_type_ids = None
@@ -1190,7 +1474,9 @@ class TypeScriptSemanticDataset(Dataset):
                 fixed_view_count = 0
                 span_aware_view_count = len(document_windows)
                 hard_string_stats = HardStringStats()
+                hard_regexp_stats = HardRegexpStats()
                 hard_string_view_count = 0
+                hard_regexp_view_count = 0
 
             self.windows.extend(document_windows)
             self.fixed_view_window_count += fixed_view_count
@@ -1208,6 +1494,22 @@ class TypeScriptSemanticDataset(Dataset):
             )
             if hard_string_stats.min_span_bytes:
                 self.hard_string_stats = hard_string_stats
+            self.hard_regexp_window_count += hard_regexp_view_count
+            self.hard_regexp_span_count += hard_regexp_stats.regexp_spans
+            self.hard_regexp_over_context_span_count += (
+                hard_regexp_stats.over_context_spans
+            )
+            self.hard_regexp_positive_window_count += (
+                hard_regexp_stats.positive_windows
+            )
+            self.hard_regexp_operator_slash_candidate_count += (
+                hard_regexp_stats.operator_slash_candidates
+            )
+            self.hard_regexp_negative_window_count += (
+                hard_regexp_stats.negative_windows
+            )
+            if hard_regexp_stats.context_before_bytes:
+                self.hard_regexp_stats = hard_regexp_stats
             total_adjusted_span_cuts += (
                 stats.adjusted_span_cuts
             )
@@ -1254,6 +1556,7 @@ class TypeScriptSemanticDataset(Dataset):
             if self.window_strategy in {
                 "dual-view",
                 "dual-view-hard-string",
+                "dual-view-hard-string-regexp",
             }:
                 total_views = max(1, len(self.windows))
                 mix = (
@@ -1265,16 +1568,29 @@ class TypeScriptSemanticDataset(Dataset):
                     f"({self.span_aware_view_window_count / total_views:.2%})"
                 )
 
-                if self.window_strategy == "dual-view-hard-string":
+                if self.window_strategy in {
+                    "dual-view-hard-string",
+                    "dual-view-hard-string-regexp",
+                }:
                     mix += (
                         ", hard-string="
                         f"{self.hard_string_window_count} "
                         f"({self.hard_string_window_count / total_views:.2%})"
                     )
 
+                if self.window_strategy == "dual-view-hard-string-regexp":
+                    mix += (
+                        ", hard-regexp="
+                        f"{self.hard_regexp_window_count} "
+                        f"({self.hard_regexp_window_count / total_views:.2%})"
+                    )
+
                 print(mix, flush=True)
 
-                if self.window_strategy == "dual-view-hard-string":
+                if self.window_strategy in {
+                    "dual-view-hard-string",
+                    "dual-view-hard-string-regexp",
+                }:
                     hard = self.hard_string_stats
                     print(
                         "  hard-string curriculum: "
@@ -1290,11 +1606,33 @@ class TypeScriptSemanticDataset(Dataset):
                         flush=True,
                     )
 
+                if self.window_strategy == "dual-view-hard-string-regexp":
+                    hard_regexp = self.hard_regexp_stats
+                    print(
+                        "  hard-regexp curriculum: "
+                        f"regexp-spans={self.hard_regexp_span_count}, "
+                        "over-context-spans="
+                        f"{self.hard_regexp_over_context_span_count}, "
+                        "positive-windows="
+                        f"{self.hard_regexp_positive_window_count}, "
+                        "operator-slash-candidates="
+                        f"{self.hard_regexp_operator_slash_candidate_count}, "
+                        "negative-windows="
+                        f"{self.hard_regexp_negative_window_count}, "
+                        f"windows={self.hard_regexp_window_count}, "
+                        "context-before="
+                        f"{hard_regexp.context_before_bytes}B, "
+                        "negative-divisor="
+                        f"{hard_regexp.negative_divisor}",
+                        flush=True,
+                    )
+
             if self.window_strategy in {
                 "span-aware",
                 "string-aware",
                 "dual-view",
                 "dual-view-hard-string",
+                "dual-view-hard-string-regexp",
             }:
                 stats = self.windowing_stats
                 label = (
@@ -1302,6 +1640,7 @@ class TypeScriptSemanticDataset(Dataset):
                     if self.window_strategy in {
                         "dual-view",
                         "dual-view-hard-string",
+                        "dual-view-hard-string-regexp",
                     }
                     else self.window_strategy
                 )
@@ -1430,6 +1769,7 @@ def parse_arguments() -> argparse.Namespace:
             "string-aware",
             "dual-view",
             "dual-view-hard-string",
+            "dual-view-hard-string-regexp",
         ),
         default="fixed",
         help=(
@@ -1439,7 +1779,10 @@ def parse_arguments() -> argparse.Namespace:
             "and the full span-aware view for mixed training. "
             "dual-view-hard-string adds a small deterministic "
             "continuation curriculum for string spans at least "
-            "half a context window long."
+            "half a context window long. "
+            "dual-view-hard-string-regexp additionally upweights "
+            "exact regexp boundaries and a controlled subset of "
+            "operator-slash negatives."
         ),
     )
 
