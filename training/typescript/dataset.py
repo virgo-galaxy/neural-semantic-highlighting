@@ -95,6 +95,7 @@ class WindowingStats:
     adjusted_span_cuts: int = 0
     adjusted_character_cuts: int = 0
     unavoidable_inside_starts: int = 0
+    unprotected_inside_starts: int = 0
     total_shift_bytes: int = 0
     max_shift_bytes: int = 0
     shift_bytes: tuple[int, ...] = ()
@@ -629,6 +630,8 @@ def _find_active_span_start(
     document: EncodedDocument,
     cut: int,
     character_starts: list[int],
+    *,
+    protected_token_type_ids: frozenset[int] | None,
 ) -> int | None:
     if cut >= document.input_ids.shape[0]:
         return None
@@ -636,6 +639,16 @@ def _find_active_span_start(
     if (
         int(document.boundary_labels[cut].item())
         != BOUNDARY_INSIDE_ID
+    ):
+        return None
+
+    token_type_id = int(
+        document.token_type_labels[cut].item()
+    )
+
+    if (
+        protected_token_type_ids is not None
+        and token_type_id not in protected_token_type_ids
     ):
         return None
 
@@ -692,6 +705,7 @@ def build_span_aware_windows(
     document: EncodedDocument,
     *,
     max_length: int,
+    protected_token_type_ids: frozenset[int] | None = None,
 ) -> tuple[list[WindowReference], WindowingStats]:
     length = int(document.input_ids.shape[0])
 
@@ -706,6 +720,7 @@ def build_span_aware_windows(
     adjusted_span_cuts = 0
     adjusted_character_cuts = 0
     unavoidable_inside_starts = 0
+    unprotected_inside_starts = 0
     shifts: list[int] = []
 
     cursor = 0
@@ -732,6 +747,9 @@ def build_span_aware_windows(
                     document,
                     end,
                     character_starts,
+                    protected_token_type_ids=(
+                        protected_token_type_ids
+                    ),
                 )
             )
 
@@ -777,7 +795,17 @@ def build_span_aware_windows(
                 document.boundary_labels[cursor].item()
             ) == BOUNDARY_INSIDE_ID
         ):
-            unavoidable_inside_starts += 1
+            token_type_id = int(
+                document.token_type_labels[cursor].item()
+            )
+
+            if (
+                protected_token_type_ids is None
+                or token_type_id in protected_token_type_ids
+            ):
+                unavoidable_inside_starts += 1
+            else:
+                unprotected_inside_starts += 1
 
     return (
         windows,
@@ -788,6 +816,9 @@ def build_span_aware_windows(
             ),
             unavoidable_inside_starts=(
                 unavoidable_inside_starts
+            ),
+            unprotected_inside_starts=(
+                unprotected_inside_starts
             ),
             total_shift_bytes=sum(shifts),
             max_shift_bytes=max(shifts, default=0),
@@ -819,10 +850,12 @@ class TypeScriptSemanticDataset(Dataset):
         if window_strategy not in {
             "fixed",
             "span-aware",
+            "string-aware",
         }:
             raise ValueError(
-                "Window strategy must be fixed or "
-                f"span-aware, got {window_strategy!r}."
+                "Window strategy must be fixed, span-aware, "
+                "or string-aware, got "
+                f"{window_strategy!r}."
             )
 
         self.schema = load_schema()
@@ -844,11 +877,14 @@ class TypeScriptSemanticDataset(Dataset):
             )
 
         if (
-            self.window_strategy == "span-aware"
+            self.window_strategy in {
+                "span-aware",
+                "string-aware",
+            }
             and self.stride != self.max_length
         ):
             raise ValueError(
-                "Span-aware windowing uses a dynamic cursor "
+                "Adaptive windowing uses a dynamic cursor "
                 "and requires stride=max_length. "
                 f"Got stride={self.stride}, "
                 f"max_length={self.max_length}."
@@ -870,6 +906,7 @@ class TypeScriptSemanticDataset(Dataset):
         total_adjusted_span_cuts = 0
         total_adjusted_character_cuts = 0
         total_unavoidable_inside_starts = 0
+        total_unprotected_inside_starts = 0
         all_shifts: list[int] = []
 
         for (
@@ -885,6 +922,17 @@ class TypeScriptSemanticDataset(Dataset):
                 )
                 stats = WindowingStats()
             else:
+                protected_token_type_ids = None
+
+                if self.window_strategy == "string-aware":
+                    protected_token_type_ids = frozenset(
+                        {
+                            self.schema.token_type_to_id[
+                                "string"
+                            ]
+                        }
+                    )
+
                 (
                     document_windows,
                     stats,
@@ -892,6 +940,9 @@ class TypeScriptSemanticDataset(Dataset):
                     document_index,
                     document,
                     max_length=self.max_length,
+                    protected_token_type_ids=(
+                        protected_token_type_ids
+                    ),
                 )
 
             self.windows.extend(document_windows)
@@ -904,6 +955,9 @@ class TypeScriptSemanticDataset(Dataset):
             total_unavoidable_inside_starts += (
                 stats.unavoidable_inside_starts
             )
+            total_unprotected_inside_starts += (
+                stats.unprotected_inside_starts
+            )
             all_shifts.extend(stats.shift_bytes)
 
         self.windowing_stats = WindowingStats(
@@ -915,6 +969,9 @@ class TypeScriptSemanticDataset(Dataset):
             ),
             unavoidable_inside_starts=(
                 total_unavoidable_inside_starts
+            ),
+            unprotected_inside_starts=(
+                total_unprotected_inside_starts
             ),
             total_shift_bytes=sum(all_shifts),
             max_shift_bytes=max(all_shifts, default=0),
@@ -932,13 +989,18 @@ class TypeScriptSemanticDataset(Dataset):
                 flush=True,
             )
 
-            if self.window_strategy == "span-aware":
+            if self.window_strategy in {
+                "span-aware",
+                "string-aware",
+            }:
                 stats = self.windowing_stats
                 print(
-                    "  span-aware cuts: "
+                    f"  {self.window_strategy} cuts: "
                     f"adjusted={stats.adjusted_span_cuts}, "
-                    "unavoidable-inside-starts="
+                    "unavoidable-protected-inside-starts="
                     f"{stats.unavoidable_inside_starts}, "
+                    "allowed-unprotected-inside-starts="
+                    f"{stats.unprotected_inside_starts}, "
                     "avg-shift="
                     f"{(stats.total_shift_bytes / max(1, stats.adjusted_span_cuts)):.1f}B, "
                     f"p95-shift={stats.p95_shift_bytes}B, "
@@ -1054,12 +1116,14 @@ def parse_arguments() -> argparse.Namespace:
         choices=(
             "fixed",
             "span-aware",
+            "string-aware",
         ),
         default="fixed",
         help=(
-            "Train window strategy. span-aware moves a "
-            "candidate cut backward to the beginning of an "
-            "active Gold span instead of splitting it."
+            "Train window strategy. span-aware protects all "
+            "Gold spans. string-aware only protects string "
+            "spans, preserving mid-comment continuation "
+            "training."
         ),
     )
 

@@ -10,6 +10,10 @@
 	inspect-span-aware-windows-typescript \
 	train-span-aware-typescript \
 	continue-span-aware-typescript \
+	test-windowing-golden-typescript \
+	inspect-string-aware-windows-typescript \
+	train-string-aware-typescript \
+	continue-string-aware-typescript \
 	evaluate-typescript \
 	predict-typescript \
 	benchmark-typescript \
@@ -24,6 +28,7 @@ TRAIN_STRIDE ?= 512
 OVERLAP_TRAIN_STRIDE ?= 256
 OVERLAP_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-overlap256
 SPAN_AWARE_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-span-aware
+STRING_AWARE_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-string-aware
 BENCHMARK_WINDOWS ?= 8192
 BENCHMARK_WARMUP_STEPS ?= 5
 BENCHMARK_BATCH_SIZES ?= 16 32 64 128
@@ -105,6 +110,35 @@ continue-span-aware-typescript:
 		--output $(SPAN_AWARE_OUTPUT_DIR)/best.pt \
 		--last-output $(SPAN_AWARE_OUTPUT_DIR)/last.pt \
 		--resume $(SPAN_AWARE_OUTPUT_DIR)/last.pt
+
+test-windowing-golden-typescript:
+	$(PYTHON) training/typescript/windowing_golden.py
+
+inspect-string-aware-windows-typescript:
+	$(PYTHON) training/typescript/dataset.py \
+		--train-window-strategy string-aware \
+		--train-stride 512
+
+train-string-aware-typescript:
+	$(PYTHON) training/typescript/train.py \
+		--epochs $(EPOCHS) \
+		--batch-size $(BATCH_SIZE) \
+		--patience $(PATIENCE) \
+		--train-window-strategy string-aware \
+		--train-stride 512 \
+		--output $(STRING_AWARE_OUTPUT_DIR)/best.pt \
+		--last-output $(STRING_AWARE_OUTPUT_DIR)/last.pt
+
+continue-string-aware-typescript:
+	$(PYTHON) training/typescript/train.py \
+		--epochs $(EPOCHS) \
+		--batch-size $(BATCH_SIZE) \
+		--patience $(PATIENCE) \
+		--train-window-strategy string-aware \
+		--train-stride 512 \
+		--output $(STRING_AWARE_OUTPUT_DIR)/best.pt \
+		--last-output $(STRING_AWARE_OUTPUT_DIR)/last.pt \
+		--resume $(STRING_AWARE_OUTPUT_DIR)/last.pt
 
 evaluate-typescript:
 	$(PYTHON) training/typescript/evaluate.py

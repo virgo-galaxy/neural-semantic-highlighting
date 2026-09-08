@@ -1731,13 +1731,15 @@ def parse_arguments() -> argparse.Namespace:
         choices=(
             "fixed",
             "span-aware",
+            "string-aware",
         ),
         default="fixed",
         help=(
             "Train-window construction strategy. "
-            "span-aware moves candidate cuts to Gold-span "
-            "beginnings instead of splitting spans when "
-            "possible."
+            "span-aware protects all Gold spans. "
+            "string-aware only protects string spans so "
+            "comment continuation examples remain in the "
+            "training distribution."
         ),
     )
 
@@ -1982,21 +1984,25 @@ def main() -> None:
         f"{train_dataset.window_strategy}"
     )
 
-    if (
-        train_dataset.window_strategy
-        == "span-aware"
-    ):
+    if train_dataset.window_strategy in {
+        "span-aware",
+        "string-aware",
+    }:
         stats = train_dataset.windowing_stats
         print(
-            "Adjusted span cuts: "
+            "Adjusted protected-span cuts: "
             f"{stats.adjusted_span_cuts}"
         )
         print(
-            "Unavoidable inside starts: "
+            "Unavoidable protected inside starts: "
             f"{stats.unavoidable_inside_starts}"
         )
         print(
-            "Span-cut shift avg/p95/max: "
+            "Allowed unprotected inside starts: "
+            f"{stats.unprotected_inside_starts}"
+        )
+        print(
+            "Protected-span cut shift avg/p95/max: "
             f"{(stats.total_shift_bytes / max(1, stats.adjusted_span_cuts)):.1f}/"
             f"{stats.p95_shift_bytes}/"
             f"{stats.max_shift_bytes} bytes"
