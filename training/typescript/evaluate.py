@@ -172,12 +172,61 @@ def load_model(
     return model, checkpoint
 
 
+def build_fusion_weights(
+    length: int,
+    *,
+    max_length: int,
+    fusion: str,
+) -> torch.Tensor:
+    if fusion == "uniform":
+        return torch.ones(
+            (length, 1),
+            dtype=torch.float32,
+        )
+
+    if fusion != "center":
+        raise ValueError(
+            f'Unknown inference fusion "{fusion}".'
+        )
+
+    # Center-weighted linear window with a non-zero floor.
+    #
+    # The model has the richest left/right context near the
+    # center of a full window and the least context near its
+    # edges. Keep a 0.25 floor so document boundaries and
+    # partially covered bytes never lose their vote entirely.
+    positions = torch.arange(
+        length,
+        dtype=torch.float32,
+    )
+
+    center = (max_length - 1) / 2.0
+    half_width = max(center, 1.0)
+
+    normalized_distance = (
+        (positions - center).abs()
+        / half_width
+    ).clamp(
+        0.0,
+        1.0,
+    )
+
+    weights = (
+        1.0
+        - 0.75 * normalized_distance
+    )
+
+    return weights.unsqueeze(1)
+
+
 def predict_document_logits(
     model: SemanticTransformer,
     source: str,
     *,
     max_length: int,
     device: torch.device,
+    stride: int | None = None,
+    fusion: str = "uniform",
 ) -> tuple[
     torch.Tensor,
     torch.Tensor,
@@ -185,15 +234,42 @@ def predict_document_logits(
 ]:
     source_bytes = source.encode("utf-8")
 
-    boundary_chunks: list[torch.Tensor] = []
-    token_type_chunks: list[torch.Tensor] = []
-    modifier_chunks: list[torch.Tensor] = []
+    if not source_bytes:
+        return (
+            torch.empty((0, 3)),
+            torch.empty((0, 0)),
+            torch.empty((0, 0)),
+        )
+
+    resolved_stride = (
+        max_length
+        if stride is None
+        else stride
+    )
+
+    if (
+        resolved_stride <= 0
+        or resolved_stride > max_length
+    ):
+        raise ValueError(
+            "Inference stride must be in the range "
+            f"1..{max_length}, got {resolved_stride}."
+        )
+
+    boundary_sum: torch.Tensor | None = None
+    token_type_sum: torch.Tensor | None = None
+    modifier_sum: torch.Tensor | None = None
+
+    contribution_count = torch.zeros(
+        (len(source_bytes), 1),
+        dtype=torch.float32,
+    )
 
     with torch.no_grad():
         for start in range(
             0,
             len(source_bytes),
-            max_length,
+            resolved_stride,
         ):
             chunk = source_bytes[
                 start:start + max_length
@@ -227,7 +303,7 @@ def predict_document_logits(
                 attention_mask=attention_mask,
             )
 
-            boundary_chunks.append(
+            boundary_logits = (
                 output.boundary_logits[
                     0,
                     :length,
@@ -236,7 +312,7 @@ def predict_document_logits(
                 .cpu()
             )
 
-            token_type_chunks.append(
+            token_type_logits = (
                 output.token_type_logits[
                     0,
                     :length,
@@ -245,7 +321,7 @@ def predict_document_logits(
                 .cpu()
             )
 
-            modifier_chunks.append(
+            modifier_logits = (
                 output.modifier_logits[
                     0,
                     :length,
@@ -254,17 +330,73 @@ def predict_document_logits(
                 .cpu()
             )
 
-    if not boundary_chunks:
-        return (
-            torch.empty((0, 3)),
-            torch.empty((0, 0)),
-            torch.empty((0, 0)),
+            if boundary_sum is None:
+                boundary_sum = torch.zeros(
+                    (
+                        len(source_bytes),
+                        boundary_logits.shape[-1],
+                    ),
+                    dtype=boundary_logits.dtype,
+                )
+
+                token_type_sum = torch.zeros(
+                    (
+                        len(source_bytes),
+                        token_type_logits.shape[-1],
+                    ),
+                    dtype=token_type_logits.dtype,
+                )
+
+                modifier_sum = torch.zeros(
+                    (
+                        len(source_bytes),
+                        modifier_logits.shape[-1],
+                    ),
+                    dtype=modifier_logits.dtype,
+                )
+
+            end = start + length
+
+            fusion_weights = build_fusion_weights(
+                length,
+                max_length=max_length,
+                fusion=fusion,
+            )
+
+            boundary_sum[start:end] += (
+                boundary_logits
+                * fusion_weights
+            )
+            token_type_sum[start:end] += (
+                token_type_logits
+                * fusion_weights
+            )
+            modifier_sum[start:end] += (
+                modifier_logits
+                * fusion_weights
+            )
+            contribution_count[start:end] += (
+                fusion_weights
+            )
+
+    if (
+        boundary_sum is None
+        or token_type_sum is None
+        or modifier_sum is None
+    ):
+        raise RuntimeError(
+            "Inference produced no logits."
+        )
+
+    if torch.any(contribution_count == 0):
+        raise RuntimeError(
+            "Overlapping inference left uncovered bytes."
         )
 
     return (
-        torch.cat(boundary_chunks, dim=0),
-        torch.cat(token_type_chunks, dim=0),
-        torch.cat(modifier_chunks, dim=0),
+        boundary_sum / contribution_count,
+        token_type_sum / contribution_count,
+        modifier_sum / contribution_count,
     )
 
 
@@ -409,6 +541,46 @@ def parse_arguments() -> argparse.Namespace:
         default=DEFAULT_OUTPUT_PATH,
     )
 
+    parser.add_argument(
+        "--split",
+        choices=(
+            "validation",
+            "test",
+        ),
+        default="test",
+        help=(
+            "Dataset split to evaluate. Use validation "
+            "for inference A/B experiments."
+        ),
+    )
+
+    parser.add_argument(
+        "--stride",
+        type=int,
+        default=None,
+        help=(
+            "Inference window stride in UTF-8 bytes. "
+            "Defaults to max_length (no overlap). "
+            "For a 512-byte model, --stride 256 "
+            "gives 50%% overlap."
+        ),
+    )
+
+    parser.add_argument(
+        "--fusion",
+        choices=(
+            "uniform",
+            "center",
+        ),
+        default="uniform",
+        help=(
+            "How overlapping-window logits are fused. "
+            "uniform preserves the current averaging; "
+            "center gives higher weight to predictions "
+            "near the center of each window."
+        ),
+    )
+
     return parser.parse_args()
 
 
@@ -426,14 +598,29 @@ def main() -> None:
         "config"
     ]["max_length"]
 
-    test_dataset = TypeScriptSemanticDataset(
-        "test",
+    evaluation_dataset = TypeScriptSemanticDataset(
+        args.split,
         max_length=max_length,
     )
 
+    resolved_stride = (
+        max_length
+        if args.stride is None
+        else args.stride
+    )
+
+    if (
+        resolved_stride <= 0
+        or resolved_stride > max_length
+    ):
+        raise ValueError(
+            "Inference stride must be in the range "
+            f"1..{max_length}, got {resolved_stride}."
+        )
+
     model, checkpoint = load_model(
         args.checkpoint,
-        test_dataset,
+        evaluation_dataset,
         device,
     )
 
@@ -448,13 +635,13 @@ def main() -> None:
     per_type_predicted = {
         token_type: set()
         for token_type
-        in test_dataset.schema.token_types
+        in evaluation_dataset.schema.token_types
     }
 
     per_type_gold = {
         token_type: set()
         for token_type
-        in test_dataset.schema.token_types
+        in evaluation_dataset.schema.token_types
     }
 
     print("Neural Semantic Highlighting")
@@ -467,11 +654,27 @@ def main() -> None:
         f"Checkpoint: {args.checkpoint}"
     )
     print(
-        f"Test documents: "
-        f"{len(test_dataset.documents)}"
+        f"Split: {args.split}"
+    )
+    print(
+        f"Documents: "
+        f"{len(evaluation_dataset.documents)}"
+    )
+    print(
+        f"Window:    {max_length} bytes"
+    )
+    print(
+        f"Stride:    {resolved_stride} bytes"
+    )
+    print(
+        f"Overlap:   "
+        f"{max_length - resolved_stride} bytes"
+    )
+    print(
+        f"Fusion:    {args.fusion}"
     )
 
-    for document in test_dataset.documents:
+    for document in evaluation_dataset.documents:
         (
             boundary_logits,
             token_type_logits,
@@ -481,6 +684,8 @@ def main() -> None:
             document.source,
             max_length=max_length,
             device=device,
+            stride=resolved_stride,
+            fusion=args.fusion,
         )
 
         predicted_spans = decode_predicted_spans(
@@ -488,7 +693,7 @@ def main() -> None:
             boundary_logits,
             token_type_logits,
             modifier_logits,
-            test_dataset,
+            evaluation_dataset,
         )
 
         key = (
@@ -556,7 +761,7 @@ def main() -> None:
     macro_values: list[float] = []
 
     for token_type in (
-        test_dataset.schema.token_types
+        evaluation_dataset.schema.token_types
     ):
         predicted = (
             per_type_predicted[
@@ -638,6 +843,15 @@ def main() -> None:
         ),
         "gold_spans": len(gold_set),
         "token_types": per_type,
+        "inference": {
+            "split": args.split,
+            "max_length": max_length,
+            "stride": resolved_stride,
+            "overlap": (
+                max_length - resolved_stride
+            ),
+            "fusion": args.fusion,
+        },
         "validation": checkpoint.get(
             "validation"
         ),

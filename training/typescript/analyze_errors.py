@@ -57,6 +57,29 @@ class ErrorExample:
 
 
 @dataclass(frozen=True)
+class BoundarySpan:
+    start: int
+    end: int
+    token_type: str
+    text: str
+
+
+@dataclass(frozen=True)
+class BoundaryMismatch:
+    direction: str
+    repository: str
+    path: str
+    relation: str
+    structure: str
+    overlap_size: int
+    gold_spans_overlapped_by_prediction: int
+    predicted_spans_overlapping_gold: int
+    expected: BoundarySpan
+    predicted: BoundarySpan
+    context: str
+
+
+@dataclass(frozen=True)
 class TypeMetrics:
     precision: float
     recall: float
@@ -353,6 +376,207 @@ def build_error_example(
     )
 
 
+def build_boundary_span(
+    source: str,
+    span: GoldSpan | PredictedSpan,
+) -> BoundarySpan:
+    return BoundarySpan(
+        start=span.start,
+        end=span.end,
+        token_type=span.token_type,
+        text=extract_span_text(
+            source,
+            span.start,
+            span.end,
+        ),
+    )
+
+
+def classify_boundary_relation(
+    expected: GoldSpan,
+    predicted: PredictedSpan,
+) -> str:
+    if (
+        expected.start == predicted.start
+        and expected.end != predicted.end
+    ):
+        return "right-boundary-differs"
+
+    if (
+        expected.end == predicted.end
+        and expected.start != predicted.start
+    ):
+        return "left-boundary-differs"
+
+    if (
+        expected.start < predicted.start
+        and predicted.end < expected.end
+    ):
+        return "predicted-inside-gold"
+
+    if (
+        predicted.start < expected.start
+        and expected.end < predicted.end
+    ):
+        return "gold-inside-predicted"
+
+    if (
+        predicted.start < expected.start
+        < predicted.end
+        < expected.end
+    ):
+        return "predicted-overlaps-left"
+
+    if (
+        expected.start < predicted.start
+        < expected.end
+        < predicted.end
+    ):
+        return "predicted-overlaps-right"
+
+    return "other-overlap"
+
+
+def classify_boundary_structure(
+    *,
+    gold_spans_overlapped_by_prediction: int,
+    predicted_spans_overlapping_gold: int,
+) -> str:
+    if (
+        gold_spans_overlapped_by_prediction > 1
+        and predicted_spans_overlapping_gold > 1
+    ):
+        return "many-to-many"
+
+    if gold_spans_overlapped_by_prediction > 1:
+        return "merge-candidate"
+
+    if predicted_spans_overlapping_gold > 1:
+        return "split-candidate"
+
+    return "one-to-one"
+
+
+def build_boundary_mismatch(
+    *,
+    direction: str,
+    repository: str,
+    path: str,
+    source: str,
+    expected: GoldSpan,
+    predicted: PredictedSpan,
+    gold_spans: list[GoldSpan],
+    predicted_spans: list[PredictedSpan],
+) -> BoundaryMismatch:
+    gold_spans_overlapped_by_prediction = sum(
+        1
+        for gold in gold_spans
+        if spans_overlap(
+            predicted.start,
+            predicted.end,
+            gold.start,
+            gold.end,
+        )
+    )
+
+    predicted_spans_overlapping_gold = sum(
+        1
+        for candidate in predicted_spans
+        if spans_overlap(
+            expected.start,
+            expected.end,
+            candidate.start,
+            candidate.end,
+        )
+    )
+
+    context_start = min(
+        expected.start,
+        predicted.start,
+    )
+    context_end = max(
+        expected.end,
+        predicted.end,
+    )
+
+    return BoundaryMismatch(
+        direction=direction,
+        repository=repository,
+        path=path,
+        relation=classify_boundary_relation(
+            expected,
+            predicted,
+        ),
+        structure=classify_boundary_structure(
+            gold_spans_overlapped_by_prediction=(
+                gold_spans_overlapped_by_prediction
+            ),
+            predicted_spans_overlapping_gold=(
+                predicted_spans_overlapping_gold
+            ),
+        ),
+        overlap_size=span_overlap_size(
+            expected.start,
+            expected.end,
+            predicted.start,
+            predicted.end,
+        ),
+        gold_spans_overlapped_by_prediction=(
+            gold_spans_overlapped_by_prediction
+        ),
+        predicted_spans_overlapping_gold=(
+            predicted_spans_overlapping_gold
+        ),
+        expected=build_boundary_span(
+            source,
+            expected,
+        ),
+        predicted=build_boundary_span(
+            source,
+            predicted,
+        ),
+        context=extract_context(
+            source,
+            context_start,
+            context_end,
+        ),
+    )
+
+
+def counter_items(
+    counter: Counter,
+    *,
+    limit: int | None = None,
+) -> list[dict]:
+    items = counter.most_common(limit)
+
+    return [
+        {
+            "key": key,
+            "count": count,
+        }
+        for key, count in items
+    ]
+
+
+def type_pair_items(
+    counter: Counter[tuple[str, str]],
+    *,
+    limit: int | None = None,
+) -> list[dict]:
+    return [
+        {
+            "expected": expected,
+            "predicted": predicted,
+            "count": count,
+        }
+        for (
+            expected,
+            predicted,
+        ), count in counter.most_common(limit)
+    ]
+
+
 def write_text_report(
     output_path: Path,
     report: dict,
@@ -369,6 +593,12 @@ def write_text_report(
             f"Split: {report['split']}",
             f"Checkpoint: {report['checkpoint']}",
             f"Documents: {report['documents']}",
+            (
+                "Window / stride / overlap: "
+                f"{report['inference']['max_length']} / "
+                f"{report['inference']['stride']} / "
+                f"{report['inference']['overlap']} bytes"
+            ),
             "",
             "Exact semantic spans",
             "--------------------",
@@ -454,8 +684,101 @@ def write_text_report(
     else:
         lines.append("none")
 
+    boundary = report["boundary_analysis"]
+
     lines.extend(
         [
+            "",
+            "Boundary mismatch analysis",
+            "--------------------------",
+            (
+                "Predicted-side boundary mismatches: "
+                f"{boundary['predicted_side_count']}"
+            ),
+            (
+                "Gold-side boundary mismatches:      "
+                f"{boundary['gold_side_count']}"
+            ),
+            "",
+            "Predicted-side type pairs",
+            "-------------------------",
+        ]
+    )
+
+    if boundary["predicted_side_type_pairs"]:
+        for item in boundary[
+            "predicted_side_type_pairs"
+        ]:
+            lines.append(
+                f"{item['expected']} -> "
+                f"{item['predicted']}: "
+                f"{item['count']}"
+            )
+    else:
+        lines.append("none")
+
+    lines.extend(
+        [
+            "",
+            "Predicted-side relations",
+            "------------------------",
+        ]
+    )
+
+    if boundary["predicted_side_relations"]:
+        for item in boundary[
+            "predicted_side_relations"
+        ]:
+            lines.append(
+                f"{item['key']}: {item['count']}"
+            )
+    else:
+        lines.append("none")
+
+    lines.extend(
+        [
+            "",
+            "Predicted-side structures",
+            "-------------------------",
+        ]
+    )
+
+    if boundary["predicted_side_structures"]:
+        for item in boundary[
+            "predicted_side_structures"
+        ]:
+            lines.append(
+                f"{item['key']}: {item['count']}"
+            )
+    else:
+        lines.append("none")
+
+    lines.extend(
+        [
+            "",
+            "Top boundary-mismatch files",
+            "---------------------------",
+        ]
+    )
+
+    if boundary["predicted_side_files"]:
+        for item in boundary[
+            "predicted_side_files"
+        ]:
+            lines.append(
+                f"{item['key']}: {item['count']}"
+            )
+    else:
+        lines.append("none")
+
+    lines.extend(
+        [
+            "",
+            (
+                "Full boundary records: JSON "
+                "boundary_analysis.predicted_side / "
+                "boundary_analysis.gold_side"
+            ),
             "",
             "Representative errors",
             "---------------------",
@@ -560,6 +883,29 @@ def parse_arguments() -> argparse.Namespace:
         default=20,
     )
 
+    parser.add_argument(
+        "--max-boundary-summary",
+        type=int,
+        default=20,
+        help=(
+            "Maximum rows shown for each boundary summary "
+            "table. Full boundary records are always written "
+            "to JSON."
+        ),
+    )
+
+    parser.add_argument(
+        "--stride",
+        type=int,
+        default=None,
+        help=(
+            "Inference window stride in UTF-8 bytes. "
+            "Defaults to checkpoint max_length (no overlap). "
+            "For a 512-byte model, --stride 256 gives "
+            "50%% overlap."
+        ),
+    )
+
     return parser.parse_args()
 
 
@@ -576,6 +922,21 @@ def main() -> None:
     max_length = checkpoint[
         "config"
     ]["max_length"]
+
+    resolved_stride = (
+        max_length
+        if args.stride is None
+        else args.stride
+    )
+
+    if (
+        resolved_stride <= 0
+        or resolved_stride > max_length
+    ):
+        raise ValueError(
+            "Inference stride must be in the range "
+            f"1..{max_length}, got {resolved_stride}."
+        )
 
     dataset = TypeScriptSemanticDataset(
         args.split,
@@ -621,6 +982,29 @@ def main() -> None:
         list[ErrorExample],
     ] = defaultdict(list)
 
+    predicted_boundary_mismatches: list[
+        BoundaryMismatch
+    ] = []
+    gold_boundary_mismatches: list[
+        BoundaryMismatch
+    ] = []
+
+    predicted_boundary_type_pairs: Counter[
+        tuple[str, str]
+    ] = Counter()
+    gold_boundary_type_pairs: Counter[
+        tuple[str, str]
+    ] = Counter()
+
+    predicted_boundary_relations: Counter[str] = Counter()
+    gold_boundary_relations: Counter[str] = Counter()
+
+    predicted_boundary_structures: Counter[str] = Counter()
+    gold_boundary_structures: Counter[str] = Counter()
+
+    predicted_boundary_files: Counter[str] = Counter()
+    gold_boundary_files: Counter[str] = Counter()
+
     print("Neural Semantic Highlighting")
     print("TypeScript V2 Error Analysis")
     print("")
@@ -629,6 +1013,16 @@ def main() -> None:
     print(f"Split: {args.split}")
     print(
         f"Documents: {len(dataset.documents)}"
+    )
+    print(
+        f"Window: {max_length} bytes"
+    )
+    print(
+        f"Stride: {resolved_stride} bytes"
+    )
+    print(
+        "Overlap: "
+        f"{max_length - resolved_stride} bytes"
     )
     print("")
 
@@ -645,6 +1039,7 @@ def main() -> None:
             document.source,
             max_length=max_length,
             device=device,
+            stride=resolved_stride,
         )
 
         predicted_spans = decode_predicted_spans(
@@ -763,6 +1158,36 @@ def main() -> None:
                 kind = "boundary-mismatch"
                 false_positive_kind[kind] += 1
 
+                boundary_mismatch = build_boundary_mismatch(
+                    direction="predicted-side",
+                    repository=document.repository,
+                    path=document.path,
+                    source=document.source,
+                    expected=overlapping_gold,
+                    predicted=predicted,
+                    gold_spans=gold_spans,
+                    predicted_spans=predicted_spans,
+                )
+
+                predicted_boundary_mismatches.append(
+                    boundary_mismatch
+                )
+                predicted_boundary_type_pairs[
+                    (
+                        overlapping_gold.token_type,
+                        predicted.token_type,
+                    )
+                ] += 1
+                predicted_boundary_relations[
+                    boundary_mismatch.relation
+                ] += 1
+                predicted_boundary_structures[
+                    boundary_mismatch.structure
+                ] += 1
+                predicted_boundary_files[
+                    document_key
+                ] += 1
+
                 examples_by_kind[kind].append(
                     build_error_example(
                         kind=kind,
@@ -832,6 +1257,37 @@ def main() -> None:
             if overlapping_predicted is not None:
                 kind = "boundary-mismatch"
                 false_negative_kind[kind] += 1
+
+                boundary_mismatch = build_boundary_mismatch(
+                    direction="gold-side",
+                    repository=document.repository,
+                    path=document.path,
+                    source=document.source,
+                    expected=gold,
+                    predicted=overlapping_predicted,
+                    gold_spans=gold_spans,
+                    predicted_spans=predicted_spans,
+                )
+
+                gold_boundary_mismatches.append(
+                    boundary_mismatch
+                )
+                gold_boundary_type_pairs[
+                    (
+                        gold.token_type,
+                        overlapping_predicted.token_type,
+                    )
+                ] += 1
+                gold_boundary_relations[
+                    boundary_mismatch.relation
+                ] += 1
+                gold_boundary_structures[
+                    boundary_mismatch.structure
+                ] += 1
+                gold_boundary_files[
+                    document_key
+                ] += 1
+
                 continue
 
             kind = "missed"
@@ -938,6 +1394,61 @@ def main() -> None:
         )
     ]
 
+    boundary_summary_limit = (
+        args.max_boundary_summary
+        if args.max_boundary_summary > 0
+        else None
+    )
+
+    boundary_analysis = {
+        "predicted_side_count": len(
+            predicted_boundary_mismatches
+        ),
+        "gold_side_count": len(
+            gold_boundary_mismatches
+        ),
+        "predicted_side_type_pairs": type_pair_items(
+            predicted_boundary_type_pairs,
+            limit=boundary_summary_limit,
+        ),
+        "gold_side_type_pairs": type_pair_items(
+            gold_boundary_type_pairs,
+            limit=boundary_summary_limit,
+        ),
+        "predicted_side_relations": counter_items(
+            predicted_boundary_relations,
+            limit=boundary_summary_limit,
+        ),
+        "gold_side_relations": counter_items(
+            gold_boundary_relations,
+            limit=boundary_summary_limit,
+        ),
+        "predicted_side_structures": counter_items(
+            predicted_boundary_structures,
+            limit=boundary_summary_limit,
+        ),
+        "gold_side_structures": counter_items(
+            gold_boundary_structures,
+            limit=boundary_summary_limit,
+        ),
+        "predicted_side_files": counter_items(
+            predicted_boundary_files,
+            limit=boundary_summary_limit,
+        ),
+        "gold_side_files": counter_items(
+            gold_boundary_files,
+            limit=boundary_summary_limit,
+        ),
+        "predicted_side": [
+            asdict(item)
+            for item in predicted_boundary_mismatches
+        ],
+        "gold_side": [
+            asdict(item)
+            for item in gold_boundary_mismatches
+        ],
+    }
+
     example_order = (
         "wrong-type",
         "boundary-mismatch",
@@ -986,11 +1497,18 @@ def main() -> None:
 
     report = {
         "format": (
-            "nsh-typescript-v2-error-analysis-v1"
+            "nsh-typescript-v2-error-analysis-v2"
         ),
         "checkpoint": str(args.checkpoint),
         "split": args.split,
         "documents": len(dataset.documents),
+        "inference": {
+            "max_length": max_length,
+            "stride": resolved_stride,
+            "overlap": (
+                max_length - resolved_stride
+            ),
+        },
         "summary": {
             "precision": precision,
             "recall": recall,
@@ -1041,6 +1559,7 @@ def main() -> None:
             weakest_token_types
         ),
         "type_confusions": confusion_items,
+        "boundary_analysis": boundary_analysis,
         "examples": [
             asdict(example)
             for example in selected_examples
@@ -1102,6 +1621,40 @@ def main() -> None:
         f"{false_negative_kind['boundary-mismatch']} / "
         f"{false_negative_kind['missed']}"
     )
+    print("")
+    print("Boundary mismatch analysis")
+    print("--------------------------")
+    print(
+        "Predicted-side: "
+        f"{len(predicted_boundary_mismatches)}"
+    )
+    print(
+        "Gold-side:      "
+        f"{len(gold_boundary_mismatches)}"
+    )
+
+    print("")
+    print("Top predicted-side type pairs")
+
+    for item in boundary_analysis[
+        "predicted_side_type_pairs"
+    ][:10]:
+        print(
+            f"  {item['expected']} -> "
+            f"{item['predicted']}: "
+            f"{item['count']}"
+        )
+
+    print("")
+    print("Predicted-side structures")
+
+    for item in boundary_analysis[
+        "predicted_side_structures"
+    ]:
+        print(
+            f"  {item['key']}: {item['count']}"
+        )
+
     print("")
     print(f"JSON: {args.output}")
     print(f"Text: {args.text_output}")
