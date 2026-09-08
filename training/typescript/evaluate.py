@@ -408,6 +408,8 @@ def decode_predicted_spans(
     dataset: TypeScriptSemanticDataset,
     *,
     modifier_threshold: float = 0.60,
+    decoder: str = "greedy",
+    inside_ratio: float = 0.90,
 ) -> list[PredictedSpan]:
     points = build_character_points(
         document.source
@@ -416,16 +418,88 @@ def decode_predicted_spans(
     if not points:
         return []
 
-    boundary_ids = [
-        int(
-            boundary_logits[
-                point.byte_start
-            ]
-            .argmax()
-            .item()
+    if decoder not in {
+        "greedy",
+        "sticky",
+    }:
+        raise ValueError(
+            f'Unknown boundary decoder "{decoder}".'
         )
-        for point in points
-    ]
+
+    if not 0.0 < inside_ratio <= 1.0:
+        raise ValueError(
+            "inside_ratio must be in (0, 1], "
+            f"got {inside_ratio}."
+        )
+
+    boundary_probabilities = torch.softmax(
+        torch.stack(
+            [
+                boundary_logits[
+                    point.byte_start
+                ]
+                for point in points
+            ],
+            dim=0,
+        ),
+        dim=-1,
+    )
+
+    greedy_boundary_ids = (
+        boundary_probabilities.argmax(dim=-1)
+    )
+
+    boundary_ids: list[int] = []
+    inside_span = False
+
+    for index, greedy_id_tensor in enumerate(
+        greedy_boundary_ids
+    ):
+        greedy_id = int(
+            greedy_id_tensor.item()
+        )
+
+        boundary_id = greedy_id
+
+        if (
+            decoder == "sticky"
+            and inside_span
+            and greedy_id != BOUNDARY_INSIDE_ID
+        ):
+            probabilities = (
+                boundary_probabilities[index]
+            )
+
+            inside_probability = float(
+                probabilities[
+                    BOUNDARY_INSIDE_ID
+                ].item()
+            )
+
+            winning_probability = float(
+                probabilities[
+                    greedy_id
+                ].item()
+            )
+
+            if (
+                inside_probability
+                >= winning_probability
+                * inside_ratio
+            ):
+                boundary_id = (
+                    BOUNDARY_INSIDE_ID
+                )
+
+        boundary_ids.append(boundary_id)
+
+        if boundary_id == BOUNDARY_OUTSIDE_ID:
+            inside_span = False
+        elif boundary_id in {
+            BOUNDARY_BEGIN_ID,
+            BOUNDARY_INSIDE_ID,
+        }:
+            inside_span = True
 
     span_ranges: list[
         tuple[int, int]
@@ -581,6 +655,33 @@ def parse_arguments() -> argparse.Namespace:
         ),
     )
 
+    parser.add_argument(
+        "--decoder",
+        choices=(
+            "greedy",
+            "sticky",
+        ),
+        default="greedy",
+        help=(
+            "Boundary decoder. greedy preserves the current "
+            "per-character argmax behavior. sticky keeps an "
+            "active span alive when INSIDE is a near-tie with "
+            "a competing boundary class."
+        ),
+    )
+
+    parser.add_argument(
+        "--inside-ratio",
+        type=float,
+        default=0.90,
+        help=(
+            "Sticky-decoder near-tie ratio. While inside a "
+            "span, continue as INSIDE when p(I) >= "
+            "p(winner) * ratio. 1.0 is effectively greedy; "
+            "smaller values make spans stickier."
+        ),
+    )
+
     return parser.parse_args()
 
 
@@ -673,6 +774,14 @@ def main() -> None:
     print(
         f"Fusion:    {args.fusion}"
     )
+    print(
+        f"Decoder:   {args.decoder}"
+    )
+
+    if args.decoder == "sticky":
+        print(
+            f"I-ratio:   {args.inside_ratio:.2f}"
+        )
 
     for document in evaluation_dataset.documents:
         (
@@ -694,6 +803,8 @@ def main() -> None:
             token_type_logits,
             modifier_logits,
             evaluation_dataset,
+            decoder=args.decoder,
+            inside_ratio=args.inside_ratio,
         )
 
         key = (
@@ -851,6 +962,12 @@ def main() -> None:
                 max_length - resolved_stride
             ),
             "fusion": args.fusion,
+            "decoder": args.decoder,
+            "inside_ratio": (
+                args.inside_ratio
+                if args.decoder == "sticky"
+                else None
+            ),
         },
         "validation": checkpoint.get(
             "validation"
