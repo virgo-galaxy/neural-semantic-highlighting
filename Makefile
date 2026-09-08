@@ -4,6 +4,9 @@
 	dataset-typescript \
 	train-typescript \
 	continue-typescript \
+	inspect-overlap-windows-typescript \
+	train-overlap-typescript \
+	continue-overlap-typescript \
 	evaluate-typescript \
 	predict-typescript \
 	benchmark-typescript \
@@ -14,6 +17,9 @@ PYTHON := .venv/bin/python
 EPOCHS ?= 32
 BATCH_SIZE ?= 32
 PATIENCE ?= 5
+TRAIN_STRIDE ?= 512
+OVERLAP_TRAIN_STRIDE ?= 256
+OVERLAP_OUTPUT_DIR ?= artifacts/typescript/v2-multitask-train-overlap256
 BENCHMARK_WINDOWS ?= 8192
 BENCHMARK_WARMUP_STEPS ?= 5
 BENCHMARK_BATCH_SIZES ?= 16 32 64 128
@@ -36,14 +42,39 @@ train-typescript:
 	$(PYTHON) training/typescript/train.py \
 		--epochs $(EPOCHS) \
 		--batch-size $(BATCH_SIZE) \
-		--patience $(PATIENCE)
+		--patience $(PATIENCE) \
+		--train-stride $(TRAIN_STRIDE)
 
 continue-typescript:
 	$(PYTHON) training/typescript/train.py \
 		--epochs $(EPOCHS) \
 		--batch-size $(BATCH_SIZE) \
 		--patience $(PATIENCE) \
+		--train-stride $(TRAIN_STRIDE) \
 		--resume $(RESUME)
+
+inspect-overlap-windows-typescript:
+	$(PYTHON) training/typescript/dataset.py \
+		--train-stride $(OVERLAP_TRAIN_STRIDE)
+
+train-overlap-typescript:
+	$(PYTHON) training/typescript/train.py \
+		--epochs $(EPOCHS) \
+		--batch-size $(BATCH_SIZE) \
+		--patience $(PATIENCE) \
+		--train-stride $(OVERLAP_TRAIN_STRIDE) \
+		--output $(OVERLAP_OUTPUT_DIR)/best.pt \
+		--last-output $(OVERLAP_OUTPUT_DIR)/last.pt
+
+continue-overlap-typescript:
+	$(PYTHON) training/typescript/train.py \
+		--epochs $(EPOCHS) \
+		--batch-size $(BATCH_SIZE) \
+		--patience $(PATIENCE) \
+		--train-stride $(OVERLAP_TRAIN_STRIDE) \
+		--output $(OVERLAP_OUTPUT_DIR)/best.pt \
+		--last-output $(OVERLAP_OUTPUT_DIR)/last.pt \
+		--resume $(OVERLAP_OUTPUT_DIR)/last.pt
 
 evaluate-typescript:
 	$(PYTHON) training/typescript/evaluate.py

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import os
@@ -576,6 +577,7 @@ class TypeScriptSemanticDataset(Dataset):
         split: str,
         *,
         max_length: int = 512,
+        stride: int | None = None,
         use_cache: bool = True,
         show_progress: bool = True,
     ) -> None:
@@ -590,6 +592,20 @@ class TypeScriptSemanticDataset(Dataset):
 
         self.schema = load_schema()
         self.max_length = max_length
+        self.stride = (
+            max_length
+            if stride is None
+            else stride
+        )
+
+        if (
+            self.stride <= 0
+            or self.stride > self.max_length
+        ):
+            raise ValueError(
+                "Dataset stride must be in the range "
+                f"1..{self.max_length}, got {self.stride}."
+            )
 
         self.documents = (
             build_or_load_documents(
@@ -617,7 +633,7 @@ class TypeScriptSemanticDataset(Dataset):
             for start in range(
                 0,
                 length,
-                self.max_length,
+                self.stride,
             ):
                 end = min(
                     start
@@ -639,7 +655,9 @@ class TypeScriptSemanticDataset(Dataset):
             print(
                 f"Built {split}: "
                 f"{len(self.documents)} documents, "
-                f"{len(self.windows)} windows",
+                f"{len(self.windows)} windows "
+                f"(window={self.max_length}, "
+                f"stride={self.stride})",
                 flush=True,
             )
 
@@ -725,7 +743,32 @@ class TypeScriptSemanticDataset(Dataset):
         }
 
 
+def parse_arguments() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--max-length",
+        type=int,
+        default=512,
+    )
+
+    parser.add_argument(
+        "--train-stride",
+        type=int,
+        default=None,
+        help=(
+            "Train-window stride in UTF-8 bytes. "
+            "Defaults to max_length (no overlap). "
+            "Validation and test remain non-overlapping."
+        ),
+    )
+
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = parse_arguments()
+
     print(
         "Neural Semantic Highlighting"
     )
@@ -742,6 +785,12 @@ def main() -> None:
         dataset = (
             TypeScriptSemanticDataset(
                 split,
+                max_length=args.max_length,
+                stride=(
+                    args.train_stride
+                    if split == "train"
+                    else args.max_length
+                ),
                 show_progress=True,
             )
         )
@@ -749,7 +798,8 @@ def main() -> None:
         print(
             f"{split}: "
             f"{len(dataset.documents)} documents, "
-            f"{len(dataset)} windows"
+            f"{len(dataset)} windows, "
+            f"stride={dataset.stride}"
         )
 
     schema = load_schema()

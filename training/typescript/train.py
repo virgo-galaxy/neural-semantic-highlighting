@@ -1374,6 +1374,7 @@ def save_checkpoint(
                     dataset.schema.modifiers
                 ),
                 "max_length": max_length,
+                "train_stride": dataset.stride,
                 "embedding_dimension": 128,
                 "number_of_heads": 4,
                 "number_of_layers": 4,
@@ -1474,6 +1475,33 @@ def load_resume_checkpoint(
             "modifier schema does "
             "not match the current "
             "dataset."
+        )
+
+    checkpoint_train_stride = int(
+        checkpoint.get(
+            "config",
+            {},
+        ).get(
+            "train_stride",
+            checkpoint.get(
+                "config",
+                {},
+            ).get(
+                "max_length",
+                dataset.max_length,
+            ),
+        )
+    )
+
+    if (
+        checkpoint_train_stride
+        != dataset.stride
+    ):
+        raise ValueError(
+            "Resume checkpoint train stride "
+            f"({checkpoint_train_stride}) does not "
+            "match the current train stride "
+            f"({dataset.stride})."
         )
 
     model.load_state_dict(
@@ -1664,6 +1692,17 @@ def parse_arguments() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--train-stride",
+        type=int,
+        default=None,
+        help=(
+            "Train-window stride in UTF-8 bytes. "
+            "Defaults to max_length (no overlap). "
+            "This only changes the train split."
+        ),
+    )
+
+    parser.add_argument(
         "--modifier-loss-weight",
         type=float,
         default=0.10,
@@ -1751,6 +1790,9 @@ def main() -> None:
             max_length=(
                 args.max_length
             ),
+            stride=(
+                args.train_stride
+            ),
             use_cache=True,
             show_progress=True,
         )
@@ -1766,6 +1808,9 @@ def main() -> None:
         TypeScriptSemanticDataset(
             "validation",
             max_length=(
+                args.max_length
+            ),
+            stride=(
                 args.max_length
             ),
             use_cache=True,
@@ -1885,6 +1930,11 @@ def main() -> None:
     )
 
     print(
+        f"Train stride: "
+        f"{train_dataset.stride}"
+    )
+
+    print(
         "Validation windows: "
         f"{len(validation_dataset)}"
     )
@@ -1892,6 +1942,22 @@ def main() -> None:
     print(
         f"Batch size: "
         f"{args.batch_size}"
+    )
+
+    steps_per_epoch = (
+        len(train_dataset)
+        + args.batch_size
+        - 1
+    ) // args.batch_size
+
+    print(
+        f"Optimizer steps/epoch: "
+        f"{steps_per_epoch}"
+    )
+
+    print(
+        f"Planned optimizer steps: "
+        f"{steps_per_epoch * args.epochs}"
     )
 
     print("")
