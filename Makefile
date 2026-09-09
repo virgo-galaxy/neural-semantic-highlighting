@@ -18,11 +18,11 @@
 
 PYTHON := .venv/bin/python
 
-MAX_LENGTH ?= 2048
+MAX_LENGTH ?= 512
 EPOCHS ?= 32
 BATCH_SIZE ?= 1
 PATIENCE ?= 5
-ARTIFACT_DIR ?= artifacts/typescript/context2048
+ARTIFACT_DIR ?= artifacts/typescript/context512-re
 RESUME ?= $(ARTIFACT_DIR)/last.pt
 
 BENCHMARK_WINDOWS ?= 64

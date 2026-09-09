@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import torch
 
+from config import DEFAULT_MAX_LENGTH
 from dataset import (
     BOUNDARY_BEGIN_ID,
     BOUNDARY_INSIDE_ID,
@@ -122,15 +123,17 @@ def main() -> None:
         (0, 1, 4, 5),
     )
 
-    multibyte_starts = build_character_starts("a" * 2047 + "你" + "b")
+    multibyte_starts = build_character_starts(
+        "a" * (DEFAULT_MAX_LENGTH - 1) + "你" + "b"
+    )
     check(
         "runtime cursor keeps lookahead inside a UTF-8 byte limit",
         choose_runtime_lookahead_bounds(
             multibyte_starts,
             cursor=0,
-            limit=2048,
+            limit=DEFAULT_MAX_LENGTH,
         ),
-        (2046, 2047),
+        (DEFAULT_MAX_LENGTH - 2, DEFAULT_MAX_LENGTH - 1),
     )
 
     print("9/9 adaptive-cursor golden checks passed")
