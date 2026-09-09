@@ -21,3 +21,34 @@ make challenge-regexp-typescript
 ```
 
 Do not merge these cases into any training corpus. If the challenge exposes a systematic weakness, create new training-only hard cases that express the same pattern without copying the challenge cases.
+
+## Paired contextual RegExp diagnostic
+
+`regexp-paired-context.json` isolates one additional question: does the exact
+same RegExp literal behave differently when it appears in a tiny isolated
+snippet versus a realistic TypeScript context?
+
+Each pair uses one identical RegExp literal twice:
+
+- `isolated`: a tiny source file with heavy padding at inference time.
+- `contextual`: a 160–480 byte TypeScript source with normal surrounding code.
+
+The paired evaluator reports exact RegExp span F1 for both sides plus four
+transitions: `both_exact`, `contextual_only`, `isolated_only`, and
+`neither_exact`.
+
+Validate the paired challenge definition with:
+
+```bash
+make validate-regexp-paired-challenge-typescript
+```
+
+Run it against the frozen V3 Epoch 19 model and the 300/400-step RegExp surgery
+snapshots with:
+
+```bash
+make challenge-regexp-paired-typescript
+```
+
+Like `regexp.json`, this paired challenge is evaluation-only and must never be
+merged into train, validation, or test data.

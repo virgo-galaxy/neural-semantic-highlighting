@@ -22,6 +22,16 @@
 	continue-v3-typescript \
 	validate-regexp-challenge-typescript \
 	challenge-regexp-typescript \
+	test-regexp-surgery-golden-typescript \
+	surgery-regexp-typescript \
+	evaluate-regexp-surgery-typescript \
+	probe-regexp-surgery-typescript \
+	validate-regexp-paired-challenge-typescript \
+	challenge-regexp-paired-typescript \
+	test-string-surgery-golden-typescript \
+	surgery-string-typescript \
+	evaluate-string-surgery-typescript \
+	probe-string-surgery-typescript \
 	evaluate-typescript \
 	predict-typescript \
 	benchmark-typescript \
@@ -48,6 +58,50 @@ REGEXP_CHALLENGE_OUTPUT ?= artifacts/typescript/v2-multitask-train-dual-view50/r
 REGEXP_CHALLENGE_STRIDE ?= 256
 REGEXP_CHALLENGE_FUSION ?= uniform
 REGEXP_CHALLENGE_MAX_ERRORS ?= 40
+REGEXP_SURGERY_BASE ?= artifacts/typescript/v3-local-role-dual-view-hard-string-regexp/best-epoch19.pt
+REGEXP_SURGERY_DIR ?= artifacts/typescript/v3-regexp-surgery-probe
+REGEXP_SURGERY_OUTPUT ?= $(REGEXP_SURGERY_DIR)/step-0400.pt
+REGEXP_SURGERY_STEPS ?= 400
+REGEXP_SURGERY_BATCH_SIZE ?= 16
+REGEXP_SURGERY_LR ?= 5e-5
+REGEXP_SURGERY_HALO ?= 16
+REGEXP_SURGERY_CONTEXT_BEFORE ?= 128
+REGEXP_SURGERY_REPLAY_EVERY ?= 5
+REGEXP_SURGERY_SNAPSHOT_EVERY ?= 100
+REGEXP_PAIRED_CHALLENGE_OUTPUT ?= artifacts/typescript/regexp-paired-context-challenge.json
+REGEXP_PAIRED_CHALLENGE_STRIDE ?= 256
+REGEXP_PAIRED_CHALLENGE_FUSION ?= uniform
+STRING_SURGERY_BASE ?= artifacts/typescript/v3-local-role-dual-view-hard-string-regexp/best-epoch19.pt
+STRING_SURGERY_DIR ?= artifacts/typescript/v3-string-surgery-probe
+STRING_SURGERY_OUTPUT ?= $(STRING_SURGERY_DIR)/step-0400.pt
+STRING_SURGERY_STEPS ?= 400
+STRING_SURGERY_BATCH_SIZE ?= 16
+STRING_SURGERY_LR ?= 5e-5
+STRING_SURGERY_MIN_SPAN ?= 256
+STRING_SURGERY_FIRST_INSIDE ?= 128
+STRING_SURGERY_STEP_BYTES ?= 256
+STRING_SURGERY_MIN_REMAINING ?= 64
+STRING_SURGERY_RIGHT_HALO ?= 16
+STRING_SURGERY_REPLAY_EVERY ?= 5
+STRING_SURGERY_SNAPSHOT_EVERY ?= 100
+SYNTH_STRING_SURGERY_BASE ?= artifacts/typescript/v3-local-role-dual-view-hard-string-regexp/best-epoch19.pt
+SYNTH_STRING_SURGERY_DIR ?= artifacts/typescript/v3-string-surgery-synthetic-code-probe
+SYNTH_STRING_SURGERY_OUTPUT ?= $(SYNTH_STRING_SURGERY_DIR)/step-0400.pt
+SYNTH_STRING_SURGERY_STEPS ?= 400
+SYNTH_STRING_SURGERY_BATCH_SIZE ?= 16
+SYNTH_STRING_SURGERY_LR ?= 5e-5
+SYNTH_STRING_SURGERY_TARGET_BODY ?= 768
+SYNTH_STRING_SURGERY_MIN_BODY ?= 640
+SYNTH_STRING_SURGERY_MAX_DOCS ?= 1200
+SYNTH_STRING_SURGERY_MAX_PER_SOURCE ?= 2
+SYNTH_STRING_SURGERY_SCORE_THRESHOLD ?= 18
+SYNTH_STRING_SURGERY_MAX_STRING_COMMENT_RATIO ?= 0.35
+SYNTH_STRING_SURGERY_FIRST_INSIDE ?= 128
+SYNTH_STRING_SURGERY_STEP_BYTES ?= 256
+SYNTH_STRING_SURGERY_MIN_REMAINING ?= 64
+SYNTH_STRING_SURGERY_RIGHT_HALO ?= 16
+SYNTH_STRING_SURGERY_REPLAY_EVERY ?= 5
+SYNTH_STRING_SURGERY_SNAPSHOT_EVERY ?= 100
 BENCHMARK_WINDOWS ?= 8192
 BENCHMARK_WARMUP_STEPS ?= 5
 BENCHMARK_BATCH_SIZES ?= 16 32 64 128
@@ -222,6 +276,134 @@ challenge-regexp-typescript:
 		--fusion $(REGEXP_CHALLENGE_FUSION) \
 		--max-errors $(REGEXP_CHALLENGE_MAX_ERRORS) \
 		--output $(REGEXP_CHALLENGE_OUTPUT)
+
+test-regexp-surgery-golden-typescript:
+	$(PYTHON) training/typescript/regexp_surgery_golden.py
+
+surgery-regexp-typescript:
+	$(PYTHON) training/typescript/regexp_surgery.py \
+		--checkpoint $(REGEXP_SURGERY_BASE) \
+		--output $(REGEXP_SURGERY_OUTPUT) \
+		--steps $(REGEXP_SURGERY_STEPS) \
+		--batch-size $(REGEXP_SURGERY_BATCH_SIZE) \
+		--learning-rate $(REGEXP_SURGERY_LR) \
+		--halo-bytes $(REGEXP_SURGERY_HALO) \
+		--context-before-bytes $(REGEXP_SURGERY_CONTEXT_BEFORE) \
+		--replay-every $(REGEXP_SURGERY_REPLAY_EVERY) \
+		--snapshot-every $(REGEXP_SURGERY_SNAPSHOT_EVERY)
+
+evaluate-regexp-surgery-typescript:
+	$(PYTHON) training/typescript/regexp_challenge.py \
+		--checkpoint $(REGEXP_SURGERY_OUTPUT) \
+		--stride 256 \
+		--fusion uniform \
+		--max-errors 40 \
+		--output $(REGEXP_SURGERY_DIR)/regexp-challenge.json
+	$(PYTHON) training/typescript/analyze_errors.py \
+		--checkpoint $(REGEXP_SURGERY_OUTPUT) \
+		--split validation \
+		--stride 256 \
+		--output $(REGEXP_SURGERY_DIR)/validation-errors.json \
+		--text-output $(REGEXP_SURGERY_DIR)/validation-errors.txt \
+		--max-examples 50 \
+		--max-confusions 50 \
+		--max-boundary-summary 50
+
+probe-regexp-surgery-typescript: test-regexp-surgery-golden-typescript surgery-regexp-typescript evaluate-regexp-surgery-typescript
+
+validate-regexp-paired-challenge-typescript:
+	$(PYTHON) training/typescript/regexp_paired_challenge.py \
+		--validate-only
+
+challenge-regexp-paired-typescript:
+	$(PYTHON) training/typescript/regexp_paired_challenge.py \
+		--stride $(REGEXP_PAIRED_CHALLENGE_STRIDE) \
+		--fusion $(REGEXP_PAIRED_CHALLENGE_FUSION) \
+		--output $(REGEXP_PAIRED_CHALLENGE_OUTPUT)
+
+test-string-surgery-golden-typescript:
+	$(PYTHON) training/typescript/string_surgery_golden.py
+
+surgery-string-typescript:
+	$(PYTHON) training/typescript/string_surgery.py \
+		--checkpoint $(STRING_SURGERY_BASE) \
+		--output $(STRING_SURGERY_OUTPUT) \
+		--steps $(STRING_SURGERY_STEPS) \
+		--batch-size $(STRING_SURGERY_BATCH_SIZE) \
+		--learning-rate $(STRING_SURGERY_LR) \
+		--min-span-bytes $(STRING_SURGERY_MIN_SPAN) \
+		--first-inside-offset-bytes $(STRING_SURGERY_FIRST_INSIDE) \
+		--step-bytes $(STRING_SURGERY_STEP_BYTES) \
+		--min-remaining-bytes $(STRING_SURGERY_MIN_REMAINING) \
+		--right-halo-bytes $(STRING_SURGERY_RIGHT_HALO) \
+		--replay-every $(STRING_SURGERY_REPLAY_EVERY) \
+		--snapshot-every $(STRING_SURGERY_SNAPSHOT_EVERY)
+
+evaluate-string-surgery-typescript:
+	$(PYTHON) training/typescript/inspect_boundary_logits.py \
+		--checkpoint $(STRING_SURGERY_OUTPUT) \
+		--split validation \
+		--stride 256 \
+		--fusion uniform \
+		--token-type string \
+		--output $(STRING_SURGERY_DIR)/string-fragmentation.json \
+		--max-examples 50
+	$(PYTHON) training/typescript/analyze_errors.py \
+		--checkpoint $(STRING_SURGERY_OUTPUT) \
+		--split validation \
+		--stride 256 \
+		--output $(STRING_SURGERY_DIR)/validation-errors.json \
+		--text-output $(STRING_SURGERY_DIR)/validation-errors.txt \
+		--max-examples 50 \
+		--max-confusions 50 \
+		--max-boundary-summary 50
+
+probe-string-surgery-typescript: test-string-surgery-golden-typescript surgery-string-typescript evaluate-string-surgery-typescript
+
+
+test-synthetic-string-surgery-golden-typescript:
+	$(PYTHON) training/typescript/synthetic_string_surgery_golden.py
+
+surgery-synthetic-string-typescript:
+	$(PYTHON) training/typescript/synthetic_string_surgery.py \
+		--checkpoint $(SYNTH_STRING_SURGERY_BASE) \
+		--output $(SYNTH_STRING_SURGERY_OUTPUT) \
+		--steps $(SYNTH_STRING_SURGERY_STEPS) \
+		--batch-size $(SYNTH_STRING_SURGERY_BATCH_SIZE) \
+		--learning-rate $(SYNTH_STRING_SURGERY_LR) \
+		--target-body-bytes $(SYNTH_STRING_SURGERY_TARGET_BODY) \
+		--min-body-bytes $(SYNTH_STRING_SURGERY_MIN_BODY) \
+		--max-synthetic-documents $(SYNTH_STRING_SURGERY_MAX_DOCS) \
+		--max-per-source-document $(SYNTH_STRING_SURGERY_MAX_PER_SOURCE) \
+		--score-threshold $(SYNTH_STRING_SURGERY_SCORE_THRESHOLD) \
+		--max-string-comment-ratio $(SYNTH_STRING_SURGERY_MAX_STRING_COMMENT_RATIO) \
+		--first-inside-offset-bytes $(SYNTH_STRING_SURGERY_FIRST_INSIDE) \
+		--step-bytes $(SYNTH_STRING_SURGERY_STEP_BYTES) \
+		--min-remaining-bytes $(SYNTH_STRING_SURGERY_MIN_REMAINING) \
+		--right-halo-bytes $(SYNTH_STRING_SURGERY_RIGHT_HALO) \
+		--replay-every $(SYNTH_STRING_SURGERY_REPLAY_EVERY) \
+		--snapshot-every $(SYNTH_STRING_SURGERY_SNAPSHOT_EVERY)
+
+evaluate-synthetic-string-surgery-typescript:
+	$(PYTHON) training/typescript/inspect_boundary_logits.py \
+		--checkpoint $(SYNTH_STRING_SURGERY_OUTPUT) \
+		--split validation \
+		--stride 256 \
+		--fusion uniform \
+		--token-type string \
+		--output $(SYNTH_STRING_SURGERY_DIR)/string-fragmentation.json \
+		--max-examples 50
+	$(PYTHON) training/typescript/analyze_errors.py \
+		--checkpoint $(SYNTH_STRING_SURGERY_OUTPUT) \
+		--split validation \
+		--stride 256 \
+		--output $(SYNTH_STRING_SURGERY_DIR)/validation-errors.json \
+		--text-output $(SYNTH_STRING_SURGERY_DIR)/validation-errors.txt \
+		--max-examples 50 \
+		--max-confusions 50 \
+		--max-boundary-summary 50
+
+probe-synthetic-string-surgery-typescript: test-synthetic-string-surgery-golden-typescript surgery-synthetic-string-typescript evaluate-synthetic-string-surgery-typescript
 
 evaluate-typescript:
 	$(PYTHON) training/typescript/evaluate.py

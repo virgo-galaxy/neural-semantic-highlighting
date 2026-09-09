@@ -1,0 +1,366 @@
+{
+  "format": "nsh-typescript-regexp-paired-context-challenge-v1",
+  "description": "Paired synthetic RegExp diagnostic. Each pair uses the exact same regexp literal in a tiny isolated snippet and a realistic TypeScript context. Evaluation-only; never merge into train/validation/test.",
+  "pairs": [
+    {
+      "id": "basic-001",
+      "family": "basic",
+      "documentKind": "typescript",
+      "regexp": "/cats?|dogs?/i",
+      "isolated": "const pattern1 = {REGEXP};\n",
+      "contextual": "import { normalize } from \"./text-utils\";\n\nexport function matchValue1(input: string, fallback = \"\") {\n  const normalized = normalize(input);\n  const pattern1 = {REGEXP};\n\n  if (pattern1.test(normalized)) {\n    return normalized.replace(pattern1, fallback);\n  }\n\n  return normalized;\n}\n",
+      "note": "alternation plus optional suffix"
+    },
+    {
+      "id": "basic-002",
+      "family": "basic",
+      "documentKind": "typescript",
+      "regexp": "/item-\\d{3}/",
+      "isolated": "const pattern2 = {REGEXP};\n",
+      "contextual": "type MatchResult2 = { matched: boolean; value: string };\n\nexport class Matcher2 {\n  private readonly pattern = {REGEXP};\n\n  test(input: string): MatchResult2 {\n    const value = input.trim();\n    return { matched: this.pattern.test(value), value };\n  }\n}\n",
+      "note": "numeric suffix"
+    },
+    {
+      "id": "basic-003",
+      "family": "basic",
+      "documentKind": "typescript",
+      "regexp": "/^(?:dev|prod|test)$/",
+      "isolated": "const pattern3 = {REGEXP};\n",
+      "contextual": "export async function validateInput3(input: string) {\n  const candidate = await Promise.resolve(input.trim());\n  const pattern3 = {REGEXP};\n  const matched = pattern3.test(candidate);\n\n  return {\n    candidate,\n    matched,\n    expression: pattern3.source,\n  };\n}\n",
+      "note": "anchored alternatives"
+    },
+    {
+      "id": "basic-004",
+      "family": "basic",
+      "documentKind": "typescript",
+      "regexp": "/[A-F0-9]{6}/i",
+      "isolated": "const pattern4 = {REGEXP};\n",
+      "contextual": "const defaults4 = [\"alpha\", \"beta\", \"gamma\"];\n\nexport function filterValues4(input: readonly string[]) {\n  const pattern4 = {REGEXP};\n  const values = [...defaults4, ...input];\n\n  return values\n    .filter((value) => pattern4.test(value))\n    .map((value) => value.trim());\n}\n",
+      "note": "hex-like token"
+    },
+    {
+      "id": "basic-005",
+      "family": "basic",
+      "documentKind": "typescript",
+      "regexp": "/\\d{2}:\\d{2}(?::\\d{2})?/",
+      "isolated": "const pattern5 = {REGEXP};\n",
+      "contextual": "import { normalize } from \"./text-utils\";\n\nexport function matchValue5(input: string, fallback = \"\") {\n  const normalized = normalize(input);\n  const pattern5 = {REGEXP};\n\n  if (pattern5.test(normalized)) {\n    return normalized.replace(pattern5, fallback);\n  }\n\n  return normalized;\n}\n",
+      "note": "time-like value"
+    },
+    {
+      "id": "basic-006",
+      "family": "basic",
+      "documentKind": "typescript",
+      "regexp": "/[._-]+/g",
+      "isolated": "const pattern6 = {REGEXP};\n",
+      "contextual": "type MatchResult6 = { matched: boolean; value: string };\n\nexport class Matcher6 {\n  private readonly pattern = {REGEXP};\n\n  test(input: string): MatchResult6 {\n    const value = input.trim();\n    return { matched: this.pattern.test(value), value };\n  }\n}\n",
+      "note": "separator run"
+    },
+    {
+      "id": "basic-007",
+      "family": "basic",
+      "documentKind": "typescript",
+      "regexp": "/\\s{2,}/g",
+      "isolated": "const pattern7 = {REGEXP};\n",
+      "contextual": "export async function validateInput7(input: string) {\n  const candidate = await Promise.resolve(input.trim());\n  const pattern7 = {REGEXP};\n  const matched = pattern7.test(candidate);\n\n  return {\n    candidate,\n    matched,\n    expression: pattern7.source,\n  };\n}\n",
+      "note": "repeated whitespace"
+    },
+    {
+      "id": "basic-008",
+      "family": "basic",
+      "documentKind": "typescript",
+      "regexp": "/\\b(?:true|false|null)\\b/g",
+      "isolated": "const pattern8 = {REGEXP};\n",
+      "contextual": "const defaults8 = [\"alpha\", \"beta\", \"gamma\"];\n\nexport function filterValues8(input: readonly string[]) {\n  const pattern8 = {REGEXP};\n  const values = [...defaults8, ...input];\n\n  return values\n    .filter((value) => pattern8.test(value))\n    .map((value) => value.trim());\n}\n",
+      "note": "keyword-like alternatives"
+    },
+    {
+      "id": "escape-001",
+      "family": "escape-class",
+      "documentKind": "typescript",
+      "regexp": "/\\/api\\/v\\d+\\//",
+      "isolated": "const pattern9 = {REGEXP};\n",
+      "contextual": "import { normalize } from \"./text-utils\";\n\nexport function matchValue9(input: string, fallback = \"\") {\n  const normalized = normalize(input);\n  const pattern9 = {REGEXP};\n\n  if (pattern9.test(normalized)) {\n    return normalized.replace(pattern9, fallback);\n  }\n\n  return normalized;\n}\n",
+      "note": "escaped slash path"
+    },
+    {
+      "id": "escape-002",
+      "family": "escape-class",
+      "documentKind": "typescript",
+      "regexp": "/\\\\(?:n|r|t)/g",
+      "isolated": "const pattern10 = {REGEXP};\n",
+      "contextual": "type MatchResult10 = { matched: boolean; value: string };\n\nexport class Matcher10 {\n  private readonly pattern = {REGEXP};\n\n  test(input: string): MatchResult10 {\n    const value = input.trim();\n    return { matched: this.pattern.test(value), value };\n  }\n}\n",
+      "note": "escaped backslash sequence"
+    },
+    {
+      "id": "escape-003",
+      "family": "escape-class",
+      "documentKind": "typescript",
+      "regexp": "/[\\u0041-\\u005A]+/",
+      "isolated": "const pattern11 = {REGEXP};\n",
+      "contextual": "export async function validateInput11(input: string) {\n  const candidate = await Promise.resolve(input.trim());\n  const pattern11 = {REGEXP};\n  const matched = pattern11.test(candidate);\n\n  return {\n    candidate,\n    matched,\n    expression: pattern11.source,\n  };\n}\n",
+      "note": "unicode escape range"
+    },
+    {
+      "id": "escape-004",
+      "family": "escape-class",
+      "documentKind": "typescript",
+      "regexp": "/\\u{1F600}/u",
+      "isolated": "const pattern12 = {REGEXP};\n",
+      "contextual": "const defaults12 = [\"alpha\", \"beta\", \"gamma\"];\n\nexport function filterValues12(input: readonly string[]) {\n  const pattern12 = {REGEXP};\n  const values = [...defaults12, ...input];\n\n  return values\n    .filter((value) => pattern12.test(value))\n    .map((value) => value.trim());\n}\n",
+      "note": "unicode code point escape"
+    },
+    {
+      "id": "escape-005",
+      "family": "escape-class",
+      "documentKind": "typescript",
+      "regexp": "/\\p{Number}+/u",
+      "isolated": "const pattern13 = {REGEXP};\n",
+      "contextual": "import { normalize } from \"./text-utils\";\n\nexport function matchValue13(input: string, fallback = \"\") {\n  const normalized = normalize(input);\n  const pattern13 = {REGEXP};\n\n  if (pattern13.test(normalized)) {\n    return normalized.replace(pattern13, fallback);\n  }\n\n  return normalized;\n}\n",
+      "note": "unicode property escape"
+    },
+    {
+      "id": "escape-006",
+      "family": "escape-class",
+      "documentKind": "typescript",
+      "regexp": "/[^\\S\\r\\n]+/",
+      "isolated": "const pattern14 = {REGEXP};\n",
+      "contextual": "type MatchResult14 = { matched: boolean; value: string };\n\nexport class Matcher14 {\n  private readonly pattern = {REGEXP};\n\n  test(input: string): MatchResult14 {\n    const value = input.trim();\n    return { matched: this.pattern.test(value), value };\n  }\n}\n",
+      "note": "negated whitespace class"
+    },
+    {
+      "id": "escape-007",
+      "family": "escape-class",
+      "documentKind": "typescript",
+      "regexp": "/[\\[\\]{}()]/",
+      "isolated": "const pattern15 = {REGEXP};\n",
+      "contextual": "export async function validateInput15(input: string) {\n  const candidate = await Promise.resolve(input.trim());\n  const pattern15 = {REGEXP};\n  const matched = pattern15.test(candidate);\n\n  return {\n    candidate,\n    matched,\n    expression: pattern15.source,\n  };\n}\n",
+      "note": "escaped bracket characters"
+    },
+    {
+      "id": "escape-008",
+      "family": "escape-class",
+      "documentKind": "typescript",
+      "regexp": "/\\x2f+/",
+      "isolated": "const pattern16 = {REGEXP};\n",
+      "contextual": "const defaults16 = [\"alpha\", \"beta\", \"gamma\"];\n\nexport function filterValues16(input: readonly string[]) {\n  const pattern16 = {REGEXP};\n  const values = [...defaults16, ...input];\n\n  return values\n    .filter((value) => pattern16.test(value))\n    .map((value) => value.trim());\n}\n",
+      "note": "hex escape"
+    },
+    {
+      "id": "group-001",
+      "family": "group-assertion",
+      "documentKind": "typescript",
+      "regexp": "/(?:ab){2,4}/",
+      "isolated": "const pattern17 = {REGEXP};\n",
+      "contextual": "import { normalize } from \"./text-utils\";\n\nexport function matchValue17(input: string, fallback = \"\") {\n  const normalized = normalize(input);\n  const pattern17 = {REGEXP};\n\n  if (pattern17.test(normalized)) {\n    return normalized.replace(pattern17, fallback);\n  }\n\n  return normalized;\n}\n",
+      "note": "noncapturing group quantifier"
+    },
+    {
+      "id": "group-002",
+      "family": "group-assertion",
+      "documentKind": "typescript",
+      "regexp": "/(?<word>[a-z]+)-\\k<word>/i",
+      "isolated": "const pattern18 = {REGEXP};\n",
+      "contextual": "type MatchResult18 = { matched: boolean; value: string };\n\nexport class Matcher18 {\n  private readonly pattern = {REGEXP};\n\n  test(input: string): MatchResult18 {\n    const value = input.trim();\n    return { matched: this.pattern.test(value), value };\n  }\n}\n",
+      "note": "named capture and backreference"
+    },
+    {
+      "id": "group-003",
+      "family": "group-assertion",
+      "documentKind": "typescript",
+      "regexp": "/foo(?=bar)/",
+      "isolated": "const pattern19 = {REGEXP};\n",
+      "contextual": "export async function validateInput19(input: string) {\n  const candidate = await Promise.resolve(input.trim());\n  const pattern19 = {REGEXP};\n  const matched = pattern19.test(candidate);\n\n  return {\n    candidate,\n    matched,\n    expression: pattern19.source,\n  };\n}\n",
+      "note": "positive lookahead"
+    },
+    {
+      "id": "group-004",
+      "family": "group-assertion",
+      "documentKind": "typescript",
+      "regexp": "/foo(?!bar)/",
+      "isolated": "const pattern20 = {REGEXP};\n",
+      "contextual": "const defaults20 = [\"alpha\", \"beta\", \"gamma\"];\n\nexport function filterValues20(input: readonly string[]) {\n  const pattern20 = {REGEXP};\n  const values = [...defaults20, ...input];\n\n  return values\n    .filter((value) => pattern20.test(value))\n    .map((value) => value.trim());\n}\n",
+      "note": "negative lookahead"
+    },
+    {
+      "id": "group-005",
+      "family": "group-assertion",
+      "documentKind": "typescript",
+      "regexp": "/(?<=pre)fix/",
+      "isolated": "const pattern21 = {REGEXP};\n",
+      "contextual": "import { normalize } from \"./text-utils\";\n\nexport function matchValue21(input: string, fallback = \"\") {\n  const normalized = normalize(input);\n  const pattern21 = {REGEXP};\n\n  if (pattern21.test(normalized)) {\n    return normalized.replace(pattern21, fallback);\n  }\n\n  return normalized;\n}\n",
+      "note": "positive lookbehind"
+    },
+    {
+      "id": "group-006",
+      "family": "group-assertion",
+      "documentKind": "typescript",
+      "regexp": "/(?<!un)happy/",
+      "isolated": "const pattern22 = {REGEXP};\n",
+      "contextual": "type MatchResult22 = { matched: boolean; value: string };\n\nexport class Matcher22 {\n  private readonly pattern = {REGEXP};\n\n  test(input: string): MatchResult22 {\n    const value = input.trim();\n    return { matched: this.pattern.test(value), value };\n  }\n}\n",
+      "note": "negative lookbehind"
+    },
+    {
+      "id": "group-007",
+      "family": "group-assertion",
+      "documentKind": "typescript",
+      "regexp": "/^(?:https?|ftp):\\/\\//i",
+      "isolated": "const pattern23 = {REGEXP};\n",
+      "contextual": "export async function validateInput23(input: string) {\n  const candidate = await Promise.resolve(input.trim());\n  const pattern23 = {REGEXP};\n  const matched = pattern23.test(candidate);\n\n  return {\n    candidate,\n    matched,\n    expression: pattern23.source,\n  };\n}\n",
+      "note": "scheme group with escaped slashes"
+    },
+    {
+      "id": "group-008",
+      "family": "group-assertion",
+      "documentKind": "typescript",
+      "regexp": "/(?:^|,)\\s*([^,]+)\\s*(?=,|$)/g",
+      "isolated": "const pattern24 = {REGEXP};\n",
+      "contextual": "const defaults24 = [\"alpha\", \"beta\", \"gamma\"];\n\nexport function filterValues24(input: readonly string[]) {\n  const pattern24 = {REGEXP};\n  const values = [...defaults24, ...input];\n\n  return values\n    .filter((value) => pattern24.test(value))\n    .map((value) => value.trim());\n}\n",
+      "note": "capture with lookahead"
+    },
+    {
+      "id": "flags-001",
+      "family": "flags-anchor",
+      "documentKind": "typescript",
+      "regexp": "/alpha.beta/s",
+      "isolated": "const pattern25 = {REGEXP};\n",
+      "contextual": "import { normalize } from \"./text-utils\";\n\nexport function matchValue25(input: string, fallback = \"\") {\n  const normalized = normalize(input);\n  const pattern25 = {REGEXP};\n\n  if (pattern25.test(normalized)) {\n    return normalized.replace(pattern25, fallback);\n  }\n\n  return normalized;\n}\n",
+      "note": "dotAll flag"
+    },
+    {
+      "id": "flags-002",
+      "family": "flags-anchor",
+      "documentKind": "typescript",
+      "regexp": "/^line$/m",
+      "isolated": "const pattern26 = {REGEXP};\n",
+      "contextual": "type MatchResult26 = { matched: boolean; value: string };\n\nexport class Matcher26 {\n  private readonly pattern = {REGEXP};\n\n  test(input: string): MatchResult26 {\n    const value = input.trim();\n    return { matched: this.pattern.test(value), value };\n  }\n}\n",
+      "note": "multiline anchors"
+    },
+    {
+      "id": "flags-003",
+      "family": "flags-anchor",
+      "documentKind": "typescript",
+      "regexp": "/token/gy",
+      "isolated": "const pattern27 = {REGEXP};\n",
+      "contextual": "export async function validateInput27(input: string) {\n  const candidate = await Promise.resolve(input.trim());\n  const pattern27 = {REGEXP};\n  const matched = pattern27.test(candidate);\n\n  return {\n    candidate,\n    matched,\n    expression: pattern27.source,\n  };\n}\n",
+      "note": "global sticky flags"
+    },
+    {
+      "id": "flags-004",
+      "family": "flags-anchor",
+      "documentKind": "typescript",
+      "regexp": "/value/d",
+      "isolated": "const pattern28 = {REGEXP};\n",
+      "contextual": "const defaults28 = [\"alpha\", \"beta\", \"gamma\"];\n\nexport function filterValues28(input: readonly string[]) {\n  const pattern28 = {REGEXP};\n  const values = [...defaults28, ...input];\n\n  return values\n    .filter((value) => pattern28.test(value))\n    .map((value) => value.trim());\n}\n",
+      "note": "indices flag"
+    },
+    {
+      "id": "flags-005",
+      "family": "flags-anchor",
+      "documentKind": "typescript",
+      "regexp": "/straße/iu",
+      "isolated": "const pattern29 = {REGEXP};\n",
+      "contextual": "import { normalize } from \"./text-utils\";\n\nexport function matchValue29(input: string, fallback = \"\") {\n  const normalized = normalize(input);\n  const pattern29 = {REGEXP};\n\n  if (pattern29.test(normalized)) {\n    return normalized.replace(pattern29, fallback);\n  }\n\n  return normalized;\n}\n",
+      "note": "unicode ignore-case flags"
+    },
+    {
+      "id": "flags-006",
+      "family": "flags-anchor",
+      "documentKind": "typescript",
+      "regexp": "/^.$/su",
+      "isolated": "const pattern30 = {REGEXP};\n",
+      "contextual": "type MatchResult30 = { matched: boolean; value: string };\n\nexport class Matcher30 {\n  private readonly pattern = {REGEXP};\n\n  test(input: string): MatchResult30 {\n    const value = input.trim();\n    return { matched: this.pattern.test(value), value };\n  }\n}\n",
+      "note": "dotAll unicode flags"
+    },
+    {
+      "id": "flags-007",
+      "family": "flags-anchor",
+      "documentKind": "typescript",
+      "regexp": "/[a-z]+/iy",
+      "isolated": "const pattern31 = {REGEXP};\n",
+      "contextual": "export async function validateInput31(input: string) {\n  const candidate = await Promise.resolve(input.trim());\n  const pattern31 = {REGEXP};\n  const matched = pattern31.test(candidate);\n\n  return {\n    candidate,\n    matched,\n    expression: pattern31.source,\n  };\n}\n",
+      "note": "ignore-case sticky flags"
+    },
+    {
+      "id": "flags-008",
+      "family": "flags-anchor",
+      "documentKind": "typescript",
+      "regexp": "/\\d+/dg",
+      "isolated": "const pattern32 = {REGEXP};\n",
+      "contextual": "const defaults32 = [\"alpha\", \"beta\", \"gamma\"];\n\nexport function filterValues32(input: readonly string[]) {\n  const pattern32 = {REGEXP};\n  const values = [...defaults32, ...input];\n\n  return values\n    .filter((value) => pattern32.test(value))\n    .map((value) => value.trim());\n}\n",
+      "note": "indices global flags"
+    },
+    {
+      "id": "realistic-001",
+      "family": "realistic",
+      "documentKind": "typescript",
+      "regexp": "/\\$?\\d+(?:\\.\\d{2})?/",
+      "isolated": "const pattern33 = {REGEXP};\n",
+      "contextual": "import { normalize } from \"./text-utils\";\n\nexport function matchValue33(input: string, fallback = \"\") {\n  const normalized = normalize(input);\n  const pattern33 = {REGEXP};\n\n  if (pattern33.test(normalized)) {\n    return normalized.replace(pattern33, fallback);\n  }\n\n  return normalized;\n}\n",
+      "note": "currency-like value"
+    },
+    {
+      "id": "realistic-002",
+      "family": "realistic",
+      "documentKind": "typescript",
+      "regexp": "/#[0-9a-f]{3,8}\\b/i",
+      "isolated": "const pattern34 = {REGEXP};\n",
+      "contextual": "type MatchResult34 = { matched: boolean; value: string };\n\nexport class Matcher34 {\n  private readonly pattern = {REGEXP};\n\n  test(input: string): MatchResult34 {\n    const value = input.trim();\n    return { matched: this.pattern.test(value), value };\n  }\n}\n",
+      "note": "hex color-like value"
+    },
+    {
+      "id": "realistic-003",
+      "family": "realistic",
+      "documentKind": "typescript",
+      "regexp": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}/i",
+      "isolated": "const pattern35 = {REGEXP};\n",
+      "contextual": "export async function validateInput35(input: string) {\n  const candidate = await Promise.resolve(input.trim());\n  const pattern35 = {REGEXP};\n  const matched = pattern35.test(candidate);\n\n  return {\n    candidate,\n    matched,\n    expression: pattern35.source,\n  };\n}\n",
+      "note": "email-like value"
+    },
+    {
+      "id": "realistic-004",
+      "family": "realistic",
+      "documentKind": "typescript",
+      "regexp": "/\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b/",
+      "isolated": "const pattern36 = {REGEXP};\n",
+      "contextual": "const defaults36 = [\"alpha\", \"beta\", \"gamma\"];\n\nexport function filterValues36(input: readonly string[]) {\n  const pattern36 = {REGEXP};\n  const values = [...defaults36, ...input];\n\n  return values\n    .filter((value) => pattern36.test(value))\n    .map((value) => value.trim());\n}\n",
+      "note": "IPv4-like value"
+    },
+    {
+      "id": "realistic-005",
+      "family": "realistic",
+      "documentKind": "typescript",
+      "regexp": "/\\/(?:users|teams)\\/[a-z0-9_-]+/i",
+      "isolated": "const pattern37 = {REGEXP};\n",
+      "contextual": "import { normalize } from \"./text-utils\";\n\nexport function matchValue37(input: string, fallback = \"\") {\n  const normalized = normalize(input);\n  const pattern37 = {REGEXP};\n\n  if (pattern37.test(normalized)) {\n    return normalized.replace(pattern37, fallback);\n  }\n\n  return normalized;\n}\n",
+      "note": "route-like path"
+    },
+    {
+      "id": "realistic-006",
+      "family": "realistic",
+      "documentKind": "typescript",
+      "regexp": "/\\.(?:ts|tsx|js|jsx)$/i",
+      "isolated": "const pattern38 = {REGEXP};\n",
+      "contextual": "type MatchResult38 = { matched: boolean; value: string };\n\nexport class Matcher38 {\n  private readonly pattern = {REGEXP};\n\n  test(input: string): MatchResult38 {\n    const value = input.trim();\n    return { matched: this.pattern.test(value), value };\n  }\n}\n",
+      "note": "source file extension"
+    },
+    {
+      "id": "realistic-007",
+      "family": "realistic",
+      "documentKind": "typescript",
+      "regexp": "/^--[a-z][a-z0-9-]*$/i",
+      "isolated": "const pattern39 = {REGEXP};\n",
+      "contextual": "export async function validateInput39(input: string) {\n  const candidate = await Promise.resolve(input.trim());\n  const pattern39 = {REGEXP};\n  const matched = pattern39.test(candidate);\n\n  return {\n    candidate,\n    matched,\n    expression: pattern39.source,\n  };\n}\n",
+      "note": "CSS custom property-like name"
+    },
+    {
+      "id": "realistic-008",
+      "family": "realistic",
+      "documentKind": "typescript",
+      "regexp": "/\\{\\{[^{}]+\\}\\}/g",
+      "isolated": "const pattern40 = {REGEXP};\n",
+      "contextual": "const defaults40 = [\"alpha\", \"beta\", \"gamma\"];\n\nexport function filterValues40(input: readonly string[]) {\n  const pattern40 = {REGEXP};\n  const values = [...defaults40, ...input];\n\n  return values\n    .filter((value) => pattern40.test(value))\n    .map((value) => value.trim());\n}\n",
+      "note": "template placeholder-like value"
+    }
+  ]
+}
