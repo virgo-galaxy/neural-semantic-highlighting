@@ -44,24 +44,23 @@ if (validation.length === 0 || test.length === 0) {
   throw new Error("Existing validation/test splits must be non-empty before freezing the holdout.");
 }
 
-const holdout = [
-  ...toHoldout(validation, "validation"),
-  ...toHoldout(test, "test"),
-].sort((left, right) => {
-  const repositoryOrder = left.repository.localeCompare(right.repository);
+const holdout = [...toHoldout(validation, "validation"), ...toHoldout(test, "test")].sort(
+  (left, right) => {
+    const repositoryOrder = left.repository.localeCompare(right.repository);
 
-  if (repositoryOrder !== 0) {
-    return repositoryOrder;
-  }
+    if (repositoryOrder !== 0) {
+      return repositoryOrder;
+    }
 
-  const pathOrder = left.path.localeCompare(right.path);
+    const pathOrder = left.path.localeCompare(right.path);
 
-  if (pathOrder !== 0) {
-    return pathOrder;
-  }
+    if (pathOrder !== 0) {
+      return pathOrder;
+    }
 
-  return left.split.localeCompare(right.split);
-});
+    return left.split.localeCompare(right.split);
+  },
+);
 
 const keys = new Set<string>();
 

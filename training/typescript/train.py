@@ -12,29 +12,36 @@ import torch.nn.functional as F
 from torch import nn
 from torch.utils.data import DataLoader
 
+from config import (
+    CHECKPOINT_FORMAT,
+    DEFAULT_BEST_CHECKPOINT_PATH,
+    DEFAULT_LAST_CHECKPOINT_PATH,
+    DEFAULT_MAX_LENGTH,
+    DEFAULT_TRAIN_BATCH_SIZE,
+    DEFAULT_WINDOW_STRIDE,
+    MODEL_EMBEDDING_DIMENSION,
+    MODEL_FEED_FORWARD_DIMENSION,
+    MODEL_NUMBER_OF_HEADS,
+    MODEL_NUMBER_OF_LAYERS,
+)
 from dataset import (
     BOUNDARY_BEGIN_ID,
     BOUNDARY_INSIDE_ID,
     BOUNDARY_OUTSIDE_ID,
     IGNORE_LABEL_ID,
     NUMBER_OF_BOUNDARY_CLASSES,
-    PAD_BYTE_ID,
     EncodedDocument,
     TypeScriptSemanticDataset,
 )
+from inference import predict_document_logits
 from model import (
     SemanticTransformer,
     count_parameters,
 )
 
 
-DEFAULT_OUTPUT_PATH = Path(
-    "artifacts/typescript/v2-multitask/best.pt"
-)
-
-DEFAULT_LAST_OUTPUT_PATH = Path(
-    "artifacts/typescript/v2-multitask/last.pt"
-)
+DEFAULT_OUTPUT_PATH = DEFAULT_BEST_CHECKPOINT_PATH
+DEFAULT_LAST_OUTPUT_PATH = DEFAULT_LAST_CHECKPOINT_PATH
 
 
 @dataclass(frozen=True)
@@ -270,129 +277,6 @@ def build_modifier_positive_weights(
     return positive_weights
 
 
-def predict_document_logits(
-    model: SemanticTransformer,
-    source: str,
-    *,
-    max_length: int,
-    device: torch.device,
-) -> tuple[
-    torch.Tensor,
-    torch.Tensor,
-    torch.Tensor,
-]:
-    source_bytes = source.encode(
-        "utf-8"
-    )
-
-    if not source_bytes:
-        return (
-            torch.empty((0, 3)),
-            torch.empty((0, 0)),
-            torch.empty((0, 0)),
-        )
-
-    boundary_chunks: list[
-        torch.Tensor
-    ] = []
-
-    token_type_chunks: list[
-        torch.Tensor
-    ] = []
-
-    modifier_chunks: list[
-        torch.Tensor
-    ] = []
-
-    with torch.no_grad():
-        for start in range(
-            0,
-            len(source_bytes),
-            max_length,
-        ):
-            chunk = source_bytes[
-                start:
-                start + max_length
-            ]
-
-            length = len(chunk)
-
-            input_ids = torch.full(
-                (1, max_length),
-                PAD_BYTE_ID,
-                dtype=torch.long,
-                device=device,
-            )
-
-            attention_mask = torch.zeros(
-                (1, max_length),
-                dtype=torch.bool,
-                device=device,
-            )
-
-            input_ids[
-                0,
-                :length,
-            ] = torch.tensor(
-                list(chunk),
-                dtype=torch.long,
-                device=device,
-            )
-
-            attention_mask[
-                0,
-                :length,
-            ] = True
-
-            output = model(
-                input_ids=input_ids,
-                attention_mask=(
-                    attention_mask
-                ),
-            )
-
-            boundary_chunks.append(
-                output.boundary_logits[
-                    0,
-                    :length,
-                ]
-                .detach()
-                .cpu()
-            )
-
-            token_type_chunks.append(
-                output.token_type_logits[
-                    0,
-                    :length,
-                ]
-                .detach()
-                .cpu()
-            )
-
-            modifier_chunks.append(
-                output.modifier_logits[
-                    0,
-                    :length,
-                ]
-                .detach()
-                .cpu()
-            )
-
-    return (
-        torch.cat(
-            boundary_chunks,
-            dim=0,
-        ),
-        torch.cat(
-            token_type_chunks,
-            dim=0,
-        ),
-        torch.cat(
-            modifier_chunks,
-            dim=0,
-        ),
-    )
-
 
 def decode_predicted_spans(
     document: EncodedDocument,
@@ -624,6 +508,8 @@ def exact_span_metrics(
                 dataset.max_length
             ),
             device=device,
+            stride=dataset.stride,
+            fusion="center",
         )
 
         predicted_spans = (
@@ -1350,7 +1236,7 @@ def save_checkpoint(
     torch.save(
         {
             "format": (
-                "nsh-typescript-v2-multitask"
+                CHECKPOINT_FORMAT
             ),
             "epoch": epoch,
             "model_state_dict": (
@@ -1374,14 +1260,11 @@ def save_checkpoint(
                     dataset.schema.modifiers
                 ),
                 "max_length": max_length,
-                "train_stride": dataset.stride,
-                "train_window_strategy": (
-                    dataset.window_strategy
-                ),
-                "embedding_dimension": 128,
-                "number_of_heads": 4,
-                "number_of_layers": 4,
-                "feed_forward_dimension": 512,
+                "stride": dataset.stride,
+                "embedding_dimension": MODEL_EMBEDDING_DIMENSION,
+                "number_of_heads": MODEL_NUMBER_OF_HEADS,
+                "number_of_layers": MODEL_NUMBER_OF_LAYERS,
+                "feed_forward_dimension": MODEL_FEED_FORWARD_DIMENSION,
             },
             "schema": {
                 "token_types": list(
@@ -1428,259 +1311,40 @@ def move_optimizer_state_to_device(
 
 def load_resume_checkpoint(
     checkpoint_path: Path,
-    best_checkpoint_path: Path,
     model: SemanticTransformer,
     optimizer: torch.optim.Optimizer,
     dataset: TypeScriptSemanticDataset,
     device: torch.device,
-    fallback_epoch: int,
 ) -> tuple[int, float, int, int]:
-    checkpoint = torch.load(
-        checkpoint_path,
-        map_location="cpu",
-    )
+    checkpoint = torch.load(checkpoint_path, map_location="cpu")
 
-    if (
-        checkpoint.get("format")
-        != "nsh-typescript-v2-multitask"
-    ):
-        raise ValueError(
-            "Resume checkpoint is not "
-            "an NSH TypeScript V2 "
-            "multitask checkpoint."
-        )
+    if checkpoint.get("format") != CHECKPOINT_FORMAT:
+        raise ValueError("Resume checkpoint is not the current NSH TypeScript checkpoint format.")
 
-    if (
-        tuple(
-            checkpoint["schema"][
-                "token_types"
-            ]
-        )
-        != dataset.schema.token_types
-    ):
-        raise ValueError(
-            "Resume checkpoint "
-            "token-type schema does "
-            "not match the current "
-            "dataset."
-        )
+    if tuple(checkpoint["schema"]["token_types"]) != dataset.schema.token_types:
+        raise ValueError("Resume checkpoint token-type schema does not match the current dataset.")
 
-    if (
-        tuple(
-            checkpoint["schema"][
-                "modifiers"
-            ]
-        )
-        != dataset.schema.modifiers
-    ):
-        raise ValueError(
-            "Resume checkpoint "
-            "modifier schema does "
-            "not match the current "
-            "dataset."
-        )
+    if tuple(checkpoint["schema"]["modifiers"]) != dataset.schema.modifiers:
+        raise ValueError("Resume checkpoint modifier schema does not match the current dataset.")
 
-    checkpoint_train_stride = int(
-        checkpoint.get(
-            "config",
-            {},
-        ).get(
-            "train_stride",
-            checkpoint.get(
-                "config",
-                {},
-            ).get(
-                "max_length",
-                dataset.max_length,
-            ),
-        )
-    )
+    config = checkpoint["config"]
 
-    if (
-        checkpoint_train_stride
-        != dataset.stride
-    ):
-        raise ValueError(
-            "Resume checkpoint train stride "
-            f"({checkpoint_train_stride}) does not "
-            "match the current train stride "
-            f"({dataset.stride})."
-        )
+    if int(config["max_length"]) != dataset.max_length:
+        raise ValueError("Resume checkpoint max_length does not match the current run.")
 
-    checkpoint_window_strategy = str(
-        checkpoint.get(
-            "config",
-            {},
-        ).get(
-            "train_window_strategy",
-            "fixed",
-        )
-    )
+    if int(config["stride"]) != dataset.stride:
+        raise ValueError("Resume checkpoint stride does not match the current run.")
 
-    if (
-        checkpoint_window_strategy
-        != dataset.window_strategy
-    ):
-        raise ValueError(
-            "Resume checkpoint train window strategy "
-            f"({checkpoint_window_strategy}) does not "
-            "match the current strategy "
-            f"({dataset.window_strategy})."
-        )
+    model.load_state_dict(checkpoint["model_state_dict"])
+    optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+    move_optimizer_state_to_device(optimizer, device)
 
-    model.load_state_dict(
-        checkpoint[
-            "model_state_dict"
-        ]
-    )
-
-    if (
-        "optimizer_state_dict"
-        in checkpoint
-    ):
-        optimizer.load_state_dict(
-            checkpoint[
-                "optimizer_state_dict"
-            ]
-        )
-
-        move_optimizer_state_to_device(
-            optimizer,
-            device,
-        )
-
-        print(
-            "Loaded optimizer state.",
-            flush=True,
-        )
-    else:
-        print(
-            "Checkpoint has no "
-            "optimizer state; "
-            "continuing with a fresh "
-            "AdamW optimizer.",
-            flush=True,
-        )
-
-    checkpoint_epoch = int(
-        checkpoint.get(
-            "epoch",
-            fallback_epoch,
-        )
-    )
-
-    validation = checkpoint.get(
-        "validation",
-        {},
-    )
-
-    resume_score = float(
-        validation.get(
-            "exact_span_macro_f1",
-            -1.0,
-        )
-    )
-
-    training_state = checkpoint.get(
-        "training_state",
-        {},
-    )
-
-    best_score = float(
-        training_state.get(
-            "best_score",
-            resume_score,
-        )
-    )
-
-    best_epoch = int(
-        training_state.get(
-            "best_epoch",
-            checkpoint_epoch,
-        )
-    )
-
-    epochs_without_improvement = int(
-        training_state.get(
-            "epochs_without_improvement",
-            0,
-        )
-    )
-
-    has_training_state = bool(
-        training_state
-    )
-
-    if best_checkpoint_path.exists():
-        best_checkpoint = torch.load(
-            best_checkpoint_path,
-            map_location="cpu",
-        )
-
-        if (
-            best_checkpoint.get("format")
-            == "nsh-typescript-v2-multitask"
-        ):
-            best_validation = (
-                best_checkpoint.get(
-                    "validation",
-                    {},
-                )
-            )
-
-            best_training_state = (
-                best_checkpoint.get(
-                    "training_state",
-                    {},
-                )
-            )
-
-            persisted_best_score = float(
-                best_training_state.get(
-                    "best_score",
-                    best_validation.get(
-                        "exact_span_macro_f1",
-                        -1.0,
-                    ),
-                )
-            )
-
-            persisted_best_epoch = int(
-                best_training_state.get(
-                    "best_epoch",
-                    best_checkpoint.get(
-                        "epoch",
-                        0,
-                    ),
-                )
-            )
-
-            if (
-                persisted_best_score
-                > best_score
-            ):
-                best_score = (
-                    persisted_best_score
-                )
-                best_epoch = (
-                    persisted_best_epoch
-                )
-
-            if (
-                not has_training_state
-                and best_epoch > 0
-            ):
-                epochs_without_improvement = max(
-                    0,
-                    checkpoint_epoch
-                    - best_epoch,
-                )
-
+    training_state = checkpoint["training_state"]
     return (
-        checkpoint_epoch,
-        best_score,
-        best_epoch,
-        epochs_without_improvement,
+        int(checkpoint["epoch"]),
+        float(training_state["best_score"]),
+        int(training_state["best_epoch"]),
+        int(training_state["epochs_without_improvement"]),
     )
 
 
@@ -1700,7 +1364,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--batch-size",
         type=int,
-        default=16,
+        default=DEFAULT_TRAIN_BATCH_SIZE,
     )
 
     parser.add_argument(
@@ -1712,43 +1376,14 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--max-length",
         type=int,
-        default=512,
+        default=DEFAULT_MAX_LENGTH,
     )
 
     parser.add_argument(
-        "--train-stride",
+        "--stride",
         type=int,
-        default=None,
-        help=(
-            "Train-window stride in UTF-8 bytes. "
-            "Defaults to max_length (no overlap). "
-            "This only changes the train split."
-        ),
-    )
-
-    parser.add_argument(
-        "--train-window-strategy",
-        choices=(
-            "fixed",
-            "span-aware",
-            "string-aware",
-            "dual-view",
-            "dual-view-hard-string",
-            "dual-view-hard-string-regexp",
-        ),
-        default="fixed",
-        help=(
-            "Train-window construction strategy. "
-            "span-aware protects all Gold spans. "
-            "string-aware only protects string spans. "
-            "dual-view keeps both the complete fixed view "
-            "and complete span-aware view; use half as many "
-            "epochs to keep the optimizer-step budget fair. "
-            "dual-view-hard-string adds a small deterministic "
-            "continuation curriculum for long string spans. "
-            "dual-view-hard-string-regexp additionally reinforces "
-            "regexp boundaries plus a controlled slash-negative set."
-        ),
+        default=DEFAULT_WINDOW_STRIDE,
+        help="Sliding-window stride in UTF-8 bytes.",
     )
 
     parser.add_argument(
@@ -1780,18 +1415,6 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--resume",
         type=Path,
-    )
-
-    parser.add_argument(
-        "--resume-epoch",
-        type=int,
-        default=0,
-        help=(
-            "Fallback epoch number "
-            "for older checkpoints "
-            "that do not contain an "
-            "epoch field."
-        ),
     )
 
     parser.add_argument(
@@ -1840,10 +1463,7 @@ def main() -> None:
                 args.max_length
             ),
             stride=(
-                args.train_stride
-            ),
-            window_strategy=(
-                args.train_window_strategy
+                args.stride
             ),
             use_cache=True,
             show_progress=True,
@@ -1863,9 +1483,8 @@ def main() -> None:
                 args.max_length
             ),
             stride=(
-                args.max_length
+                args.stride
             ),
-            window_strategy="fixed",
             use_cache=True,
             show_progress=True,
         )
@@ -1932,12 +1551,10 @@ def main() -> None:
             epochs_without_improvement,
         ) = load_resume_checkpoint(
             args.resume,
-            args.output,
             model,
             optimizer,
             train_dataset,
             device,
-            args.resume_epoch,
         )
 
         print(
@@ -1986,107 +1603,6 @@ def main() -> None:
         f"Train stride: "
         f"{train_dataset.stride}"
     )
-
-    print(
-        "Train window strategy: "
-        f"{train_dataset.window_strategy}"
-    )
-
-    if train_dataset.window_strategy in {
-        "dual-view",
-        "dual-view-hard-string",
-        "dual-view-hard-string-regexp",
-    }:
-        total_views = max(1, len(train_dataset))
-        mix = (
-            "Dual-view fixed/span-aware windows: "
-            f"{train_dataset.fixed_view_window_count}/"
-            f"{train_dataset.span_aware_view_window_count} "
-            f"({train_dataset.fixed_view_window_count / total_views:.2%}/"
-            f"{train_dataset.span_aware_view_window_count / total_views:.2%})"
-        )
-
-        if train_dataset.window_strategy in {
-            "dual-view-hard-string",
-            "dual-view-hard-string-regexp",
-        }:
-            mix += (
-                ", hard-string="
-                f"{train_dataset.hard_string_window_count} "
-                f"({train_dataset.hard_string_window_count / total_views:.2%})"
-            )
-
-        if train_dataset.window_strategy == "dual-view-hard-string-regexp":
-            mix += (
-                ", hard-regexp="
-                f"{train_dataset.hard_regexp_window_count} "
-                f"({train_dataset.hard_regexp_window_count / total_views:.2%})"
-            )
-
-        print(mix)
-
-        if train_dataset.window_strategy in {
-            "dual-view-hard-string",
-            "dual-view-hard-string-regexp",
-        }:
-            hard = train_dataset.hard_string_stats
-            print(
-                "Hard-string curriculum eligible/over-context/windows: "
-                f"{train_dataset.hard_string_eligible_span_count}/"
-                f"{train_dataset.hard_string_over_context_span_count}/"
-                f"{train_dataset.hard_string_window_count}"
-            )
-            print(
-                "Hard-string min-span/first-inside/step/min-remaining: "
-                f"{hard.min_span_bytes}/"
-                f"{hard.first_inside_offset_bytes}/"
-                f"{hard.step_bytes}/"
-                f"{hard.min_remaining_bytes} bytes"
-            )
-
-        if train_dataset.window_strategy == "dual-view-hard-string-regexp":
-            hard_regexp = train_dataset.hard_regexp_stats
-            print(
-                "Hard-regexp spans/over-context/positive/operator-slash/negative/windows: "
-                f"{train_dataset.hard_regexp_span_count}/"
-                f"{train_dataset.hard_regexp_over_context_span_count}/"
-                f"{train_dataset.hard_regexp_positive_window_count}/"
-                f"{train_dataset.hard_regexp_operator_slash_candidate_count}/"
-                f"{train_dataset.hard_regexp_negative_window_count}/"
-                f"{train_dataset.hard_regexp_window_count}"
-            )
-            print(
-                "Hard-regexp context-before/negative-divisor: "
-                f"{hard_regexp.context_before_bytes}/"
-                f"{hard_regexp.negative_divisor}"
-            )
-
-    if train_dataset.window_strategy in {
-        "span-aware",
-        "string-aware",
-        "dual-view",
-        "dual-view-hard-string",
-        "dual-view-hard-string-regexp",
-    }:
-        stats = train_dataset.windowing_stats
-        print(
-            "Adjusted protected-span cuts: "
-            f"{stats.adjusted_span_cuts}"
-        )
-        print(
-            "Unavoidable protected inside starts: "
-            f"{stats.unavoidable_inside_starts}"
-        )
-        print(
-            "Allowed unprotected inside starts: "
-            f"{stats.unprotected_inside_starts}"
-        )
-        print(
-            "Protected-span cut shift avg/p95/max: "
-            f"{(stats.total_shift_bytes / max(1, stats.adjusted_span_cuts)):.1f}/"
-            f"{stats.p95_shift_bytes}/"
-            f"{stats.max_shift_bytes} bytes"
-        )
 
     print(
         "Validation windows: "

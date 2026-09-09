@@ -14,26 +14,19 @@ from dataset import (
     TypeScriptSemanticDataset,
     build_source_boundaries,
 )
+from config import DEFAULT_ARTIFACT_DIRECTORY, DEFAULT_BEST_CHECKPOINT_PATH, DEFAULT_WINDOW_STRIDE
+from inference import predict_document_logits
 from evaluate import (
     PredictedSpan,
     decode_predicted_spans,
     load_model,
-    predict_document_logits,
     select_device,
 )
 
 
-DEFAULT_CHECKPOINT_PATH = Path(
-    "artifacts/typescript/v2-multitask/best.pt"
-)
-
-DEFAULT_OUTPUT_PATH = Path(
-    "artifacts/typescript/v2-multitask/error-analysis.json"
-)
-
-DEFAULT_TEXT_OUTPUT_PATH = Path(
-    "artifacts/typescript/v2-multitask/error-analysis.txt"
-)
+DEFAULT_CHECKPOINT_PATH = DEFAULT_BEST_CHECKPOINT_PATH
+DEFAULT_OUTPUT_PATH = DEFAULT_ARTIFACT_DIRECTORY / "error-analysis.json"
+DEFAULT_TEXT_OUTPUT_PATH = DEFAULT_ARTIFACT_DIRECTORY / "error-analysis.txt"
 
 
 @dataclass(frozen=True)
@@ -588,7 +581,7 @@ def write_text_report(
     lines.extend(
         [
             "Neural Semantic Highlighting",
-            "TypeScript V2 Error Analysis",
+            "TypeScript Error Analysis",
             "",
             f"Split: {report['split']}",
             f"Checkpoint: {report['checkpoint']}",
@@ -897,13 +890,14 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--stride",
         type=int,
-        default=None,
-        help=(
-            "Inference window stride in UTF-8 bytes. "
-            "Defaults to checkpoint max_length (no overlap). "
-            "For a 512-byte model, --stride 256 gives "
-            "50%% overlap."
-        ),
+        default=DEFAULT_WINDOW_STRIDE,
+        help="Inference window stride in UTF-8 bytes.",
+    )
+
+    parser.add_argument(
+        "--fusion",
+        choices=("uniform", "center"),
+        default="center",
     )
 
     return parser.parse_args()
@@ -923,11 +917,7 @@ def main() -> None:
         "config"
     ]["max_length"]
 
-    resolved_stride = (
-        max_length
-        if args.stride is None
-        else args.stride
-    )
+    resolved_stride = args.stride
 
     if (
         resolved_stride <= 0
@@ -1006,7 +996,7 @@ def main() -> None:
     gold_boundary_files: Counter[str] = Counter()
 
     print("Neural Semantic Highlighting")
-    print("TypeScript V2 Error Analysis")
+    print("TypeScript Error Analysis")
     print("")
     print(f"Device: {device}")
     print(f"Checkpoint: {args.checkpoint}")
@@ -1040,6 +1030,7 @@ def main() -> None:
             max_length=max_length,
             device=device,
             stride=resolved_stride,
+            fusion=args.fusion,
         )
 
         predicted_spans = decode_predicted_spans(
@@ -1497,13 +1488,14 @@ def main() -> None:
 
     report = {
         "format": (
-            "nsh-typescript-v2-error-analysis-v2"
+            "nsh-typescript-error-analysis"
         ),
         "checkpoint": str(args.checkpoint),
         "split": args.split,
         "documents": len(dataset.documents),
         "inference": {
             "max_length": max_length,
+            "fusion": args.fusion,
             "stride": resolved_stride,
             "overlap": (
                 max_length - resolved_stride

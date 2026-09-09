@@ -7,7 +7,8 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
-from evaluate import predict_document_logits
+from config import DEFAULT_ARTIFACT_DIRECTORY, DEFAULT_BEST_CHECKPOINT_PATH, DEFAULT_WINDOW_STRIDE
+from inference import predict_document_logits
 from predict import (
     PredictedSpan,
     decode_predictions,
@@ -16,17 +17,11 @@ from predict import (
 )
 
 
-DEFAULT_CHECKPOINT_PATH = Path(
-    "artifacts/typescript/"
-    "v2-multitask-train-dual-view50/"
-    "best-epoch20.pt"
-)
+DEFAULT_CHECKPOINT_PATH = DEFAULT_BEST_CHECKPOINT_PATH
 DEFAULT_CHALLENGE_PATH = Path(
     "packs/typescript/challenges/regexp.json"
 )
-DEFAULT_OUTPUT_PATH = Path(
-    "artifacts/typescript/regexp-challenge-v2-epoch20.json"
-)
+DEFAULT_OUTPUT_PATH = DEFAULT_ARTIFACT_DIRECTORY / "regexp-challenge.json"
 
 OPEN_MARKER = "⟦"
 CLOSE_MARKER = "⟧"
@@ -117,7 +112,7 @@ def parse_marked_source(marked_source: str) -> tuple[str, tuple[ExpectedSpan, ..
 def load_cases(path: Path) -> list[ChallengeCase]:
     payload = json.loads(path.read_text(encoding="utf-8"))
 
-    if payload.get("format") != "nsh-typescript-regexp-challenge-v1":
+    if payload.get("format") != "nsh-typescript-regexp-challenge":
         raise ValueError(f'Unsupported challenge format in "{path}".')
 
     raw_cases = payload.get("cases")
@@ -271,12 +266,12 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--stride",
         type=int,
-        default=256,
+        default=DEFAULT_WINDOW_STRIDE,
     )
     parser.add_argument(
         "--fusion",
         choices=("uniform", "center"),
-        default="uniform",
+        default="center",
     )
     parser.add_argument(
         "--max-errors",
@@ -327,6 +322,7 @@ def main() -> None:
     device = select_device()
     model, checkpoint = load_model(args.checkpoint, device)
     config = checkpoint["config"]
+    resolved_stride = args.stride
     token_types = tuple(checkpoint["schema"]["token_types"])
     modifiers = tuple(checkpoint["schema"]["modifiers"])
 
@@ -347,7 +343,7 @@ def main() -> None:
     print(f"Device:     {device}")
     print(f"Checkpoint: {args.checkpoint}")
     print(f"Window:     {config['max_length']} bytes")
-    print(f"Stride:     {args.stride} bytes")
+    print(f"Stride:     {resolved_stride} bytes")
     print(f"Fusion:     {args.fusion}")
     print("")
 
@@ -357,7 +353,7 @@ def main() -> None:
             case.source,
             max_length=config["max_length"],
             device=device,
-            stride=args.stride,
+            stride=resolved_stride,
             fusion=args.fusion,
         )
 
@@ -522,12 +518,12 @@ def main() -> None:
         category_report[category_name] = block
 
     report = {
-        "format": "nsh-typescript-regexp-challenge-result-v1",
+        "format": "nsh-typescript-regexp-challenge-result",
         "checkpoint": str(args.checkpoint),
         "challenge": str(args.challenge),
         "inference": {
             "max_length": config["max_length"],
-            "stride": args.stride,
+            "stride": resolved_stride,
             "fusion": args.fusion,
             "decoder": "greedy",
         },

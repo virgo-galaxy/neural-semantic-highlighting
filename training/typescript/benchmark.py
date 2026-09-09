@@ -12,6 +12,7 @@ import torch.nn.functional as F
 from torch import nn
 from torch.utils.data import DataLoader
 
+from config import CHECKPOINT_FORMAT, DEFAULT_BEST_CHECKPOINT_PATH
 from dataset import (
     BOUNDARY_BEGIN_ID,
     IGNORE_LABEL_ID,
@@ -29,9 +30,7 @@ from train import (
 )
 
 
-DEFAULT_CHECKPOINT_PATH = Path(
-    "artifacts/typescript/v2-multitask/best.pt"
-)
+DEFAULT_CHECKPOINT_PATH = DEFAULT_BEST_CHECKPOINT_PATH
 
 
 @dataclass(frozen=True)
@@ -111,11 +110,11 @@ def load_checkpoint(
 
     if (
         checkpoint.get("format")
-        != "nsh-typescript-v2-multitask"
+        != CHECKPOINT_FORMAT
     ):
         raise ValueError(
             "Benchmark expects an NSH TypeScript "
-            "V2 multitask checkpoint."
+            "multitask checkpoint."
         )
 
     return checkpoint
@@ -483,7 +482,7 @@ def benchmark_batch_size(
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Benchmark NSH TypeScript V2 training "
+            "Benchmark NSH TypeScript training "
             "throughput across batch sizes."
         )
     )
@@ -492,13 +491,13 @@ def parse_arguments() -> argparse.Namespace:
         "--batch-sizes",
         type=int,
         nargs="+",
-        default=[16, 32, 64, 128],
+        default=[1, 2, 4, 8],
     )
 
     parser.add_argument(
         "--windows",
         type=int,
-        default=8192,
+        default=64,
         help=(
             "Approximately how many training windows "
             "to process for each batch size."
@@ -508,7 +507,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--warmup-steps",
         type=int,
-        default=5,
+        default=2,
     )
 
     parser.add_argument(
@@ -556,7 +555,7 @@ def main() -> None:
     device = select_device()
 
     print("Neural Semantic Highlighting")
-    print("TypeScript V2 Training Throughput Benchmark")
+    print("TypeScript Training Throughput Benchmark")
     print("")
     print(f"Device: {device}")
     print(f"Checkpoint: {args.checkpoint}")

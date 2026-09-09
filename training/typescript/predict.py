@@ -7,18 +7,17 @@ from pathlib import Path
 
 import torch
 
+from config import CHECKPOINT_FORMAT, DEFAULT_BEST_CHECKPOINT_PATH, DEFAULT_WINDOW_STRIDE
 from dataset import (
     BOUNDARY_BEGIN_ID,
     BOUNDARY_INSIDE_ID,
     BOUNDARY_OUTSIDE_ID,
-    PAD_BYTE_ID,
 )
+from inference import predict_document_logits
 from model import SemanticTransformer
 
 
-DEFAULT_CHECKPOINT_PATH = Path(
-    "artifacts/typescript/v2-multitask/best.pt"
-)
+DEFAULT_CHECKPOINT_PATH = DEFAULT_BEST_CHECKPOINT_PATH
 
 DEFAULT_SOURCE = """class UserService {
   async getUser(id: string): Promise<User> {
@@ -66,11 +65,11 @@ def load_model(
 
     if (
         checkpoint.get("format")
-        != "nsh-typescript-v2-multitask"
+        != CHECKPOINT_FORMAT
     ):
         raise ValueError(
             "Checkpoint is not an NSH "
-            "TypeScript V2 multitask checkpoint."
+            "TypeScript multitask checkpoint."
         )
 
     config = checkpoint["config"]
@@ -148,101 +147,6 @@ def build_character_points(
 
     return points
 
-
-def predict_logits(
-    model: SemanticTransformer,
-    source: str,
-    *,
-    max_length: int,
-    device: torch.device,
-) -> tuple[
-    torch.Tensor,
-    torch.Tensor,
-    torch.Tensor,
-]:
-    source_bytes = source.encode("utf-8")
-
-    boundary_chunks: list[torch.Tensor] = []
-    token_type_chunks: list[torch.Tensor] = []
-    modifier_chunks: list[torch.Tensor] = []
-
-    with torch.no_grad():
-        for start in range(
-            0,
-            len(source_bytes),
-            max_length,
-        ):
-            chunk = source_bytes[
-                start:start + max_length
-            ]
-
-            length = len(chunk)
-
-            input_ids = torch.full(
-                (1, max_length),
-                PAD_BYTE_ID,
-                dtype=torch.long,
-                device=device,
-            )
-
-            attention_mask = torch.zeros(
-                (1, max_length),
-                dtype=torch.bool,
-                device=device,
-            )
-
-            input_ids[0, :length] = torch.tensor(
-                list(chunk),
-                dtype=torch.long,
-                device=device,
-            )
-
-            attention_mask[0, :length] = True
-
-            output = model(
-                input_ids=input_ids,
-                attention_mask=attention_mask,
-            )
-
-            boundary_chunks.append(
-                output.boundary_logits[
-                    0,
-                    :length,
-                ]
-                .detach()
-                .cpu()
-            )
-
-            token_type_chunks.append(
-                output.token_type_logits[
-                    0,
-                    :length,
-                ]
-                .detach()
-                .cpu()
-            )
-
-            modifier_chunks.append(
-                output.modifier_logits[
-                    0,
-                    :length,
-                ]
-                .detach()
-                .cpu()
-            )
-
-    if not boundary_chunks:
-        return (
-            torch.empty((0, 3)),
-            torch.empty((0, 0)),
-            torch.empty((0, 0)),
-        )
-
-    return (
-        torch.cat(boundary_chunks, dim=0),
-        torch.cat(token_type_chunks, dim=0),
-        torch.cat(modifier_chunks, dim=0),
-    )
 
 
 def decode_predictions(
@@ -419,6 +323,18 @@ def parse_arguments() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--stride",
+        type=int,
+        default=DEFAULT_WINDOW_STRIDE,
+    )
+
+    parser.add_argument(
+        "--fusion",
+        choices=("uniform", "center"),
+        default="center",
+    )
+
+    parser.add_argument(
         "--modifier-threshold",
         type=float,
         default=0.60,
@@ -456,15 +372,13 @@ def main() -> None:
         boundary_logits,
         token_type_logits,
         modifier_logits,
-    ) = predict_logits(
+    ) = predict_document_logits(
         model,
         source,
-        max_length=(
-            checkpoint["config"][
-                "max_length"
-            ]
-        ),
+        max_length=checkpoint["config"]["max_length"],
+        stride=args.stride,
         device=device,
+        fusion=args.fusion,
     )
 
     spans = decode_predictions(
@@ -489,7 +403,7 @@ def main() -> None:
 
     print("Neural Semantic Highlighting")
     print(
-        "TypeScript V2 Multitask Prediction"
+        "TypeScript Multitask Prediction"
     )
     print("")
     print(f"Device: {device}")

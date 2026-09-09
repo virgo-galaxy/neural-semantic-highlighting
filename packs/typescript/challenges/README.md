@@ -1,54 +1,46 @@
-# TypeScript RegExp Challenge
+# TypeScript RegExp Challenges
 
-This directory contains standalone evaluation material for RegExp literal recognition.
+This directory contains evaluation-only material for RegExp literal recognition. Challenge cases are never part of train, validation, or test data.
 
-`regexp.json` is **not** part of the training, validation, or test split. It is a challenge set used to answer one focused question: can the neural runtime distinguish JavaScript/TypeScript RegExp literals from slash-shaped non-RegExp syntax such as division, `/=`, strings, comments, and JSX closing tags?
+`regexp.json` asks one focused question: can the neural runtime distinguish JavaScript/TypeScript RegExp literals from slash-shaped non-RegExp syntax such as division, `/=`, strings, comments, and JSX closing tags?
 
-The `⟦...⟧` markers in positive cases define exact expected RegExp spans. The evaluator removes the markers before inference, so the model never sees them.
+The `⟦...⟧` markers in positive cases define exact expected RegExp spans. Evaluators remove the markers before inference, so the model never sees them.
 
-The initial set contains 160 cases: 100 positive cases, 60 negative cases, and 105 exact RegExp spans. It covers basic literals, flags, escapes, character classes, groups/assertions, TypeScript/TSX contexts, division, strings/templates, comments, and JSX slash syntax.
-
-Run validation of the challenge definition with:
+Validate the challenge definition with:
 
 ```bash
 make validate-regexp-challenge-typescript
 ```
 
-Run the challenge against the frozen V2 Epoch 20 checkpoint with:
+Run it against the current checkpoint with:
 
 ```bash
 make challenge-regexp-typescript
 ```
 
-Do not merge these cases into any training corpus. If the challenge exposes a systematic weakness, create new training-only hard cases that express the same pattern without copying the challenge cases.
+If the challenge exposes a systematic weakness, create new training-only examples that express the same pattern without copying challenge cases.
 
 ## Paired contextual RegExp diagnostic
 
-`regexp-paired-context.json` isolates one additional question: does the exact
-same RegExp literal behave differently when it appears in a tiny isolated
-snippet versus a realistic TypeScript context?
+`regexp-paired-context.json` checks whether the exact same RegExp literal behaves differently in a tiny isolated snippet versus realistic TypeScript context.
 
-Each pair uses one identical RegExp literal twice:
+Each pair contains:
 
-- `isolated`: a tiny source file with heavy padding at inference time.
-- `contextual`: a 160–480 byte TypeScript source with normal surrounding code.
+- `isolated`: a tiny source containing the target literal.
+- `contextual`: the same literal inside ordinary surrounding TypeScript code.
 
-The paired evaluator reports exact RegExp span F1 for both sides plus four
-transitions: `both_exact`, `contextual_only`, `isolated_only`, and
-`neither_exact`.
+The paired evaluator reports exact RegExp span F1 for both sides plus four transitions: `both_exact`, `contextual_only`, `isolated_only`, and `neither_exact`.
 
-Validate the paired challenge definition with:
+Validate it with:
 
 ```bash
 make validate-regexp-paired-challenge-typescript
 ```
 
-Run it against the frozen V3 Epoch 19 model and the 300/400-step RegExp surgery
-snapshots with:
+Run it against the current checkpoint with:
 
 ```bash
 make challenge-regexp-paired-typescript
 ```
 
-Like `regexp.json`, this paired challenge is evaluation-only and must never be
-merged into train, validation, or test data.
+The paired challenge is also evaluation-only and must never be merged into training data.

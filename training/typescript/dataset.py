@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import bisect
 import hashlib
 import json
 import os
@@ -12,6 +11,8 @@ from typing import Any
 
 import torch
 from torch.utils.data import Dataset
+
+from config import DEFAULT_MAX_LENGTH, DEFAULT_WINDOW_STRIDE
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
@@ -26,8 +27,8 @@ DATASET_ROOT = Path(
 TYPESCRIPT_DATASET_ROOT = DATASET_ROOT / "typescript"
 SCHEMA_PATH = REPOSITORY_ROOT / "packs" / "typescript" / "schema.json"
 
-CACHE_FORMAT_VERSION = "nsh-typescript-v2-multitask-cache-v1"
-CACHE_DIRECTORY = TYPESCRIPT_DATASET_ROOT / ".cache" / "v2-multitask"
+CACHE_FORMAT = "nsh-typescript-cache"
+CACHE_DIRECTORY = TYPESCRIPT_DATASET_ROOT / ".cache"
 
 PAD_BYTE_ID = 256
 IGNORE_LABEL_ID = -100
@@ -89,54 +90,6 @@ class WindowReference:
     start: int
     end: int
 
-
-@dataclass(frozen=True)
-class WindowingStats:
-    adjusted_span_cuts: int = 0
-    adjusted_character_cuts: int = 0
-    unavoidable_inside_starts: int = 0
-    unprotected_inside_starts: int = 0
-    total_shift_bytes: int = 0
-    max_shift_bytes: int = 0
-    shift_bytes: tuple[int, ...] = ()
-
-    @property
-    def p95_shift_bytes(self) -> int:
-        if not self.shift_bytes:
-            return 0
-
-        ordered = sorted(self.shift_bytes)
-        index = max(
-            0,
-            min(
-                len(ordered) - 1,
-                (95 * len(ordered) + 99) // 100 - 1,
-            ),
-        )
-        return ordered[index]
-
-
-@dataclass(frozen=True)
-class HardStringStats:
-    eligible_spans: int = 0
-    over_context_spans: int = 0
-    generated_windows: int = 0
-    min_span_bytes: int = 0
-    first_inside_offset_bytes: int = 0
-    step_bytes: int = 0
-    min_remaining_bytes: int = 0
-
-
-@dataclass(frozen=True)
-class HardRegexpStats:
-    regexp_spans: int = 0
-    over_context_spans: int = 0
-    positive_windows: int = 0
-    operator_slash_candidates: int = 0
-    negative_windows: int = 0
-    generated_windows: int = 0
-    context_before_bytes: int = 0
-    negative_divisor: int = 0
 
 
 def load_schema() -> SemanticSchema:
@@ -413,7 +366,7 @@ def cache_key(
     digest = hashlib.sha256()
 
     digest.update(
-        CACHE_FORMAT_VERSION.encode(
+        CACHE_FORMAT.encode(
             "utf-8"
         )
     )
@@ -478,7 +431,7 @@ def build_or_load_documents(
 
         if (
             payload.get("format")
-            != CACHE_FORMAT_VERSION
+            != CACHE_FORMAT
         ):
             raise ValueError(
                 f"Unsupported cache format "
@@ -592,7 +545,7 @@ def build_or_load_documents(
         torch.save(
             {
                 "format": (
-                    CACHE_FORMAT_VERSION
+                    CACHE_FORMAT
                 ),
                 "documents": [
                     serialize_document(
@@ -621,663 +574,67 @@ def build_or_load_documents(
     return documents
 
 
-def _valid_character_starts(
-    document: EncodedDocument,
-) -> list[int]:
-    starts = torch.nonzero(
-        document.boundary_labels
-        != IGNORE_LABEL_ID,
-        as_tuple=False,
-    ).flatten().tolist()
-
-    starts.append(
-        int(document.input_ids.shape[0])
-    )
-
-    return starts
-
-
-def _snap_cut_to_character_boundary(
-    target: int,
-    character_starts: list[int],
-) -> int:
-    index = bisect.bisect_right(
-        character_starts,
-        target,
-    ) - 1
-
-    return character_starts[max(0, index)]
-
-
-def _find_active_span_start(
-    document: EncodedDocument,
-    cut: int,
-    character_starts: list[int],
+def build_window_ranges(
+    length: int,
     *,
-    protected_token_type_ids: frozenset[int] | None,
-) -> int | None:
-    if cut >= document.input_ids.shape[0]:
-        return None
+    max_length: int,
+    stride: int,
+) -> list[tuple[int, int]]:
+    if max_length <= 0:
+        raise ValueError("max_length must be positive.")
 
-    if (
-        int(document.boundary_labels[cut].item())
-        != BOUNDARY_INSIDE_ID
-    ):
-        return None
-
-    token_type_id = int(
-        document.token_type_labels[cut].item()
-    )
-
-    if (
-        protected_token_type_ids is not None
-        and token_type_id not in protected_token_type_ids
-    ):
-        return None
-
-    # Walk left over character starts until we reach the B
-    # that opened the currently active semantic span.
-    position_index = max(
-        0,
-        bisect.bisect_left(
-            character_starts,
-            cut,
-        ) - 1,
-    )
-
-    for index in range(position_index, -1, -1):
-        position = character_starts[index]
-
-        if position >= document.input_ids.shape[0]:
-            continue
-
-        label = int(
-            document.boundary_labels[position].item()
+    if stride <= 0 or stride > max_length:
+        raise ValueError(
+            "stride must be in the range "
+            f"1..{max_length}, got {stride}."
         )
 
-        if label == BOUNDARY_BEGIN_ID:
-            return position
+    if length <= 0:
+        return []
 
-        if label == BOUNDARY_OUTSIDE_ID:
-            return None
+    if length <= max_length:
+        return [(0, length)]
 
-    return None
+    starts = [0]
+
+    while starts[-1] + max_length < length:
+        next_start = starts[-1] + stride
+
+        # Keep the final window full-sized whenever possible so the
+        # file tail gets the same amount of context as interior bytes.
+        if next_start + max_length >= length:
+            next_start = length - max_length
+
+        if next_start <= starts[-1]:
+            break
+
+        starts.append(next_start)
+
+    return [
+        (start, min(start + max_length, length))
+        for start in starts
+    ]
 
 
-def build_fixed_windows(
+def build_windows(
     document_index: int,
     document: EncodedDocument,
     *,
     max_length: int,
     stride: int,
 ) -> list[WindowReference]:
-    length = int(document.input_ids.shape[0])
-
     return [
         WindowReference(
             document_index=document_index,
             start=start,
-            end=min(start + max_length, length),
+            end=end,
         )
-        for start in range(0, length, stride)
+        for start, end in build_window_ranges(
+            int(document.input_ids.shape[0]),
+            max_length=max_length,
+            stride=stride,
+        )
     ]
-
-
-def build_span_aware_windows(
-    document_index: int,
-    document: EncodedDocument,
-    *,
-    max_length: int,
-    protected_token_type_ids: frozenset[int] | None = None,
-) -> tuple[list[WindowReference], WindowingStats]:
-    length = int(document.input_ids.shape[0])
-
-    if length == 0:
-        return [], WindowingStats()
-
-    character_starts = _valid_character_starts(
-        document
-    )
-
-    windows: list[WindowReference] = []
-    adjusted_span_cuts = 0
-    adjusted_character_cuts = 0
-    unavoidable_inside_starts = 0
-    unprotected_inside_starts = 0
-    shifts: list[int] = []
-
-    cursor = 0
-
-    while cursor < length:
-        target = min(
-            cursor + max_length,
-            length,
-        )
-
-        if target == length:
-            end = length
-        else:
-            end = _snap_cut_to_character_boundary(
-                target,
-                character_starts,
-            )
-
-            if end != target:
-                adjusted_character_cuts += 1
-
-            active_span_start = (
-                _find_active_span_start(
-                    document,
-                    end,
-                    character_starts,
-                    protected_token_type_ids=(
-                        protected_token_type_ids
-                    ),
-                )
-            )
-
-            if (
-                active_span_start is not None
-                and active_span_start > cursor
-            ):
-                shift = end - active_span_start
-                end = active_span_start
-                adjusted_span_cuts += 1
-                shifts.append(shift)
-
-        if end <= cursor:
-            # This can only happen for an unavoidable span that
-            # itself is longer than max_length. In that case we
-            # must make progress even though the next window may
-            # begin inside the span.
-            end = _snap_cut_to_character_boundary(
-                min(cursor + max_length, length),
-                character_starts,
-            )
-
-            if end <= cursor:
-                end = min(
-                    cursor + max_length,
-                    length,
-                )
-
-        windows.append(
-            WindowReference(
-                document_index=document_index,
-                start=cursor,
-                end=end,
-            )
-        )
-
-        cursor = end
-
-        if (
-            cursor < length
-            and cursor < document.boundary_labels.shape[0]
-            and int(
-                document.boundary_labels[cursor].item()
-            ) == BOUNDARY_INSIDE_ID
-        ):
-            token_type_id = int(
-                document.token_type_labels[cursor].item()
-            )
-
-            if (
-                protected_token_type_ids is None
-                or token_type_id in protected_token_type_ids
-            ):
-                unavoidable_inside_starts += 1
-            else:
-                unprotected_inside_starts += 1
-
-    return (
-        windows,
-        WindowingStats(
-            adjusted_span_cuts=adjusted_span_cuts,
-            adjusted_character_cuts=(
-                adjusted_character_cuts
-            ),
-            unavoidable_inside_starts=(
-                unavoidable_inside_starts
-            ),
-            unprotected_inside_starts=(
-                unprotected_inside_starts
-            ),
-            total_shift_bytes=sum(shifts),
-            max_shift_bytes=max(shifts, default=0),
-            shift_bytes=tuple(shifts),
-        ),
-    )
-
-
-def build_dual_view_windows(
-    document_index: int,
-    document: EncodedDocument,
-    *,
-    max_length: int,
-) -> tuple[
-    list[WindowReference],
-    WindowingStats,
-    int,
-    int,
-]:
-    # Keep both complete views. The fixed view teaches recovery when a
-    # runtime window starts in the middle of a span; the span-aware view
-    # teaches clean span starts and ends. We intentionally do not dedupe
-    # identical windows: dual-view training runs for half as many epochs,
-    # so identical regions keep roughly the same total exposure budget.
-    fixed_windows = build_fixed_windows(
-        document_index,
-        document,
-        max_length=max_length,
-        stride=max_length,
-    )
-
-    span_aware_windows, stats = build_span_aware_windows(
-        document_index,
-        document,
-        max_length=max_length,
-        protected_token_type_ids=None,
-    )
-
-    return (
-        fixed_windows + span_aware_windows,
-        stats,
-        len(fixed_windows),
-        len(span_aware_windows),
-    )
-
-
-def build_hard_string_windows(
-    document_index: int,
-    document: EncodedDocument,
-    *,
-    max_length: int,
-    string_token_type: str = "string",
-) -> tuple[list[WindowReference], HardStringStats]:
-    """Build a small deterministic continuation curriculum for long strings.
-
-    The ordinary fixed view already teaches arbitrary runtime cuts, while the
-    span-aware view teaches clean boundaries. This third view only adds novel
-    starts *inside* long Gold string spans so code-looking template/string
-    bodies are seen without their opener more often.
-    """
-
-    length = int(document.input_ids.shape[0])
-
-    if length == 0:
-        return [], HardStringStats()
-
-    min_span_bytes = max(2, max_length // 2)
-    first_inside_offset = max(1, max_length // 4)
-    step_bytes = max(1, max_length // 2)
-    min_remaining_bytes = max(1, max_length // 8)
-
-    (
-        utf16_to_utf8,
-        _,
-        character_starts_tuple,
-    ) = build_source_boundaries(document.source)
-
-    character_starts = list(character_starts_tuple)
-    character_starts.append(length)
-
-    windows: list[WindowReference] = []
-    eligible_spans = 0
-    over_context_spans = 0
-
-    for span in document.gold_spans:
-        if span.token_type != string_token_type:
-            continue
-
-        span_start = utf16_to_utf8.get(span.start)
-        span_end = utf16_to_utf8.get(span.end)
-
-        if span_start is None or span_end is None:
-            continue
-
-        span_length = span_end - span_start
-
-        if span_length < min_span_bytes:
-            continue
-
-        eligible_spans += 1
-
-        if span_length > max_length:
-            over_context_spans += 1
-
-        candidate = span_start + first_inside_offset
-        seen_starts: set[int] = set()
-
-        while candidate < span_end:
-            remaining = span_end - candidate
-
-            if remaining < min_remaining_bytes:
-                break
-
-            start = _snap_cut_to_character_boundary(
-                candidate,
-                character_starts,
-            )
-
-            if start <= span_start:
-                candidate += step_bytes
-                continue
-
-            if start >= span_end:
-                break
-
-            if start in seen_starts:
-                candidate += step_bytes
-                continue
-
-            seen_starts.add(start)
-
-            windows.append(
-                WindowReference(
-                    document_index=document_index,
-                    start=start,
-                    end=min(start + max_length, length),
-                )
-            )
-
-            candidate += step_bytes
-
-    return (
-        windows,
-        HardStringStats(
-            eligible_spans=eligible_spans,
-            over_context_spans=over_context_spans,
-            generated_windows=len(windows),
-            min_span_bytes=min_span_bytes,
-            first_inside_offset_bytes=(
-                first_inside_offset
-            ),
-            step_bytes=step_bytes,
-            min_remaining_bytes=min_remaining_bytes,
-        ),
-    )
-
-
-def build_dual_view_hard_string_windows(
-    document_index: int,
-    document: EncodedDocument,
-    *,
-    max_length: int,
-) -> tuple[
-    list[WindowReference],
-    WindowingStats,
-    HardStringStats,
-    int,
-    int,
-    int,
-]:
-    (
-        dual_view_windows,
-        windowing_stats,
-        fixed_count,
-        span_aware_count,
-    ) = build_dual_view_windows(
-        document_index,
-        document,
-        max_length=max_length,
-    )
-
-    hard_string_windows, hard_string_stats = (
-        build_hard_string_windows(
-            document_index,
-            document,
-            max_length=max_length,
-        )
-    )
-
-    return (
-        dual_view_windows + hard_string_windows,
-        windowing_stats,
-        hard_string_stats,
-        fixed_count,
-        span_aware_count,
-        len(hard_string_windows),
-    )
-
-
-def _window_around_anchor(
-    document_index: int,
-    *,
-    anchor: int,
-    length: int,
-    max_length: int,
-    character_starts: list[int],
-    context_before: int,
-) -> WindowReference:
-    target = max(0, anchor - context_before)
-    start = _snap_cut_to_character_boundary(
-        target,
-        character_starts,
-    )
-
-    return WindowReference(
-        document_index=document_index,
-        start=start,
-        end=min(start + max_length, length),
-    )
-
-
-def _evenly_select_positions(
-    positions: list[int],
-    limit: int,
-) -> list[int]:
-    if limit <= 0 or not positions:
-        return []
-
-    if len(positions) <= limit:
-        return list(positions)
-
-    if limit == 1:
-        return [positions[len(positions) // 2]]
-
-    last = len(positions) - 1
-    indexes = [
-        (index * last) // (limit - 1)
-        for index in range(limit)
-    ]
-
-    return [positions[index] for index in indexes]
-
-
-def build_hard_regexp_windows(
-    document_index: int,
-    document: EncodedDocument,
-    *,
-    max_length: int,
-    operator_token_type_id: int,
-    regexp_token_type: str = "regexp",
-    negative_divisor: int = 1,
-) -> tuple[list[WindowReference], HardRegexpStats]:
-    """Upweight exact regexp boundaries plus a small slash-negative set.
-
-    Every Gold regexp contributes one context-rich view with the opener and
-    closing slash/flags visible when the span fits in one context. Very long
-    regexps also get an end-boundary view. To avoid teaching that every slash
-    starts a regexp, Gold operator slashes (division and `/=`) are also added
-    as hard negatives. These are scarce in the training corpus, so the default
-    keeps every candidate instead of restricting negatives to documents that
-    already contain a regexp.
-    """
-
-    length = int(document.input_ids.shape[0])
-
-    if length == 0:
-        return [], HardRegexpStats()
-
-    context_before = max(1, max_length // 4)
-    negative_divisor = max(1, negative_divisor)
-
-    (
-        utf16_to_utf8,
-        _,
-        character_starts_tuple,
-    ) = build_source_boundaries(document.source)
-
-    character_starts = list(character_starts_tuple)
-    character_starts.append(length)
-
-    positive_windows: list[WindowReference] = []
-    regexp_span_count = 0
-    over_context_spans = 0
-
-    for span in document.gold_spans:
-        if span.token_type != regexp_token_type:
-            continue
-
-        span_start = utf16_to_utf8.get(span.start)
-        span_end = utf16_to_utf8.get(span.end)
-
-        if span_start is None or span_end is None:
-            continue
-
-        regexp_span_count += 1
-
-        first_window = _window_around_anchor(
-            document_index,
-            anchor=span_start,
-            length=length,
-            max_length=max_length,
-            character_starts=character_starts,
-            context_before=context_before,
-        )
-        positive_windows.append(first_window)
-
-        if span_end - span_start > max_length:
-            over_context_spans += 1
-            end_target = max(
-                0,
-                span_end - max_length + context_before,
-            )
-            end_start = _snap_cut_to_character_boundary(
-                end_target,
-                character_starts,
-            )
-            end_window = WindowReference(
-                document_index=document_index,
-                start=end_start,
-                end=min(end_start + max_length, length),
-            )
-
-            if (
-                end_window.start != first_window.start
-                or end_window.end != first_window.end
-            ):
-                positive_windows.append(end_window)
-
-    operator_slash_candidates: list[int] = []
-
-    for character, byte_start in zip(
-        document.source,
-        character_starts_tuple,
-        strict=True,
-    ):
-        if character != "/":
-            continue
-
-        if byte_start >= document.token_type_labels.shape[0]:
-            continue
-
-        if int(document.token_type_labels[byte_start].item()) != operator_token_type_id:
-            continue
-
-        operator_slash_candidates.append(byte_start)
-
-    negative_budget = 0
-
-    if operator_slash_candidates:
-        negative_budget = max(
-            1,
-            len(operator_slash_candidates) // negative_divisor,
-        )
-
-    selected_negative_positions = _evenly_select_positions(
-        operator_slash_candidates,
-        min(negative_budget, len(operator_slash_candidates)),
-    )
-
-    negative_windows = [
-        _window_around_anchor(
-            document_index,
-            anchor=position,
-            length=length,
-            max_length=max_length,
-            character_starts=character_starts,
-            context_before=context_before,
-        )
-        for position in selected_negative_positions
-    ]
-
-    windows = positive_windows + negative_windows
-
-    return (
-        windows,
-        HardRegexpStats(
-            regexp_spans=regexp_span_count,
-            over_context_spans=over_context_spans,
-            positive_windows=len(positive_windows),
-            operator_slash_candidates=len(operator_slash_candidates),
-            negative_windows=len(negative_windows),
-            generated_windows=len(windows),
-            context_before_bytes=context_before,
-            negative_divisor=negative_divisor,
-        ),
-    )
-
-
-def build_dual_view_hard_string_regexp_windows(
-    document_index: int,
-    document: EncodedDocument,
-    *,
-    max_length: int,
-    operator_token_type_id: int,
-) -> tuple[
-    list[WindowReference],
-    WindowingStats,
-    HardStringStats,
-    HardRegexpStats,
-    int,
-    int,
-    int,
-    int,
-]:
-    (
-        base_windows,
-        windowing_stats,
-        hard_string_stats,
-        fixed_count,
-        span_aware_count,
-        hard_string_count,
-    ) = build_dual_view_hard_string_windows(
-        document_index,
-        document,
-        max_length=max_length,
-    )
-
-    hard_regexp_windows, hard_regexp_stats = (
-        build_hard_regexp_windows(
-            document_index,
-            document,
-            max_length=max_length,
-            operator_token_type_id=operator_token_type_id,
-        )
-    )
-
-    return (
-        base_windows + hard_regexp_windows,
-        windowing_stats,
-        hard_string_stats,
-        hard_regexp_stats,
-        fixed_count,
-        span_aware_count,
-        hard_string_count,
-        len(hard_regexp_windows),
-    )
 
 
 class TypeScriptSemanticDataset(Dataset):
@@ -1285,262 +642,45 @@ class TypeScriptSemanticDataset(Dataset):
         self,
         split: str,
         *,
-        max_length: int = 512,
+        max_length: int = DEFAULT_MAX_LENGTH,
         stride: int | None = None,
-        window_strategy: str = "fixed",
         use_cache: bool = True,
         show_progress: bool = True,
     ) -> None:
-        if split not in {
-            "train",
-            "validation",
-            "test",
-        }:
-            raise ValueError(
-                f'Unknown dataset split "{split}".'
-            )
-
-        if window_strategy not in {
-            "fixed",
-            "span-aware",
-            "string-aware",
-            "dual-view",
-            "dual-view-hard-string",
-            "dual-view-hard-string-regexp",
-        }:
-            raise ValueError(
-                "Window strategy must be fixed, span-aware, "
-                "string-aware, dual-view, dual-view-hard-string, "
-                "or dual-view-hard-string-regexp, got "
-                f"{window_strategy!r}."
-            )
+        if split not in {"train", "validation", "test"}:
+            raise ValueError(f'Unknown dataset split "{split}".')
 
         self.schema = load_schema()
         self.max_length = max_length
-        self.window_strategy = window_strategy
         self.stride = (
-            max_length
+            min(DEFAULT_WINDOW_STRIDE, max_length)
             if stride is None
             else stride
         )
 
-        if (
-            self.stride <= 0
-            or self.stride > self.max_length
-        ):
+        if self.stride <= 0 or self.stride > self.max_length:
             raise ValueError(
                 "Dataset stride must be in the range "
                 f"1..{self.max_length}, got {self.stride}."
             )
 
-        if (
-            self.window_strategy in {
-                "span-aware",
-                "string-aware",
-                "dual-view",
-                "dual-view-hard-string",
-                "dual-view-hard-string-regexp",
-            }
-            and self.stride != self.max_length
-        ):
-            raise ValueError(
-                "Adaptive windowing uses a dynamic cursor "
-                "and requires stride=max_length. "
-                f"Got stride={self.stride}, "
-                f"max_length={self.max_length}."
-            )
-
-        self.documents = (
-            build_or_load_documents(
-                split,
-                self.schema,
-                use_cache=use_cache,
-                show_progress=(
-                    show_progress
-                ),
-            )
+        self.documents = build_or_load_documents(
+            split,
+            self.schema,
+            use_cache=use_cache,
+            show_progress=show_progress,
         )
 
-        self.windows: list[WindowReference] = []
-        self.fixed_view_window_count = 0
-        self.span_aware_view_window_count = 0
-        self.hard_string_window_count = 0
-        self.hard_string_eligible_span_count = 0
-        self.hard_string_over_context_span_count = 0
-        self.hard_string_stats = HardStringStats()
-        self.hard_regexp_window_count = 0
-        self.hard_regexp_span_count = 0
-        self.hard_regexp_over_context_span_count = 0
-        self.hard_regexp_positive_window_count = 0
-        self.hard_regexp_operator_slash_candidate_count = 0
-        self.hard_regexp_negative_window_count = 0
-        self.hard_regexp_stats = HardRegexpStats()
-
-        total_adjusted_span_cuts = 0
-        total_adjusted_character_cuts = 0
-        total_unavoidable_inside_starts = 0
-        total_unprotected_inside_starts = 0
-        all_shifts: list[int] = []
-
-        for (
-            document_index,
-            document,
-        ) in enumerate(self.documents):
-            if self.window_strategy == "fixed":
-                document_windows = build_fixed_windows(
-                    document_index,
-                    document,
-                    max_length=self.max_length,
-                    stride=self.stride,
-                )
-                stats = WindowingStats()
-                hard_string_stats = HardStringStats()
-                hard_regexp_stats = HardRegexpStats()
-                fixed_view_count = len(document_windows)
-                span_aware_view_count = 0
-                hard_string_view_count = 0
-                hard_regexp_view_count = 0
-            elif self.window_strategy == "dual-view":
-                (
-                    document_windows,
-                    stats,
-                    fixed_view_count,
-                    span_aware_view_count,
-                ) = build_dual_view_windows(
-                    document_index,
-                    document,
-                    max_length=self.max_length,
-                )
-                hard_string_stats = HardStringStats()
-                hard_regexp_stats = HardRegexpStats()
-                hard_string_view_count = 0
-                hard_regexp_view_count = 0
-            elif self.window_strategy == "dual-view-hard-string":
-                (
-                    document_windows,
-                    stats,
-                    hard_string_stats,
-                    fixed_view_count,
-                    span_aware_view_count,
-                    hard_string_view_count,
-                ) = build_dual_view_hard_string_windows(
-                    document_index,
-                    document,
-                    max_length=self.max_length,
-                )
-                hard_regexp_stats = HardRegexpStats()
-                hard_regexp_view_count = 0
-            elif self.window_strategy == "dual-view-hard-string-regexp":
-                (
-                    document_windows,
-                    stats,
-                    hard_string_stats,
-                    hard_regexp_stats,
-                    fixed_view_count,
-                    span_aware_view_count,
-                    hard_string_view_count,
-                    hard_regexp_view_count,
-                ) = build_dual_view_hard_string_regexp_windows(
-                    document_index,
-                    document,
-                    max_length=self.max_length,
-                    operator_token_type_id=(
-                        self.schema.token_type_to_id["operator"]
-                    ),
-                )
-            else:
-                protected_token_type_ids = None
-
-                if self.window_strategy == "string-aware":
-                    protected_token_type_ids = frozenset(
-                        {
-                            self.schema.token_type_to_id[
-                                "string"
-                            ]
-                        }
-                    )
-
-                (
-                    document_windows,
-                    stats,
-                ) = build_span_aware_windows(
-                    document_index,
-                    document,
-                    max_length=self.max_length,
-                    protected_token_type_ids=(
-                        protected_token_type_ids
-                    ),
-                )
-                fixed_view_count = 0
-                span_aware_view_count = len(document_windows)
-                hard_string_stats = HardStringStats()
-                hard_regexp_stats = HardRegexpStats()
-                hard_string_view_count = 0
-                hard_regexp_view_count = 0
-
-            self.windows.extend(document_windows)
-            self.fixed_view_window_count += fixed_view_count
-            self.span_aware_view_window_count += (
-                span_aware_view_count
+        self.windows = [
+            window
+            for document_index, document in enumerate(self.documents)
+            for window in build_windows(
+                document_index,
+                document,
+                max_length=self.max_length,
+                stride=self.stride,
             )
-            self.hard_string_window_count += (
-                hard_string_view_count
-            )
-            self.hard_string_eligible_span_count += (
-                hard_string_stats.eligible_spans
-            )
-            self.hard_string_over_context_span_count += (
-                hard_string_stats.over_context_spans
-            )
-            if hard_string_stats.min_span_bytes:
-                self.hard_string_stats = hard_string_stats
-            self.hard_regexp_window_count += hard_regexp_view_count
-            self.hard_regexp_span_count += hard_regexp_stats.regexp_spans
-            self.hard_regexp_over_context_span_count += (
-                hard_regexp_stats.over_context_spans
-            )
-            self.hard_regexp_positive_window_count += (
-                hard_regexp_stats.positive_windows
-            )
-            self.hard_regexp_operator_slash_candidate_count += (
-                hard_regexp_stats.operator_slash_candidates
-            )
-            self.hard_regexp_negative_window_count += (
-                hard_regexp_stats.negative_windows
-            )
-            if hard_regexp_stats.context_before_bytes:
-                self.hard_regexp_stats = hard_regexp_stats
-            total_adjusted_span_cuts += (
-                stats.adjusted_span_cuts
-            )
-            total_adjusted_character_cuts += (
-                stats.adjusted_character_cuts
-            )
-            total_unavoidable_inside_starts += (
-                stats.unavoidable_inside_starts
-            )
-            total_unprotected_inside_starts += (
-                stats.unprotected_inside_starts
-            )
-            all_shifts.extend(stats.shift_bytes)
-
-        self.windowing_stats = WindowingStats(
-            adjusted_span_cuts=(
-                total_adjusted_span_cuts
-            ),
-            adjusted_character_cuts=(
-                total_adjusted_character_cuts
-            ),
-            unavoidable_inside_starts=(
-                total_unavoidable_inside_starts
-            ),
-            unprotected_inside_starts=(
-                total_unprotected_inside_starts
-            ),
-            total_shift_bytes=sum(all_shifts),
-            max_shift_bytes=max(all_shifts, default=0),
-            shift_bytes=tuple(all_shifts),
-        )
+        ]
 
         if show_progress:
             print(
@@ -1548,116 +688,10 @@ class TypeScriptSemanticDataset(Dataset):
                 f"{len(self.documents)} documents, "
                 f"{len(self.windows)} windows "
                 f"(window={self.max_length}, "
-                f"strategy={self.window_strategy}, "
-                f"stride={self.stride})",
+                f"stride={self.stride}, "
+                f"overlap={self.max_length - self.stride})",
                 flush=True,
             )
-
-            if self.window_strategy in {
-                "dual-view",
-                "dual-view-hard-string",
-                "dual-view-hard-string-regexp",
-            }:
-                total_views = max(1, len(self.windows))
-                mix = (
-                    "  dual-view mix: "
-                    f"fixed={self.fixed_view_window_count} "
-                    f"({self.fixed_view_window_count / total_views:.2%}), "
-                    "span-aware="
-                    f"{self.span_aware_view_window_count} "
-                    f"({self.span_aware_view_window_count / total_views:.2%})"
-                )
-
-                if self.window_strategy in {
-                    "dual-view-hard-string",
-                    "dual-view-hard-string-regexp",
-                }:
-                    mix += (
-                        ", hard-string="
-                        f"{self.hard_string_window_count} "
-                        f"({self.hard_string_window_count / total_views:.2%})"
-                    )
-
-                if self.window_strategy == "dual-view-hard-string-regexp":
-                    mix += (
-                        ", hard-regexp="
-                        f"{self.hard_regexp_window_count} "
-                        f"({self.hard_regexp_window_count / total_views:.2%})"
-                    )
-
-                print(mix, flush=True)
-
-                if self.window_strategy in {
-                    "dual-view-hard-string",
-                    "dual-view-hard-string-regexp",
-                }:
-                    hard = self.hard_string_stats
-                    print(
-                        "  hard-string curriculum: "
-                        f"eligible-spans={self.hard_string_eligible_span_count}, "
-                        "over-context-spans="
-                        f"{self.hard_string_over_context_span_count}, "
-                        f"windows={self.hard_string_window_count}, "
-                        f"min-span={hard.min_span_bytes}B, "
-                        "first-inside="
-                        f"{hard.first_inside_offset_bytes}B, "
-                        f"step={hard.step_bytes}B, "
-                        f"min-remaining={hard.min_remaining_bytes}B",
-                        flush=True,
-                    )
-
-                if self.window_strategy == "dual-view-hard-string-regexp":
-                    hard_regexp = self.hard_regexp_stats
-                    print(
-                        "  hard-regexp curriculum: "
-                        f"regexp-spans={self.hard_regexp_span_count}, "
-                        "over-context-spans="
-                        f"{self.hard_regexp_over_context_span_count}, "
-                        "positive-windows="
-                        f"{self.hard_regexp_positive_window_count}, "
-                        "operator-slash-candidates="
-                        f"{self.hard_regexp_operator_slash_candidate_count}, "
-                        "negative-windows="
-                        f"{self.hard_regexp_negative_window_count}, "
-                        f"windows={self.hard_regexp_window_count}, "
-                        "context-before="
-                        f"{hard_regexp.context_before_bytes}B, "
-                        "negative-divisor="
-                        f"{hard_regexp.negative_divisor}",
-                        flush=True,
-                    )
-
-            if self.window_strategy in {
-                "span-aware",
-                "string-aware",
-                "dual-view",
-                "dual-view-hard-string",
-                "dual-view-hard-string-regexp",
-            }:
-                stats = self.windowing_stats
-                label = (
-                    "dual-view span-aware"
-                    if self.window_strategy in {
-                        "dual-view",
-                        "dual-view-hard-string",
-                        "dual-view-hard-string-regexp",
-                    }
-                    else self.window_strategy
-                )
-                print(
-                    f"  {label} cuts: "
-                    f"adjusted={stats.adjusted_span_cuts}, "
-                    "unavoidable-protected-inside-starts="
-                    f"{stats.unavoidable_inside_starts}, "
-                    "allowed-unprotected-inside-starts="
-                    f"{stats.unprotected_inside_starts}, "
-                    "avg-shift="
-                    f"{(stats.total_shift_bytes / max(1, stats.adjusted_span_cuts)):.1f}B, "
-                    f"p95-shift={stats.p95_shift_bytes}B, "
-                    f"max-shift={stats.max_shift_bytes}B",
-                    flush=True,
-                )
-
 
     def __len__(self) -> int:
         return len(self.windows)
@@ -1667,70 +701,39 @@ class TypeScriptSemanticDataset(Dataset):
         index: int,
     ) -> dict[str, torch.Tensor]:
         window = self.windows[index]
-        document = self.documents[
-            window.document_index
-        ]
-
-        length = (
-            window.end - window.start
-        )
+        document = self.documents[window.document_index]
+        length = window.end - window.start
 
         input_ids = torch.full(
             (self.max_length,),
             PAD_BYTE_ID,
             dtype=torch.long,
         )
-
         attention_mask = torch.zeros(
             (self.max_length,),
             dtype=torch.bool,
         )
-
         boundary_labels = torch.full(
             (self.max_length,),
             IGNORE_LABEL_ID,
             dtype=torch.long,
         )
-
         token_type_labels = torch.full(
             (self.max_length,),
             IGNORE_LABEL_ID,
             dtype=torch.long,
         )
-
         modifier_labels = torch.zeros(
-            (
-                self.max_length,
-                len(self.schema.modifiers),
-            ),
+            (self.max_length, len(self.schema.modifiers)),
             dtype=torch.float32,
         )
 
-        input_ids[:length] = (
-            document.input_ids[
-                window.start:window.end
-            ]
-        )
-
+        source_slice = slice(window.start, window.end)
+        input_ids[:length] = document.input_ids[source_slice]
         attention_mask[:length] = True
-
-        boundary_labels[:length] = (
-            document.boundary_labels[
-                window.start:window.end
-            ]
-        )
-
-        token_type_labels[:length] = (
-            document.token_type_labels[
-                window.start:window.end
-            ]
-        )
-
-        modifier_labels[:length] = (
-            document.modifier_labels[
-                window.start:window.end
-            ].float()
-        )
+        boundary_labels[:length] = document.boundary_labels[source_slice]
+        token_type_labels[:length] = document.token_type_labels[source_slice]
+        modifier_labels[:length] = document.modifier_labels[source_slice].float()
 
         return {
             "input_ids": input_ids,
@@ -1743,113 +746,37 @@ class TypeScriptSemanticDataset(Dataset):
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-
-    parser.add_argument(
-        "--max-length",
-        type=int,
-        default=512,
-    )
-
-    parser.add_argument(
-        "--train-stride",
-        type=int,
-        default=None,
-        help=(
-            "Train-window stride in UTF-8 bytes. "
-            "Defaults to max_length (no overlap). "
-            "Validation and test remain non-overlapping."
-        ),
-    )
-
-    parser.add_argument(
-        "--train-window-strategy",
-        choices=(
-            "fixed",
-            "span-aware",
-            "string-aware",
-            "dual-view",
-            "dual-view-hard-string",
-            "dual-view-hard-string-regexp",
-        ),
-        default="fixed",
-        help=(
-            "Train window strategy. span-aware protects all "
-            "Gold spans. string-aware only protects string "
-            "spans. dual-view keeps both the full fixed view "
-            "and the full span-aware view for mixed training. "
-            "dual-view-hard-string adds a small deterministic "
-            "continuation curriculum for string spans at least "
-            "half a context window long. "
-            "dual-view-hard-string-regexp additionally upweights "
-            "exact regexp boundaries and a controlled subset of "
-            "operator-slash negatives."
-        ),
-    )
-
+    parser.add_argument("--max-length", type=int, default=DEFAULT_MAX_LENGTH)
+    parser.add_argument("--stride", type=int, default=DEFAULT_WINDOW_STRIDE)
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_arguments()
 
-    print(
-        "Neural Semantic Highlighting"
-    )
-    print(
-        "TypeScript Multitask Dataset"
-    )
+    print("Neural Semantic Highlighting")
+    print("TypeScript Multitask Dataset")
     print("")
 
-    for split in (
-        "train",
-        "validation",
-        "test",
-    ):
-        dataset = (
-            TypeScriptSemanticDataset(
-                split,
-                max_length=args.max_length,
-                stride=(
-                    args.train_stride
-                    if split == "train"
-                    else args.max_length
-                ),
-                window_strategy=(
-                    args.train_window_strategy
-                    if split == "train"
-                    else "fixed"
-                ),
-                show_progress=True,
-            )
+    for split in ("train", "validation", "test"):
+        dataset = TypeScriptSemanticDataset(
+            split,
+            max_length=args.max_length,
+            stride=args.stride,
+            show_progress=True,
         )
-
         print(
-            f"{split}: "
-            f"{len(dataset.documents)} documents, "
+            f"{split}: {len(dataset.documents)} documents, "
             f"{len(dataset)} windows, "
-            f"strategy={dataset.window_strategy}, "
             f"stride={dataset.stride}"
         )
 
     schema = load_schema()
-
     print("")
-    print(
-        "Boundary classes: "
-        "3 (O / B / I)"
-    )
-    print(
-        f"Token types: "
-        f"{schema.number_of_token_types}"
-    )
-    print(
-        f"Modifiers: "
-        f"{len(schema.modifiers)}"
-    )
-    print(
-        "Byte vocabulary: "
-        "257 (256 bytes + PAD)"
-    )
+    print("Boundary classes: 3 (O / B / I)")
+    print(f"Token types: {schema.number_of_token_types}")
+    print(f"Modifiers: {len(schema.modifiers)}")
+    print("Byte vocabulary: 257 (256 bytes + PAD)")
 
 
 if __name__ == "__main__":

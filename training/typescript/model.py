@@ -5,6 +5,15 @@ from dataclasses import dataclass
 import torch
 from torch import nn
 
+from config import (
+    DEFAULT_MAX_LENGTH,
+    MODEL_DROPOUT,
+    MODEL_EMBEDDING_DIMENSION,
+    MODEL_FEED_FORWARD_DIMENSION,
+    MODEL_NUMBER_OF_HEADS,
+    MODEL_NUMBER_OF_LAYERS,
+)
+
 
 @dataclass
 class SemanticModelOutput:
@@ -21,12 +30,12 @@ class SemanticTransformer(nn.Module):
         number_of_boundary_classes: int,
         number_of_token_types: int,
         number_of_modifiers: int,
-        max_length: int = 512,
-        embedding_dimension: int = 128,
-        number_of_heads: int = 4,
-        number_of_layers: int = 4,
-        feed_forward_dimension: int = 512,
-        dropout: float = 0.1,
+        max_length: int = DEFAULT_MAX_LENGTH,
+        embedding_dimension: int = MODEL_EMBEDDING_DIMENSION,
+        number_of_heads: int = MODEL_NUMBER_OF_HEADS,
+        number_of_layers: int = MODEL_NUMBER_OF_LAYERS,
+        feed_forward_dimension: int = MODEL_FEED_FORWARD_DIMENSION,
+        dropout: float = MODEL_DROPOUT,
         padding_id: int = 256,
     ) -> None:
         super().__init__()
@@ -92,14 +101,28 @@ class SemanticTransformer(nn.Module):
                 f"maximum length {self.max_length}."
             )
 
+        # Dataset batches are right-padded to max_length. With an 8 KiB
+        # context, running attention across padding would waste most of the
+        # compute for ordinary source files. Trim the Transformer work to the
+        # longest real sequence in the batch, then pad logits back so callers
+        # can keep using fixed-shape labels.
+        active_length = int(
+            attention_mask.sum(dim=1).max().item()
+        )
+        active_length = max(1, active_length)
+
+        if active_length < sequence_length:
+            input_ids = input_ids[:, :active_length]
+            attention_mask = attention_mask[:, :active_length]
+
         positions = torch.arange(
-            sequence_length,
+            active_length,
             device=input_ids.device,
         ).unsqueeze(0)
 
         positions = positions.expand(
             batch_size,
-            sequence_length,
+            active_length,
         )
 
         hidden_states = (
@@ -116,16 +139,52 @@ class SemanticTransformer(nn.Module):
             hidden_states
         )
 
+        boundary_logits = self.boundary_head(
+            hidden_states
+        )
+        token_type_logits = self.token_type_head(
+            hidden_states
+        )
+        modifier_logits = self.modifier_head(
+            hidden_states
+        )
+
+        if active_length < sequence_length:
+            padding_length = (
+                sequence_length - active_length
+            )
+
+            def pad_logits(
+                logits: torch.Tensor,
+            ) -> torch.Tensor:
+                return torch.cat(
+                    (
+                        logits,
+                        logits.new_zeros(
+                            (
+                                batch_size,
+                                padding_length,
+                                logits.shape[-1],
+                            )
+                        ),
+                    ),
+                    dim=1,
+                )
+
+            boundary_logits = pad_logits(
+                boundary_logits
+            )
+            token_type_logits = pad_logits(
+                token_type_logits
+            )
+            modifier_logits = pad_logits(
+                modifier_logits
+            )
+
         return SemanticModelOutput(
-            boundary_logits=self.boundary_head(
-                hidden_states
-            ),
-            token_type_logits=self.token_type_head(
-                hidden_states
-            ),
-            modifier_logits=self.modifier_head(
-                hidden_states
-            ),
+            boundary_logits=boundary_logits,
+            token_type_logits=token_type_logits,
+            modifier_logits=modifier_logits,
         )
 
 
@@ -150,12 +209,12 @@ def main() -> None:
     input_ids = torch.randint(
         0,
         256,
-        (2, 512),
+        (2, 256),
         dtype=torch.long,
     )
 
     attention_mask = torch.ones(
-        (2, 512),
+        (2, 256),
         dtype=torch.bool,
     )
 
@@ -165,7 +224,7 @@ def main() -> None:
     )
 
     print("Neural Semantic Highlighting")
-    print("TypeScript V2 Multitask Transformer")
+    print("TypeScript Multitask Transformer")
     print("")
     print(
         f"Parameters: {count_parameters(model):,}"

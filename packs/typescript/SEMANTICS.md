@@ -33,23 +33,23 @@ The fact that a `variable` reference resolves to a parameter declaration, or tha
 
 Declaration sites keep the most specific supported declaration kind.
 
-| Source role | Token type | Required modifier |
-| --- | --- | --- |
-| class declaration name | `class` | `declaration` |
-| interface declaration name | `interface` | `declaration` |
-| enum declaration name | `enum` | `declaration` |
-| enum member declaration name | `enum-member` | `declaration` |
-| type alias declaration name | `type` | `declaration` |
-| type parameter declaration name | `type-parameter` | `declaration` |
-| function declaration name | `function` | `declaration` |
-| method declaration/signature name | `method` | `declaration` |
-| constructor keyword | `constructor` | `declaration` |
-| parameter declaration/binding | `parameter` | `declaration` |
-| variable declaration/binding | `variable` | `declaration` |
-| property declaration/signature | `property` | `declaration` |
-| namespace declaration/import binding | `namespace` | `declaration` |
-| value import binding | `variable` | `declaration` |
-| type-only import binding | `type` | `declaration` |
+| Source role                          | Token type       | Required modifier |
+| ------------------------------------ | ---------------- | ----------------- |
+| class declaration name               | `class`          | `declaration`     |
+| interface declaration name           | `interface`      | `declaration`     |
+| enum declaration name                | `enum`           | `declaration`     |
+| enum member declaration name         | `enum-member`    | `declaration`     |
+| type alias declaration name          | `type`           | `declaration`     |
+| type parameter declaration name      | `type-parameter` | `declaration`     |
+| function declaration name            | `function`       | `declaration`     |
+| method declaration/signature name    | `method`         | `declaration`     |
+| constructor keyword                  | `constructor`    | `declaration`     |
+| parameter declaration/binding        | `parameter`      | `declaration`     |
+| variable declaration/binding         | `variable`       | `declaration`     |
+| property declaration/signature       | `property`       | `declaration`     |
+| namespace declaration/import binding | `namespace`      | `declaration`     |
+| value import binding                 | `variable`       | `declaration`     |
+| type-only import binding             | `type`           | `declaration`     |
 
 Existing semantic modifiers such as `readonly`, `static`, `async`, `generator`, `abstract`, `public`, `protected`, `private`, `optional`, `getter`, and `setter` remain orthogonal to this rule.
 
@@ -57,21 +57,21 @@ Existing semantic modifiers such as `readonly`, `static`, `async`, `generator`, 
 
 Reference sites are classified by the role visible at the reference location.
 
-| Reference shape | Token type |
-| --- | --- |
-| ordinary value identifier | `variable` |
-| identifier used as a direct call target, `fn()` | `function` |
-| member used as a direct call target, `obj.run()` | `method` |
-| non-call member access, `obj.value` | `property` |
-| identifier used as a `new` target, `new Foo()` | `class` |
-| identifier in a type-reference position | `type` |
-| right side of a qualified type, `NS.User` | `type` |
-| namespace side of a qualified type, `NS.User` | `namespace` |
-| type-only export specifier | `type` |
-| ordinary export specifier | `variable` |
-| decorator identifier | `decorator` |
-| JSX tag identifier | `tag` |
-| JSX attribute name | `attribute` |
+| Reference shape                                  | Token type  |
+| ------------------------------------------------ | ----------- |
+| ordinary value identifier                        | `variable`  |
+| identifier used as a direct call target, `fn()`  | `function`  |
+| member used as a direct call target, `obj.run()` | `method`    |
+| non-call member access, `obj.value`              | `property`  |
+| identifier used as a `new` target, `new Foo()`   | `class`     |
+| identifier in a type-reference position          | `type`      |
+| right side of a qualified type, `NS.User`        | `type`      |
+| namespace side of a qualified type, `NS.User`    | `namespace` |
+| type-only export specifier                       | `type`      |
+| ordinary export specifier                        | `variable`  |
+| decorator identifier                             | `decorator` |
+| JSX tag identifier                               | `tag`       |
+| JSX attribute name                               | `attribute` |
 
 Consequences are intentional:
 

@@ -8,24 +8,25 @@ from pathlib import Path
 from statistics import mean
 from typing import Any
 
-from evaluate import predict_document_logits
+from config import DEFAULT_ARTIFACT_DIRECTORY, DEFAULT_BEST_CHECKPOINT_PATH, DEFAULT_WINDOW_STRIDE
+from inference import predict_document_logits
 from predict import decode_predictions, load_model, select_device
-from regexp_challenge import ExpectedSpan, metric_block, parse_marked_source, safe_divide, span_key
-
-DEFAULT_CHALLENGE_PATH = Path("packs/typescript/challenges/regexp-paired-context.json")
-DEFAULT_OUTPUT_PATH = Path("artifacts/typescript/regexp-paired-context-challenge.json")
-DEFAULT_CHECKPOINTS = (
-    (
-        "base",
-        Path(
-            "artifacts/typescript/"
-            "v3-local-role-dual-view-hard-string-regexp/"
-            "best-epoch19.pt"
-        ),
-    ),
-    ("step300", Path("artifacts/typescript/v3-regexp-surgery-probe/step-0300.pt")),
-    ("step400", Path("artifacts/typescript/v3-regexp-surgery-probe/step-0400.pt")),
+from regexp_challenge import (
+    ExpectedSpan,
+    metric_block,
+    parse_marked_source,
+    safe_divide,
+    span_key,
 )
+
+DEFAULT_CHALLENGE_PATH = Path(
+    "packs/typescript/challenges/regexp-paired-context.json"
+)
+DEFAULT_OUTPUT_PATH = (
+    DEFAULT_ARTIFACT_DIRECTORY
+    / "regexp-paired-context-challenge.json"
+)
+DEFAULT_CHECKPOINTS = (("current", DEFAULT_BEST_CHECKPOINT_PATH),)
 REGEXP_PLACEHOLDER = "{REGEXP}"
 OPEN_MARKER = "⟦"
 CLOSE_MARKER = "⟧"
@@ -83,7 +84,7 @@ def render_side(template: str, regexp: str) -> PairSide:
 
 def load_pairs(path: Path) -> list[PairedCase]:
     payload = json.loads(path.read_text(encoding="utf-8"))
-    if payload.get("format") != "nsh-typescript-regexp-paired-context-challenge-v1":
+    if payload.get("format") != "nsh-typescript-regexp-paired-context-challenge":
         raise ValueError(f"Unexpected paired challenge format in {path}.")
 
     pairs: list[PairedCase] = []
@@ -153,8 +154,12 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("--challenge", type=Path, default=DEFAULT_CHALLENGE_PATH)
     parser.add_argument("--checkpoint", action="append", type=parse_checkpoint)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_PATH)
-    parser.add_argument("--stride", type=int, default=256)
-    parser.add_argument("--fusion", choices=("uniform", "center"), default="uniform")
+    parser.add_argument(
+        "--stride",
+        type=int,
+        default=DEFAULT_WINDOW_STRIDE,
+    )
+    parser.add_argument("--fusion", choices=("uniform", "center"), default="center")
     parser.add_argument("--validate-only", action="store_true")
     return parser.parse_args()
 
@@ -184,7 +189,17 @@ def print_inventory(pairs: list[PairedCase]) -> None:
         print(f"  {family:<22} {count:>3}")
 
 
-def evaluate_side(*, model, side: PairSide, config, device, stride, fusion, token_types, modifiers) -> SideResult:
+def evaluate_side(
+    *,
+    model,
+    side: PairSide,
+    config,
+    device,
+    stride: int,
+    fusion,
+    token_types,
+    modifiers,
+) -> SideResult:
     boundary_logits, type_logits, modifier_logits = predict_document_logits(
         model,
         side.source,
@@ -237,10 +252,18 @@ def summarize_side(results: list[SideResult]) -> dict[str, Any]:
     }
 
 
-def evaluate_checkpoint(*, name: str, checkpoint_path: Path, pairs: list[PairedCase], stride: int, fusion: str) -> dict[str, Any]:
+def evaluate_checkpoint(
+    *,
+    name: str,
+    checkpoint_path: Path,
+    pairs: list[PairedCase],
+    stride: int | None,
+    fusion: str,
+) -> dict[str, Any]:
     device = select_device()
     model, checkpoint = load_model(checkpoint_path, device)
     config = checkpoint["config"]
+    resolved_stride = stride
     token_types = tuple(checkpoint["schema"]["token_types"])
     modifiers = tuple(checkpoint["schema"]["modifiers"])
 
@@ -260,7 +283,7 @@ def evaluate_checkpoint(*, name: str, checkpoint_path: Path, pairs: list[PairedC
             side=pair.isolated,
             config=config,
             device=device,
-            stride=stride,
+            stride=resolved_stride,
             fusion=fusion,
             token_types=token_types,
             modifiers=modifiers,
@@ -270,7 +293,7 @@ def evaluate_checkpoint(*, name: str, checkpoint_path: Path, pairs: list[PairedC
             side=pair.contextual,
             config=config,
             device=device,
-            stride=stride,
+            stride=resolved_stride,
             fusion=fusion,
             token_types=token_types,
             modifiers=modifiers,
@@ -327,7 +350,7 @@ def evaluate_checkpoint(*, name: str, checkpoint_path: Path, pairs: list[PairedC
         "checkpoint": str(checkpoint_path),
         "inference": {
             "max_length": config["max_length"],
-            "stride": stride,
+            "stride": resolved_stride,
             "fusion": fusion,
             "decoder": "greedy",
         },
@@ -396,7 +419,7 @@ def main() -> None:
     ]
 
     output = {
-        "format": "nsh-typescript-regexp-paired-context-challenge-result-v1",
+        "format": "nsh-typescript-regexp-paired-context-challenge-result",
         "challenge": str(args.challenge),
         "pair_count": len(pairs),
         "models": reports,

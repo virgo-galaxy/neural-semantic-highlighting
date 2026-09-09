@@ -286,11 +286,7 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
       ? ts.LanguageVariant.JSX
       : ts.LanguageVariant.Standard;
 
-  const sourceFile = createSourceFile(
-    request.source,
-    request.documentKind,
-    scriptKind,
-  );
+  const sourceFile = createSourceFile(request.source, request.documentKind, scriptKind);
 
   let spans: SemanticSpan[] = [];
 
@@ -509,7 +505,6 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
     return current.right === node ? "type" : "namespace";
   }
 
-
   function classifyIdentifier(node: ts.Identifier): void {
     const parent = node.parent;
 
@@ -567,10 +562,7 @@ export function labelTypeScript(request: HighlightRequest): HighlightResult {
     }
 
     if (ts.isExportSpecifier(parent)) {
-      addNodeSpan(
-        node,
-        isTypeOnlyExportSpecifier(parent) ? "type" : "variable",
-      );
+      addNodeSpan(node, isTypeOnlyExportSpecifier(parent) ? "type" : "variable");
       return;
     }
 

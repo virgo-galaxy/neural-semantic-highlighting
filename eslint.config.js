@@ -5,6 +5,7 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig(
   globalIgnores([
+    ".venv/**",
     "dist/**",
     "node_modules/**",
     "packs/**/fixtures/**/source.*",
