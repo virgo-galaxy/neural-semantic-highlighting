@@ -22,4 +22,16 @@ export default defineConfig(
       "simple-import-sort/exports": "error",
     },
   },
+  {
+    files: ["playground/**/*.{js,ts}"],
+    languageOptions: {
+      globals: {
+        document: "readonly",
+        window: "readonly",
+        navigator: "readonly",
+        location: "readonly",
+        fetch: "readonly",
+      },
+    },
+  },
 );
