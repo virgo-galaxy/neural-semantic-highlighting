@@ -23,6 +23,10 @@ from config import (
     MODEL_FEED_FORWARD_DIMENSION,
     MODEL_NUMBER_OF_HEADS,
     MODEL_NUMBER_OF_LAYERS,
+    REGEXP_FOCUS_BATCH_SIZE,
+    REGEXP_FOCUS_CONTEXT_BEFORE_BYTES,
+    REGEXP_FOCUS_HALO_BYTES,
+    REGEXP_FOCUS_WINDOW_LENGTH,
 )
 from dataset import (
     BOUNDARY_BEGIN_ID,
@@ -31,6 +35,7 @@ from dataset import (
     IGNORE_LABEL_ID,
     NUMBER_OF_BOUNDARY_CLASSES,
     EncodedDocument,
+    RegExpFocusDataset,
     TypeScriptSemanticDataset,
 )
 from inference import predict_document_logits
@@ -982,9 +987,72 @@ def diagnostic_metrics(
     }
 
 
+def _optimizer_step(
+    model: SemanticTransformer,
+    batch: dict[str, torch.Tensor],
+    optimizer: torch.optim.Optimizer,
+    boundary_loss_function: nn.CrossEntropyLoss,
+    token_type_loss_function: nn.CrossEntropyLoss,
+    modifier_positive_weights: torch.Tensor,
+    device: torch.device,
+    modifier_loss_weight: float,
+    *,
+    include_modifier: bool,
+) -> tuple[float, float, float, float]:
+    input_ids = batch["input_ids"].to(device)
+    attention_mask = batch["attention_mask"].to(device)
+    boundary_labels = batch["boundary_labels"].to(device)
+    token_type_labels = batch["token_type_labels"].to(device)
+    modifier_labels = batch["modifier_labels"].to(device)
+
+    optimizer.zero_grad(set_to_none=True)
+
+    output = model(
+        input_ids=input_ids,
+        attention_mask=attention_mask,
+    )
+
+    boundary_loss = boundary_loss_function(
+        output.boundary_logits.reshape(-1, output.boundary_logits.shape[-1]),
+        boundary_labels.reshape(-1),
+    )
+    token_type_loss = token_type_loss_function(
+        output.token_type_logits.reshape(-1, output.token_type_logits.shape[-1]),
+        token_type_labels.reshape(-1),
+    )
+
+    begin_mask = boundary_labels == BOUNDARY_BEGIN_ID
+    if include_modifier and begin_mask.any():
+        modifier_loss = F.binary_cross_entropy_with_logits(
+            output.modifier_logits[begin_mask],
+            modifier_labels[begin_mask],
+            pos_weight=modifier_positive_weights,
+        )
+    else:
+        modifier_loss = torch.zeros((), device=device)
+
+    loss = (
+        boundary_loss
+        + token_type_loss
+        + modifier_loss_weight * modifier_loss
+    )
+
+    loss.backward()
+    nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+    optimizer.step()
+
+    return (
+        float(loss.item()),
+        float(boundary_loss.item()),
+        float(token_type_loss.item()),
+        float(modifier_loss.item()),
+    )
+
+
 def train_epoch(
     model: SemanticTransformer,
     loader: DataLoader,
+    regexp_focus_loader: DataLoader,
     optimizer: torch.optim.Optimizer,
     boundary_loss_function: nn.CrossEntropyLoss,
     token_type_loss_function: nn.CrossEntropyLoss,
@@ -997,6 +1065,8 @@ def train_epoch(
     float,
     float,
     float,
+    int,
+    float,
 ]:
     model.train()
 
@@ -1005,189 +1075,100 @@ def train_epoch(
     total_type_loss = 0.0
     total_modifier_loss = 0.0
 
-    processed_windows = 0
+    regexp_focus_loss = 0.0
+    regexp_focus_steps = 0
+
+    normal_steps = len(loader)
+    focus_steps = len(regexp_focus_loader)
+    total_optimizer_steps = normal_steps + focus_steps
+    completed_optimizer_steps = 0
+
+    focus_iterator = iter(regexp_focus_loader)
     started = time.perf_counter()
 
-    for (
-        step,
-        batch,
-    ) in enumerate(
-        loader,
-        start=1,
-    ):
-        input_ids = batch[
-            "input_ids"
-        ].to(device)
-
-        attention_mask = batch[
-            "attention_mask"
-        ].to(device)
-
-        boundary_labels = batch[
-            "boundary_labels"
-        ].to(device)
-
-        token_type_labels = batch[
-            "token_type_labels"
-        ].to(device)
-
-        modifier_labels = batch[
-            "modifier_labels"
-        ].to(device)
-
-        optimizer.zero_grad(
-            set_to_none=True
+    for step, batch in enumerate(loader, start=1):
+        (
+            loss,
+            boundary_loss,
+            token_type_loss,
+            modifier_loss,
+        ) = _optimizer_step(
+            model,
+            batch,
+            optimizer,
+            boundary_loss_function,
+            token_type_loss_function,
+            modifier_positive_weights,
+            device,
+            modifier_loss_weight,
+            include_modifier=True,
         )
 
-        output = model(
-            input_ids=input_ids,
-            attention_mask=(
-                attention_mask
-            ),
-        )
+        total_loss += loss
+        total_boundary_loss += boundary_loss
+        total_type_loss += token_type_loss
+        total_modifier_loss += modifier_loss
+        completed_optimizer_steps += 1
 
-        boundary_loss = (
-            boundary_loss_function(
-                output.boundary_logits.reshape(
-                    -1,
-                    output.boundary_logits.shape[
-                        -1
-                    ],
-                ),
-                boundary_labels.reshape(
-                    -1
-                ),
+        target_focus_steps = (step * focus_steps) // max(normal_steps, 1)
+        while regexp_focus_steps < target_focus_steps:
+            focus_batch = next(focus_iterator)
+            (
+                focus_loss,
+                _,
+                _,
+                _,
+            ) = _optimizer_step(
+                model,
+                focus_batch,
+                optimizer,
+                boundary_loss_function,
+                token_type_loss_function,
+                modifier_positive_weights,
+                device,
+                modifier_loss_weight,
+                include_modifier=False,
             )
-        )
+            regexp_focus_loss += focus_loss
+            regexp_focus_steps += 1
+            completed_optimizer_steps += 1
 
-        token_type_loss = (
-            token_type_loss_function(
-                output.token_type_logits.reshape(
-                    -1,
-                    output.token_type_logits.shape[
-                        -1
-                    ],
-                ),
-                token_type_labels.reshape(
-                    -1
-                ),
-            )
-        )
-
-        begin_mask = (
-            boundary_labels
-            == BOUNDARY_BEGIN_ID
-        )
-
-        if begin_mask.any():
-            modifier_loss = (
-                F.binary_cross_entropy_with_logits(
-                    output.modifier_logits[
-                        begin_mask
-                    ],
-                    modifier_labels[
-                        begin_mask
-                    ],
-                    pos_weight=(
-                        modifier_positive_weights
-                    ),
-                )
-            )
-        else:
-            modifier_loss = torch.zeros(
-                (),
-                device=device,
-            )
-
-        loss = (
-            boundary_loss
-            + token_type_loss
-            + modifier_loss_weight
-            * modifier_loss
-        )
-
-        loss.backward()
-
-        nn.utils.clip_grad_norm_(
-            model.parameters(),
-            max_norm=1.0,
-        )
-
-        optimizer.step()
-
-        total_loss += float(
-            loss.item()
-        )
-
-        total_boundary_loss += float(
-            boundary_loss.item()
-        )
-
-        total_type_loss += float(
-            token_type_loss.item()
-        )
-
-        total_modifier_loss += float(
-            modifier_loss.item()
-        )
-
-        processed_windows += int(
-            input_ids.shape[0]
-        )
-
-        if (
-            step % 25 == 0
-            or step == len(loader)
-        ):
-            elapsed = (
-                time.perf_counter()
-                - started
-            )
-
-            rate = (
-                processed_windows
-                / elapsed
-                if elapsed > 0
-                else 0.0
-            )
-
+        if step % 25 == 0 or step == normal_steps:
+            elapsed = max(time.perf_counter() - started, 1e-9)
+            rate = completed_optimizer_steps / elapsed
             remaining = (
-                (
-                    len(loader.dataset)
-                    - processed_windows
-                )
-                / rate
+                (total_optimizer_steps - completed_optimizer_steps) / rate
                 if rate > 0
                 else 0.0
             )
 
             print(
-                f"  step "
-                f"{step:>4}/{len(loader)} "
-                f"loss={loss.item():.4f} "
-                f"boundary={boundary_loss.item():.4f} "
-                f"type={token_type_loss.item():.4f} "
-                f"modifier={modifier_loss.item():.4f} "
-                f"{rate:,.1f} win/s "
+                f"  main {step:>4}/{normal_steps} "
+                f"regexp {regexp_focus_steps:>3}/{focus_steps} "
+                f"loss={loss:.4f} "
+                f"boundary={boundary_loss:.4f} "
+                f"type={token_type_loss:.4f} "
+                f"modifier={modifier_loss:.4f} "
                 f"ETA={format_duration(remaining)}",
                 flush=True,
             )
 
-    batches = len(loader)
+    if regexp_focus_steps != focus_steps:
+        raise RuntimeError(
+            f"RegExp focus curriculum ran {regexp_focus_steps}/{focus_steps} batches."
+        )
 
-    elapsed = (
-        time.perf_counter()
-        - started
-    )
+    elapsed = time.perf_counter() - started
 
     return (
-        total_loss / batches,
-        total_boundary_loss / batches,
-        total_type_loss / batches,
-        total_modifier_loss / batches,
+        total_loss / max(normal_steps, 1),
+        total_boundary_loss / max(normal_steps, 1),
+        total_type_loss / max(normal_steps, 1),
+        total_modifier_loss / max(normal_steps, 1),
+        regexp_focus_loss / max(regexp_focus_steps, 1),
+        regexp_focus_steps,
         elapsed,
     )
-
 
 def cpu_optimizer_state_dict(
     optimizer: torch.optim.Optimizer,
@@ -1265,6 +1246,12 @@ def save_checkpoint(
                 "number_of_heads": MODEL_NUMBER_OF_HEADS,
                 "number_of_layers": MODEL_NUMBER_OF_LAYERS,
                 "feed_forward_dimension": MODEL_FEED_FORWARD_DIMENSION,
+                "regexp_focus_window_length": REGEXP_FOCUS_WINDOW_LENGTH,
+                "regexp_focus_halo_bytes": REGEXP_FOCUS_HALO_BYTES,
+                "regexp_focus_context_before_bytes": (
+                    REGEXP_FOCUS_CONTEXT_BEFORE_BYTES
+                ),
+                "regexp_focus_batch_size": REGEXP_FOCUS_BATCH_SIZE,
             },
             "schema": {
                 "token_types": list(
@@ -1470,6 +1457,21 @@ def main() -> None:
         )
     )
 
+    regexp_focus_dataset = RegExpFocusDataset(
+        train_dataset.documents,
+        token_type_to_id=(
+            train_dataset.schema.token_type_to_id
+        ),
+        number_of_modifiers=len(
+            train_dataset.schema.modifiers
+        ),
+        window_length=REGEXP_FOCUS_WINDOW_LENGTH,
+        halo_bytes=REGEXP_FOCUS_HALO_BYTES,
+        context_before_bytes=(
+            REGEXP_FOCUS_CONTEXT_BEFORE_BYTES
+        ),
+    )
+
     print(
         "Preparing validation "
         "dataset...",
@@ -1498,6 +1500,18 @@ def main() -> None:
         generator=(
             torch.Generator().manual_seed(
                 args.seed
+            )
+        ),
+    )
+
+    regexp_focus_loader = DataLoader(
+        regexp_focus_dataset,
+        batch_size=REGEXP_FOCUS_BATCH_SIZE,
+        shuffle=True,
+        num_workers=0,
+        generator=(
+            torch.Generator().manual_seed(
+                args.seed + 1
             )
         ),
     )
@@ -1604,6 +1618,26 @@ def main() -> None:
         f"{train_dataset.stride}"
     )
 
+    regexp_inventory = (
+        regexp_focus_dataset.inventory
+    )
+
+    print(
+        "RegExp focus samples: "
+        f"{len(regexp_focus_dataset)} "
+        f"({regexp_inventory.positive_regexp} regexp, "
+        f"{regexp_inventory.negative_operator_slash} "
+        "operator-slash negatives)"
+    )
+
+    print(
+        "RegExp focus window:  "
+        f"{REGEXP_FOCUS_WINDOW_LENGTH} "
+        f"(halo={REGEXP_FOCUS_HALO_BYTES}, "
+        "context-before="
+        f"{REGEXP_FOCUS_CONTEXT_BEFORE_BYTES})"
+    )
+
     print(
         "Validation windows: "
         f"{len(validation_dataset)}"
@@ -1614,15 +1648,18 @@ def main() -> None:
         f"{args.batch_size}"
     )
 
+    main_steps_per_epoch = len(train_loader)
+    regexp_steps_per_epoch = len(regexp_focus_loader)
     steps_per_epoch = (
-        len(train_dataset)
-        + args.batch_size
-        - 1
-    ) // args.batch_size
+        main_steps_per_epoch
+        + regexp_steps_per_epoch
+    )
 
     print(
-        f"Optimizer steps/epoch: "
-        f"{steps_per_epoch}"
+        "Optimizer steps/epoch: "
+        f"{steps_per_epoch} "
+        f"({main_steps_per_epoch} main + "
+        f"{regexp_steps_per_epoch} regexp)"
     )
 
     print(
@@ -1689,10 +1726,15 @@ def main() -> None:
             boundary_loss,
             token_type_loss,
             modifier_loss,
+            regexp_focus_loss,
+            regexp_focus_steps,
             epoch_seconds,
         ) = train_epoch(
             model=model,
             loader=train_loader,
+            regexp_focus_loader=(
+                regexp_focus_loader
+            ),
             optimizer=optimizer,
             boundary_loss_function=(
                 boundary_loss_function
@@ -1753,6 +1795,12 @@ def main() -> None:
         print(
             "  modifier loss:       "
             f"{modifier_loss:.4f}"
+        )
+
+        print(
+            "  regexp focus loss:   "
+            f"{regexp_focus_loss:.4f} "
+            f"({regexp_focus_steps} steps)"
         )
 
         print(

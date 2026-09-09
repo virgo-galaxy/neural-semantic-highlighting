@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import bisect
 import hashlib
 import json
 import os
@@ -89,6 +90,27 @@ class WindowReference:
     document_index: int
     start: int
     end: int
+
+
+@dataclass(frozen=True)
+class FocusedWindowReference:
+    document_index: int
+    window_start: int
+    window_end: int
+    focus_start: int
+    focus_end: int
+    kind: str
+
+
+@dataclass(frozen=True)
+class RegExpFocusInventory:
+    positive_regexp: int
+    negative_operator_slash: int
+    skipped_over_context: int
+
+    @property
+    def total(self) -> int:
+        return self.positive_regexp + self.negative_operator_slash
 
 
 
@@ -635,6 +657,233 @@ def build_windows(
             stride=stride,
         )
     ]
+
+
+def _bounded_character_start(
+    character_starts: list[int],
+    *,
+    desired: int,
+    lower: int,
+    upper: int,
+) -> int:
+    if lower > upper:
+        raise ValueError(f"Invalid start bounds: {lower}>{upper}")
+
+    desired = max(lower, min(desired, upper))
+    index = bisect.bisect_right(character_starts, desired) - 1
+
+    if index >= 0 and character_starts[index] >= lower:
+        candidate = character_starts[index]
+        if candidate <= upper:
+            return candidate
+
+    index = bisect.bisect_left(character_starts, lower)
+    if index >= len(character_starts):
+        return lower
+
+    return min(character_starts[index], upper)
+
+
+def _build_focused_window(
+    document_index: int,
+    document: EncodedDocument,
+    *,
+    focus_start: int,
+    focus_end: int,
+    anchor: int,
+    kind: str,
+    window_length: int,
+    context_before_bytes: int,
+) -> FocusedWindowReference | None:
+    length = int(document.input_ids.shape[0])
+    focus_start = max(0, focus_start)
+    focus_end = min(length, focus_end)
+
+    if focus_start >= focus_end or focus_end - focus_start > window_length:
+        return None
+
+    _, _, starts_tuple = build_source_boundaries(document.source)
+    character_starts = list(starts_tuple)
+    if not character_starts:
+        return None
+
+    lower = max(0, focus_end - window_length)
+    upper = min(focus_start, max(0, length - 1))
+    desired = max(0, anchor - context_before_bytes)
+    window_start = _bounded_character_start(
+        character_starts,
+        desired=desired,
+        lower=lower,
+        upper=upper,
+    )
+    window_end = min(length, window_start + window_length)
+
+    if focus_start < window_start or focus_end > window_end:
+        return None
+
+    return FocusedWindowReference(
+        document_index=document_index,
+        window_start=window_start,
+        window_end=window_end,
+        focus_start=focus_start,
+        focus_end=focus_end,
+        kind=kind,
+    )
+
+
+def build_regexp_focus_references(
+    documents: list[EncodedDocument],
+    *,
+    token_type_to_id: dict[str, int],
+    window_length: int,
+    halo_bytes: int,
+    context_before_bytes: int,
+) -> tuple[list[FocusedWindowReference], RegExpFocusInventory]:
+    regexp_id = token_type_to_id["regexp"]
+    operator_id = token_type_to_id["operator"]
+    references: list[FocusedWindowReference] = []
+    positive = 0
+    negative = 0
+    skipped = 0
+
+    for document_index, document in enumerate(documents):
+        utf16_to_utf8, _, starts_tuple = build_source_boundaries(document.source)
+
+        for span in document.gold_spans:
+            if span.token_type != "regexp":
+                continue
+
+            span_start = utf16_to_utf8.get(span.start)
+            span_end = utf16_to_utf8.get(span.end)
+            if span_start is None or span_end is None:
+                continue
+
+            reference = _build_focused_window(
+                document_index,
+                document,
+                focus_start=span_start - halo_bytes,
+                focus_end=span_end + halo_bytes,
+                anchor=span_start,
+                kind="regexp-positive",
+                window_length=window_length,
+                context_before_bytes=context_before_bytes,
+            )
+            if reference is None:
+                skipped += 1
+                continue
+
+            references.append(reference)
+            positive += 1
+
+        for character, byte_start in zip(document.source, starts_tuple, strict=True):
+            if character != "/":
+                continue
+            if byte_start >= document.token_type_labels.shape[0]:
+                continue
+            if int(document.token_type_labels[byte_start].item()) != operator_id:
+                continue
+
+            reference = _build_focused_window(
+                document_index,
+                document,
+                focus_start=byte_start - halo_bytes,
+                focus_end=byte_start + 1 + halo_bytes,
+                anchor=byte_start,
+                kind="operator-slash-negative",
+                window_length=window_length,
+                context_before_bytes=context_before_bytes,
+            )
+            if reference is None:
+                continue
+
+            references.append(reference)
+            negative += 1
+
+    for reference in references:
+        if reference.kind != "regexp-positive":
+            continue
+        document = documents[reference.document_index]
+        labels = document.token_type_labels[reference.focus_start:reference.focus_end]
+        if not bool((labels == regexp_id).any()):
+            raise AssertionError("RegExp focus lost its regexp label.")
+
+    return references, RegExpFocusInventory(
+        positive_regexp=positive,
+        negative_operator_slash=negative,
+        skipped_over_context=skipped,
+    )
+
+
+class RegExpFocusDataset(Dataset):
+    def __init__(
+        self,
+        documents: list[EncodedDocument],
+        *,
+        token_type_to_id: dict[str, int],
+        number_of_modifiers: int,
+        window_length: int,
+        halo_bytes: int,
+        context_before_bytes: int,
+    ) -> None:
+        self.documents = documents
+        self.window_length = window_length
+        self.number_of_modifiers = number_of_modifiers
+        self.references, self.inventory = build_regexp_focus_references(
+            documents,
+            token_type_to_id=token_type_to_id,
+            window_length=window_length,
+            halo_bytes=halo_bytes,
+            context_before_bytes=context_before_bytes,
+        )
+
+    def __len__(self) -> int:
+        return len(self.references)
+
+    def __getitem__(self, index: int) -> dict[str, torch.Tensor]:
+        reference = self.references[index]
+        document = self.documents[reference.document_index]
+        length = reference.window_end - reference.window_start
+
+        input_ids = torch.full(
+            (self.window_length,), PAD_BYTE_ID, dtype=torch.long
+        )
+        attention_mask = torch.zeros((self.window_length,), dtype=torch.bool)
+        boundary_labels = torch.full(
+            (self.window_length,), IGNORE_LABEL_ID, dtype=torch.long
+        )
+        token_type_labels = torch.full(
+            (self.window_length,), IGNORE_LABEL_ID, dtype=torch.long
+        )
+        modifier_labels = torch.zeros(
+            (self.window_length, self.number_of_modifiers), dtype=torch.float32
+        )
+
+        source_slice = slice(reference.window_start, reference.window_end)
+        input_ids[:length] = document.input_ids[source_slice]
+        attention_mask[:length] = True
+
+        focus_start = max(reference.focus_start, reference.window_start)
+        focus_end = min(reference.focus_end, reference.window_end)
+        local_start = focus_start - reference.window_start
+        local_end = focus_end - reference.window_start
+
+        boundary_labels[local_start:local_end] = document.boundary_labels[
+            focus_start:focus_end
+        ]
+        token_type_labels[local_start:local_end] = document.token_type_labels[
+            focus_start:focus_end
+        ]
+        modifier_labels[local_start:local_end] = document.modifier_labels[
+            focus_start:focus_end
+        ].float()
+
+        return {
+            "input_ids": input_ids,
+            "attention_mask": attention_mask,
+            "boundary_labels": boundary_labels,
+            "token_type_labels": token_type_labels,
+            "modifier_labels": modifier_labels,
+        }
 
 
 class TypeScriptSemanticDataset(Dataset):

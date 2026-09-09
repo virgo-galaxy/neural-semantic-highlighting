@@ -10,6 +10,7 @@
 	predict-typescript \
 	benchmark-typescript \
 	analyze-errors-typescript \
+	inspect-fragmentation-typescript \
 	validate-regexp-challenge-typescript \
 	challenge-regexp-typescript \
 	validate-regexp-paired-challenge-typescript \
@@ -100,6 +101,15 @@ analyze-errors-typescript:
 		--fusion $(FUSION) \
 		--output $(ARTIFACT_DIR)/error-analysis.json \
 		--text-output $(ARTIFACT_DIR)/error-analysis.txt \
+		--max-examples $(ANALYSIS_EXAMPLES)
+
+inspect-fragmentation-typescript:
+	$(PYTHON) training/typescript/fragmentation.py \
+		--checkpoint $(ARTIFACT_DIR)/best.pt \
+		--split $(ANALYSIS_SPLIT) \
+		--stride $(STRIDE) \
+		--fusion $(FUSION) \
+		--output $(ARTIFACT_DIR)/fragmentation.json \
 		--max-examples $(ANALYSIS_EXAMPLES)
 
 validate-regexp-challenge-typescript:
