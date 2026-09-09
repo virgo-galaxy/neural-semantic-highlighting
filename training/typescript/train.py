@@ -18,7 +18,6 @@ from config import (
     DEFAULT_LAST_CHECKPOINT_PATH,
     DEFAULT_MAX_LENGTH,
     DEFAULT_TRAIN_BATCH_SIZE,
-    DEFAULT_WINDOW_STRIDE,
     MODEL_EMBEDDING_DIMENSION,
     MODEL_FEED_FORWARD_DIMENSION,
     MODEL_NUMBER_OF_HEADS,
@@ -513,8 +512,6 @@ def exact_span_metrics(
                 dataset.max_length
             ),
             device=device,
-            stride=dataset.stride,
-            fusion="center",
         )
 
         predicted_spans = (
@@ -1241,7 +1238,7 @@ def save_checkpoint(
                     dataset.schema.modifiers
                 ),
                 "max_length": max_length,
-                "stride": dataset.stride,
+                "train_windowing": "adaptive-cursor",
                 "embedding_dimension": MODEL_EMBEDDING_DIMENSION,
                 "number_of_heads": MODEL_NUMBER_OF_HEADS,
                 "number_of_layers": MODEL_NUMBER_OF_LAYERS,
@@ -1319,8 +1316,8 @@ def load_resume_checkpoint(
     if int(config["max_length"]) != dataset.max_length:
         raise ValueError("Resume checkpoint max_length does not match the current run.")
 
-    if int(config["stride"]) != dataset.stride:
-        raise ValueError("Resume checkpoint stride does not match the current run.")
+    if config["train_windowing"] != "adaptive-cursor":
+        raise ValueError("Resume checkpoint windowing does not match the current run.")
 
     model.load_state_dict(checkpoint["model_state_dict"])
     optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
@@ -1364,13 +1361,6 @@ def parse_arguments() -> argparse.Namespace:
         "--max-length",
         type=int,
         default=DEFAULT_MAX_LENGTH,
-    )
-
-    parser.add_argument(
-        "--stride",
-        type=int,
-        default=DEFAULT_WINDOW_STRIDE,
-        help="Sliding-window stride in UTF-8 bytes.",
     )
 
     parser.add_argument(
@@ -1449,9 +1439,6 @@ def main() -> None:
             max_length=(
                 args.max_length
             ),
-            stride=(
-                args.stride
-            ),
             use_cache=True,
             show_progress=True,
         )
@@ -1483,9 +1470,6 @@ def main() -> None:
             "validation",
             max_length=(
                 args.max_length
-            ),
-            stride=(
-                args.stride
             ),
             use_cache=True,
             show_progress=True,
@@ -1613,9 +1597,13 @@ def main() -> None:
         f"{len(train_dataset)}"
     )
 
+    print("Train windowing: adaptive cursor")
     print(
-        f"Train stride: "
-        f"{train_dataset.stride}"
+        "Adaptive cuts: "
+        f"{train_dataset.windowing_stats.adjusted_span_cuts} "
+        "span cuts, "
+        f"{train_dataset.windowing_stats.unavoidable_inside_starts} "
+        "unavoidable inside starts"
     )
 
     regexp_inventory = (
@@ -1627,7 +1615,9 @@ def main() -> None:
         f"{len(regexp_focus_dataset)} "
         f"({regexp_inventory.positive_regexp} regexp, "
         f"{regexp_inventory.negative_operator_slash} "
-        "operator-slash negatives)"
+        "operator-slash negatives, "
+        f"{regexp_inventory.skipped_over_context} "
+        "skipped over-context)"
     )
 
     print(

@@ -18,14 +18,12 @@
 
 PYTHON := .venv/bin/python
 
-MAX_LENGTH ?= 8192
-STRIDE ?= 6144
+MAX_LENGTH ?= 2048
 EPOCHS ?= 32
 BATCH_SIZE ?= 1
 PATIENCE ?= 5
-ARTIFACT_DIR ?= artifacts/typescript
+ARTIFACT_DIR ?= artifacts/typescript/context2048
 RESUME ?= $(ARTIFACT_DIR)/last.pt
-FUSION ?= center
 
 BENCHMARK_WINDOWS ?= 64
 BENCHMARK_WARMUP_STEPS ?= 2
@@ -35,6 +33,8 @@ ANALYSIS_EXAMPLES ?= 30
 
 check:
 	pnpm all
+	$(PYTHON) -m compileall -q training/typescript
+	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 
 dataset: dataset-typescript
 
@@ -46,8 +46,7 @@ dataset-typescript:
 
 inspect-windows-typescript:
 	$(PYTHON) training/typescript/dataset.py \
-		--max-length $(MAX_LENGTH) \
-		--stride $(STRIDE)
+		--max-length $(MAX_LENGTH)
 
 test-windowing-golden-typescript:
 	$(PYTHON) training/typescript/windowing_golden.py
@@ -58,7 +57,6 @@ train-typescript:
 		--batch-size $(BATCH_SIZE) \
 		--patience $(PATIENCE) \
 		--max-length $(MAX_LENGTH) \
-		--stride $(STRIDE) \
 		--output $(ARTIFACT_DIR)/best.pt \
 		--last-output $(ARTIFACT_DIR)/last.pt
 
@@ -68,7 +66,6 @@ continue-typescript:
 		--batch-size $(BATCH_SIZE) \
 		--patience $(PATIENCE) \
 		--max-length $(MAX_LENGTH) \
-		--stride $(STRIDE) \
 		--output $(ARTIFACT_DIR)/best.pt \
 		--last-output $(ARTIFACT_DIR)/last.pt \
 		--resume $(RESUME)
@@ -76,15 +73,11 @@ continue-typescript:
 evaluate-typescript:
 	$(PYTHON) training/typescript/evaluate.py \
 		--checkpoint $(ARTIFACT_DIR)/best.pt \
-		--stride $(STRIDE) \
-		--fusion $(FUSION) \
 		--output $(ARTIFACT_DIR)/test-metrics.json
 
 predict-typescript:
 	$(PYTHON) training/typescript/predict.py \
-		--checkpoint $(ARTIFACT_DIR)/best.pt \
-		--stride $(STRIDE) \
-		--fusion $(FUSION)
+		--checkpoint $(ARTIFACT_DIR)/best.pt
 
 benchmark-typescript:
 	$(PYTHON) training/typescript/benchmark.py \
@@ -97,8 +90,6 @@ analyze-errors-typescript:
 	$(PYTHON) training/typescript/analyze_errors.py \
 		--checkpoint $(ARTIFACT_DIR)/best.pt \
 		--split $(ANALYSIS_SPLIT) \
-		--stride $(STRIDE) \
-		--fusion $(FUSION) \
 		--output $(ARTIFACT_DIR)/error-analysis.json \
 		--text-output $(ARTIFACT_DIR)/error-analysis.txt \
 		--max-examples $(ANALYSIS_EXAMPLES)
@@ -107,8 +98,6 @@ inspect-fragmentation-typescript:
 	$(PYTHON) training/typescript/fragmentation.py \
 		--checkpoint $(ARTIFACT_DIR)/best.pt \
 		--split $(ANALYSIS_SPLIT) \
-		--stride $(STRIDE) \
-		--fusion $(FUSION) \
 		--output $(ARTIFACT_DIR)/fragmentation.json \
 		--max-examples $(ANALYSIS_EXAMPLES)
 
@@ -118,8 +107,6 @@ validate-regexp-challenge-typescript:
 challenge-regexp-typescript:
 	$(PYTHON) training/typescript/regexp_challenge.py \
 		--checkpoint $(ARTIFACT_DIR)/best.pt \
-		--stride $(STRIDE) \
-		--fusion $(FUSION) \
 		--max-errors 40 \
 		--output $(ARTIFACT_DIR)/regexp-challenge.json
 
@@ -129,6 +116,4 @@ validate-regexp-paired-challenge-typescript:
 challenge-regexp-paired-typescript:
 	$(PYTHON) training/typescript/regexp_paired_challenge.py \
 		--checkpoint current=$(ARTIFACT_DIR)/best.pt \
-		--stride $(STRIDE) \
-		--fusion $(FUSION) \
 		--output $(ARTIFACT_DIR)/regexp-paired-context-challenge.json

@@ -101,9 +101,9 @@ class SemanticTransformer(nn.Module):
                 f"maximum length {self.max_length}."
             )
 
-        # Dataset batches are right-padded to max_length. With an 8 KiB
-        # context, running attention across padding would waste most of the
-        # compute for ordinary source files. Trim the Transformer work to the
+        # Dataset batches are right-padded to max_length. Running attention
+        # across padding would waste most of the compute for ordinary source
+        # files. Trim the Transformer work to the
         # longest real sequence in the batch, then pad logits back so callers
         # can keep using fixed-shape labels.
         active_length = int(

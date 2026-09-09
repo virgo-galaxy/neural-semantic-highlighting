@@ -14,7 +14,7 @@ from dataset import (
     TypeScriptSemanticDataset,
     build_source_boundaries,
 )
-from config import DEFAULT_ARTIFACT_DIRECTORY, DEFAULT_BEST_CHECKPOINT_PATH, DEFAULT_WINDOW_STRIDE
+from config import DEFAULT_ARTIFACT_DIRECTORY, DEFAULT_BEST_CHECKPOINT_PATH
 from inference import predict_document_logits
 from evaluate import (
     PredictedSpan,
@@ -587,10 +587,8 @@ def write_text_report(
             f"Checkpoint: {report['checkpoint']}",
             f"Documents: {report['documents']}",
             (
-                "Window / stride / overlap: "
-                f"{report['inference']['max_length']} / "
-                f"{report['inference']['stride']} / "
-                f"{report['inference']['overlap']} bytes"
+                "Windowing: adaptive cursor "
+                f"({report['inference']['max_length']} bytes max context)"
             ),
             "",
             "Exact semantic spans",
@@ -887,18 +885,6 @@ def parse_arguments() -> argparse.Namespace:
         ),
     )
 
-    parser.add_argument(
-        "--stride",
-        type=int,
-        default=DEFAULT_WINDOW_STRIDE,
-        help="Inference window stride in UTF-8 bytes.",
-    )
-
-    parser.add_argument(
-        "--fusion",
-        choices=("uniform", "center"),
-        default="center",
-    )
 
     return parser.parse_args()
 
@@ -917,81 +903,6 @@ def main() -> None:
         "config"
     ]["max_length"]
 
-    resolved_stride = args.stride
-
-    if (
-        resolved_stride <= 0
-        or resolved_stride > max_length
-    ):
-        raise ValueError(
-            "Inference stride must be in the range "
-            f"1..{max_length}, got {resolved_stride}."
-        )
-
-    dataset = TypeScriptSemanticDataset(
-        args.split,
-        max_length=max_length,
-    )
-
-    model, _ = load_model(
-        args.checkpoint,
-        dataset,
-        device,
-    )
-
-    predicted_set: set[tuple] = set()
-    gold_set: set[tuple] = set()
-
-    predicted_by_type: dict[
-        str,
-        set[tuple],
-    ] = {
-        token_type: set()
-        for token_type
-        in dataset.schema.token_types
-    }
-
-    gold_by_type: dict[
-        str,
-        set[tuple],
-    ] = {
-        token_type: set()
-        for token_type
-        in dataset.schema.token_types
-    }
-
-    type_confusions: Counter[
-        tuple[str, str]
-    ] = Counter()
-
-    false_positive_kind: Counter[str] = Counter()
-    false_negative_kind: Counter[str] = Counter()
-
-    examples_by_kind: dict[
-        str,
-        list[ErrorExample],
-    ] = defaultdict(list)
-
-    predicted_boundary_mismatches: list[
-        BoundaryMismatch
-    ] = []
-    gold_boundary_mismatches: list[
-        BoundaryMismatch
-    ] = []
-
-    predicted_boundary_type_pairs: Counter[
-        tuple[str, str]
-    ] = Counter()
-    gold_boundary_type_pairs: Counter[
-        tuple[str, str]
-    ] = Counter()
-
-    predicted_boundary_relations: Counter[str] = Counter()
-    gold_boundary_relations: Counter[str] = Counter()
-
-    predicted_boundary_structures: Counter[str] = Counter()
-    gold_boundary_structures: Counter[str] = Counter()
-
     predicted_boundary_files: Counter[str] = Counter()
     gold_boundary_files: Counter[str] = Counter()
 
@@ -1007,13 +918,7 @@ def main() -> None:
     print(
         f"Window: {max_length} bytes"
     )
-    print(
-        f"Stride: {resolved_stride} bytes"
-    )
-    print(
-        "Overlap: "
-        f"{max_length - resolved_stride} bytes"
-    )
+    print("Windowing: adaptive cursor")
     print("")
 
     for document_index, document in enumerate(
@@ -1029,8 +934,6 @@ def main() -> None:
             document.source,
             max_length=max_length,
             device=device,
-            stride=resolved_stride,
-            fusion=args.fusion,
         )
 
         predicted_spans = decode_predicted_spans(
@@ -1495,11 +1398,7 @@ def main() -> None:
         "documents": len(dataset.documents),
         "inference": {
             "max_length": max_length,
-            "fusion": args.fusion,
-            "stride": resolved_stride,
-            "overlap": (
-                max_length - resolved_stride
-            ),
+            "windowing": "adaptive-cursor",
         },
         "summary": {
             "precision": precision,

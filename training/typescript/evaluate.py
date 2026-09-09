@@ -11,7 +11,6 @@ from config import (
     CHECKPOINT_FORMAT,
     DEFAULT_ARTIFACT_DIRECTORY,
     DEFAULT_BEST_CHECKPOINT_PATH,
-    DEFAULT_WINDOW_STRIDE,
 )
 from dataset import (
     BOUNDARY_BEGIN_ID,
@@ -403,28 +402,6 @@ def parse_arguments() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "--stride",
-        type=int,
-        default=DEFAULT_WINDOW_STRIDE,
-        help="Inference window stride in UTF-8 bytes.",
-    )
-
-    parser.add_argument(
-        "--fusion",
-        choices=(
-            "uniform",
-            "center",
-        ),
-        default="center",
-        help=(
-            "How overlapping-window logits are fused. "
-            "uniform preserves the current averaging; "
-            "center gives higher weight to predictions "
-            "near the center of each window."
-        ),
-    )
-
-    parser.add_argument(
         "--decoder",
         choices=(
             "greedy",
@@ -473,17 +450,6 @@ def main() -> None:
         max_length=max_length,
     )
 
-    resolved_stride = args.stride
-
-    if (
-        resolved_stride <= 0
-        or resolved_stride > max_length
-    ):
-        raise ValueError(
-            "Inference stride must be in the range "
-            f"1..{max_length}, got {resolved_stride}."
-        )
-
     model, checkpoint = load_model(
         args.checkpoint,
         evaluation_dataset,
@@ -529,16 +495,7 @@ def main() -> None:
     print(
         f"Window:    {max_length} bytes"
     )
-    print(
-        f"Stride:    {resolved_stride} bytes"
-    )
-    print(
-        f"Overlap:   "
-        f"{max_length - resolved_stride} bytes"
-    )
-    print(
-        f"Fusion:    {args.fusion}"
-    )
+    print("Windowing: adaptive cursor")
     print(
         f"Decoder:   {args.decoder}"
     )
@@ -558,8 +515,6 @@ def main() -> None:
             document.source,
             max_length=max_length,
             device=device,
-            stride=resolved_stride,
-            fusion=args.fusion,
         )
 
         predicted_spans = decode_predicted_spans(
@@ -722,11 +677,7 @@ def main() -> None:
         "inference": {
             "split": args.split,
             "max_length": max_length,
-            "stride": resolved_stride,
-            "overlap": (
-                max_length - resolved_stride
-            ),
-            "fusion": args.fusion,
+            "windowing": "adaptive-cursor",
             "decoder": args.decoder,
             "inside_ratio": (
                 args.inside_ratio

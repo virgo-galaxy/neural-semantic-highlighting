@@ -8,7 +8,7 @@ from pathlib import Path
 from statistics import mean
 from typing import Any
 
-from config import DEFAULT_ARTIFACT_DIRECTORY, DEFAULT_BEST_CHECKPOINT_PATH, DEFAULT_WINDOW_STRIDE
+from config import DEFAULT_ARTIFACT_DIRECTORY, DEFAULT_BEST_CHECKPOINT_PATH
 from inference import predict_document_logits
 from predict import decode_predictions, load_model, select_device
 from regexp_challenge import (
@@ -154,12 +154,6 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("--challenge", type=Path, default=DEFAULT_CHALLENGE_PATH)
     parser.add_argument("--checkpoint", action="append", type=parse_checkpoint)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_PATH)
-    parser.add_argument(
-        "--stride",
-        type=int,
-        default=DEFAULT_WINDOW_STRIDE,
-    )
-    parser.add_argument("--fusion", choices=("uniform", "center"), default="center")
     parser.add_argument("--validate-only", action="store_true")
     return parser.parse_args()
 
@@ -195,8 +189,6 @@ def evaluate_side(
     side: PairSide,
     config,
     device,
-    stride: int,
-    fusion,
     token_types,
     modifiers,
 ) -> SideResult:
@@ -205,8 +197,6 @@ def evaluate_side(
         side.source,
         max_length=config["max_length"],
         device=device,
-        stride=stride,
-        fusion=fusion,
     )
     predictions = decode_predictions(
         side.source,
@@ -257,13 +247,10 @@ def evaluate_checkpoint(
     name: str,
     checkpoint_path: Path,
     pairs: list[PairedCase],
-    stride: int | None,
-    fusion: str,
 ) -> dict[str, Any]:
     device = select_device()
     model, checkpoint = load_model(checkpoint_path, device)
     config = checkpoint["config"]
-    resolved_stride = stride
     token_types = tuple(checkpoint["schema"]["token_types"])
     modifiers = tuple(checkpoint["schema"]["modifiers"])
 
@@ -283,8 +270,6 @@ def evaluate_checkpoint(
             side=pair.isolated,
             config=config,
             device=device,
-            stride=resolved_stride,
-            fusion=fusion,
             token_types=token_types,
             modifiers=modifiers,
         )
@@ -293,8 +278,6 @@ def evaluate_checkpoint(
             side=pair.contextual,
             config=config,
             device=device,
-            stride=resolved_stride,
-            fusion=fusion,
             token_types=token_types,
             modifiers=modifiers,
         )
@@ -350,8 +333,7 @@ def evaluate_checkpoint(
         "checkpoint": str(checkpoint_path),
         "inference": {
             "max_length": config["max_length"],
-            "stride": resolved_stride,
-            "fusion": fusion,
+            "windowing": "adaptive-cursor",
             "decoder": "greedy",
         },
         "isolated": isolated_summary,
@@ -412,8 +394,6 @@ def main() -> None:
             name=name,
             checkpoint_path=checkpoint_path,
             pairs=pairs,
-            stride=args.stride,
-            fusion=args.fusion,
         )
         for name, checkpoint_path in checkpoints
     ]

@@ -8,7 +8,7 @@ from pathlib import Path
 
 import torch
 
-from config import DEFAULT_ARTIFACT_DIRECTORY, DEFAULT_WINDOW_STRIDE
+from config import DEFAULT_ARTIFACT_DIRECTORY
 from dataset import BOUNDARY_INSIDE_ID, TypeScriptSemanticDataset
 from evaluate import build_character_points, load_model, select_device
 from inference import predict_document_logits
@@ -48,8 +48,6 @@ def parse_arguments() -> argparse.Namespace:
     )
     parser.add_argument("--split", choices=("validation", "test"), default="validation")
     parser.add_argument("--token-type", default="string")
-    parser.add_argument("--stride", type=int, default=DEFAULT_WINDOW_STRIDE)
-    parser.add_argument("--fusion", choices=("uniform", "center"), default="center")
     parser.add_argument(
         "--output",
         type=Path,
@@ -68,7 +66,6 @@ def main() -> None:
     dataset = TypeScriptSemanticDataset(
         args.split,
         max_length=max_length,
-        stride=args.stride,
     )
     model, _ = load_model(args.checkpoint, dataset, device)
 
@@ -81,8 +78,6 @@ def main() -> None:
             model,
             document.source,
             max_length=max_length,
-            stride=args.stride,
-            fusion=args.fusion,
             device=device,
         )
         characters = build_character_points(document.source)
@@ -139,8 +134,7 @@ def main() -> None:
         "token_type": args.token_type,
         "inference": {
             "max_length": max_length,
-            "stride": args.stride,
-            "fusion": args.fusion,
+            "windowing": "adaptive-cursor",
         },
         "summary": {
             "interior_points": interior_points,

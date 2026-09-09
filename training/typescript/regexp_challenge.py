@@ -7,7 +7,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
-from config import DEFAULT_ARTIFACT_DIRECTORY, DEFAULT_BEST_CHECKPOINT_PATH, DEFAULT_WINDOW_STRIDE
+from config import DEFAULT_ARTIFACT_DIRECTORY, DEFAULT_BEST_CHECKPOINT_PATH
 from inference import predict_document_logits
 from predict import (
     PredictedSpan,
@@ -264,16 +264,6 @@ def parse_arguments() -> argparse.Namespace:
         default=DEFAULT_OUTPUT_PATH,
     )
     parser.add_argument(
-        "--stride",
-        type=int,
-        default=DEFAULT_WINDOW_STRIDE,
-    )
-    parser.add_argument(
-        "--fusion",
-        choices=("uniform", "center"),
-        default="center",
-    )
-    parser.add_argument(
         "--max-errors",
         type=int,
         default=40,
@@ -322,7 +312,6 @@ def main() -> None:
     device = select_device()
     model, checkpoint = load_model(args.checkpoint, device)
     config = checkpoint["config"]
-    resolved_stride = args.stride
     token_types = tuple(checkpoint["schema"]["token_types"])
     modifiers = tuple(checkpoint["schema"]["modifiers"])
 
@@ -343,8 +332,7 @@ def main() -> None:
     print(f"Device:     {device}")
     print(f"Checkpoint: {args.checkpoint}")
     print(f"Window:     {config['max_length']} bytes")
-    print(f"Stride:     {resolved_stride} bytes")
-    print(f"Fusion:     {args.fusion}")
+    print("Windowing:  adaptive cursor")
     print("")
 
     for index, case in enumerate(cases, start=1):
@@ -353,8 +341,6 @@ def main() -> None:
             case.source,
             max_length=config["max_length"],
             device=device,
-            stride=resolved_stride,
-            fusion=args.fusion,
         )
 
         predictions = decode_predictions(
@@ -523,8 +509,7 @@ def main() -> None:
         "challenge": str(args.challenge),
         "inference": {
             "max_length": config["max_length"],
-            "stride": resolved_stride,
-            "fusion": args.fusion,
+            "windowing": "adaptive-cursor",
             "decoder": "greedy",
         },
         "summary": {

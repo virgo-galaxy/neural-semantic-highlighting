@@ -7,7 +7,7 @@ from pathlib import Path
 
 import torch
 
-from config import CHECKPOINT_FORMAT, DEFAULT_BEST_CHECKPOINT_PATH, DEFAULT_WINDOW_STRIDE
+from config import CHECKPOINT_FORMAT, DEFAULT_BEST_CHECKPOINT_PATH
 from dataset import (
     BOUNDARY_BEGIN_ID,
     BOUNDARY_INSIDE_ID,
@@ -323,18 +323,6 @@ def parse_arguments() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "--stride",
-        type=int,
-        default=DEFAULT_WINDOW_STRIDE,
-    )
-
-    parser.add_argument(
-        "--fusion",
-        choices=("uniform", "center"),
-        default="center",
-    )
-
-    parser.add_argument(
         "--modifier-threshold",
         type=float,
         default=0.60,
@@ -376,9 +364,7 @@ def main() -> None:
         model,
         source,
         max_length=checkpoint["config"]["max_length"],
-        stride=args.stride,
         device=device,
-        fusion=args.fusion,
     )
 
     spans = decode_predictions(
