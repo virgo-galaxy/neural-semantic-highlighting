@@ -1,0 +1,191 @@
+/*
+ * Neural Semantic Highlighting
+ * Base Theme
+ *
+ * Complete fallback palette for every semantic token type.
+ *
+ * Cascade:
+ *   base
+ *   → language override
+ *   → consumer CSS
+ */
+
+:where(.nsh) {
+  color-scheme: light;
+
+  --nsh-background: #ffffff;
+  --nsh-foreground: #24292f;
+
+  --nsh-keyword: #cf222e;
+  --nsh-comment: #6e7781;
+  --nsh-string: #0a3069;
+  --nsh-number: #0550ae;
+  --nsh-regexp: #116329;
+  --nsh-operator: #24292f;
+  --nsh-punctuation: #57606a;
+
+  --nsh-namespace: #8250df;
+  --nsh-type: #953800;
+  --nsh-class: #953800;
+  --nsh-interface: #953800;
+  --nsh-enum: #953800;
+  --nsh-enum-member: #0550ae;
+  --nsh-type-parameter: #953800;
+
+  --nsh-function: #8250df;
+  --nsh-method: #8250df;
+  --nsh-constructor: #8250df;
+  --nsh-parameter: #24292f;
+  --nsh-variable: #24292f;
+  --nsh-property: #0550ae;
+  --nsh-label: #953800;
+
+  --nsh-decorator: #8250df;
+
+  --nsh-tag: #116329;
+  --nsh-attribute: #0550ae;
+
+  background: var(--nsh-background);
+  color: var(--nsh-foreground);
+}
+
+:where(.nsh[data-theme="dark"]) {
+  color-scheme: dark;
+
+  --nsh-background: #0d1117;
+  --nsh-foreground: #e6edf3;
+
+  --nsh-keyword: #ff7b72;
+  --nsh-comment: #8b949e;
+  --nsh-string: #a5d6ff;
+  --nsh-number: #79c0ff;
+  --nsh-regexp: #7ee787;
+  --nsh-operator: #e6edf3;
+  --nsh-punctuation: #8b949e;
+
+  --nsh-namespace: #d2a8ff;
+  --nsh-type: #ffa657;
+  --nsh-class: #ffa657;
+  --nsh-interface: #ffa657;
+  --nsh-enum: #ffa657;
+  --nsh-enum-member: #79c0ff;
+  --nsh-type-parameter: #ffa657;
+
+  --nsh-function: #d2a8ff;
+  --nsh-method: #d2a8ff;
+  --nsh-constructor: #d2a8ff;
+  --nsh-parameter: #e6edf3;
+  --nsh-variable: #e6edf3;
+  --nsh-property: #79c0ff;
+  --nsh-label: #ffa657;
+
+  --nsh-decorator: #d2a8ff;
+
+  --nsh-tag: #7ee787;
+  --nsh-attribute: #79c0ff;
+}
+
+/* Semantic token mapping */
+
+:where(.nsh-token[data-token-type="keyword"]) {
+  color: var(--nsh-keyword);
+}
+
+:where(.nsh-token[data-token-type="comment"]) {
+  color: var(--nsh-comment);
+  font-style: italic;
+}
+
+:where(.nsh-token[data-token-type="string"]) {
+  color: var(--nsh-string);
+}
+
+:where(.nsh-token[data-token-type="number"]) {
+  color: var(--nsh-number);
+}
+
+:where(.nsh-token[data-token-type="regexp"]) {
+  color: var(--nsh-regexp);
+}
+
+:where(.nsh-token[data-token-type="operator"]) {
+  color: var(--nsh-operator);
+}
+
+:where(.nsh-token[data-token-type="punctuation"]) {
+  color: var(--nsh-punctuation);
+}
+
+:where(.nsh-token[data-token-type="namespace"]) {
+  color: var(--nsh-namespace);
+}
+
+:where(.nsh-token[data-token-type="type"]) {
+  color: var(--nsh-type);
+}
+
+:where(.nsh-token[data-token-type="class"]) {
+  color: var(--nsh-class);
+}
+
+:where(.nsh-token[data-token-type="interface"]) {
+  color: var(--nsh-interface);
+}
+
+:where(.nsh-token[data-token-type="enum"]) {
+  color: var(--nsh-enum);
+}
+
+:where(.nsh-token[data-token-type="enum-member"]) {
+  color: var(--nsh-enum-member);
+}
+
+:where(.nsh-token[data-token-type="type-parameter"]) {
+  color: var(--nsh-type-parameter);
+}
+
+:where(.nsh-token[data-token-type="function"]) {
+  color: var(--nsh-function);
+}
+
+:where(.nsh-token[data-token-type="method"]) {
+  color: var(--nsh-method);
+}
+
+:where(.nsh-token[data-token-type="constructor"]) {
+  color: var(--nsh-constructor);
+}
+
+:where(.nsh-token[data-token-type="parameter"]) {
+  color: var(--nsh-parameter);
+}
+
+:where(.nsh-token[data-token-type="variable"]) {
+  color: var(--nsh-variable);
+}
+
+:where(.nsh-token[data-token-type="property"]) {
+  color: var(--nsh-property);
+}
+
+:where(.nsh-token[data-token-type="label"]) {
+  color: var(--nsh-label);
+}
+
+:where(.nsh-token[data-token-type="decorator"]) {
+  color: var(--nsh-decorator);
+}
+
+:where(.nsh-token[data-token-type="tag"]) {
+  color: var(--nsh-tag);
+}
+
+:where(.nsh-token[data-token-type="attribute"]) {
+  color: var(--nsh-attribute);
+}
+
+/* Modifiers */
+
+:where(.nsh-token[data-modifiers~="deprecated"]) {
+  text-decoration: line-through;
+}

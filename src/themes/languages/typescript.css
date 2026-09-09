@@ -1,0 +1,56 @@
+/*
+ * Neural Semantic Highlighting
+ * TypeScript / JavaScript family overrides
+ */
+
+:where(
+  .nsh[data-language="typescript"],
+  .nsh[data-language="tsx"],
+  .nsh[data-language="javascript"],
+  .nsh[data-language="jsx"],
+  .nsh[data-language="module"],
+  .nsh[data-language="commonjs"]
+) {
+  --nsh-keyword: #7c3aed;
+
+  --nsh-type: #2563eb;
+  --nsh-class: #2563eb;
+  --nsh-interface: #0891b2;
+  --nsh-enum: #0891b2;
+  --nsh-type-parameter: #2563eb;
+
+  --nsh-function: #9333ea;
+  --nsh-method: #9333ea;
+  --nsh-constructor: #9333ea;
+
+  --nsh-decorator: #c026d3;
+
+  --nsh-tag: #2563eb;
+  --nsh-attribute: #0891b2;
+}
+
+:where(
+  .nsh[data-theme="dark"][data-language="typescript"],
+  .nsh[data-theme="dark"][data-language="tsx"],
+  .nsh[data-theme="dark"][data-language="javascript"],
+  .nsh[data-theme="dark"][data-language="jsx"],
+  .nsh[data-theme="dark"][data-language="module"],
+  .nsh[data-theme="dark"][data-language="commonjs"]
+) {
+  --nsh-keyword: #c084fc;
+
+  --nsh-type: #60a5fa;
+  --nsh-class: #60a5fa;
+  --nsh-interface: #67e8f9;
+  --nsh-enum: #67e8f9;
+  --nsh-type-parameter: #60a5fa;
+
+  --nsh-function: #d8b4fe;
+  --nsh-method: #d8b4fe;
+  --nsh-constructor: #d8b4fe;
+
+  --nsh-decorator: #f0abfc;
+
+  --nsh-tag: #93c5fd;
+  --nsh-attribute: #67e8f9;
+}
