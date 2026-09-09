@@ -1,0 +1,44 @@
+{
+  "device": "cpu",
+  "python": "3.12.2",
+  "pytorch": "2.14.0",
+  "parameterCount": 897065,
+  "tensorCount": 58,
+  "sourceTensorsExactlyEqual": true,
+  "sampleLogitsExactlyEqual": true,
+  "sampleDecodedSpansExactlyEqual": true,
+  "cases": [
+    {
+      "name": "empty",
+      "sourceBytes": 0,
+      "passed": true
+    },
+    {
+      "name": "ascii",
+      "sourceBytes": 17,
+      "passed": true
+    },
+    {
+      "name": "regexp",
+      "sourceBytes": 54,
+      "passed": true
+    },
+    {
+      "name": "unicode",
+      "sourceBytes": 30,
+      "passed": true
+    },
+    {
+      "name": "utf8-boundary",
+      "sourceBytes": 536,
+      "passed": true
+    },
+    {
+      "name": "multiple-windows",
+      "sourceBytes": 1105,
+      "passed": true
+    }
+  ],
+  "fullBenchmarkRerun": false,
+  "scope": "Serialization/load checks and sample equivalence on one CPU environment; not a benchmark, not a correctness guarantee or a cross-device equivalence claim."
+}

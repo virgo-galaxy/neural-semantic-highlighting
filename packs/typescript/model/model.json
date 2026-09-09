@@ -1,0 +1,181 @@
+{
+  "id": "typescript",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-typescript-checkpoint",
+    "sha256": "a63c132df376d956f8feb19c60620a3a922a5299ad012224d58a4ff3a09597a0",
+    "bytes": 3604341,
+    "parameterCount": 897065,
+    "tensorCount": 58,
+    "dtypes": [
+      "float32"
+    ],
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 44,
+    "metric": "validation.exact_span_macro_f1",
+    "score": 0.9864448243495125
+  },
+  "checkpointConfig": {
+    "vocab_size": 257,
+    "number_of_boundary_classes": 3,
+    "number_of_token_types": 24,
+    "number_of_modifiers": 14,
+    "max_length": 512,
+    "train_windowing": "adaptive-cursor",
+    "embedding_dimension": 128,
+    "number_of_heads": 4,
+    "number_of_layers": 4,
+    "feed_forward_dimension": 512,
+    "regexp_focus_window_length": 512,
+    "regexp_focus_halo_bytes": 16,
+    "regexp_focus_context_before_bytes": 128,
+    "regexp_focus_batch_size": 16
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "regexp",
+      "operator",
+      "punctuation",
+      "namespace",
+      "type",
+      "class",
+      "interface",
+      "enum",
+      "enum-member",
+      "type-parameter",
+      "function",
+      "method",
+      "constructor",
+      "parameter",
+      "variable",
+      "property",
+      "label",
+      "decorator",
+      "tag",
+      "attribute"
+    ],
+    "modifiers": [
+      "declaration",
+      "readonly",
+      "static",
+      "async",
+      "generator",
+      "abstract",
+      "deprecated",
+      "public",
+      "protected",
+      "private",
+      "optional",
+      "getter",
+      "setter",
+      "default-library"
+    ]
+  },
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "adaptive-cursor",
+    "cursorSource": "predicted BIO boundaries",
+    "fixedOverlap": false,
+    "fusion": false,
+    "decoder": "greedy",
+    "modifierThreshold": 0.6,
+    "tokenTypeAggregation": "mean logits at character-start byte positions within each predicted span",
+    "modifierPosition": "first character of predicted span"
+  },
+  "validation": {
+    "boundary_macro_f1": 0.9929313063621521,
+    "token_type_macro_f1": 0.9734510183334351,
+    "modifier_f1": 0.9791243838793854,
+    "exact_span_precision": 0.9883301645577919,
+    "exact_span_recall": 0.9959369735407789,
+    "exact_span_f1": 0.9921189884664111,
+    "exact_span_macro_f1": 0.9864448243495125,
+    "predicted_spans": 30506.0,
+    "gold_spans": 30273.0
+  },
+  "provenance": {
+    "sourceCheckpoint": "artifacts/typescript/context512-re/best.pt",
+    "sourceCheckpointSha256": "e59190eb83eede1e5cc2a06fc326d2f0253035fea98e38d3f93c2e14ac368853",
+    "sourceCheckpointBytes": 10820197,
+    "exportedAtUtc": "2026-09-09T17:15:32.948098+00:00",
+    "exportRepositoryCommit": "4b6ee81d197b5c5d1fc24544a4f1c691918994fe",
+    "exportTrackedWorktreeDirty": false,
+    "trainingCommit": null,
+    "datasetManifestSha256": null,
+    "trainingEnvironment": null,
+    "license": null,
+    "sourceFilesSha256": {
+      "packs/typescript/manifest.json": "e7d80d901809f670ad3f9de1ac39499e5aa69bb82abbf52d72fa5aa60aaba53a",
+      "packs/typescript/schema.json": "ab68b75dff462ff22062810f7f85c09256cbd6b1ce8ffd8bb321d68bf957c164",
+      "packs/typescript/SEMANTICS.md": "974eea275578b5a847d16b4c1e62e454f53d2effa8797adbeba3395b73203856",
+      "training/typescript/analyze_errors.py": "b57fb3b9741d33b4d772e9546e572bd63a5fe47eb539891c3f6a71a2fe64d792",
+      "training/typescript/benchmark.py": "6a2a1d30506f96887e3f803a6128b170e81fb5065e97b3015e8d9dd54ba8345c",
+      "training/typescript/config.py": "f0cd07c841d4e74c8fc800034d69c79395cc8e95f20ac0fb0a69057c10648673",
+      "training/typescript/dataset.py": "67f18d34bf332abed031d401fbad56a8b027e9bb2f11a3f3b682c42198d8a752",
+      "training/typescript/evaluate.py": "78c8d1d46b32fa7c78340603b5435bc0cc1a40d87aec8b1719021608b1dc7cf3",
+      "training/typescript/export_model.py": "d13ca8e74c621194693212dde1a1726a43dc0f8651ae8ce9d08ff94612cd6aee",
+      "training/typescript/fragmentation.py": "2994ebdfa2824eafce26dc0c0125d05947a6f38296e4b0f3bd16d4bc700e6a78",
+      "training/typescript/inference.py": "b78df832ed6f60470fc6acc0e280be6979129c8b3fea77b5309db570781b676d",
+      "training/typescript/model.py": "5b5e9ad666d2b21c2713b1c997a2cd97a138ee981f63427891e63baeb983e615",
+      "training/typescript/predict.py": "b826599b0ca13c64b8061d0255e9647e1d4c2b0e5d650d48bb7d26080c354c08",
+      "training/typescript/regexp_challenge.py": "d61a865472d32a2772b366caf922cb6787b0f4b022e1c9331278c6bb895330d2",
+      "training/typescript/regexp_paired_challenge.py": "1ca13f0a964373a75ed0de9d033cd459b53c92646d5b0ae847a6c261d49a074f",
+      "training/typescript/train.py": "ed9845c428833cf6a6b55998865d903a852354dc7e18cf09598d633e0025125b",
+      "training/typescript/windowing_golden.py": "431221c07c91521b319fd1f68a45fdb120e2124c0483bd82706d360e79f58b23"
+    },
+    "reportAssociation": "test validation snapshot matches checkpoint; remaining reports identify the same checkpoint path and inference settings. Original reports do not embed a checkpoint hash."
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "325793cd35ada909ed899e279269fd31b5326218e5bd1ddd4d51e94ecde20814",
+      "origin": "artifacts/typescript/context512-re/test-metrics.json",
+      "copiedWithoutModification": true
+    },
+    "regexp-challenge.json": {
+      "file": "reports/regexp-challenge.json",
+      "sha256": "3f21931782f215b90ad2ee0a4a0813a583701a8c3572949416e5df41157ea679",
+      "origin": "artifacts/typescript/context512-re/regexp-challenge.json",
+      "copiedWithoutModification": true
+    },
+    "regexp-paired-challenge.json": {
+      "file": "reports/regexp-paired-challenge.json",
+      "sha256": "8650de06a6eb25270cd861084849472298072f82a461b53bc44d064682c1b758",
+      "origin": "artifacts/typescript/context512-re/regexp-paired-challenge.json",
+      "copiedWithoutModification": true
+    },
+    "string-fragmentation-test.json": {
+      "file": "reports/string-fragmentation-test.json",
+      "sha256": "87865951d4ad6729f993c8c7458536bce576a7de773aaff1f012f0f693376b9c",
+      "origin": "artifacts/typescript/context512-re/string-fragmentation-test.json",
+      "copiedWithoutModification": true
+    }
+  },
+  "exportVerification": {
+    "file": "EXPORT_CHECKS.json",
+    "sha256": "605903c6df75c3a4c6ec42f395ca22817c873e27275b9071f89a387d1b90edbb"
+  }
+}

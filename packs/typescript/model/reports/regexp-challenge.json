@@ -1,0 +1,1622 @@
+{
+  "format": "nsh-typescript-regexp-challenge-result",
+  "checkpoint": "artifacts/typescript/context512-re/best.pt",
+  "challenge": "packs/typescript/challenges/regexp.json",
+  "inference": {
+    "max_length": 512,
+    "windowing": "adaptive-cursor",
+    "decoder": "greedy"
+  },
+  "summary": {
+    "true_positive": 69,
+    "false_positive": 51,
+    "false_negative": 36,
+    "precision": 0.575,
+    "recall": 0.6571428571428571,
+    "f1": 0.6133333333333333,
+    "cases": 160,
+    "positive_cases": 100,
+    "negative_cases": 60,
+    "exact_cases": 113,
+    "exact_case_rate": 0.70625,
+    "positive_exact_cases": 54,
+    "positive_exact_rate": 0.54,
+    "negative_clean_cases": 59,
+    "negative_clean_rate": 0.9833333333333333
+  },
+  "categories": {
+    "negative/comment": {
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "cases": 10,
+      "gold": 0,
+      "predicted": 0,
+      "exact_cases": 10,
+      "exact_case_rate": 1.0,
+      "negative_clean_cases": 10,
+      "negative_clean_rate": 1.0
+    },
+    "negative/division": {
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "cases": 25,
+      "gold": 0,
+      "predicted": 0,
+      "exact_cases": 25,
+      "exact_case_rate": 1.0,
+      "negative_clean_cases": 25,
+      "negative_clean_rate": 1.0
+    },
+    "negative/jsx-slash": {
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "cases": 10,
+      "gold": 0,
+      "predicted": 0,
+      "exact_cases": 10,
+      "exact_case_rate": 1.0,
+      "negative_clean_cases": 10,
+      "negative_clean_rate": 1.0
+    },
+    "negative/string-template": {
+      "true_positive": 0,
+      "false_positive": 2,
+      "false_negative": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "cases": 15,
+      "gold": 0,
+      "predicted": 2,
+      "exact_cases": 14,
+      "exact_case_rate": 0.9333333333333333,
+      "negative_clean_cases": 14,
+      "negative_clean_rate": 0.9333333333333333
+    },
+    "positive/basic": {
+      "true_positive": 13,
+      "false_positive": 6,
+      "false_negative": 2,
+      "precision": 0.6842105263157895,
+      "recall": 0.8666666666666667,
+      "f1": 0.7647058823529413,
+      "cases": 15,
+      "gold": 15,
+      "predicted": 19,
+      "exact_cases": 11,
+      "exact_case_rate": 0.7333333333333333,
+      "negative_clean_cases": 0,
+      "negative_clean_rate": null
+    },
+    "positive/context": {
+      "true_positive": 22,
+      "false_positive": 3,
+      "false_negative": 6,
+      "precision": 0.88,
+      "recall": 0.7857142857142857,
+      "f1": 0.830188679245283,
+      "cases": 25,
+      "gold": 28,
+      "predicted": 25,
+      "exact_cases": 17,
+      "exact_case_rate": 0.68,
+      "negative_clean_cases": 0,
+      "negative_clean_rate": null
+    },
+    "positive/escape-class": {
+      "true_positive": 9,
+      "false_positive": 18,
+      "false_negative": 11,
+      "precision": 0.3333333333333333,
+      "recall": 0.45,
+      "f1": 0.3829787234042553,
+      "cases": 20,
+      "gold": 20,
+      "predicted": 27,
+      "exact_cases": 5,
+      "exact_case_rate": 0.25,
+      "negative_clean_cases": 0,
+      "negative_clean_rate": null
+    },
+    "positive/group-assertion": {
+      "true_positive": 7,
+      "false_positive": 20,
+      "false_negative": 13,
+      "precision": 0.25925925925925924,
+      "recall": 0.35,
+      "f1": 0.29787234042553196,
+      "cases": 20,
+      "gold": 20,
+      "predicted": 27,
+      "exact_cases": 5,
+      "exact_case_rate": 0.25,
+      "negative_clean_cases": 0,
+      "negative_clean_rate": null
+    },
+    "positive/typescript-tsx": {
+      "true_positive": 18,
+      "false_positive": 2,
+      "false_negative": 4,
+      "precision": 0.9,
+      "recall": 0.8181818181818182,
+      "f1": 0.8571428571428572,
+      "cases": 20,
+      "gold": 22,
+      "predicted": 20,
+      "exact_cases": 16,
+      "exact_case_rate": 0.8,
+      "negative_clean_cases": 0,
+      "negative_clean_rate": null
+    }
+  },
+  "missed_regexp_overlapping_type": {
+    "regexp": 29,
+    "comment": 4,
+    "string": 1,
+    "variable": 1,
+    "punctuation": 1
+  },
+  "errors": [
+    {
+      "case_id": "positive-basic-005",
+      "category": "positive/basic",
+      "kind": "false-negative",
+      "source": "const re5 = /foo/s;",
+      "expected": {
+        "start": 12,
+        "end": 18,
+        "text": "/foo/s"
+      },
+      "predicted": {
+        "start": 12,
+        "end": 19,
+        "text": "/foo/s;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "dotAll"
+    },
+    {
+      "case_id": "positive-basic-005",
+      "category": "positive/basic",
+      "kind": "false-positive",
+      "source": "const re5 = /foo/s;",
+      "expected": null,
+      "predicted": {
+        "start": 12,
+        "end": 19,
+        "text": "/foo/s;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "dotAll"
+    },
+    {
+      "case_id": "positive-basic-008",
+      "category": "positive/basic",
+      "kind": "false-positive",
+      "source": "const re8 = /foo/d;",
+      "expected": null,
+      "predicted": {
+        "start": 18,
+        "end": 19,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "indices"
+    },
+    {
+      "case_id": "positive-basic-013",
+      "category": "positive/basic",
+      "kind": "false-positive",
+      "source": "const re13 = /a+/;",
+      "expected": null,
+      "predicted": {
+        "start": 17,
+        "end": 18,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "plus quantifier"
+    },
+    {
+      "case_id": "positive-basic-014",
+      "category": "positive/basic",
+      "kind": "false-negative",
+      "source": "const re14 = /a{2,4}/;",
+      "expected": {
+        "start": 13,
+        "end": 21,
+        "text": "/a{2,4}/"
+      },
+      "predicted": {
+        "start": 13,
+        "end": 15,
+        "text": "/a",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "range quantifier"
+    },
+    {
+      "case_id": "positive-basic-014",
+      "category": "positive/basic",
+      "kind": "false-positive",
+      "source": "const re14 = /a{2,4}/;",
+      "expected": null,
+      "predicted": {
+        "start": 13,
+        "end": 15,
+        "text": "/a",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "range quantifier"
+    },
+    {
+      "case_id": "positive-basic-014",
+      "category": "positive/basic",
+      "kind": "false-positive",
+      "source": "const re14 = /a{2,4}/;",
+      "expected": null,
+      "predicted": {
+        "start": 15,
+        "end": 16,
+        "text": "{",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "range quantifier"
+    },
+    {
+      "case_id": "positive-basic-014",
+      "category": "positive/basic",
+      "kind": "false-positive",
+      "source": "const re14 = /a{2,4}/;",
+      "expected": null,
+      "predicted": {
+        "start": 19,
+        "end": 21,
+        "text": "}/",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "range quantifier"
+    },
+    {
+      "case_id": "positive-escape-002",
+      "category": "positive/escape-class",
+      "kind": "false-negative",
+      "source": "let pattern2: RegExp = /\\d+/;",
+      "expected": {
+        "start": 23,
+        "end": 28,
+        "text": "/\\d+/"
+      },
+      "predicted": {
+        "start": 23,
+        "end": 29,
+        "text": "/\\d+/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "digit escape"
+    },
+    {
+      "case_id": "positive-escape-002",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern2: RegExp = /\\d+/;",
+      "expected": null,
+      "predicted": {
+        "start": 23,
+        "end": 29,
+        "text": "/\\d+/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "digit escape"
+    },
+    {
+      "case_id": "positive-escape-003",
+      "category": "positive/escape-class",
+      "kind": "false-negative",
+      "source": "let pattern3: RegExp = /\\w+/;",
+      "expected": {
+        "start": 23,
+        "end": 28,
+        "text": "/\\w+/"
+      },
+      "predicted": {
+        "start": 23,
+        "end": 29,
+        "text": "/\\w+/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "word escape"
+    },
+    {
+      "case_id": "positive-escape-003",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern3: RegExp = /\\w+/;",
+      "expected": null,
+      "predicted": {
+        "start": 23,
+        "end": 29,
+        "text": "/\\w+/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "word escape"
+    },
+    {
+      "case_id": "positive-escape-005",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern5: RegExp = /\\bword\\b/;",
+      "expected": null,
+      "predicted": {
+        "start": 33,
+        "end": 34,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "word boundary"
+    },
+    {
+      "case_id": "positive-escape-006",
+      "category": "positive/escape-class",
+      "kind": "false-negative",
+      "source": "let pattern6: RegExp = /\\x41+/;",
+      "expected": {
+        "start": 23,
+        "end": 30,
+        "text": "/\\x41+/"
+      },
+      "predicted": {
+        "start": 23,
+        "end": 31,
+        "text": "/\\x41+/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "hex escape"
+    },
+    {
+      "case_id": "positive-escape-006",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern6: RegExp = /\\x41+/;",
+      "expected": null,
+      "predicted": {
+        "start": 23,
+        "end": 31,
+        "text": "/\\x41+/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "hex escape"
+    },
+    {
+      "case_id": "positive-escape-007",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern7: RegExp = /\\u0041+/;",
+      "expected": null,
+      "predicted": {
+        "start": 32,
+        "end": 33,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "unicode escape"
+    },
+    {
+      "case_id": "positive-escape-009",
+      "category": "positive/escape-class",
+      "kind": "false-negative",
+      "source": "let pattern9: RegExp = /[abc]/;",
+      "expected": {
+        "start": 23,
+        "end": 30,
+        "text": "/[abc]/"
+      },
+      "predicted": {
+        "start": 23,
+        "end": 31,
+        "text": "/[abc]/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "simple class"
+    },
+    {
+      "case_id": "positive-escape-009",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern9: RegExp = /[abc]/;",
+      "expected": null,
+      "predicted": {
+        "start": 23,
+        "end": 31,
+        "text": "/[abc]/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "simple class"
+    },
+    {
+      "case_id": "positive-escape-010",
+      "category": "positive/escape-class",
+      "kind": "false-negative",
+      "source": "let pattern10: RegExp = /[^abc]/;",
+      "expected": {
+        "start": 24,
+        "end": 32,
+        "text": "/[^abc]/"
+      },
+      "predicted": {
+        "start": 24,
+        "end": 33,
+        "text": "/[^abc]/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "negated class"
+    },
+    {
+      "case_id": "positive-escape-010",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern10: RegExp = /[^abc]/;",
+      "expected": null,
+      "predicted": {
+        "start": 24,
+        "end": 33,
+        "text": "/[^abc]/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "negated class"
+    },
+    {
+      "case_id": "positive-escape-012",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern12: RegExp = /[A-Za-z0-9_]+/;",
+      "expected": null,
+      "predicted": {
+        "start": 39,
+        "end": 40,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "identifier-ish class"
+    },
+    {
+      "case_id": "positive-escape-013",
+      "category": "positive/escape-class",
+      "kind": "false-negative",
+      "source": "let pattern13: RegExp = /[/\\\\]/;",
+      "expected": {
+        "start": 24,
+        "end": 31,
+        "text": "/[/\\\\]/"
+      },
+      "predicted": {
+        "start": 24,
+        "end": 32,
+        "text": "/[/\\\\]/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "slash and backslash class"
+    },
+    {
+      "case_id": "positive-escape-013",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern13: RegExp = /[/\\\\]/;",
+      "expected": null,
+      "predicted": {
+        "start": 24,
+        "end": 32,
+        "text": "/[/\\\\]/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "slash and backslash class"
+    },
+    {
+      "case_id": "positive-escape-014",
+      "category": "positive/escape-class",
+      "kind": "false-negative",
+      "source": "let pattern14: RegExp = /[-_]/;",
+      "expected": {
+        "start": 24,
+        "end": 30,
+        "text": "/[-_]/"
+      },
+      "predicted": {
+        "start": 24,
+        "end": 31,
+        "text": "/[-_]/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "hyphen class"
+    },
+    {
+      "case_id": "positive-escape-014",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern14: RegExp = /[-_]/;",
+      "expected": null,
+      "predicted": {
+        "start": 24,
+        "end": 31,
+        "text": "/[-_]/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "hyphen class"
+    },
+    {
+      "case_id": "positive-escape-015",
+      "category": "positive/escape-class",
+      "kind": "false-negative",
+      "source": "let pattern15: RegExp = /[\\]\\[]/;",
+      "expected": {
+        "start": 24,
+        "end": 32,
+        "text": "/[\\]\\[]/"
+      },
+      "predicted": {
+        "start": 24,
+        "end": 33,
+        "text": "/[\\]\\[]/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "bracket escapes"
+    },
+    {
+      "case_id": "positive-escape-015",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern15: RegExp = /[\\]\\[]/;",
+      "expected": null,
+      "predicted": {
+        "start": 24,
+        "end": 33,
+        "text": "/[\\]\\[]/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "bracket escapes"
+    },
+    {
+      "case_id": "positive-escape-016",
+      "category": "positive/escape-class",
+      "kind": "false-negative",
+      "source": "let pattern16: RegExp = /\\p{L}+/u;",
+      "expected": {
+        "start": 24,
+        "end": 33,
+        "text": "/\\p{L}+/u"
+      },
+      "predicted": {
+        "start": 24,
+        "end": 34,
+        "text": "/\\p{L}+/u;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "unicode property"
+    },
+    {
+      "case_id": "positive-escape-016",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern16: RegExp = /\\p{L}+/u;",
+      "expected": null,
+      "predicted": {
+        "start": 24,
+        "end": 34,
+        "text": "/\\p{L}+/u;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "unicode property"
+    },
+    {
+      "case_id": "positive-escape-017",
+      "category": "positive/escape-class",
+      "kind": "false-negative",
+      "source": "let pattern17: RegExp = /\\P{Number}+/u;",
+      "expected": {
+        "start": 24,
+        "end": 38,
+        "text": "/\\P{Number}+/u"
+      },
+      "predicted": {
+        "start": 28,
+        "end": 34,
+        "text": "Number",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "negative unicode property"
+    },
+    {
+      "case_id": "positive-escape-017",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern17: RegExp = /\\P{Number}+/u;",
+      "expected": null,
+      "predicted": {
+        "start": 24,
+        "end": 28,
+        "text": "/\\P{",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "negative unicode property"
+    },
+    {
+      "case_id": "positive-escape-017",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern17: RegExp = /\\P{Number}+/u;",
+      "expected": null,
+      "predicted": {
+        "start": 28,
+        "end": 34,
+        "text": "Number",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "negative unicode property"
+    },
+    {
+      "case_id": "positive-escape-017",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern17: RegExp = /\\P{Number}+/u;",
+      "expected": null,
+      "predicted": {
+        "start": 34,
+        "end": 36,
+        "text": "}+",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "negative unicode property"
+    },
+    {
+      "case_id": "positive-escape-017",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern17: RegExp = /\\P{Number}+/u;",
+      "expected": null,
+      "predicted": {
+        "start": 36,
+        "end": 38,
+        "text": "/u",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "negative unicode property"
+    },
+    {
+      "case_id": "positive-escape-018",
+      "category": "positive/escape-class",
+      "kind": "false-negative",
+      "source": "let pattern18: RegExp = /[\\u4e00-\\u9fff]+/u;",
+      "expected": {
+        "start": 24,
+        "end": 43,
+        "text": "/[\\u4e00-\\u9fff]+/u"
+      },
+      "predicted": {
+        "start": 24,
+        "end": 44,
+        "text": "/[\\u4e00-\\u9fff]+/u;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "CJK range"
+    },
+    {
+      "case_id": "positive-escape-018",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern18: RegExp = /[\\u4e00-\\u9fff]+/u;",
+      "expected": null,
+      "predicted": {
+        "start": 24,
+        "end": 44,
+        "text": "/[\\u4e00-\\u9fff]+/u;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "CJK range"
+    },
+    {
+      "case_id": "positive-escape-020",
+      "category": "positive/escape-class",
+      "kind": "false-positive",
+      "source": "let pattern20: RegExp = /\\n\\r\\t/;",
+      "expected": null,
+      "predicted": {
+        "start": 32,
+        "end": 33,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "control chars"
+    },
+    {
+      "case_id": "positive-group-002",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher2 = /(?:foo|bar)/;",
+      "expected": {
+        "start": 17,
+        "end": 30,
+        "text": "/(?:foo|bar)/"
+      },
+      "predicted": {
+        "start": 17,
+        "end": 31,
+        "text": "/(?:foo|bar)/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "non-capture"
+    },
+    {
+      "case_id": "positive-group-002",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher2 = /(?:foo|bar)/;",
+      "expected": null,
+      "predicted": {
+        "start": 17,
+        "end": 31,
+        "text": "/(?:foo|bar)/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "non-capture"
+    },
+    {
+      "case_id": "positive-group-003",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher3 = /(foo|bar)+/;",
+      "expected": null,
+      "predicted": {
+        "start": 29,
+        "end": 30,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "alternation capture"
+    },
+    {
+      "case_id": "positive-group-004",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher4 = /^foo(?=bar)/;",
+      "expected": {
+        "start": 17,
+        "end": 30,
+        "text": "/^foo(?=bar)/"
+      },
+      "predicted": {
+        "start": 17,
+        "end": 31,
+        "text": "/^foo(?=bar)/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "lookahead"
+    },
+    {
+      "case_id": "positive-group-004",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher4 = /^foo(?=bar)/;",
+      "expected": null,
+      "predicted": {
+        "start": 17,
+        "end": 31,
+        "text": "/^foo(?=bar)/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "lookahead"
+    },
+    {
+      "case_id": "positive-group-005",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher5 = /^foo(?!bar)/;",
+      "expected": {
+        "start": 17,
+        "end": 30,
+        "text": "/^foo(?!bar)/"
+      },
+      "predicted": {
+        "start": 17,
+        "end": 31,
+        "text": "/^foo(?!bar)/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "negative lookahead"
+    },
+    {
+      "case_id": "positive-group-005",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher5 = /^foo(?!bar)/;",
+      "expected": null,
+      "predicted": {
+        "start": 17,
+        "end": 31,
+        "text": "/^foo(?!bar)/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "negative lookahead"
+    },
+    {
+      "case_id": "positive-group-006",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher6 = /(?<=foo)bar/;",
+      "expected": {
+        "start": 17,
+        "end": 30,
+        "text": "/(?<=foo)bar/"
+      },
+      "predicted": {
+        "start": 17,
+        "end": 31,
+        "text": "/(?<=foo)bar/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "lookbehind"
+    },
+    {
+      "case_id": "positive-group-006",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher6 = /(?<=foo)bar/;",
+      "expected": null,
+      "predicted": {
+        "start": 17,
+        "end": 31,
+        "text": "/(?<=foo)bar/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "lookbehind"
+    },
+    {
+      "case_id": "positive-group-007",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher7 = /(?<!foo)bar/;",
+      "expected": {
+        "start": 17,
+        "end": 30,
+        "text": "/(?<!foo)bar/"
+      },
+      "predicted": {
+        "start": 22,
+        "end": 30,
+        "text": "foo)bar/",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "negative lookbehind"
+    },
+    {
+      "case_id": "positive-group-007",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher7 = /(?<!foo)bar/;",
+      "expected": null,
+      "predicted": {
+        "start": 17,
+        "end": 19,
+        "text": "/(",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "negative lookbehind"
+    },
+    {
+      "case_id": "positive-group-007",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher7 = /(?<!foo)bar/;",
+      "expected": null,
+      "predicted": {
+        "start": 20,
+        "end": 21,
+        "text": "<",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "negative lookbehind"
+    },
+    {
+      "case_id": "positive-group-007",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher7 = /(?<!foo)bar/;",
+      "expected": null,
+      "predicted": {
+        "start": 22,
+        "end": 30,
+        "text": "foo)bar/",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "negative lookbehind"
+    },
+    {
+      "case_id": "positive-group-007",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher7 = /(?<!foo)bar/;",
+      "expected": null,
+      "predicted": {
+        "start": 30,
+        "end": 31,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "negative lookbehind"
+    },
+    {
+      "case_id": "positive-group-008",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher8 = /(?<name>foo)/;",
+      "expected": {
+        "start": 17,
+        "end": 31,
+        "text": "/(?<name>foo)/"
+      },
+      "predicted": {
+        "start": 21,
+        "end": 31,
+        "text": "name>foo)/",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "named capture"
+    },
+    {
+      "case_id": "positive-group-008",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher8 = /(?<name>foo)/;",
+      "expected": null,
+      "predicted": {
+        "start": 17,
+        "end": 21,
+        "text": "/(?<",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "named capture"
+    },
+    {
+      "case_id": "positive-group-008",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher8 = /(?<name>foo)/;",
+      "expected": null,
+      "predicted": {
+        "start": 21,
+        "end": 31,
+        "text": "name>foo)/",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "named capture"
+    },
+    {
+      "case_id": "positive-group-012",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher12 = /(?:a(?:b(?:c)))/;",
+      "expected": null,
+      "predicted": {
+        "start": 35,
+        "end": 36,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "deep noncapture"
+    },
+    {
+      "case_id": "positive-group-014",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher14 = /(?:foo){2,}/;",
+      "expected": {
+        "start": 18,
+        "end": 31,
+        "text": "/(?:foo){2,}/"
+      },
+      "predicted": {
+        "start": 18,
+        "end": 27,
+        "text": "/(?:foo){",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "group quantifier"
+    },
+    {
+      "case_id": "positive-group-014",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher14 = /(?:foo){2,}/;",
+      "expected": null,
+      "predicted": {
+        "start": 18,
+        "end": 27,
+        "text": "/(?:foo){",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "group quantifier"
+    },
+    {
+      "case_id": "positive-group-014",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher14 = /(?:foo){2,}/;",
+      "expected": null,
+      "predicted": {
+        "start": 27,
+        "end": 31,
+        "text": "2,}/",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "group quantifier"
+    },
+    {
+      "case_id": "positive-group-015",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher15 = /(?=.{8,})(?=.*[A-Z])(?=.*\\d).*/;",
+      "expected": {
+        "start": 18,
+        "end": 50,
+        "text": "/(?=.{8,})(?=.*[A-Z])(?=.*\\d).*/"
+      },
+      "predicted": {
+        "start": 18,
+        "end": 51,
+        "text": "/(?=.{8,})(?=.*[A-Z])(?=.*\\d).*/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "password-ish"
+    },
+    {
+      "case_id": "positive-group-015",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher15 = /(?=.{8,})(?=.*[A-Z])(?=.*\\d).*/;",
+      "expected": null,
+      "predicted": {
+        "start": 18,
+        "end": 51,
+        "text": "/(?=.{8,})(?=.*[A-Z])(?=.*\\d).*/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "password-ish"
+    },
+    {
+      "case_id": "positive-group-016",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher16 = /^\\s*(.*?)\\s*$/;",
+      "expected": {
+        "start": 18,
+        "end": 33,
+        "text": "/^\\s*(.*?)\\s*$/"
+      },
+      "predicted": {
+        "start": 18,
+        "end": 34,
+        "text": "/^\\s*(.*?)\\s*$/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "lazy capture"
+    },
+    {
+      "case_id": "positive-group-016",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher16 = /^\\s*(.*?)\\s*$/;",
+      "expected": null,
+      "predicted": {
+        "start": 18,
+        "end": 34,
+        "text": "/^\\s*(.*?)\\s*$/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "lazy capture"
+    },
+    {
+      "case_id": "positive-group-017",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher17 = /(?:https?):\\/\\/[^\\s]+/;",
+      "expected": {
+        "start": 18,
+        "end": 41,
+        "text": "/(?:https?):\\/\\/[^\\s]+/"
+      },
+      "predicted": {
+        "start": 18,
+        "end": 42,
+        "text": "/(?:https?):\\/\\/[^\\s]+/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "url-like"
+    },
+    {
+      "case_id": "positive-group-017",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher17 = /(?:https?):\\/\\/[^\\s]+/;",
+      "expected": null,
+      "predicted": {
+        "start": 18,
+        "end": 42,
+        "text": "/(?:https?):\\/\\/[^\\s]+/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "url-like"
+    },
+    {
+      "case_id": "positive-group-018",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher18 = /(?:(?:a|b)c)+/;",
+      "expected": {
+        "start": 18,
+        "end": 33,
+        "text": "/(?:(?:a|b)c)+/"
+      },
+      "predicted": {
+        "start": 18,
+        "end": 34,
+        "text": "/(?:(?:a|b)c)+/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "nested alternation"
+    },
+    {
+      "case_id": "positive-group-018",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher18 = /(?:(?:a|b)c)+/;",
+      "expected": null,
+      "predicted": {
+        "start": 18,
+        "end": 34,
+        "text": "/(?:(?:a|b)c)+/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "nested alternation"
+    },
+    {
+      "case_id": "positive-group-019",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher19 = /^(?:[a-z]+\\.)+[a-z]{2,}$/i;",
+      "expected": {
+        "start": 18,
+        "end": 45,
+        "text": "/^(?:[a-z]+\\.)+[a-z]{2,}$/i"
+      },
+      "predicted": {
+        "start": 18,
+        "end": 46,
+        "text": "/^(?:[a-z]+\\.)+[a-z]{2,}$/i;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "domain-like"
+    },
+    {
+      "case_id": "positive-group-019",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher19 = /^(?:[a-z]+\\.)+[a-z]{2,}$/i;",
+      "expected": null,
+      "predicted": {
+        "start": 18,
+        "end": 46,
+        "text": "/^(?:[a-z]+\\.)+[a-z]{2,}$/i;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "domain-like"
+    },
+    {
+      "case_id": "positive-group-020",
+      "category": "positive/group-assertion",
+      "kind": "false-negative",
+      "source": "const matcher20 = /^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/;",
+      "expected": {
+        "start": 18,
+        "end": 46,
+        "text": "/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/"
+      },
+      "predicted": {
+        "start": 18,
+        "end": 47,
+        "text": "/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "email-like"
+    },
+    {
+      "case_id": "positive-group-020",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher20 = /^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/;",
+      "expected": null,
+      "predicted": {
+        "start": 18,
+        "end": 47,
+        "text": "/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "email-like"
+    },
+    {
+      "case_id": "positive-context-008",
+      "category": "positive/context",
+      "kind": "false-positive",
+      "source": "const pick = left && /guarded/;",
+      "expected": null,
+      "predicted": {
+        "start": 30,
+        "end": 31,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "logical and rhs"
+    },
+    {
+      "case_id": "positive-context-015",
+      "category": "positive/context",
+      "kind": "false-negative",
+      "source": "const { re = /fallback/ } = source;",
+      "expected": {
+        "start": 13,
+        "end": 23,
+        "text": "/fallback/"
+      },
+      "predicted": {
+        "start": 13,
+        "end": 23,
+        "text": "/fallback/",
+        "token_type": "comment"
+      },
+      "overlapping_predicted_type": "comment",
+      "note": "destructure default"
+    },
+    {
+      "case_id": "positive-context-016",
+      "category": "positive/context",
+      "kind": "false-positive",
+      "source": "for (const re of [/a/, /b/]) console.log(re);",
+      "expected": null,
+      "predicted": {
+        "start": 14,
+        "end": 17,
+        "text": "of ",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "for-of array"
+    },
+    {
+      "case_id": "positive-context-017",
+      "category": "positive/context",
+      "kind": "false-negative",
+      "source": "switch (x) { case \"a\": use(/case/); break; }",
+      "expected": {
+        "start": 27,
+        "end": 33,
+        "text": "/case/"
+      },
+      "predicted": {
+        "start": 27,
+        "end": 35,
+        "text": "/case/);",
+        "token_type": "string"
+      },
+      "overlapping_predicted_type": "string",
+      "note": "switch body"
+    },
+    {
+      "case_id": "positive-context-022",
+      "category": "positive/context",
+      "kind": "false-negative",
+      "source": "const result = new RegExp(\"x\").source + /literal/.source;",
+      "expected": {
+        "start": 40,
+        "end": 49,
+        "text": "/literal/"
+      },
+      "predicted": {
+        "start": 40,
+        "end": 50,
+        "text": "/literal/.",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "after plus"
+    },
+    {
+      "case_id": "positive-context-022",
+      "category": "positive/context",
+      "kind": "false-positive",
+      "source": "const result = new RegExp(\"x\").source + /literal/.source;",
+      "expected": null,
+      "predicted": {
+        "start": 40,
+        "end": 50,
+        "text": "/literal/.",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "after plus"
+    },
+    {
+      "case_id": "positive-context-023",
+      "category": "positive/context",
+      "kind": "false-negative",
+      "source": "const result = `${/inside-template-expression/.source}`;",
+      "expected": {
+        "start": 18,
+        "end": 46,
+        "text": "/inside-template-expression/"
+      },
+      "predicted": {
+        "start": 18,
+        "end": 46,
+        "text": "/inside-template-expression/",
+        "token_type": "comment"
+      },
+      "overlapping_predicted_type": "comment",
+      "note": "inside template expression"
+    },
+    {
+      "case_id": "positive-context-024",
+      "category": "positive/context",
+      "kind": "false-negative",
+      "source": "const re = /* lead */ /after-comment/ /* tail */;",
+      "expected": {
+        "start": 22,
+        "end": 37,
+        "text": "/after-comment/"
+      },
+      "predicted": {
+        "start": 22,
+        "end": 37,
+        "text": "/after-comment/",
+        "token_type": "comment"
+      },
+      "overlapping_predicted_type": "comment",
+      "note": "surrounded comments"
+    },
+    {
+      "case_id": "positive-context-025",
+      "category": "positive/context",
+      "kind": "false-negative",
+      "source": "const re =\n  /multiline-position/\n;",
+      "expected": {
+        "start": 13,
+        "end": 33,
+        "text": "/multiline-position/"
+      },
+      "predicted": {
+        "start": 13,
+        "end": 33,
+        "text": "/multiline-position/",
+        "token_type": "comment"
+      },
+      "overlapping_predicted_type": "comment",
+      "note": "newline positioning"
+    },
+    {
+      "case_id": "positive-special-001",
+      "category": "positive/typescript-tsx",
+      "kind": "false-negative",
+      "source": "const re: RegExp = /typed/;",
+      "expected": {
+        "start": 19,
+        "end": 26,
+        "text": "/typed/"
+      },
+      "predicted": {
+        "start": 19,
+        "end": 27,
+        "text": "/typed/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "typed variable"
+    },
+    {
+      "case_id": "positive-special-001",
+      "category": "positive/typescript-tsx",
+      "kind": "false-positive",
+      "source": "const re: RegExp = /typed/;",
+      "expected": null,
+      "predicted": {
+        "start": 19,
+        "end": 27,
+        "text": "/typed/;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "typed variable"
+    },
+    {
+      "case_id": "positive-special-003",
+      "category": "positive/typescript-tsx",
+      "kind": "false-negative",
+      "source": "const re = /asserted/ as RegExp;",
+      "expected": {
+        "start": 11,
+        "end": 21,
+        "text": "/asserted/"
+      },
+      "predicted": {
+        "start": 11,
+        "end": 21,
+        "text": "/asserted/",
+        "token_type": "variable"
+      },
+      "overlapping_predicted_type": "variable",
+      "note": "as assertion"
+    },
+    {
+      "case_id": "positive-special-010",
+      "category": "positive/typescript-tsx",
+      "kind": "false-negative",
+      "source": "const node = <>{/fragment/.exec(value)?.[0]}</>;",
+      "expected": {
+        "start": 16,
+        "end": 26,
+        "text": "/fragment/"
+      },
+      "predicted": {
+        "start": 17,
+        "end": 26,
+        "text": "fragment/",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": "regexp",
+      "note": "jsx fragment expression"
+    },
+    {
+      "case_id": "positive-special-010",
+      "category": "positive/typescript-tsx",
+      "kind": "false-positive",
+      "source": "const node = <>{/fragment/.exec(value)?.[0]}</>;",
+      "expected": null,
+      "predicted": {
+        "start": 17,
+        "end": 26,
+        "text": "fragment/",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "jsx fragment expression"
+    },
+    {
+      "case_id": "positive-special-011",
+      "category": "positive/typescript-tsx",
+      "kind": "false-negative",
+      "source": "const node = condition ? <A value={/a/} /> : <B value={/b/} />;",
+      "expected": {
+        "start": 35,
+        "end": 38,
+        "text": "/a/"
+      },
+      "predicted": {
+        "start": 35,
+        "end": 38,
+        "text": "/a/",
+        "token_type": "punctuation"
+      },
+      "overlapping_predicted_type": "punctuation",
+      "note": "jsx ternary"
+    },
+    {
+      "case_id": "negative-string-009",
+      "category": "negative/string-template",
+      "kind": "false-positive",
+      "source": "const s = String.raw`/foo\\/bar/`;",
+      "expected": null,
+      "predicted": {
+        "start": 16,
+        "end": 17,
+        "text": ".",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "raw template"
+    },
+    {
+      "case_id": "negative-string-009",
+      "category": "negative/string-template",
+      "kind": "false-positive",
+      "source": "const s = String.raw`/foo\\/bar/`;",
+      "expected": null,
+      "predicted": {
+        "start": 17,
+        "end": 33,
+        "text": "raw`/foo\\/bar/`;",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "raw template"
+    }
+  ]
+}
