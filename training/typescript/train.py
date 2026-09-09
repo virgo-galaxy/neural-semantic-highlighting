@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import copy
 import random
+import shutil
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -46,6 +47,13 @@ from model import (
 
 DEFAULT_OUTPUT_PATH = DEFAULT_BEST_CHECKPOINT_PATH
 DEFAULT_LAST_OUTPUT_PATH = DEFAULT_LAST_CHECKPOINT_PATH
+
+AUXILIARY_BEST_METRICS = {
+    "exact": "exact_span_f1",
+    "boundary": "boundary_macro_f1",
+    "token-type": "token_type_macro_f1",
+    "modifier": "modifier_f1",
+}
 
 
 @dataclass(frozen=True)
@@ -1332,6 +1340,94 @@ def load_resume_checkpoint(
     )
 
 
+def auxiliary_checkpoint_path(
+    best_output_path: Path,
+    name: str,
+) -> Path:
+    return best_output_path.with_name(
+        f"{best_output_path.stem}-{name}{best_output_path.suffix}"
+    )
+
+
+def load_available_metric_bests(
+    best_output_path: Path,
+    last_output_path: Path,
+) -> dict[str, tuple[float, int, Path | None]]:
+    metric_bests = {
+        name: (-1.0, 0, None)
+        for name in AUXILIARY_BEST_METRICS
+    }
+
+    checkpoint_paths = [
+        best_output_path,
+        last_output_path,
+        *(
+            auxiliary_checkpoint_path(
+                best_output_path,
+                name,
+            )
+            for name in AUXILIARY_BEST_METRICS
+        ),
+    ]
+
+    for checkpoint_path in checkpoint_paths:
+        if not checkpoint_path.exists():
+            continue
+
+        checkpoint = torch.load(
+            checkpoint_path,
+            map_location="cpu",
+        )
+
+        if checkpoint.get("format") != CHECKPOINT_FORMAT:
+            raise ValueError(
+                "Metric checkpoint is not the current NSH TypeScript "
+                "checkpoint format."
+            )
+
+        validation = checkpoint["validation"]
+        epoch = int(checkpoint["epoch"])
+
+        for name, metric_key in AUXILIARY_BEST_METRICS.items():
+            score = float(validation[metric_key])
+            current_score, _, _ = metric_bests[name]
+
+            if score > current_score:
+                metric_bests[name] = (
+                    score,
+                    epoch,
+                    checkpoint_path,
+                )
+
+    return metric_bests
+
+
+def bootstrap_auxiliary_best_checkpoints(
+    best_output_path: Path,
+    metric_bests: dict[str, tuple[float, int, Path | None]],
+) -> None:
+    for name, (_, _, source_path) in metric_bests.items():
+        if source_path is None:
+            continue
+
+        destination = auxiliary_checkpoint_path(
+            best_output_path,
+            name,
+        )
+
+        if source_path == destination:
+            continue
+
+        destination.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+        shutil.copy2(
+            source_path,
+            destination,
+        )
+
+
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
@@ -1576,6 +1672,32 @@ def main() -> None:
             flush=True,
         )
 
+    metric_bests = load_available_metric_bests(
+        args.output,
+        args.last_output,
+    )
+
+    bootstrap_auxiliary_best_checkpoints(
+        args.output,
+        metric_bests,
+    )
+
+    existing_metric_bests = [
+        (name, score, epoch)
+        for name, (score, epoch, _) in metric_bests.items()
+        if score >= 0.0
+    ]
+
+    if existing_metric_bests:
+        print("Available metric bests:", flush=True)
+
+        for name, score, epoch in existing_metric_bests:
+            print(
+                f"  {name:<10} {score:.4f} "
+                f"(epoch {epoch})",
+                flush=True,
+            )
+
     print("")
     print(
         f"Parameters: "
@@ -1615,9 +1737,7 @@ def main() -> None:
         f"{len(regexp_focus_dataset)} "
         f"({regexp_inventory.positive_regexp} regexp, "
         f"{regexp_inventory.negative_operator_slash} "
-        "operator-slash negatives, "
-        f"{regexp_inventory.skipped_over_context} "
-        "skipped over-context)"
+        "operator-slash negatives)"
     )
 
     print(
@@ -1902,6 +2022,67 @@ def main() -> None:
 
             print("")
 
+        auxiliary_updates: list[
+            tuple[str, float, int, Path]
+        ] = []
+
+        for name, metric_key in AUXILIARY_BEST_METRICS.items():
+            metric_score = float(metrics[metric_key])
+            previous_score, _, _ = metric_bests[name]
+
+            if metric_score <= previous_score:
+                continue
+
+            checkpoint_path = auxiliary_checkpoint_path(
+                args.output,
+                name,
+            )
+
+            metric_bests[name] = (
+                metric_score,
+                global_epoch,
+                checkpoint_path,
+            )
+
+            save_checkpoint(
+                model=model,
+                optimizer=optimizer,
+                dataset=train_dataset,
+                output_path=checkpoint_path,
+                validation_metrics=metrics,
+                max_length=args.max_length,
+                epoch=global_epoch,
+                best_score=best_score,
+                best_epoch=best_epoch,
+                epochs_without_improvement=(
+                    epochs_without_improvement
+                ),
+            )
+
+            auxiliary_updates.append(
+                (
+                    name,
+                    metric_score,
+                    global_epoch,
+                    checkpoint_path,
+                )
+            )
+
+        for (
+            name,
+            metric_score,
+            metric_epoch,
+            checkpoint_path,
+        ) in auxiliary_updates:
+            print(
+                f"  ✓ saved best {name} checkpoint "
+                f"({metric_score:.4f}, epoch {metric_epoch}) "
+                f"to {checkpoint_path}"
+            )
+
+        if auxiliary_updates:
+            print("")
+
         if (
             args.patience > 0
             and epochs_without_improvement
@@ -1934,6 +2115,18 @@ def main() -> None:
         f"Last checkpoint: "
         f"{args.last_output}"
     )
+
+    print("Metric best checkpoints:")
+
+    for name, (score, epoch, _) in metric_bests.items():
+        if score < 0.0:
+            continue
+
+        print(
+            f"  {name:<10} {score:.4f} "
+            f"(epoch {epoch}) → "
+            f"{auxiliary_checkpoint_path(args.output, name)}"
+        )
 
 
 if __name__ == "__main__":
