@@ -20,7 +20,7 @@ PYTHON := .venv/bin/python
 
 MAX_LENGTH ?= 512
 EPOCHS ?= 32
-BATCH_SIZE ?= 1
+BATCH_SIZE ?= 32
 PATIENCE ?= 5
 ARTIFACT_DIR ?= artifacts/typescript/context512-re
 RESUME ?= $(ARTIFACT_DIR)/last.pt
