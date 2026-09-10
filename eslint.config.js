@@ -13,6 +13,7 @@ export default defineConfig(
     "**/node_modules/**",
     "packs/**/fixtures/**/source.*",
     "packs/**/fixtures/**/source",
+    "apps/playground/src/views/highlighter/examples/*/*",
   ]),
   {
     files: ["**/*.{js,ts}"],
@@ -21,6 +22,7 @@ export default defineConfig(
       "simple-import-sort": simpleImportSort,
     },
     rules: {
+      "no-undef": "off",
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
     },
@@ -43,6 +45,7 @@ export default defineConfig(
       "simple-import-sort": simpleImportSort,
     },
     rules: {
+      "no-undef": "off",
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
     },

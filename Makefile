@@ -33,8 +33,9 @@ ANALYSIS_EXAMPLES ?= 30
 
 check:
 	pnpm all
-	$(PYTHON) -m compileall -q training/typescript
+	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
+	$(PYTHON) -c 'import packs.typescript.runtime.local'
 
 dataset: dataset-typescript
 

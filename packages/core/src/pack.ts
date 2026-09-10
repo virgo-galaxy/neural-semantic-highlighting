@@ -6,6 +6,13 @@ export interface HighlightRequest {
   documentKind: string;
 }
 
+/**
+ * Runtime boundary between semantic inference and NSH consumers.
+ *
+ * A pack may run a model locally, inside the browser (for example through
+ * WASM/WebGPU/ONNX), or behind a remote transport. Consumers depend only on
+ * this contract and the returned HighlightResult.
+ */
 export interface SemanticPack {
   /**
    * Metadata describing this pack and its supported document kinds.

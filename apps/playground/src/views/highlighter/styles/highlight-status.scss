@@ -1,0 +1,207 @@
+.highlight-status {
+  --status-color: var(--muted);
+  --status-ring: color-mix(in srgb, var(--muted) 18%, transparent);
+
+  display: inline-grid;
+  grid-template-columns: 7px 64px 1px max-content;
+  align-items: center;
+
+  width: auto;
+  min-width: 146px;
+  height: 24px;
+
+  gap: 6px;
+  padding: 0 8px;
+
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  color: var(--muted);
+
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 1px 2px rgba(31, 35, 40, 0.03);
+
+  font-size: 11px;
+  line-height: 1.25;
+
+  white-space: nowrap;
+
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Performance colors                                                          */
+/* -------------------------------------------------------------------------- */
+
+.highlight-status[data-performance="idle"] {
+  --status-color: var(--muted);
+  --status-ring: color-mix(in srgb, var(--muted) 18%, transparent);
+}
+
+.highlight-status[data-performance="pending"] {
+  --status-color: var(--focus);
+  --status-ring: color-mix(in srgb, var(--focus) 22%, transparent);
+}
+
+.highlight-status[data-performance="fast"] {
+  --status-color: var(--performance-fast);
+  --status-ring: var(--performance-fast-ring);
+}
+
+.highlight-status[data-performance="warning"] {
+  --status-color: var(--performance-warning);
+  --status-ring: var(--performance-warning-ring);
+}
+
+.highlight-status[data-performance="critical"] {
+  --status-color: var(--error);
+  --status-ring: color-mix(in srgb, var(--error) 20%, transparent);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Dot                                                                         */
+/* -------------------------------------------------------------------------- */
+
+.highlight-status__dot {
+  position: relative;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--status-color);
+
+  box-shadow: 0 0 0 3px var(--status-ring);
+
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.highlight-status__dot::after {
+  position: absolute;
+  inset: -4px;
+
+  border: 1px solid var(--status-color);
+  border-radius: 50%;
+
+  content: "";
+
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+/*
+ * Pending and completed inference states breathe.
+ * Editing stays gray and static.
+ * Error stays red and static.
+ */
+.highlight-status[data-breathing="true"] .highlight-status__dot::after {
+  animation: highlight-status-breathe 1.8s ease-out infinite;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Status text                                                                 */
+/* -------------------------------------------------------------------------- */
+
+.highlight-status__label {
+  color: var(--muted);
+
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.highlight-status__divider {
+  width: 1px;
+  height: 11px;
+
+  background: var(--border);
+
+  opacity: 0.8;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Latency                                                                     */
+/* -------------------------------------------------------------------------- */
+
+.highlight-status__latency {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-end;
+
+  width: auto;
+  min-width: calc(2ch + 18px);
+
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.highlight-status__latency-value {
+  display: inline-block;
+
+  min-width: 2ch;
+
+  color: var(--status-color);
+
+  font-weight: 600;
+  text-align: right;
+
+  transition: color 160ms ease;
+}
+
+.highlight-status__latency-unit {
+  margin-left: 4px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+}
+
+.highlight-status__latency-placeholder {
+  display: inline-block;
+
+  min-width: calc(2ch + 18px);
+
+  color: var(--muted);
+
+  text-align: center;
+
+  opacity: 0.6;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Animation                                                                   */
+/* -------------------------------------------------------------------------- */
+
+@keyframes highlight-status-breathe {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  30% {
+    opacity: 0.55;
+  }
+
+  70% {
+    opacity: 0.12;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.65);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .highlight-status__dot::after {
+    animation: none !important;
+  }
+}

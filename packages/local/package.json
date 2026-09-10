@@ -1,0 +1,26 @@
+{
+  "name": "@nsh/local",
+  "version": "0.1.0",
+  "description": "Node.js local-process SemanticPack adapter for Neural Semantic Highlighting",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "clean": "node --input-type=module -e \"import { rmSync } from 'node:fs'; rmSync('dist', { recursive: true, force: true })\"",
+    "build": "pnpm clean && tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@nsh/core": "workspace:*"
+  }
+}
