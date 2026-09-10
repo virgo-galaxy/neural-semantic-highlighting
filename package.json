@@ -4,30 +4,23 @@
   "description": "Runtime-agnostic neural semantic highlighting engine",
   "private": true,
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./theme.css": "./dist/themes/default.css"
-  },
   "scripts": {
-    "clean": "node --input-type=module -e \"import { rmSync } from 'node:fs'; rmSync('dist', { recursive: true, force: true })\"",
-    "build": "pnpm clean && tsc -p tsconfig.build.json && node --input-type=module -e \"import { cpSync } from 'node:fs'; cpSync('src/themes', 'dist/themes', { recursive: true })\"",
-    "typecheck": "tsc",
+    "clean": "pnpm -r --if-present run clean",
+    "build": "pnpm -r --if-present run build",
+    "build:packages": "pnpm -r --filter './packages/*' --if-present run build",
+    "typecheck": "pnpm build:packages && tsc -p tsconfig.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest run",
+    "test": "pnpm build:packages && vitest run",
+    "dev": "pnpm build:packages && pnpm --filter @nsh/playground dev",
     "dataset:collect:typescript": "tsx packs/typescript/dataset/collect.ts",
     "dataset:label:typescript": "tsx packs/typescript/dataset/label-sample.ts",
     "dataset:review:typescript": "tsx packs/typescript/dataset/review-sample.ts",
     "dataset:split:typescript": "tsx packs/typescript/dataset/split-sample.ts",
     "dataset:validate:typescript": "tsx packs/typescript/dataset/validate-sample.ts",
-    "all": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build"
+    "all": "pnpm build && tsc -p tsconfig.json && pnpm lint && pnpm format:check && vitest run"
   },
   "devEngines": {
     "packageManager": {
@@ -38,14 +31,18 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@nsh/core": "workspace:*",
+    "@nsh/html": "workspace:*",
     "@types/node": "^26.4.1",
     "@typescript/native": "npm:typescript@^7.0.2",
     "eslint": "^10.10.0",
     "eslint-plugin-simple-import-sort": "^14.0.0",
+    "eslint-plugin-vue": "^10.11.0",
     "prettier": "^3.9.6",
     "tsx": "^4.23.13",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.69.0",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.0",
+    "vue-eslint-parser": "^10.4.1"
   }
 }

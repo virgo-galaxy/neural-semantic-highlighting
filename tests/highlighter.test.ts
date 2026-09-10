@@ -1,6 +1,5 @@
+import { createHighlighter, type HighlightResult, type SemanticPack } from "@nsh/core";
 import { describe, expect, it } from "vitest";
-
-import { createHighlighter, type HighlightResult, type SemanticPack } from "../src/index.js";
 
 const result: HighlightResult = {
   offsetEncoding: "utf-16",

@@ -2,7 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
-import type { SemanticSpan } from "@/core/result.js";
+import type { SemanticSpan } from "@nsh/core";
 
 interface LabeledSample {
   repository: string;

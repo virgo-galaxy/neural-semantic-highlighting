@@ -1,8 +1,7 @@
 import { readdir, readFile } from "node:fs/promises";
 
+import type { HighlightResult, SemanticSpan } from "@nsh/core";
 import { describe, expect, it } from "vitest";
-
-import type { HighlightResult, SemanticSpan } from "@/core/result.js";
 
 import { labelTypeScript } from "../packs/typescript/labeling/label.js";
 

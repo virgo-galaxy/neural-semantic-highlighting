@@ -1,4 +1,4 @@
-import type { HighlightResult, OffsetEncoding } from "../core/result.js";
+import type { HighlightResult, OffsetEncoding } from "@nsh/core";
 
 export interface RenderToHtmlOptions {
   source: string;

@@ -1,6 +1,5 @@
+import { renderToHtml } from "@nsh/html";
 import { describe, expect, it } from "vitest";
-
-import { renderToHtml } from "../src/html/render.js";
 
 describe("renderToHtml", () => {
   it("renders semantic spans and preserves unhighlighted source", () => {

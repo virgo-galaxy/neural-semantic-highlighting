@@ -1,20 +1,8 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "strict": true,
     "noEmit": true,
-    "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": [
-    "src/**/*.ts",
-    "packs/**/labeling/**/*.ts",
-    "packs/**/dataset/**/*.ts",
-    "tests/**/*.ts"
-  ]
+  "include": ["packs/**/labeling/**/*.ts", "packs/**/dataset/**/*.ts", "tests/**/*.ts"]
 }

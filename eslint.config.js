@@ -1,13 +1,16 @@
 import eslint from "@eslint/js";
 import { defineConfig, globalIgnores } from "eslint/config";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
+import vue from "eslint-plugin-vue";
 import tseslint from "typescript-eslint";
+import vueParser from "vue-eslint-parser";
 
 export default defineConfig(
   globalIgnores([
     ".venv/**",
-    "dist/**",
-    "node_modules/**",
+    "artifacts/**",
+    "**/dist/**",
+    "**/node_modules/**",
     "packs/**/fixtures/**/source.*",
     "packs/**/fixtures/**/source",
   ]),
@@ -23,7 +26,29 @@ export default defineConfig(
     },
   },
   {
-    files: ["playground/**/*.{js,ts}"],
+    files: ["apps/playground/**/*.vue"],
+    extends: [
+      eslint.configs.recommended,
+      tseslint.configs.recommended,
+      vue.configs["flat/essential"],
+    ],
+    languageOptions: {
+      parser: vueParser,
+      parserOptions: {
+        parser: tseslint.parser,
+        extraFileExtensions: [".vue"],
+      },
+    },
+    plugins: {
+      "simple-import-sort": simpleImportSort,
+    },
+    rules: {
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+    },
+  },
+  {
+    files: ["apps/playground/src/**/*.{js,ts,vue}"],
     languageOptions: {
       globals: {
         document: "readonly",

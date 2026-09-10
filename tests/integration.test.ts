@@ -1,6 +1,6 @@
+import { createHighlighter, type SemanticPack } from "@nsh/core";
+import { renderToHtml } from "@nsh/html";
 import { describe, expect, it } from "vitest";
-
-import { createHighlighter, renderToHtml, type SemanticPack } from "../src/index.js";
 
 const pack: SemanticPack = {
   manifest: {

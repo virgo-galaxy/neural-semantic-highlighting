@@ -1,7 +1,5 @@
+import type { HighlightRequest, HighlightResult, SemanticSpan } from "@nsh/core";
 import * as ts from "typescript";
-
-import type { HighlightRequest } from "@/core/pack.js";
-import type { HighlightResult, SemanticSpan } from "@/core/result.js";
 
 const typeKeywordKinds = new Set<ts.SyntaxKind>([
   ts.SyntaxKind.AnyKeyword,

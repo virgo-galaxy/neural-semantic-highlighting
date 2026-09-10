@@ -2,7 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
-import type { HighlightResult } from "@/core/result.js";
+import type { HighlightResult } from "@nsh/core";
 
 interface LabeledSample {
   repository: string;

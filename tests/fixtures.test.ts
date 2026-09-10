@@ -1,10 +1,7 @@
 import { readdir, readFile } from "node:fs/promises";
 
+import type { HighlightResult, PackManifest, PackSchema, SemanticSpan } from "@nsh/core";
 import { describe, expect, it } from "vitest";
-
-import type { PackManifest } from "@/core/manifest.js";
-import type { HighlightResult, SemanticSpan } from "@/core/result.js";
-import type { PackSchema } from "@/core/schema.js";
 
 interface GoldSpan extends SemanticSpan {
   text: string;
