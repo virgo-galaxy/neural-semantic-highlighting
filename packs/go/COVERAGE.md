@@ -161,6 +161,19 @@ Coverage should eventually be tracked across the following evidence layers:
 The long-term coverage matrix should be maintained as evidence is added. Do not mark an item as
 complete merely because the parser accepts it or because one example highlights correctly.
 
+Version-specific Gold fixtures may declare `minGoVersion` metadata to record when a language
+feature became available. The metadata is documentation, not a reason to weaken validation.
+
+Gold-labeler tests run the entire supported fixture set with the repository-pinned Go toolchain. The
+pinned Gold toolchain is Go 1.27.1. `make test-labeling-go` sets `GOTOOLCHAIN=go1.27.1` only for that command,
+so a Go 1.21-or-newer launcher can download and cache the required toolchain without replacing the
+system Go installation or modifying `PATH`. Repository tooling must not use `go env -w` or require a
+global Go upgrade for this purpose.
+
+Supported fixtures must not be silently skipped merely because a developer machine bundles an older
+Go compiler. The Gold environment is part of the project definition and must remain deterministic
+across developer machines and CI.
+
 ## Corpus policy
 
 The first Go model should prefer a compact, high-quality corpus over indiscriminate scale.

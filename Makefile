@@ -20,6 +20,7 @@
 	challenge-jsx-tsx-typescript
 
 PYTHON := .venv/bin/python
+GO_GOLD_TOOLCHAIN := go1.27.1
 
 MAX_LENGTH ?= 512
 EPOCHS ?= 32
@@ -43,7 +44,7 @@ check:
 
 
 test-labeling-go:
-	cd packs/go/labeling && go test ./...
+	cd packs/go/labeling && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go test ./...
 
 dataset: dataset-typescript
 

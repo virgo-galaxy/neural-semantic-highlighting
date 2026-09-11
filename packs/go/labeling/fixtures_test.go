@@ -16,6 +16,7 @@ type goldSpan struct {
 
 type goldFixture struct {
 	DocumentKind   string     `json:"documentKind"`
+	MinGoVersion   string     `json:"minGoVersion,omitempty"`
 	OffsetEncoding string     `json:"offsetEncoding"`
 	Spans          []goldSpan `json:"spans"`
 }

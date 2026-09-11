@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/pokeyaro/neural-semantic-highlighting/packs/go/labeling"
+	"github.com/virgo-galaxy/neural-semantic-highlighting/packs/go/labeling"
 )
 
 func main() {
