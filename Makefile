@@ -14,7 +14,9 @@
 	validate-regexp-challenge-typescript \
 	challenge-regexp-typescript \
 	validate-regexp-paired-challenge-typescript \
-	challenge-regexp-paired-typescript
+	challenge-regexp-paired-typescript \
+	validate-jsx-tsx-challenge-typescript \
+	challenge-jsx-tsx-typescript
 
 PYTHON := .venv/bin/python
 
@@ -118,3 +120,12 @@ challenge-regexp-paired-typescript:
 	$(PYTHON) training/typescript/regexp_paired_challenge.py \
 		--checkpoint current=$(ARTIFACT_DIR)/best.pt \
 		--output $(ARTIFACT_DIR)/regexp-paired-context-challenge.json
+
+validate-jsx-tsx-challenge-typescript:
+	$(PYTHON) training/typescript/jsx_tsx_challenge.py --validate-only
+
+challenge-jsx-tsx-typescript:
+	$(PYTHON) training/typescript/jsx_tsx_challenge.py \
+		--checkpoint $(ARTIFACT_DIR)/best.pt \
+		--max-errors 50 \
+		--output $(ARTIFACT_DIR)/jsx-tsx-challenge.json

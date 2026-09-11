@@ -1,6 +1,8 @@
-# TypeScript RegExp Challenges
+# TypeScript Challenges
 
-This directory contains evaluation-only material for RegExp literal recognition. Challenge cases are never part of train, validation, or test data.
+This directory contains evaluation-only challenge material for the TypeScript language family. Challenge cases must never be merged into train, validation, or test data.
+
+## RegExp literal recognition
 
 `regexp.json` asks one focused question: can the neural runtime distinguish JavaScript/TypeScript RegExp literals from slash-shaped non-RegExp syntax such as division, `/=`, strings, comments, and JSX closing tags?
 
@@ -43,4 +45,22 @@ Run it against the current checkpoint with:
 make challenge-regexp-paired-typescript
 ```
 
-The paired challenge is also evaluation-only and must never be merged into training data.
+## JSX / TSX semantics
+
+`jsx-tsx.json` checks JSX and TSX behavior across intrinsic elements, components, attributes, fragments, JSX text, expression boundaries, qualified component names, spread props, TypeScript generic syntax, generic JSX components, and realistic React-shaped code.
+
+Assertions use `⟦tokenType|text⟧` markers. The evaluator removes all markers before inference. `tag` and `attribute` are the primary focus types and receive exact-span precision, recall, and F1 metrics. Additional assertions verify TSX generic type parameters and that plain JSX text remains outside semantic spans.
+
+Validate the challenge definition with:
+
+```bash
+make validate-jsx-tsx-challenge-typescript
+```
+
+Run it against the current checkpoint with:
+
+```bash
+make challenge-jsx-tsx-typescript
+```
+
+The challenge intentionally tests JSX/TSX language semantics, not React-specific concepts such as hooks or Tailwind utility classes.

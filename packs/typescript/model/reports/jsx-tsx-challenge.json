@@ -1,0 +1,188 @@
+{
+  "format": "nsh-typescript-jsx-tsx-challenge-result",
+  "checkpoint": "packs/typescript/model/model.pt",
+  "challenge": "packs/typescript/challenges/jsx-tsx.json",
+  "inference": {
+    "max_length": 512,
+    "windowing": "adaptive-cursor",
+    "decoder": "greedy"
+  },
+  "summary": {
+    "cases": 50,
+    "assertions": 162,
+    "exact_assertions": 162,
+    "exact_assertion_rate": 1.0,
+    "semantic_assertions": 156,
+    "semantic_exact": 156,
+    "semantic_exact_rate": 1.0,
+    "outside_assertions": 6,
+    "outside_clean": 6,
+    "outside_clean_rate": 1.0,
+    "exact_cases": 50,
+    "exact_case_rate": 1.0,
+    "focus_span_metrics": {
+      "true_positive": 151,
+      "false_positive": 1,
+      "false_negative": 0,
+      "precision": 0.993421052631579,
+      "recall": 1.0,
+      "f1": 0.9966996699669968
+    }
+  },
+  "focus_token_types": [
+    "tag",
+    "attribute"
+  ],
+  "focus_by_token_type": {
+    "attribute": {
+      "true_positive": 40,
+      "false_positive": 0,
+      "false_negative": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "tag": {
+      "true_positive": 111,
+      "false_positive": 1,
+      "false_negative": 0,
+      "precision": 0.9910714285714286,
+      "recall": 1.0,
+      "f1": 0.9955156950672646
+    }
+  },
+  "document_kinds": {
+    "jsx": {
+      "cases": 32,
+      "assertions": 99,
+      "exact_assertions": 99,
+      "exact_assertion_rate": 1.0,
+      "exact_cases": 32,
+      "exact_case_rate": 1.0
+    },
+    "tsx": {
+      "cases": 18,
+      "assertions": 63,
+      "exact_assertions": 63,
+      "exact_assertion_rate": 1.0,
+      "exact_cases": 18,
+      "exact_case_rate": 1.0
+    }
+  },
+  "categories": {
+    "jsx/attributes": {
+      "cases": 6,
+      "assertions": 18,
+      "exact_assertions": 18,
+      "exact_assertion_rate": 1.0,
+      "exact_cases": 6,
+      "exact_case_rate": 1.0
+    },
+    "jsx/basic-tags": {
+      "cases": 6,
+      "assertions": 18,
+      "exact_assertions": 18,
+      "exact_assertion_rate": 1.0,
+      "exact_cases": 6,
+      "exact_case_rate": 1.0
+    },
+    "jsx/expressions": {
+      "cases": 8,
+      "assertions": 24,
+      "exact_assertions": 24,
+      "exact_assertion_rate": 1.0,
+      "exact_cases": 8,
+      "exact_case_rate": 1.0
+    },
+    "jsx/fragments-text": {
+      "cases": 4,
+      "assertions": 13,
+      "exact_assertions": 13,
+      "exact_assertion_rate": 1.0,
+      "exact_cases": 4,
+      "exact_case_rate": 1.0
+    },
+    "jsx/qualified-tags": {
+      "cases": 4,
+      "assertions": 19,
+      "exact_assertions": 19,
+      "exact_assertion_rate": 1.0,
+      "exact_cases": 4,
+      "exact_case_rate": 1.0
+    },
+    "jsx/spread-props": {
+      "cases": 4,
+      "assertions": 7,
+      "exact_assertions": 7,
+      "exact_assertion_rate": 1.0,
+      "exact_cases": 4,
+      "exact_case_rate": 1.0
+    },
+    "tsx/generic-ambiguity": {
+      "cases": 6,
+      "assertions": 14,
+      "exact_assertions": 14,
+      "exact_assertion_rate": 1.0,
+      "exact_cases": 6,
+      "exact_case_rate": 1.0
+    },
+    "tsx/realistic": {
+      "cases": 6,
+      "assertions": 36,
+      "exact_assertions": 36,
+      "exact_assertion_rate": 1.0,
+      "exact_cases": 6,
+      "exact_case_rate": 1.0
+    },
+    "tsx/types": {
+      "cases": 6,
+      "assertions": 13,
+      "exact_assertions": 13,
+      "exact_assertion_rate": 1.0,
+      "exact_cases": 6,
+      "exact_case_rate": 1.0
+    }
+  },
+  "expected_types": {
+    "attribute": {
+      "assertions": 40,
+      "exact": 40,
+      "exact_rate": 1.0
+    },
+    "outside": {
+      "assertions": 6,
+      "exact": 6,
+      "exact_rate": 1.0
+    },
+    "tag": {
+      "assertions": 111,
+      "exact": 111,
+      "exact_rate": 1.0
+    },
+    "type-parameter": {
+      "assertions": 5,
+      "exact": 5,
+      "exact_rate": 1.0
+    }
+  },
+  "error_kinds": {
+    "focus-false-positive": 1
+  },
+  "errors": [
+    {
+      "case_id": "jsx-attr-005",
+      "category": "jsx/attributes",
+      "document_kind": "jsx",
+      "kind": "focus-false-positive",
+      "source": "const node = <img src={url} alt=\"\" loading=\"lazy\" />;",
+      "expected": null,
+      "predicted": {
+        "start": 0,
+        "end": 5,
+        "text": "const",
+        "token_type": "tag"
+      },
+      "note": "multiple attributes"
+    }
+  ]
+}

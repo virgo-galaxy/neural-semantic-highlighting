@@ -121,6 +121,56 @@ Source: [string-fragmentation-test.json](reports/string-fragmentation-test.json)
 
 The denominator is character positions **inside Gold strings**, not strings, windows or documents. This is a boundary-head diagnostic, not rendered-visual error rate or exact-span F1. The report includes the first 20 examples after confidence sorting, not all mistakes and not a representative random sample.
 
+## 6. JSX / TSX challenge
+
+Source: [jsx-tsx-challenge.json](reports/jsx-tsx-challenge.json).
+
+This challenge targets JSX/TSX-specific semantic boundaries and ambiguity cases rather than general React framework semantics. It covers tags, attributes, JSX text cleanliness, embedded expressions, fragments, qualified tags, spread props, realistic TSX, TypeScript types inside TSX, and generic-vs-JSX ambiguity.
+
+| Metric                     | Value       |
+| -------------------------- | ----------- |
+| Cases                      | 50          |
+| Assertions                 | 162         |
+| Exact assertions           | 162/162     |
+| Assertion accuracy         | 100.00%     |
+| Semantic exact assertions  | 156/156     |
+| JSX text clean assertions  | 6/6         |
+| Exact cases                | 50/50       |
+| Tag/attribute precision    | 0.9934      |
+| Tag/attribute recall       | 1.0000      |
+| Tag/attribute F1           | 0.9967      |
+| Tag/attribute TP / FP / FN | 151 / 1 / 0 |
+
+### Focus token types
+
+| Token type  | Precision | Recall | F1     | TP  | FP  | FN  |
+| ----------- | --------- | ------ | ------ | --- | --- | --- |
+| `attribute` | 1.0000    | 1.0000 | 1.0000 | 40  | 0   | 0   |
+| `tag`       | 0.9911    | 1.0000 | 0.9955 | 111 | 1   | 0   |
+
+### Document kinds
+
+| Document kind | Assertions | Exact cases |
+| ------------- | ---------- | ----------- |
+| `jsx`         | 99/99      | 32/32       |
+| `tsx`         | 63/63      | 18/18       |
+
+### Categories
+
+| Category                | Assertions |
+| ----------------------- | ---------- |
+| `jsx/attributes`        | 18/18      |
+| `jsx/basic-tags`        | 18/18      |
+| `jsx/expressions`       | 24/24      |
+| `jsx/fragments-text`    | 13/13      |
+| `jsx/qualified-tags`    | 19/19      |
+| `jsx/spread-props`      | 7/7        |
+| `tsx/generic-ambiguity` | 14/14      |
+| `tsx/realistic`         | 36/36      |
+| `tsx/types`             | 13/13      |
+
+The only focus false positive in this run was `const` predicted as `tag` in `jsx-attr-005`. All explicitly asserted semantics were correct, including all JSX text-clean checks and all TSX generic-ambiguity assertions. This challenge does **not** claim React-aware or Tailwind-aware semantics; React and Tailwind examples are still highlighted through the underlying JavaScript/TypeScript/JSX/TSX semantic model.
+
 ## Reproduction commands
 
 Run from the repository root with the original Dataset installed separately. Write new evaluation results to `artifacts/`, not over the immutable reports in this directory:
@@ -139,6 +189,9 @@ mkdir -p artifacts/typescript/model-verification
 .venv/bin/python training/typescript/fragmentation.py \
   --checkpoint packs/typescript/model/model.pt --split test --token-type string --max-examples 20 \
   --output artifacts/typescript/model-verification/string-fragmentation-test.json
+.venv/bin/python training/typescript/jsx_tsx_challenge.py \
+  --checkpoint packs/typescript/model/model.pt \
+  --output artifacts/typescript/model-verification/jsx-tsx-challenge.json
 ```
 
 `NSH_DATASET_ROOT` selects the external Dataset root in the supplied code. The challenge inputs and corpus are not included in the review bundle; exact reproduction also needs their original versions. No inference latency, throughput, memory, browser runtime or all-language coverage benchmark was supplied. CPU export checks do not fill those gaps. No new/old champion comparison is claimed without the same test set, decoder and windowing configuration.

@@ -1,0 +1,357 @@
+{
+  "format": "nsh-typescript-jsx-tsx-challenge",
+  "description": "Evaluation-only JSX/TSX challenge. Markers use ⟦tokenType|text⟧ and are removed before inference. Focus-span precision/recall covers tag and attribute predictions; additional assertions check JSX text cleanliness and TSX generic ambiguity. This file must never be merged into train/validation/test.",
+  "focusTokenTypes": ["tag", "attribute"],
+  "cases": [
+    {
+      "id": "jsx-basic-001",
+      "category": "jsx/basic-tags",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|div⟧>hello</⟦tag|div⟧>;",
+      "note": "intrinsic element"
+    },
+    {
+      "id": "jsx-basic-002",
+      "category": "jsx/basic-tags",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|Button⟧ />;",
+      "note": "component self close"
+    },
+    {
+      "id": "jsx-basic-003",
+      "category": "jsx/basic-tags",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|section⟧><⟦tag|h2⟧>Title</⟦tag|h2⟧><⟦tag|p⟧>Body</⟦tag|p⟧></⟦tag|section⟧>;",
+      "note": "nested intrinsic tags"
+    },
+    {
+      "id": "jsx-basic-004",
+      "category": "jsx/basic-tags",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|Avatar⟧><⟦tag|img⟧ /></⟦tag|Avatar⟧>;",
+      "note": "component containing intrinsic tag"
+    },
+    {
+      "id": "jsx-basic-005",
+      "category": "jsx/basic-tags",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|main⟧><⟦tag|Header⟧ /><⟦tag|Content⟧ /><⟦tag|Footer⟧ /></⟦tag|main⟧>;",
+      "note": "mixed component and intrinsic tags"
+    },
+    {
+      "id": "jsx-basic-006",
+      "category": "jsx/basic-tags",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|input⟧ />;",
+      "note": "void intrinsic element"
+    },
+    {
+      "id": "jsx-attr-001",
+      "category": "jsx/attributes",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|div⟧ ⟦attribute|className⟧=\"box\" />;",
+      "note": "string attribute"
+    },
+    {
+      "id": "jsx-attr-002",
+      "category": "jsx/attributes",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|button⟧ ⟦attribute|disabled⟧>Save</⟦tag|button⟧>;",
+      "note": "boolean attribute"
+    },
+    {
+      "id": "jsx-attr-003",
+      "category": "jsx/attributes",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|button⟧ ⟦attribute|onClick⟧={handleClick}>Save</⟦tag|button⟧>;",
+      "note": "expression attribute"
+    },
+    {
+      "id": "jsx-attr-004",
+      "category": "jsx/attributes",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|input⟧ ⟦attribute|aria-label⟧=\"Search\" ⟦attribute|data-state⟧=\"ready\" />;",
+      "note": "hyphenated attributes"
+    },
+    {
+      "id": "jsx-attr-005",
+      "category": "jsx/attributes",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|img⟧ ⟦attribute|src⟧={url} ⟦attribute|alt⟧=\"\" ⟦attribute|loading⟧=\"lazy\" />;",
+      "note": "multiple attributes"
+    },
+    {
+      "id": "jsx-attr-006",
+      "category": "jsx/attributes",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|Component⟧ ⟦attribute|value⟧={value} ⟦attribute|onChange⟧={onChange} />;",
+      "note": "component props"
+    },
+    {
+      "id": "jsx-fragment-001",
+      "category": "jsx/fragments-text",
+      "documentKind": "jsx",
+      "source": "const node = <>⟦outside|plain text⟧</>;",
+      "note": "fragment text stays outside semantics"
+    },
+    {
+      "id": "jsx-fragment-002",
+      "category": "jsx/fragments-text",
+      "documentKind": "jsx",
+      "source": "const node = <><⟦tag|span⟧>⟦outside|return in any this⟧</⟦tag|span⟧></>;",
+      "note": "keyword-like JSX text stays outside"
+    },
+    {
+      "id": "jsx-fragment-003",
+      "category": "jsx/fragments-text",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|div⟧>⟦outside|hello world⟧ {name}</⟦tag|div⟧>;",
+      "note": "text adjacent to expression"
+    },
+    {
+      "id": "jsx-fragment-004",
+      "category": "jsx/fragments-text",
+      "documentKind": "jsx",
+      "source": "const node = <><⟦tag|p⟧>⟦outside|before⟧</⟦tag|p⟧><⟦tag|p⟧>⟦outside|after⟧</⟦tag|p⟧></>;",
+      "note": "multiple fragment children"
+    },
+    {
+      "id": "jsx-expr-001",
+      "category": "jsx/expressions",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|span⟧>{count}</⟦tag|span⟧>;",
+      "note": "variable expression child"
+    },
+    {
+      "id": "jsx-expr-002",
+      "category": "jsx/expressions",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|div⟧>{ready ? <⟦tag|Ready⟧ /> : <⟦tag|Loading⟧ />}</⟦tag|div⟧>;",
+      "note": "conditional nested JSX"
+    },
+    {
+      "id": "jsx-expr-003",
+      "category": "jsx/expressions",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|ul⟧>{items.map((item) => <⟦tag|li⟧ ⟦attribute|key⟧={item.id}>{item.name}</⟦tag|li⟧>)}</⟦tag|ul⟧>;",
+      "note": "map rendering"
+    },
+    {
+      "id": "jsx-expr-004",
+      "category": "jsx/expressions",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|button⟧ ⟦attribute|onClick⟧={() => setCount((value) => value + 1)}>{count}</⟦tag|button⟧>;",
+      "note": "nested arrow functions in prop"
+    },
+    {
+      "id": "jsx-expr-005",
+      "category": "jsx/expressions",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|span⟧>{user?.profile?.name ?? \"Unknown\"}</⟦tag|span⟧>;",
+      "note": "optional chaining expression"
+    },
+    {
+      "id": "jsx-expr-006",
+      "category": "jsx/expressions",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|div⟧ ⟦attribute|style⟧={{ width: size, opacity: enabled ? 1 : 0 }} />;",
+      "note": "object literal prop"
+    },
+    {
+      "id": "jsx-expr-007",
+      "category": "jsx/expressions",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|Component⟧>{renderItem(item)}</⟦tag|Component⟧>;",
+      "note": "call expression child"
+    },
+    {
+      "id": "jsx-expr-008",
+      "category": "jsx/expressions",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|div⟧>{condition && <⟦tag|Badge⟧ ⟦attribute|tone⟧=\"success\" />}</⟦tag|div⟧>;",
+      "note": "logical expression child"
+    },
+    {
+      "id": "jsx-qualified-001",
+      "category": "jsx/qualified-tags",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|Card⟧.⟦tag|Grid⟧ />;",
+      "note": "qualified component self close"
+    },
+    {
+      "id": "jsx-qualified-002",
+      "category": "jsx/qualified-tags",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|UI⟧.⟦tag|Button⟧ ⟦attribute|size⟧=\"sm\">Save</⟦tag|UI⟧.⟦tag|Button⟧>;",
+      "note": "qualified component pair"
+    },
+    {
+      "id": "jsx-qualified-003",
+      "category": "jsx/qualified-tags",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|Form⟧.⟦tag|Field⟧ ⟦attribute|name⟧=\"email\"><⟦tag|Form⟧.⟦tag|Label⟧>Email</⟦tag|Form⟧.⟦tag|Label⟧></⟦tag|Form⟧.⟦tag|Field⟧>;",
+      "note": "nested qualified components"
+    },
+    {
+      "id": "jsx-qualified-004",
+      "category": "jsx/qualified-tags",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|Namespace⟧.⟦tag|Panel⟧.⟦tag|Header⟧ />;",
+      "note": "three-part qualified component"
+    },
+    {
+      "id": "jsx-spread-001",
+      "category": "jsx/spread-props",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|Button⟧ {...props} />;",
+      "note": "spread only"
+    },
+    {
+      "id": "jsx-spread-002",
+      "category": "jsx/spread-props",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|Button⟧ ⟦attribute|variant⟧=\"primary\" {...props} />;",
+      "note": "spread after explicit prop"
+    },
+    {
+      "id": "jsx-spread-003",
+      "category": "jsx/spread-props",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|input⟧ {...field} ⟦attribute|aria-invalid⟧={Boolean(error)} />;",
+      "note": "spread with hyphenated prop"
+    },
+    {
+      "id": "jsx-spread-004",
+      "category": "jsx/spread-props",
+      "documentKind": "jsx",
+      "source": "const node = <⟦tag|Component⟧ {...first} {...second} ⟦attribute|id⟧=\"demo\" />;",
+      "note": "multiple spreads"
+    },
+    {
+      "id": "tsx-types-001",
+      "category": "tsx/types",
+      "documentKind": "tsx",
+      "source": "interface Props { title: string }\nconst node: JSX.Element = <⟦tag|Card⟧ ⟦attribute|title⟧=\"Hello\" />;",
+      "note": "typed JSX value"
+    },
+    {
+      "id": "tsx-types-002",
+      "category": "tsx/types",
+      "documentKind": "tsx",
+      "source": "type Props<T> = { value: T };\nfunction View<T>({ value }: Props<T>) { return <⟦tag|span⟧>{String(value)}</⟦tag|span⟧>; }",
+      "note": "generic function returning JSX"
+    },
+    {
+      "id": "tsx-types-003",
+      "category": "tsx/types",
+      "documentKind": "tsx",
+      "source": "const node = <⟦tag|Component⟧<User> ⟦attribute|value⟧={user} />;",
+      "note": "generic JSX component"
+    },
+    {
+      "id": "tsx-types-004",
+      "category": "tsx/types",
+      "documentKind": "tsx",
+      "source": "const node = <⟦tag|List⟧<User, string> ⟦attribute|items⟧={users} ⟦attribute|getKey⟧={(user) => user.id} />;",
+      "note": "multiple generic arguments"
+    },
+    {
+      "id": "tsx-types-005",
+      "category": "tsx/types",
+      "documentKind": "tsx",
+      "source": "function Card(props: { children?: React.ReactNode }) { return <⟦tag|article⟧>{props.children}</⟦tag|article⟧>; }",
+      "note": "React type in TSX function"
+    },
+    {
+      "id": "tsx-types-006",
+      "category": "tsx/types",
+      "documentKind": "tsx",
+      "source": "const node = <⟦tag|input⟧ ⟦attribute|ref⟧={inputRef as React.RefObject<HTMLInputElement>} />;",
+      "note": "type assertion in JSX prop"
+    },
+    {
+      "id": "tsx-ambiguity-001",
+      "category": "tsx/generic-ambiguity",
+      "documentKind": "tsx",
+      "source": "const identity = <⟦type-parameter|T⟧,>(value: T) => value;",
+      "note": "generic arrow disambiguated by trailing comma"
+    },
+    {
+      "id": "tsx-ambiguity-002",
+      "category": "tsx/generic-ambiguity",
+      "documentKind": "tsx",
+      "source": "const wrap = <⟦type-parameter|T⟧ extends object>(value: T) => ({ value });",
+      "note": "generic arrow with constraint"
+    },
+    {
+      "id": "tsx-ambiguity-003",
+      "category": "tsx/generic-ambiguity",
+      "documentKind": "tsx",
+      "source": "const pair = <⟦type-parameter|T⟧, ⟦type-parameter|U⟧>(left: T, right: U) => [left, right] as const;",
+      "note": "two generic parameters"
+    },
+    {
+      "id": "tsx-ambiguity-004",
+      "category": "tsx/generic-ambiguity",
+      "documentKind": "tsx",
+      "source": "const node = condition ? <⟦tag|Foo⟧ /> : <⟦tag|Bar⟧ />;",
+      "note": "conditional JSX should remain tags"
+    },
+    {
+      "id": "tsx-ambiguity-005",
+      "category": "tsx/generic-ambiguity",
+      "documentKind": "tsx",
+      "source": "const factory = <⟦type-parameter|T⟧,>() => ({ render: (value: T) => <⟦tag|span⟧>{String(value)}</⟦tag|span⟧> });",
+      "note": "generic arrow containing JSX"
+    },
+    {
+      "id": "tsx-ambiguity-006",
+      "category": "tsx/generic-ambiguity",
+      "documentKind": "tsx",
+      "source": "const node = <⟦tag|Table⟧<Row> ⟦attribute|rows⟧={rows} ⟦attribute|renderRow⟧={(row) => <⟦tag|RowView⟧ ⟦attribute|row⟧={row} />} />;",
+      "note": "generic component with JSX callback"
+    },
+    {
+      "id": "tsx-realistic-001",
+      "category": "tsx/realistic",
+      "documentKind": "tsx",
+      "source": "export function Counter() { const [count, setCount] = useState(0); return <⟦tag|button⟧ ⟦attribute|type⟧=\"button\" ⟦attribute|onClick⟧={() => setCount((value) => value + 1)}>Count: {count}</⟦tag|button⟧>; }",
+      "note": "React hook component"
+    },
+    {
+      "id": "tsx-realistic-002",
+      "category": "tsx/realistic",
+      "documentKind": "tsx",
+      "source": "export function Profile({ user }: { user: User }) { return <⟦tag|article⟧ ⟦attribute|className⟧=\"card\"><⟦tag|img⟧ ⟦attribute|src⟧={user.avatarUrl} ⟦attribute|alt⟧=\"\" /><⟦tag|h2⟧>{user.name}</⟦tag|h2⟧></⟦tag|article⟧>; }",
+      "note": "typed profile component"
+    },
+    {
+      "id": "tsx-realistic-003",
+      "category": "tsx/realistic",
+      "documentKind": "tsx",
+      "source": "export function Tasks({ tasks }: Props) { return <⟦tag|ul⟧>{tasks.map((task) => <⟦tag|li⟧ ⟦attribute|key⟧={task.id}><⟦tag|TaskRow⟧ ⟦attribute|task⟧={task} /></⟦tag|li⟧>)}</⟦tag|ul⟧>; }",
+      "note": "typed list rendering"
+    },
+    {
+      "id": "tsx-realistic-004",
+      "category": "tsx/realistic",
+      "documentKind": "tsx",
+      "source": "export function Panel({ children, open }: Props) { return open ? <⟦tag|section⟧ ⟦attribute|aria-hidden⟧={!open}>{children}</⟦tag|section⟧> : null; }",
+      "note": "conditional return"
+    },
+    {
+      "id": "tsx-realistic-005",
+      "category": "tsx/realistic",
+      "documentKind": "tsx",
+      "source": "export function Form() { return <⟦tag|form⟧ ⟦attribute|onSubmit⟧={(event) => { event.preventDefault(); submit(); }}><⟦tag|input⟧ ⟦attribute|name⟧=\"email\" ⟦attribute|required⟧ /><⟦tag|button⟧ ⟦attribute|type⟧=\"submit\">Send</⟦tag|button⟧></⟦tag|form⟧>; }",
+      "note": "form handlers and boolean prop"
+    },
+    {
+      "id": "tsx-realistic-006",
+      "category": "tsx/realistic",
+      "documentKind": "tsx",
+      "source": "export function EmptyState() { return <><⟦tag|Icon⟧ ⟦attribute|name⟧=\"inbox\" /><⟦tag|p⟧>⟦outside|Nothing here yet⟧</⟦tag|p⟧></>; }",
+      "note": "fragment with component and JSX text"
+    }
+  ]
+}
