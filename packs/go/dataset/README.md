@@ -171,3 +171,21 @@ No test requires installing or importing GORM, Gin, or a validator framework int
 - [Go importer documentation](https://pkg.go.dev/go/importer)
 - [Go struct types](https://go.dev/ref/spec#Struct_types)
 - [StructTag conventions](https://pkg.go.dev/reflect#StructTag)
+
+## Preparing the first training inputs
+
+The next stage is implemented in `training/go`. Its commands are:
+
+```bash
+make dataset-go-applications
+make dataset-go-focused
+make dataset-go-prepare
+```
+
+Application collection reuses this module pipeline with
+`dataset/sources/applications.json`. Focused Gold is generated in a separate
+immutable curriculum. Preparation reads the already completed corpus JSONL files,
+checks quality and provenance, groups duplicates before splitting, and writes
+512-byte model-input snapshots. It does not recollect or relabel the eight
+existing natural corpora. See [Go Training Data](../../../training/go/README.md)
+for output formats, Gold quality gates, split policies, and explicit limitations.

@@ -5,6 +5,10 @@
 	dataset-typescript \
 	dataset-go \
 	dataset-go-official \
+	dataset-go-applications \
+	dataset-go-focused \
+	dataset-go-prepare \
+	test-training-data-go \
 	dataset-go-collect \
 	dataset-go-label \
 	dataset-go-validate \
@@ -44,6 +48,7 @@ ANALYSIS_EXAMPLES ?= 30
 check:
 	pnpm all
 	$(MAKE) test-labeling-go
+	$(MAKE) test-training-data-go
 	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'
@@ -67,6 +72,18 @@ dataset-go:
 
 dataset-go-official:
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset modules --config dataset/sources/official.json --source "$(GO_CORPUS)"
+
+dataset-go-applications:
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset modules --config dataset/sources/applications.json --source "$(GO_CORPUS)"
+
+dataset-go-focused:
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-focus
+
+dataset-go-prepare:
+	$(PYTHON) training/go/prepare.py
+
+test-training-data-go:
+	$(PYTHON) -m unittest discover -s training/go/tests -v
 
 dataset-go-collect:
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset collect

@@ -354,7 +354,7 @@ func isOperator(tok token.Token) bool {
 		token.AND, token.OR, token.XOR, token.SHL, token.SHR, token.AND_NOT,
 		token.ADD_ASSIGN, token.SUB_ASSIGN, token.MUL_ASSIGN, token.QUO_ASSIGN, token.REM_ASSIGN,
 		token.AND_ASSIGN, token.OR_ASSIGN, token.XOR_ASSIGN, token.SHL_ASSIGN, token.SHR_ASSIGN, token.AND_NOT_ASSIGN,
-		token.LAND, token.LOR, token.ARROW, token.INC, token.DEC,
+		token.LAND, token.LOR, token.ARROW, token.INC, token.DEC, token.TILDE,
 		token.EQL, token.LSS, token.GTR, token.ASSIGN, token.NOT,
 		token.NEQ, token.LEQ, token.GEQ, token.DEFINE:
 		return true
@@ -375,6 +375,11 @@ func isPunctuation(tok token.Token) bool {
 
 func (l *labeler) labelIdentifiers() {
 	l.addNode(l.file.Name, "namespace", "declaration")
+
+	guardDeclarations := make(map[*ast.Ident]bool)
+	for _, identifier := range typeSwitchDeclarations(l.file) {
+		guardDeclarations[identifier] = true
+	}
 
 	parents := make(map[ast.Node]ast.Node)
 	ast.Inspect(l.file, func(node ast.Node) bool {
@@ -405,6 +410,11 @@ func (l *labeler) labelIdentifiers() {
 			} else {
 				l.addNode(ident, "variable")
 			}
+			return true
+		}
+
+		if guardDeclarations[ident] {
+			l.addNode(ident, "variable", "declaration")
 			return true
 		}
 

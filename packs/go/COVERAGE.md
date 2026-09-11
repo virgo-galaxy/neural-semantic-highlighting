@@ -294,3 +294,20 @@ A new release should not be considered covered merely because the current compil
 - Go 1.25 release notes: <https://go.dev/doc/go1.25>
 - Go 1.26 release notes: <https://go.dev/doc/go1.26>
 - Go 1.27 release notes: <https://go.dev/doc/go1.27>
+
+## Training-input preparation milestone
+
+The first focused curriculum and the grouped 512-byte data builder are documented
+in [Go Training Data](../../training/go/README.md). The generator has 36 independent
+template families across 12 feature groups, with separate structural forms for
+training, validation, and test. Actual generated counts and toolchain identity
+are recorded when the command runs; adding a template is not evidence that a
+trained model supports the feature.
+
+The application-framework source allowlist includes Gin and GORM implementations.
+Struct tags remain `string`; no framework-specific token roles are introduced.
+Go `~` approximation elements are `operator`, including when older stored Gold
+requires the explicitly reported missing-tilde correction during preparation.
+No model accuracy, framework completeness, or whole-language coverage is claimed
+by this milestone. Existing checklist items remain unchecked until their required
+evidence is available.
