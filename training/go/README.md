@@ -1,12 +1,16 @@
-# Go Training Data
+# Go Training
 
-This directory prepares model inputs. It does not train or publish a Go model yet.
+This directory prepares model inputs and trains the first local Go neural baseline.
+See [TRAINING.md](TRAINING.md) for smoke training, full runs, checkpoint resume,
+source prediction, and evaluation. No Go model is selected or published automatically.
+
+The sections below describe the existing data-preparation pipeline.
 The Go Gold toolchain remains `go1.27.1`; Python preparation uses the existing
 project environment and the Python standard library only. A lazy, persistent
 Go parser helper can repair a specific legacy declaration omission. Its
-`GOTOOLCHAIN=go1.27.1` setting applies only to that child process. No new Python
-package, global installation, saved environment setting, or Go module dependency
-is required.
+`GOTOOLCHAIN=go1.27.1` setting applies only to that child process. Data preparation needs no additional Python package, global installation, saved
+environment setting, or Go module dependency. Training and its new tests use
+PyTorch from the existing project `.venv`, as the TypeScript trainer already does.
 
 ## Run from the repository root
 
@@ -176,7 +180,7 @@ The memory-mapped reader exposes separate attention, label, and modifier masks.
 A trainer must not apply modifier loss to every byte indiscriminately.
 
 Natural and focused windows carry separate stream metadata; this stage does not
-replicate or oversample focused windows. A future training loop can interleave
+replicate or oversample focused windows. The Go training loop interleaves
 these streams without treating held-out examples as training data. Public
 `HighlightResult` offsets remain UTF-16; training byte offsets are internal.
 
@@ -230,7 +234,8 @@ Do not delete corpus source locks or historical artifacts as a routine retry.
 
 ## Verification
 
-`make check` runs the focused Go tests and the standard-library-only Python tests.
+`make check` runs the focused Go tests, Python data tests, and CPU-only PyTorch
+trainer regressions. The data tests remain independent of an accelerator.
 The tests cover the existing Gold fixture offsets, Unicode/CRLF, masks, long-span
 progress, evaluation without Gold cuts, duplicates, grouped split conflicts,
 quarantine, missing inputs, corrupted columns, replay, and memory-mapped reads.

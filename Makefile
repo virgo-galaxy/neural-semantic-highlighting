@@ -9,6 +9,11 @@
 	dataset-go-focused \
 	dataset-go-prepare \
 	test-training-data-go \
+	train-go-smoke \
+	train-go \
+	continue-go \
+	predict-go \
+	evaluate-go \
 	dataset-go-collect \
 	dataset-go-label \
 	dataset-go-validate \
@@ -31,6 +36,15 @@
 PYTHON := .venv/bin/python
 GO_GOLD_TOOLCHAIN := go1.27.1
 GO_CORPUS ?=
+GO_DEVICE ?= auto
+GO_EPOCHS ?= 32
+GO_BATCH_SIZE ?= 32
+GO_FOCUS_BATCH_SIZE ?= 16
+GO_FOCUS_EVERY ?= 8
+GO_RUN ?=
+GO_CHECKPOINT ?=
+GO_SOURCE ?=
+GO_EVAL_SPLIT ?= validation
 
 MAX_LENGTH ?= 512
 EPOCHS ?= 32
@@ -176,3 +190,28 @@ challenge-jsx-tsx-typescript:
 		--checkpoint $(ARTIFACT_DIR)/best.pt \
 		--max-errors 50 \
 		--output $(ARTIFACT_DIR)/jsx-tsx-challenge.json
+
+# Go training reads prepared snapshots; it never recollects or relabels corpora.
+train-go-smoke:
+	$(PYTHON) training/go/train.py --smoke --epochs 1 --device $(GO_DEVICE) \
+		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
+		--focus-every $(GO_FOCUS_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+
+train-go:
+	$(PYTHON) training/go/train.py --epochs $(GO_EPOCHS) --device $(GO_DEVICE) \
+		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
+		--focus-every $(GO_FOCUS_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+
+continue-go:
+	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) training/go/train.py --resume "$(GO_CHECKPOINT)" --epochs $(GO_EPOCHS) --device $(GO_DEVICE)
+
+predict-go:
+	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to a Go checkpoint'; exit 1)
+	$(PYTHON) training/go/predict.py --checkpoint "$(GO_CHECKPOINT)" --device $(GO_DEVICE) \
+		$(if $(GO_SOURCE),--source "$(GO_SOURCE)")
+
+evaluate-go:
+	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to a Go checkpoint'; exit 1)
+	$(PYTHON) training/go/evaluate.py --checkpoint "$(GO_CHECKPOINT)" --device $(GO_DEVICE) \
+		--split $(GO_EVAL_SPLIT) --inference adaptive
