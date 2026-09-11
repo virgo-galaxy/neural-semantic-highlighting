@@ -312,6 +312,34 @@ class TrainerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "snapshot/hash/schema"):
             run(args)
 
+    def test_init_from_allows_new_snapshot_and_records_lineage(self):
+        source_run = self.folder / "source-run"
+        with contextlib.redirect_stdout(io.StringIO()):
+            run(self.options(source_run), model_config=self.tiny_model())
+        source_checkpoint = source_run / "best.pt"
+        imported_snapshot = self.folder / "snapshot-v2"
+        import shutil
+        shutil.copytree(self.snapshot.path, imported_snapshot)
+        manifest_path = imported_snapshot / "manifest.json"
+        manifest = json.loads(manifest_path.read_text())
+        manifest["snapshot"] = "unit-test-snapshot-v2"
+        manifest_path.write_text(json.dumps(manifest))
+        output = self.folder / "transfer-run"
+        args = parser().parse_args(["--snapshot", str(imported_snapshot), "--output-dir", str(output),
+                                    "--init-from", str(source_checkpoint), "--smoke", "--epochs", "1",
+                                    "--device", "cpu", "--cpu-threads", "1", "--batch-size", "2",
+                                    "--focus-batch-size", "2", "--focus-every", "1",
+                                    "--smoke-main-batches", "2", "--smoke-eval-windows", "8"])
+        with contextlib.redirect_stdout(io.StringIO()):
+            run(args)
+        checkpoint = load_checkpoint(output / "last.pt")
+        self.assertEqual(checkpoint["epoch"], 1)
+        self.assertEqual(checkpoint["dataset"]["snapshot"], "unit-test-snapshot-v2")
+        run_info = json.loads((output / "run.json").read_text())
+        self.assertEqual(run_info["lineage"]["mode"], "weights-only-transfer")
+        self.assertEqual(run_info["lineage"]["sourceEpoch"], 1)
+
+
     def test_adaptive_long_span_progress_and_unicode(self):
         class InsideModel:
             config = ModelConfig()

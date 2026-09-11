@@ -10,6 +10,7 @@ import torch
 
 from checkpoints import atomic_json, load_checkpoint, model_from_checkpoint, select_device
 from metrics import evaluate_adaptive, evaluate_fixed
+from quality import TARGET_F1, targeted_gate_summary, targeted_scores
 from trainer_data import Snapshot, WindowSplit, sha256_file
 
 
@@ -43,6 +44,7 @@ def main() -> int:
             report = evaluate_adaptive(model, split, device, threshold=threshold)
         else:
             report = evaluate_fixed(model, split, device, threshold=threshold, batch_size=args.batch_size)
+        report["targetedRoleGate"] = targeted_gate_summary(report)
         report.update(dataset=snapshot.identity(), checkpointHash=sha256_file(args.checkpoint),
                       checkpointEpoch=checkpoint["epoch"], smokeCheckpoint=checkpoint["trainingConfig"]["smoke"])
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S-%f")
@@ -51,6 +53,11 @@ def main() -> int:
         for kind, values in report["streams"].items():
             print(f"{kind}: {values['documents']} documents, exact F1={values['exactSpan']['f1']:.4f}, "
                   f"macro={values['exactSpanMacroF1']:.4f}")
+        print(f"Targeted role scoreboard (gate >= {TARGET_F1:.2f})")
+        for row in targeted_scores(report):
+            value = 'n/a' if row['f1'] is None else f"{row['f1']:.4f}"
+            status = 'PASS' if row['passed'] else 'FAIL'
+            print(f"  {row['feature']} / {row['role']}: {value} (support {row['support']}) {status}")
         print(f"Report: {output}")
         return 0
     except (ValueError, OSError, RuntimeError) as error:

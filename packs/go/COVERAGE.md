@@ -311,3 +311,27 @@ requires the explicitly reported missing-tilde correction during preparation.
 No model accuracy, framework completeness, or whole-language coverage is claimed
 by this milestone. Existing checklist items remain unchecked until their required
 evidence is available.
+
+## Focused Curriculum V2 acceptance gate
+
+The first baseline demonstrated strong aggregate Go performance but unstable
+held-out results for several rare modern-language roles. V2 therefore treats the
+following role-level scores as explicit acceptance gates rather than relying on
+overall exact-span F1 alone:
+
+| Feature                              | Required role    | Minimum held-out F1 |
+| ------------------------------------ | ---------------- | ------------------: |
+| self-referential constraints         | `interface`      |                0.90 |
+| range over function/method iterators | `method`         |                0.90 |
+| Go 1.27 generic methods              | `method`         |                0.90 |
+| generic aliases                      | `type-parameter` |                0.90 |
+| struct tags                          | `string`         |                0.90 |
+
+V2 increases structural diversity, adds hard negatives, and mines explicitly
+allowlisted real modules for matching syntax. Renaming one template many times is
+not considered structural coverage. The protected V1 model remains a regression
+baseline; a V2 fine-tune must not materially degrade ordinary natural-code roles.
+
+The current historical test set has already been inspected during V1 analysis and
+must not be treated as a final sealed blind benchmark for V2. A separate unseen
+challenge is required before making a final support claim after targeted tuning.

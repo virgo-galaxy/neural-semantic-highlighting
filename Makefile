@@ -7,10 +7,13 @@
 	dataset-go-official \
 	dataset-go-applications \
 	dataset-go-focused \
+	dataset-go-focused-v2 \
+	dataset-go-targeted \
 	dataset-go-prepare \
 	test-training-data-go \
 	train-go-smoke \
 	train-go \
+	train-go-v2 \
 	continue-go \
 	predict-go \
 	evaluate-go \
@@ -41,6 +44,8 @@ GO_EPOCHS ?= 3
 GO_BATCH_SIZE ?= 32
 GO_FOCUS_BATCH_SIZE ?= 16
 GO_FOCUS_EVERY ?= 8
+GO_FOCUS_V2_VARIANTS ?= 8
+GO_INIT_CHECKPOINT ?=
 GO_LOG_EVERY ?= 25
 GO_RUN ?=
 GO_CHECKPOINT ?=
@@ -93,6 +98,16 @@ dataset-go-applications:
 
 dataset-go-focused:
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-focus
+
+dataset-go-focused-v2:
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-focus \
+		--profile v2 --id modern-v2r1 --variants $(GO_FOCUS_V2_VARIANTS)
+
+dataset-go-targeted:
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset modules \
+		--config dataset/sources/targeted.json --source "$(GO_CORPUS)"
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-mine \
+		--config dataset/sources/targeted.json --id targeted-real-v2
 
 dataset-go-prepare:
 	$(PYTHON) training/go/prepare.py
@@ -200,6 +215,12 @@ train-go-smoke:
 
 train-go:
 	$(PYTHON) training/go/train.py --epochs $(GO_EPOCHS) --device $(GO_DEVICE) \
+		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
+		--focus-every $(GO_FOCUS_EVERY) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+
+train-go-v2:
+	@test -n "$(GO_INIT_CHECKPOINT)" || (echo 'Set GO_INIT_CHECKPOINT to the V1 Go best.pt'; exit 1)
+	$(PYTHON) training/go/train.py --init-from "$(GO_INIT_CHECKPOINT)" --epochs $(GO_EPOCHS) --device $(GO_DEVICE) \
 		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
 		--focus-every $(GO_FOCUS_EVERY) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
 

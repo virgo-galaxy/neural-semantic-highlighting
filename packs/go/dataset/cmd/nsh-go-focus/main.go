@@ -10,7 +10,8 @@ import (
 
 func main() {
 	id := flag.String("id", "modern-v1", "Immutable focused corpus id")
-	variants := flag.Int("variants", 16, "Variants per independent template family (1..32)")
+	profile := flag.String("profile", "v1", "Focused curriculum profile: v1 or v2")
+	variants := flag.Int("variants", 16, "Variants per structural family (1..32)")
 	flag.Parse()
 	if flag.NArg() != 0 {
 		fmt.Fprintln(os.Stderr, "unexpected positional arguments")
@@ -19,7 +20,7 @@ func main() {
 	root, err := dataset.Root()
 	if err == nil {
 		var path string
-		path, err = dataset.BuildFocusedCorpus(root, *id, *variants, func(current, total int, name string) {
+		path, err = dataset.BuildFocusedCorpusProfile(root, *id, *variants, *profile, func(current, total int, name string) {
 			fmt.Printf("[%d/%d] focused: %s\n", current, total, name)
 		})
 		if err == nil {

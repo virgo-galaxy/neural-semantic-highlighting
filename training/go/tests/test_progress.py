@@ -58,7 +58,16 @@ class ProgressTests(unittest.TestCase):
         losses = {'total': .3, 'boundary': .1, 'token_type': .15, 'modifier': .5}
         trained = {'seconds': 6, 'natural': {'batchMeanLoss': losses, 'batches': 8},
                    'focus': {'batchMeanLoss': losses, 'batches': 1}}
-        val = {'seconds': 3, 'streams': {'natural': self.metrics(), 'focus': self.metrics()}}
+        target_features = {
+            'self-reference': ('interface', .91),
+            'function-range': ('method', .92),
+            'generic-method': ('method', .93),
+            'generic-alias': ('type-parameter', .94),
+            'struct-tags': ('string', .95),
+        }
+        val = {'seconds': 3, 'streams': {'natural': self.metrics(), 'focus': self.metrics()},
+               'focusFeatures': {feature: {'byTokenType': {role: {'f1': score, 'support': 12}}}
+                                 for feature, (role, score) in target_features.items()}}
         state = {'bestScore': .6, 'bestEpoch': 1, 'epochsWithoutImprovement': 0}
         before = copy.deepcopy((trained, val, state))
         text = epoch_report(trained, val, state, epoch_seconds=10, checkpoint_seconds=1,
@@ -72,7 +81,8 @@ class ProgressTests(unittest.TestCase):
         for name in ['train loss:', 'boundary loss:', 'token type loss:', 'modifier loss:',
                      'focus loss:', 'boundary macro F1:', 'token type macro F1:',
                      'exact span F1:', 'exact span macro F1:', 'predicted/gold spans:',
-                     'modifier F1 (Gold starts):', 'Natural validation', 'Focused validation']:
+                     'modifier F1 (Gold starts):', 'Natural validation', 'Focused validation',
+                     'Targeted role scoreboard', 'self-reference / interface:', 'struct-tags / string:']:
             self.assertIn(name, text)
         self.assertIn('lower is better', text)
         self.assertIn('higher F1 is better', text)

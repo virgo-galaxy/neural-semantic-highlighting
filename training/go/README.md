@@ -17,7 +17,8 @@ PyTorch from the existing project `.venv`, as the TypeScript trainer already doe
 ```bash
 make check
 make dataset-go-applications
-make dataset-go-focused
+make dataset-go-targeted
+make dataset-go-focused-v2
 make dataset-go-prepare
 ```
 
@@ -29,7 +30,8 @@ a claim that arbitrary real-world application patterns are already covered.
 The existing collector locks versions and keeps dependencies outside the repository.
 
 `training/go/corpora.json` explicitly selects the standard library, seven official
-modules, two application-framework modules, and the first focused curriculum.
+modules, two application-framework modules, the V2 focused curriculum, and a
+train-only targeted-real curriculum mined from explicitly allowlisted modules.
 Missing sources cause a clear error instead of silently creating a smaller dataset.
 The corpus selector can be supplied explicitly with `prepare.py --config`.
 
@@ -61,6 +63,50 @@ The held-out template forms are useful pipeline diagnostics. They are not a
 replacement for an independent, real-source challenge set or unseen-project
 model evaluation. Template variants differ in names, numeric types, and values;
 the reported variant count must not be presented as architectural diversity.
+
+## Focused Curriculum V2 and targeted real-source mining
+
+V2 keeps the non-targeted V1 feature families but replaces the five known weak
+families with multiple independent source shapes rather than one shape plus renamed
+variants. The targeted families are `self-reference`, `function-range`,
+`generic-method`, `generic-alias`, and `struct-tags`. Each has multiple train
+structures, at least two independent validation structures, at least two independent
+test structures, and train-only hard negatives. Variants still change names and
+primitive types, but no longer stand in for structural diversity.
+
+The targeted miner is intentionally not a broad GitHub crawler. It downloads only
+modules listed in `packs/go/dataset/sources/targeted.json`, runs the existing strict
+Gold pipeline, parses each source file, and keeps only files that contain reliable
+source-level target structures. The mined records are train-only focused examples;
+validation and test remain structurally independent generated families. This avoids
+turning files already used for natural evaluation into duplicated focused training
+examples.
+
+Run the V2 inputs with:
+
+```bash
+make dataset-go-targeted
+make dataset-go-focused-v2
+make dataset-go-prepare
+```
+
+The first allowlisted real-world seed is a Go 1.27 generic-method library. The
+allowlist is deliberately small and auditable; expand it only when a module adds
+new structural evidence for one of the target features.
+
+After preparation, initialize a new V2 run from a protected V1 `best.pt` without
+reusing its optimizer, RNG, early-stopping state, or old dataset identity:
+
+```bash
+make train-go-v2 \
+  GO_INIT_CHECKPOINT=artifacts/go/context512-RUN/best.pt \
+  GO_EPOCHS=1
+```
+
+`--init-from` is weights-only transfer to a new prepared snapshot. It is distinct
+from `--resume`, which is valid only for `last.pt` on the exact saved snapshot.
+Start with one short V2 epoch, inspect the targeted role scoreboard, then extend
+only if the weak roles improve without a material natural-code regression.
 
 ## Grouping before windows
 
@@ -196,7 +242,10 @@ go/
     x-sync/
     ...
   curricula/
-    modern-v1/
+    modern-v2r1/
+      sample.json
+      labeled-sample.jsonl
+    targeted-real-v2/
       sample.json
       labeled-sample.jsonl
   prepared/
@@ -256,3 +305,5 @@ Go 1.27.1 toolchain and do not skip newer language fixtures.
 - [Go 1.27 release notes](https://go.dev/doc/go1.27)
 - [Go type-checker information](https://pkg.go.dev/go/types#Info)
 - [Go module reference](https://go.dev/ref/mod)
+
+Targeted mined training examples that collide with held-out focused near-copy fingerprints are excluded during preparation and recorded in `focused-near-copy-exclusions.jsonl`; synthetic split collisions remain fatal.

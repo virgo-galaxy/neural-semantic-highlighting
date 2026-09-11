@@ -20,6 +20,7 @@ from losses import compute_loss
 from metrics import evaluate_fixed, evaluation_indices
 from model import GoSemanticTransformer, ModelConfig, parameter_count
 from progress import epoch_report, training_line
+from quality import targeted_gate_summary
 from trainer_data import Snapshot, WindowSplit, epoch_batches, sha256_file, training_weights
 
 
@@ -119,7 +120,10 @@ def _fresh_directory(path: Path | None, smoke: bool) -> Path:
 
 
 def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) -> Path:
+    if args.resume and args.init_from:
+        raise ValueError("Use either --resume or --init-from, not both")
     checkpoint = load_checkpoint(args.resume) if args.resume else None
+    init_checkpoint = load_checkpoint(args.init_from) if args.init_from else None
     config = make_config(args, checkpoint)
     epochs = args.epochs if args.epochs is not None else (1 if config.smoke else DEFAULT_EPOCHS)
     if epochs < 1 or args.log_every < 1:
@@ -131,6 +135,8 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
     snapshot = Snapshot.open(snapshot_arg)
     if checkpoint and (checkpoint["dataset"] != snapshot.identity() or checkpoint["schema"] != snapshot.schema):
         raise ValueError("Resume checkpoint snapshot/hash/schema does not match these prepared data")
+    if init_checkpoint and init_checkpoint["schema"] != snapshot.schema:
+        raise ValueError("Initialization checkpoint schema does not match these prepared data")
     device = select_device(args.device)
     seed_all(config.seed)
     torch_threads = args.cpu_threads
@@ -156,6 +162,7 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
             if any(not ids for ids in split.streams.values()):
                 raise ValueError(f"Both streams are required in {name}")
             print(f"{name}: {len(split.streams['natural'])} natural + {len(split.streams['focus'])} focus windows", flush=True)
+        lineage = None
         if checkpoint:
             directory = args.resume.expanduser().resolve().parent
             if args.output_dir is not None and args.output_dir.expanduser().resolve() != directory:
@@ -167,6 +174,24 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
             stored_weights = checkpoint["lossWeights"]
             print(f"Resume checkpoint: {args.resume.expanduser().resolve()}", flush=True)
             print(f"Completed epochs: {start_epoch}; next epoch: {start_epoch + 1}", flush=True)
+        elif init_checkpoint:
+            model = model_from_checkpoint(init_checkpoint, device)
+            if model.config.context_bytes != snapshot.manifest["contextBytes"]:
+                raise ValueError("Initialization checkpoint model context and dataset context do not match")
+            start_epoch = 0
+            state = {"bestScore": -1.0, "bestEpoch": 0, "epochsWithoutImprovement": 0, "optimizerSteps": 0}
+            print("Counting new-snapshot training-only label frequencies for capped loss weights ...", flush=True)
+            stored_weights = training_weights(train_split)
+            directory = _fresh_directory(args.output_dir, config.smoke)
+            lineage = {
+                "mode": "weights-only-transfer",
+                "checkpoint": str(args.init_from.expanduser().resolve()),
+                "checkpointHash": sha256_file(args.init_from.expanduser().resolve()),
+                "sourceEpoch": init_checkpoint["epoch"],
+                "sourceDataset": init_checkpoint["dataset"],
+            }
+            print(f"Initialized weights from: {args.init_from.expanduser().resolve()}", flush=True)
+            print("Optimizer/RNG/training state: fresh for the new dataset snapshot", flush=True)
         else:
             model = GoSemanticTransformer(model_config or ModelConfig(), len(snapshot.schema["tokenTypes"]),
                                           len(snapshot.schema["modifiers"])).to(device)
@@ -205,6 +230,7 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                     "format": "nsh-go-training-run-v1", "dataset": snapshot.identity(), "snapshotPath": str(snapshot.path),
                     "schema": snapshot.schema, "model": model.config.to_dict(), "training": asdict(config),
                     "device": device.type, "torchVersion": str(torch.__version__), "initialEpochBudget": epochs,
+                    "lineage": lineage,
                     "trainerFiles": {p.name: sha256_file(p) for p in sorted(Path(__file__).parent.glob("*.py"))
                                      if p.name not in {"prepare.py", "repair.py", "splitting.py"}},
                     "selection": "validation natural whole-document exact-span F1; fixed-window inference; excludes modifiers",
@@ -219,6 +245,7 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                 validation = evaluate_fixed(model, val_split, device, batch_size=config.batch_size,
                                             threshold=config.modifier_threshold, log_every=args.log_every,
                                             max_windows_per_stream=config.smoke_eval_windows if config.smoke else 0)
+                validation["targetedRoleGate"] = targeted_gate_summary(validation)
                 score = validation["streams"]["natural"]["exactSpan"]["f1"]
                 improved = score > state["bestScore"] + 1e-9
                 if improved:
@@ -289,7 +316,8 @@ def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument("--snapshot", type=Path, help="Snapshot directory or current.json; resume defaults to its saved snapshot")
     result.add_argument("--output-dir", type=Path, help="Empty output directory; default is a new timestamped artifacts/go run")
-    result.add_argument("--resume", type=Path, help="Resume a last.pt; epochs are additional, not an absolute target")
+    result.add_argument("--resume", type=Path, help="Resume a last.pt on the exact saved dataset snapshot")
+    result.add_argument("--init-from", type=Path, help="Initialize model weights from a Go checkpoint on a new dataset snapshot; optimizer/RNG are fresh")
     result.add_argument("--epochs", type=int, help="Additional epochs; default 1 for smoke and 3 otherwise")
     result.add_argument("--device", choices=["auto", "mps", "cuda", "cpu"], default="auto")
     result.add_argument("--cpu-threads", type=int)

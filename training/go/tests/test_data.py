@@ -14,7 +14,7 @@ GO_TRAINING = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(GO_TRAINING))
 from encoding import BEGIN, IGNORE, INSIDE, PAD, Schema, digest, encode, padded_window, repair_missing_tildes, windows
 from dataset import GoWindowDataset
-from prepare import Groups, build, dumps, hash_split, verify_output
+from prepare import Groups, build, dumps, focused_copy_exclusions, hash_split, verify_output
 
 ROOT = GO_TRAINING.parents[1]
 SCHEMA = Schema.load(ROOT / "packs/go/schema.json")
@@ -226,6 +226,80 @@ class BuilderTests(unittest.TestCase):
             self.write_corpus(folder, rows)
             with self.assertRaisesRegex(ValueError, "split conflict"):
                 self.run_build(root, config)
+
+    def test_targeted_mined_copy_conflict_prefers_heldout(self):
+        copies = Groups()
+        copies.union("real", "heldout")
+        hints = {"family:real": {"train"}, "family:heldout": {"validation"}}
+        provenance = {
+            "real": [{"corpus": "targeted", "package": "real", "path": "real.go", "group": "family:real",
+                      "split": "train", "focusedGenerator": "targeted-go-feature-miner-v1"}],
+            "heldout": [{"corpus": "synthetic", "package": "sample", "path": "validation.go", "group": "family:heldout",
+                         "split": "validation", "focusedGenerator": "modern-go-focused-v2"}],
+        }
+        origins, documents = focused_copy_exclusions(provenance, hints, copies)
+        self.assertEqual(documents, {"real"})
+        self.assertEqual(len(origins), 1)
+        self.assertEqual(origins[0]["reason"], "targeted-train-near-heldout-focused-copy")
+
+    def test_synthetic_copy_conflict_still_fails(self):
+        copies = Groups()
+        copies.union("train", "heldout")
+        hints = {"family:train": {"train"}, "family:heldout": {"validation"}}
+        provenance = {
+            "train": [{"corpus": "synthetic", "package": "sample", "path": "train.go", "group": "family:train",
+                       "split": "train", "focusedGenerator": "modern-go-focused-v2"}],
+            "heldout": [{"corpus": "synthetic", "package": "sample", "path": "validation.go", "group": "family:heldout",
+                         "split": "validation", "focusedGenerator": "modern-go-focused-v2"}],
+        }
+        with self.assertRaisesRegex(ValueError, "split conflict"):
+            focused_copy_exclusions(provenance, hints, copies)
+
+    def test_targeted_real_train_near_heldout_is_excluded(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            synthetic = root / "curricula/synthetic"
+            targeted = root / "curricula/targeted"
+            synthetic.mkdir(parents=True); targeted.mkdir(parents=True)
+
+            train_seed = make_record(
+                "[12]",
+                [span(0, 1, "punctuation"), span(1, 3, "number"), span(3, 4, "punctuation")],
+                path="train.go",
+            )
+            train_seed.update(family="train-family", features=["baseline"], since="1.18", variant=0, split="train")
+            heldout = make_record("name", [span(0, 4, "variable")], path="validation.go")
+            heldout.update(family="validation-family", features=["generic-method"], since="1.27", variant=0, split="validation")
+            test_seed = make_record("/* note */", [span(0, 10, "comment")], path="test.go")
+            test_seed.update(family="test-family", features=["baseline"], since="1.18", variant=0, split="test")
+            train = make_record("other", [span(0, 5, "variable")], path="real.go", package="real")
+            train.update(family="targeted-real/module/pkg", features=["generic-method"], since="1.27", variant=0, split="train")
+
+            def write(folder, corpus, records, generator):
+                manifest = {"formatVersion": 1, "corpus": corpus, "toolchain": "go1.27.1", "kind": "focused",
+                            "generator": generator,
+                            "files": [{"package": r["package"], "path": r["path"], "contentHash": r["contentHash"],
+                                       "size": len(r["source"].encode())} for r in records]}
+                (folder / "sample.json").write_text(dumps(manifest))
+                (folder / "labeled-sample.jsonl").write_text("".join(dumps(r)+"\n" for r in records))
+
+            write(synthetic, "synthetic", [train_seed, heldout, test_seed], "modern-go-focused-v2")
+            write(targeted, "targeted", [train], "targeted-go-feature-miner-v1")
+            config = root / "config.json"
+            config.write_text(dumps({"formatVersion": 1, "sources": [
+                {"id": "synthetic", "kind": "focused", "directory": "curricula/synthetic"},
+                {"id": "targeted", "kind": "focused", "directory": "curricula/targeted"},
+            ]}))
+
+            report = self.run_build(root, config)
+            self.assertEqual(report["inputCounts"]["heldoutNearCopyDocumentsExcluded"], 1)
+            self.assertEqual(report["inputCounts"]["heldoutNearCopyOriginsExcluded"], 1)
+            directory = root / "prepared" / report["snapshot"][:20]
+            rows = [json.loads(line) for line in (directory / "validation/documents.jsonl").read_text().splitlines()]
+            self.assertEqual([row["path"] for row in rows], ["validation.go"])
+            exclusions = [json.loads(line) for line in (directory / "focused-near-copy-exclusions.jsonl").read_text().splitlines()]
+            self.assertEqual(exclusions[0]["corpus"], "targeted")
+            self.assertEqual(exclusions[0]["reason"], "targeted-train-near-heldout-focused-copy")
 
     def test_manifest_missing_record_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:

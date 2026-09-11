@@ -81,6 +81,57 @@ def hash_split(group: str, seed: int) -> str:
     return "train" if bucket < 0.8 else "validation" if bucket < 0.9 else "test"
 
 
+def focused_copy_exclusions(provenance: dict[str, list[dict]], hints: dict[str, set[str]], copies: Groups) -> tuple[list[dict], set[str]]:
+    """Drop train-only mined examples that are near-copies of held-out focused data.
+
+    Synthetic train/validation/test families still fail closed. The miner is an
+    opportunistic source of extra training examples, so losing a colliding mined
+    example is preferable to weakening a held-out split.
+    """
+    targeted_generator = "targeted-go-feature-miner-v1"
+    members: dict[str, set[str]] = defaultdict(set)
+    component_hints: dict[str, set[str]] = defaultdict(set)
+    for sha, origins in provenance.items():
+        component = copies.find(sha)
+        members[component].add(sha)
+        for origin in origins:
+            component_hints[component].update(hints.get(origin["group"], set()))
+
+    excluded_origins: list[dict] = []
+    excluded_documents: set[str] = set()
+    for component, values in component_hints.items():
+        if len(values) <= 1:
+            continue
+        active_hints: set[str] = set()
+        targeted_origins: list[dict] = []
+        removable: set[str] = set()
+        active_groups: set[str] = set()
+        for sha in members[component]:
+            origins = provenance[sha]
+            active = []
+            for origin in origins:
+                if origin.get("focusedGenerator") == targeted_generator and origin.get("split") == "train":
+                    targeted_origins.append({"documentId": sha, **origin})
+                else:
+                    active.append(origin)
+                    active_groups.add(origin["group"])
+                    active_hints.update(hints.get(origin["group"], set()))
+            if origins and not active:
+                removable.add(sha)
+        if len(active_hints) > 1:
+            raise ValueError(
+                f"Near-copy/template split conflict in {component}: {sorted(active_hints)}; "
+                f"families={sorted(active_groups)}; revise templates instead of leaking them"
+            )
+        if targeted_origins and active_hints:
+            excluded_origins.extend(
+                {"copyFamily": component, "reason": "targeted-train-near-heldout-focused-copy", **origin}
+                for origin in targeted_origins
+            )
+            excluded_documents.update(removable)
+    return excluded_origins, excluded_documents
+
+
 def build(root: Path, config_path: Path, output: Path, *, max_length: int = 512, seed: int = 1729) -> dict:
     if max_length != 512:
         raise ValueError("This baseline is fixed at 512 UTF-8 bytes; do not change context silently")
@@ -244,7 +295,8 @@ def build_stage(stage: Path, inputs: list, schema: Schema, identity: dict, snaps
                                   "build": [manifest.get("goos"), manifest.get("goarch")],
                                   "goldMode": "legacy-stdlib" if spec["kind"] == "stdlib" else "strict"}
                         if spec["kind"] == "focused":
-                            origin.update(family=record["family"], since=record["since"], variant=record["variant"])
+                            origin.update(family=record["family"], since=record["since"], variant=record["variant"],
+                                          split=record["split"], focusedGenerator=manifest.get("generator"))
                         provenance[sha].append(origin)
                         gold_hash = digest(dumps(record["result"]).encode())
                         old = db.execute("SELECT group_id, gold_hash FROM documents WHERE hash=?", (sha,)).fetchone()
@@ -276,14 +328,28 @@ def build_stage(stage: Path, inputs: list, schema: Schema, identity: dict, snaps
         # Focused structural families retain their explicitly held-out splits.
         copy_origins: dict[str, set[str]] = defaultdict(set)
         copy_hints: dict[str, set[str]] = defaultdict(set)
+        copy_members: dict[str, set[str]] = defaultdict(set)
         for sha, origins in provenance.items():
             component = copies.find(sha)
+            copy_members[component].add(sha)
             for origin in origins:
                 copy_origins[component].add(origin["group"])
                 copy_hints[component].update(hints.get(origin["group"], set()))
-        for component, values in copy_hints.items():
-            if len(values) > 1:
-                raise ValueError(f"Near-copy/template split conflict in {component}: {sorted(values)}; revise templates instead of leaking them")
+
+        targeted_excluded_origins, targeted_excluded_documents = focused_copy_exclusions(provenance, hints, copies)
+        with (stage / "focused-near-copy-exclusions.jsonl").open("w", encoding="utf-8") as focused_exclusions:
+            for row in sorted(targeted_excluded_origins, key=lambda item: (item["copyFamily"], item["corpus"], item["package"], item["path"])):
+                focused_exclusions.write(dumps(row) + "\n")
+        for sha in targeted_excluded_documents:
+            db.execute("DELETE FROM documents WHERE hash=?", (sha,))
+            for origin in provenance[sha]:
+                if origin.get("focusedGenerator") == "targeted-go-feature-miner-v1":
+                    corpus = origin["corpus"]
+                    by_corpus[corpus]["heldoutNearCopyDocumentsExcluded"] = by_corpus[corpus].get("heldoutNearCopyDocumentsExcluded", 0) + 1
+        counts["heldoutNearCopyDocumentsExcluded"] = len(targeted_excluded_documents)
+        counts["heldoutNearCopyOriginsExcluded"] = len(targeted_excluded_origins)
+        db.commit()
+
         excluded_components = {component for component, origins in copy_origins.items()
                                if len(origins) > 1 and any(not group.startswith("family:") for group in origins)}
         excluded = [sha for sha in provenance if copies.find(sha) in excluded_components]
@@ -400,6 +466,7 @@ def main() -> None:
     print(f"Type-switch declarations repaired: {report['inputCounts'].get('repairedTypeSwitchDeclarations', 0)}")
     print(f"Documents recovered by type-switch repair: {report['inputCounts'].get('recoveredTypeSwitchDocuments', 0)}")
     print(f"Exact duplicates removed: {report['inputCounts'].get('exactDuplicatesRemoved', 0)}")
+    print(f"Targeted train near-copies of held-out focus excluded: {report['inputCounts'].get('heldoutNearCopyDocumentsExcluded', 0)}")
     print(f"Cross-source copy documents excluded: {report['inputCounts'].get('crossGroupCopyDocumentsExcluded', 0)}")
     print(f"Quarantined incomplete Gold documents: {report['inputCounts'].get('quarantinedDocuments', 0)}")
     for split, stats in report["splits"].items():

@@ -322,3 +322,33 @@ are engineering checks and are not appended to real model corpora.
 - [MPS backend](https://docs.pytorch.org/docs/stable/notes/mps.html)
 - [Checkpoint serialization](https://docs.pytorch.org/docs/stable/notes/serialization.html)
 - [Reproducibility limitations](https://docs.pytorch.org/docs/stable/notes/randomness.html)
+
+## Focused Curriculum V2 transfer runs
+
+A V2 prepared snapshot intentionally has a different dataset identity from the V1
+baseline. Do not use `--resume` across snapshots. Preserve the V1 `best.pt` and use
+weights-only initialization instead:
+
+```bash
+make train-go-v2 \
+  GO_INIT_CHECKPOINT=artifacts/go/context512-RUN/best.pt \
+  GO_EPOCHS=1
+```
+
+This loads only model weights. AdamW state, RNG state, early-stopping counters,
+loss weights, and checkpoint selection state are rebuilt for the new snapshot. The
+new run records its source checkpoint hash and epoch in `run.json`. The V1 run is
+never overwritten.
+
+Every validation report now prints a targeted role scoreboard. The current
+acceptance-oriented gate is F1 >= 0.90 for:
+
+- `self-reference / interface`
+- `function-range / method`
+- `generic-method / method`
+- `generic-alias / type-parameter`
+- `struct-tags / string`
+
+The scoreboard is diagnostic and does not silently change best-checkpoint selection,
+which remains natural exact-span F1. A V2 experiment is useful only when the weak
+roles improve while natural-code metrics remain stable.

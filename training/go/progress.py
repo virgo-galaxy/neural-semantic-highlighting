@@ -3,6 +3,8 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
+from quality import TARGET_F1, targeted_scores
+
 
 def duration(seconds: float) -> str:
     minutes, seconds = divmod(max(0, int(seconds)), 60)
@@ -70,6 +72,13 @@ def epoch_report(trained: Mapping, validation: Mapping, state: Mapping,
         add('exact span macro F1', f"{metrics['exactSpanMacroF1']:.4f}")
         add('predicted/gold spans', f"{exact['tp'] + exact['fp']}/{exact['tp'] + exact['fn']}")
         add('modifier F1 (Gold starts)', f"{modifier_micro_f1(diagnostics):.4f}")
+    lines.extend(['', f'  Targeted role scoreboard (focused validation; gate >= {TARGET_F1:.2f})'])
+    for row in targeted_scores(validation):
+        if row['f1'] is None:
+            add(f"{row['feature']} / {row['role']}", 'n/a (support 0) FAIL')
+        else:
+            status = 'PASS' if row['passed'] else 'FAIL'
+            add(f"{row['feature']} / {row['role']}", f"{row['f1']:.4f} (support {row['support']}) {status}")
     lines.extend(['', '  Timing (epoch time includes training, validation, and checkpoint saving)'])
     add('train time', duration(trained['seconds']))
     add('validation time', duration(validation['seconds']))
