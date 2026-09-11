@@ -213,6 +213,47 @@ type Server struct {
 
 The implicit promoted field identity belongs to symbol intelligence, not to a synthetic highlighting span.
 
+## Struct tags
+
+Struct tags are an explicit Go-core coverage requirement. A tag is the optional string literal
+following a struct field declaration; it is not restricted by the Go grammar to backticks or to
+any particular metadata key.
+
+```go
+type Record struct {
+    ID   int64  `json:"id" gorm:"primaryKey;column:id"`
+    Name string `json:"name,omitempty" binding:"required"`
+    Note string "json:\"note,omitempty\""
+}
+```
+
+Each tag is one complete `string` span, including its opening and closing literal delimiters.
+The first model does not split keys, colons, escaped quotes, comma options, semicolon-separated
+values, or framework-specific content into separate spans. The renderer chooses the theme's
+string color; the semantic pack does not prescribe green or any other color.
+
+The `key:"value"` format is the conventional format interpreted by `reflect.StructTag`, not an
+additional restriction on Go string-literal syntax. Unknown keys and free-form tag strings remain
+strings. Raw and interpreted literals, multiple entries, empty tags, escapes, non-ASCII text,
+and tags on fields whose types are anonymous structs all require boundary coverage.
+
+JSON, XML, YAML, database, validation, and ORM metadata may occur in fixtures and training inputs.
+Their presence does not imply that the Go core pack interprets a framework's internal metadata
+language. No new public token types or modifiers are introduced for these conventions.
+
+## Comments, directives, and reflection
+
+Line comments, block comments, package/type/function documentation, build constraints,
+`//go:generate`, and other `//go:*` directives keep the `comment` role. The tag or directive text
+must not escape its enclosing string or comment span and become an ordinary Go identifier.
+
+Gold labeling reads source; it does not execute generators, follow doc links, evaluate directives,
+or resolve a reflection call's runtime result. Ordinary calls and selectors involving `reflect`
+use the same namespace, function, method, property, and type rules as other Go code.
+
+Exact source offsets must be preserved even when the Go scanner normalizes carriage returns in a
+raw string or comment. CRLF input is not a reason to truncate a closing quote or comment delimiter.
+
 ## Boundary semantics
 
 Semantic roles do not expand lexical boundaries.

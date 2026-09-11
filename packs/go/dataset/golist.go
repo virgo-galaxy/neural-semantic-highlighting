@@ -12,9 +12,12 @@ import (
 )
 
 type goListPackage struct {
-	Dir        string   `json:"Dir"`
-	ImportPath string   `json:"ImportPath"`
-	GoFiles    []string `json:"GoFiles"`
+	Dir        string          `json:"Dir"`
+	ImportPath string          `json:"ImportPath"`
+	GoFiles    []string        `json:"GoFiles"`
+	CgoFiles   []string        `json:"CgoFiles"`
+	Export     string          `json:"Export"`
+	Module     *moduleMetadata `json:"Module"`
 }
 
 func listPackages(pattern string) ([]goListPackage, error) {
@@ -40,6 +43,8 @@ func listPackages(pattern string) ([]goListPackage, error) {
 			if errors.Is(err, io.EOF) {
 				break
 			}
+			_ = command.Process.Kill()
+			_ = command.Wait()
 			return nil, fmt.Errorf("decode go list output: %w", err)
 		}
 		packages = append(packages, pkg)

@@ -94,6 +94,8 @@ sets.
 - [ ] structs and fields
 - [ ] interfaces and interface methods
 - [ ] embedding and promoted members
+- [ ] nested/anonymous structs and pointer/interface embedding
+- [ ] struct tags as complete raw or interpreted string literals
 - [ ] pointers
 - [ ] arrays and slices
 - [ ] maps
@@ -109,7 +111,9 @@ sets.
 - [ ] function types and closures
 - [ ] variadic functions
 - [ ] rune, string, numeric, and imaginary literals
-- [ ] comments and directives relevant to source parsing
+- [ ] line/block/doc comments and directives relevant to source parsing
+- [ ] struct-tag/comment boundaries under CRLF and non-BMP Unicode
+- [ ] reflection-heavy code using ordinary language roles
 
 ### Modern generics baseline - Go 1.18+
 
@@ -173,6 +177,31 @@ global Go upgrade for this purpose.
 Supported fixtures must not be silently skipped merely because a developer machine bundles an older
 Go compiler. The Gold environment is part of the project definition and must remain deterministic
 across developer machines and CI.
+
+## Metadata and structural Gold evidence
+
+The first Go model keeps each struct tag as one `string` span and each comment/directive as a
+`comment` span. Generic metadata syntax and framework-specific values do not require an additional
+public role. Struct tags are nevertheless an explicit feature family, not accidental string coverage.
+
+The following Gold fixtures and regression tests are present:
+
+- `fixtures/struct-tags`: multiple metadata keys, raw and interpreted tag literals, nested structs.
+- `fixtures/struct-embedding`: pointer embedding, interface embedding, promoted fields/methods,
+  nested selectors, method values, and method expressions.
+- `fixtures/comments-directives`: line/block/doc comments, build constraints, and `go:generate`.
+- `labeling/metadata_test.go`: exact tag/comment boundaries, unknown/free-form tags, empty tags,
+  escaped quotes, non-BMP offsets, carriage returns, and embedded type-use classification.
+
+These are Gold-level assertions. They do not claim that a trained Go model has learned these
+features. Focused curriculum, independent challenges, and held-out model evaluation remain separate
+requirements. Fixtures must not be copied verbatim into a held-out challenge and training set.
+
+The module corpus pipeline is implemented in `dataset/` and configured by
+`dataset/sources/official.json`. It collects each source independently, resolves external package
+export data, rejects type-checking failures, and records an exact module version and checksum.
+A configured module is not evidence that its corpus has been collected or that a language feature
+has sufficient examples. Inspect each generated statistics file before deciding on training coverage.
 
 ## Corpus policy
 

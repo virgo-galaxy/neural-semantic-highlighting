@@ -16,6 +16,8 @@ type SampleManifest struct {
 	GOOS          string        `json:"goos"`
 	GOARCH        string        `json:"goarch"`
 	Files         []SampleEntry `json:"files"`
+	Source        *ModuleSource `json:"source,omitempty"`
+	ContextFiles  []SampleEntry `json:"contextFiles,omitempty"`
 }
 
 type SampleEntry struct {
@@ -54,4 +56,5 @@ type Statistics struct {
 	SourceUTF16Units int            `json:"sourceUtf16Units"`
 	TokenTypes       map[string]int `json:"tokenTypes"`
 	Modifiers        map[string]int `json:"modifiers"`
+	Source           *ModuleSource  `json:"source,omitempty"`
 }

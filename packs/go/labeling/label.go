@@ -8,7 +8,9 @@ import (
 	"go/scanner"
 	"go/token"
 	"go/types"
+	"runtime"
 	"sort"
+	"strings"
 	"unicode/utf8"
 )
 
@@ -26,6 +28,7 @@ type PackageRequest struct {
 	PackagePath  string       `json:"packagePath"`
 	DocumentKind string       `json:"documentKind"`
 	Files        []SourceFile `json:"files"`
+	GoVersion    string       `json:"goVersion,omitempty"`
 }
 
 type FileHighlightResult struct {
@@ -35,10 +38,20 @@ type FileHighlightResult struct {
 
 type PackageLabeler struct {
 	importer types.Importer
+	strict   bool
 }
 
 func NewPackageLabeler() *PackageLabeler {
 	return &PackageLabeler{importer: importer.Default()}
+}
+
+// NewStrictPackageLabeler refuses partial type information. The caller supplies
+// an importer backed by the export files of the active module dependency graph.
+func NewStrictPackageLabeler(dependencyImporter types.Importer) *PackageLabeler {
+	if dependencyImporter == nil {
+		dependencyImporter = importer.Default()
+	}
+	return &PackageLabeler{importer: dependencyImporter, strict: true}
 }
 
 type SemanticSpan struct {
@@ -159,10 +172,14 @@ func (g *PackageLabeler) LabelPackage(request PackageRequest) ([]FileHighlightRe
 	}
 
 	config := types.Config{
-		Importer: g.importer,
-		Error:    func(error) {},
+		Importer:  g.importer,
+		GoVersion: request.GoVersion,
+		Sizes:     types.SizesFor("gc", runtime.GOARCH),
+		Error:     func(error) {},
 	}
-	_, _ = config.Check(packagePath, fileSet, parsedFiles, info)
+	if _, err := config.Check(packagePath, fileSet, parsedFiles, info); err != nil && g.strict {
+		return nil, fmt.Errorf("type-check Go package %q: %w", packagePath, err)
+	}
 
 	results := make([]FileHighlightResult, 0, len(request.Files))
 	for _, sourceFile := range request.Files {
@@ -292,6 +309,27 @@ func (l *labeler) labelLexicalTokens() {
 			length = len(tok.String())
 		}
 		end := start + length
+		// Scanner literals may omit carriage returns. Measure raw strings and
+		// comments against the original bytes, not the normalized literal.
+		if tok == token.STRING && l.source[start] == '`' {
+			if close := strings.IndexByte(l.source[start+1:], '`'); close >= 0 {
+				end = start + close + 2
+			}
+		} else if tok == token.COMMENT {
+			if strings.HasPrefix(l.source[start:], "/*") {
+				if close := strings.Index(l.source[start+2:], "*/"); close >= 0 {
+					end = start + close + 4
+				}
+			} else {
+				end = len(l.source)
+				if newline := strings.IndexByte(l.source[start:], '\n'); newline >= 0 {
+					end = start + newline
+				}
+				if end > start && l.source[end-1] == '\r' {
+					end--
+				}
+			}
+		}
 
 		switch {
 		case tok.IsKeyword():
@@ -405,6 +443,16 @@ func (l *labeler) labelDefinition(ident *ast.Ident, object types.Object, parent 
 		}
 		l.addNode(ident, "function", "declaration")
 	case *types.Var:
+		if obj.IsField() && obj.Embedded() {
+			// An embedded field identifier has both a field definition and a
+			// type use. Highlight the explicit type, not an implicit field name.
+			if referenced := l.info.Uses[ident]; referenced != nil {
+				l.labelUse(ident, referenced, parent)
+			} else {
+				l.addNode(ident, "type")
+			}
+			return
+		}
 		if obj.IsField() {
 			l.addNode(ident, "property", "declaration")
 			return

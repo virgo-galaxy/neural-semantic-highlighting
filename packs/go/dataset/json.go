@@ -24,5 +24,20 @@ func writeJSON(path string, value any) error {
 		return err
 	}
 	content = append(content, '\n')
-	return os.WriteFile(path, content, 0o644)
+	temporary, err := os.CreateTemp(filepath.Dir(path), ".json-*")
+	if err != nil {
+		return err
+	}
+	defer os.Remove(temporary.Name())
+	defer temporary.Close()
+	if err := temporary.Chmod(0o644); err != nil {
+		return err
+	}
+	if _, err := temporary.Write(content); err != nil {
+		return err
+	}
+	if err := temporary.Close(); err != nil {
+		return err
+	}
+	return os.Rename(temporary.Name(), path)
 }

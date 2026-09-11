@@ -4,6 +4,7 @@
 	dataset \
 	dataset-typescript \
 	dataset-go \
+	dataset-go-official \
 	dataset-go-collect \
 	dataset-go-label \
 	dataset-go-validate \
@@ -25,6 +26,7 @@
 
 PYTHON := .venv/bin/python
 GO_GOLD_TOOLCHAIN := go1.27.1
+GO_CORPUS ?=
 
 MAX_LENGTH ?= 512
 EPOCHS ?= 32
@@ -58,7 +60,13 @@ dataset-typescript:
 	pnpm dataset:validate:typescript
 	pnpm dataset:split:typescript
 
-dataset-go: dataset-go-collect dataset-go-label dataset-go-validate
+dataset-go:
+	$(MAKE) dataset-go-collect
+	$(MAKE) dataset-go-label
+	$(MAKE) dataset-go-validate
+
+dataset-go-official:
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset modules --config dataset/sources/official.json --source "$(GO_CORPUS)"
 
 dataset-go-collect:
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset collect

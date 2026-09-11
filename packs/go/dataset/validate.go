@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"runtime"
 	"sort"
 	"unicode/utf16"
 
@@ -33,13 +34,7 @@ func Validate(root string, schemaPath string) (Statistics, error) {
 	if err := readJSON(SamplePath(root), &sample); err != nil {
 		return Statistics{}, fmt.Errorf("read sample manifest: %w", err)
 	}
-	if err := validateManifestHeader(
-		sample.FormatVersion,
-		sample.Toolchain,
-		sample.Corpus,
-		sample.GOOS,
-		sample.GOARCH,
-	); err != nil {
+	if err := validateSampleManifest(sample); err != nil {
 		return Statistics{}, err
 	}
 
@@ -78,7 +73,8 @@ func Validate(root string, schemaPath string) (Statistics, error) {
 	decoder := json.NewDecoder(bufio.NewReaderSize(input, 1<<20))
 
 	statistics := Statistics{
-		FormatVersion: FormatVersion,
+		FormatVersion: sample.FormatVersion,
+		Source:        sample.Source,
 		Toolchain:     sample.Toolchain,
 		Corpus:        sample.Corpus,
 		GOOS:          sample.GOOS,
@@ -171,6 +167,42 @@ func Validate(root string, schemaPath string) (Statistics, error) {
 	}
 
 	return statistics, nil
+}
+
+func validateSampleManifest(sample SampleManifest) error {
+	if sample.FormatVersion == FormatVersion {
+		return validateManifestHeader(sample.FormatVersion, sample.Toolchain, sample.Corpus, sample.GOOS, sample.GOARCH)
+	}
+	if sample.FormatVersion != ModuleFormatVersion {
+		return fmt.Errorf("unsupported dataset format version %d", sample.FormatVersion)
+	}
+	if sample.Toolchain != GoldToolchain || sample.GOOS != runtime.GOOS || sample.GOARCH != runtime.GOARCH {
+		return fmt.Errorf("module corpus toolchain/build context does not match this execution")
+	}
+	if !corpusIDPattern.MatchString(sample.Corpus) || sample.Source == nil {
+		return fmt.Errorf("module corpus is missing a valid id or source identity")
+	}
+	source := sample.Source
+	if source.Labeler != ModuleLabelerVersion || source.Kind != "module" || source.Module == "" || source.Version == "" || source.Sum == "" || source.GoModSum == "" || source.WorkspaceHash == "" || source.CGOEnabled {
+		return fmt.Errorf("incomplete or unsupported module corpus identity")
+	}
+	if len(sample.Files) == 0 || len(sample.ContextFiles) == 0 {
+		return fmt.Errorf("module corpus has no sampled files or package context")
+	}
+	context := map[string]SampleEntry{}
+	for _, entry := range sample.ContextFiles {
+		key := datasetKey(entry.Package, entry.Path)
+		if _, exists := context[key]; exists {
+			return fmt.Errorf("duplicate package context %s", key)
+		}
+		context[key] = entry
+	}
+	for _, entry := range sample.Files {
+		if context[datasetKey(entry.Package, entry.Path)] != entry {
+			return fmt.Errorf("sample %s is missing matching package context", entry.Path)
+		}
+	}
+	return nil
 }
 
 func validateSpans(

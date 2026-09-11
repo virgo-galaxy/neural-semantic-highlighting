@@ -12,7 +12,11 @@ import (
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "usage: nsh-go-dataset <collect|label|validate>\n")
+		fmt.Fprintf(os.Stderr, "usage: nsh-go-dataset <collect|label|validate|modules>\n")
+	}
+	if len(os.Args) > 1 && os.Args[1] == "modules" {
+		runModules(os.Args[2:])
+		return
 	}
 	flag.Parse()
 
@@ -58,9 +62,42 @@ func main() {
 	}
 }
 
+func runModules(arguments []string) {
+	flags := flag.NewFlagSet("modules", flag.ExitOnError)
+	config := flags.String("config", "dataset/sources/official.json", "Corpus source configuration")
+	source := flags.String("source", "", "Run only this corpus id; empty runs every configured source")
+	if err := flags.Parse(arguments); err != nil {
+		fail(err)
+	}
+	if flags.NArg() != 0 {
+		fail(fmt.Errorf("unexpected arguments: %v", flags.Args()))
+	}
+	root, err := dataset.Root()
+	if err != nil {
+		fail(err)
+	}
+	statistics, err := dataset.RunModules(root, *config, "schema.json", *source, func(current, total int, name string) {
+		if total == 0 {
+			fmt.Println(name)
+			return
+		}
+		if current == 1 || current%25 == 0 || current == total {
+			fmt.Printf("[%d/%d] %s\n", current, total, name)
+		}
+	})
+	for _, stats := range statistics {
+		printStatistics(stats)
+		fmt.Printf("Statistics written to %s\n", dataset.StatisticsPath(dataset.CorpusPath(root, stats.Corpus)))
+	}
+	if err != nil {
+		fail(err)
+	}
+}
+
 func printStatistics(statistics dataset.Statistics) {
 	fmt.Println("Go Dataset Statistics")
 	fmt.Println("---------------------")
+	fmt.Printf("Corpus:      %s\n", statistics.Corpus)
 	fmt.Printf("Toolchain:   %s\n", statistics.Toolchain)
 	fmt.Printf("Build:       %s/%s\n", statistics.GOOS, statistics.GOARCH)
 	fmt.Printf("Packages:    %d\n", statistics.Packages)
