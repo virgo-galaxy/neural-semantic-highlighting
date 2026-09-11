@@ -42,17 +42,17 @@ HTTP is not part of the core protocol.
 
 ## Workspace
 
-| Location                              | Responsibility                                                                                     |
-| ------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `packages/core` (`@nsh/core`)         | Public contracts, pack registry, and highlighter orchestration                                     |
-| `packages/html` (`@nsh/html`)         | Semantic spans to escaped HTML; depends on Core                                                    |
-| `packages/local` (`@nsh/local`)       | Node.js local-process `SemanticPack` adapter using newline-delimited JSON over stdin/stdout        |
-| `packages/themes` (`@nsh/themes`)     | CSS assets: base palette, language overrides, and default entry                                    |
-| `apps/playground` (`@nsh/playground`) | Vue 3 + Vite Playground using the workspace packages and the selected local TypeScript model       |
-| `packs/typescript`                    | Manifest, schema, semantic contract, labeling/data tools, fixtures, challenges, runtime, and model |
-| `training/typescript`                 | Python training, prediction, evaluation, and diagnostics                                           |
-| `tests`                               | Shared package and TypeScript pack regression tests                                                |
-| `artifacts`                           | Local experimental checkpoints and reports; not a runtime package                                  |
+| Location                                 | Responsibility                                                                                     |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `packages/core` (`@nsh/core`)            | Public contracts, pack registry, and highlighter orchestration                                     |
+| `packages/renderers/html` (`@nsh/html`)  | Semantic spans to escaped HTML; depends on Core                                                    |
+| `packages/runtimes/local` (`@nsh/local`) | Node.js local-process `SemanticPack` adapter using newline-delimited JSON over stdin/stdout        |
+| `packages/themes` (`@nsh/themes`)        | CSS assets: base palette, language overrides, and default entry                                    |
+| `apps/playground` (`@nsh/playground`)    | Vue 3 + Vite Playground using the workspace packages and the selected local TypeScript model       |
+| `packs/typescript`                       | Manifest, schema, semantic contract, labeling/data tools, fixtures, challenges, runtime, and model |
+| `training/typescript`                    | Python training, prediction, evaluation, and diagnostics                                           |
+| `tests`                                  | Shared package and TypeScript pack regression tests                                                |
+| `artifacts`                              | Local experimental checkpoints and reports; not a runtime package                                  |
 
 The repository root is a private workspace coordinator, not a library entry point. All workspace packages remain private until distribution and licensing are reviewed. Package names are local workspace identifiers and do not imply npm publication or reservation.
 

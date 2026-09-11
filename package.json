@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "pnpm -r --if-present run clean",
     "build": "pnpm -r --if-present run build",
-    "build:packages": "pnpm -r --filter './packages/*' --if-present run build",
+    "build:packages": "pnpm -r --filter './packages/**' --if-present run build",
     "typecheck": "pnpm build:packages && tsc -p tsconfig.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

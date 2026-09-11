@@ -215,10 +215,10 @@ importers:
         version: link:packages/core
       '@nsh/html':
         specifier: workspace:*
-        version: link:packages/html
+        version: link:packages/renderers/html
       '@nsh/local':
         specifier: workspace:*
-        version: link:packages/local
+        version: link:packages/runtimes/local
       '@types/node':
         specifier: ^26.4.1
         version: 26.4.1
@@ -260,10 +260,10 @@ importers:
         version: link:../../packages/core
       '@nsh/html':
         specifier: workspace:*
-        version: link:../../packages/html
+        version: link:../../packages/renderers/html
       '@nsh/themes':
         specifier: workspace:*
-        version: link:../../packages/themes
+        version: link:../../packages/themes/web
       reka-ui:
         specifier: ^2.10.4
         version: 2.10.4(vue@3.5.42(@typescript/typescript6@6.0.2))
@@ -273,7 +273,7 @@ importers:
     devDependencies:
       '@nsh/local':
         specifier: workspace:*
-        version: link:../../packages/local
+        version: link:../../packages/runtimes/local
       '@vitejs/plugin-vue':
         specifier: ^6.0.8
         version: 6.0.8(vite@8.2.2(@types/node@26.4.1)(esbuild@0.28.2)(sass@1.104.0)(tsx@4.23.13))(vue@3.5.42(@typescript/typescript6@6.0.2))
@@ -289,19 +289,19 @@ importers:
 
   packages/core: {}
 
-  packages/html:
+  packages/renderers/html:
     dependencies:
       '@nsh/core':
         specifier: workspace:*
-        version: link:../core
+        version: link:../../core
 
-  packages/local:
+  packages/runtimes/local:
     dependencies:
       '@nsh/core':
         specifier: workspace:*
-        version: link:../core
+        version: link:../../core
 
-  packages/themes: {}
+  packages/themes/web: {}
 
 packages:
 
