@@ -1,5 +1,6 @@
 .PHONY: \
 	check \
+	test-labeling-go \
 	dataset \
 	dataset-typescript \
 	inspect-windows-typescript \
@@ -35,9 +36,14 @@ ANALYSIS_EXAMPLES ?= 30
 
 check:
 	pnpm all
+	$(MAKE) test-labeling-go
 	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'
+
+
+test-labeling-go:
+	cd packs/go/labeling && go test ./...
 
 dataset: dataset-typescript
 
