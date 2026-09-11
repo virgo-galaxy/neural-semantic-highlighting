@@ -17,6 +17,30 @@ type HighlightRequest struct {
 	DocumentKind string `json:"documentKind"`
 }
 
+type SourceFile struct {
+	Path   string `json:"path"`
+	Source string `json:"source"`
+}
+
+type PackageRequest struct {
+	PackagePath  string       `json:"packagePath"`
+	DocumentKind string       `json:"documentKind"`
+	Files        []SourceFile `json:"files"`
+}
+
+type FileHighlightResult struct {
+	Path   string          `json:"path"`
+	Result HighlightResult `json:"result"`
+}
+
+type PackageLabeler struct {
+	importer types.Importer
+}
+
+func NewPackageLabeler() *PackageLabeler {
+	return &PackageLabeler{importer: importer.Default()}
+}
+
 type SemanticSpan struct {
 	Start     int      `json:"start"`
 	End       int      `json:"end"`
@@ -56,14 +80,75 @@ var predeclaredValues = map[string]struct{}{
 }
 
 func Label(request HighlightRequest) (HighlightResult, error) {
+	results, err := LabelPackage(PackageRequest{
+		PackagePath:  "nsh.local",
+		DocumentKind: request.DocumentKind,
+		Files: []SourceFile{
+			{
+				Path:   "source.go",
+				Source: request.Source,
+			},
+		},
+	})
+	if err != nil {
+		return HighlightResult{}, err
+	}
+
+	return results[0].Result, nil
+}
+
+func LabelPackage(request PackageRequest) ([]FileHighlightResult, error) {
+	return NewPackageLabeler().LabelPackage(request)
+}
+
+func (g *PackageLabeler) LabelPackage(request PackageRequest) ([]FileHighlightResult, error) {
 	if request.DocumentKind != "go" {
-		return HighlightResult{}, fmt.Errorf("unsupported Go document kind %q", request.DocumentKind)
+		return nil, fmt.Errorf("unsupported Go document kind %q", request.DocumentKind)
+	}
+	if len(request.Files) == 0 {
+		return nil, fmt.Errorf("Go package request has no source files")
+	}
+
+	packagePath := request.PackagePath
+	if packagePath == "" {
+		packagePath = "nsh.local"
 	}
 
 	fileSet := token.NewFileSet()
-	file, err := parser.ParseFile(fileSet, "source.go", request.Source, parser.ParseComments|parser.AllErrors)
-	if err != nil {
-		return HighlightResult{}, fmt.Errorf("parse Go source: %w", err)
+	parsedFiles := make([]*ast.File, 0, len(request.Files))
+	parsedByPath := make(map[string]*ast.File, len(request.Files))
+
+	var packageName string
+	for _, sourceFile := range request.Files {
+		if sourceFile.Path == "" {
+			return nil, fmt.Errorf("Go package request contains a source file with an empty path")
+		}
+		if _, exists := parsedByPath[sourceFile.Path]; exists {
+			return nil, fmt.Errorf("duplicate Go source path %q", sourceFile.Path)
+		}
+
+		file, err := parser.ParseFile(
+			fileSet,
+			sourceFile.Path,
+			sourceFile.Source,
+			parser.ParseComments|parser.AllErrors,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("parse Go source %q: %w", sourceFile.Path, err)
+		}
+
+		if packageName == "" {
+			packageName = file.Name.Name
+		} else if file.Name.Name != packageName {
+			return nil, fmt.Errorf(
+				"Go package request mixes package names %q and %q",
+				packageName,
+				file.Name.Name,
+			)
+		}
+
+		parsedFiles = append(parsedFiles, file)
+		parsedByPath[sourceFile.Path] = file
 	}
 
 	info := &types.Info{
@@ -74,27 +159,35 @@ func Label(request HighlightRequest) (HighlightResult, error) {
 	}
 
 	config := types.Config{
-		Importer: importer.Default(),
+		Importer: g.importer,
 		Error:    func(error) {},
 	}
-	_, _ = config.Check("nsh.local", fileSet, []*ast.File{file}, info)
+	_, _ = config.Check(packagePath, fileSet, parsedFiles, info)
 
-	l := &labeler{
-		source:       request.Source,
-		fileSet:      fileSet,
-		file:         file,
-		info:         info,
-		utf16Offsets: buildUTF16Offsets(request.Source),
+	results := make([]FileHighlightResult, 0, len(request.Files))
+	for _, sourceFile := range request.Files {
+		l := &labeler{
+			source:       sourceFile.Source,
+			fileSet:      fileSet,
+			file:         parsedByPath[sourceFile.Path],
+			info:         info,
+			utf16Offsets: buildUTF16Offsets(sourceFile.Source),
+		}
+
+		l.labelLexicalTokens()
+		l.labelIdentifiers()
+		l.sortAndValidate()
+
+		results = append(results, FileHighlightResult{
+			Path: sourceFile.Path,
+			Result: HighlightResult{
+				OffsetEncoding: "utf-16",
+				Spans:          l.spans,
+			},
+		})
 	}
 
-	l.labelLexicalTokens()
-	l.labelIdentifiers()
-	l.sortAndValidate()
-
-	return HighlightResult{
-		OffsetEncoding: "utf-16",
-		Spans:          l.spans,
-	}, nil
+	return results, nil
 }
 
 func buildUTF16Offsets(source string) []int {

@@ -3,6 +3,10 @@
 	test-labeling-go \
 	dataset \
 	dataset-typescript \
+	dataset-go \
+	dataset-go-collect \
+	dataset-go-label \
+	dataset-go-validate \
 	inspect-windows-typescript \
 	test-windowing-golden-typescript \
 	train-typescript \
@@ -44,7 +48,7 @@ check:
 
 
 test-labeling-go:
-	cd packs/go/labeling && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go test ./...
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go test ./...
 
 dataset: dataset-typescript
 
@@ -53,6 +57,17 @@ dataset-typescript:
 	pnpm dataset:label:typescript
 	pnpm dataset:validate:typescript
 	pnpm dataset:split:typescript
+
+dataset-go: dataset-go-collect dataset-go-label dataset-go-validate
+
+dataset-go-collect:
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset collect
+
+dataset-go-label:
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset label
+
+dataset-go-validate:
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset validate
 
 inspect-windows-typescript:
 	$(PYTHON) training/typescript/dataset.py \
