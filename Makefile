@@ -37,10 +37,11 @@ PYTHON := .venv/bin/python
 GO_GOLD_TOOLCHAIN := go1.27.1
 GO_CORPUS ?=
 GO_DEVICE ?= auto
-GO_EPOCHS ?= 32
+GO_EPOCHS ?= 3
 GO_BATCH_SIZE ?= 32
 GO_FOCUS_BATCH_SIZE ?= 16
 GO_FOCUS_EVERY ?= 8
+GO_LOG_EVERY ?= 25
 GO_RUN ?=
 GO_CHECKPOINT ?=
 GO_SOURCE ?=
@@ -195,16 +196,16 @@ challenge-jsx-tsx-typescript:
 train-go-smoke:
 	$(PYTHON) training/go/train.py --smoke --epochs 1 --device $(GO_DEVICE) \
 		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
-		--focus-every $(GO_FOCUS_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+		--focus-every $(GO_FOCUS_EVERY) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
 
 train-go:
 	$(PYTHON) training/go/train.py --epochs $(GO_EPOCHS) --device $(GO_DEVICE) \
 		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
-		--focus-every $(GO_FOCUS_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+		--focus-every $(GO_FOCUS_EVERY) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
 
 continue-go:
 	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to the run last.pt'; exit 1)
-	$(PYTHON) training/go/train.py --resume "$(GO_CHECKPOINT)" --epochs $(GO_EPOCHS) --device $(GO_DEVICE)
+	$(PYTHON) training/go/train.py --resume "$(GO_CHECKPOINT)" --epochs $(GO_EPOCHS) --device $(GO_DEVICE) --log-every $(GO_LOG_EVERY)
 
 predict-go:
 	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to a Go checkpoint'; exit 1)

@@ -6,6 +6,7 @@ from collections import Counter
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 import math
+import shlex
 from pathlib import Path
 import sys
 import time
@@ -18,6 +19,7 @@ from inference import decode, document_logits
 from losses import compute_loss
 from metrics import evaluate_fixed, evaluation_indices
 from model import GoSemanticTransformer, ModelConfig, parameter_count
+from progress import epoch_report, training_line
 from trainer_data import Snapshot, WindowSplit, epoch_batches, sha256_file, training_weights
 
 
@@ -47,10 +49,7 @@ class TrainingConfig:
             raise ValueError("Invalid modifier threshold")
 
 
-def duration(seconds: float) -> str:
-    minutes, sec = divmod(max(0, int(seconds)), 60)
-    hours, minutes = divmod(minutes, 60)
-    return f"{hours:02d}:{minutes:02d}:{sec:02d}"
+DEFAULT_EPOCHS = 3
 
 
 def make_config(args: argparse.Namespace, checkpoint: dict | None) -> TrainingConfig:
@@ -74,7 +73,9 @@ def epoch_train(model: GoSemanticTransformer, split: WindowSplit, optimizer: tor
                              max_main_batches=config.smoke_main_batches if config.smoke else 0)
     totals = {kind: Counter() for kind in split.streams}
     steps = Counter(kind for kind, _ in schedule)
-    print(f"Epoch {epoch}: {steps['natural']} natural + {steps['focus']} focused batches", flush=True)
+    completed = Counter()
+    last_main_losses = None
+    print("  Training losses (lower is better; latest main batch, not F1)", flush=True)
     started = time.monotonic()
     model.train()
     for step, (kind, indices) in enumerate(schedule, 1):
@@ -89,12 +90,14 @@ def epoch_train(model: GoSemanticTransformer, split: WindowSplit, optimizer: tor
         optimizer.step()
         totals[kind].update(parts)
         totals[kind].update(batches=1, windows=len(indices))
-        if step == 1 or step % log_every == 0 or step == len(schedule):
+        completed[kind] += 1
+        if kind == "natural":
+            last_main_losses = parts
+        if (step == 1 or step == len(schedule)
+                or (kind == "natural" and completed["natural"] % log_every == 0)):
             elapsed = time.monotonic() - started
-            eta = elapsed / step * (len(schedule) - step)
-            print(f"  step {step}/{len(schedule)} [{kind}] loss={parts['total']:.4f} "
-                  f"boundary={parts['boundary']:.4f} type={parts['token_type']:.4f} modifier={parts['modifier']:.4f} "
-                  f"elapsed={duration(elapsed)} eta={duration(eta)}", flush=True)
+            print(training_line(completed["natural"], steps["natural"], completed["focus"], steps["focus"],
+                                last_main_losses, sum(v["windows"] for v in totals.values()), elapsed), flush=True)
     result = {}
     for kind, values in totals.items():
         result[kind] = {"batches": int(values["batches"]), "windowPresentations": int(values["windows"]),
@@ -118,7 +121,7 @@ def _fresh_directory(path: Path | None, smoke: bool) -> Path:
 def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) -> Path:
     checkpoint = load_checkpoint(args.resume) if args.resume else None
     config = make_config(args, checkpoint)
-    epochs = args.epochs if args.epochs is not None else (1 if config.smoke else 32)
+    epochs = args.epochs if args.epochs is not None else (1 if config.smoke else DEFAULT_EPOCHS)
     if epochs < 1 or args.log_every < 1:
         raise ValueError("Epochs and log interval must be positive")
     snapshot_arg = args.snapshot
@@ -137,7 +140,12 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
         torch.set_num_threads(torch_threads)
     elif device.type == "cpu":
         torch.set_num_threads(min(torch.get_num_threads(), 8))
-    print("Go Semantic Transformer" + (" [SMOKE: pipeline verification, not a quality benchmark]" if config.smoke else ""), flush=True)
+    print("Neural Semantic Highlighting\nGo Multitask Training", flush=True)
+    if config.smoke:
+        print("SMOKE: pipeline verification, not a quality benchmark", flush=True)
+    print(f"Epoch budget: {epochs} additional epoch(s) in this invocation", flush=True)
+    print(f"Early stopping: {config.patience} epochs without natural exact-span F1 improvement"
+          if config.patience else "Early stopping: disabled", flush=True)
     print(f"Snapshot: {snapshot.manifest['snapshot'][:20]} | Device: {device} | PyTorch: {torch.__version__}", flush=True)
     print("Verifying train and validation checksums; the test split is not opened.", flush=True)
     train_split = WindowSplit(snapshot, "train")
@@ -157,6 +165,8 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
             model = model_from_checkpoint(checkpoint, device)
             start_epoch, state = checkpoint["epoch"], checkpoint["trainingState"].copy()
             stored_weights = checkpoint["lossWeights"]
+            print(f"Resume checkpoint: {args.resume.expanduser().resolve()}", flush=True)
+            print(f"Completed epochs: {start_epoch}; next epoch: {start_epoch + 1}", flush=True)
         else:
             model = GoSemanticTransformer(model_config or ModelConfig(), len(snapshot.schema["tokenTypes"]),
                                           len(snapshot.schema["modifiers"])).to(device)
@@ -172,27 +182,40 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
         if checkpoint:
             if checkpoint.get("optimizer"):
                 optimizer.load_state_dict(checkpoint["optimizer"])
+                print("Optimizer state: restored; continuing existing weights, not restarting", flush=True)
             else:
                 print("Checkpoint has no optimizer state; continuing with a fresh AdamW optimizer.", flush=True)
             restore_rng(checkpoint["rng"], device)
         print(f"Parameters: {parameter_count(model):,} | Context: {model.config.context_bytes} UTF-8 bytes", flush=True)
         print(f"Batch: {config.batch_size} natural / {config.focus_batch_size} focus; one focus batch per "
               f"{config.focus_every} natural batches (plus the final partial interval).", flush=True)
+        main_steps = math.ceil(len(train_split.streams["natural"]) / config.batch_size)
+        if config.smoke:
+            main_steps = min(main_steps, config.smoke_main_batches)
+        focus_steps = math.ceil(main_steps / config.focus_every)
+        print(f"Optimizer steps/epoch: {main_steps + focus_steps} ({main_steps} main + {focus_steps} focus)", flush=True)
+        print(f"Planned optimizer steps: {(main_steps + focus_steps) * epochs}", flush=True)
+        print(f"Planned epochs: {start_epoch + 1}..{start_epoch + epochs} (run 1/{epochs}..{epochs}/{epochs})", flush=True)
+        print("Run ETA: awaiting the first complete epoch (training + validation + checkpoint saving)", flush=True)
+        print("Loss: lower is better. Validation F1: higher is better. Loss 0.3 is not F1 0.3.", flush=True)
         print(f"Artifacts: {directory}", flush=True)
         with training_lock(directory):
             if not checkpoint:
                 atomic_json(directory / "run.json", {
                     "format": "nsh-go-training-run-v1", "dataset": snapshot.identity(), "snapshotPath": str(snapshot.path),
                     "schema": snapshot.schema, "model": model.config.to_dict(), "training": asdict(config),
-                    "device": device.type, "torchVersion": str(torch.__version__),
+                    "device": device.type, "torchVersion": str(torch.__version__), "initialEpochBudget": epochs,
                     "trainerFiles": {p.name: sha256_file(p) for p in sorted(Path(__file__).parent.glob("*.py"))
                                      if p.name not in {"prepare.py", "repair.py", "splitting.py"}},
                     "selection": "validation natural whole-document exact-span F1; fixed-window inference; excludes modifiers",
                 })
             last = directory / "last.pt"
-            for epoch in range(start_epoch + 1, start_epoch + epochs + 1):
+            measured_epochs = []
+            for local_epoch, epoch in enumerate(range(start_epoch + 1, start_epoch + epochs + 1), 1):
+                epoch_started = time.monotonic()
+                print(f"\nEpoch {epoch} (run {local_epoch}/{epochs})", flush=True)
                 trained = epoch_train(model, train_split, optimizer, weights, config, epoch, device, args.log_every)
-                print(f"Epoch {epoch}: validation (complete documents, fixed-window inference) ...", flush=True)
+                print("  validating... (complete documents; fixed-window inference)", flush=True)
                 validation = evaluate_fixed(model, val_split, device, batch_size=config.batch_size,
                                             threshold=config.modifier_threshold, log_every=args.log_every,
                                             max_windows_per_stream=config.smoke_eval_windows if config.smoke else 0)
@@ -203,19 +226,28 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                 else:
                     state["epochsWithoutImprovement"] += 1
                 state["optimizerSteps"] += sum(trained[k]["batches"] for k in ("natural", "focus"))
-                record = {"epoch": epoch, "training": trained, "validation": validation, "trainingState": state.copy()}
+                record = {"epoch": epoch, "runEpoch": local_epoch, "runEpochBudget": epochs,
+                          "training": trained, "validation": validation, "trainingState": state.copy()}
                 payload = {"format": FORMAT, "model": model.state_dict(), "optimizer": optimizer.state_dict(),
                            "epoch": epoch, "trainingState": state.copy(), "modelConfig": model.config.to_dict(),
                            "trainingConfig": asdict(config), "schema": snapshot.schema, "dataset": snapshot.identity(),
                            "snapshotPath": str(snapshot.path), "lossWeights": stored_weights, "rng": capture_rng(device),
                            "validation": validation, "torchVersion": str(torch.__version__)}
+                checkpoint_started = time.monotonic()
                 if improved:
                     save_checkpoint(directory / "best.pt", payload)
                 save_checkpoint(last, payload)
+                checkpoint_seconds = time.monotonic() - checkpoint_started
+                epoch_seconds = time.monotonic() - epoch_started
+                measured_epochs.append(epoch_seconds)
+                stopping = bool(config.patience and state["epochsWithoutImprovement"] >= config.patience)
+                remaining = 0 if stopping else epochs - local_epoch
+                record["timing"] = {"epochSeconds": epoch_seconds, "checkpointSeconds": checkpoint_seconds}
                 atomic_json(directory / "epochs" / f"epoch-{epoch:04d}.json", record)
-                natural, focus = validation["streams"]["natural"], validation["streams"]["focus"]
-                print(f"Epoch {epoch} complete | natural exact F1={score:.4f}, macro={natural['exactSpanMacroF1']:.4f} | "
-                      f"focus exact F1={focus['exactSpan']['f1']:.4f} | best epoch={state['bestEpoch']}", flush=True)
+                print(epoch_report(trained, validation, state, epoch_seconds=epoch_seconds,
+                                   checkpoint_seconds=checkpoint_seconds, remaining_epochs=remaining,
+                                   mean_epoch_seconds=sum(measured_epochs) / len(measured_epochs),
+                                   patience=config.patience, improved=improved, smoke=config.smoke), flush=True)
                 print(f"Saved: {last}", flush=True)
                 if config.patience and state["epochsWithoutImprovement"] >= config.patience:
                     print(f"Early stopping: no natural validation improvement for {config.patience} epochs.", flush=True)
@@ -241,7 +273,11 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                 })
                 print("SMOKE PASS: optimizer updates, validation, checkpoint reload, and adaptive source inference.", flush=True)
                 print("This smoke checkpoint is not a baseline-quality or selected model.", flush=True)
-            print(f"Run complete: {directory}", flush=True)
+            print(f"\nRun complete: {directory}", flush=True)
+            print(f"Completed {len(measured_epochs)}/{epochs} requested epoch(s); last epoch: {epoch}.", flush=True)
+            if not config.smoke:
+                print("Review this short run before extending it; completing the budget is not a quality guarantee.", flush=True)
+                print(f"Continue: make continue-go GO_CHECKPOINT={shlex.quote(str(last))} GO_EPOCHS={DEFAULT_EPOCHS}", flush=True)
             return directory
     finally:
         train_split.close()
@@ -254,7 +290,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--snapshot", type=Path, help="Snapshot directory or current.json; resume defaults to its saved snapshot")
     result.add_argument("--output-dir", type=Path, help="Empty output directory; default is a new timestamped artifacts/go run")
     result.add_argument("--resume", type=Path, help="Resume a last.pt; epochs are additional, not an absolute target")
-    result.add_argument("--epochs", type=int, help="Additional epochs; default 1 for smoke and 32 otherwise")
+    result.add_argument("--epochs", type=int, help="Additional epochs; default 1 for smoke and 3 otherwise")
     result.add_argument("--device", choices=["auto", "mps", "cuda", "cpu"], default="auto")
     result.add_argument("--cpu-threads", type=int)
     result.add_argument("--log-every", type=int, default=25)

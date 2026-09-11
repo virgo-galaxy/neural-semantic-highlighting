@@ -9,6 +9,7 @@ import torch
 from encoding import IGNORE
 from inference import decode, document_logits
 from model import GoSemanticTransformer, ModelOutput
+from progress import validation_line
 from trainer_data import WindowSplit
 
 
@@ -159,9 +160,11 @@ def evaluate_fixed(model: GoSemanticTransformer, split: WindowSplit, device: tor
             pending_bytes.append(bytes(batch["input_ids"][row, :length].cpu().tolist()))
             diagnostics[kind].add(output, batch, row, length, threshold)
             count_windows[kind] += 1
-        if log_every and (step == 1 or step % log_every == 0 or step == batches):
-            print(f"  {split.split}: batch {step}/{batches}, elapsed {time.monotonic() - started:.1f}s", flush=True)
+        if log_every and step != batches and (step == 1 or step % log_every == 0):
+            print(validation_line(split.split, step, batches, sum(count_windows.values()), time.monotonic() - started), flush=True)
     finish()
+    if log_every:
+        print(validation_line(split.split, batches, batches, sum(count_windows.values()), time.monotonic() - started), flush=True)
     return {"split": split.split, "inference": "fixed-window-logits-reassembled-before-document-decoding",
             "limitedSmokeEvaluation": bool(max_windows_per_stream), "seconds": time.monotonic() - started,
             "streams": {kind: {**spans[kind].report(), "windows": count_windows[kind],

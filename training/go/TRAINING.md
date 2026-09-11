@@ -41,7 +41,7 @@ environment mutation, and no automatic enabling of unsupported-operation fallbac
 CPU thread settings affect only this Python process. No DataLoader workers are
 spawned and no inherited mmap handles are sent to subprocesses on macOS.
 
-## First complete baseline
+## First short baseline run
 
 After smoke verification:
 
@@ -50,8 +50,10 @@ make train-go
 ```
 
 This creates a **new** run, not a continuation of smoke weights. The default budget
-is up to 32 epochs, with early stopping after five epochs without improvement in
-natural validation exact-span F1. Model parameters start from random initialization;
+is **three additional epochs**, with early stopping after five epochs without
+improvement in natural validation exact-span F1. This is an iteration budget,
+not a promise that a model is finished after three epochs. Inspect the per-epoch
+report before extending the same run; do not start from scratch to add more epochs. Model parameters start from random initialization;
 TypeScript checkpoint weights are not loaded. The architecture follows the same
 small byte-transformer family:
 
@@ -78,7 +80,7 @@ Each encoder layer is initialized independently. Batches are trimmed to the long
 actual byte sequence in that batch, retaining padding masks for shorter rows.
 
 ```bash
-make train-go GO_EPOCHS=32 GO_BATCH_SIZE=32 GO_FOCUS_EVERY=8
+make train-go GO_EPOCHS=3 GO_BATCH_SIZE=32 GO_FOCUS_EVERY=8
 ```
 
 Full training shuffles each natural training window once per epoch, without
@@ -97,6 +99,100 @@ position is not an all-negative modifier example. Capped inverse-square-root cla
 weights and modifier positive weights are computed only from training labels,
 counting each original training window once; those weights are saved in checkpoints.
 Natural/focused training losses and presentation counts are reported separately.
+
+## Console format and iteration budget
+
+The Go console now follows the TypeScript training layout. It is plain text, so
+copied terminal output and redirected logs contain the same information. All log
+messages, comments, and documentation remain English.
+
+At startup, the trainer prints the requested **additional** epoch budget, global
+epoch range, natural/focus batch sizes, optimizer steps per epoch, and planned
+optimizer steps for this invocation. The default is three epochs for both
+`make train-go` and `make continue-go`, and one for smoke. Override explicitly:
+
+```bash
+make train-go GO_EPOCHS=1
+make continue-go GO_CHECKPOINT=artifacts/go/context512-RUN/last.pt GO_EPOCHS=3
+```
+
+Use the actual checkpoint path for `RUN`. Resume preserves the existing global
+epoch, model and optimizer state, dataset identity, and early-stopping counters.
+For example, three more epochs after epoch 6 are displayed as:
+
+```text
+Epoch 7 (run 1/3)
+Epoch 8 (run 2/3)
+Epoch 9 (run 3/3)
+```
+
+Progress uses simultaneous `main completed/total` and `focus completed/total`
+counters. `main` is the natural stream; `focus` is the modern-Go curriculum.
+Unlike a phase-dependent loss display, the live loss fields always refer to the
+latest **main** batch, even when a progress line follows a focused update. Focus
+loss is reported separately in the epoch summary. The explicit field names are
+`loss`, `boundary_loss`, `type_loss`, and `modifier_loss`: these are optimization
+losses, not F1 scores. Lower loss is better; it need not approach 0.99.
+
+After each epoch, the console prints a multiline scorecard:
+
+```text
+Training losses (lower is better)
+  train loss
+  boundary loss
+  token type loss
+  modifier loss
+  focus loss
+
+Natural validation (higher F1 is better)
+  boundary macro F1
+  token type macro F1
+  exact span F1
+  exact span macro F1
+  predicted/gold spans
+  modifier F1 (Gold starts)
+
+Focused validation (higher F1 is better)
+  ...the same diagnostics, scored separately...
+
+Timing
+  train time
+  validation time
+  checkpoint time
+  epoch time
+  remaining in this run
+  run ETA
+```
+
+Numbers in the scorecard come from the existing validation results. Boundary and
+token-type diagnostics retain their existing masks. The displayed modifier F1 is
+micro-averaged from the existing TP/FP/FN counts at Gold span beginnings, not a new
+end-to-end quality claim. The natural/focus results are never pooled. **Best
+checkpoint selection remains natural whole-document exact-span F1**, excluding
+modifiers; logging changes do not switch selection to macro F1.
+
+`win/s` is actual processed windows per second; training throughput includes
+repeated focused presentations. A training progress line's `ETA` estimates the
+remaining **training loop**, while a validation line has its own elapsed time and
+ETA. The whole-run ETA appears after the first completed epoch, using measured
+training + validation + checkpoint time. It is an estimate, not a deadline, and
+may change with device load or early stopping. No five-hour estimate is hardcoded.
+`epoch time` includes all three phases, unlike a training-only timer. Startup
+checksum verification and class-frequency counting happen before the first epoch
+and are not repeated on each epoch; the estimated remaining run excludes already
+completed startup work. End-of-epoch JSON reports retain separate timing fields.
+
+`GO_LOG_EVERY` defaults to 25 main batches (and 25 validation batches). The first
+and final progress lines are always printed. This is a log interval, not a data
+sampling limit. The update does not reduce the validation dataset, change losses,
+or claim to speed up an individual full epoch. Short runs reduce waiting before
+reviewing results; phase timings help identify actual bottlenecks.
+
+For an already running older trainer, wait for a completed epoch and its `Saved:`
+line before pressing Ctrl+C and applying an update. Resume from that run's
+`last.pt`, not from `best.pt`, not from smoke weights, and not with `make train-go`
+(which starts a fresh run). A few steps of an interrupted partial epoch may need
+to be repeated; completed epochs and existing checkpoints are preserved.
 
 ## Checkpoints and interrupted runs
 
@@ -135,7 +231,7 @@ Only load checkpoints from trusted sources, even with `weights_only=True`.
 Resume with the actual path printed by the completed run:
 
 ```bash
-make continue-go GO_CHECKPOINT=artifacts/go/context512-RUN/last.pt GO_EPOCHS=16
+make continue-go GO_CHECKPOINT=artifacts/go/context512-RUN/last.pt GO_EPOCHS=3
 ```
 
 `GO_EPOCHS` means **additional epochs** when resuming. The saved dataset path is
