@@ -20,7 +20,7 @@ from inference import character_map, decode, document_logits, predicted_cut
 from losses import compute_loss
 from metrics import SpanMetrics, evaluate_fixed, evaluation_indices
 from model import GoSemanticTransformer, ModelConfig, ModelOutput, parameter_count
-from train import parser, run
+from train import TrainingConfig, make_config, parser, run
 from trainer_data import Snapshot, WindowSplit, epoch_batches, sha256_file, training_weights
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -145,6 +145,39 @@ class TrainerTests(unittest.TestCase):
         self.assertTrue(set(focus).issubset(split.streams["focus"]))
         self.assertEqual(len(focus), 4)
         self.assertEqual(plan, epoch_batches(split, batch_size=2, focus_batch_size=2, focus_every=1, seed=42, epoch=1))
+
+    def test_feature_balanced_focus_sampling_ignores_bucket_size(self):
+        class DummySplit:
+            streams = {"natural": list(range(16)), "focus": list(range(100, 212))}
+            focus_feature_families = {
+                "rare": {"rare/a": [100, 101]},
+                "common": {"common/a": list(range(102, 182)), "common/b": list(range(182, 212))},
+            }
+
+        plan = epoch_batches(DummySplit(), batch_size=2, focus_batch_size=4, focus_every=1, seed=7, epoch=3)
+        focus = [index for kind, batch in plan if kind == "focus" for index in batch]
+        rare = sum(index in {100, 101} for index in focus)
+        common = len(focus) - rare
+        self.assertEqual((rare, common), (16, 16))
+        self.assertEqual(plan, epoch_batches(DummySplit(), batch_size=2, focus_batch_size=4, focus_every=1, seed=7, epoch=3))
+
+    def test_window_uniform_focus_sampling_preserves_legacy_behavior(self):
+        split = self.split()
+        plan = epoch_batches(split, batch_size=2, focus_batch_size=2, focus_every=1, seed=42, epoch=1,
+                             focus_sampling="window-uniform")
+        focus = [i for kind, ids in plan if kind == "focus" for i in ids]
+        self.assertTrue(set(focus).issubset(split.streams["focus"]))
+        self.assertEqual(len(focus), 4)
+
+    def test_old_checkpoint_defaults_to_window_uniform_sampling(self):
+        checkpoint = {"trainingConfig": {
+            "batch_size": 32, "focus_batch_size": 16, "focus_every": 8,
+            "learning_rate": 3e-4, "weight_decay": .01, "modifier_loss_weight": .1,
+            "modifier_threshold": .60, "seed": 42, "patience": 5, "smoke": False,
+            "smoke_main_batches": 8, "smoke_eval_windows": 24,
+        }}
+        args = parser().parse_args([])
+        self.assertEqual(make_config(args, checkpoint).focus_sampling, "window-uniform")
 
     def test_heldout_labels_cannot_build_weights(self):
         with self.assertRaisesRegex(ValueError, "held-out"):

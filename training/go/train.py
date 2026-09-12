@@ -29,6 +29,7 @@ class TrainingConfig:
     batch_size: int = 32
     focus_batch_size: int = 16
     focus_every: int = 8
+    focus_sampling: str = "feature-balanced"
     learning_rate: float = 3e-4
     weight_decay: float = .01
     modifier_loss_weight: float = .1
@@ -42,6 +43,8 @@ class TrainingConfig:
     def validate(self) -> None:
         if min(self.batch_size, self.focus_batch_size, self.focus_every, self.smoke_main_batches, self.smoke_eval_windows) < 1:
             raise ValueError("Batch sizes, sampling interval, and smoke limits must be positive")
+        if self.focus_sampling not in {"feature-balanced", "window-uniform"}:
+            raise ValueError("Unknown focused sampling strategy")
         if self.patience < 0 or self.learning_rate <= 0 or self.weight_decay < 0 or self.modifier_loss_weight < 0:
             raise ValueError("Invalid optimizer or early-stopping configuration")
         if not all(math.isfinite(v) for v in (self.learning_rate, self.weight_decay, self.modifier_loss_weight, self.modifier_threshold)):
@@ -54,13 +57,19 @@ DEFAULT_EPOCHS = 3
 
 
 def make_config(args: argparse.Namespace, checkpoint: dict | None) -> TrainingConfig:
-    saved = checkpoint["trainingConfig"] if checkpoint else asdict(TrainingConfig())
+    if checkpoint:
+        saved = checkpoint["trainingConfig"].copy()
+        # Checkpoints created before feature-balanced sampling must replay their
+        # original window-uniform focused schedule when resumed.
+        saved.setdefault("focus_sampling", "window-uniform")
+    else:
+        saved = asdict(TrainingConfig())
     values = saved.copy()
-    for key in values:
+    for key in asdict(TrainingConfig()):
         value = getattr(args, key, None)
         if value is not None:
-            if checkpoint and value != saved[key]:
-                raise ValueError(f"Resume must preserve {key}={saved[key]!r}; use a new run for a different training setup")
+            if checkpoint and value != saved.get(key, getattr(TrainingConfig(), key)):
+                raise ValueError(f"Resume must preserve {key}={saved.get(key)!r}; use a new run for a different training setup")
             values[key] = value
     config = TrainingConfig(**values)
     config.validate()
@@ -71,7 +80,8 @@ def epoch_train(model: GoSemanticTransformer, split: WindowSplit, optimizer: tor
                 weights: dict, config: TrainingConfig, epoch: int, device: torch.device, log_every: int) -> dict:
     schedule = epoch_batches(split, batch_size=config.batch_size, focus_batch_size=config.focus_batch_size,
                              focus_every=config.focus_every, seed=config.seed, epoch=epoch,
-                             max_main_batches=config.smoke_main_batches if config.smoke else 0)
+                             max_main_batches=config.smoke_main_batches if config.smoke else 0,
+                             focus_sampling=config.focus_sampling)
     totals = {kind: Counter() for kind in split.streams}
     steps = Counter(kind for kind, _ in schedule)
     completed = Counter()
@@ -214,6 +224,12 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
         print(f"Parameters: {parameter_count(model):,} | Context: {model.config.context_bytes} UTF-8 bytes", flush=True)
         print(f"Batch: {config.batch_size} natural / {config.focus_batch_size} focus; one focus batch per "
               f"{config.focus_every} natural batches (plus the final partial interval).", flush=True)
+        if config.focus_sampling == "feature-balanced":
+            families = sum(len(value) for value in train_split.focus_feature_families.values())
+            print(f"Focused sampling: feature-balanced across {len(train_split.focus_feature_families)} features / "
+                  f"{families} feature-family buckets.", flush=True)
+        else:
+            print("Focused sampling: window-uniform (legacy checkpoint replay).", flush=True)
         main_steps = math.ceil(len(train_split.streams["natural"]) / config.batch_size)
         if config.smoke:
             main_steps = min(main_steps, config.smoke_main_batches)
@@ -323,6 +339,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--cpu-threads", type=int)
     result.add_argument("--log-every", type=int, default=25)
     result.add_argument("--smoke", action="store_true", default=None)
+    result.add_argument("--focus-sampling", choices=["feature-balanced", "window-uniform"], default=None)
     for name in ("batch-size", "focus-batch-size", "focus-every", "seed", "patience", "smoke-main-batches", "smoke-eval-windows"):
         result.add_argument("--" + name, type=int, default=None)
     for name in ("learning-rate", "weight-decay", "modifier-loss-weight", "modifier-threshold"):

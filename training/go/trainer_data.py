@@ -100,6 +100,7 @@ class WindowSplit:
         self.refs: list[dict] = []
         self.streams: dict[str, list[int]] = {"natural": [], "focus": []}
         self.document_indices: dict[str, list[int]] = {}
+        self.focus_feature_families: dict[str, dict[str, list[int]]] = {}
         try:
             with (snapshot.path / split / "windows.jsonl").open(encoding="utf-8") as stream:
                 last_document, previous_end, seen = None, 0, set()
@@ -122,6 +123,22 @@ class WindowSplit:
                     self.document_indices.setdefault(document, []).append(index)
             if len(self.refs) != len(self.rows):
                 raise ValueError("Window metadata/column count mismatch")
+            with (snapshot.path / split / "documents.jsonl").open(encoding="utf-8") as stream:
+                for line in stream:
+                    document = json.loads(line)
+                    if document.get("stream") != "focus":
+                        continue
+                    features = document.get("features")
+                    if not isinstance(features, list) or not features or any(not isinstance(value, str) or not value for value in features):
+                        raise ValueError("Focused document is missing feature metadata")
+                    family = document.get("family") or document["id"]
+                    indices = self.document_indices.get(document["id"], [])
+                    if not indices:
+                        raise ValueError("Focused document has no windows")
+                    for feature in sorted(set(features)):
+                        self.focus_feature_families.setdefault(feature, {}).setdefault(family, []).extend(indices)
+            if self.streams["focus"] and not self.focus_feature_families:
+                raise ValueError("Focused windows are missing feature buckets")
             counts = snapshot.manifest["splits"][split]
             for kind in self.streams:
                 if len(self.streams[kind]) != counts[kind + "Windows"]:
@@ -160,10 +177,82 @@ class WindowSplit:
         self.rows.close()
 
 
+def _window_uniform_focus_batch(focus: list[int], *, size: int, rng: random.Random,
+                                state: dict[str, object]) -> list[int]:
+    order = state.setdefault("order", [])
+    cursor = int(state.setdefault("cursor", 0))
+    batch: list[int] = []
+    while len(batch) < size:
+        if cursor == len(order):
+            order = focus[:]
+            rng.shuffle(order)
+            cursor = 0
+        take = min(size - len(batch), len(order) - cursor)
+        batch.extend(order[cursor:cursor + take])
+        cursor += take
+    state["order"], state["cursor"] = order, cursor
+    return batch
+
+
+def _feature_balanced_focus_batch(split: WindowSplit, *, size: int, rng: random.Random,
+                                  state: dict[str, object]) -> list[int]:
+    buckets = split.focus_feature_families
+    features = sorted(buckets)
+    if not features:
+        raise ValueError("Feature-balanced focus sampling needs focused feature metadata")
+    feature_order = state.setdefault("feature_order", [])
+    feature_cursor = int(state.setdefault("feature_cursor", 0))
+    family_state = state.setdefault("families", {})
+    window_state = state.setdefault("windows", {})
+    batch: list[int] = []
+    used: set[int] = set()
+    attempts = 0
+    max_attempts = max(size * len(features) * 8, size * 16)
+    while len(batch) < size:
+        if feature_cursor == len(feature_order):
+            feature_order = features[:]
+            rng.shuffle(feature_order)
+            feature_cursor = 0
+        feature = feature_order[feature_cursor]
+        feature_cursor += 1
+        families = sorted(buckets[feature])
+        feature_families = family_state.setdefault(feature, {"order": [], "cursor": 0})
+        family_order = feature_families["order"]
+        family_cursor = int(feature_families["cursor"])
+        if family_cursor == len(family_order):
+            family_order = families[:]
+            rng.shuffle(family_order)
+            family_cursor = 0
+        family = family_order[family_cursor]
+        family_cursor += 1
+        feature_families["order"], feature_families["cursor"] = family_order, family_cursor
+        key = feature + "\0" + family
+        window = window_state.setdefault(key, {"order": [], "cursor": 0})
+        order = window["order"]
+        cursor = int(window["cursor"])
+        source = buckets[feature][family]
+        if cursor == len(order):
+            order = source[:]
+            rng.shuffle(order)
+            cursor = 0
+        candidate = order[cursor]
+        cursor += 1
+        window["order"], window["cursor"] = order, cursor
+        attempts += 1
+        if candidate not in used or attempts >= max_attempts:
+            batch.append(candidate)
+            used.add(candidate)
+    state["feature_order"], state["feature_cursor"] = feature_order, feature_cursor
+    return batch
+
+
 def epoch_batches(split: WindowSplit, *, batch_size: int, focus_batch_size: int,
-                  focus_every: int, seed: int, epoch: int, max_main_batches: int = 0) -> list[tuple[str, list[int]]]:
+                  focus_every: int, seed: int, epoch: int, max_main_batches: int = 0,
+                  focus_sampling: str = "feature-balanced") -> list[tuple[str, list[int]]]:
     if min(batch_size, focus_batch_size, focus_every) < 1 or max_main_batches < 0:
         raise ValueError("Invalid batch or sampling settings")
+    if focus_sampling not in {"feature-balanced", "window-uniform"}:
+        raise ValueError("Unknown focused sampling strategy")
     rng = random.Random(seed + epoch * 1000003)
     natural, focus = list(split.streams["natural"]), list(split.streams["focus"])
     if not natural or not focus:
@@ -172,20 +261,16 @@ def epoch_batches(split: WindowSplit, *, batch_size: int, focus_batch_size: int,
     main = [natural[i:i + batch_size] for i in range(0, len(natural), batch_size)]
     if max_main_batches:
         main = main[:max_main_batches]
-    result, focus_cursor, focus_order = [], 0, []
+    result: list[tuple[str, list[int]]] = []
+    focus_state: dict[str, object] = {}
     for index, batch in enumerate(main, 1):
         result.append(("natural", batch))
         if index % focus_every == 0 or index == len(main):
-            batch = []
-            while len(batch) < focus_batch_size:
-                if focus_cursor == len(focus_order):
-                    focus_order = focus[:]
-                    rng.shuffle(focus_order)
-                    focus_cursor = 0
-                take = min(focus_batch_size - len(batch), len(focus_order) - focus_cursor)
-                batch.extend(focus_order[focus_cursor:focus_cursor + take])
-                focus_cursor += take
-            result.append(("focus", batch))
+            if focus_sampling == "feature-balanced":
+                focused = _feature_balanced_focus_batch(split, size=focus_batch_size, rng=rng, state=focus_state)
+            else:
+                focused = _window_uniform_focus_batch(focus, size=focus_batch_size, rng=rng, state=focus_state)
+            result.append(("focus", focused))
     return result
 
 

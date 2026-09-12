@@ -225,10 +225,13 @@ boundary/type supervision. Modifier bits are supervised only at span beginnings.
 The memory-mapped reader exposes separate attention, label, and modifier masks.
 A trainer must not apply modifier loss to every byte indiscriminately.
 
-Natural and focused windows carry separate stream metadata; this stage does not
-replicate or oversample focused windows. The Go training loop interleaves
-these streams without treating held-out examples as training data. Public
-`HighlightResult` offsets remain UTF-16; training byte offsets are internal.
+Natural and focused windows carry separate stream metadata. Preparation does not
+replicate focused windows. During training, fresh runs schedule focused examples
+with a feature-balanced, then family-balanced sampler so a large targeted corpus
+does not dominate smaller modern-Go capabilities. The number of focused optimizer
+steps is unchanged, and held-out examples are never sampled for training. Legacy
+checkpoints resume with their saved window-uniform behavior for reproducibility.
+Public `HighlightResult` offsets remain UTF-16; training byte offsets are internal.
 
 ## External outputs
 

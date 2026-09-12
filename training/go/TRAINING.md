@@ -128,6 +128,12 @@ Epoch 9 (run 3/3)
 
 Progress uses simultaneous `main completed/total` and `focus completed/total`
 counters. `main` is the natural stream; `focus` is the modern-Go curriculum.
+Fresh runs use **feature-balanced focused sampling**: each focused feature gets an
+equal scheduling opportunity, and families are rotated within a feature before
+individual windows are recycled. Corpus size therefore does not let a large
+protobuf/struct-tag pool drown out smaller capabilities such as function-range.
+The total focus budget is unchanged. Legacy checkpoints created before this
+strategy retain their original window-uniform schedule when resumed.
 Unlike a phase-dependent loss display, the live loss fields always refer to the
 latest **main** batch, even when a progress line follows a focused update. Focus
 loss is reported separately in the epoch summary. The explicit field names are

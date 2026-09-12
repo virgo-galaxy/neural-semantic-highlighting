@@ -44,6 +44,7 @@ GO_EPOCHS ?= 3
 GO_BATCH_SIZE ?= 32
 GO_FOCUS_BATCH_SIZE ?= 16
 GO_FOCUS_EVERY ?= 8
+GO_FOCUS_SAMPLING ?= feature-balanced
 GO_FOCUS_V2_VARIANTS ?= 8
 GO_INIT_CHECKPOINT ?=
 GO_LOG_EVERY ?= 25
@@ -211,18 +212,18 @@ challenge-jsx-tsx-typescript:
 train-go-smoke:
 	$(PYTHON) training/go/train.py --smoke --epochs 1 --device $(GO_DEVICE) \
 		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
-		--focus-every $(GO_FOCUS_EVERY) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+		--focus-every $(GO_FOCUS_EVERY) --focus-sampling $(GO_FOCUS_SAMPLING) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
 
 train-go:
 	$(PYTHON) training/go/train.py --epochs $(GO_EPOCHS) --device $(GO_DEVICE) \
 		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
-		--focus-every $(GO_FOCUS_EVERY) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+		--focus-every $(GO_FOCUS_EVERY) --focus-sampling $(GO_FOCUS_SAMPLING) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
 
 train-go-v2:
 	@test -n "$(GO_INIT_CHECKPOINT)" || (echo 'Set GO_INIT_CHECKPOINT to the V1 Go best.pt'; exit 1)
 	$(PYTHON) training/go/train.py --init-from "$(GO_INIT_CHECKPOINT)" --epochs $(GO_EPOCHS) --device $(GO_DEVICE) \
 		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
-		--focus-every $(GO_FOCUS_EVERY) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+		--focus-every $(GO_FOCUS_EVERY) --focus-sampling $(GO_FOCUS_SAMPLING) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
 
 continue-go:
 	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to the run last.pt'; exit 1)
