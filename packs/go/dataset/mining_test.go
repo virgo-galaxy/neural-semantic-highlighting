@@ -42,3 +42,24 @@ func Read() int { for _, value := range Values() { return value }; return 0 }
 		t.Fatalf("unexpected features: %v", features)
 	}
 }
+func TestMineSourceFeaturesFindsProtobufStructTags(t *testing.T) {
+	source := `package sample
+
+type Message struct {
+    ID int32 ` + "`protobuf:\"varint,1,opt,name=id,proto3\" json:\"id,omitempty\"`" + `
+}
+`
+	features, err := MineSourceFeatures("message.go", source)
+	if err != nil {
+		t.Fatal(err)
+	}
+	found := false
+	for _, feature := range features {
+		if feature == "struct-tags" {
+			found = true
+		}
+	}
+	if !found {
+		t.Fatalf("expected struct-tags feature, got %v", features)
+	}
+}

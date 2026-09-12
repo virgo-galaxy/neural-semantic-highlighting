@@ -242,10 +242,10 @@ go/
     x-sync/
     ...
   curricula/
-    modern-v2r1/
+    modern-v2r2/
       sample.json
       labeled-sample.jsonl
-    targeted-real-v2/
+    targeted-real-v2r1/
       sample.json
       labeled-sample.jsonl
   prepared/

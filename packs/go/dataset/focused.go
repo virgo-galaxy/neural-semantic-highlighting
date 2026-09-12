@@ -74,6 +74,17 @@ func focusedFamilies(profile string) ([]focusedFamilySpec, string, error) {
 		}
 		families = append(families, focusedV2Families...)
 		return families, "modern-go-focused-v2", nil
+	case "v2r2":
+		targeted := map[string]bool{"self-reference": true, "function-range": true, "generic-method": true, "generic-alias": true, "struct-tags": true}
+		families := make([]focusedFamilySpec, 0, len(v1FocusedFamilies())+len(focusedV2Families)+len(focusedV2R2ExtraFamilies))
+		for _, family := range v1FocusedFamilies() {
+			if !targeted[family.Feature] {
+				families = append(families, family)
+			}
+		}
+		families = append(families, focusedV2Families...)
+		families = append(families, focusedV2R2ExtraFamilies...)
+		return families, "modern-go-focused-v2r2", nil
 	default:
 		return nil, "", fmt.Errorf("unknown focused profile %q", profile)
 	}

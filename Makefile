@@ -101,13 +101,13 @@ dataset-go-focused:
 
 dataset-go-focused-v2:
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-focus \
-		--profile v2 --id modern-v2r1 --variants $(GO_FOCUS_V2_VARIANTS)
+		--profile v2r2 --id modern-v2r2 --variants $(GO_FOCUS_V2_VARIANTS)
 
 dataset-go-targeted:
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset modules \
 		--config dataset/sources/targeted.json --source "$(GO_CORPUS)"
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-mine \
-		--config dataset/sources/targeted.json --id targeted-real-v2
+		--config dataset/sources/targeted.json --id targeted-real-v2r1
 
 dataset-go-prepare:
 	$(PYTHON) training/go/prepare.py

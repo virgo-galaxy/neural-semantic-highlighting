@@ -203,12 +203,12 @@ make dataset-go-prepare
 
 `dataset-go-targeted` first builds the modules in `dataset/sources/targeted.json`
 with the same locked module/checksum policy as the other module corpora, then writes
-a train-only focused corpus at `curricula/targeted-real-v2`. The miner recognizes
+a train-only focused corpus at `curricula/targeted-real-v2r1`. The miner recognizes
 source-level generic methods, generic aliases, self-referential interface
 constraints, method-shaped range-over-function expressions, and struct tags. It
 does not execute source programs or infer features from repository names.
 
-`dataset-go-focused-v2` writes `curricula/modern-v2r1`. V2 retains the non-targeted
+`dataset-go-focused-v2` writes `curricula/modern-v2r2`. V2 retains the non-targeted
 V1 families and replaces the five weak feature families with structurally diverse
 train/validation/test families plus train-only hard negatives. Existing
 `modern-v1` output remains immutable historical data but is no longer selected by

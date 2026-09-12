@@ -207,7 +207,7 @@ func BuildTargetedMinedCorpus(root, configPath, id string, progress ProgressFunc
 	families := map[string]bool{}
 	manifest := minedManifest{focusedManifest: focusedManifest{SampleManifest: SampleManifest{
 		FormatVersion: 1, Toolchain: GoldToolchain, Corpus: id, GOOS: runtime.GOOS, GOARCH: runtime.GOARCH,
-	}, Kind: "focused", Generator: "targeted-go-feature-miner-v1", Profile: "targeted-real-v2", Variants: 1},
+	}, Kind: "focused", Generator: "targeted-go-feature-miner-v1", Profile: "targeted-real-v2r1", Variants: 1},
 		FeatureCounts: counts}
 	for index, spec := range config.Sources {
 		if progress != nil {

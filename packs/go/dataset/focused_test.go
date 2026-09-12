@@ -158,3 +158,37 @@ func TestFocusedV2HeldOutShapesAreDistinct(t *testing.T) {
 		seen[shape] = seenShape{id: family.ID, split: family.Split}
 	}
 }
+func TestFocusedV2R2AddsProtobufStructTagTrainingShapes(t *testing.T) {
+	families, _, err := focusedFamilies("v2r2")
+	if err != nil {
+		t.Fatal(err)
+	}
+	protobufTrain := 0
+	for _, family := range families {
+		if family.Split == "train" && strings.HasPrefix(family.ID, "struct-tags/train/protobuf-") {
+			protobufTrain++
+			if !strings.Contains(family.Source, "protobuf:") || !strings.Contains(family.Source, "proto3") {
+				t.Fatalf("protobuf training family lacks realistic protobuf tag content: %s", family.ID)
+			}
+		}
+	}
+	if protobufTrain < 5 {
+		t.Fatalf("expected at least five protobuf struct-tag training families, got %d", protobufTrain)
+	}
+}
+
+func TestFocusedV2R2HeldOutShapesAreDistinct(t *testing.T) {
+	families, _, err := focusedFamilies("v2r2")
+	if err != nil {
+		t.Fatal(err)
+	}
+	type seenShape struct{ id, split string }
+	seen := map[string]seenShape{}
+	for _, family := range families {
+		shape := focusedTemplateShape(family.Source)
+		if previous, ok := seen[shape]; ok && previous.split != family.Split {
+			t.Fatalf("held-out near-copy shape: %s (%s) and %s (%s)", previous.id, previous.split, family.ID, family.Split)
+		}
+		seen[shape] = seenShape{id: family.ID, split: family.Split}
+	}
+}

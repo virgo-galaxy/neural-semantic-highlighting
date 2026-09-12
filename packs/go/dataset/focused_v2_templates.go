@@ -159,3 +159,36 @@ type Plain{{.Name}} struct { Name string }`},
  Meta struct { TraceID string ` + "`json:\"trace_id\"`" + ` } ` + "`custom:\"meta:trace\"`" + `
 }`},
 }
+
+// V2R2 keeps the V2 held-out families unchanged and only expands train-time
+// coverage for protobuf-style struct tags. The diagnostic showed that ordinary
+// json/xml/binding tags were already stable while long protobuf tags containing
+// comma-separated numeric and symbolic options were split internally.
+var focusedV2R2ExtraFamilies = []focusedFamilySpec{
+	{"struct-tags", "1.18", "struct-tags/train/protobuf-three-fields", "train", `type Wire{{.Name}} struct {
+ ID int64 ` + "`protobuf:\"varint,7,opt,name=id,proto3\" json:\"id,omitempty\"`" + `
+ Payload []byte ` + "`protobuf:\"bytes,11,opt,name=payload,proto3\" json:\"payload,omitempty\"`" + `
+ Active bool ` + "`protobuf:\"varint,19,opt,name=active,proto3\" json:\"active,omitempty\"`" + `
+}`},
+	{"struct-tags", "1.18", "struct-tags/train/protobuf-repeated-and-map", "train", `type Collection{{.Name}} struct {
+ Values []int32 ` + "`protobuf:\"varint,3,rep,packed,name=values,proto3\" json:\"values,omitempty\"`" + `
+ Labels map[string]string ` + "`protobuf:\"bytes,9,rep,name=labels,proto3\" json:\"labels,omitempty\" protobuf_key:\"bytes,1,opt,name=key,proto3\" protobuf_val:\"bytes,2,opt,name=value,proto3\"`" + `
+}`},
+	{"struct-tags", "1.18", "struct-tags/train/protobuf-nested-layout", "train", `type Header{{.Name}} struct {
+ Version uint32 ` + "`protobuf:\"varint,1,opt,name=version,proto3\" json:\"version,omitempty\"`" + `
+}
+type Envelope{{.Name}} struct {
+ Header *Header{{.Name}} ` + "`protobuf:\"bytes,4,opt,name=header,proto3\" json:\"header,omitempty\"`" + `
+ Items []string ` + "`protobuf:\"bytes,8,rep,name=items,proto3\" json:\"items,omitempty\"`" + `
+}`},
+	{"struct-tags", "1.18", "struct-tags/train/protobuf-mixed-wire-types", "train", `type Metrics{{.Name}} struct {
+ Count int32 ` + "`protobuf:\"zigzag32,5,opt,name=count,proto3\" json:\"count,omitempty\"`" + `
+ Ratio float64 ` + "`protobuf:\"fixed64,12,opt,name=ratio,proto3\" json:\"ratio,omitempty\"`" + `
+ Name string ` + "`protobuf:\"bytes,21,opt,name=name,proto3\" json:\"name,omitempty\"`" + `
+}`},
+	{"struct-tags", "1.18", "struct-tags/train/protobuf-tag-stack", "train", `type Generated{{.Name}} struct {
+ State int ` + "`protogen:\"open.v1\"`" + `
+ Key string ` + "`protobuf:\"bytes,2,opt,name=key,proto3\" json:\"key,omitempty\" yaml:\"key\"`" + `
+ Children []int64 ` + "`protobuf:\"varint,15,rep,packed,name=children,proto3\" json:\"children,omitempty\" custom:\"wire:v2;required\"`" + `
+}`},
+}
