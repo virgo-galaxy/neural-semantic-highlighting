@@ -20,7 +20,7 @@ from losses import compute_loss
 from metrics import evaluate_fixed, evaluation_indices
 from model import GoSemanticTransformer, ModelConfig, parameter_count
 from progress import epoch_report, training_line
-from quality import targeted_gate_summary
+from quality import quality_gate_summary, targeted_gate_summary
 from trainer_data import Snapshot, WindowSplit, epoch_batches, sha256_file, training_weights
 
 
@@ -31,6 +31,7 @@ class TrainingConfig:
     focus_every: int = 8
     focus_sampling: str = "feature-balanced"
     focus_features: str = ""
+    selection_policy: str = "natural-exact-span"
     learning_rate: float = 3e-4
     weight_decay: float = .01
     modifier_loss_weight: float = .1
@@ -48,6 +49,8 @@ class TrainingConfig:
             raise ValueError("Unknown focused sampling strategy")
         if self.focus_features and self.focus_sampling != "feature-balanced":
             raise ValueError("Focused feature filtering requires feature-balanced sampling")
+        if self.selection_policy not in {"natural-exact-span", "quality-gated"}:
+            raise ValueError("Unknown checkpoint selection policy")
         if self.patience < 0 or self.learning_rate <= 0 or self.weight_decay < 0 or self.modifier_loss_weight < 0:
             raise ValueError("Invalid optimizer or early-stopping configuration")
         if not all(math.isfinite(v) for v in (self.learning_rate, self.weight_decay, self.modifier_loss_weight, self.modifier_threshold)):
@@ -65,6 +68,8 @@ def make_config(args: argparse.Namespace, checkpoint: dict | None) -> TrainingCo
         # Checkpoints created before feature-balanced sampling must replay their
         # original window-uniform focused schedule when resumed.
         saved.setdefault("focus_sampling", "window-uniform")
+        saved.setdefault("focus_features", "")
+        saved.setdefault("selection_policy", "natural-exact-span")
     else:
         saved = asdict(TrainingConfig())
     values = saved.copy()
@@ -262,7 +267,10 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                     "lineage": lineage,
                     "trainerFiles": {p.name: sha256_file(p) for p in sorted(Path(__file__).parent.glob("*.py"))
                                      if p.name not in {"prepare.py", "repair.py", "splitting.py"}},
-                    "selection": "validation natural whole-document exact-span F1; fixed-window inference; excludes modifiers",
+                    "selection": ("quality-gated validation, then highest natural whole-document exact-span F1; "
+                                  "fixed-window inference; excludes modifiers"
+                                  if config.selection_policy == "quality-gated" else
+                                  "validation natural whole-document exact-span F1; fixed-window inference; excludes modifiers"),
                 })
             last = directory / "last.pt"
             measured_epochs = []
@@ -275,12 +283,18 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                                             threshold=config.modifier_threshold, log_every=args.log_every,
                                             max_windows_per_stream=config.smoke_eval_windows if config.smoke else 0)
                 validation["targetedRoleGate"] = targeted_gate_summary(validation)
+                validation["qualityGate"] = quality_gate_summary(validation)
                 score = validation["streams"]["natural"]["exactSpan"]["f1"]
-                improved = score > state["bestScore"] + 1e-9
+                eligible = config.selection_policy == "natural-exact-span" or validation["qualityGate"]["passed"]
+                improved = eligible and score > state["bestScore"] + 1e-9
                 if improved:
                     state.update(bestScore=score, bestEpoch=epoch, epochsWithoutImprovement=0)
-                else:
+                elif state["bestEpoch"] > 0:
                     state["epochsWithoutImprovement"] += 1
+                else:
+                    # A quality-gated run must not early-stop before it has ever
+                    # produced an eligible checkpoint.
+                    state["epochsWithoutImprovement"] = 0
                 state["optimizerSteps"] += sum(trained[k]["batches"] for k in ("natural", "focus"))
                 record = {"epoch": epoch, "runEpoch": local_epoch, "runEpochBudget": epochs,
                           "training": trained, "validation": validation, "trainingState": state.copy()}
@@ -303,7 +317,8 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                 print(epoch_report(trained, validation, state, epoch_seconds=epoch_seconds,
                                    checkpoint_seconds=checkpoint_seconds, remaining_epochs=remaining,
                                    mean_epoch_seconds=sum(measured_epochs) / len(measured_epochs),
-                                   patience=config.patience, improved=improved, smoke=config.smoke), flush=True)
+                                   patience=config.patience, improved=improved, smoke=config.smoke,
+                                   selection_policy=config.selection_policy, selection_eligible=eligible), flush=True)
                 print(f"Saved: {last}", flush=True)
                 if config.patience and state["epochsWithoutImprovement"] >= config.patience:
                     print(f"Early stopping: no natural validation improvement for {config.patience} epochs.", flush=True)
@@ -354,6 +369,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--smoke", action="store_true", default=None)
     result.add_argument("--focus-sampling", choices=["feature-balanced", "window-uniform"], default=None)
     result.add_argument("--focus-features", default=None, help="Comma-separated focused features for a targeted short run")
+    result.add_argument("--selection-policy", choices=["natural-exact-span", "quality-gated"], default=None)
     for name in ("batch-size", "focus-batch-size", "focus-every", "seed", "patience", "smoke-main-batches", "smoke-eval-windows"):
         result.add_argument("--" + name, type=int, default=None)
     for name in ("learning-rate", "weight-decay", "modifier-loss-weight", "modifier-threshold"):

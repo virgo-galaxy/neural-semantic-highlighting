@@ -97,6 +97,8 @@ func focusedFamilies(profile string) ([]focusedFamilySpec, string, error) {
 		families = append(families, focusedV2R2ExtraFamilies...)
 		families = append(families, focusedV2R3ExtraFamilies...)
 		return families, "modern-go-focused-v2r3", nil
+	case "v3":
+		return append([]focusedFamilySpec(nil), focusedV3Families...), "modern-go-curriculum-v3", nil
 	case "sealed-v1":
 		return append([]focusedFamilySpec(nil), sealedFocusedFamilies...), "sealed-go-acceptance-v1", nil
 	default:

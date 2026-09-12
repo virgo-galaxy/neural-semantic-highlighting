@@ -329,6 +329,47 @@ are engineering checks and are not appended to real model corpora.
 - [Checkpoint serialization](https://docs.pytorch.org/docs/stable/notes/serialization.html)
 - [Reproducibility limitations](https://docs.pytorch.org/docs/stable/notes/randomness.html)
 
+## V3 final-training candidate
+
+The V3 candidate removes feature-specific patch scheduling from the active final
+workflow. Historical runs remain reproducible, but final training selects the
+`modern-v3` and `real-world-v3` focused corpora and always trains the full V3
+capability set together.
+
+The final schedule uses one focused batch per four natural batches with
+feature-balanced sampling. Natural windows still receive one complete presentation
+per epoch. The larger focused budget is fixed before final training; it is not
+changed in response to individual validation failures.
+
+V3 model selection can use `--selection-policy quality-gated`. Under that policy an
+epoch is eligible for `best.pt` only after all of the following hold on validation:
+
+- natural exact-span F1 >= 0.95;
+- natural exact-span macro F1 >= 0.90;
+- focused exact-span F1 >= 0.98;
+- every natural token role with support >= 32 has F1 >= 0.90;
+- every V3 targeted capability has support >= 32 and F1 >= 0.90.
+
+The V3 targeted capabilities are:
+
+- `self-reference / interface`;
+- `function-range / method`;
+- `generic-method / method`;
+- `generic-alias / type-parameter`;
+- `struct-tags / string`;
+- `strings / string`.
+
+Among eligible epochs, `best.pt` is still selected by natural exact-span F1. Early
+stopping does not begin counting patience before the first quality-eligible epoch,
+so a from-scratch run cannot stop merely because aggregate natural F1 plateaued
+before the semantic gates were learned.
+
+Use `make train-go-v3-check` only for short curriculum verification with
+weights-only initialization. Use `make train-go-final` only after the V3 dataset,
+model, loss, sampler, and validation gates are frozen. `train-go-final` refuses a
+previous initialization checkpoint and feature-specific focus filters, so it starts
+from random initialization rather than inheriting the diagnostic patch history.
+
 ## Focused Curriculum V2 transfer runs
 
 A V2 prepared snapshot intentionally has a different dataset identity from the V1

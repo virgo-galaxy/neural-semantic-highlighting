@@ -17,9 +17,7 @@ PyTorch from the existing project `.venv`, as the TypeScript trainer already doe
 ```bash
 make check
 make dataset-go-applications
-make dataset-go-targeted
-make dataset-go-focused-v2
-make dataset-go-prepare
+make dataset-go-v3
 ```
 
 Do not rerun `make dataset-go`, `make dataset-go-official`, or standard-library
@@ -30,8 +28,8 @@ a claim that arbitrary real-world application patterns are already covered.
 The existing collector locks versions and keeps dependencies outside the repository.
 
 `training/go/corpora.json` explicitly selects the standard library, seven official
-modules, two application-framework modules, the V2 focused curriculum, and a
-train-only targeted-real curriculum mined from explicitly allowlisted modules.
+modules, two application-framework modules, the integrated V3 curriculum, and a
+train-only real-world V3 curriculum mined from explicitly allowlisted modules.
 Missing sources cause a clear error instead of silently creating a smaller dataset.
 The corpus selector can be supplied explicitly with `prepare.py --config`.
 
@@ -63,6 +61,61 @@ The held-out template forms are useful pipeline diagnostics. They are not a
 replacement for an independent, real-source challenge set or unseen-project
 model evaluation. Template variants differ in names, numeric types, and values;
 the reported variant count must not be presented as architectural diversity.
+
+## Integrated Curriculum V3
+
+V3 is the clean candidate curriculum for final Go training. It does not assemble
+active training data by stacking V2 repair profiles. Historical V1/V2 profiles
+remain replayable, but `training/go/corpora.json` selects only `modern-v3` and
+`real-world-v3` for focused data.
+
+The V3 capability matrix includes all previously supported modern-Go features and
+makes three high-variance areas explicit instead of treating them as patches:
+
+- range-over-function with free functions, bound method values, conditional method
+  selection, indexed generic receivers, promoted methods, and function-field hard
+  negatives;
+- struct tags with nested placement, adjacent key/value grammars, protobuf-style
+  options, storage/validation tags, and raw-string hard negatives;
+- general string robustness with interpreted strings, quoted format text, rune
+  literals, raw strings, multiline help/markdown content, and spans longer than the
+  512-byte model context.
+
+Build the V3 inputs from the repository root:
+
+```bash
+make dataset-go-v3
+```
+
+This regenerates only the V3 focused outputs and reuses immutable natural corpora.
+The active focused ids are `curricula/modern-v3` and `curricula/real-world-v3`.
+
+Before a final from-scratch run, validate the frozen candidate curriculum with a
+short weights-only transfer from the strongest diagnostic checkpoint:
+
+```bash
+make train-go-v3-check \
+  GO_INIT_CHECKPOINT=artifacts/go/context512-RUN/best.pt \
+  GO_EPOCHS=1
+```
+
+V3 verification always uses the complete curriculum, one focused batch per four
+natural batches, feature-balanced sampling, and quality-gated checkpoint selection.
+The V3 targeted scoreboard adds `strings / string` to the five earlier semantic
+capabilities. A quality-gated checkpoint must also keep every natural token role
+with support >= 32 at F1 >= 0.90 and satisfy the aggregate validation thresholds.
+
+Once V3 is frozen, the final training command starts from random initialization and
+refuses both an initialization checkpoint and feature-specific focus filters:
+
+```bash
+make train-go-final
+```
+
+`train-go-final` has a 40-epoch budget but keeps early stopping. The selected
+`best.pt` is the highest natural exact-span F1 among epochs that first satisfy the
+complete V3 validation quality gate. It is not a continuation of any diagnostic
+checkpoint.
 
 ## Focused Curriculum V2 and targeted real-source mining
 

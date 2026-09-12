@@ -64,9 +64,10 @@ class ProgressTests(unittest.TestCase):
             'generic-method': ('method', .93),
             'generic-alias': ('type-parameter', .94),
             'struct-tags': ('string', .95),
+            'strings': ('string', .96),
         }
         val = {'seconds': 3, 'streams': {'natural': self.metrics(), 'focus': self.metrics()},
-               'focusFeatures': {feature: {'byTokenType': {role: {'f1': score, 'support': 12}}}
+               'focusFeatures': {feature: {'byTokenType': {role: {'f1': score, 'support': 64}}}
                                  for feature, (role, score) in target_features.items()}}
         state = {'bestScore': .6, 'bestEpoch': 1, 'epochsWithoutImprovement': 0}
         before = copy.deepcopy((trained, val, state))
@@ -82,13 +83,32 @@ class ProgressTests(unittest.TestCase):
                      'focus loss:', 'boundary macro F1:', 'token type macro F1:',
                      'exact span F1:', 'exact span macro F1:', 'predicted/gold spans:',
                      'modifier F1 (Gold starts):', 'Natural validation', 'Focused validation',
-                     'Targeted role scoreboard', 'self-reference / interface:', 'struct-tags / string:']:
+                     'Targeted role scoreboard', 'self-reference / interface:', 'struct-tags / string:', 'strings / string:']:
             self.assertIn(name, text)
         self.assertIn('lower is better', text)
         self.assertIn('higher F1 is better', text)
         self.assertIn('5/5', text)
         self.assertIn('0.6667', text)
         self.assertIn('natural exact span F1; unchanged', text)
+
+    def test_quality_gated_report_is_explicit_about_checkpoint_eligibility(self):
+        losses = {'total': .3, 'boundary': .1, 'token_type': .15, 'modifier': .5}
+        trained = {'seconds': 6, 'natural': {'batchMeanLoss': losses, 'batches': 8},
+                   'focus': {'batchMeanLoss': losses, 'batches': 1}}
+        metrics = self.metrics()
+        metrics['byTokenType'] = {'string': {'f1': .89, 'support': 64}}
+        val = {'seconds': 3, 'streams': {'natural': metrics, 'focus': self.metrics()},
+               'focusFeatures': {}}
+        state = {'bestScore': -1.0, 'bestEpoch': 0, 'epochsWithoutImprovement': 0}
+        text = epoch_report(trained, val, state, epoch_seconds=10, checkpoint_seconds=1,
+                            remaining_epochs=0, mean_epoch_seconds=10, patience=5,
+                            improved=False, smoke=False, selection_policy='quality-gated',
+                            selection_eligible=False)
+        self.assertIn('quality gate:', text)
+        self.assertIn('FAIL', text)
+        self.assertIn('string=0.8900', text)
+        self.assertIn('no eligible checkpoint yet', text)
+        self.assertIn('quality gate first; then natural exact span F1', text)
 
     def test_report_measures_complete_epoch_and_reports_remaining_budget(self):
         text = self.report()

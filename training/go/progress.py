@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-from quality import TARGET_F1, targeted_scores
+from quality import TARGET_F1, natural_role_scores, targeted_scores
 
 
 def duration(seconds: float) -> str:
@@ -46,7 +46,9 @@ def modifier_micro_f1(diagnostics: Mapping) -> float:
 def epoch_report(trained: Mapping, validation: Mapping, state: Mapping,
                  *, epoch_seconds: float, checkpoint_seconds: float,
                  remaining_epochs: int, mean_epoch_seconds: float,
-                 patience: int, improved: bool, smoke: bool) -> str:
+                 patience: int, improved: bool, smoke: bool,
+                 selection_policy: str = "natural-exact-span",
+                 selection_eligible: bool = True) -> str:
     main = trained['natural']['batchMeanLoss']
     focus = trained['focus']['batchMeanLoss']
     lines = ['', '  Training losses (lower is better; epoch batch means)']
@@ -79,6 +81,14 @@ def epoch_report(trained: Mapping, validation: Mapping, state: Mapping,
         else:
             status = 'PASS' if row['passed'] else 'FAIL'
             add(f"{row['feature']} / {row['role']}", f"{row['f1']:.4f} (support {row['support']}) {status}")
+    if selection_policy == 'quality-gated':
+        failed_natural = [row for row in natural_role_scores(validation) if row['status'] == 'FAIL']
+        lines.extend(['', '  Model-selection quality gate'])
+        add('quality gate', 'PASS' if selection_eligible else 'FAIL')
+        if failed_natural:
+            add('natural role failures', ', '.join(f"{row['role']}={row['f1']:.4f}" for row in failed_natural))
+        else:
+            add('natural role failures', 'none')
     lines.extend(['', '  Timing (epoch time includes training, validation, and checkpoint saving)'])
     add('train time', duration(trained['seconds']))
     add('validation time', duration(validation['seconds']))
@@ -90,8 +100,14 @@ def epoch_report(trained: Mapping, validation: Mapping, state: Mapping,
     else:
         add('run ETA', '00:00')
     lines.append('')
-    add('best natural exact span F1', f"{state['bestScore']:.4f} (epoch {state['bestEpoch']})")
-    add('checkpoint selection', 'natural exact span F1; unchanged')
+    if state['bestEpoch']:
+        add('best natural exact span F1', f"{state['bestScore']:.4f} (epoch {state['bestEpoch']})")
+    else:
+        add('best natural exact span F1', 'n/a (no eligible checkpoint yet)')
+    if selection_policy == 'quality-gated':
+        add('checkpoint selection', 'quality gate first; then natural exact span F1')
+    else:
+        add('checkpoint selection', 'natural exact span F1; unchanged')
     if patience:
         add('early-stopping patience', f"{state['epochsWithoutImprovement']}/{patience} without improvement")
     else:

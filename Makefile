@@ -8,6 +8,9 @@
 	dataset-go-applications \
 	dataset-go-focused \
 	dataset-go-focused-v2 \
+	dataset-go-v3 \
+	dataset-go-v3-curriculum \
+	dataset-go-v3-real \
 	dataset-go-targeted \
 	dataset-go-sealed \
 	dataset-go-prepare \
@@ -15,6 +18,8 @@
 	train-go-smoke \
 	train-go \
 	train-go-v2 \
+	train-go-v3-check \
+	train-go-final \
 	continue-go \
 	predict-go \
 	evaluate-go \
@@ -49,6 +54,9 @@ GO_FOCUS_EVERY ?= 8
 GO_FOCUS_SAMPLING ?= feature-balanced
 GO_FOCUS_FEATURES ?=
 GO_FOCUS_V2_VARIANTS ?= 8
+GO_FOCUS_V3_VARIANTS ?= 8
+GO_V3_FOCUS_EVERY ?= 4
+GO_FINAL_EPOCHS ?= 40
 GO_SEALED_VARIANTS ?= 16
 GO_INIT_CHECKPOINT ?=
 GO_LOG_EVERY ?= 25
@@ -107,6 +115,20 @@ dataset-go-focused:
 dataset-go-focused-v2:
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-focus \
 		--profile v2r3 --id modern-v2r3 --variants $(GO_FOCUS_V2_VARIANTS)
+
+# V3 is the clean integrated curriculum candidate. Historical V2 corpora remain
+# immutable for experiment replay but are not selected by training/go/corpora.json.
+dataset-go-v3-curriculum:
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-focus \
+		--profile v3 --id modern-v3 --variants $(GO_FOCUS_V3_VARIANTS)
+
+dataset-go-v3-real:
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset modules \
+		--config dataset/sources/targeted.json --source "$(GO_CORPUS)"
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-mine \
+		--config dataset/sources/targeted.json --id real-world-v3
+
+dataset-go-v3: dataset-go-v3-real dataset-go-v3-curriculum dataset-go-prepare
 
 dataset-go-targeted:
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset modules \
@@ -234,6 +256,26 @@ train-go-v2:
 	$(PYTHON) training/go/train.py --init-from "$(GO_INIT_CHECKPOINT)" --epochs $(GO_EPOCHS) --device $(GO_DEVICE) \
 		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
 		--focus-every $(GO_FOCUS_EVERY) --focus-sampling $(GO_FOCUS_SAMPLING) $(if $(GO_FOCUS_FEATURES),--focus-features "$(GO_FOCUS_FEATURES)") --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+
+# Short V3 verification: transfer only weights from the strongest diagnostic
+# checkpoint, then validate the frozen candidate curriculum and quality gates.
+train-go-v3-check:
+	@test -n "$(GO_INIT_CHECKPOINT)" || (echo 'Set GO_INIT_CHECKPOINT to the current strongest Go best.pt'; exit 1)
+	@test -z "$(GO_FOCUS_FEATURES)" || (echo 'V3 verification uses the full curriculum; unset GO_FOCUS_FEATURES'; exit 1)
+	$(PYTHON) training/go/train.py --init-from "$(GO_INIT_CHECKPOINT)" --epochs $(GO_EPOCHS) --device $(GO_DEVICE) \
+		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
+		--focus-every $(GO_V3_FOCUS_EVERY) --focus-sampling feature-balanced \
+		--selection-policy quality-gated --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+
+# Final training is intentionally unable to inherit a previous checkpoint or a
+# feature-specific patch schedule. It starts from random initialization.
+train-go-final:
+	@test -z "$(GO_INIT_CHECKPOINT)" || (echo 'Final training must start from random initialization; unset GO_INIT_CHECKPOINT'; exit 1)
+	@test -z "$(GO_FOCUS_FEATURES)" || (echo 'Final training uses the complete V3 curriculum; unset GO_FOCUS_FEATURES'; exit 1)
+	$(PYTHON) training/go/train.py --epochs $(GO_FINAL_EPOCHS) --device $(GO_DEVICE) \
+		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
+		--focus-every $(GO_V3_FOCUS_EVERY) --focus-sampling feature-balanced \
+		--selection-policy quality-gated --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
 
 continue-go:
 	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to the run last.pt'; exit 1)

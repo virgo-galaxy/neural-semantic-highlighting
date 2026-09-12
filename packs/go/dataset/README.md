@@ -190,6 +190,27 @@ checks quality and provenance, groups duplicates before splitting, and writes
 existing natural corpora. See [Go Training Data](../../../training/go/README.md)
 for output formats, Gold quality gates, split policies, and explicit limitations.
 
+## Integrated V3 curriculum
+
+The active final-training candidate is generated as one coherent profile rather
+than by appending historical repair sets:
+
+```bash
+make dataset-go-v3
+```
+
+`modern-v3` contains explicit train/validation/test structural families for all
+modern-Go capabilities selected by the model, including range-over-function method
+values, generic methods and aliases, struct tags, and general string robustness.
+`real-world-v3` is the train-only output of the existing allowlisted feature miner.
+Historical `modern-v1`, `modern-v2*`, and `targeted-real-v2*` directories remain
+immutable for experiment replay but are not selected by `training/go/corpora.json`.
+
+V3 treats long and multiline strings as a first-class lexical capability. A single
+Go string or rune literal is still one `string` semantic span; internal quotes,
+format verbs, punctuation, tag-like text, or model-window boundaries do not create
+subroles. Struct tags remain whole string spans under the same public schema.
+
 ## Targeted weak-feature collection
 
 The V2 workflow does not indiscriminately enlarge the Go corpus. It adds a small,

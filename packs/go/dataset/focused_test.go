@@ -274,3 +274,151 @@ func TestSealedFocusedShapesDoNotOverlapV2R3(t *testing.T) {
 		}
 	}
 }
+
+func TestFocusedV3RendersAllFamilies(t *testing.T) {
+	families, _, err := focusedFamilies("v3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, family := range families {
+		for _, variant := range []int{0, 7, 15, 31} {
+			if _, err := renderFocusedFamily(family, variant); err != nil {
+				t.Fatalf("%s variant %d: %v", family.ID, variant, err)
+			}
+		}
+	}
+}
+
+func TestFocusedV3GoldLabelsEveryFamily(t *testing.T) {
+	families, _, err := focusedFamilies("v3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	gold := labeling.NewStrictPackageLabeler(nil)
+	for _, family := range families {
+		for _, variant := range []int{0, 8, 16, 24} {
+			source, err := renderFocusedFamily(family, variant)
+			if err != nil {
+				t.Fatalf("%s variant %d render: %v", family.ID, variant, err)
+			}
+			_, err = gold.LabelPackage(labeling.PackageRequest{
+				PackagePath:  "example.local/v3-check",
+				DocumentKind: "go",
+				GoVersion:    "go1.27.1",
+				Files:        []labeling.SourceFile{{Path: "source.go", Source: source}},
+			})
+			if err != nil {
+				t.Fatalf("%s variant %d does not type-check under Gold: %v\n%s", family.ID, variant, err, source)
+			}
+		}
+	}
+}
+
+func TestFocusedV3IsSelfContainedCapabilityMatrix(t *testing.T) {
+	families, generator, err := focusedFamilies("v3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if generator != "modern-go-curriculum-v3" {
+		t.Fatalf("unexpected V3 generator: %s", generator)
+	}
+	expected := []string{
+		"generic-functions", "comparable-array", "builtins", "integer-range", "function-range",
+		"generic-alias", "new-expression", "self-reference", "generic-method", "promoted-field-literal",
+		"function-inference", "struct-tags", "strings",
+	}
+	counts := map[string]map[string]int{}
+	for _, family := range families {
+		if counts[family.Feature] == nil {
+			counts[family.Feature] = map[string]int{}
+		}
+		counts[family.Feature][family.Split]++
+	}
+	if len(counts) != len(expected) {
+		t.Fatalf("V3 feature count = %d, want %d: %v", len(counts), len(expected), counts)
+	}
+	for _, feature := range expected {
+		bySplit := counts[feature]
+		if bySplit["train"] < 3 || bySplit["validation"] < 2 || bySplit["test"] < 2 {
+			t.Fatalf("V3 feature %s has insufficient split coverage: %v", feature, bySplit)
+		}
+	}
+}
+
+func TestFocusedV3HeldOutShapesAreDistinct(t *testing.T) {
+	families, _, err := focusedFamilies("v3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	type seenShape struct{ id, split string }
+	seen := map[string]seenShape{}
+	for _, family := range families {
+		shape := focusedTemplateShape(family.Source)
+		if previous, ok := seen[shape]; ok && previous.split != family.Split {
+			t.Fatalf("V3 held-out near-copy shape: %s (%s) and %s (%s)", previous.id, previous.split, family.ID, family.Split)
+		}
+		seen[shape] = seenShape{id: family.ID, split: family.Split}
+	}
+}
+
+func TestFocusedV3CoversSelectorTagAndStringGeneralization(t *testing.T) {
+	families, _, err := focusedFamilies("v3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	methodValueShapes := 0
+	functionFieldNegatives := 0
+	nestedMultiTags := 0
+	tagLikeNegatives := 0
+	stringLong := 0
+	stringMultiline := 0
+	stringRune := 0
+	for _, family := range families {
+		if family.Split != "train" {
+			continue
+		}
+		switch family.Feature {
+		case "function-range":
+			if strings.Contains(family.Source, ".Walk") || strings.Contains(family.Source, ".Emit") ||
+				strings.Contains(family.Source, ".Forward") || strings.Contains(family.Source, ".Reverse") ||
+				strings.Contains(family.Source, ".Each") || strings.Contains(family.Source, ".Iterate") ||
+				strings.Contains(family.Source, ".Entries") {
+				methodValueShapes++
+			}
+			if strings.Contains(family.ID, "function-field-negative") {
+				functionFieldNegatives++
+			}
+		case "struct-tags":
+			if strings.Contains(family.Source, "struct {") && strings.Count(family.Source, "json:") >= 2 &&
+				strings.Contains(family.Source, "xml:") {
+				nestedMultiTags++
+			}
+			if strings.Contains(family.ID, "taglike-negative") || strings.Contains(family.ID, "quoted-tag-negative") {
+				tagLikeNegatives++
+			}
+		case "strings":
+			if len(family.Source) > 700 {
+				stringLong++
+			}
+			if strings.Contains(family.Source, "Usage:") || strings.Contains(family.Source, "SECTION A") ||
+				strings.Contains(family.Source, "| Key | Type |") {
+				stringMultiline++
+			}
+			if strings.Contains(family.Source, "[]rune") {
+				stringRune++
+			}
+		}
+	}
+	if methodValueShapes < 5 {
+		t.Fatalf("V3 needs broad bare method-value coverage, got %d families", methodValueShapes)
+	}
+	if functionFieldNegatives < 1 {
+		t.Fatal("V3 needs a function-valued field hard negative")
+	}
+	if nestedMultiTags < 1 || tagLikeNegatives < 2 {
+		t.Fatalf("V3 struct-tag coverage incomplete: nested=%d negatives=%d", nestedMultiTags, tagLikeNegatives)
+	}
+	if stringLong < 1 || stringMultiline < 2 || stringRune < 1 {
+		t.Fatalf("V3 string robustness incomplete: long=%d multiline=%d rune=%d", stringLong, stringMultiline, stringRune)
+	}
+}
