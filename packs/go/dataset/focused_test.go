@@ -192,3 +192,85 @@ func TestFocusedV2R2HeldOutShapesAreDistinct(t *testing.T) {
 		seen[shape] = seenShape{id: family.ID, split: family.Split}
 	}
 }
+
+func TestFocusedV2R3AddsBareMethodValueTrainingShapes(t *testing.T) {
+	families, _, err := focusedFamilies("v2r3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	methodValueTrain := 0
+	negativeField := 0
+	for _, family := range families {
+		if family.Split != "train" || family.Feature != "function-range" {
+			continue
+		}
+		if strings.Contains(family.ID, "function-field-negative") {
+			negativeField++
+		}
+		if strings.Contains(family.Source, ".Visit") || strings.Contains(family.Source, ".Walk") ||
+			strings.Contains(family.Source, ".Scan") || strings.Contains(family.Source, ".Entries") {
+			methodValueTrain++
+		}
+	}
+	if methodValueTrain < 4 {
+		t.Fatalf("expected at least four bare method-value training families, got %d", methodValueTrain)
+	}
+	if negativeField != 1 {
+		t.Fatalf("expected one function-valued field hard negative, got %d", negativeField)
+	}
+}
+
+func TestFocusedV2R3HeldOutShapesAreDistinct(t *testing.T) {
+	families, _, err := focusedFamilies("v2r3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	type seenShape struct{ id, split string }
+	seen := map[string]seenShape{}
+	for _, family := range families {
+		shape := focusedTemplateShape(family.Source)
+		if previous, ok := seen[shape]; ok && previous.split != family.Split {
+			t.Fatalf("held-out near-copy shape: %s (%s) and %s (%s)", previous.id, previous.split, family.ID, family.Split)
+		}
+		seen[shape] = seenShape{id: family.ID, split: family.Split}
+	}
+}
+
+func TestSealedFocusedShapesDoNotOverlapV2R3(t *testing.T) {
+	training, _, err := focusedFamilies("v2r3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	sealed, _, err := focusedFamilies("sealed-v1")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(sealed) < 10 {
+		t.Fatalf("expected at least ten sealed structural families, got %d", len(sealed))
+	}
+	trainingShapes := map[string]string{}
+	for _, family := range training {
+		trainingShapes[focusedTemplateShape(family.Source)] = family.ID
+	}
+	sealedShapes := map[string]string{}
+	featureCounts := map[string]int{}
+	for _, family := range sealed {
+		if family.Split != "sealed" {
+			t.Fatalf("sealed family has non-sealed split: %s => %s", family.ID, family.Split)
+		}
+		shape := focusedTemplateShape(family.Source)
+		if previous, ok := trainingShapes[shape]; ok {
+			t.Fatalf("sealed shape overlaps existing curriculum: %s and %s", previous, family.ID)
+		}
+		if previous, ok := sealedShapes[shape]; ok {
+			t.Fatalf("duplicate sealed shape: %s and %s", previous, family.ID)
+		}
+		sealedShapes[shape] = family.ID
+		featureCounts[family.Feature]++
+	}
+	for _, feature := range []string{"self-reference", "function-range", "generic-method", "generic-alias", "struct-tags"} {
+		if featureCounts[feature] < 2 {
+			t.Fatalf("sealed feature %s has insufficient structural families: %d", feature, featureCounts[feature])
+		}
+	}
+}

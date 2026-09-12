@@ -310,3 +310,42 @@ Go 1.27.1 toolchain and do not skip newer language fixtures.
 - [Go module reference](https://go.dev/ref/mod)
 
 Targeted mined training examples that collide with held-out focused near-copy fingerprints are excluded during preparation and recorded in `focused-near-copy-exclusions.jsonl`; synthetic split collisions remain fatal.
+
+## One-time sealed blind acceptance
+
+After model selection and consolidation are complete, build the external sealed
+set once and evaluate exactly one candidate checkpoint:
+
+```bash
+make dataset-go-sealed
+make evaluate-go-sealed GO_CHECKPOINT=artifacts/go/<final-run>/best.pt
+```
+
+`dataset-go-sealed` resolves five module sources that are absent from
+`training/go/corpora.json`, writes immutable source locks, and generates the
+`sealed-modern-v1` focused corpus. The focused set contains new structural
+families for self-reference, range-over-function method values, generic methods,
+generic aliases, and struct tags. A shape regression test prevents exact
+structural-template reuse from the V2R3 curriculum.
+
+Sealed ids start with `sealed-`. `training/go/prepare.py` rejects them even if
+someone later adds one to a corpus-selection file, so sealed data cannot become
+train/validation/test windows by accident. The evaluator also rejects exact
+source hashes that occur in any configured training corpus and rejects module
+identities already used by training.
+
+The final evaluation uses predicted adaptive runtime inference directly from raw
+source and package-aware Gold. It records natural aggregate metrics, per-role
+metrics, per-source metrics, the five targeted role gates, and bounded mismatch
+examples in one report. Natural roles with at least 32 Gold spans are gated at
+F1 >= 0.90; lower-support roles are reported explicitly rather than treated as
+strong evidence. Each targeted role requires at least 32 Gold spans and F1 >=
+0.90. Aggregate acceptance also requires natural exact-span F1 >= 0.95, natural
+macro F1 >= 0.90, natural exact-span-with-modifiers F1 >= 0.95, and focused
+exact-span F1 >= 0.98.
+
+A completed evaluation writes `go/sealed/opened-v1.json` under the external
+dataset root. Subsequent runs refuse to open the same sealed set again. If the
+candidate fails, diagnose from the saved report and build a new future sealed
+set after the next model-selection cycle; do not tune against sealed-v1 and then
+rerun it.

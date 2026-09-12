@@ -161,6 +161,24 @@ class TrainerTests(unittest.TestCase):
         self.assertEqual((rare, common), (16, 16))
         self.assertEqual(plan, epoch_batches(DummySplit(), batch_size=2, focus_batch_size=4, focus_every=1, seed=7, epoch=3))
 
+
+    def test_feature_balanced_focus_sampling_can_target_selected_features(self):
+        class DummySplit:
+            streams = {"natural": list(range(16)), "focus": list(range(100, 148))}
+            focus_feature_families = {
+                "function-range": {"fr/a": list(range(100, 108)), "fr/b": list(range(108, 116))},
+                "struct-tags": {"tags/a": list(range(116, 132))},
+                "other": {"other/a": list(range(132, 148))},
+            }
+
+        plan = epoch_batches(DummySplit(), batch_size=2, focus_batch_size=4, focus_every=1, seed=7, epoch=3,
+                             focus_features=("function-range", "struct-tags"))
+        focus = [index for kind, batch in plan if kind == "focus" for index in batch]
+        self.assertTrue(all(index < 132 for index in focus))
+        function_range = sum(index < 116 for index in focus)
+        struct_tags = len(focus) - function_range
+        self.assertEqual((function_range, struct_tags), (16, 16))
+
     def test_window_uniform_focus_sampling_preserves_legacy_behavior(self):
         split = self.split()
         plan = epoch_batches(split, batch_size=2, focus_batch_size=2, focus_every=1, seed=42, epoch=1,

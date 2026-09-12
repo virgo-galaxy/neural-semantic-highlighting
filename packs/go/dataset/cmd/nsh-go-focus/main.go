@@ -10,7 +10,7 @@ import (
 
 func main() {
 	id := flag.String("id", "modern-v1", "Immutable focused corpus id")
-	profile := flag.String("profile", "v1", "Focused curriculum profile: v1 or v2")
+	profile := flag.String("profile", "v1", "Focused curriculum profile: v1, v2, v2r2, v2r3, or sealed-v1")
 	variants := flag.Int("variants", 16, "Variants per structural family (1..32)")
 	flag.Parse()
 	if flag.NArg() != 0 {

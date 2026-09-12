@@ -143,6 +143,11 @@ def build(root: Path, config_path: Path, output: Path, *, max_length: int = 512,
     specs = config["sources"]
     if len({spec["id"] for spec in specs}) != len(specs):
         raise ValueError("Duplicate source ids in corpus selection")
+    sealed = [spec["id"] for spec in specs if str(spec.get("id", "")).startswith("sealed-")]
+    if sealed:
+        raise ValueError(
+            "Sealed acceptance corpora can never enter a prepared training snapshot: " + ", ".join(sorted(sealed))
+        )
     inputs = []
     resolved_root = root.resolve()
     for spec in specs:

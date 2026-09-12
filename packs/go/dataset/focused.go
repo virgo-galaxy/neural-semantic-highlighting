@@ -85,6 +85,20 @@ func focusedFamilies(profile string) ([]focusedFamilySpec, string, error) {
 		families = append(families, focusedV2Families...)
 		families = append(families, focusedV2R2ExtraFamilies...)
 		return families, "modern-go-focused-v2r2", nil
+	case "v2r3":
+		targeted := map[string]bool{"self-reference": true, "function-range": true, "generic-method": true, "generic-alias": true, "struct-tags": true}
+		families := make([]focusedFamilySpec, 0, len(v1FocusedFamilies())+len(focusedV2Families)+len(focusedV2R2ExtraFamilies)+len(focusedV2R3ExtraFamilies))
+		for _, family := range v1FocusedFamilies() {
+			if !targeted[family.Feature] {
+				families = append(families, family)
+			}
+		}
+		families = append(families, focusedV2Families...)
+		families = append(families, focusedV2R2ExtraFamilies...)
+		families = append(families, focusedV2R3ExtraFamilies...)
+		return families, "modern-go-focused-v2r3", nil
+	case "sealed-v1":
+		return append([]focusedFamilySpec(nil), sealedFocusedFamilies...), "sealed-go-acceptance-v1", nil
 	default:
 		return nil, "", fmt.Errorf("unknown focused profile %q", profile)
 	}
@@ -168,8 +182,12 @@ func BuildFocusedCorpusProfile(root, id string, variants int, profile string, pr
 		if progress != nil {
 			progress(familyIndex+1, len(families), family.ID)
 		}
-		if family.Split != "train" && family.Split != "validation" && family.Split != "test" {
-			return "", fmt.Errorf("%s: invalid split %q", family.ID, family.Split)
+		allowedSplit := family.Split == "train" || family.Split == "validation" || family.Split == "test"
+		if profile == "sealed-v1" {
+			allowedSplit = family.Split == "sealed"
+		}
+		if !allowedSplit {
+			return "", fmt.Errorf("%s: invalid split %q for profile %q", family.ID, family.Split, profile)
 		}
 		for variant := 0; variant < variants; variant++ {
 			source, err := renderFocusedFamily(family, variant)

@@ -9,6 +9,7 @@
 	dataset-go-focused \
 	dataset-go-focused-v2 \
 	dataset-go-targeted \
+	dataset-go-sealed \
 	dataset-go-prepare \
 	test-training-data-go \
 	train-go-smoke \
@@ -17,6 +18,7 @@
 	continue-go \
 	predict-go \
 	evaluate-go \
+	evaluate-go-sealed \
 	dataset-go-collect \
 	dataset-go-label \
 	dataset-go-validate \
@@ -45,7 +47,9 @@ GO_BATCH_SIZE ?= 32
 GO_FOCUS_BATCH_SIZE ?= 16
 GO_FOCUS_EVERY ?= 8
 GO_FOCUS_SAMPLING ?= feature-balanced
+GO_FOCUS_FEATURES ?=
 GO_FOCUS_V2_VARIANTS ?= 8
+GO_SEALED_VARIANTS ?= 16
 GO_INIT_CHECKPOINT ?=
 GO_LOG_EVERY ?= 25
 GO_RUN ?=
@@ -102,13 +106,19 @@ dataset-go-focused:
 
 dataset-go-focused-v2:
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-focus \
-		--profile v2r2 --id modern-v2r2 --variants $(GO_FOCUS_V2_VARIANTS)
+		--profile v2r3 --id modern-v2r3 --variants $(GO_FOCUS_V2_VARIANTS)
 
 dataset-go-targeted:
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset modules \
 		--config dataset/sources/targeted.json --source "$(GO_CORPUS)"
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-mine \
 		--config dataset/sources/targeted.json --id targeted-real-v2r1
+
+dataset-go-sealed:
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-dataset modules \
+		--config dataset/sources/sealed.json --source "$(GO_CORPUS)"
+	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go run ./dataset/cmd/nsh-go-focus \
+		--profile sealed-v1 --id sealed-modern-v1 --variants $(GO_SEALED_VARIANTS)
 
 dataset-go-prepare:
 	$(PYTHON) training/go/prepare.py
@@ -212,18 +222,18 @@ challenge-jsx-tsx-typescript:
 train-go-smoke:
 	$(PYTHON) training/go/train.py --smoke --epochs 1 --device $(GO_DEVICE) \
 		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
-		--focus-every $(GO_FOCUS_EVERY) --focus-sampling $(GO_FOCUS_SAMPLING) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+		--focus-every $(GO_FOCUS_EVERY) --focus-sampling $(GO_FOCUS_SAMPLING) $(if $(GO_FOCUS_FEATURES),--focus-features "$(GO_FOCUS_FEATURES)") --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
 
 train-go:
 	$(PYTHON) training/go/train.py --epochs $(GO_EPOCHS) --device $(GO_DEVICE) \
 		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
-		--focus-every $(GO_FOCUS_EVERY) --focus-sampling $(GO_FOCUS_SAMPLING) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+		--focus-every $(GO_FOCUS_EVERY) --focus-sampling $(GO_FOCUS_SAMPLING) $(if $(GO_FOCUS_FEATURES),--focus-features "$(GO_FOCUS_FEATURES)") --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
 
 train-go-v2:
 	@test -n "$(GO_INIT_CHECKPOINT)" || (echo 'Set GO_INIT_CHECKPOINT to the V1 Go best.pt'; exit 1)
 	$(PYTHON) training/go/train.py --init-from "$(GO_INIT_CHECKPOINT)" --epochs $(GO_EPOCHS) --device $(GO_DEVICE) \
 		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
-		--focus-every $(GO_FOCUS_EVERY) --focus-sampling $(GO_FOCUS_SAMPLING) --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
+		--focus-every $(GO_FOCUS_EVERY) --focus-sampling $(GO_FOCUS_SAMPLING) $(if $(GO_FOCUS_FEATURES),--focus-features "$(GO_FOCUS_FEATURES)") --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
 
 continue-go:
 	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to the run last.pt'; exit 1)
@@ -238,3 +248,9 @@ evaluate-go:
 	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to a Go checkpoint'; exit 1)
 	$(PYTHON) training/go/evaluate.py --checkpoint "$(GO_CHECKPOINT)" --device $(GO_DEVICE) \
 		--split $(GO_EVAL_SPLIT) --inference adaptive
+
+# One-time external acceptance. dataset-go-sealed creates only external corpora;
+# they are rejected by training/go/prepare.py and cannot enter a training snapshot.
+evaluate-go-sealed:
+	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to the final Go candidate checkpoint'; exit 1)
+	$(PYTHON) training/go/sealed_eval.py --checkpoint "$(GO_CHECKPOINT)" --device $(GO_DEVICE)

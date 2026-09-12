@@ -30,6 +30,7 @@ class TrainingConfig:
     focus_batch_size: int = 16
     focus_every: int = 8
     focus_sampling: str = "feature-balanced"
+    focus_features: str = ""
     learning_rate: float = 3e-4
     weight_decay: float = .01
     modifier_loss_weight: float = .1
@@ -45,6 +46,8 @@ class TrainingConfig:
             raise ValueError("Batch sizes, sampling interval, and smoke limits must be positive")
         if self.focus_sampling not in {"feature-balanced", "window-uniform"}:
             raise ValueError("Unknown focused sampling strategy")
+        if self.focus_features and self.focus_sampling != "feature-balanced":
+            raise ValueError("Focused feature filtering requires feature-balanced sampling")
         if self.patience < 0 or self.learning_rate <= 0 or self.weight_decay < 0 or self.modifier_loss_weight < 0:
             raise ValueError("Invalid optimizer or early-stopping configuration")
         if not all(math.isfinite(v) for v in (self.learning_rate, self.weight_decay, self.modifier_loss_weight, self.modifier_threshold)):
@@ -81,7 +84,8 @@ def epoch_train(model: GoSemanticTransformer, split: WindowSplit, optimizer: tor
     schedule = epoch_batches(split, batch_size=config.batch_size, focus_batch_size=config.focus_batch_size,
                              focus_every=config.focus_every, seed=config.seed, epoch=epoch,
                              max_main_batches=config.smoke_main_batches if config.smoke else 0,
-                             focus_sampling=config.focus_sampling)
+                             focus_sampling=config.focus_sampling,
+                             focus_features=tuple(value.strip() for value in config.focus_features.split(",") if value.strip()))
     totals = {kind: Counter() for kind in split.streams}
     steps = Counter(kind for kind, _ in schedule)
     completed = Counter()
@@ -225,9 +229,18 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
         print(f"Batch: {config.batch_size} natural / {config.focus_batch_size} focus; one focus batch per "
               f"{config.focus_every} natural batches (plus the final partial interval).", flush=True)
         if config.focus_sampling == "feature-balanced":
-            families = sum(len(value) for value in train_split.focus_feature_families.values())
-            print(f"Focused sampling: feature-balanced across {len(train_split.focus_feature_families)} features / "
-                  f"{families} feature-family buckets.", flush=True)
+            selected = tuple(value.strip() for value in config.focus_features.split(",") if value.strip())
+            if selected:
+                missing = [feature for feature in selected if feature not in train_split.focus_feature_families]
+                if missing:
+                    raise ValueError(f"Unknown focused feature(s): {', '.join(missing)}")
+                families = sum(len(train_split.focus_feature_families[value]) for value in selected)
+                print(f"Focused sampling: feature-balanced across selected features {', '.join(selected)} / "
+                      f"{families} feature-family buckets.", flush=True)
+            else:
+                families = sum(len(value) for value in train_split.focus_feature_families.values())
+                print(f"Focused sampling: feature-balanced across {len(train_split.focus_feature_families)} features / "
+                      f"{families} feature-family buckets.", flush=True)
         else:
             print("Focused sampling: window-uniform (legacy checkpoint replay).", flush=True)
         main_steps = math.ceil(len(train_split.streams["natural"]) / config.batch_size)
@@ -340,6 +353,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--log-every", type=int, default=25)
     result.add_argument("--smoke", action="store_true", default=None)
     result.add_argument("--focus-sampling", choices=["feature-balanced", "window-uniform"], default=None)
+    result.add_argument("--focus-features", default=None, help="Comma-separated focused features for a targeted short run")
     for name in ("batch-size", "focus-batch-size", "focus-every", "seed", "patience", "smoke-main-batches", "smoke-eval-windows"):
         result.add_argument("--" + name, type=int, default=None)
     for name in ("learning-rate", "weight-decay", "modifier-loss-weight", "modifier-threshold"):

@@ -192,3 +192,26 @@ type Envelope{{.Name}} struct {
  Children []int64 ` + "`protobuf:\"varint,15,rep,packed,name=children,proto3\" json:\"children,omitempty\" custom:\"wire:v2;required\"`" + `
 }`},
 }
+
+// V2R3 expands only function-range training coverage. The validation diagnostic
+// showed that bare pointer-receiver method values used as range iterators were
+// consistently classified as properties, while method declarations and called
+// methods were already correct. These train-only families teach method values
+// in several contexts and include a function-valued field hard negative.
+var focusedV2R3ExtraFamilies = []focusedFamilySpec{
+	{"function-range", "1.23", "function-range/train/pointer-method-value-binding", "train", `type Cursor{{.Name}} struct { Limit int }
+func (c *Cursor{{.Name}}) Visit(yield func(int) bool) { for i := 0; i < c.Limit; i++ { if !yield(i) { return } } }
+func SumCursor{{.Name}}(c *Cursor{{.Name}}) int { iter := c.Visit; total := 0; for value := range iter { total += value }; return total }`},
+	{"function-range", "1.23", "function-range/train/interface-method-value", "train", `type Iterable{{.Name}} interface { Walk(func(int) bool) }
+func FirstWalk{{.Name}}(src Iterable{{.Name}}) int { for value := range src.Walk { return value }; return -1 }`},
+	{"function-range", "1.23", "function-range/train/pointer-method-value-argument", "train", `type Scanner{{.Name}} struct { End int }
+func (s *Scanner{{.Name}}) Scan(yield func(int) bool) { for i := 0; i < s.End; i++ { if !yield(i) { break } } }
+func Consume{{.Name}}(iter func(func(int) bool)) int { count := 0; for range iter { count++ }; return count }
+func CountScan{{.Name}}(s *Scanner{{.Name}}) int { return Consume{{.Name}}(s.Scan) }`},
+	{"function-range", "1.23", "function-range/train/embedded-pointer-method-value", "train", `type BaseIter{{.Name}} struct { Limit int }
+func (b *BaseIter{{.Name}}) Entries(yield func(int) bool) { for i := 0; i < b.Limit; i++ { if !yield(i) { return } } }
+type EmbeddedIter{{.Name}} struct { *BaseIter{{.Name}} }
+func SumEmbedded{{.Name}}(e *EmbeddedIter{{.Name}}) int { total := 0; for value := range e.Entries { total += value }; return total }`},
+	{"function-range", "1.23", "function-range/train/function-field-negative", "train", `type FunctionField{{.Name}} struct { Values func(func(int) bool) }
+func SumField{{.Name}}(src FunctionField{{.Name}}) int { total := 0; for value := range src.Values { total += value }; return total }`},
+}

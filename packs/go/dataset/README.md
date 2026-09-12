@@ -213,3 +213,15 @@ V1 families and replaces the five weak feature families with structurally divers
 train/validation/test families plus train-only hard negatives. Existing
 `modern-v1` output remains immutable historical data but is no longer selected by
 the V2 `training/go/corpora.json`.
+
+## Sealed acceptance sources
+
+`dataset/sources/sealed.json` is reserved for the one-time model acceptance
+workflow. Its corpus ids use the `sealed-` prefix and are intentionally absent
+from `training/go/corpora.json`. The first collection resolves `latest` module
+queries and writes the normal immutable `source.lock.json`; later collection
+replays that locked archive identity rather than floating to another release.
+
+The `sealed-v1` focused profile is also acceptance-only. Its records use the
+`sealed` split marker and are consumed directly by `training/go/sealed_eval.py`.
+They are not valid input to the prepared training snapshot.

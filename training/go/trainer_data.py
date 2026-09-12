@@ -195,9 +195,15 @@ def _window_uniform_focus_batch(focus: list[int], *, size: int, rng: random.Rand
 
 
 def _feature_balanced_focus_batch(split: WindowSplit, *, size: int, rng: random.Random,
-                                  state: dict[str, object]) -> list[int]:
+                                  state: dict[str, object], features_filter: tuple[str, ...] = ()) -> list[int]:
     buckets = split.focus_feature_families
-    features = sorted(buckets)
+    if features_filter:
+        missing = [feature for feature in features_filter if feature not in buckets]
+        if missing:
+            raise ValueError(f"Unknown focused feature(s): {', '.join(missing)}")
+        features = sorted(dict.fromkeys(features_filter))
+    else:
+        features = sorted(buckets)
     if not features:
         raise ValueError("Feature-balanced focus sampling needs focused feature metadata")
     feature_order = state.setdefault("feature_order", [])
@@ -248,7 +254,8 @@ def _feature_balanced_focus_batch(split: WindowSplit, *, size: int, rng: random.
 
 def epoch_batches(split: WindowSplit, *, batch_size: int, focus_batch_size: int,
                   focus_every: int, seed: int, epoch: int, max_main_batches: int = 0,
-                  focus_sampling: str = "feature-balanced") -> list[tuple[str, list[int]]]:
+                  focus_sampling: str = "feature-balanced",
+                  focus_features: tuple[str, ...] = ()) -> list[tuple[str, list[int]]]:
     if min(batch_size, focus_batch_size, focus_every) < 1 or max_main_batches < 0:
         raise ValueError("Invalid batch or sampling settings")
     if focus_sampling not in {"feature-balanced", "window-uniform"}:
@@ -267,7 +274,8 @@ def epoch_batches(split: WindowSplit, *, batch_size: int, focus_batch_size: int,
         result.append(("natural", batch))
         if index % focus_every == 0 or index == len(main):
             if focus_sampling == "feature-balanced":
-                focused = _feature_balanced_focus_batch(split, size=focus_batch_size, rng=rng, state=focus_state)
+                focused = _feature_balanced_focus_batch(split, size=focus_batch_size, rng=rng, state=focus_state,
+                                                        features_filter=focus_features)
             else:
                 focused = _window_uniform_focus_batch(focus, size=focus_batch_size, rng=rng, state=focus_state)
             result.append(("focus", focused))
