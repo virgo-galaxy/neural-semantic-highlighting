@@ -5,7 +5,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from quality import (MIN_ROLE_SUPPORT, TARGET_F1, TARGETED_ROLES, TRAINING_TARGETED_ROLES,
+from quality import (MIN_ROLE_SUPPORT, TARGET_F1, TARGETED_ROLES,
                      natural_role_gate_summary, quality_gate_summary, targeted_gate_passed, targeted_scores)
 
 
@@ -25,13 +25,12 @@ class QualityGateTests(unittest.TestCase):
             },
             "focusFeatures": {
                 feature: {"byTokenType": {role: {"f1": score, "support": support}}}
-                for feature, role in TRAINING_TARGETED_ROLES.items()
+                for feature, role in TARGETED_ROLES.items()
             },
         }
 
-    def test_v3_targeted_roles_include_string_robustness(self):
-        self.assertNotIn("strings", TARGETED_ROLES)  # sealed-v1 stays immutable
-        self.assertEqual(TRAINING_TARGETED_ROLES["strings"], "string")
+    def test_targeted_roles_include_string_robustness(self):
+        self.assertEqual(TARGETED_ROLES["strings"], "string")
         self.assertTrue(targeted_gate_passed(self.report()))
         self.assertEqual(TARGET_F1, .90)
 

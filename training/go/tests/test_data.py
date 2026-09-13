@@ -233,9 +233,9 @@ class BuilderTests(unittest.TestCase):
         hints = {"family:real": {"train"}, "family:heldout": {"validation"}}
         provenance = {
             "real": [{"corpus": "targeted", "package": "real", "path": "real.go", "group": "family:real",
-                      "split": "train", "focusedGenerator": "targeted-go-feature-miner-v1"}],
+                      "split": "train", "focusedGenerator": "targeted-go-feature-miner"}],
             "heldout": [{"corpus": "synthetic", "package": "sample", "path": "validation.go", "group": "family:heldout",
-                         "split": "validation", "focusedGenerator": "modern-go-focused-v2"}],
+                         "split": "validation", "focusedGenerator": "go-focused-curriculum"}],
         }
         origins, documents = focused_copy_exclusions(provenance, hints, copies)
         self.assertEqual(documents, {"real"})
@@ -248,9 +248,9 @@ class BuilderTests(unittest.TestCase):
         hints = {"family:train": {"train"}, "family:heldout": {"validation"}}
         provenance = {
             "train": [{"corpus": "synthetic", "package": "sample", "path": "train.go", "group": "family:train",
-                       "split": "train", "focusedGenerator": "modern-go-focused-v2"}],
+                       "split": "train", "focusedGenerator": "go-focused-curriculum"}],
             "heldout": [{"corpus": "synthetic", "package": "sample", "path": "validation.go", "group": "family:heldout",
-                         "split": "validation", "focusedGenerator": "modern-go-focused-v2"}],
+                         "split": "validation", "focusedGenerator": "go-focused-curriculum"}],
         }
         with self.assertRaisesRegex(ValueError, "split conflict"):
             focused_copy_exclusions(provenance, hints, copies)
@@ -283,8 +283,8 @@ class BuilderTests(unittest.TestCase):
                 (folder / "sample.json").write_text(dumps(manifest))
                 (folder / "labeled-sample.jsonl").write_text("".join(dumps(r)+"\n" for r in records))
 
-            write(synthetic, "synthetic", [train_seed, heldout, test_seed], "modern-go-focused-v2")
-            write(targeted, "targeted", [train], "targeted-go-feature-miner-v1")
+            write(synthetic, "synthetic", [train_seed, heldout, test_seed], "go-focused-curriculum")
+            write(targeted, "targeted", [train], "targeted-go-feature-miner")
             config = root / "config.json"
             config.write_text(dumps({"formatVersion": 1, "sources": [
                 {"id": "synthetic", "kind": "focused", "directory": "curricula/synthetic"},

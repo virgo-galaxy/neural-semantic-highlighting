@@ -172,77 +172,66 @@ No test requires installing or importing GORM, Gin, or a validator framework int
 - [Go struct types](https://go.dev/ref/spec#Struct_types)
 - [StructTag conventions](https://pkg.go.dev/reflect#StructTag)
 
-## Preparing the first training inputs
+## Preparing training inputs
 
-The next stage is implemented in `training/go`. Its commands are:
+The canonical Go training data path is:
 
 ```bash
 make dataset-go-applications
-make dataset-go-focused
-make dataset-go-prepare
+make dataset-go-curriculum
 ```
 
-Application collection reuses this module pipeline with
-`dataset/sources/applications.json`. Focused Gold is generated in a separate
-immutable curriculum. Preparation reads the already completed corpus JSONL files,
-checks quality and provenance, groups duplicates before splitting, and writes
-512-byte model-input snapshots. It does not recollect or relabel the eight
-existing natural corpora. See [Go Training Data](../../../training/go/README.md)
-for output formats, Gold quality gates, split policies, and explicit limitations.
+Application collection reuses the module pipeline with
+`dataset/sources/applications.json`. `dataset-go-curriculum` then runs the
+explicit targeted-module collection/miner, generates the integrated synthetic
+curriculum, and publishes a new prepared snapshot. Existing completed standard
+library and official-module Gold corpora are read and reused rather than
+recollected or relabeled.
 
-## Integrated V3 curriculum
+The two focused corpora have version-neutral identities:
 
-The active final-training candidate is generated as one coherent profile rather
-than by appending historical repair sets:
+- `curricula/modern`: the integrated synthetic curriculum;
+- `curricula/targeted-real`: train-only real-source examples mined from the
+  explicit module allowlist in `dataset/sources/targeted.json`.
 
-```bash
-make dataset-go-v3
-```
+`training/go/corpora.json` is the source of truth for the complete prepared
+snapshot. Missing inputs fail closed instead of silently producing a smaller
+dataset.
 
-`modern-v3` contains explicit train/validation/test structural families for all
-modern-Go capabilities selected by the model, including range-over-function method
-values, generic methods and aliases, struct tags, and general string robustness.
-`real-world-v3` is the train-only output of the existing allowlisted feature miner.
-Historical `modern-v1`, `modern-v2*`, and `targeted-real-v2*` directories remain
-immutable for experiment replay but are not selected by `training/go/corpora.json`.
+## Canonical focused curriculum
 
-V3 treats long and multiline strings as a first-class lexical capability. A single
-Go string or rune literal is still one `string` semantic span; internal quotes,
-format verbs, punctuation, tag-like text, or model-window boundaries do not create
-subroles. Struct tags remain whole string spans under the same public schema.
+`curriculum_templates.go` defines one capability matrix rather than stacking
+historical repair profiles. It currently contains 131 independently written
+structural families across 14 feature groups. With the canonical 16 variants per
+family, `curricula/modern` contains 2,096 generated source documents. Variants
+change names/types/values for robustness; they are not counted as independent
+architectural shapes.
 
-## Targeted weak-feature collection
+Every feature has explicit train, validation, and test families. The higher-risk
+areas receive additional train structures and hard negatives: range-over-function,
+generic aliases and methods, self-reference, struct tags, general string
+robustness, and low-frequency core semantics. Held-out families must remain
+structurally distinct from training families.
 
-The V2 workflow does not indiscriminately enlarge the Go corpus. It adds a small,
-explicit module allowlist and mines only files containing target structures:
+Every generated document is formatted and strictly type-checked with the pinned
+Go Gold toolchain before it is written. The public token schema does not gain
+feature-specific roles: tags and ordinary literals remain `string`, directives
+remain `comment`, and the curriculum changes examples rather than semantics.
 
-```bash
-make dataset-go-targeted
-make dataset-go-focused-v2
-make dataset-go-prepare
-```
+## Targeted real-source mining
 
-`dataset-go-targeted` first builds the modules in `dataset/sources/targeted.json`
-with the same locked module/checksum policy as the other module corpora, then writes
-a train-only focused corpus at `curricula/targeted-real-v2r1`. The miner recognizes
-source-level generic methods, generic aliases, self-referential interface
-constraints, method-shaped range-over-function expressions, and struct tags. It
-does not execute source programs or infer features from repository names.
+The miner is deliberately narrow. It does not crawl arbitrary repositories. It
+reads only modules listed in `dataset/sources/targeted.json`, reuses the strict
+Gold pipeline, parses source syntax, and retains files containing reliable target
+structures. Mined records are always `train`; validation and test evidence comes
+from independent synthetic families.
 
-`dataset-go-focused-v2` writes `curricula/modern-v2r2`. V2 retains the non-targeted
-V1 families and replaces the five weak feature families with structurally diverse
-train/validation/test families plus train-only hard negatives. Existing
-`modern-v1` output remains immutable historical data but is no longer selected by
-the V2 `training/go/corpora.json`.
+The miner currently recognizes generic methods, generic aliases, self-referential
+interface constraints, Gold-confirmed method-shaped range-over-function
+expressions, and struct tags. It does not execute source programs or infer
+features from repository names.
 
-## Sealed acceptance sources
-
-`dataset/sources/sealed.json` is reserved for the one-time model acceptance
-workflow. Its corpus ids use the `sealed-` prefix and are intentionally absent
-from `training/go/corpora.json`. The first collection resolves `latest` module
-queries and writes the normal immutable `source.lock.json`; later collection
-replays that locked archive identity rather than floating to another release.
-
-The `sealed-v1` focused profile is also acceptance-only. Its records use the
-`sealed` split marker and are consumed directly by `training/go/sealed_eval.py`.
-They are not valid input to the prepared training snapshot.
+Preparation excludes mined train documents that collide with held-out synthetic
+near-copy fingerprints and records the exclusions in
+`focused-near-copy-exclusions.jsonl`. A collision between synthetic families in
+different held-out splits remains a hard error.

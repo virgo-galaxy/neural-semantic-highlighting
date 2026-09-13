@@ -21,7 +21,8 @@ from losses import compute_loss
 from metrics import SpanMetrics, evaluate_fixed, evaluation_indices
 from model import GoSemanticTransformer, ModelConfig, ModelOutput, parameter_count
 from train import TrainingConfig, make_config, parser, run
-from trainer_data import Snapshot, WindowSplit, epoch_batches, sha256_file, training_weights
+from trainer_data import (Snapshot, WindowSplit, epoch_batches, semantic_confusion_lanes, sha256_file,
+                          training_weights)
 
 ROOT = Path(__file__).resolve().parents[3]
 SCHEMA = Schema.load(ROOT / "packs/go/schema.json")
@@ -178,6 +179,158 @@ class TrainerTests(unittest.TestCase):
         function_range = sum(index < 116 for index in focus)
         struct_tags = len(focus) - function_range
         self.assertEqual((function_range, struct_tags), (16, 16))
+
+
+    def test_confusion_aware_sampling_balances_contrast_and_keeps_broad_coverage(self):
+        class DummySplit:
+            streams = {"natural": list(range(16)), "focus": list(range(100, 164))}
+            focus_feature_families = {
+                "function-range": {
+                    "fr/method-a": list(range(100, 108)),
+                    "fr/method-b": list(range(108, 116)),
+                    "fr/property-negative": list(range(116, 124)),
+                },
+                "generic-alias": {"ga/a": list(range(124, 140))},
+                "strings": {"strings/a": list(range(140, 164))},
+            }
+            focus_feature_role_families = {
+                "function-range": {
+                    "method": {
+                        "fr/method-a": list(range(100, 108)),
+                        "fr/method-b": list(range(108, 116)),
+                    },
+                    "property": {"fr/property-negative": list(range(116, 124))},
+                    "function": {"fr/method-a": list(range(100, 108))},
+                },
+                "generic-alias": {
+                    "type": {"ga/a": list(range(124, 140))},
+                    "type-parameter": {"ga/a": list(range(124, 140))},
+                },
+                "strings": {},
+            }
+            focus_feature_selector_role_families = {
+                "function-range": {
+                    "method": {
+                        "fr/method-a": list(range(100, 108)),
+                        "fr/method-b": list(range(108, 116)),
+                    },
+                    "property": {"fr/property-negative": list(range(116, 124))},
+                    "function": {"fr/method-a": list(range(100, 108))},
+                },
+                "generic-alias": {},
+                "strings": {},
+            }
+
+        lanes = semantic_confusion_lanes(DummySplit())
+        self.assertIn(("selector", "function-range", "method", "property"), lanes)
+        self.assertIn(("selector", "function-range", "method", "function"), lanes)
+        self.assertIn(("all", "generic-alias", "type", "type-parameter"), lanes)
+        plan = epoch_batches(
+            DummySplit(), batch_size=2, focus_batch_size=8, focus_every=1, seed=11, epoch=2,
+            focus_sampling="confusion-aware",
+        )
+        focus = [index for kind, batch in plan if kind == "focus" for index in batch]
+        method = sum(100 <= index < 116 for index in focus)
+        prop = sum(116 <= index < 124 for index in focus)
+        alias = sum(124 <= index < 140 for index in focus)
+        strings = sum(140 <= index < 164 for index in focus)
+        self.assertGreaterEqual(method, 8)
+        self.assertGreaterEqual(prop, 4)
+        self.assertGreater(alias, 0)
+        self.assertGreater(strings, 0)
+        self.assertEqual(
+            plan,
+            epoch_batches(
+                DummySplit(), batch_size=2, focus_batch_size=8, focus_every=1, seed=11, epoch=2,
+                focus_sampling="confusion-aware",
+            ),
+        )
+
+    def test_confusion_aware_sampling_pairs_both_sides_of_same_lane(self):
+        class DummySplit:
+            streams = {"natural": list(range(4)), "focus": list(range(100, 132))}
+            focus_feature_families = {
+                "selector-semantics": {
+                    "method": list(range(100, 108)),
+                    "property": list(range(108, 116)),
+                },
+                "other": {"other/a": list(range(116, 132))},
+            }
+            focus_feature_role_families = {
+                "selector-semantics": {
+                    "method": {"method": list(range(100, 108))},
+                    "property": {"property": list(range(108, 116))},
+                },
+                "other": {},
+            }
+            focus_feature_selector_role_families = focus_feature_role_families
+
+        plan = epoch_batches(
+            DummySplit(), batch_size=2, focus_batch_size=8, focus_every=1, seed=5, epoch=1,
+            focus_sampling="confusion-aware",
+        )
+        batches = [batch for kind, batch in plan if kind == "focus"]
+        for batch in batches:
+            # First half is the paired contrast portion: method/property, method/property.
+            contrast = batch[:4]
+            self.assertEqual(sum(100 <= index < 108 for index in contrast), 2)
+            self.assertEqual(sum(108 <= index < 116 for index in contrast), 2)
+
+    def test_confusion_aware_sampling_balances_role_pairs_not_lane_count(self):
+        class DummySplit:
+            streams = {"natural": list(range(48)), "focus": list(range(100, 196))}
+            focus_feature_families = {
+                "selectors-a": {"m1": list(range(100, 108)), "p1": list(range(108, 116))},
+                "selectors-b": {"m2": list(range(116, 124)), "p2": list(range(124, 132))},
+                "types": {"t": list(range(132, 140)), "tp": list(range(140, 148))},
+                "other": {"o": list(range(148, 196))},
+            }
+            focus_feature_role_families = {
+                "selectors-a": {"method": {"m1": list(range(100, 108))}, "property": {"p1": list(range(108, 116))}},
+                "selectors-b": {"method": {"m2": list(range(116, 124))}, "property": {"p2": list(range(124, 132))}},
+                "types": {"type": {"t": list(range(132, 140))}, "type-parameter": {"tp": list(range(140, 148))}},
+                "other": {},
+            }
+            focus_feature_selector_role_families = {
+                "selectors-a": focus_feature_role_families["selectors-a"],
+                "selectors-b": focus_feature_role_families["selectors-b"],
+                "types": {}, "other": {},
+            }
+
+        plan = epoch_batches(
+            DummySplit(), batch_size=2, focus_batch_size=8, focus_every=1, seed=13, epoch=2,
+            focus_sampling="confusion-aware",
+        )
+        contrast = [index for kind, batch in plan if kind == "focus" for index in batch[:4]]
+        selector = sum(100 <= index < 132 for index in contrast)
+        types = sum(132 <= index < 148 for index in contrast)
+        # Two selector feature lanes must not double the selector pair's global budget.
+        self.assertLessEqual(abs(selector - types), 4)
+
+    def test_confusion_aware_sampling_rejects_feature_filtering(self):
+        class DummySplit:
+            streams = {"natural": list(range(4)), "focus": list(range(100, 104))}
+            focus_feature_families = {"x": {"x/a": list(range(100, 104))}}
+            focus_feature_role_families = {"x": {}}
+            focus_feature_selector_role_families = {"x": {}}
+
+        with self.assertRaisesRegex(ValueError, "complete curriculum"):
+            epoch_batches(
+                DummySplit(), batch_size=2, focus_batch_size=2, focus_every=1, seed=1, epoch=1,
+                focus_sampling="confusion-aware", focus_features=("x",),
+            )
+
+    def test_lexical_validation_decoder_is_explicit_and_resume_safe(self):
+        config = make_config(parser().parse_args(["--validation-decoder", "lexical"]), None)
+        self.assertEqual(config.validation_decoder, "lexical")
+        old = {"trainingConfig": {
+            "batch_size": 32, "focus_batch_size": 16, "focus_every": 8,
+            "learning_rate": 3e-4, "weight_decay": .01, "modifier_loss_weight": .1,
+            "modifier_threshold": .60, "seed": 42, "patience": 5, "smoke": False,
+            "smoke_main_batches": 8, "smoke_eval_windows": 24,
+        }}
+        replay = make_config(parser().parse_args([]), old)
+        self.assertEqual(replay.validation_decoder, "neural")
 
     def test_window_uniform_focus_sampling_preserves_legacy_behavior(self):
         split = self.split()
@@ -368,12 +521,12 @@ class TrainerTests(unittest.TestCase):
         with contextlib.redirect_stdout(io.StringIO()):
             run(self.options(source_run), model_config=self.tiny_model())
         source_checkpoint = source_run / "best.pt"
-        imported_snapshot = self.folder / "snapshot-v2"
+        imported_snapshot = self.folder / "snapshot-imported"
         import shutil
         shutil.copytree(self.snapshot.path, imported_snapshot)
         manifest_path = imported_snapshot / "manifest.json"
         manifest = json.loads(manifest_path.read_text())
-        manifest["snapshot"] = "unit-test-snapshot-v2"
+        manifest["snapshot"] = "unit-test-snapshot-imported"
         manifest_path.write_text(json.dumps(manifest))
         output = self.folder / "transfer-run"
         args = parser().parse_args(["--snapshot", str(imported_snapshot), "--output-dir", str(output),
@@ -385,7 +538,7 @@ class TrainerTests(unittest.TestCase):
             run(args)
         checkpoint = load_checkpoint(output / "last.pt")
         self.assertEqual(checkpoint["epoch"], 1)
-        self.assertEqual(checkpoint["dataset"]["snapshot"], "unit-test-snapshot-v2")
+        self.assertEqual(checkpoint["dataset"]["snapshot"], "unit-test-snapshot-imported")
         run_info = json.loads((output / "run.json").read_text())
         self.assertEqual(run_info["lineage"]["mode"], "weights-only-transfer")
         self.assertEqual(run_info["lineage"]["sourceEpoch"], 1)

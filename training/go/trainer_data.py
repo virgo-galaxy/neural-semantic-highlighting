@@ -12,8 +12,20 @@ import torch
 
 from dataset import GoWindowDataset
 from encoding import COLUMNS, IGNORE, PAD, Schema
+from roles import IDENTIFIER_ROLES
 
 REPOSITORY = Path(__file__).resolve().parents[2]
+
+
+SEMANTIC_CONFUSION_PAIRS = (
+    ("selector", "method", "property"),
+    ("selector", "method", "function"),
+    ("all", "namespace", "variable"),
+    ("all", "type", "type-parameter"),
+    ("all", "interface", "type"),
+    ("all", "parameter", "variable"),
+)
+
 
 
 def sha256_file(path: Path) -> str:
@@ -101,6 +113,8 @@ class WindowSplit:
         self.streams: dict[str, list[int]] = {"natural": [], "focus": []}
         self.document_indices: dict[str, list[int]] = {}
         self.focus_feature_families: dict[str, dict[str, list[int]]] = {}
+        self.focus_feature_role_families: dict[str, dict[str, dict[str, list[int]]]] = {}
+        self.focus_feature_selector_role_families: dict[str, dict[str, dict[str, list[int]]]] = {}
         try:
             with (snapshot.path / split / "windows.jsonl").open(encoding="utf-8") as stream:
                 last_document, previous_end, seen = None, 0, set()
@@ -135,8 +149,35 @@ class WindowSplit:
                     indices = self.document_indices.get(document["id"], [])
                     if not indices:
                         raise ValueError("Focused document has no windows")
+                    source = document.get("source", "")
+                    unit_to_index = {0: 0}
+                    units = 0
+                    for source_index, char in enumerate(source, 1):
+                        units += 2 if ord(char) > 0xFFFF else 1
+                        unit_to_index[units] = source_index
+                    roles: set[str] = set()
+                    selector_roles: set[str] = set()
+                    for span in document.get("result", {}).get("spans", []):
+                        role = span.get("tokenType")
+                        if role not in IDENTIFIER_ROLES:
+                            continue
+                        roles.add(role)
+                        source_index = unit_to_index.get(span.get("start"))
+                        if source_index is None:
+                            raise ValueError("Focused Gold span is not aligned to a UTF-16 source boundary")
+                        previous = source_index - 1
+                        while previous >= 0 and source[previous].isspace():
+                            previous -= 1
+                        if previous >= 0 and source[previous] == ".":
+                            selector_roles.add(role)
                     for feature in sorted(set(features)):
                         self.focus_feature_families.setdefault(feature, {}).setdefault(family, []).extend(indices)
+                        role_buckets = self.focus_feature_role_families.setdefault(feature, {})
+                        selector_buckets = self.focus_feature_selector_role_families.setdefault(feature, {})
+                        for role in sorted(roles):
+                            role_buckets.setdefault(role, {}).setdefault(family, []).extend(indices)
+                        for role in sorted(selector_roles):
+                            selector_buckets.setdefault(role, {}).setdefault(family, []).extend(indices)
             if self.streams["focus"] and not self.focus_feature_families:
                 raise ValueError("Focused windows are missing feature buckets")
             counts = snapshot.manifest["splits"][split]
@@ -252,13 +293,146 @@ def _feature_balanced_focus_batch(split: WindowSplit, *, size: int, rng: random.
     return batch
 
 
+def semantic_confusion_lanes(split: WindowSplit) -> list[tuple[str, str, str, str]]:
+    lanes: list[tuple[str, str, str, str]] = []
+    for context, left, right in SEMANTIC_CONFUSION_PAIRS:
+        feature_roles = (
+            split.focus_feature_selector_role_families
+            if context == "selector"
+            else split.focus_feature_role_families
+        )
+        for feature in sorted(feature_roles):
+            roles = feature_roles[feature]
+            if roles.get(left) and roles.get(right):
+                lanes.append((context, feature, left, right))
+    return lanes
+
+def _bucket_candidate(source: list[int], *, key: str, rng: random.Random,
+                      state: dict[str, object]) -> int:
+    window = state.setdefault(key, {"order": [], "cursor": 0})
+    order = window["order"]
+    cursor = int(window["cursor"] )
+    if cursor == len(order):
+        order = source[:]
+        rng.shuffle(order)
+        cursor = 0
+    candidate = order[cursor]
+    cursor += 1
+    window["order"], window["cursor"] = order, cursor
+    return candidate
+
+
+def _role_family_candidate(split: WindowSplit, *, context: str, feature: str, role: str, rng: random.Random,
+                           state: dict[str, object]) -> int:
+    feature_roles = (
+        split.focus_feature_selector_role_families
+        if context == "selector"
+        else split.focus_feature_role_families
+    )
+    buckets = feature_roles[feature][role]
+    family_state = state.setdefault("families", {})
+    key = context + "\0" + feature + "\0" + role
+    role_family = family_state.setdefault(key, {"order": [], "cursor": 0})
+    order = role_family["order"]
+    cursor = int(role_family["cursor"] )
+    families = sorted(buckets)
+    if cursor == len(order):
+        order = families[:]
+        rng.shuffle(order)
+        cursor = 0
+    family = order[cursor]
+    cursor += 1
+    role_family["order"], role_family["cursor"] = order, cursor
+    windows = state.setdefault("windows", {})
+    return _bucket_candidate(buckets[family], key=key + "\0" + family, rng=rng, state=windows)
+
+
+def _confusion_balanced_focus_batch(split: WindowSplit, *, size: int, rng: random.Random,
+                                    state: dict[str, object]) -> list[int]:
+    """Mix broad coverage with *paired* semantic-confusion contrasts.
+
+    The previous experimental sampler cycled contrast lanes and alternated sides
+    globally. That guaranteed aggregate exposure, but it did not guarantee that
+    both sides of a confusion pair were represented together, nor did it prevent
+    role pairs with many feature lanes from dominating pairs with few lanes.
+
+    This version makes the semantic pair the primary sampling unit. Each contrast
+    draw selects one role pair, then one eligible feature lane for that pair, and
+    contributes one example from each side of that same lane. Role pairs are
+    round-robin balanced; lanes and families rotate independently inside each pair.
+    The remaining half of the focus batch keeps broad feature-balanced coverage.
+    """
+    lanes = semantic_confusion_lanes(split)
+    if not lanes:
+        return _feature_balanced_focus_batch(split, size=size, rng=rng, state=state.setdefault("coverage", {}))
+
+    pair_lanes: dict[tuple[str, str, str], list[tuple[str, str, str, str]]] = {}
+    for lane in lanes:
+        context, feature, left, right = lane
+        pair_lanes.setdefault((context, left, right), []).append(lane)
+    pairs = sorted(pair_lanes)
+
+    # Contrast samples are emitted in left/right pairs, so keep this portion even.
+    contrast_size = min(size, max(2, size // 2))
+    contrast_size -= contrast_size % 2
+    if contrast_size == 0:
+        contrast_size = 2 if size >= 2 else 0
+    coverage_size = size - contrast_size
+
+    result: list[int] = []
+    used: set[int] = set()
+    contrast_state = state.setdefault("contrast", {})
+    pair_order = contrast_state.setdefault("pair_order", [])
+    pair_cursor = int(contrast_state.setdefault("pair_cursor", 0))
+    lane_states = contrast_state.setdefault("lanes", {})
+
+    for _ in range(contrast_size // 2):
+        if pair_cursor == len(pair_order):
+            pair_order = pairs[:]
+            rng.shuffle(pair_order)
+            pair_cursor = 0
+        pair = pair_order[pair_cursor]
+        pair_cursor += 1
+        context, left, right = pair
+        key = "\0".join(pair)
+        pair_state = lane_states.setdefault(key, {"order": [], "cursor": 0})
+        lane_order = pair_state["order"]
+        lane_cursor = int(pair_state["cursor"])
+        available = pair_lanes[pair]
+        if lane_cursor == len(lane_order):
+            lane_order = list(range(len(available)))
+            rng.shuffle(lane_order)
+            lane_cursor = 0
+        lane = available[lane_order[lane_cursor]]
+        lane_cursor += 1
+        pair_state["order"], pair_state["cursor"] = lane_order, lane_cursor
+        _, feature, _, _ = lane
+
+        # Keep both sides of the same semantic contrast in the same optimizer batch.
+        for role in (left, right):
+            candidate = _role_family_candidate(
+                split, context=context, feature=feature, role=role, rng=rng, state=contrast_state
+            )
+            result.append(candidate)
+            used.add(candidate)
+
+    contrast_state["pair_order"], contrast_state["pair_cursor"] = pair_order, pair_cursor
+
+    if coverage_size:
+        coverage = _feature_balanced_focus_batch(
+            split, size=coverage_size, rng=rng, state=state.setdefault("coverage", {})
+        )
+        result.extend(coverage)
+    return result
+
+
 def epoch_batches(split: WindowSplit, *, batch_size: int, focus_batch_size: int,
                   focus_every: int, seed: int, epoch: int, max_main_batches: int = 0,
                   focus_sampling: str = "feature-balanced",
                   focus_features: tuple[str, ...] = ()) -> list[tuple[str, list[int]]]:
     if min(batch_size, focus_batch_size, focus_every) < 1 or max_main_batches < 0:
         raise ValueError("Invalid batch or sampling settings")
-    if focus_sampling not in {"feature-balanced", "window-uniform"}:
+    if focus_sampling not in {"feature-balanced", "confusion-aware", "window-uniform"}:
         raise ValueError("Unknown focused sampling strategy")
     rng = random.Random(seed + epoch * 1000003)
     natural, focus = list(split.streams["natural"]), list(split.streams["focus"])
@@ -276,6 +450,10 @@ def epoch_batches(split: WindowSplit, *, batch_size: int, focus_batch_size: int,
             if focus_sampling == "feature-balanced":
                 focused = _feature_balanced_focus_batch(split, size=focus_batch_size, rng=rng, state=focus_state,
                                                         features_filter=focus_features)
+            elif focus_sampling == "confusion-aware":
+                if focus_features:
+                    raise ValueError("Confusion-aware focus sampling uses the complete curriculum")
+                focused = _confusion_balanced_focus_batch(split, size=focus_batch_size, rng=rng, state=focus_state)
             else:
                 focused = _window_uniform_focus_batch(focus, size=focus_batch_size, rng=rng, state=focus_state)
             result.append(("focus", focused))

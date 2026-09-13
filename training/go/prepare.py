@@ -21,6 +21,7 @@ REPOSITORY = Path(__file__).resolve().parents[2]
 DEFAULT_CONFIG = REPOSITORY / "training/go/corpora.json"
 TOOLCHAIN = "go1.27.1"
 FORMAT = "nsh-go-byte-dataset-v1"
+TARGETED_GENERATOR = "targeted-go-feature-miner"
 SPLITS = ("train", "validation", "test")
 
 
@@ -88,7 +89,6 @@ def focused_copy_exclusions(provenance: dict[str, list[dict]], hints: dict[str, 
     opportunistic source of extra training examples, so losing a colliding mined
     example is preferable to weakening a held-out split.
     """
-    targeted_generator = "targeted-go-feature-miner-v1"
     members: dict[str, set[str]] = defaultdict(set)
     component_hints: dict[str, set[str]] = defaultdict(set)
     for sha, origins in provenance.items():
@@ -110,7 +110,7 @@ def focused_copy_exclusions(provenance: dict[str, list[dict]], hints: dict[str, 
             origins = provenance[sha]
             active = []
             for origin in origins:
-                if origin.get("focusedGenerator") == targeted_generator and origin.get("split") == "train":
+                if origin.get("focusedGenerator") == TARGETED_GENERATOR and origin.get("split") == "train":
                     targeted_origins.append({"documentId": sha, **origin})
                 else:
                     active.append(origin)
@@ -348,7 +348,7 @@ def build_stage(stage: Path, inputs: list, schema: Schema, identity: dict, snaps
         for sha in targeted_excluded_documents:
             db.execute("DELETE FROM documents WHERE hash=?", (sha,))
             for origin in provenance[sha]:
-                if origin.get("focusedGenerator") == "targeted-go-feature-miner-v1":
+                if origin.get("focusedGenerator") == TARGETED_GENERATOR:
                     corpus = origin["corpus"]
                     by_corpus[corpus]["heldoutNearCopyDocumentsExcluded"] = by_corpus[corpus].get("heldoutNearCopyDocumentsExcluded", 0) + 1
         counts["heldoutNearCopyDocumentsExcluded"] = len(targeted_excluded_documents)

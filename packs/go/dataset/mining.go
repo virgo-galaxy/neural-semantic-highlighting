@@ -15,6 +15,8 @@ import (
 	"unicode/utf16"
 )
 
+const targetedMinerGenerator = "targeted-go-feature-miner"
+
 var targetedFeatureSince = map[string]string{
 	"self-reference": "1.26",
 	"function-range": "1.23",
@@ -172,7 +174,8 @@ func confirmedFeatures(filename string, record LabeledEntry) ([]string, error) {
 
 // BuildTargetedMinedCorpus filters already Gold-labeled, explicitly configured
 // module corpora into a train-only focused stream. Validation and test examples
-// come from structurally independent synthetic families and later sealed sets.
+// come from structurally independent synthetic families; mined records
+// stay train-only.
 func BuildTargetedMinedCorpus(root, configPath, id string, progress ProgressFunc) (string, error) {
 	if err := RequireGoldToolchain(); err != nil {
 		return "", err
@@ -207,7 +210,7 @@ func BuildTargetedMinedCorpus(root, configPath, id string, progress ProgressFunc
 	families := map[string]bool{}
 	manifest := minedManifest{focusedManifest: focusedManifest{SampleManifest: SampleManifest{
 		FormatVersion: 1, Toolchain: GoldToolchain, Corpus: id, GOOS: runtime.GOOS, GOARCH: runtime.GOARCH,
-	}, Kind: "focused", Generator: "targeted-go-feature-miner-v1", Profile: "targeted-real-v2r1", Variants: 1},
+	}, Kind: "focused", Generator: targetedMinerGenerator, Variants: 1},
 		FeatureCounts: counts}
 	for index, spec := range config.Sources {
 		if progress != nil {

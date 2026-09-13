@@ -17,149 +17,78 @@ PyTorch from the existing project `.venv`, as the TypeScript trainer already doe
 ```bash
 make check
 make dataset-go-applications
-make dataset-go-v3
+make dataset-go-curriculum
 ```
 
-Do not rerun `make dataset-go`, `make dataset-go-official`, or standard-library
-labeling just to prepare these windows. Existing completed Gold files are read,
-not overwritten. The application command adds only the explicitly selected Gin
-and GORM module implementations. These are useful framework source samples, not
-a claim that arbitrary real-world application patterns are already covered.
-The existing collector locks versions and keeps dependencies outside the repository.
+Do not rerun standard-library or official-module collection merely to publish a
+new prepared snapshot. Existing immutable Gold corpora are reused. The
+application command adds the explicitly selected Gin and GORM module sources.
+`dataset-go-curriculum` builds the targeted real-source focused corpus, generates
+the integrated synthetic curriculum, then runs preparation.
 
 `training/go/corpora.json` explicitly selects the standard library, seven official
-modules, two application-framework modules, the integrated V3 curriculum, and a
-train-only real-world V3 curriculum mined from explicitly allowlisted modules.
-Missing sources cause a clear error instead of silently creating a smaller dataset.
-The corpus selector can be supplied explicitly with `prepare.py --config`.
+modules, two application-framework modules, `curricula/modern`, and
+`curricula/targeted-real`. Missing sources cause a clear error instead of silently
+creating a smaller dataset.
 
-## First focused curriculum
+## Canonical focused curriculum
 
-The generator lives in `packs/go/dataset/focused_templates.go` and creates 12
-feature groups, three independently written structural forms per feature, and
-16 variants per form: 36 template families and 576 source documents. Renamed
-variants are not independent examples and must never be counted as such.
-The three forms are reserved for training, validation, and test respectively;
-all variants of one form remain together.
+The generator lives in `packs/go/dataset/curriculum_templates.go`. It is one
+integrated capability matrix: 131 structural families across 14 feature groups.
+The canonical generator uses 16 variants per family, producing 2,096 synthetic
+documents while keeping structural diversity and renamed/value variants as
+separate concepts.
 
-The initial groups are generic functions/types/constraints, Go 1.20 comparable
-and array-conversion cases, Go 1.21 built-ins, integer range, function range,
-generic aliases, expression-valued `new`, self-referential constraints, generic
-methods, promoted-field literals, generalized function inference, and struct tags.
-This is a small seed curriculum, not complete coverage of every item in
-`packs/go/COVERAGE.md`. For version-specific groups, the version metadata records feature introduction.
-For core constructs such as struct tags, 1.18 denotes the minimum targeted era,
-not their historical introduction. Neither denotes the compiler used to create Gold.
+The capability set covers generic functions, comparable/array behavior, built-ins,
+integer range, range-over-function, generic aliases, expression-valued `new`,
+self-referential constraints, generic methods, promoted-field literals, generalized
+function inference, struct tags, general string robustness, and low-frequency core
+semantics. Every feature has explicit train/validation/test families; higher-risk
+features have additional train structures and hard negatives.
 
-Every generated document is formatted and strictly type-checked by the pinned
-Go toolchain. No generated program, framework initialization, `go generate`, or
-application entry point is executed. Fixtures and challenge cases are not copied
-into this curriculum. Tags remain whole `string` spans; comments and directives
-remain `comment` spans. No new token type or framework-specific role is added.
+Every generated document is formatted and strictly type-checked by the pinned Go
+toolchain. No generated program is executed. The curriculum does not add
+feature-specific public token types: tags and ordinary literals remain `string`,
+while comments/directives remain `comment`.
 
-The held-out template forms are useful pipeline diagnostics. They are not a
-replacement for an independent, real-source challenge set or unseen-project
-model evaluation. Template variants differ in names, numeric types, and values;
-the reported variant count must not be presented as architectural diversity.
+## Targeted real-source mining
 
-## Integrated Curriculum V3
+The targeted miner downloads only modules listed in
+`packs/go/dataset/sources/targeted.json`, runs the existing strict Gold pipeline,
+and retains files with source structures that can be detected without identifier
+name guesses or executing code. These records are train-only. Validation and test
+remain structurally independent synthetic families.
 
-V3 is the clean candidate curriculum for final Go training. It does not assemble
-active training data by stacking V2 repair profiles. Historical V1/V2 profiles
-remain replayable, but `training/go/corpora.json` selects only `modern-v3` and
-`real-world-v3` for focused data.
+The canonical focused outputs are:
 
-The V3 capability matrix includes all previously supported modern-Go features and
-makes three high-variance areas explicit instead of treating them as patches:
-
-- range-over-function with free functions, bound method values, conditional method
-  selection, indexed generic receivers, promoted methods, and function-field hard
-  negatives;
-- struct tags with nested placement, adjacent key/value grammars, protobuf-style
-  options, storage/validation tags, and raw-string hard negatives;
-- general string robustness with interpreted strings, quoted format text, rune
-  literals, raw strings, multiline help/markdown content, and spans longer than the
-  512-byte model context.
-
-Build the V3 inputs from the repository root:
-
-```bash
-make dataset-go-v3
+```text
+curricula/modern
+curricula/targeted-real
 ```
 
-This regenerates only the V3 focused outputs and reuses immutable natural corpora.
-The active focused ids are `curricula/modern-v3` and `curricula/real-world-v3`.
+Targeted mined examples that collide with held-out focused near-copy fingerprints
+are excluded during preparation and recorded in
+`focused-near-copy-exclusions.jsonl`; synthetic split collisions remain fatal.
 
-Before a final from-scratch run, validate the frozen candidate curriculum with a
-short weights-only transfer from the strongest diagnostic checkpoint:
+## Final from-scratch training
 
-```bash
-make train-go-v3-check \
-  GO_INIT_CHECKPOINT=artifacts/go/context512-RUN/best.pt \
-  GO_EPOCHS=1
-```
-
-V3 verification always uses the complete curriculum, one focused batch per four
-natural batches, feature-balanced sampling, and quality-gated checkpoint selection.
-The V3 targeted scoreboard adds `strings / string` to the five earlier semantic
-capabilities. A quality-gated checkpoint must also keep every natural token role
-with support >= 32 at F1 >= 0.90 and satisfy the aggregate validation thresholds.
-
-Once V3 is frozen, the final training command starts from random initialization and
-refuses both an initialization checkpoint and feature-specific focus filters:
+After the canonical dataset, model, loss, sampler, and quality gates are frozen,
+start the formal run with:
 
 ```bash
 make train-go-final
 ```
 
-`train-go-final` has a 40-epoch budget but keeps early stopping. The selected
-`best.pt` is the highest natural exact-span F1 among epochs that first satisfy the
-complete V3 validation quality gate. It is not a continuation of any diagnostic
-checkpoint.
+This command starts from random initialization, trains the complete curriculum,
+uses confusion-aware focused sampling and lexical validation, and selects
+checkpoints with the quality-gated policy. A prior diagnostic checkpoint can stay
+protected outside the pipeline as a baseline, but it is not an initialization
+source for the formal run.
 
-## Focused Curriculum V2 and targeted real-source mining
-
-V2 keeps the non-targeted V1 feature families but replaces the five known weak
-families with multiple independent source shapes rather than one shape plus renamed
-variants. The targeted families are `self-reference`, `function-range`,
-`generic-method`, `generic-alias`, and `struct-tags`. Each has multiple train
-structures, at least two independent validation structures, at least two independent
-test structures, and train-only hard negatives. Variants still change names and
-primitive types, but no longer stand in for structural diversity.
-
-The targeted miner is intentionally not a broad GitHub crawler. It downloads only
-modules listed in `packs/go/dataset/sources/targeted.json`, runs the existing strict
-Gold pipeline, parses each source file, and keeps only files that contain reliable
-source-level target structures. The mined records are train-only focused examples;
-validation and test remain structurally independent generated families. This avoids
-turning files already used for natural evaluation into duplicated focused training
-examples.
-
-Run the V2 inputs with:
-
-```bash
-make dataset-go-targeted
-make dataset-go-focused-v2
-make dataset-go-prepare
-```
-
-The first allowlisted real-world seed is a Go 1.27 generic-method library. The
-allowlist is deliberately small and auditable; expand it only when a module adds
-new structural evidence for one of the target features.
-
-After preparation, initialize a new V2 run from a protected V1 `best.pt` without
-reusing its optimizer, RNG, early-stopping state, or old dataset identity:
-
-```bash
-make train-go-v2 \
-  GO_INIT_CHECKPOINT=artifacts/go/context512-RUN/best.pt \
-  GO_EPOCHS=1
-```
-
-`--init-from` is weights-only transfer to a new prepared snapshot. It is distinct
-from `--resume`, which is valid only for `last.pt` on the exact saved snapshot.
-Start with one short V2 epoch, inspect the targeted role scoreboard, then extend
-only if the weak roles improve without a material natural-code regression.
+The quality gate requires aggregate natural/focused performance, every sufficiently
+supported natural role, and all targeted semantic capabilities to pass before an
+epoch is eligible for `best.pt`. Among eligible epochs, selection remains based on
+natural whole-document exact-span F1.
 
 ## Grouping before windows
 
@@ -279,11 +208,11 @@ The memory-mapped reader exposes separate attention, label, and modifier masks.
 A trainer must not apply modifier loss to every byte indiscriminately.
 
 Natural and focused windows carry separate stream metadata. Preparation does not
-replicate focused windows. During training, fresh runs schedule focused examples
-with a feature-balanced, then family-balanced sampler so a large targeted corpus
-does not dominate smaller modern-Go capabilities. The number of focused optimizer
-steps is unchanged, and held-out examples are never sampled for training. Legacy
-checkpoints resume with their saved window-uniform behavior for reproducibility.
+replicate focused windows. During training, focused windows retain their feature/family metadata. Generic
+runs may use feature-balanced sampling; the formal run uses confusion-aware
+sampling so broad capability coverage and semantic contrast lanes both receive
+budget without naming a one-off patch feature. Held-out examples are never
+sampled for optimization. Resume preserves the schedule saved by that run.
 Public `HighlightResult` offsets remain UTF-16; training byte offsets are internal.
 
 ## External outputs
@@ -298,10 +227,10 @@ go/
     x-sync/
     ...
   curricula/
-    modern-v2r2/
+    modern/
       sample.json
       labeled-sample.jsonl
-    targeted-real-v2r1/
+    targeted-real/
       sample.json
       labeled-sample.jsonl
   prepared/
@@ -361,44 +290,3 @@ Go 1.27.1 toolchain and do not skip newer language fixtures.
 - [Go 1.27 release notes](https://go.dev/doc/go1.27)
 - [Go type-checker information](https://pkg.go.dev/go/types#Info)
 - [Go module reference](https://go.dev/ref/mod)
-
-Targeted mined training examples that collide with held-out focused near-copy fingerprints are excluded during preparation and recorded in `focused-near-copy-exclusions.jsonl`; synthetic split collisions remain fatal.
-
-## One-time sealed blind acceptance
-
-After model selection and consolidation are complete, build the external sealed
-set once and evaluate exactly one candidate checkpoint:
-
-```bash
-make dataset-go-sealed
-make evaluate-go-sealed GO_CHECKPOINT=artifacts/go/<final-run>/best.pt
-```
-
-`dataset-go-sealed` resolves five module sources that are absent from
-`training/go/corpora.json`, writes immutable source locks, and generates the
-`sealed-modern-v1` focused corpus. The focused set contains new structural
-families for self-reference, range-over-function method values, generic methods,
-generic aliases, and struct tags. A shape regression test prevents exact
-structural-template reuse from the V2R3 curriculum.
-
-Sealed ids start with `sealed-`. `training/go/prepare.py` rejects them even if
-someone later adds one to a corpus-selection file, so sealed data cannot become
-train/validation/test windows by accident. The evaluator also rejects exact
-source hashes that occur in any configured training corpus and rejects module
-identities already used by training.
-
-The final evaluation uses predicted adaptive runtime inference directly from raw
-source and package-aware Gold. It records natural aggregate metrics, per-role
-metrics, per-source metrics, the five targeted role gates, and bounded mismatch
-examples in one report. Natural roles with at least 32 Gold spans are gated at
-F1 >= 0.90; lower-support roles are reported explicitly rather than treated as
-strong evidence. Each targeted role requires at least 32 Gold spans and F1 >=
-0.90. Aggregate acceptance also requires natural exact-span F1 >= 0.95, natural
-macro F1 >= 0.90, natural exact-span-with-modifiers F1 >= 0.95, and focused
-exact-span F1 >= 0.98.
-
-A completed evaluation writes `go/sealed/opened-v1.json` under the external
-dataset root. Subsequent runs refuse to open the same sealed set again. If the
-candidate fails, diagnose from the saved report and build a new future sealed
-set after the next model-selection cycle; do not tune against sealed-v1 and then
-rerun it.

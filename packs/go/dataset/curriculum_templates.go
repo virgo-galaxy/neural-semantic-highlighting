@@ -1,10 +1,9 @@
 package dataset
 
-// focusedV3Families is the clean, integrated curriculum used by the final Go
+// curriculumFamilies is the clean, integrated curriculum used by the final Go
 // training candidate. It is intentionally defined as one coherent capability
-// matrix rather than layering historical V2 repair sets. Historical profiles
-// remain available only for experiment replay.
-var focusedV3Families = []focusedFamilySpec{
+// matrix rather than layering historical repair sets.
+var curriculumFamilies = []focusedFamilySpec{
 	// Go 1.18 generics and type sets.
 	{"generic-functions", "1.18", "generic-functions/train/map-reduce", "train", `func Map{{.Name}}[T any, U any](in []T, fn func(T) U) []U { out := make([]U, 0, len(in)); for _, value := range in { out = append(out, fn(value)) }; return out }
 func Reduce{{.Name}}[T any](in []T, zero T, fn func(T, T) T) T { acc := zero; for _, value := range in { acc = fn(acc, value) }; return acc }
@@ -241,8 +240,8 @@ var wrapped{{.Name}} = UseWrap{{.Name}}(Wrap{{.Name}})`},
 	{"struct-tags", "1.18", "struct-tags/train/quoted-tag-negative", "train", `func QuotedTagText{{.Name}}() string { return "json:\"name,omitempty\" xml:\"name,attr\"" }`},
 	{"struct-tags", "1.18", "struct-tags/validation/nested-codec-stack", "validation", `type Message{{.Name}} struct { Meta struct { ID string ` + "`json:\"id\" yaml:\"id\" validate:\"required,uuid4\"`" + ` } ` + "`json:\"meta,omitempty\" xml:\"meta\"`" + `; Body []byte ` + "`json:\"body,omitempty\" custom:\"compression:zstd;level=3\"`" + ` }`},
 	{"struct-tags", "1.18", "struct-tags/validation/mixed-storage-wire", "validation", `type Persisted{{.Name}} struct { Count int32 ` + "`protobuf:\"zigzag32,5,opt,name=count,proto3\" json:\"count,omitempty\" db:\"count\"`" + `; Ratio float64 ` + "`protobuf:\"fixed64,12,opt,name=ratio,proto3\" json:\"ratio,omitempty\" db:\"ratio\"`" + ` }`},
-	{"struct-tags", "1.18", "struct-tags/test/anonymous-transport", "test", `type Transport{{.Name}} struct { Inner struct { Code int ` + "`json:\"code\" xml:\"code,attr\"`" + `; Note string ` + "`json:\"note,omitempty\" yaml:\"note,omitempty\" validate:\"omitempty,max=128\"`" + ` } ` + "`json:\"inner\" custom:\"transport:v3;required\"`" + ` }`},
-	{"struct-tags", "1.18", "struct-tags/test/custom-stack", "test", `type Event{{.Name}} struct { Kind string ` + "`json:\"kind\" custom:\"kind:v3;required\" schema:\"enum=created|updated|deleted\"`" + `; Meta map[string]string ` + "`json:\"meta,omitempty\" custom:\"codec:map;escape=comma,colon\"`" + ` }`},
+	{"struct-tags", "1.18", "struct-tags/test/anonymous-transport", "test", `type Transport{{.Name}} struct { Inner struct { Code int ` + "`json:\"code\" xml:\"code,attr\"`" + `; Note string ` + "`json:\"note,omitempty\" yaml:\"note,omitempty\" validate:\"omitempty,max=128\"`" + ` } ` + "`json:\"inner\" custom:\"transport:required\"`" + ` }`},
+	{"struct-tags", "1.18", "struct-tags/test/custom-stack", "test", `type Event{{.Name}} struct { Kind string ` + "`json:\"kind\" custom:\"kind:required\" schema:\"enum=created|updated|deleted\"`" + `; Meta map[string]string ` + "`json:\"meta,omitempty\" custom:\"codec:map;escape=comma,colon\"`" + ` }`},
 
 	// String robustness is a first-class lexical capability. These families
 	// cover quotes and format verbs inside interpreted strings, rune literals,
@@ -253,13 +252,66 @@ var wrapped{{.Name}} = UseWrap{{.Name}}(Wrap{{.Name}})`},
 	{"strings", "1.18", "strings/train/rune-punctuation", "train", `func Runes{{.Name}}() []rune { return []rune{'[',']','{','}','*','%',':','\n'} }`},
 	{"strings", "1.18", "strings/train/raw-singleline", "train", "func RawOne{{.Name}}() string { return `GET /users/{id}?sort=-created_at | status=%d | note='quoted'` }"},
 	{"strings", "1.18", "strings/train/raw-multiline-help", "train", "func Help{{.Name}}() string { return `Usage: sample [flags]\n\nCommands:\n  serve      start the service\n  inspect    print values matching '{pattern}'\n\nFlags:\n  --addr string      address such as 127.0.0.1:8080\n  --format string    output format: '%s' or json\n  --retry int        retry count (default 3)\n\nExamples:\n  sample serve --addr=:8080\n  sample inspect --format='table'\n` }"},
-	{"strings", "1.18", "strings/train/raw-markdown-table", "train", "func Docs{{.Name}}() string { return `# Configuration\n\n| Key | Type | Example |\n| --- | --- | --- |\n| endpoint | string | https://example.test/api |\n| selector | string | kind='worker',state!=stopped |\n| template | string | /v1/{tenant}/{id} |\n\nUse **quotes**, backticks in prose, commas, colons, braces, and %s literally.\n` }"},
-	{"strings", "1.18", "strings/train/very-long-raw", "train", "func LongHelp{{.Name}}() string { return `SECTION A\nThis command accepts a configuration file, environment overrides, selectors such as service='api',state!=disabled, and templates like /v1/{tenant}/{resource}. Values may contain commas, colons, percent verbs such as %s and %03d, quoted words such as 'ready', and wildcard characters such as * or ?.\n\nSECTION B\nWhen diagnostics are enabled the program prints a table with columns NAME | TYPE | VALUE | SOURCE. The VALUE column may contain JSON fragments like {\"enabled\":true}, URL examples like https://example.test/a?b=c&d=e, or shell-like text such as --label='team:core'. None of those internal punctuation marks ends the Go raw string.\n\nSECTION C\nExamples:\n  sample run --selector=kind='worker' --format='%s'\n  sample inspect --path=/v1/{tenant}/{id} --output=table\n  sample config --set=retry:3,timeout:5s,enabled:true\n\nThe complete help block intentionally exceeds one model context so fixed and adaptive inference must preserve a single lexical span across window boundaries.` }"},
+	{"strings", "1.18", "strings/train/raw-markdown-table", "train", "func Docs{{.Name}}() string { return `# Configuration\n\n| Key | Type | Example |\n| --- | --- | --- |\n| endpoint | string | https://example.test/api |\n| selector | string | kind='worker',state!=stopped |\n| template | string | /api/{tenant}/{id} |\n\nUse **quotes**, backticks in prose, commas, colons, braces, and %s literally.\n` }"},
+	{"strings", "1.18", "strings/train/very-long-raw", "train", "func LongHelp{{.Name}}() string { return `SECTION A\nThis command accepts a configuration file, environment overrides, selectors such as service='api',state!=disabled, and templates like /api/{tenant}/{resource}. Values may contain commas, colons, percent verbs such as %s and %03d, quoted words such as 'ready', and wildcard characters such as * or ?.\n\nSECTION B\nWhen diagnostics are enabled the program prints a table with columns NAME | TYPE | VALUE | SOURCE. The VALUE column may contain JSON fragments like {\"enabled\":true}, URL examples like https://example.test/a?b=c&d=e, or shell-like text such as --label='team:core'. None of those internal punctuation marks ends the Go raw string.\n\nSECTION C\nExamples:\n  sample run --selector=kind='worker' --format='%s'\n  sample inspect --path=/api/{tenant}/{id} --output=table\n  sample config --set=retry:3,timeout:5s,enabled:true\n\nThe complete help block intentionally exceeds one model context so fixed and adaptive inference must preserve a single lexical span across window boundaries.` }"},
 	{"strings", "1.18", "strings/train/comment-negative", "train", `// This comment contains "quoted text", '%s', braces {id}, and a raw-looking marker.
 func CommentNegative{{.Name}}() int { return {{.Number}} }`},
 	{"strings", "1.18", "strings/validation/interpreted-diagnostics", "validation", `func Diagnostic{{.Name}}(ok bool) string { if ok { return "cannot mount path '%s': wildcard '*' must appear after '/{name}', got value=%q" }; return "" }`},
 	{"strings", "1.18", "strings/validation/raw-cli-manual", "validation", "func Manual{{.Name}}(prefix string) string { text := `COMMAND\n  tool deploy [flags]\n\nDESCRIPTION\n  Deploy resources selected by app='web',tier!=cache. Templates may use /{namespace}/{name}.\n\nOPTIONS\n  --set string       comma-separated key:value pairs\n  --message string   text containing quotes such as 'ready'\n  --printf string    formatting pattern such as %q or %03d\n\nThe parser must keep this entire raw literal as one string span.`; return prefix + text }"},
-	{"strings", "1.18", "strings/validation/rune-and-escape", "validation", `func Symbols{{.Name}}() (rune,string) { return '{', "value=\\\"%s\\\"; path=/v2/{id}; set=[a,b,c]" }`},
-	{"strings", "1.18", "strings/test/raw-long-table", "test", "func LongTable{{.Name}}(enabled bool) string { if !enabled { return \"\" }; text := `NAME            KIND            VALUE\nendpoint        url             https://example.test/v2/{id}\nselector        expression      state='ready',attempts>=3\nformat          template        [%s] {name}: {value}\ndescription     text            This row contains punctuation | commas, colons: braces {}, wildcard *, question ?, and quoted 'words'.\nfooter          text            The raw literal continues across many tokens and must remain one semantic span even when a model window boundary appears in the middle of this documentation block.`; return text }"},
+	{"strings", "1.18", "strings/validation/rune-and-escape", "validation", `func Symbols{{.Name}}() (rune,string) { return '{', "value=\\\"%s\\\"; path=/api/{id}; set=[a,b,c]" }`},
+	{"strings", "1.18", "strings/test/raw-long-table", "test", "func LongTable{{.Name}}(enabled bool) string { if !enabled { return \"\" }; text := `NAME            KIND            VALUE\nendpoint        url             https://example.test/api/{id}\nselector        expression      state='ready',attempts>=3\nformat          template        [%s] {name}: {value}\ndescription     text            This row contains punctuation | commas, colons: braces {}, wildcard *, question ?, and quoted 'words'.\nfooter          text            The raw literal continues across many tokens and must remain one semantic span even when a model window boundary appears in the middle of this documentation block.`; return text }"},
 	{"strings", "1.18", "strings/test/embedded-quotes", "test", `func Message{{.Name}}(prefix string) string { return prefix + ": expected one of ['start','stop','status']; received %q at key {command}" }`},
+
+	// Integrated coverage for selector-bound iterators, lexical literal continuity,
+	// and low-frequency core semantics.
+	{"function-range", "1.23", "function-range/train/typed-switch-binding", "train", `type SwitchSource{{.Name}} struct { Limit int }
+func (s *SwitchSource{{.Name}}) Ascend(yield func(int) bool) { for i := range s.Limit { if !yield(i) { return } } }
+func (s *SwitchSource{{.Name}}) Descend(yield func(int) bool) { for i := range s.Limit { if !yield(s.Limit-i-1) { return } } }
+func SwitchSum{{.Name}}(s *SwitchSource{{.Name}}, mode int) int { var iter func(func(int) bool); switch mode { case 0: iter = s.Ascend; default: iter = s.Descend }; total := 0; for value := range iter { total += value }; return total }`},
+	{"function-range", "1.23", "function-range/train/map-bound-method", "train", `type MapStream{{.Name}}[T any] struct { Items []T }
+func (s *MapStream{{.Name}}[T]) Yield(yield func(T) bool) { for _, item := range s.Items { if !yield(item) { return } } }
+func FirstMapped{{.Name}}[T any](streams map[string]*MapStream{{.Name}}[T], key string) T { var zero T; current, ok := streams[key]; if !ok { return zero }; iter := current.Yield; for value := range iter { return value }; return zero }`},
+	{"function-range", "1.23", "function-range/train/selected-interface-method", "train", `type ChoiceIter{{.Name}} interface { Values(func(int) bool) }
+func ChoiceFirst{{.Name}}(left, right ChoiceIter{{.Name}}, useLeft bool) int { current := right; if useLeft { current = left }; iter := current.Values; for value := range iter { return value }; return -1 }`},
+	{"function-range", "1.23", "function-range/train/function-field-branch-negative", "train", `type BranchCallbacks{{.Name}} struct { Left func(func(int) bool); Right func(func(int) bool) }
+func CallbackBranch{{.Name}}(callbacks BranchCallbacks{{.Name}}, left bool) int { var iter func(func(int) bool); if left { iter = callbacks.Left } else { iter = callbacks.Right }; total := 0; for value := range iter { total += value }; return total }`},
+
+	{"strings", "1.18", "strings/train/route-diagnostics", "train", `func RouteError{{.Name}}(path string) string { if path == "" { return "route '%s' contains duplicate parameter '{id}' after wildcard '*', expected '/{name}'" }; return "cannot mount path '%s': existing pattern '%s' already owns key '{name}'" }`},
+	{"strings", "1.18", "strings/train/plain-and-whitespace", "train", `func PlainStrings{{.Name}}(ok bool) string { if ok { return "not a source line" }; if {{.Number}} > 0 { return "      " }; return "" }`},
+	{"strings", "1.18", "strings/train/rune-delimiters", "train", `func Delimiters{{.Name}}() []rune { return []rune{'[',']',';','{','}','(',')',':','|','*','?','%','\''} }`},
+	{"strings", "1.18", "strings/train/medium-interpreted", "train", `func MediumDiagnostic{{.Name}}() string { return "configuration key '%s' has value '%q'; expected one of ['ready','stopped','disabled'] at selector {service}:{state}" }`},
+	{"strings", "1.18", "strings/train/raw-selector-manual", "train", "func SelectorManual{{.Name}}() string { return `Selectors may contain service='api',state!=disabled,attempts>=3. Paths may contain /api/{tenant}/{id}; printf patterns such as %s and %03d are literal text here. Quoted words like 'ready' and punctuation []{}|,:;*? remain inside this raw string.` }"},
+
+	{"core-semantics", "1.18", "core-semantics/train/interface-basic", "train", `type Reader{{.Name}} interface { Read([]byte) (int,error); Close() error }
+func UseReader{{.Name}}(reader Reader{{.Name}}) error { _, err := reader.Read(nil); if err != nil { return err }; return reader.Close() }`},
+	{"core-semantics", "1.18", "core-semantics/train/interface-embedding", "train", `type Named{{.Name}} interface { Name() string }
+type Resettable{{.Name}} interface { Named{{.Name}}; Reset() }
+func ResetName{{.Name}}(value Resettable{{.Name}}) string { value.Reset(); return value.Name() }`},
+	{"core-semantics", "1.18", "core-semantics/train/labeled-loops", "train", `func LabeledLoop{{.Name}}(limit int) int { total := 0
+outer{{.Name}}:
+for i := range limit { // scan the outer dimension
+for j := range limit { if i+j > {{.Number}} { continue outer{{.Name}} }; total += i+j } }
+return total }`},
+	{"core-semantics", "1.18", "core-semantics/train/goto-and-comments", "train", `// Retry{{.Name}} decrements a counter until it reaches zero.
+func Retry{{.Name}}(count int) int { /* keep the control-flow label semantic */
+again{{.Name}}:
+if count > 0 { count--; goto again{{.Name}} }
+return count }`},
+	{"core-semantics", "1.18", "core-semantics/train/doc-and-directive", "train", `// Identity{{.Name}} returns the supplied value without modification.
+//go:noinline
+func Identity{{.Name}}(value int) int { return value }`},
+	{"core-semantics", "1.18", "core-semantics/validation/interface-control", "validation", `type Worker{{.Name}} interface { Work(int) error; Stop() }
+func RunWorker{{.Name}}(worker Worker{{.Name}}, value int) error { // call through an ordinary interface
+if err := worker.Work(value); err != nil { return err }; worker.Stop(); return nil }`},
+	{"core-semantics", "1.18", "core-semantics/validation/labeled-control", "validation", `func Control{{.Name}}(limit int) int { total := 0
+scan{{.Name}}:
+for i := range limit { for j := range limit { if j > i { break scan{{.Name}} }; total += j } } // labeled break
+return total }`},
+	{"core-semantics", "1.18", "core-semantics/test/interface-embedding", "test", `type Sized{{.Name}} interface { Size() int }
+type NamedSized{{.Name}} interface { Sized{{.Name}}; Name() string }
+func Describe{{.Name}}(value NamedSized{{.Name}}) (string,int) { return value.Name(), value.Size() }`},
+	{"core-semantics", "1.18", "core-semantics/test/goto-label", "test", `func GotoControl{{.Name}}(value int) int { // explicit goto and label reference
+if value < 0 { goto done{{.Name}} }; value += {{.Number}}
+done{{.Name}}:
+return value }`},
 }

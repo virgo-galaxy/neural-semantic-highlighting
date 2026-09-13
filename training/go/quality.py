@@ -4,20 +4,14 @@ from __future__ import annotations
 TARGET_F1 = 0.90
 MIN_ROLE_SUPPORT = 32
 
-# Kept stable for sealed-v1 replay/diagnostics. Sealed-v1 is already opened and
-# must not silently gain new target features after the fact.
+# Canonical semantic capabilities that must generalize before a checkpoint can
+# become the selected Go model.
 TARGETED_ROLES = {
     "self-reference": "interface",
     "function-range": "method",
     "generic-method": "method",
     "generic-alias": "type-parameter",
     "struct-tags": "string",
-}
-
-# V3 makes string robustness a first-class capability instead of treating it as
-# an incidental side effect of struct-tag training.
-TRAINING_TARGETED_ROLES = {
-    **TARGETED_ROLES,
     "strings": "string",
 }
 
@@ -30,7 +24,7 @@ def targeted_scores(report: dict, *, roles: dict[str, str] | None = None,
                     minimum_support: int = MIN_ROLE_SUPPORT) -> list[dict]:
     features = report.get("focusFeatures", {})
     rows = []
-    for feature, role in (roles or TRAINING_TARGETED_ROLES).items():
+    for feature, role in (roles or TARGETED_ROLES).items():
         metrics = features.get(feature, {}).get("byTokenType", {}).get(role)
         if not metrics:
             rows.append({"feature": feature, "role": role, "support": 0, "f1": None, "passed": False})

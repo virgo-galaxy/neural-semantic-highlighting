@@ -30,7 +30,6 @@ type focusedManifest struct {
 	SampleManifest
 	Kind      string `json:"kind"`
 	Generator string `json:"generator"`
-	Profile   string `json:"profile,omitempty"`
 	Variants  int    `json:"variants"`
 	Families  int    `json:"families"`
 }
@@ -43,76 +42,8 @@ type focusedFamilySpec struct {
 	Source  string
 }
 
-func v1FocusedFamilies() []focusedFamilySpec {
-	var result []focusedFamilySpec
-	splits := []string{"train", "validation", "test"}
-	for _, feature := range focusedFeatures {
-		for form, split := range splits {
-			result = append(result, focusedFamilySpec{
-				Feature: feature.ID,
-				Since:   feature.Since,
-				ID:      fmt.Sprintf("%s/%s", feature.ID, split),
-				Split:   split,
-				Source:  feature.Forms[form],
-			})
-		}
-	}
-	return result
-}
-
-func focusedFamilies(profile string) ([]focusedFamilySpec, string, error) {
-	switch profile {
-	case "v1":
-		return v1FocusedFamilies(), "modern-go-focused-v1", nil
-	case "v2":
-		targeted := map[string]bool{"self-reference": true, "function-range": true, "generic-method": true, "generic-alias": true, "struct-tags": true}
-		families := make([]focusedFamilySpec, 0, len(v1FocusedFamilies())+len(focusedV2Families))
-		for _, family := range v1FocusedFamilies() {
-			if !targeted[family.Feature] {
-				families = append(families, family)
-			}
-		}
-		families = append(families, focusedV2Families...)
-		return families, "modern-go-focused-v2", nil
-	case "v2r2":
-		targeted := map[string]bool{"self-reference": true, "function-range": true, "generic-method": true, "generic-alias": true, "struct-tags": true}
-		families := make([]focusedFamilySpec, 0, len(v1FocusedFamilies())+len(focusedV2Families)+len(focusedV2R2ExtraFamilies))
-		for _, family := range v1FocusedFamilies() {
-			if !targeted[family.Feature] {
-				families = append(families, family)
-			}
-		}
-		families = append(families, focusedV2Families...)
-		families = append(families, focusedV2R2ExtraFamilies...)
-		return families, "modern-go-focused-v2r2", nil
-	case "v2r3":
-		targeted := map[string]bool{"self-reference": true, "function-range": true, "generic-method": true, "generic-alias": true, "struct-tags": true}
-		families := make([]focusedFamilySpec, 0, len(v1FocusedFamilies())+len(focusedV2Families)+len(focusedV2R2ExtraFamilies)+len(focusedV2R3ExtraFamilies))
-		for _, family := range v1FocusedFamilies() {
-			if !targeted[family.Feature] {
-				families = append(families, family)
-			}
-		}
-		families = append(families, focusedV2Families...)
-		families = append(families, focusedV2R2ExtraFamilies...)
-		families = append(families, focusedV2R3ExtraFamilies...)
-		return families, "modern-go-focused-v2r3", nil
-	case "v3":
-		return append([]focusedFamilySpec(nil), focusedV3Families...), "modern-go-curriculum-v3", nil
-	case "sealed-v1":
-		return append([]focusedFamilySpec(nil), sealedFocusedFamilies...), "sealed-go-acceptance-v1", nil
-	default:
-		return nil, "", fmt.Errorf("unknown focused profile %q", profile)
-	}
-}
-
-func renderFocused(feature focusedFeature, form, variant int) (string, error) {
-	if form < 0 || form >= len(feature.Forms) {
-		return "", fmt.Errorf("%s: invalid form %d", feature.ID, form)
-	}
-	splits := []string{"train", "validation", "test"}
-	return renderFocusedFamily(focusedFamilySpec{Feature: feature.ID, Since: feature.Since,
-		ID: fmt.Sprintf("%s/%s", feature.ID, splits[form]), Split: splits[form], Source: feature.Forms[form]}, variant)
+func focusedFamilies() ([]focusedFamilySpec, string) {
+	return append([]focusedFamilySpec(nil), curriculumFamilies...), "go-focused-curriculum"
 }
 
 func renderFocusedFamily(family focusedFamilySpec, variant int) (string, error) {
@@ -139,24 +70,15 @@ func renderFocusedFamily(family focusedFamilySpec, variant int) (string, error) 
 	return string(formatted), nil
 }
 
-// BuildFocusedCorpus preserves the V1 generator for immutable replay.
+// BuildFocusedCorpus creates one immutable integrated curriculum outside the repository.
 func BuildFocusedCorpus(root, id string, variants int, progress ProgressFunc) (string, error) {
-	return BuildFocusedCorpusProfile(root, id, variants, "v1", progress)
-}
-
-// BuildFocusedCorpusProfile creates an immutable focused curriculum outside the repository.
-// V2 adds structural diversity and hard negatives; it never reuses validation or test source as training input.
-func BuildFocusedCorpusProfile(root, id string, variants int, profile string, progress ProgressFunc) (string, error) {
 	if err := RequireGoldToolchain(); err != nil {
 		return "", err
 	}
 	if !corpusIDPattern.MatchString(id) || variants < 1 || variants > 32 {
 		return "", fmt.Errorf("invalid focused id or variants (1..32)")
 	}
-	families, generator, err := focusedFamilies(profile)
-	if err != nil {
-		return "", err
-	}
+	families, generator := focusedFamilies()
 	parent := filepath.Join(root, "curricula")
 	if err := os.MkdirAll(parent, 0o755); err != nil {
 		return "", err
@@ -177,19 +99,15 @@ func BuildFocusedCorpusProfile(root, id string, variants int, profile string, pr
 	encoder.SetEscapeHTML(false)
 	manifest := focusedManifest{SampleManifest: SampleManifest{
 		FormatVersion: 1, Toolchain: GoldToolchain, Corpus: id, GOOS: runtime.GOOS, GOARCH: runtime.GOARCH,
-	}, Kind: "focused", Generator: generator, Profile: profile, Variants: variants, Families: len(families)}
+	}, Kind: "focused", Generator: generator, Variants: variants, Families: len(families)}
 	gold := labeling.NewStrictPackageLabeler(nil)
 	seen := map[string]bool{}
 	for familyIndex, family := range families {
 		if progress != nil {
 			progress(familyIndex+1, len(families), family.ID)
 		}
-		allowedSplit := family.Split == "train" || family.Split == "validation" || family.Split == "test"
-		if profile == "sealed-v1" {
-			allowedSplit = family.Split == "sealed"
-		}
-		if !allowedSplit {
-			return "", fmt.Errorf("%s: invalid split %q for profile %q", family.ID, family.Split, profile)
+		if family.Split != "train" && family.Split != "validation" && family.Split != "test" {
+			return "", fmt.Errorf("%s: invalid split %q", family.ID, family.Split)
 		}
 		for variant := 0; variant < variants; variant++ {
 			source, err := renderFocusedFamily(family, variant)

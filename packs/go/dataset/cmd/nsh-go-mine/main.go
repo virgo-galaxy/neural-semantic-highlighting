@@ -10,7 +10,7 @@ import (
 
 func main() {
 	config := flag.String("config", "dataset/sources/targeted.json", "Explicit module allowlist to mine")
-	id := flag.String("id", "targeted-real-v2r1", "Immutable mined curriculum id")
+	id := flag.String("id", "targeted-real", "Immutable mined curriculum id")
 	flag.Parse()
 	if flag.NArg() != 0 {
 		fmt.Fprintln(os.Stderr, "unexpected positional arguments")

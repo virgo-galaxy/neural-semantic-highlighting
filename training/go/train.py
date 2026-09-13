@@ -21,7 +21,8 @@ from metrics import evaluate_fixed, evaluation_indices
 from model import GoSemanticTransformer, ModelConfig, parameter_count
 from progress import epoch_report, training_line
 from quality import quality_gate_summary, targeted_gate_summary
-from trainer_data import Snapshot, WindowSplit, epoch_batches, sha256_file, training_weights
+from trainer_data import (Snapshot, WindowSplit, epoch_batches, semantic_confusion_lanes, sha256_file,
+                          training_weights)
 
 
 @dataclass(frozen=True)
@@ -32,6 +33,7 @@ class TrainingConfig:
     focus_sampling: str = "feature-balanced"
     focus_features: str = ""
     selection_policy: str = "natural-exact-span"
+    validation_decoder: str = "neural"
     learning_rate: float = 3e-4
     weight_decay: float = .01
     modifier_loss_weight: float = .1
@@ -45,12 +47,14 @@ class TrainingConfig:
     def validate(self) -> None:
         if min(self.batch_size, self.focus_batch_size, self.focus_every, self.smoke_main_batches, self.smoke_eval_windows) < 1:
             raise ValueError("Batch sizes, sampling interval, and smoke limits must be positive")
-        if self.focus_sampling not in {"feature-balanced", "window-uniform"}:
+        if self.focus_sampling not in {"feature-balanced", "confusion-aware", "window-uniform"}:
             raise ValueError("Unknown focused sampling strategy")
         if self.focus_features and self.focus_sampling != "feature-balanced":
             raise ValueError("Focused feature filtering requires feature-balanced sampling")
         if self.selection_policy not in {"natural-exact-span", "quality-gated"}:
             raise ValueError("Unknown checkpoint selection policy")
+        if self.validation_decoder not in {"neural", "lexical"}:
+            raise ValueError("Unknown validation decoder")
         if self.patience < 0 or self.learning_rate <= 0 or self.weight_decay < 0 or self.modifier_loss_weight < 0:
             raise ValueError("Invalid optimizer or early-stopping configuration")
         if not all(math.isfinite(v) for v in (self.learning_rate, self.weight_decay, self.modifier_loss_weight, self.modifier_threshold)):
@@ -70,6 +74,7 @@ def make_config(args: argparse.Namespace, checkpoint: dict | None) -> TrainingCo
         saved.setdefault("focus_sampling", "window-uniform")
         saved.setdefault("focus_features", "")
         saved.setdefault("selection_policy", "natural-exact-span")
+        saved.setdefault("validation_decoder", "neural")
     else:
         saved = asdict(TrainingConfig())
     values = saved.copy()
@@ -233,6 +238,7 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
         print(f"Parameters: {parameter_count(model):,} | Context: {model.config.context_bytes} UTF-8 bytes", flush=True)
         print(f"Batch: {config.batch_size} natural / {config.focus_batch_size} focus; one focus batch per "
               f"{config.focus_every} natural batches (plus the final partial interval).", flush=True)
+        print(f"Training objective: multitask; validation decoder: {config.validation_decoder}.", flush=True)
         if config.focus_sampling == "feature-balanced":
             selected = tuple(value.strip() for value in config.focus_features.split(",") if value.strip())
             if selected:
@@ -246,6 +252,13 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                 families = sum(len(value) for value in train_split.focus_feature_families.values())
                 print(f"Focused sampling: feature-balanced across {len(train_split.focus_feature_families)} features / "
                       f"{families} feature-family buckets.", flush=True)
+        elif config.focus_sampling == "confusion-aware":
+            lanes = semantic_confusion_lanes(train_split)
+            pairs = sorted({f"{left}<->{right}" for _, _, left, right in lanes})
+            print(f"Focused sampling: confusion-aware; 50% broad feature coverage + 50% paired semantic contrast; "
+                  f"{len(lanes)} contrast lanes across {len(pairs)} role pairs.", flush=True)
+            if pairs:
+                print(f"Semantic contrast pairs: {', '.join(pairs)}", flush=True)
         else:
             print("Focused sampling: window-uniform (legacy checkpoint replay).", flush=True)
         main_steps = math.ceil(len(train_split.streams["natural"]) / config.batch_size)
@@ -268,7 +281,7 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                     "trainerFiles": {p.name: sha256_file(p) for p in sorted(Path(__file__).parent.glob("*.py"))
                                      if p.name not in {"prepare.py", "repair.py", "splitting.py"}},
                     "selection": ("quality-gated validation, then highest natural whole-document exact-span F1; "
-                                  "fixed-window inference; excludes modifiers"
+                                  f"{config.validation_decoder} fixed-window decoding; excludes modifiers"
                                   if config.selection_policy == "quality-gated" else
                                   "validation natural whole-document exact-span F1; fixed-window inference; excludes modifiers"),
                 })
@@ -279,9 +292,12 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                 print(f"\nEpoch {epoch} (run {local_epoch}/{epochs})", flush=True)
                 trained = epoch_train(model, train_split, optimizer, weights, config, epoch, device, args.log_every)
                 print("  validating... (complete documents; fixed-window inference)", flush=True)
-                validation = evaluate_fixed(model, val_split, device, batch_size=config.batch_size,
-                                            threshold=config.modifier_threshold, log_every=args.log_every,
-                                            max_windows_per_stream=config.smoke_eval_windows if config.smoke else 0)
+                validation = evaluate_fixed(
+                    model, val_split, device, batch_size=config.batch_size,
+                    threshold=config.modifier_threshold, log_every=args.log_every,
+                    max_windows_per_stream=config.smoke_eval_windows if config.smoke else 0,
+                    decoder=config.validation_decoder if not config.smoke else "neural",
+                )
                 validation["targetedRoleGate"] = targeted_gate_summary(validation)
                 validation["qualityGate"] = quality_gate_summary(validation)
                 score = validation["streams"]["natural"]["exactSpan"]["f1"]
@@ -367,9 +383,10 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--cpu-threads", type=int)
     result.add_argument("--log-every", type=int, default=25)
     result.add_argument("--smoke", action="store_true", default=None)
-    result.add_argument("--focus-sampling", choices=["feature-balanced", "window-uniform"], default=None)
+    result.add_argument("--focus-sampling", choices=["feature-balanced", "confusion-aware", "window-uniform"], default=None)
     result.add_argument("--focus-features", default=None, help="Comma-separated focused features for a targeted short run")
     result.add_argument("--selection-policy", choices=["natural-exact-span", "quality-gated"], default=None)
+    result.add_argument("--validation-decoder", choices=["neural", "lexical"], default=None)
     for name in ("batch-size", "focus-batch-size", "focus-every", "seed", "patience", "smoke-main-batches", "smoke-eval-windows"):
         result.add_argument("--" + name, type=int, default=None)
     for name in ("learning-rate", "weight-decay", "modifier-loss-weight", "modifier-threshold"):

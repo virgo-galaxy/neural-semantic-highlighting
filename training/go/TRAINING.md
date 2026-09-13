@@ -128,12 +128,17 @@ Epoch 9 (run 3/3)
 
 Progress uses simultaneous `main completed/total` and `focus completed/total`
 counters. `main` is the natural stream; `focus` is the modern-Go curriculum.
-Fresh runs use **feature-balanced focused sampling**: each focused feature gets an
-equal scheduling opportunity, and families are rotated within a feature before
-individual windows are recycled. Corpus size therefore does not let a large
-protobuf/struct-tag pool drown out smaller capabilities such as function-range.
-The total focus budget is unchanged. Legacy checkpoints created before this
-strategy retain their original window-uniform schedule when resumed.
+Fresh baseline runs can use **feature-balanced focused sampling**: each focused
+feature gets an equal scheduling opportunity, and families are rotated within a
+feature before individual windows are recycled. The integrated Go candidate uses
+**confusion-aware focused sampling** instead. Half of every focused batch preserves
+that broad feature/family coverage; the other half is drawn from semantic contrast
+lanes inferred from Gold training metadata. A contrast lane exists only when one
+feature contains both sides of a known identifier-role ambiguity (for example a
+selector `method` and a selector `property`). This keeps hard semantic distinctions
+visible without introducing feature-specific patch schedules. The total focus
+budget is unchanged. Legacy checkpoints created before these strategies retain
+their original window-uniform schedule when resumed.
 Unlike a phase-dependent loss display, the live loss fields always refer to the
 latest **main** batch, even when a progress line follows a focused update. Focus
 loss is reported separately in the epoch summary. The explicit field names are
@@ -329,28 +334,29 @@ are engineering checks and are not appended to real model corpora.
 - [Checkpoint serialization](https://docs.pytorch.org/docs/stable/notes/serialization.html)
 - [Reproducibility limitations](https://docs.pytorch.org/docs/stable/notes/randomness.html)
 
-## V3 final-training candidate
+## Canonical final-training candidate
 
-The V3 candidate removes feature-specific patch scheduling from the active final
-workflow. Historical runs remain reproducible, but final training selects the
-`modern-v3` and `real-world-v3` focused corpora and always trains the full V3
-capability set together.
+The formal Go run trains the complete `modern` + `targeted-real` focused
+curriculum together. It does not use feature-specific patch schedules and does
+not inherit a diagnostic checkpoint.
 
-The final schedule uses one focused batch per four natural batches with
-feature-balanced sampling. Natural windows still receive one complete presentation
-per epoch. The larger focused budget is fixed before final training; it is not
-changed in response to individual validation failures.
+The schedule uses one focused batch per eight natural batches with
+confusion-aware sampling: half of each focused batch preserves broad
+feature/family coverage and half is reserved for semantic contrast lanes inferred
+from Gold training metadata. Natural windows still receive one complete
+presentation per epoch. Validation uses the Go lexical scaffold so deterministic
+lexical boundaries/roles are not re-judged by the neural decoder.
 
-V3 model selection can use `--selection-policy quality-gated`. Under that policy an
-epoch is eligible for `best.pt` only after all of the following hold on validation:
+An epoch is eligible for `best.pt` only when all of the following hold on
+validation:
 
 - natural exact-span F1 >= 0.95;
 - natural exact-span macro F1 >= 0.90;
 - focused exact-span F1 >= 0.98;
 - every natural token role with support >= 32 has F1 >= 0.90;
-- every V3 targeted capability has support >= 32 and F1 >= 0.90.
+- every targeted capability has support >= 32 and F1 >= 0.90.
 
-The V3 targeted capabilities are:
+The targeted capabilities are:
 
 - `self-reference / interface`;
 - `function-range / method`;
@@ -359,43 +365,13 @@ The V3 targeted capabilities are:
 - `struct-tags / string`;
 - `strings / string`.
 
-Among eligible epochs, `best.pt` is still selected by natural exact-span F1. Early
+Among eligible epochs, `best.pt` is selected by natural exact-span F1. Early
 stopping does not begin counting patience before the first quality-eligible epoch,
-so a from-scratch run cannot stop merely because aggregate natural F1 plateaued
-before the semantic gates were learned.
+so a from-scratch run cannot stop merely because aggregate natural F1 plateaus
+before the semantic gates are learned.
 
-Use `make train-go-v3-check` only for short curriculum verification with
-weights-only initialization. Use `make train-go-final` only after the V3 dataset,
-model, loss, sampler, and validation gates are frozen. `train-go-final` refuses a
-previous initialization checkpoint and feature-specific focus filters, so it starts
-from random initialization rather than inheriting the diagnostic patch history.
-
-## Focused Curriculum V2 transfer runs
-
-A V2 prepared snapshot intentionally has a different dataset identity from the V1
-baseline. Do not use `--resume` across snapshots. Preserve the V1 `best.pt` and use
-weights-only initialization instead:
-
-```bash
-make train-go-v2 \
-  GO_INIT_CHECKPOINT=artifacts/go/context512-RUN/best.pt \
-  GO_EPOCHS=1
-```
-
-This loads only model weights. AdamW state, RNG state, early-stopping counters,
-loss weights, and checkpoint selection state are rebuilt for the new snapshot. The
-new run records its source checkpoint hash and epoch in `run.json`. The V1 run is
-never overwritten.
-
-Every validation report now prints a targeted role scoreboard. The current
-acceptance-oriented gate is F1 >= 0.90 for:
-
-- `self-reference / interface`
-- `function-range / method`
-- `generic-method / method`
-- `generic-alias / type-parameter`
-- `struct-tags / string`
-
-The scoreboard is diagnostic and does not silently change best-checkpoint selection,
-which remains natural exact-span F1. A V2 experiment is useful only when the weak
-roles improve while natural-code metrics remain stable.
+Use `make train-go-final` only after the canonical dataset, model, loss, sampler,
+and validation gates are frozen. The target refuses feature-specific focus filters
+and the formal command does not accept an initialization checkpoint, so it starts
+from random initialization. Previous experimental checkpoints remain external
+comparison baselines rather than ancestors of the formal model.
