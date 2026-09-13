@@ -80,7 +80,7 @@ make train-go-final
 ```
 
 This command starts from random initialization, trains the complete curriculum,
-uses confusion-aware focused sampling and lexical validation, and selects
+uses confusion-aware focused sampling and pure-neural validation, and selects
 checkpoints with the quality-gated policy. A prior diagnostic checkpoint can stay
 protected outside the pipeline as a baseline, but it is not an initialization
 source for the formal run.
@@ -89,6 +89,18 @@ The quality gate requires aggregate natural/focused performance, every sufficien
 supported natural role, and all targeted semantic capabilities to pass before an
 epoch is eligible for `best.pt`. Among eligible epochs, selection remains based on
 natural whole-document exact-span F1.
+
+After product verification, promote the selected checkpoint into the runtime pack:
+
+```bash
+make export-go-model \
+  GO_CHECKPOINT=artifacts/go/<run>/best.pt \
+  GO_TEST_REPORT=artifacts/go/<run>/test-adaptive-<stamp>.json
+```
+
+The exporter writes the canonical inference artifact to `packs/go/model/model.pt`,
+strips optimizer/RNG/resume state, and records model identity plus the supplied
+held-out report. Normal Playground startup then remains simply `pnpm dev`.
 
 ## Grouping before windows
 

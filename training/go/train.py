@@ -33,7 +33,6 @@ class TrainingConfig:
     focus_sampling: str = "feature-balanced"
     focus_features: str = ""
     selection_policy: str = "natural-exact-span"
-    validation_decoder: str = "neural"
     learning_rate: float = 3e-4
     weight_decay: float = .01
     modifier_loss_weight: float = .1
@@ -53,8 +52,6 @@ class TrainingConfig:
             raise ValueError("Focused feature filtering requires feature-balanced sampling")
         if self.selection_policy not in {"natural-exact-span", "quality-gated"}:
             raise ValueError("Unknown checkpoint selection policy")
-        if self.validation_decoder not in {"neural", "lexical"}:
-            raise ValueError("Unknown validation decoder")
         if self.patience < 0 or self.learning_rate <= 0 or self.weight_decay < 0 or self.modifier_loss_weight < 0:
             raise ValueError("Invalid optimizer or early-stopping configuration")
         if not all(math.isfinite(v) for v in (self.learning_rate, self.weight_decay, self.modifier_loss_weight, self.modifier_threshold)):
@@ -74,7 +71,6 @@ def make_config(args: argparse.Namespace, checkpoint: dict | None) -> TrainingCo
         saved.setdefault("focus_sampling", "window-uniform")
         saved.setdefault("focus_features", "")
         saved.setdefault("selection_policy", "natural-exact-span")
-        saved.setdefault("validation_decoder", "neural")
     else:
         saved = asdict(TrainingConfig())
     values = saved.copy()
@@ -238,7 +234,7 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
         print(f"Parameters: {parameter_count(model):,} | Context: {model.config.context_bytes} UTF-8 bytes", flush=True)
         print(f"Batch: {config.batch_size} natural / {config.focus_batch_size} focus; one focus batch per "
               f"{config.focus_every} natural batches (plus the final partial interval).", flush=True)
-        print(f"Training objective: multitask; validation decoder: {config.validation_decoder}.", flush=True)
+        print("Training objective: multitask; validation: pure neural fixed-window decoding.", flush=True)
         if config.focus_sampling == "feature-balanced":
             selected = tuple(value.strip() for value in config.focus_features.split(",") if value.strip())
             if selected:
@@ -280,8 +276,8 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                     "lineage": lineage,
                     "trainerFiles": {p.name: sha256_file(p) for p in sorted(Path(__file__).parent.glob("*.py"))
                                      if p.name not in {"prepare.py", "repair.py", "splitting.py"}},
-                    "selection": ("quality-gated validation, then highest natural whole-document exact-span F1; "
-                                  f"{config.validation_decoder} fixed-window decoding; excludes modifiers"
+                    "selection": ("quality-gated pure-neural validation, then highest natural whole-document exact-span F1; "
+                                  "fixed-window decoding; excludes modifiers"
                                   if config.selection_policy == "quality-gated" else
                                   "validation natural whole-document exact-span F1; fixed-window inference; excludes modifiers"),
                 })
@@ -296,7 +292,6 @@ def run(args: argparse.Namespace, *, model_config: ModelConfig | None = None) ->
                     model, val_split, device, batch_size=config.batch_size,
                     threshold=config.modifier_threshold, log_every=args.log_every,
                     max_windows_per_stream=config.smoke_eval_windows if config.smoke else 0,
-                    decoder=config.validation_decoder if not config.smoke else "neural",
                 )
                 validation["targetedRoleGate"] = targeted_gate_summary(validation)
                 validation["qualityGate"] = quality_gate_summary(validation)
@@ -386,7 +381,6 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--focus-sampling", choices=["feature-balanced", "confusion-aware", "window-uniform"], default=None)
     result.add_argument("--focus-features", default=None, help="Comma-separated focused features for a targeted short run")
     result.add_argument("--selection-policy", choices=["natural-exact-span", "quality-gated"], default=None)
-    result.add_argument("--validation-decoder", choices=["neural", "lexical"], default=None)
     for name in ("batch-size", "focus-batch-size", "focus-every", "seed", "patience", "smoke-main-batches", "smoke-eval-windows"):
         result.add_argument("--" + name, type=int, default=None)
     for name in ("learning-rate", "weight-decay", "modifier-loss-weight", "modifier-threshold"):

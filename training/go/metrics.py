@@ -8,7 +8,6 @@ import torch
 
 from encoding import IGNORE
 from inference import decode, document_logits
-from lexical_inference import constrained_decode, scan_documents
 from model import GoSemanticTransformer, ModelOutput
 from progress import validation_line
 from trainer_data import WindowSplit
@@ -109,8 +108,7 @@ def evaluation_indices(split: WindowSplit, max_windows_per_stream: int = 0) -> l
 @torch.inference_mode()
 def evaluate_fixed(model: GoSemanticTransformer, split: WindowSplit, device: torch.device,
                    *, batch_size: int = 32, threshold: float = .60,
-                   max_windows_per_stream: int = 0, log_every: int = 25,
-                   decoder: str = "neural") -> dict:
+                   max_windows_per_stream: int = 0, log_every: int = 25) -> dict:
     """Batch fixed windows, reassemble all logits, and score whole documents.
 
     Cut-crossing spans are decoded only after reassembly. No Gold boundary
@@ -121,11 +119,6 @@ def evaluate_fixed(model: GoSemanticTransformer, split: WindowSplit, device: tor
     model.eval()
     schema = split.snapshot.schema
     docs = split.documents()
-    if decoder not in {"neural", "lexical"}:
-        raise ValueError("Unknown fixed-window decoder")
-    if decoder == "lexical" and max_windows_per_stream:
-        raise ValueError("Lexical validation requires complete documents")
-    lexical = scan_documents(docs) if decoder == "lexical" else None
     indices = evaluation_indices(split, max_windows_per_stream)
     spans = {kind: SpanMetrics(schema) for kind in split.streams}
     diagnostics = {kind: Diagnostics(schema) for kind in split.streams}
@@ -142,10 +135,7 @@ def evaluate_fixed(model: GoSemanticTransformer, split: WindowSplit, device: tor
             raise ValueError("Prepared bytes do not match document source")
         output = ModelOutput(torch.cat([p.boundary for p in pending]), torch.cat([p.token_type for p in pending]),
                              torch.cat([p.modifier for p in pending]))
-        predicted = (
-            constrained_decode(source, output, lexical[pending_id], schema, modifier_threshold=threshold)
-            if lexical is not None else decode(source, output, schema, threshold=threshold)
-        )
+        predicted = decode(source, output, schema, threshold=threshold)
         spans[doc["stream"]].add(doc["result"], predicted)
         if doc["stream"] == "focus":
             for feature in doc.get("features", []):
@@ -175,9 +165,7 @@ def evaluate_fixed(model: GoSemanticTransformer, split: WindowSplit, device: tor
     finish()
     if log_every:
         print(validation_line(split.split, batches, batches, sum(count_windows.values()), time.monotonic() - started), flush=True)
-    inference_name = ("fixed-window-neural-logits-with-go-lexical-scaffold" if lexical is not None
-                      else "fixed-window-logits-reassembled-before-document-decoding")
-    return {"split": split.split, "inference": inference_name,
+    return {"split": split.split, "inference": "fixed-window-logits-reassembled-before-document-decoding",
             "limitedSmokeEvaluation": bool(max_windows_per_stream), "seconds": time.monotonic() - started,
             "streams": {kind: {**spans[kind].report(), "windows": count_windows[kind],
                                "diagnostics": diagnostics[kind].report(schema)} for kind in spans},

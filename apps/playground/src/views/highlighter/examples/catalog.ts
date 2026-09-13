@@ -1,3 +1,4 @@
+import goIcon from "@/assets/document-kinds/go.svg";
 import javascriptIcon from "@/assets/document-kinds/javascript.svg";
 import typescriptIcon from "@/assets/document-kinds/typescript.svg";
 import type { HighlighterExample, HighlighterLanguage } from "@/views/highlighter/examples/types";
@@ -9,13 +10,17 @@ const sources = import.meta.glob("./*/*", {
 }) as Record<string, string>;
 
 const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">>> = {
+  typescript: {
+    label: "TypeScript",
+    icon: typescriptIcon,
+  },
   javascript: {
     label: "JavaScript",
     icon: javascriptIcon,
   },
-  typescript: {
-    label: "TypeScript",
-    icon: typescriptIcon,
+  go: {
+    label: "Go",
+    icon: goIcon,
   },
 };
 
@@ -71,19 +76,24 @@ export const highlighterExamples: readonly HighlighterExample[] = Object.entries
   .sort(([left], [right]) => left.localeCompare(right))
   .map(([path, source]) => createExample(path, source));
 
-export const highlighterLanguages: readonly HighlighterLanguage[] = Array.from(
-  new Set(highlighterExamples.map((example) => example.languageId)),
-)
-  .sort((left, right) => {
-    if (left === "typescript") return -1;
-    if (right === "typescript") return 1;
-    return left.localeCompare(right);
-  })
-  .map((id) => ({
-    id,
-    label: LANGUAGE_METADATA[id]?.label ?? formatLanguageLabel(id),
-    icon: LANGUAGE_METADATA[id]?.icon,
-  }));
+const availableLanguageIds = new Set(highlighterExamples.map((example) => example.languageId));
+const metadataLanguageIds = new Set(Object.keys(LANGUAGE_METADATA));
+
+export const highlighterLanguages: readonly HighlighterLanguage[] = [
+  ...Object.entries(LANGUAGE_METADATA)
+    .filter(([id]) => availableLanguageIds.has(id))
+    .map(([id, metadata]) => ({
+      id,
+      ...metadata,
+    })),
+  ...Array.from(availableLanguageIds)
+    .filter((id) => !metadataLanguageIds.has(id))
+    .sort((left, right) => left.localeCompare(right))
+    .map((id) => ({
+      id,
+      label: formatLanguageLabel(id),
+    })),
+];
 
 export function examplesForLanguage(languageId: string): readonly HighlighterExample[] {
   return highlighterExamples.filter((example) => example.languageId === languageId);

@@ -64,7 +64,6 @@ class ProgressTests(unittest.TestCase):
             'generic-method': ('method', .93),
             'generic-alias': ('type-parameter', .94),
             'struct-tags': ('string', .95),
-            'strings': ('string', .96),
         }
         val = {'seconds': 3, 'streams': {'natural': self.metrics(), 'focus': self.metrics()},
                'focusFeatures': {feature: {'byTokenType': {role: {'f1': score, 'support': 64}}}
@@ -83,7 +82,7 @@ class ProgressTests(unittest.TestCase):
                      'focus loss:', 'boundary macro F1:', 'token type macro F1:',
                      'exact span F1:', 'exact span macro F1:', 'predicted/gold spans:',
                      'modifier F1 (Gold starts):', 'Natural validation', 'Focused validation',
-                     'Targeted role scoreboard', 'self-reference / interface:', 'struct-tags / string:', 'strings / string:']:
+                     'Targeted role scoreboard', 'self-reference / interface:', 'struct-tags / string:']:
             self.assertIn(name, text)
         self.assertIn('lower is better', text)
         self.assertIn('higher F1 is better', text)

@@ -29,8 +29,8 @@ class QualityGateTests(unittest.TestCase):
             },
         }
 
-    def test_targeted_roles_include_string_robustness(self):
-        self.assertEqual(TARGETED_ROLES["strings"], "string")
+    def test_targeted_roles_leave_context_exceeding_strings_to_natural_gate(self):
+        self.assertNotIn("strings", TARGETED_ROLES)
         self.assertTrue(targeted_gate_passed(self.report()))
         self.assertEqual(TARGET_F1, .90)
 

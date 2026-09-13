@@ -1,6 +1,6 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import type { HighlightRequest, PackManifest } from "@nsh/core";
@@ -9,30 +9,42 @@ import type { Plugin } from "vite";
 
 const LOCAL_PREFIX = "/__nsh/local";
 const REPOSITORY_ROOT = fileURLToPath(new URL("../../..", import.meta.url));
-const MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/typescript/manifest.json");
 const PYTHON_PATH = join(REPOSITORY_ROOT, ".venv/bin/python");
+const TYPESCRIPT_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/typescript/manifest.json");
+const GO_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/go/manifest.json");
 
-const manifest = JSON.parse(readFileSync(MANIFEST_PATH, "utf8")) as PackManifest;
+const typescriptManifest = readManifest(TYPESCRIPT_MANIFEST_PATH);
+const goManifest = readManifest(GO_MANIFEST_PATH);
+const manifest: PackManifest = {
+  id: "playground-local",
+  documentKinds: [...typescriptManifest.documentKinds, ...goManifest.documentKinds],
+};
+const goDocumentKinds = new Set(goManifest.documentKinds.map((item) => item.id));
+const typescriptDocumentKinds = new Set(typescriptManifest.documentKinds.map((item) => item.id));
 
 /**
  * Development-only bridge between the browser Playground and @nsh/local.
  *
- * The TypeScript model still runs as a local, long-lived Python process over
- * stdin/stdout. HTTP here is only the browser-to-Vite transport used by this
- * web Playground; it is not part of the SemanticPack contract.
+ * Both language models run as long-lived local Python processes. The Go path
+ * consumes the trained neural checkpoint directly; it does not invoke the Go
+ * compiler, parser, scanner, AST, or type checker at runtime.
  */
 export function localSemanticProviderPlugin(): Plugin {
-  let pack: LocalProcessPack | undefined;
+  let typescriptPack: LocalProcessPack | undefined;
+  let goPack: LocalProcessPack | undefined;
 
-  const getPack = () => {
-    pack ??= createLocalProcessPack({
-      manifest,
-      command: PYTHON_PATH,
-      args: ["-m", "packs.typescript.runtime.local", "--stdio"],
-      cwd: REPOSITORY_ROOT,
-    });
+  const getPack = (documentKind: string): LocalProcessPack => {
+    if (goDocumentKinds.has(documentKind)) {
+      goPack ??= createGoPack();
+      return goPack;
+    }
 
-    return pack;
+    if (typescriptDocumentKinds.has(documentKind)) {
+      typescriptPack ??= createTypeScriptPack();
+      return typescriptPack;
+    }
+
+    throw new Error(`Unsupported document kind "${documentKind}".`);
   };
 
   return {
@@ -65,7 +77,7 @@ export function localSemanticProviderPlugin(): Plugin {
         try {
           const payload = await readJsonBody(request);
           const highlightRequest = parseHighlightRequest(payload);
-          const result = await getPack().highlight(highlightRequest);
+          const result = await getPack(highlightRequest.documentKind).highlight(highlightRequest);
 
           sendJson(response, 200, { result });
         } catch (error) {
@@ -78,15 +90,53 @@ export function localSemanticProviderPlugin(): Plugin {
       });
 
       server.httpServer?.once("close", () => {
-        const activePack = pack;
-        pack = undefined;
+        const activePacks = [typescriptPack, goPack].filter(
+          (pack): pack is LocalProcessPack => pack !== undefined,
+        );
+        typescriptPack = undefined;
+        goPack = undefined;
 
-        if (activePack) {
-          void activePack.close();
+        for (const pack of activePacks) {
+          void pack.close();
         }
       });
     },
   };
+}
+
+function createTypeScriptPack(): LocalProcessPack {
+  return createLocalProcessPack({
+    manifest: typescriptManifest,
+    command: PYTHON_PATH,
+    args: ["-m", "packs.typescript.runtime.local", "--stdio"],
+    cwd: REPOSITORY_ROOT,
+  });
+}
+
+function createGoPack(): LocalProcessPack {
+  const args = ["-m", "packs.go.runtime.local", "--stdio", "--device", "auto"];
+  const configuredPath = process.env.NSH_GO_CHECKPOINT;
+
+  if (configuredPath) {
+    const checkpointPath = resolve(REPOSITORY_ROOT, configuredPath);
+
+    if (!existsSync(checkpointPath)) {
+      throw new Error(`Go checkpoint does not exist: ${checkpointPath}`);
+    }
+
+    args.push("--checkpoint", checkpointPath);
+  }
+
+  return createLocalProcessPack({
+    manifest: goManifest,
+    command: PYTHON_PATH,
+    args,
+    cwd: REPOSITORY_ROOT,
+  });
+}
+
+function readManifest(path: string): PackManifest {
+  return JSON.parse(readFileSync(path, "utf8")) as PackManifest;
 }
 
 function parseHighlightRequest(value: unknown): HighlightRequest {

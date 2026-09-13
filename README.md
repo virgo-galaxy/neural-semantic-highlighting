@@ -42,17 +42,19 @@ HTTP is not part of the core protocol.
 
 ## Workspace
 
-| Location                                 | Responsibility                                                                                     |
-| ---------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `packages/core` (`@nsh/core`)            | Public contracts, pack registry, and highlighter orchestration                                     |
-| `packages/renderers/html` (`@nsh/html`)  | Semantic spans to escaped HTML; depends on Core                                                    |
-| `packages/runtimes/local` (`@nsh/local`) | Node.js local-process `SemanticPack` adapter using newline-delimited JSON over stdin/stdout        |
-| `packages/themes` (`@nsh/themes`)        | CSS assets: base palette, language overrides, and default entry                                    |
-| `apps/playground` (`@nsh/playground`)    | Vue 3 + Vite Playground using the workspace packages and the selected local TypeScript model       |
-| `packs/typescript`                       | Manifest, schema, semantic contract, labeling/data tools, fixtures, challenges, runtime, and model |
-| `training/typescript`                    | Python training, prediction, evaluation, and diagnostics                                           |
-| `tests`                                  | Shared package and TypeScript pack regression tests                                                |
-| `artifacts`                              | Local experimental checkpoints and reports; not a runtime package                                  |
+| Location                                 | Responsibility                                                                                  |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `packages/core` (`@nsh/core`)            | Public contracts, pack registry, and highlighter orchestration                                  |
+| `packages/renderers/html` (`@nsh/html`)  | Semantic spans to escaped HTML; depends on Core                                                 |
+| `packages/runtimes/local` (`@nsh/local`) | Node.js local-process `SemanticPack` adapter using newline-delimited JSON over stdin/stdout     |
+| `packages/themes` (`@nsh/themes`)        | CSS assets: base palette, language overrides, and default entry                                 |
+| `apps/playground` (`@nsh/playground`)    | Vue 3 + Vite Playground using the workspace packages and selected local models                  |
+| `packs/typescript`                       | TypeScript/JavaScript manifest, semantic contract, tools, fixtures, runtime, and selected model |
+| `training/typescript`                    | TypeScript/JavaScript Python training, prediction, evaluation, and diagnostics                  |
+| `packs/go`                               | Go manifest, semantic contract, data/labeling tools, runtime, and selected model                |
+| `training/go`                            | Go Python training, prediction, evaluation, export, and diagnostics                             |
+| `tests`                                  | Shared package and pack regression tests                                                        |
+| `artifacts`                              | Local experimental checkpoints and reports; not a runtime package                               |
 
 The repository root is a private workspace coordinator, not a library entry point. All workspace packages remain private until distribution and licensing are reviewed. Package names are local workspace identifiers and do not imply npm publication or reservation.
 
@@ -78,7 +80,7 @@ No global installation or `npm link` / `pnpm link` is required. Local workspace 
 
 ## Playground
 
-The Playground runs the selected TypeScript-family neural model through the normal NSH contracts.
+The Playground runs the selected TypeScript-family and Go neural models through the normal NSH contracts.
 
 ```text
 Browser Playground
@@ -89,7 +91,9 @@ app-local Vite development bridge
   ↓
 long-lived Python process over stdin/stdout
   ↓
-packs/typescript/model/model.pt
+selected pack model
+  ├─ packs/typescript/model/model.pt
+  └─ packs/go/model/model.pt
   ↓
 HighlightResult
   ↓
@@ -104,7 +108,7 @@ The local model process is started lazily and kept alive. Model initialization i
 
 The Playground currently includes:
 
-- TypeScript and JavaScript source examples discovered from real files;
+- TypeScript, JavaScript, and Go source examples discovered from real files;
 - editable and highlighted presentation states;
 - highlighting when the code block leaves editing focus;
 - preserved native undo/redo history across presentation-state changes;
@@ -140,11 +144,15 @@ Cross-package imports use package names. Relative `.js` imports remain valid ins
 
 The provider protocol is newline-delimited JSON over stdin/stdout. A request contains an integer request ID, source text, and document kind. The provider returns the same request ID with either a `HighlightResult` or an error.
 
-The selected TypeScript pack provides a Python implementation at:
+The selected packs provide Python implementations at:
 
 ```text
 packs/typescript/runtime/local.py
+packs/go/runtime/local.py
 ```
+
+Both selected runtimes consume source text and neural model weights directly. The Go runtime does
+not invoke the Go compiler, scanner, parser, AST, type checker, or language server.
 
 Example:
 
@@ -182,7 +190,7 @@ interface HighlightResult {
 }
 ```
 
-The selected TypeScript pack returns UTF-16 offsets. `start` is inclusive and `end` is exclusive.
+The selected TypeScript-family and Go packs return UTF-16 offsets. `start` is inclusive and `end` is exclusive.
 
 ## HTML and themes
 
@@ -231,6 +239,32 @@ Whole-document test results for the selected model:
 
 These scores do not imply universal accuracy. The independent RegExp challenge remains materially harder, and several semantic types have limited or zero positive support in the current test split. See [`BENCHMARKS.md`](packs/typescript/model/BENCHMARKS.md) and [`KNOWN_ISSUES.md`](packs/typescript/model/KNOWN_ISSUES.md) for the measured details and limitations.
 
+## Go model
+
+The selected Go inference artifact and its documentation live in [`packs/go/model`](packs/go/model/README.md).
+
+The current candidate uses a 512-byte Transformer model and pure-neural predicted-adaptive-cursor
+inference. The selected runtime has no Go-toolchain dependency. The held-out natural test measured
+`0.9903` exact-span F1 and `0.9676` macro F1; focused stress cases remain documented rather than
+being hidden behind runtime heuristics.
+
+Maintainers promote a reviewed training checkpoint with:
+
+```bash
+make export-go-model \
+  GO_CHECKPOINT=artifacts/go/<run>/best.pt \
+  GO_TEST_REPORT=artifacts/go/<run>/test-adaptive-<stamp>.json
+```
+
+Normal Playground startup does not require a checkpoint environment variable:
+
+```bash
+pnpm dev
+```
+
+`NSH_GO_CHECKPOINT` remains an optional development override for trying an external checkpoint
+without replacing the selected artifact.
+
 ## TypeScript-family scope
 
 The current pack declares support for:
@@ -261,10 +295,10 @@ Current TypeScript training defaults:
 - inference windows: adaptive predicted cursor;
 - no fixed overlap percentage or overlap fusion in the default runtime;
 - RegExp-focused curriculum with halo and operator-slash negatives;
-- experiment directory: `artifacts/typescript/context512-re`;
+- default local training-run directory: `artifacts/typescript/run`;
 - training data: external, defaulting to `~/Datasets/neural-semantic-highlighting`.
 
-Training and evaluation commands are available through the root `Makefile`.
+Training and evaluation commands are available through the root `Makefile`. The selected TypeScript model metadata and archived reports may still mention the historical run that produced that model; those provenance records are not active training defaults.
 
 Examples:
 
@@ -284,9 +318,9 @@ Do not pass the selected inference artifact in `packs/typescript/model/model.pt`
 - Public APIs, schemas, examples, fixtures, benchmarks, and test data should remain neutral and reusable.
 - Training datasets remain outside the repository.
 - Historical experiment checkpoints remain under local `artifacts/`; they are not replaced by the selected inference artifact.
-- The selected model under `packs/typescript/model/` is the formal inference artifact and should be updated together with its identity, reports, benchmarks, and known-issues documentation.
+- Selected models under `packs/*/model/` are formal inference artifacts and should be updated together with their identity, reports, benchmarks, and known-issues documentation.
 - Runtime consumers should depend on `SemanticPack` rather than a specific model framework or transport.
 
 ## Status
 
-NSH is currently an early-stage private project. The TypeScript-family model, local process runtime, HTML renderer, CSS themes, and Vue Playground are integrated and working together. Browser-native and remote runtime implementations remain future directions rather than current requirements.
+NSH is currently an early-stage private project. The TypeScript-family and Go models, local process runtimes, HTML renderer, CSS themes, and Vue Playground are integrated and working together. Browser-native and remote runtime implementations remain future directions rather than current requirements.

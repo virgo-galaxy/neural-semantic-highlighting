@@ -314,8 +314,10 @@ Decoding is greedy, with type scores averaged over character starts and modifier
 read at predicted span beginnings. Struct tags can remain whole `string` spans;
 this step does not add framework-specific public token types or styling.
 
-The Python CLI is a development inference entry point. Browser export, a formal Go
-SemanticPack runtime adapter, and Playground integration are separate future work.
+The Python CLI and `packs/go/runtime/local.py` share the same pure-neural inference
+path. The Vue Playground reaches that runtime through the normal local-process
+`SemanticPack` adapter. The selected runtime artifact lives at
+`packs/go/model/model.pt`.
 
 ## Verification scope
 
@@ -344,8 +346,8 @@ The schedule uses one focused batch per eight natural batches with
 confusion-aware sampling: half of each focused batch preserves broad
 feature/family coverage and half is reserved for semantic contrast lanes inferred
 from Gold training metadata. Natural windows still receive one complete
-presentation per epoch. Validation uses the Go lexical scaffold so deterministic
-lexical boundaries/roles are not re-judged by the neural decoder.
+presentation per epoch. Validation is decoded entirely from model logits; no Go
+scanner, parser, AST, type checker, or language service contributes predictions.
 
 An epoch is eligible for `best.pt` only when all of the following hold on
 validation:
@@ -362,8 +364,11 @@ The targeted capabilities are:
 - `function-range / method`;
 - `generic-method / method`;
 - `generic-alias / type-parameter`;
-- `struct-tags / string`;
-- `strings / string`.
+- `struct-tags / string`.
+
+Whole-document `string` quality is still enforced by the natural-role gate.
+Synthetic literals that exceed the 512-byte model context remain robustness
+diagnostics rather than a hard requirement for checkpoint eligibility.
 
 Among eligible epochs, `best.pt` is selected by natural exact-span F1. Early
 stopping does not begin counting patience before the first quality-eligible epoch,

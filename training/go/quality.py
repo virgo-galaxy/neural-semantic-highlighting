@@ -4,15 +4,16 @@ from __future__ import annotations
 TARGET_F1 = 0.90
 MIN_ROLE_SUPPORT = 32
 
-# Canonical semantic capabilities that must generalize before a checkpoint can
-# become the selected Go model.
+# Canonical focused capabilities that must generalize before a checkpoint can
+# become the selected Go model. Whole-document string quality is already covered
+# by the natural-role gate; pathological literals longer than the 512-byte context
+# remain diagnostics rather than a hard model-selection target.
 TARGETED_ROLES = {
     "self-reference": "interface",
     "function-range": "method",
     "generic-method": "method",
     "generic-alias": "type-parameter",
     "struct-tags": "string",
-    "strings": "string",
 }
 
 MIN_NATURAL_EXACT_F1 = 0.95

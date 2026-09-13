@@ -320,18 +320,6 @@ class TrainerTests(unittest.TestCase):
                 focus_sampling="confusion-aware", focus_features=("x",),
             )
 
-    def test_lexical_validation_decoder_is_explicit_and_resume_safe(self):
-        config = make_config(parser().parse_args(["--validation-decoder", "lexical"]), None)
-        self.assertEqual(config.validation_decoder, "lexical")
-        old = {"trainingConfig": {
-            "batch_size": 32, "focus_batch_size": 16, "focus_every": 8,
-            "learning_rate": 3e-4, "weight_decay": .01, "modifier_loss_weight": .1,
-            "modifier_threshold": .60, "seed": 42, "patience": 5, "smoke": False,
-            "smoke_main_batches": 8, "smoke_eval_windows": 24,
-        }}
-        replay = make_config(parser().parse_args([]), old)
-        self.assertEqual(replay.validation_decoder, "neural")
-
     def test_window_uniform_focus_sampling_preserves_legacy_behavior(self):
         split = self.split()
         plan = epoch_batches(split, batch_size=2, focus_batch_size=2, focus_every=1, seed=42, epoch=1,

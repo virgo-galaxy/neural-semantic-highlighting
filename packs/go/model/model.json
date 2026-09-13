@@ -1,0 +1,89 @@
+{
+  "id": "go",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-go-model-v1",
+    "sha256": "993eb9a436faf18806b02ea9a99a65fa3c625367ac249af1038880231fdd9f50",
+    "bytes": 3627125,
+    "parameterCount": 894614,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 29,
+    "basis": "selected training checkpoint promoted after pure-neural evaluation and Playground verification"
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "namespace",
+      "type",
+      "interface",
+      "type-parameter",
+      "function",
+      "method",
+      "parameter",
+      "variable",
+      "property",
+      "label"
+    ],
+    "modifiers": [
+      "declaration",
+      "readonly",
+      "default-library"
+    ]
+  },
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy",
+    "modifierThreshold": 0.6,
+    "goToolchainRequired": false
+  },
+  "dataset": {
+    "snapshot": "6e017fa2d4da5306fae0764baeb4ed68fcf1e8bc192e3e607843256fc7ec0631",
+    "manifestHash": "0a9f42191058be4a0f525ca3fda06750d8a2ec095b7f30126188209e30de587e"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/go/context512-20260913-074648-569634/best.pt",
+    "sourceCheckpointSha256": "db2bb6bab9b89111e5a3dd0072735dd5c0f01329edb8371ebb14b913c78f0f0d"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "1cd23252d7745a2702250d9929fa45aac7ecaa1497672b4800fd96b75c545efd",
+      "checkpointHash": "db2bb6bab9b89111e5a3dd0072735dd5c0f01329edb8371ebb14b913c78f0f0d",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    }
+  }
+}

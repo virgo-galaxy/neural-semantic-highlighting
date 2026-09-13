@@ -13,6 +13,7 @@ import torch
 from model import GoSemanticTransformer, ModelConfig
 
 FORMAT = "nsh-go-checkpoint-v1"
+MODEL_FORMAT = "nsh-go-model-v1"
 
 
 def select_device(name: str = "auto") -> torch.device:
@@ -107,6 +108,17 @@ def load_checkpoint(path: Path) -> dict:
     required = {"model", "modelConfig", "schema", "dataset", "trainingConfig", "epoch", "rng", "trainingState"}
     if not required.issubset(payload):
         raise ValueError("Incomplete Go checkpoint")
+    return payload
+
+
+def load_model_artifact(path: Path) -> dict:
+    """Load either a selected inference artifact or a full training checkpoint."""
+    payload = torch.load(path.expanduser(), map_location="cpu", weights_only=True)
+    if not isinstance(payload, dict) or payload.get("format") not in {FORMAT, MODEL_FORMAT}:
+        raise ValueError("Not a compatible Go model artifact")
+    required = {"model", "modelConfig", "schema", "dataset", "trainingConfig", "epoch"}
+    if not required.issubset(payload):
+        raise ValueError("Incomplete Go model artifact")
     return payload
 
 

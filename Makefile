@@ -1,7 +1,6 @@
 .PHONY: \
 	check \
 	test-labeling-go \
-	dataset \
 	dataset-typescript \
 	dataset-go \
 	dataset-go-official \
@@ -17,6 +16,7 @@
 	continue-go \
 	predict-go \
 	evaluate-go \
+	export-go-model \
 	dataset-go-collect \
 	dataset-go-label \
 	dataset-go-validate \
@@ -48,39 +48,38 @@ GO_FOCUS_VARIANTS ?= 16
 GO_FOCUS_SAMPLING ?= feature-balanced
 GO_FOCUS_FEATURES ?=
 GO_FINAL_EPOCHS ?= 40
-GO_INIT_CHECKPOINT ?=
 GO_LOG_EVERY ?= 25
 GO_RUN ?=
 GO_CHECKPOINT ?=
 GO_SOURCE ?=
 GO_EVAL_SPLIT ?= validation
+GO_TEST_REPORT ?=
 
-MAX_LENGTH ?= 512
-EPOCHS ?= 32
-BATCH_SIZE ?= 32
-PATIENCE ?= 5
-ARTIFACT_DIR ?= artifacts/typescript/context512-re
-RESUME ?= $(ARTIFACT_DIR)/last.pt
-
-BENCHMARK_WINDOWS ?= 64
-BENCHMARK_WARMUP_STEPS ?= 2
-BENCHMARK_BATCH_SIZES ?= 1 2 4 8
-ANALYSIS_SPLIT ?= validation
-ANALYSIS_EXAMPLES ?= 30
+TYPESCRIPT_MAX_LENGTH ?= 512
+TYPESCRIPT_EPOCHS ?= 32
+TYPESCRIPT_BATCH_SIZE ?= 32
+TYPESCRIPT_PATIENCE ?= 5
+TYPESCRIPT_ARTIFACT_DIR ?= artifacts/typescript/run
+TYPESCRIPT_RESUME ?= $(TYPESCRIPT_ARTIFACT_DIR)/last.pt
+TYPESCRIPT_BENCHMARK_WINDOWS ?= 64
+TYPESCRIPT_BENCHMARK_WARMUP_STEPS ?= 2
+TYPESCRIPT_BENCHMARK_BATCH_SIZES ?= 1 2 4 8
+TYPESCRIPT_ANALYSIS_SPLIT ?= validation
+TYPESCRIPT_ANALYSIS_EXAMPLES ?= 30
 
 check:
 	pnpm all
 	$(MAKE) test-labeling-go
 	$(MAKE) test-training-data-go
-	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime
+	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime training/go packs/go/runtime
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'
+	$(PYTHON) -c 'import packs.go.runtime.local'
 
 
 test-labeling-go:
 	cd packs/go && GOTOOLCHAIN=$(GO_GOLD_TOOLCHAIN) go test ./...
 
-dataset: dataset-typescript
 
 dataset-typescript:
 	pnpm dataset:collect:typescript
@@ -133,86 +132,86 @@ dataset-go-validate:
 
 inspect-windows-typescript:
 	$(PYTHON) training/typescript/dataset.py \
-		--max-length $(MAX_LENGTH)
+		--max-length $(TYPESCRIPT_MAX_LENGTH)
 
 test-windowing-golden-typescript:
 	$(PYTHON) training/typescript/windowing_golden.py
 
 train-typescript:
 	$(PYTHON) training/typescript/train.py \
-		--epochs $(EPOCHS) \
-		--batch-size $(BATCH_SIZE) \
-		--patience $(PATIENCE) \
-		--max-length $(MAX_LENGTH) \
-		--output $(ARTIFACT_DIR)/best.pt \
-		--last-output $(ARTIFACT_DIR)/last.pt
+		--epochs $(TYPESCRIPT_EPOCHS) \
+		--batch-size $(TYPESCRIPT_BATCH_SIZE) \
+		--patience $(TYPESCRIPT_PATIENCE) \
+		--max-length $(TYPESCRIPT_MAX_LENGTH) \
+		--output $(TYPESCRIPT_ARTIFACT_DIR)/best.pt \
+		--last-output $(TYPESCRIPT_ARTIFACT_DIR)/last.pt
 
 continue-typescript:
 	$(PYTHON) training/typescript/train.py \
-		--epochs $(EPOCHS) \
-		--batch-size $(BATCH_SIZE) \
-		--patience $(PATIENCE) \
-		--max-length $(MAX_LENGTH) \
-		--output $(ARTIFACT_DIR)/best.pt \
-		--last-output $(ARTIFACT_DIR)/last.pt \
-		--resume $(RESUME)
+		--epochs $(TYPESCRIPT_EPOCHS) \
+		--batch-size $(TYPESCRIPT_BATCH_SIZE) \
+		--patience $(TYPESCRIPT_PATIENCE) \
+		--max-length $(TYPESCRIPT_MAX_LENGTH) \
+		--output $(TYPESCRIPT_ARTIFACT_DIR)/best.pt \
+		--last-output $(TYPESCRIPT_ARTIFACT_DIR)/last.pt \
+		--resume $(TYPESCRIPT_RESUME)
 
 evaluate-typescript:
 	$(PYTHON) training/typescript/evaluate.py \
-		--checkpoint $(ARTIFACT_DIR)/best.pt \
-		--output $(ARTIFACT_DIR)/test-metrics.json
+		--checkpoint $(TYPESCRIPT_ARTIFACT_DIR)/best.pt \
+		--output $(TYPESCRIPT_ARTIFACT_DIR)/test-metrics.json
 
 predict-typescript:
 	$(PYTHON) training/typescript/predict.py \
-		--checkpoint $(ARTIFACT_DIR)/best.pt
+		--checkpoint $(TYPESCRIPT_ARTIFACT_DIR)/best.pt
 
 benchmark-typescript:
 	$(PYTHON) training/typescript/benchmark.py \
-		--checkpoint $(ARTIFACT_DIR)/best.pt \
-		--windows $(BENCHMARK_WINDOWS) \
-		--warmup-steps $(BENCHMARK_WARMUP_STEPS) \
-		--batch-sizes $(BENCHMARK_BATCH_SIZES)
+		--checkpoint $(TYPESCRIPT_ARTIFACT_DIR)/best.pt \
+		--windows $(TYPESCRIPT_BENCHMARK_WINDOWS) \
+		--warmup-steps $(TYPESCRIPT_BENCHMARK_WARMUP_STEPS) \
+		--batch-sizes $(TYPESCRIPT_BENCHMARK_BATCH_SIZES)
 
 analyze-errors-typescript:
 	$(PYTHON) training/typescript/analyze_errors.py \
-		--checkpoint $(ARTIFACT_DIR)/best.pt \
-		--split $(ANALYSIS_SPLIT) \
-		--output $(ARTIFACT_DIR)/error-analysis.json \
-		--text-output $(ARTIFACT_DIR)/error-analysis.txt \
-		--max-examples $(ANALYSIS_EXAMPLES)
+		--checkpoint $(TYPESCRIPT_ARTIFACT_DIR)/best.pt \
+		--split $(TYPESCRIPT_ANALYSIS_SPLIT) \
+		--output $(TYPESCRIPT_ARTIFACT_DIR)/error-analysis.json \
+		--text-output $(TYPESCRIPT_ARTIFACT_DIR)/error-analysis.txt \
+		--max-examples $(TYPESCRIPT_ANALYSIS_EXAMPLES)
 
 inspect-fragmentation-typescript:
 	$(PYTHON) training/typescript/fragmentation.py \
-		--checkpoint $(ARTIFACT_DIR)/best.pt \
-		--split $(ANALYSIS_SPLIT) \
-		--output $(ARTIFACT_DIR)/fragmentation.json \
-		--max-examples $(ANALYSIS_EXAMPLES)
+		--checkpoint $(TYPESCRIPT_ARTIFACT_DIR)/best.pt \
+		--split $(TYPESCRIPT_ANALYSIS_SPLIT) \
+		--output $(TYPESCRIPT_ARTIFACT_DIR)/fragmentation.json \
+		--max-examples $(TYPESCRIPT_ANALYSIS_EXAMPLES)
 
 validate-regexp-challenge-typescript:
 	$(PYTHON) training/typescript/regexp_challenge.py --validate-only
 
 challenge-regexp-typescript:
 	$(PYTHON) training/typescript/regexp_challenge.py \
-		--checkpoint $(ARTIFACT_DIR)/best.pt \
+		--checkpoint $(TYPESCRIPT_ARTIFACT_DIR)/best.pt \
 		--max-errors 40 \
-		--output $(ARTIFACT_DIR)/regexp-challenge.json
+		--output $(TYPESCRIPT_ARTIFACT_DIR)/regexp-challenge.json
 
 validate-regexp-paired-challenge-typescript:
 	$(PYTHON) training/typescript/regexp_paired_challenge.py --validate-only
 
 challenge-regexp-paired-typescript:
 	$(PYTHON) training/typescript/regexp_paired_challenge.py \
-		--checkpoint current=$(ARTIFACT_DIR)/best.pt \
-		--output $(ARTIFACT_DIR)/regexp-paired-context-challenge.json
+		--checkpoint current=$(TYPESCRIPT_ARTIFACT_DIR)/best.pt \
+		--output $(TYPESCRIPT_ARTIFACT_DIR)/regexp-paired-context-challenge.json
 
 validate-jsx-tsx-challenge-typescript:
 	$(PYTHON) training/typescript/jsx_tsx_challenge.py --validate-only
 
 challenge-jsx-tsx-typescript:
 	$(PYTHON) training/typescript/jsx_tsx_challenge.py \
-		--checkpoint $(ARTIFACT_DIR)/best.pt \
+		--checkpoint $(TYPESCRIPT_ARTIFACT_DIR)/best.pt \
 		--max-errors 50 \
-		--output $(ARTIFACT_DIR)/jsx-tsx-challenge.json
+		--output $(TYPESCRIPT_ARTIFACT_DIR)/jsx-tsx-challenge.json
 
 # Go training reads prepared snapshots; it never recollects or relabels corpora.
 train-go-smoke:
@@ -228,12 +227,10 @@ train-go:
 # Final training is intentionally unable to inherit a previous checkpoint or a
 # feature-specific patch schedule. It starts from random initialization.
 train-go-final:
-	@test -z "$(GO_INIT_CHECKPOINT)" || (echo 'Final training must start from random initialization; unset GO_INIT_CHECKPOINT'; exit 1)
 	@test -z "$(GO_FOCUS_FEATURES)" || (echo 'Final training uses the complete canonical curriculum; unset GO_FOCUS_FEATURES'; exit 1)
 	$(PYTHON) training/go/train.py --epochs $(GO_FINAL_EPOCHS) --device $(GO_DEVICE) \
 		--batch-size $(GO_BATCH_SIZE) --focus-batch-size $(GO_FOCUS_BATCH_SIZE) \
 		--focus-every $(GO_FOCUS_EVERY) --focus-sampling confusion-aware \
-		--validation-decoder lexical \
 		--selection-policy quality-gated --log-every $(GO_LOG_EVERY) $(if $(GO_RUN),--output-dir "$(GO_RUN)")
 
 continue-go:
@@ -249,3 +246,9 @@ evaluate-go:
 	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to a Go checkpoint'; exit 1)
 	$(PYTHON) training/go/evaluate.py --checkpoint "$(GO_CHECKPOINT)" --device $(GO_DEVICE) \
 		--split $(GO_EVAL_SPLIT) --inference adaptive
+
+export-go-model:
+	@test -n "$(GO_CHECKPOINT)" || (echo 'Set GO_CHECKPOINT to the selected Go best.pt'; exit 1)
+	$(PYTHON) training/go/export_model.py --checkpoint "$(GO_CHECKPOINT)" \
+		--output packs/go/model/model.pt --metadata packs/go/model/model.json \
+		$(if $(GO_TEST_REPORT),--test-report "$(GO_TEST_REPORT)")
