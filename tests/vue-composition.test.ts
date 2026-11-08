@@ -7,6 +7,19 @@ import { createCompositeVuePack, EXPRESSION_PREFIX } from "../packs/vue/runtime/
 
 const manifest = { id: "vue", documentKinds: [{ id: "vue", extensions: [".vue"] }] };
 describe("Vue neural region composition", () => {
+  it("uses compiler leaves for omitted operators and preserves neutral JSX text", () => {
+    const source =
+      '<script lang="tsx">const visible = !route; const data = [...items]; export const Badge = () => <b>Plain text</b>;</script>';
+    const gold = composeVueGold(source, labelVue({ source, documentKind: "vue" }));
+    for (const operator of ["!", "..."])
+      expect(
+        gold.spans.some(
+          (s) => s.tokenType === "operator" && source.slice(s.start, s.end) === operator,
+        ),
+      ).toBe(true);
+    const start = source.indexOf("Plain text");
+    expect(gold.spans.some((s) => s.start < start + 10 && s.end > start)).toBe(false);
+  });
   it("routes only predicted languages and restores wrapped UTF-16 expressions", async () => {
     const source = "🌌 abc def ghi jkl mno pqr stu data";
     const roles = ["javascript", "typescript", "jsx", "tsx", "css", "scss", "less"];
