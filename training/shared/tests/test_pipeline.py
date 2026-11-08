@@ -88,7 +88,7 @@ class PipelineTests(unittest.TestCase):
             for profile in current().profiles:
                 for index in range(3):
                     group=f'{profile}/{index}';assignments[group]='train'
-                    records.append({'profile':profile,'sourceGroup':group,'features':['loops','conditionals']})
+                    records.append({'profile':profile,'sourceGroup':group,'features':list(dict(current().required_training_features)[profile])})
             coverage=training_feature_coverage(records,assignments)
             self.assertEqual(len(coverage['csh']['loops']['sourceGroups']),3)
             assignments['csh/0']='test'

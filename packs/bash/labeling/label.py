@@ -17,8 +17,16 @@ def label(*,source,document_kind='bash',profile='bash'):
     parser=lexer(profile)
     from pygments.token import Token as T
     # Importing token types follows opening the isolated lexer; no system package.
+    def original_tokens():
+        for a,kind,text in parser.get_tokens_unprocessed(source):
+            if profile=='csh' and kind in T.Literal.String.Double:
+                # Common quoted variable syntax must have identical labels in
+                # a shared model, rather than inherit lexer-specific chunking.
+                for offset,subkind,value in lexer('bash').get_tokens_unprocessed(text):
+                    yield a+offset,subkind,value
+            else:yield a,kind,text
     tokens=[];cursor=0
-    for a,kind,text in parser.get_tokens_unprocessed(source):
+    for a,kind,text in original_tokens():
         if not text:continue
         if a!=cursor or source[a:a+len(text)]!=text:raise ValueError('Lexer changed or skipped original source')
         cursor=a+len(text)
@@ -34,7 +42,11 @@ def label(*,source,document_kind='bash',profile='bash'):
         # Tokenizers sometimes attach surrounding whitespace to keywords or
         # comments. Trim only those exteriors, retaining original coordinates.
         leading=len(text)-len(text.lstrip());trailing=len(text.rstrip())
-        if leading<trailing:tokens.append((a+leading,a+trailing,kind,text[leading:trailing]))
+        if leading<trailing:
+            value=text[leading:trailing]
+            if profile=='csh' and kind in T.Text and len(value)>1 and value.endswith(':'):
+                tokens.extend([(a+leading,a+trailing-1,kind,value[:-1]),(a+trailing-1,a+trailing,kind,':')])
+            else:tokens.append((a+leading,a+trailing,kind,value))
     if cursor!=len(source):raise ValueError('Uncovered source suffix')
     combined=[]
     for entry in tokens:
@@ -90,6 +102,8 @@ def label(*,source,document_kind='bash',profile='bash'):
         elif text=='}' and expansions and kind in T.Literal.String.Interpol:
             command=expansions.pop();role='operator'
         elif expansions and kind in T.Keyword:role='operator'
+        elif profile=='csh' and text==':' and case_pattern:
+            role='punctuation';case_pattern=False;command=True
         elif (a,b) in definitions:role='function';mods=['declaration'];features.add('functions');command=False
         elif (a,b) in bindings:role='variable';mods=['declaration'];command=False
         elif kind in T.Comment:role='comment';features.add('comments')
@@ -110,6 +124,8 @@ def label(*,source,document_kind='bash',profile='bash'):
             elif assignment:assignment=False
             elif command:command=False
         elif kind in T.Literal.Number:role='number'
+        elif command and text in {'break','continue','return','exit','breaksw'} and text not in function_names:
+            role='keyword';command=False
         elif kind in T.Keyword:
             if not command and not (text=='in' and (word_list or case_mode)) and not (text=='esac' and case_mode):role='string'
             else:
@@ -118,9 +134,10 @@ def label(*,source,document_kind='bash',profile='bash'):
                 elif text in {'for','foreach','select','case','in','esac','fi','done','end','endif','switch','endsw'}:command=False
                 if text in {'for','foreach','select'}:word_list=True
                 if text=='if' and profile=='csh':csh_condition=True
-                if text=='case':case_mode=True
+                if text=='case':case_mode=True;case_pattern=profile=='csh'
+                elif text=='default' and profile=='csh' and case_mode:case_pattern=True;command=False
                 elif text=='in' and case_mode:case_pattern=True
-                elif text=='esac':case_mode=False;case_pattern=False
+                elif text in {'esac','endsw'}:case_mode=False;case_pattern=False
         elif kind in T.Operator or kind in T.Punctuation:
             role=('punctuation' if text in {'(',')','{','}',';',',',';;',';&',';;&'} else
                   'operator' if kind in T.Operator or text in {'|','||','&&','&','$','!','[',']','>','<','>&','<&','&>','&>>'} else 'string')
@@ -130,7 +147,9 @@ def label(*,source,document_kind='bash',profile='bash'):
             if text in {';;',';&',';;&'} and case_mode:command=False;case_pattern=True
             elif text=='|' and case_pattern:command=False
             elif text in {'>','>>','<','<<','<<-','<<<','>&','<&','&>'}:redirection=True
-            elif text=='(' and assignment:arrays.append(command);command=False;assignment=False
+            elif text=='(' and assignment:
+                if not csh_math:arrays.append(command);features.add('arrays')
+                command=False;assignment=False
             elif text=='(' and not word_list:command=True
             elif text==')':
                 command=arrays.pop() if arrays else case_mode or csh_condition
@@ -153,7 +172,9 @@ def label(*,source,document_kind='bash',profile='bash'):
         if role is None:raise ValueError('Missing Shell role')
         if role=='keyword':
             if text in {'if','elif','then','else','endif'}:features.add('conditionals')
-            if text in {'for','foreach','select','while','until'}:features.add('loops')
+            if text in {'for','foreach','select','while','until'}:
+                features.add('loops')
+                if a==0:features.add('leading-loops')
             if text in {'case','switch','esac','endsw'}:features.add('branches')
         span={'start':units[a],'end':units[b],'tokenType':role}
         if mods:span['modifiers']=mods

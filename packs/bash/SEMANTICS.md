@@ -34,6 +34,12 @@ is attempted. Adjacent lexer fragments of a string are canonicalized into one
 span; separated literals remain separate. Interpolated variable/command tokens
 retain their own roles where provided by the lexer.
 
+Common double-quoted interpolation in Csh is refined through the same offline
+quoted-token grammar as Bash so shared source has shared variable/string ranges.
+Csh-specific expansion modifiers are not a promise of complete expansion
+semantics. Visible control builtins such as `break`, `continue`, `return`, `exit`
+and Csh `breaksw` are keywords in command position unless visibly shadowed.
+
 The neural decoder applies that same canonical adjacent-string rule, merging only
 touching predicted string spans with equal modifier sets. Whitespace gaps and
 other roles stay separate. `declaration` is valid on function/variable roles;

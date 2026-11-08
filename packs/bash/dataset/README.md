@@ -41,3 +41,10 @@ families. Existing holdouts never move into training. Mixed tasks combine loops,
 conditionals, commands and data so holding out a task does not hold out an entire
 common syntax. Preparation requires loops and conditionals in at least three
 independent training families for every coverage profile, before any training run.
+
+Loop-entry fragments retain their parent task's group and add source-position-zero
+control examples. Independent collection tasks add actual Bash/Zsh/Csh arrays,
+with POSIX positional-parameter counterparts. Coverage checks require leading
+loops for all profiles and arrays for Bash/Zsh/Csh in three training families.
+Documents retain profile identity even when shared syntax has identical source;
+those aliases remain in one family and are not additional independent programs.

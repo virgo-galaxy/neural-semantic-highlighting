@@ -42,5 +42,21 @@ class ShellTeacherTests(unittest.TestCase):
         marked='⟦operator|@⟧ ⟦variable+declaration|count⟧ ⟦operator|=⟧ ⟦number|2⟧\n⟦operator|@⟧ ⟦variable+declaration|next⟧ ⟦operator|=⟧ ⟦punctuation|(⟧ ⟦variable|$count⟧ ⟦operator|+⟧ ⟦number|1⟧ ⟦punctuation|)⟧\n'
         gold=unmark(marked)
         self.assertEqual(label(source=gold['source'],profile='csh')['spans'],gold['spans'])
+        self.assertNotIn('arrays',label(source=gold['source'],profile='csh')['features'])
+
+    def test_shared_syntax_has_shared_quoted_variable_labels(self):
+        source='echo "Hello $name"\n'
+        expected=label(source=source,profile='bash')['spans']
+        for profile in ['posix','zsh','csh']:
+            self.assertEqual(label(source=source,profile=profile)['spans'],expected)
+
+    def test_leading_loop_and_array_coverage_tags(self):
+        self.assertIn('leading-loops',label(source='foreach name ( alpha beta )\n echo $name\nend\n',profile='csh')['features'])
+        self.assertIn('arrays',label(source='set names = ( alpha beta )\n',profile='csh')['features'])
+
+    def test_csh_switch_delimiters_and_control_builtins(self):
+        marked='⟦keyword|switch⟧ ⟦punctuation|(⟧ ⟦string|"⟧⟦variable|$mode⟧⟦string|"⟧ ⟦punctuation|)⟧\n⟦keyword|case⟧ ⟦string|ready⟧⟦punctuation|:⟧\n ⟦keyword|breaksw⟧\n⟦keyword|default⟧⟦punctuation|:⟧\n ⟦keyword|breaksw⟧\n⟦keyword|endsw⟧\n'
+        gold=unmark(marked)
+        self.assertEqual(label(source=gold['source'],profile='csh')['spans'],gold['spans'])
 
 if __name__=='__main__':unittest.main()

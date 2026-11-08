@@ -173,7 +173,7 @@ def prepare(root: Path, *, seed: int = 1729, groups_file: Path | None = None) ->
                 continue
             record = json.loads(line)
             encoded = encode(record, schema)
-            doc_id = hashlib.sha256((record["documentKind"] + ":" + record["contentHash"]).encode()).hexdigest()
+            doc_id = hashlib.sha256((record["documentKind"] + ":" + record["profile"] + ":" + record["contentHash"]).encode()).hexdigest()
             if doc_id in records:
                 if records[doc_id]["result"] != record["result"]:
                     raise ValueError("Conflicting Gold for identical source")
@@ -262,6 +262,7 @@ def prepare(root: Path, *, seed: int = 1729, groups_file: Path | None = None) ->
                 "inputDocuments": manifest["files"], "uniqueDocuments": len(records),
                 "exactDuplicateRecords": manifest["files"] - len(records), "excludedCopyDocuments": len(excluded),
                 "retainedDocuments": sum(value["documents"] for value in statistics.values()),
+                "retainedSourceTexts": len({(record['documentKind'],record['contentHash']) for name,record in records.items() if name not in excluded}),
                 "trainingFeatureCoverage": coverage,
                 "splits": statistics, "checksums": checksums}
             atomic_json(staging / "manifest.json", result)
