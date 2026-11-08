@@ -34,3 +34,7 @@ at that same pinned Devicon revision and under the preserved license.
 
 The BAT / CMD icon is `bat.svg`, from `icons/windows11/windows11-original.svg`
 at that same pinned Devicon revision and under the preserved license.
+
+The Assembly entry uses `assembly.svg`, from `icons/nasm/nasm-original.svg`
+at that same pinned Devicon revision and under the preserved license. The icon
+comes from NASM; the entry also covers GNU/AT&T, MASM and AArch64 source.

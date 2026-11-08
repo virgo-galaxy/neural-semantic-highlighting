@@ -1,3 +1,4 @@
+import assemblyIcon from "@/assets/document-kinds/assembly.svg";
 import awkIcon from "@/assets/document-kinds/awk.svg";
 import bashIcon from "@/assets/document-kinds/bash.svg";
 import batIcon from "@/assets/document-kinds/bat.svg";
@@ -73,6 +74,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   sql: { label: "SQL", icon: sqlIcon },
   powershell: { label: "PowerShell", icon: powershellIcon },
   bat: { label: "BAT / CMD", icon: batIcon },
+  assembly: { label: "Assembly", icon: assemblyIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -116,6 +118,13 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".psd1", "powershell"],
   [".bat", "bat"],
   [".cmd", "bat"],
+  [".asm", "assembly"],
+  [".ASM", "assembly"],
+  [".nasm", "assembly"],
+  [".masm", "assembly"],
+  [".s", "assembly"],
+  [".S", "assembly"],
+  [".inc", "assembly"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

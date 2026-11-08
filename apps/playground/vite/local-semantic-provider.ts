@@ -24,9 +24,16 @@ const goManifest = readManifest(GO_MANIFEST_PATH);
 const cssManifest = readManifest(CSS_MANIFEST_PATH);
 const htmlManifest = readManifest(HTML_MANIFEST_PATH);
 const vueManifest = readManifest(VUE_MANIFEST_PATH);
-const standaloneManifests = ["python", "bash", "perl", "awk", "sql", "powershell", "bat"].map(
-  (id) => readManifest(join(REPOSITORY_ROOT, "packs", id, "manifest.json")),
-);
+const standaloneManifests = [
+  "python",
+  "bash",
+  "perl",
+  "awk",
+  "sql",
+  "powershell",
+  "bat",
+  "assembly",
+].map((id) => readManifest(join(REPOSITORY_ROOT, "packs", id, "manifest.json")));
 const manifest: PackManifest = {
   id: "playground-local",
   documentKinds: [
