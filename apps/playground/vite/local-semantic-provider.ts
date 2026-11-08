@@ -12,28 +12,39 @@ const REPOSITORY_ROOT = fileURLToPath(new URL("../../..", import.meta.url));
 const PYTHON_PATH = join(REPOSITORY_ROOT, ".venv/bin/python");
 const TYPESCRIPT_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/typescript/manifest.json");
 const GO_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/go/manifest.json");
+const CSS_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/css/manifest.json");
 
 const typescriptManifest = readManifest(TYPESCRIPT_MANIFEST_PATH);
 const goManifest = readManifest(GO_MANIFEST_PATH);
+const cssManifest = readManifest(CSS_MANIFEST_PATH);
 const manifest: PackManifest = {
   id: "playground-local",
-  documentKinds: [...typescriptManifest.documentKinds, ...goManifest.documentKinds],
+  documentKinds: [
+    ...typescriptManifest.documentKinds,
+    ...goManifest.documentKinds,
+    ...cssManifest.documentKinds,
+  ],
 };
 const goDocumentKinds = new Set(goManifest.documentKinds.map((item) => item.id));
 const typescriptDocumentKinds = new Set(typescriptManifest.documentKinds.map((item) => item.id));
+const cssDocumentKinds = new Set(cssManifest.documentKinds.map((item) => item.id));
 
 /**
  * Development-only bridge between the browser Playground and @nsh/local.
  *
- * Both language models run as long-lived local Python processes. The Go path
- * consumes the trained neural checkpoint directly; it does not invoke the Go
- * compiler, parser, scanner, AST, or type checker at runtime.
+ * Language models run as long-lived local Python processes. Go and CSS-family
+ * paths consume neural weights directly without invoking language tooling.
  */
 export function localSemanticProviderPlugin(): Plugin {
   let typescriptPack: LocalProcessPack | undefined;
   let goPack: LocalProcessPack | undefined;
+  let cssPack: LocalProcessPack | undefined;
 
   const getPack = (documentKind: string): LocalProcessPack => {
+    if (cssDocumentKinds.has(documentKind)) {
+      cssPack ??= createCssPack();
+      return cssPack;
+    }
     if (goDocumentKinds.has(documentKind)) {
       goPack ??= createGoPack();
       return goPack;
@@ -90,11 +101,12 @@ export function localSemanticProviderPlugin(): Plugin {
       });
 
       server.httpServer?.once("close", () => {
-        const activePacks = [typescriptPack, goPack].filter(
+        const activePacks = [typescriptPack, goPack, cssPack].filter(
           (pack): pack is LocalProcessPack => pack !== undefined,
         );
         typescriptPack = undefined;
         goPack = undefined;
+        cssPack = undefined;
 
         for (const pack of activePacks) {
           void pack.close();
@@ -137,6 +149,24 @@ function createGoPack(): LocalProcessPack {
 
 function readManifest(path: string): PackManifest {
   return JSON.parse(readFileSync(path, "utf8")) as PackManifest;
+}
+
+function createCssPack(): LocalProcessPack {
+  const args = ["-m", "packs.css.runtime.local", "--stdio", "--device", "auto"];
+  const configuredPath = process.env.NSH_CSS_CHECKPOINT;
+  if (configuredPath) {
+    const checkpointPath = resolve(REPOSITORY_ROOT, configuredPath);
+    if (!existsSync(checkpointPath)) {
+      throw new Error(`CSS checkpoint does not exist: ${checkpointPath}`);
+    }
+    args.push("--checkpoint", checkpointPath);
+  }
+  return createLocalProcessPack({
+    manifest: cssManifest,
+    command: PYTHON_PATH,
+    args,
+    cwd: REPOSITORY_ROOT,
+  });
 }
 
 function parseHighlightRequest(value: unknown): HighlightRequest {

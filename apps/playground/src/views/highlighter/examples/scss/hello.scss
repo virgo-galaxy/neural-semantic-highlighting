@@ -1,0 +1,16 @@
+$space: 8px;
+
+@mixin surface($padding: 16px) {
+  padding: $padding;
+  border-radius: $space;
+}
+
+.card {
+  @include surface(24px);
+  display: grid;
+  gap: $space;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

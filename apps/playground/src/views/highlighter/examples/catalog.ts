@@ -1,5 +1,8 @@
+import cssIcon from "@/assets/document-kinds/css.svg";
 import goIcon from "@/assets/document-kinds/go.svg";
 import javascriptIcon from "@/assets/document-kinds/javascript.svg";
+import lessIcon from "@/assets/document-kinds/less.svg";
+import scssIcon from "@/assets/document-kinds/scss.svg";
 import typescriptIcon from "@/assets/document-kinds/typescript.svg";
 import type { HighlighterExample, HighlighterLanguage } from "@/views/highlighter/examples/types";
 
@@ -22,6 +25,18 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
     label: "Go",
     icon: goIcon,
   },
+  css: {
+    label: "CSS",
+    icon: cssIcon,
+  },
+  scss: {
+    label: "SCSS",
+    icon: scssIcon,
+  },
+  less: {
+    label: "Less",
+    icon: lessIcon,
+  },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -36,6 +51,9 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".cjs", "javascript-commonjs"],
   [".jsx", "jsx"],
   [".js", "javascript"],
+  [".css", "css"],
+  [".scss", "scss"],
+  [".less", "less"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

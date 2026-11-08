@@ -1,0 +1,11 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 16px;
+}
+
+@media (width >= 48rem) {
+  .grid > article {
+    padding: clamp(16px, 3vw, 32px);
+  }
+}
