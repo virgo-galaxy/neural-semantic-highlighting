@@ -1,5 +1,19 @@
 .PHONY: \
 	check \
+	dataset-html \
+	dataset-html-sources \
+	dataset-html-collect \
+	dataset-html-label \
+	dataset-html-validate \
+	dataset-html-prepare \
+	test-training-data-html \
+	train-html-smoke \
+	train-html \
+	continue-html \
+	predict-html \
+	evaluate-html \
+	challenge-html \
+	export-html-model \
 	dataset-css \
 	dataset-css-sources \
 	dataset-css-collect \
@@ -51,6 +65,15 @@
 	challenge-jsx-tsx-typescript
 
 PYTHON := .venv/bin/python
+HTML_DEVICE ?= auto
+HTML_EPOCHS ?= 3
+HTML_BATCH_SIZE ?= 32
+HTML_RUN ?=
+HTML_CHECKPOINT ?=
+HTML_INIT_FROM ?=
+HTML_SOURCE ?=
+HTML_EVAL_SPLIT ?= validation
+HTML_TEST_REPORT ?=
 CSS_DEVICE ?= auto
 CSS_EPOCHS ?= 3
 CSS_BATCH_SIZE ?= 32
@@ -96,11 +119,69 @@ check:
 	$(MAKE) test-labeling-go
 	$(MAKE) test-training-data-go
 	$(MAKE) test-training-data-css
+	$(MAKE) test-training-data-html
 	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime training/go packs/go/runtime training/css
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'
 	$(PYTHON) -c 'import packs.go.runtime.local'
 	$(PYTHON) -c 'import packs.css.runtime.local'
+	$(PYTHON) -m compileall -q training/html packs/html/runtime
+	$(PYTHON) -c 'import packs.html.runtime.local'
+
+dataset-html-sources:
+	$(PYTHON) packs/html/dataset/fetch_sources.py
+
+dataset-html:
+	$(MAKE) dataset-html-collect
+	$(MAKE) dataset-html-label
+	$(MAKE) dataset-html-validate
+	$(MAKE) dataset-html-prepare
+
+dataset-html-collect:
+	pnpm dataset:collect:html
+
+dataset-html-label:
+	pnpm dataset:label:html
+
+dataset-html-validate:
+	pnpm dataset:validate:html
+
+dataset-html-prepare:
+	$(PYTHON) -m training.html.prepare
+
+test-training-data-html:
+	$(PYTHON) -m unittest discover -s training/html/tests -v
+
+train-html-smoke:
+	$(PYTHON) -m training.html.train --smoke --epochs 1 --device $(HTML_DEVICE) \
+		--batch-size $(HTML_BATCH_SIZE) $(if $(HTML_RUN),--output-dir "$(HTML_RUN)")
+
+train-html:
+	$(PYTHON) -m training.html.train --epochs $(HTML_EPOCHS) --device $(HTML_DEVICE) \
+		--batch-size $(HTML_BATCH_SIZE) $(if $(HTML_RUN),--output-dir "$(HTML_RUN)") \
+		$(if $(HTML_INIT_FROM),--init-from "$(HTML_INIT_FROM)")
+
+continue-html:
+	@test -n "$(HTML_CHECKPOINT)" || (echo 'Set HTML_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.html.train --resume "$(HTML_CHECKPOINT)" --epochs $(HTML_EPOCHS) --device $(HTML_DEVICE)
+
+predict-html:
+	@test -n "$(HTML_CHECKPOINT)" || (echo 'Set HTML_CHECKPOINT to an HTML checkpoint'; exit 1)
+	@test -n "$(HTML_SOURCE)" || (echo 'Set HTML_SOURCE to an HTML source file'; exit 1)
+	$(PYTHON) -m training.html.predict --checkpoint "$(HTML_CHECKPOINT)" --device $(HTML_DEVICE) --file "$(HTML_SOURCE)"
+
+evaluate-html:
+	@test -n "$(HTML_CHECKPOINT)" || (echo 'Set HTML_CHECKPOINT to an HTML checkpoint'; exit 1)
+	$(PYTHON) -m training.html.evaluate --checkpoint "$(HTML_CHECKPOINT)" --device $(HTML_DEVICE) --split $(HTML_EVAL_SPLIT)
+
+challenge-html:
+	@test -n "$(HTML_CHECKPOINT)" || (echo 'Set HTML_CHECKPOINT to an HTML checkpoint'; exit 1)
+	$(PYTHON) -m training.html.challenge --checkpoint "$(HTML_CHECKPOINT)" --device $(HTML_DEVICE)
+
+export-html-model:
+	@test -n "$(HTML_CHECKPOINT)" || (echo 'Set HTML_CHECKPOINT to the reviewed best.pt'; exit 1)
+	@test -n "$(HTML_TEST_REPORT)" || (echo 'Set HTML_TEST_REPORT to its held-out adaptive test report'; exit 1)
+	$(PYTHON) -m training.html.export_model --checkpoint "$(HTML_CHECKPOINT)" --test-report "$(HTML_TEST_REPORT)"
 
 
 test-labeling-go:
