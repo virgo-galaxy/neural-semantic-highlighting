@@ -1,16 +1,32 @@
 {
   "inference": "predicted-adaptive-cursor",
   "purpose": "visible development probes, not held-out corpus test",
-  "fixtureHash": "7ae28399ea029a0a48bc1ad3aa547afedebe468a9378d2a9e1e4b6fc563408e0",
+  "fixtureHash": "5170101cbcdba52343ec91a978517d11f06618e7cb588df64548870afb1c1591",
   "cases": [
     {
       "id": "posix-command-arguments",
       "profile": "posix",
       "documentKind": "bash",
       "source": "echo if done\n",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 7,
+          "text": "if",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 7,
+          "text": "if",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "assignment-and-reference",
@@ -34,13 +50,6 @@
           "text": "greet",
           "tokenType": "function",
           "modifiers": []
-        },
-        {
-          "start": 39,
-          "end": 46,
-          "text": "--brief",
-          "tokenType": "parameter",
-          "modifiers": []
         }
       ],
       "unexpected": [
@@ -52,13 +61,6 @@
           "modifiers": [
             "default-library"
           ]
-        },
-        {
-          "start": 39,
-          "end": 46,
-          "text": "--brief",
-          "tokenType": "string",
-          "modifiers": []
         }
       ]
     },
@@ -101,9 +103,25 @@
       "profile": "bash",
       "documentKind": "bash",
       "source": "result=$(printf '%s' done)\n",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 21,
+          "end": 25,
+          "text": "done",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 21,
+          "end": 25,
+          "text": "done",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "arithmetic",
@@ -155,9 +173,25 @@
       "profile": "csh",
       "documentKind": "bash",
       "source": "foreach item ( one two )\n echo $item\nend\n",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 15,
+          "end": 18,
+          "text": "one",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 15,
+          "end": 18,
+          "text": "one",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "csh-binding",
@@ -176,12 +210,203 @@
       "exactIncludingModifiers": true,
       "missing": [],
       "unexpected": []
+    },
+    {
+      "id": "function-keyword-parentheses",
+      "profile": "bash",
+      "documentKind": "bash",
+      "source": "function announce() {\n  echo ready\n}\nannounce\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 37,
+          "end": 45,
+          "text": "announce",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 37,
+          "end": 45,
+          "text": "announce",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "function-keyword-braces",
+      "profile": "bash",
+      "documentKind": "bash",
+      "source": "function notify {\n  printf '%s\\n' ready\n}\nnotify\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "heredoc-plain",
+      "profile": "bash",
+      "documentKind": "bash",
+      "source": "cat <<END\nHello $name\nThe END token is not alone here.\nEND\necho ready\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 58,
+          "text": "<<END\nHello $name\nThe END token is not alone here.\nEND",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 59,
+          "end": 63,
+          "text": "echo",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        },
+        {
+          "start": 64,
+          "end": 69,
+          "text": "ready",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 70,
+          "text": "<<END\nHello $name\nThe END token is not alone here.\nEND\necho ready\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "heredoc-literal",
+      "profile": "bash",
+      "documentKind": "bash",
+      "source": "cat <<'TEXT'\n$name $(not_a_command)\n'quotes' and \"double quotes\"\nTEXT\npwd\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "heredoc-double-quoted",
+      "profile": "bash",
+      "documentKind": "bash",
+      "source": "cat <<\"DATA\"\n${value:-fallback}\nDATA\necho ready\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 36,
+          "text": "<<\"DATA\"\n${value:-fallback}\nDATA",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 37,
+          "end": 41,
+          "text": "echo",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        },
+        {
+          "start": 42,
+          "end": 47,
+          "text": "ready",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 48,
+          "text": "<<\"DATA\"\n${value:-fallback}\nDATA\necho ready\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "heredoc-strip-tabs",
+      "profile": "bash",
+      "documentKind": "bash",
+      "source": "cat <<-END\n\tHello $USER\n\t\u661f\u7a7a \ud83c\udf0c\n\tEND\necho ready\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 35,
+          "text": "<<-END\n\tHello $USER\n\t\u661f\u7a7a \ud83c\udf0c\n\tEND",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 40,
+          "text": "echo",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        },
+        {
+          "start": 41,
+          "end": 46,
+          "text": "ready",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 47,
+          "text": "<<-END\n\tHello $USER\n\t\u661f\u7a7a \ud83c\udf0c\n\tEND\necho ready\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "heredoc-following-redirection",
+      "profile": "bash",
+      "documentKind": "bash",
+      "source": "cat <<'CFG' > config.txt\nname: Virgo\nCFG\npwd\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 25,
+          "end": 40,
+          "text": "name: Virgo\nCFG",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 25,
+          "end": 41,
+          "text": "name: Virgo\nCFG\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
     }
   ],
   "profiles": {
     "posix": {
       "documents": 3,
-      "exactDocumentsIncludingModifiers": 2,
+      "exactDocumentsIncludingModifiers": 1,
       "exactSpan": {
         "precision": 0.9523809523809523,
         "recall": 0.9523809523809523,
@@ -191,7 +416,7 @@
         "fn": 1,
         "support": 21
       },
-      "exactSpanMacroF1": 0.7866666666666667,
+      "exactSpanMacroF1": 0.8205128205128206,
       "exactSpanIncludingModifiers": {
         "precision": 0.9047619047619048,
         "recall": 0.9047619047619048,
@@ -207,7 +432,7 @@
           "recall": 0.0,
           "f1": 0.0,
           "tp": 0,
-          "fp": 0,
+          "fp": 1,
           "fn": 0,
           "support": 0
         },
@@ -221,12 +446,12 @@
           "support": 0
         },
         "string": {
-          "precision": 0.875,
-          "recall": 1.0,
-          "f1": 0.9333333333333333,
-          "tp": 7,
-          "fp": 1,
-          "fn": 0,
+          "precision": 1.0,
+          "recall": 0.8571428571428571,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 0,
+          "fn": 1,
           "support": 7
         },
         "number": {
@@ -275,47 +500,47 @@
           "support": 0
         },
         "parameter": {
-          "precision": 0.0,
-          "recall": 0.0,
-          "f1": 0.0,
-          "tp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
           "fp": 0,
-          "fn": 1,
+          "fn": 0,
           "support": 1
         }
       }
     },
     "bash": {
-      "documents": 6,
-      "exactDocumentsIncludingModifiers": 5,
+      "documents": 13,
+      "exactDocumentsIncludingModifiers": 6,
       "exactSpan": {
-        "precision": 0.98,
-        "recall": 0.98,
-        "f1": 0.98,
-        "tp": 49,
-        "fp": 1,
-        "fn": 1,
-        "support": 50
+        "precision": 0.9146341463414634,
+        "recall": 0.8522727272727273,
+        "f1": 0.8823529411764706,
+        "tp": 75,
+        "fp": 7,
+        "fn": 13,
+        "support": 88
       },
-      "exactSpanMacroF1": 0.986231884057971,
+      "exactSpanMacroF1": 0.9362986270022884,
       "exactSpanIncludingModifiers": {
-        "precision": 0.98,
-        "recall": 0.98,
-        "f1": 0.98,
-        "tp": 49,
-        "fp": 1,
-        "fn": 1,
-        "support": 50
+        "precision": 0.9146341463414634,
+        "recall": 0.8522727272727273,
+        "f1": 0.8823529411764706,
+        "tp": 75,
+        "fp": 7,
+        "fn": 13,
+        "support": 88
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.875,
+          "precision": 0.8181818181818182,
           "recall": 1.0,
-          "f1": 0.9333333333333333,
-          "tp": 7,
-          "fp": 1,
+          "f1": 0.9,
+          "tp": 9,
+          "fp": 2,
           "fn": 0,
-          "support": 7
+          "support": 9
         },
         "comment": {
           "precision": 1.0,
@@ -327,13 +552,13 @@
           "support": 1
         },
         "string": {
-          "precision": 1.0,
-          "recall": 0.9166666666666666,
-          "f1": 0.9565217391304348,
-          "tp": 11,
-          "fp": 0,
-          "fn": 1,
-          "support": 12
+          "precision": 0.7619047619047619,
+          "recall": 0.64,
+          "f1": 0.6956521739130435,
+          "tp": 16,
+          "fp": 5,
+          "fn": 9,
+          "support": 25
         },
         "number": {
           "precision": 1.0,
@@ -348,28 +573,28 @@
           "precision": 1.0,
           "recall": 1.0,
           "f1": 1.0,
-          "tp": 7,
-          "fp": 0,
-          "fn": 0,
-          "support": 7
-        },
-        "punctuation": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
           "tp": 8,
           "fp": 0,
           "fn": 0,
           "support": 8
         },
-        "function": {
+        "punctuation": {
           "precision": 1.0,
           "recall": 1.0,
           "f1": 1.0,
-          "tp": 5,
+          "tp": 14,
           "fp": 0,
           "fn": 0,
-          "support": 5
+          "support": 14
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 0.8095238095238095,
+          "f1": 0.8947368421052632,
+          "tp": 17,
+          "fp": 0,
+          "fn": 4,
+          "support": 21
         },
         "variable": {
           "precision": 1.0,
@@ -499,24 +724,24 @@
     },
     "csh": {
       "documents": 2,
-      "exactDocumentsIncludingModifiers": 2,
+      "exactDocumentsIncludingModifiers": 1,
       "exactSpan": {
-        "precision": 1.0,
-        "recall": 1.0,
-        "f1": 1.0,
-        "tp": 15,
-        "fp": 0,
-        "fn": 0,
+        "precision": 0.9333333333333333,
+        "recall": 0.9333333333333333,
+        "f1": 0.9333333333333333,
+        "tp": 14,
+        "fp": 1,
+        "fn": 1,
         "support": 15
       },
-      "exactSpanMacroF1": 1.0,
+      "exactSpanMacroF1": 0.942857142857143,
       "exactSpanIncludingModifiers": {
-        "precision": 1.0,
-        "recall": 1.0,
-        "f1": 1.0,
-        "tp": 15,
-        "fp": 0,
-        "fn": 0,
+        "precision": 0.9333333333333333,
+        "recall": 0.9333333333333333,
+        "f1": 0.9333333333333333,
+        "tp": 14,
+        "fp": 1,
+        "fn": 1,
         "support": 15
       },
       "byTokenType": {
@@ -540,11 +765,11 @@
         },
         "string": {
           "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
-          "tp": 3,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "tp": 2,
           "fp": 0,
-          "fn": 0,
+          "fn": 1,
           "support": 3
         },
         "number": {
@@ -575,11 +800,11 @@
           "support": 2
         },
         "function": {
-          "precision": 1.0,
+          "precision": 0.75,
           "recall": 1.0,
-          "f1": 1.0,
+          "f1": 0.8571428571428571,
           "tp": 3,
-          "fp": 0,
+          "fp": 1,
           "fn": 0,
           "support": 3
         },
@@ -606,36 +831,36 @@
   },
   "documentKinds": {
     "bash": {
-      "documents": 12,
-      "exactDocumentsIncludingModifiers": 9,
+      "documents": 19,
+      "exactDocumentsIncludingModifiers": 8,
       "exactSpan": {
-        "precision": 0.9791666666666666,
-        "recall": 0.9791666666666666,
-        "f1": 0.9791666666666666,
-        "tp": 94,
-        "fp": 2,
-        "fn": 2,
-        "support": 96
+        "precision": 0.9296875,
+        "recall": 0.8880597014925373,
+        "f1": 0.9083969465648855,
+        "tp": 119,
+        "fp": 9,
+        "fn": 15,
+        "support": 134
       },
-      "exactSpanMacroF1": 0.9673001949317739,
+      "exactSpanMacroF1": 0.9511066799601195,
       "exactSpanIncludingModifiers": {
-        "precision": 0.9583333333333334,
-        "recall": 0.9583333333333334,
-        "f1": 0.9583333333333334,
-        "tp": 92,
-        "fp": 4,
-        "fn": 4,
-        "support": 96
+        "precision": 0.9140625,
+        "recall": 0.8731343283582089,
+        "f1": 0.8931297709923665,
+        "tp": 117,
+        "fp": 11,
+        "fn": 17,
+        "support": 134
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.9,
+          "precision": 0.7857142857142857,
           "recall": 1.0,
-          "f1": 0.9473684210526315,
-          "tp": 9,
-          "fp": 1,
+          "f1": 0.88,
+          "tp": 11,
+          "fp": 3,
           "fn": 0,
-          "support": 9
+          "support": 11
         },
         "comment": {
           "precision": 1.0,
@@ -647,13 +872,13 @@
           "support": 1
         },
         "string": {
-          "precision": 0.9583333333333334,
-          "recall": 0.9583333333333334,
-          "f1": 0.9583333333333334,
-          "tp": 23,
-          "fp": 1,
-          "fn": 1,
-          "support": 24
+          "precision": 0.8387096774193549,
+          "recall": 0.7027027027027027,
+          "f1": 0.7647058823529411,
+          "tp": 26,
+          "fp": 5,
+          "fn": 11,
+          "support": 37
         },
         "number": {
           "precision": 1.0,
@@ -668,28 +893,28 @@
           "precision": 1.0,
           "recall": 1.0,
           "f1": 1.0,
-          "tp": 11,
+          "tp": 12,
           "fp": 0,
           "fn": 0,
-          "support": 11
+          "support": 12
         },
         "punctuation": {
           "precision": 1.0,
           "recall": 1.0,
           "f1": 1.0,
-          "tp": 17,
+          "tp": 23,
           "fp": 0,
           "fn": 0,
-          "support": 17
+          "support": 23
         },
         "function": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
-          "tp": 15,
-          "fp": 0,
-          "fn": 0,
-          "support": 15
+          "precision": 0.9642857142857143,
+          "recall": 0.8709677419354839,
+          "f1": 0.9152542372881356,
+          "tp": 27,
+          "fp": 1,
+          "fn": 4,
+          "support": 31
         },
         "variable": {
           "precision": 1.0,
@@ -702,16 +927,16 @@
         },
         "parameter": {
           "precision": 1.0,
-          "recall": 0.6666666666666666,
-          "f1": 0.8,
-          "tp": 2,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
           "fp": 0,
-          "fn": 1,
+          "fn": 0,
           "support": 3
         }
       }
     }
   },
-  "checkpointHash": "c00f3b0a8b45d33c9cf219ff32c39dae9508897a065b37de20f7b44242283c11",
-  "checkpointEpoch": 16
+  "checkpointHash": "a48d62548a33cd6d97ce0d240dd1bdd780de99fd52fbb0e3416a81ebf456b3ac",
+  "checkpointEpoch": 20
 }

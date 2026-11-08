@@ -1,13 +1,13 @@
 {
-  "checkpointHash": "c00f3b0a8b45d33c9cf219ff32c39dae9508897a065b37de20f7b44242283c11",
-  "epoch": 16,
+  "checkpointHash": "a48d62548a33cd6d97ce0d240dd1bdd780de99fd52fbb0e3416a81ebf456b3ac",
+  "epoch": 20,
   "scope": "natural validation development diagnosis; not test",
   "documents": [
     {
       "path": "dot.tcshrc",
       "characters": 1286,
-      "correct": 1128,
-      "accuracy": 0.8771384136858476
+      "correct": 1139,
+      "accuracy": 0.885692068429238
     },
     {
       "path": "examples/functions/setalrm",
@@ -24,94 +24,93 @@
     {
       "path": "win32/example.tcshrc",
       "characters": 4929,
-      "correct": 4482,
-      "accuracy": 0.9093122337188071
+      "correct": 4441,
+      "accuracy": 0.9009941164536417
     },
     {
       "path": "Functions/Misc/zed",
       "characters": 4232,
-      "correct": 3870,
-      "accuracy": 0.9144612476370511
+      "correct": 3875,
+      "accuracy": 0.9156427221172023
     },
     {
       "path": "Functions/Misc/ztodo",
       "characters": 1072,
-      "correct": 995,
-      "accuracy": 0.9281716417910447
+      "correct": 972,
+      "accuracy": 0.9067164179104478
     },
     {
       "path": "debian/csh.cshrc",
       "characters": 495,
-      "correct": 386,
-      "accuracy": 0.7797979797979798
+      "correct": 428,
+      "accuracy": 0.8646464646464647
     },
     {
       "path": "examples/functions/array-to-string",
       "characters": 279,
-      "correct": 268,
-      "accuracy": 0.9605734767025089
+      "correct": 269,
+      "accuracy": 0.96415770609319
     },
     {
       "path": "support/missing",
       "characters": 4572,
-      "correct": 4384,
-      "accuracy": 0.9588801399825022
+      "correct": 4417,
+      "accuracy": 0.9660979877515311
     },
     {
       "path": "examples/functions/func",
       "characters": 924,
-      "correct": 913,
-      "accuracy": 0.9880952380952381
+      "correct": 909,
+      "accuracy": 0.9837662337662337
     },
     {
       "path": "cygwin/csh.cshrc",
       "characters": 1286,
-      "correct": 1182,
-      "accuracy": 0.9191290824261276
+      "correct": 1190,
+      "accuracy": 0.9253499222395023
     },
     {
       "path": "examples/functions/arrayops.bash",
       "characters": 2652,
-      "correct": 2613,
-      "accuracy": 0.9852941176470589
+      "correct": 2616,
+      "accuracy": 0.9864253393665159
     }
   ],
   "characterTypeConfusions": {
-    "string -> variable": 284,
-    "string -> function": 250,
-    "string -> comment": 200,
-    "comment -> string": 113,
-    "parameter -> string": 111,
-    "variable -> string": 100,
-    "function -> string": 71,
-    "string -> parameter": 65,
-    "string -> operator": 59,
-    "string -> keyword": 48,
-    "function -> keyword": 43,
-    "operator -> string": 20,
-    "function -> variable": 17,
-    "variable -> comment": 15,
-    "string -> punctuation": 14,
-    "variable -> function": 12,
-    "keyword -> comment": 11,
-    "function -> comment": 10,
-    "parameter -> comment": 10,
-    "operator -> punctuation": 9,
-    "keyword -> string": 7,
-    "keyword -> function": 6,
+    "string -> variable": 336,
+    "string -> function": 205,
+    "function -> string": 121,
+    "comment -> string": 121,
+    "string -> comment": 100,
+    "parameter -> string": 96,
+    "variable -> string": 93,
+    "string -> parameter": 78,
+    "string -> operator": 55,
+    "string -> keyword": 40,
+    "function -> keyword": 38,
+    "function -> variable": 35,
+    "function -> comment": 27,
+    "operator -> string": 21,
+    "parameter -> comment": 18,
+    "keyword -> function": 17,
+    "string -> punctuation": 16,
+    "operator -> punctuation": 11,
     "punctuation -> string": 6,
-    "operator -> parameter": 6,
-    "punctuation -> comment": 4,
+    "variable -> function": 5,
+    "operator -> comment": 4,
+    "keyword -> string": 4,
+    "operator -> parameter": 3,
+    "number -> string": 3,
+    "keyword -> comment": 3,
     "variable -> keyword": 2,
+    "operator -> function": 2,
     "comment -> punctuation": 2,
     "comment -> operator": 2,
     "punctuation -> operator": 2,
-    "parameter -> function": 2,
+    "operator -> variable": 2,
     "function -> parameter": 2,
     "string -> number": 2,
-    "parameter -> operator": 2,
-    "operator -> function": 1,
-    "punctuation -> variable": 1
+    "parameter -> operator": 2
   },
   "errors": [
     {
@@ -126,7 +125,7 @@
         {
           "start": 90,
           "end": 91,
-          "tokenType": "function",
+          "tokenType": "comment",
           "text": "*"
         }
       ]
@@ -151,6 +150,23 @@
     {
       "path": "dot.tcshrc",
       "expected": {
+        "start": 118,
+        "end": 123,
+        "type": "function",
+        "text": "alias"
+      },
+      "overlaps": [
+        {
+          "start": 118,
+          "end": 123,
+          "tokenType": "keyword",
+          "text": "alias"
+        }
+      ]
+    },
+    {
+      "path": "dot.tcshrc",
+      "expected": {
         "start": 124,
         "end": 125,
         "type": "string",
@@ -168,34 +184,17 @@
     {
       "path": "dot.tcshrc",
       "expected": {
-        "start": 142,
-        "end": 144,
-        "type": "string",
-        "text": "ll"
+        "start": 136,
+        "end": 141,
+        "type": "function",
+        "text": "alias"
       },
       "overlaps": [
         {
-          "start": 142,
-          "end": 144,
-          "tokenType": "function",
-          "text": "ll"
-        }
-      ]
-    },
-    {
-      "path": "dot.tcshrc",
-      "expected": {
-        "start": 161,
-        "end": 163,
-        "type": "string",
-        "text": "md"
-      },
-      "overlaps": [
-        {
-          "start": 161,
-          "end": 163,
+          "start": 136,
+          "end": 141,
           "tokenType": "keyword",
-          "text": "md"
+          "text": "alias"
         }
       ]
     },
@@ -213,40 +212,6 @@
           "end": 169,
           "tokenType": "keyword",
           "text": "mkdir"
-        }
-      ]
-    },
-    {
-      "path": "dot.tcshrc",
-      "expected": {
-        "start": 170,
-        "end": 175,
-        "type": "function",
-        "text": "alias"
-      },
-      "overlaps": [
-        {
-          "start": 170,
-          "end": 175,
-          "tokenType": "keyword",
-          "text": "alias"
-        }
-      ]
-    },
-    {
-      "path": "dot.tcshrc",
-      "expected": {
-        "start": 176,
-        "end": 178,
-        "type": "string",
-        "text": "rd"
-      },
-      "overlaps": [
-        {
-          "start": 176,
-          "end": 178,
-          "tokenType": "keyword",
-          "text": "rd"
         }
       ]
     },
@@ -298,23 +263,6 @@
           "end": 262,
           "tokenType": "variable",
           "text": "$?prompt"
-        }
-      ]
-    },
-    {
-      "path": "dot.tcshrc",
-      "expected": {
-        "start": 263,
-        "end": 264,
-        "type": "punctuation",
-        "text": ")"
-      },
-      "overlaps": [
-        {
-          "start": 263,
-          "end": 264,
-          "tokenType": "comment",
-          "text": ")"
         }
       ]
     },
@@ -435,20 +383,17 @@
     {
       "path": "dot.tcshrc",
       "expected": {
-        "start": 446,
-        "end": 455,
+        "start": 440,
+        "end": 442,
         "type": "string",
-        "text": "listlinks"
+        "text": "\\\n"
       },
       "overlaps": [
         {
-          "start": 446,
-          "end": 455,
-          "tokenType": "function",
-          "modifiers": [
-            "default-library"
-          ],
-          "text": "listlinks"
+          "start": 440,
+          "end": 443,
+          "tokenType": "string",
+          "text": "\\\n "
         }
       ]
     },
@@ -469,6 +414,66 @@
             "default-library"
           ],
           "text": "nobeep"
+        }
+      ]
+    },
+    {
+      "path": "dot.tcshrc",
+      "expected": {
+        "start": 500,
+        "end": 519,
+        "type": "string",
+        "text": "'%N@%m:%B%c02%b%# '"
+      },
+      "overlaps": [
+        {
+          "start": 500,
+          "end": 517,
+          "tokenType": "string",
+          "text": "'%N@%m:%B%c02%b%#"
+        },
+        {
+          "start": 518,
+          "end": 519,
+          "tokenType": "string",
+          "text": "'"
+        }
+      ]
+    },
+    {
+      "path": "dot.tcshrc",
+      "expected": {
+        "start": 526,
+        "end": 532,
+        "type": "string",
+        "text": "rmstar"
+      },
+      "overlaps": [
+        {
+          "start": 526,
+          "end": 532,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "rmstar"
+        }
+      ]
+    },
+    {
+      "path": "dot.tcshrc",
+      "expected": {
+        "start": 594,
+        "end": 598,
+        "type": "string",
+        "text": "tcsh"
+      },
+      "overlaps": [
+        {
+          "start": 594,
+          "end": 598,
+          "tokenType": "variable",
+          "text": "tcsh"
         }
       ]
     },
@@ -566,6 +571,40 @@
           "end": 79,
           "tokenType": "string",
           "text": "PAGER"
+        }
+      ]
+    },
+    {
+      "path": "win32/example.tcshrc",
+      "expected": {
+        "start": 92,
+        "end": 115,
+        "type": "comment",
+        "text": "#\tsetenv DISPLAY unix:0"
+      },
+      "overlaps": [
+        {
+          "start": 92,
+          "end": 124,
+          "tokenType": "comment",
+          "text": "#\tsetenv DISPLAY unix:0\n\tsetenv "
+        }
+      ]
+    },
+    {
+      "path": "win32/example.tcshrc",
+      "expected": {
+        "start": 117,
+        "end": 123,
+        "type": "function",
+        "text": "setenv"
+      },
+      "overlaps": [
+        {
+          "start": 92,
+          "end": 124,
+          "tokenType": "comment",
+          "text": "#\tsetenv DISPLAY unix:0\n\tsetenv "
         }
       ]
     },
@@ -759,40 +798,6 @@
     {
       "path": "win32/example.tcshrc",
       "expected": {
-        "start": 581,
-        "end": 583,
-        "type": "variable",
-        "text": "$?"
-      },
-      "overlaps": [
-        {
-          "start": 581,
-          "end": 587,
-          "tokenType": "variable",
-          "text": "$?TERM"
-        }
-      ]
-    },
-    {
-      "path": "win32/example.tcshrc",
-      "expected": {
-        "start": 583,
-        "end": 587,
-        "type": "string",
-        "text": "TERM"
-      },
-      "overlaps": [
-        {
-          "start": 581,
-          "end": 587,
-          "tokenType": "variable",
-          "text": "$?TERM"
-        }
-      ]
-    },
-    {
-      "path": "win32/example.tcshrc",
-      "expected": {
         "start": 608,
         "end": 610,
         "type": "operator",
@@ -810,23 +815,6 @@
           "end": 610,
           "tokenType": "operator",
           "text": "="
-        }
-      ]
-    },
-    {
-      "path": "win32/example.tcshrc",
-      "expected": {
-        "start": 792,
-        "end": 799,
-        "type": "variable",
-        "text": "prompt3"
-      },
-      "overlaps": [
-        {
-          "start": 792,
-          "end": 799,
-          "tokenType": "string",
-          "text": "prompt3"
         }
       ]
     },
@@ -914,6 +902,35 @@
       ]
     },
     {
+      "path": "win32/example.tcshrc",
+      "expected": {
+        "start": 1441,
+        "end": 1583,
+        "type": "string",
+        "text": "c/--/\"(stdout to-stdout decompress uncompress \\\n\t\t\tforce help list license no-name quiet recurse \\\n\t\t\tsuffix test verbose version fast best)\"/"
+      },
+      "overlaps": [
+        {
+          "start": 1441,
+          "end": 1497,
+          "tokenType": "string",
+          "text": "c/--/\"(stdout to-stdout decompress uncompress \\\n\t\t\tforce"
+        },
+        {
+          "start": 1498,
+          "end": 1502,
+          "tokenType": "string",
+          "text": "help"
+        },
+        {
+          "start": 1503,
+          "end": 1583,
+          "tokenType": "string",
+          "text": "list license no-name quiet recurse \\\n\t\t\tsuffix test verbose version fast best)\"/"
+        }
+      ]
+    },
+    {
       "path": "Functions/Misc/zed",
       "expected": {
         "start": 468,
@@ -990,29 +1007,6 @@
             "declaration"
           ],
           "text": "b"
-        }
-      ]
-    },
-    {
-      "path": "Functions/Misc/zed",
-      "expected": {
-        "start": 479,
-        "end": 481,
-        "type": "string",
-        "text": "x:"
-      },
-      "overlaps": [
-        {
-          "start": 479,
-          "end": 480,
-          "tokenType": "string",
-          "text": "x"
-        },
-        {
-          "start": 480,
-          "end": 481,
-          "tokenType": "punctuation",
-          "text": ":"
         }
       ]
     },
@@ -1104,6 +1098,23 @@
     {
       "path": "Functions/Misc/zed",
       "expected": {
+        "start": 508,
+        "end": 509,
+        "type": "operator",
+        "text": "["
+      },
+      "overlaps": [
+        {
+          "start": 508,
+          "end": 511,
+          "tokenType": "string",
+          "text": "[-h"
+        }
+      ]
+    },
+    {
+      "path": "Functions/Misc/zed",
+      "expected": {
         "start": 509,
         "end": 511,
         "type": "parameter",
@@ -1111,10 +1122,10 @@
       },
       "overlaps": [
         {
-          "start": 509,
+          "start": 508,
           "end": 511,
           "tokenType": "string",
-          "text": "-h"
+          "text": "[-h"
         }
       ]
     },
@@ -1149,6 +1160,23 @@
           "end": 524,
           "tokenType": "variable",
           "text": "$+opts"
+        }
+      ]
+    },
+    {
+      "path": "Functions/Misc/zed",
+      "expected": {
+        "start": 524,
+        "end": 525,
+        "type": "operator",
+        "text": "["
+      },
+      "overlaps": [
+        {
+          "start": 524,
+          "end": 525,
+          "tokenType": "punctuation",
+          "text": "["
         }
       ]
     },
@@ -1197,9 +1225,9 @@
       "overlaps": [
         {
           "start": 540,
-          "end": 541,
-          "tokenType": "punctuation",
-          "text": "["
+          "end": 543,
+          "tokenType": "string",
+          "text": "[-x"
         }
       ]
     },
@@ -1213,10 +1241,10 @@
       },
       "overlaps": [
         {
-          "start": 541,
+          "start": 540,
           "end": 543,
           "tokenType": "string",
-          "text": "-x"
+          "text": "[-x"
         }
       ]
     },
@@ -1240,34 +1268,17 @@
     {
       "path": "Functions/Misc/zed",
       "expected": {
-        "start": 552,
-        "end": 554,
-        "type": "operator",
-        "text": "]]"
+        "start": 549,
+        "end": 550,
+        "type": "string",
+        "text": "-"
       },
       "overlaps": [
         {
-          "start": 552,
-          "end": 554,
-          "tokenType": "punctuation",
-          "text": "]]"
-        }
-      ]
-    },
-    {
-      "path": "Functions/Misc/zed",
-      "expected": {
-        "start": 579,
-        "end": 580,
-        "type": "operator",
-        "text": "["
-      },
-      "overlaps": [
-        {
-          "start": 579,
-          "end": 582,
+          "start": 549,
+          "end": 551,
           "tokenType": "string",
-          "text": "[-x"
+          "text": "->"
         }
       ]
     },
@@ -1294,34 +1305,20 @@
     {
       "path": "Functions/Misc/ztodo",
       "expected": {
-        "start": 313,
-        "end": 323,
+        "start": 83,
+        "end": 96,
         "type": "string",
-        "text": "':ztodo:*'"
+        "text": "no_ksh_arrays"
       },
       "overlaps": [
         {
-          "start": 313,
-          "end": 336,
-          "tokenType": "string",
-          "text": "':ztodo:*' short-format"
-        }
-      ]
-    },
-    {
-      "path": "Functions/Misc/ztodo",
-      "expected": {
-        "start": 324,
-        "end": 336,
-        "type": "string",
-        "text": "short-format"
-      },
-      "overlaps": [
-        {
-          "start": 313,
-          "end": 336,
-          "tokenType": "string",
-          "text": "':ztodo:*' short-format"
+          "start": 83,
+          "end": 96,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "no_ksh_arrays"
         }
       ]
     },
@@ -1343,10 +1340,7 @@
         {
           "start": 507,
           "end": 510,
-          "tokenType": "variable",
-          "modifiers": [
-            "declaration"
-          ],
+          "tokenType": "function",
           "text": "ms-"
         }
       ]
@@ -1374,15 +1368,9 @@
         },
         {
           "start": 523,
-          "end": 525,
-          "tokenType": "operator",
-          "text": ":="
-        },
-        {
-          "start": 525,
           "end": 531,
           "tokenType": "string",
-          "text": "\"%D{%s"
+          "text": ":=\"%D{%s"
         },
         {
           "start": 531,
@@ -1401,6 +1389,23 @@
     {
       "path": "Functions/Misc/ztodo",
       "expected": {
+        "start": 539,
+        "end": 555,
+        "type": "variable",
+        "text": "__ztodolastwrite"
+      },
+      "overlaps": [
+        {
+          "start": 539,
+          "end": 558,
+          "tokenType": "variable",
+          "text": "__ztodolastwrite:-0"
+        }
+      ]
+    },
+    {
+      "path": "Functions/Misc/ztodo",
+      "expected": {
         "start": 555,
         "end": 557,
         "type": "operator",
@@ -1408,10 +1413,10 @@
       },
       "overlaps": [
         {
-          "start": 555,
+          "start": 539,
           "end": 558,
-          "tokenType": "string",
-          "text": ":-0"
+          "tokenType": "variable",
+          "text": "__ztodolastwrite:-0"
         }
       ]
     },
@@ -1425,10 +1430,10 @@
       },
       "overlaps": [
         {
-          "start": 555,
+          "start": 539,
           "end": 558,
-          "tokenType": "string",
-          "text": ":-0"
+          "tokenType": "variable",
+          "text": "__ztodolastwrite:-0"
         }
       ]
     },
@@ -1475,6 +1480,23 @@
     {
       "path": "Functions/Misc/ztodo",
       "expected": {
+        "start": 563,
+        "end": 564,
+        "type": "operator",
+        "text": "}"
+      },
+      "overlaps": [
+        {
+          "start": 563,
+          "end": 564,
+          "tokenType": "punctuation",
+          "text": "}"
+        }
+      ]
+    },
+    {
+      "path": "Functions/Misc/ztodo",
+      "expected": {
         "start": 585,
         "end": 596,
         "type": "string",
@@ -1500,26 +1522,20 @@
       "overlaps": [
         {
           "start": 608,
-          "end": 609,
-          "tokenType": "operator",
-          "text": "("
-        },
-        {
-          "start": 609,
-          "end": 615,
+          "end": 616,
           "tokenType": "string",
-          "text": "ps:\\0:"
+          "text": "(ps:\\0:)"
         },
         {
-          "start": 615,
+          "start": 616,
           "end": 627,
           "tokenType": "function",
-          "text": ")__ztodolist"
+          "text": "__ztodolist"
         },
         {
           "start": 627,
           "end": 628,
-          "tokenType": "operator",
+          "tokenType": "string",
           "text": "["
         }
       ]
@@ -1538,6 +1554,23 @@
           "end": 633,
           "tokenType": "string",
           "text": "]"
+        }
+      ]
+    },
+    {
+      "path": "Functions/Misc/ztodo",
+      "expected": {
+        "start": 777,
+        "end": 782,
+        "type": "function",
+        "text": "todos"
+      },
+      "overlaps": [
+        {
+          "start": 777,
+          "end": 782,
+          "tokenType": "variable",
+          "text": "todos"
         }
       ]
     },
@@ -1572,6 +1605,23 @@
           "end": 943,
           "tokenType": "keyword",
           "text": "i"
+        }
+      ]
+    },
+    {
+      "path": "Functions/Misc/ztodo",
+      "expected": {
+        "start": 947,
+        "end": 949,
+        "type": "variable",
+        "text": "$#"
+      },
+      "overlaps": [
+        {
+          "start": 947,
+          "end": 949,
+          "tokenType": "string",
+          "text": "$#"
         }
       ]
     },
@@ -1654,73 +1704,19 @@
       ]
     },
     {
-      "path": "Functions/Misc/ztodo",
-      "expected": {
-        "start": 1104,
-        "end": 1107,
-        "type": "operator",
-        "text": "-gt"
-      },
-      "overlaps": [
-        {
-          "start": 1104,
-          "end": 1107,
-          "tokenType": "parameter",
-          "text": "-gt"
-        }
-      ]
-    },
-    {
-      "path": "Functions/Misc/ztodo",
-      "expected": {
-        "start": 1134,
-        "end": 1137,
-        "type": "string",
-        "text": "tmp"
-      },
-      "overlaps": [
-        {
-          "start": 1134,
-          "end": 1137,
-          "tokenType": "variable",
-          "modifiers": [
-            "declaration"
-          ],
-          "text": "tmp"
-        }
-      ]
-    },
-    {
-      "path": "Functions/Misc/ztodo",
-      "expected": {
-        "start": 1196,
-        "end": 1201,
-        "type": "string",
-        "text": "todos"
-      },
-      "overlaps": [
-        {
-          "start": 1196,
-          "end": 1201,
-          "tokenType": "variable",
-          "text": "todos"
-        }
-      ]
-    },
-    {
       "path": "debian/csh.cshrc",
       "expected": {
-        "start": 56,
-        "end": 60,
-        "type": "string",
-        "text": "tcsh"
+        "start": 64,
+        "end": 66,
+        "type": "variable",
+        "text": "$?"
       },
       "overlaps": [
         {
-          "start": 56,
-          "end": 60,
-          "tokenType": "variable",
-          "text": "tcsh"
+          "start": 64,
+          "end": 72,
+          "tokenType": "string",
+          "text": "$?prompt"
         }
       ]
     },
@@ -1734,10 +1730,10 @@
       },
       "overlaps": [
         {
-          "start": 66,
+          "start": 64,
           "end": 72,
-          "tokenType": "variable",
-          "text": "prompt"
+          "tokenType": "string",
+          "text": "$?prompt"
         }
       ]
     },
@@ -1752,15 +1748,9 @@
       "overlaps": [
         {
           "start": 136,
-          "end": 139,
+          "end": 161,
           "tokenType": "string",
-          "text": "\"\\e"
-        },
-        {
-          "start": 139,
-          "end": 162,
-          "tokenType": "comment",
-          "text": "[7~\" beginning-of-line\t"
+          "text": "\"\\e[7~\" beginning-of-line"
         }
       ]
     },
@@ -1774,10 +1764,10 @@
       },
       "overlaps": [
         {
-          "start": 139,
-          "end": 162,
-          "tokenType": "comment",
-          "text": "[7~\" beginning-of-line\t"
+          "start": 136,
+          "end": 161,
+          "tokenType": "string",
+          "text": "\"\\e[7~\" beginning-of-line"
         }
       ]
     },
@@ -1793,7 +1783,7 @@
         {
           "start": 186,
           "end": 208,
-          "tokenType": "comment",
+          "tokenType": "string",
           "text": "\"\\e[2~\" overwrite-mode"
         }
       ]
@@ -1810,7 +1800,7 @@
         {
           "start": 186,
           "end": 208,
-          "tokenType": "comment",
+          "tokenType": "string",
           "text": "\"\\e[2~\" overwrite-mode"
         }
       ]
@@ -1826,9 +1816,15 @@
       "overlaps": [
         {
           "start": 227,
+          "end": 230,
+          "tokenType": "string",
+          "text": "\"\\e"
+        },
+        {
+          "start": 230,
           "end": 246,
           "tokenType": "comment",
-          "text": "\"\\e[3~\" delete-char"
+          "text": "[3~\" delete-char"
         }
       ]
     },
@@ -1842,10 +1838,10 @@
       },
       "overlaps": [
         {
-          "start": 227,
+          "start": 230,
           "end": 246,
           "tokenType": "comment",
-          "text": "\"\\e[3~\" delete-char"
+          "text": "[3~\" delete-char"
         }
       ]
     },
@@ -1912,7 +1908,7 @@
         {
           "start": 308,
           "end": 327,
-          "tokenType": "string",
+          "tokenType": "comment",
           "text": "\"\\e[8~\" end-of-line"
         }
       ]
@@ -1929,7 +1925,7 @@
         {
           "start": 308,
           "end": 327,
-          "tokenType": "string",
+          "tokenType": "comment",
           "text": "\"\\e[8~\" end-of-line"
         }
       ]
@@ -1946,7 +1942,7 @@
         {
           "start": 308,
           "end": 327,
-          "tokenType": "string",
+          "tokenType": "comment",
           "text": "\"\\e[8~\" end-of-line"
         }
       ]
@@ -2000,17 +1996,17 @@
     {
       "path": "debian/csh.cshrc",
       "expected": {
-        "start": 604,
-        "end": 608,
+        "start": 615,
+        "end": 620,
         "type": "string",
-        "text": "_dir"
+        "text": "_file"
       },
       "overlaps": [
         {
-          "start": 604,
-          "end": 608,
-          "tokenType": "function",
-          "text": "_dir"
+          "start": 615,
+          "end": 620,
+          "tokenType": "variable",
+          "text": "_file"
         }
       ]
     },
@@ -2068,40 +2064,6 @@
     {
       "path": "examples/functions/array-to-string",
       "expected": {
-        "start": 243,
-        "end": 244,
-        "type": "punctuation",
-        "text": "("
-      },
-      "overlaps": [
-        {
-          "start": 243,
-          "end": 245,
-          "tokenType": "variable",
-          "text": "(3"
-        }
-      ]
-    },
-    {
-      "path": "examples/functions/array-to-string",
-      "expected": {
-        "start": 244,
-        "end": 245,
-        "type": "variable",
-        "text": "3"
-      },
-      "overlaps": [
-        {
-          "start": 243,
-          "end": 245,
-          "tokenType": "variable",
-          "text": "(3"
-        }
-      ]
-    },
-    {
-      "path": "examples/functions/array-to-string",
-      "expected": {
         "start": 320,
         "end": 327,
         "type": "string",
@@ -2139,15 +2101,9 @@
       "overlaps": [
         {
           "start": 850,
-          "end": 851,
+          "end": 853,
           "tokenType": "variable",
-          "text": "$"
-        },
-        {
-          "start": 851,
-          "end": 852,
-          "tokenType": "variable",
-          "text": "#"
+          "text": "$# "
         }
       ]
     },
@@ -2179,16 +2135,16 @@
           "text": "\\`PROGRAM [ARGUMENT]...' for when PROGRAM is missing, or return an\nerror status if there is no known handling for PROGRAM.\n\nOptions:\n  -h, --help      display this help and exit\n  -v, --version   output version information and exit"
         },
         {
-          "start": 1262,
+          "start": 1261,
           "end": 1327,
           "tokenType": "string",
-          "text": "Supported PROGRAM values:\n  aclocal      touch file \\`aclocal.m4'"
+          "text": "\nSupported PROGRAM values:\n  aclocal      touch file \\`aclocal.m4'"
         },
         {
-          "start": 1330,
+          "start": 1329,
           "end": 1407,
           "tokenType": "string",
-          "text": "autoconf     touch file \\`configure'\n  autoheader   touch file \\`config.h.in'"
+          "text": " autoconf     touch file \\`configure'\n  autoheader   touch file \\`config.h.in'"
         },
         {
           "start": 1409,
@@ -2212,6 +2168,12 @@
           "text": "bison"
         },
         {
+          "start": 1467,
+          "end": 1468,
+          "tokenType": "string",
+          "text": " "
+        },
+        {
           "start": 1469,
           "end": 1475,
           "tokenType": "string",
@@ -2219,9 +2181,21 @@
         },
         {
           "start": 1476,
+          "end": 1519,
+          "tokenType": "string",
+          "text": "\\`y.tab.[ch]', if possible, from existing ."
+        },
+        {
+          "start": 1519,
+          "end": 1520,
+          "tokenType": "operator",
+          "text": "["
+        },
+        {
+          "start": 1520,
           "end": 1522,
           "tokenType": "string",
-          "text": "\\`y.tab.[ch]', if possible, from existing .[ch"
+          "text": "ch"
         },
         {
           "start": 1522,
@@ -2242,9 +2216,6 @@
           "start": 1539,
           "end": 1545,
           "tokenType": "function",
-          "modifiers": [
-            "default-library"
-          ],
           "text": "create"
         },
         {
@@ -2273,9 +2244,15 @@
         },
         {
           "start": 1611,
+          "end": 1654,
+          "tokenType": "string",
+          "text": "\\`lex.yy.c', if possible, from existing .c\n"
+        },
+        {
+          "start": 1655,
           "end": 1656,
           "tokenType": "string",
-          "text": "\\`lex.yy.c', if possible, from existing .c\n  "
+          "text": " "
         },
         {
           "start": 1656,
@@ -2314,6 +2291,9 @@
           "start": 1693,
           "end": 1697,
           "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
           "text": "yacc"
         },
         {
@@ -2327,26 +2307,61 @@
         },
         {
           "start": 1713,
+          "end": 1721,
+          "tokenType": "string",
+          "text": "\\`y.tab."
+        },
+        {
+          "start": 1721,
+          "end": 1722,
+          "tokenType": "operator",
+          "text": "["
+        },
+        {
+          "start": 1722,
+          "end": 1754,
+          "tokenType": "string",
+          "text": "ch]', if possible, from existing"
+        },
+        {
+          "start": 1755,
           "end": 1761,
           "tokenType": "string",
-          "text": "\\`y.tab.[ch]', if possible, from existing .[ch]\""
+          "text": ".[ch]\""
         }
       ]
     },
     {
       "path": "support/missing",
       "expected": {
-        "start": 1772,
-        "end": 1774,
-        "type": "parameter",
-        "text": "-v"
+        "start": 1783,
+        "end": 1784,
+        "type": "operator",
+        "text": "|"
       },
       "overlaps": [
         {
-          "start": 1772,
-          "end": 1774,
-          "tokenType": "function",
-          "text": "-v"
+          "start": 1783,
+          "end": 1784,
+          "tokenType": "parameter",
+          "text": "|"
+        }
+      ]
+    },
+    {
+      "path": "support/missing",
+      "expected": {
+        "start": 1789,
+        "end": 1790,
+        "type": "operator",
+        "text": "|"
+      },
+      "overlaps": [
+        {
+          "start": 1789,
+          "end": 1790,
+          "tokenType": "parameter",
+          "text": "|"
         }
       ]
     },
@@ -2361,9 +2376,9 @@
       "overlaps": [
         {
           "start": 1805,
-          "end": 1823,
+          "end": 1814,
           "tokenType": "string",
-          "text": "--versio|--version"
+          "text": "--versio|"
         }
       ]
     },
@@ -2378,26 +2393,9 @@
       "overlaps": [
         {
           "start": 1805,
-          "end": 1823,
+          "end": 1814,
           "tokenType": "string",
-          "text": "--versio|--version"
-        }
-      ]
-    },
-    {
-      "path": "support/missing",
-      "expected": {
-        "start": 1814,
-        "end": 1823,
-        "type": "parameter",
-        "text": "--version"
-      },
-      "overlaps": [
-        {
-          "start": 1805,
-          "end": 1823,
-          "tokenType": "string",
-          "text": "--versio|--version"
+          "text": "--versio|"
         }
       ]
     },
@@ -2415,6 +2413,29 @@
           "end": 1872,
           "tokenType": "parameter",
           "text": "-*"
+        }
+      ]
+    },
+    {
+      "path": "support/missing",
+      "expected": {
+        "start": 1905,
+        "end": 1914,
+        "type": "string",
+        "text": "' option\""
+      },
+      "overlaps": [
+        {
+          "start": 1905,
+          "end": 1906,
+          "tokenType": "string",
+          "text": "'"
+        },
+        {
+          "start": 1907,
+          "end": 1914,
+          "tokenType": "string",
+          "text": "option\""
         }
       ]
     },
@@ -2480,9 +2501,9 @@
       "overlaps": [
         {
           "start": 2013,
-          "end": 2086,
+          "end": 2082,
           "tokenType": "string",
-          "text": "\"\\\nWARNING: \\`$1' is missing on your system.  You should only need it if\n"
+          "text": "\"\\\nWARNING: \\`$1' is missing on your system.  You should only need it"
         }
       ]
     },
@@ -2497,9 +2518,9 @@
       "overlaps": [
         {
           "start": 2013,
-          "end": 2086,
+          "end": 2082,
           "tokenType": "string",
-          "text": "\"\\\nWARNING: \\`$1' is missing on your system.  You should only need it if\n"
+          "text": "\"\\\nWARNING: \\`$1' is missing on your system.  You should only need it"
         }
       ]
     },
@@ -2514,27 +2535,27 @@
       "overlaps": [
         {
           "start": 2013,
-          "end": 2086,
+          "end": 2082,
           "tokenType": "string",
-          "text": "\"\\\nWARNING: \\`$1' is missing on your system.  You should only need it if\n"
+          "text": "\"\\\nWARNING: \\`$1' is missing on your system.  You should only need it"
         },
         {
-          "start": 2091,
-          "end": 2159,
-          "tokenType": "string",
-          "text": "    you modified \\`acinclude.m4' or \\`configure.in'.  You might want"
+          "start": 2083,
+          "end": 2085,
+          "tokenType": "keyword",
+          "text": "if"
         },
         {
-          "start": 2162,
-          "end": 2163,
+          "start": 2093,
+          "end": 2160,
           "tokenType": "string",
-          "text": " "
+          "text": "  you modified \\`acinclude.m4' or \\`configure.in'.  You might want\n"
         },
         {
-          "start": 2164,
-          "end": 2266,
+          "start": 2161,
+          "end": 2265,
           "tokenType": "string",
-          "text": "     to install the \\`Automake' and \\`Perl' packages.  Grab them from\n         any GNU archive site.\"\n"
+          "text": "        to install the \\`Automake' and \\`Perl' packages.  Grab them from\n         any GNU archive site.\""
         }
       ]
     },
@@ -2588,146 +2609,67 @@
           "text": "\"\\\nWARNING: \\`$1' is missing on your system.  You should only need it if"
         },
         {
-          "start": 2398,
+          "start": 2399,
           "end": 2463,
           "tokenType": "string",
-          "text": "     you modified \\`configure.in'.  You might want to install the"
+          "text": "    you modified \\`configure.in'.  You might want to install the"
         },
         {
           "start": 2473,
-          "end": 2533,
+          "end": 2557,
           "tokenType": "string",
-          "text": "\\`Autoconf' and \\`GNU m4' packages.  Grab them from any GNU\n"
-        },
-        {
-          "start": 2542,
-          "end": 2549,
-          "tokenType": "function",
-          "modifiers": [
-            "default-library"
-          ],
-          "text": "archive"
-        },
-        {
-          "start": 2550,
-          "end": 2556,
-          "tokenType": "string",
-          "text": "site.\""
+          "text": "\\`Autoconf' and \\`GNU m4' packages.  Grab them from any GNU\n         archive site.\"\n"
         }
       ]
     },
     {
       "path": "support/missing",
       "expected": {
-        "start": 2561,
-        "end": 2566,
-        "type": "function",
-        "text": "touch"
+        "start": 2608,
+        "end": 2609,
+        "type": "number",
+        "text": "1"
       },
       "overlaps": [
         {
-          "start": 2561,
-          "end": 2566,
-          "tokenType": "keyword",
-          "text": "touch"
+          "start": 2608,
+          "end": 2829,
+          "tokenType": "string",
+          "text": "1>&2 \"\\\nWARNING: \\`$1' is missing on your system.  You should only need it if\n         you modified \\`acconfig.h' or \\`configure.in'.  You might want\n         to install the \\`Autoconf' and \\`GNU m4' packages.  Grab them\n"
         }
       ]
     },
     {
       "path": "support/missing",
       "expected": {
-        "start": 2613,
-        "end": 2627,
-        "type": "string",
-        "text": "\"\\\nWARNING: \\`"
+        "start": 2609,
+        "end": 2611,
+        "type": "operator",
+        "text": ">&"
       },
       "overlaps": [
         {
-          "start": 2613,
-          "end": 2685,
+          "start": 2608,
+          "end": 2829,
           "tokenType": "string",
-          "text": "\"\\\nWARNING: \\`$1' is missing on your system.  You should only need it if"
+          "text": "1>&2 \"\\\nWARNING: \\`$1' is missing on your system.  You should only need it if\n         you modified \\`acconfig.h' or \\`configure.in'.  You might want\n         to install the \\`Autoconf' and \\`GNU m4' packages.  Grab them\n"
         }
       ]
     },
     {
       "path": "support/missing",
       "expected": {
-        "start": 2627,
-        "end": 2629,
-        "type": "variable",
-        "text": "$1"
+        "start": 2611,
+        "end": 2612,
+        "type": "number",
+        "text": "2"
       },
       "overlaps": [
         {
-          "start": 2613,
-          "end": 2685,
+          "start": 2608,
+          "end": 2829,
           "tokenType": "string",
-          "text": "\"\\\nWARNING: \\`$1' is missing on your system.  You should only need it if"
-        }
-      ]
-    },
-    {
-      "path": "support/missing",
-      "expected": {
-        "start": 2629,
-        "end": 2865,
-        "type": "string",
-        "text": "' is missing on your system.  You should only need it if\n         you modified \\`acconfig.h' or \\`configure.in'.  You might want\n         to install the \\`Autoconf' and \\`GNU m4' packages.  Grab them\n         from any GNU archive site.\""
-      },
-      "overlaps": [
-        {
-          "start": 2613,
-          "end": 2685,
-          "tokenType": "string",
-          "text": "\"\\\nWARNING: \\`$1' is missing on your system.  You should only need it if"
-        },
-        {
-          "start": 2695,
-          "end": 2698,
-          "tokenType": "function",
-          "text": "you"
-        },
-        {
-          "start": 2699,
-          "end": 2707,
-          "tokenType": "string",
-          "text": "modified"
-        },
-        {
-          "start": 2708,
-          "end": 2757,
-          "tokenType": "string",
-          "text": "\\`acconfig.h' or \\`configure.in'.  You might want"
-        },
-        {
-          "start": 2764,
-          "end": 2828,
-          "tokenType": "string",
-          "text": "   to install the \\`Autoconf' and \\`GNU m4' packages.  Grab them"
-        },
-        {
-          "start": 2838,
-          "end": 2865,
-          "tokenType": "string",
-          "text": "from any GNU archive site.\""
-        }
-      ]
-    },
-    {
-      "path": "examples/functions/func",
-      "expected": {
-        "start": 915,
-        "end": 917,
-        "type": "variable",
-        "text": "$#"
-      },
-      "overlaps": [
-        {
-          "start": 915,
-          "end": 918,
-          "tokenType": "variable",
-          "text": "$# "
+          "text": "1>&2 \"\\\nWARNING: \\`$1' is missing on your system.  You should only need it if\n         you modified \\`acconfig.h' or \\`configure.in'.  You might want\n         to install the \\`Autoconf' and \\`GNU m4' packages.  Grab them\n"
         }
       ]
     },
@@ -2745,57 +2687,6 @@
           "end": 922,
           "tokenType": "operator",
           "text": "-eq "
-        }
-      ]
-    },
-    {
-      "path": "examples/functions/func",
-      "expected": {
-        "start": 924,
-        "end": 925,
-        "type": "punctuation",
-        "text": "]"
-      },
-      "overlaps": [
-        {
-          "start": 924,
-          "end": 926,
-          "tokenType": "comment",
-          "text": "] "
-        }
-      ]
-    },
-    {
-      "path": "examples/functions/func",
-      "expected": {
-        "start": 926,
-        "end": 927,
-        "type": "punctuation",
-        "text": ";"
-      },
-      "overlaps": [
-        {
-          "start": 926,
-          "end": 928,
-          "tokenType": "comment",
-          "text": "; "
-        }
-      ]
-    },
-    {
-      "path": "examples/functions/func",
-      "expected": {
-        "start": 928,
-        "end": 932,
-        "type": "keyword",
-        "text": "then"
-      },
-      "overlaps": [
-        {
-          "start": 928,
-          "end": 932,
-          "tokenType": "comment",
-          "text": "then"
         }
       ]
     },
@@ -2881,6 +2772,23 @@
           "end": 1092,
           "tokenType": "string",
           "text": "\"func: $f: not a function\""
+        }
+      ]
+    },
+    {
+      "path": "examples/functions/func",
+      "expected": {
+        "start": 1110,
+        "end": 1122,
+        "type": "comment",
+        "text": "# one failed"
+      },
+      "overlaps": [
+        {
+          "start": 1110,
+          "end": 1122,
+          "tokenType": "string",
+          "text": "# one failed"
         }
       ]
     },
@@ -2984,40 +2892,6 @@
     {
       "path": "cygwin/csh.cshrc",
       "expected": {
-        "start": 73,
-        "end": 76,
-        "type": "keyword",
-        "text": "end"
-      },
-      "overlaps": [
-        {
-          "start": 73,
-          "end": 76,
-          "tokenType": "string",
-          "text": "end"
-        }
-      ]
-    },
-    {
-      "path": "cygwin/csh.cshrc",
-      "expected": {
-        "start": 159,
-        "end": 161,
-        "type": "variable",
-        "text": "$?"
-      },
-      "overlaps": [
-        {
-          "start": 159,
-          "end": 165,
-          "tokenType": "variable",
-          "text": "$?tcsh"
-        }
-      ]
-    },
-    {
-      "path": "cygwin/csh.cshrc",
-      "expected": {
         "start": 161,
         "end": 165,
         "type": "string",
@@ -3025,101 +2899,27 @@
       },
       "overlaps": [
         {
-          "start": 159,
+          "start": 161,
           "end": 165,
-          "tokenType": "variable",
-          "text": "$?tcsh"
-        }
-      ]
-    },
-    {
-      "path": "cygwin/csh.cshrc",
-      "expected": {
-        "start": 614,
-        "end": 616,
-        "type": "variable",
-        "text": "$?"
-      },
-      "overlaps": [
-        {
-          "start": 614,
-          "end": 620,
           "tokenType": "function",
-          "text": "$?tcsh"
+          "text": "tcsh"
         }
       ]
     },
     {
       "path": "cygwin/csh.cshrc",
       "expected": {
-        "start": 616,
-        "end": 620,
+        "start": 215,
+        "end": 242,
         "type": "string",
-        "text": "tcsh"
+        "text": "/etc/profile.d/bindkey.tcsh"
       },
       "overlaps": [
         {
-          "start": 614,
-          "end": 620,
-          "tokenType": "function",
-          "text": "$?tcsh"
-        }
-      ]
-    },
-    {
-      "path": "cygwin/csh.cshrc",
-      "expected": {
-        "start": 627,
-        "end": 655,
-        "type": "string",
-        "text": "/etc/profile.d/complete.tcsh"
-      },
-      "overlaps": [
-        {
-          "start": 627,
-          "end": 656,
+          "start": 215,
+          "end": 242,
           "tokenType": "comment",
-          "text": "/etc/profile.d/complete.tcsh)"
-        }
-      ]
-    },
-    {
-      "path": "cygwin/csh.cshrc",
-      "expected": {
-        "start": 655,
-        "end": 656,
-        "type": "punctuation",
-        "text": ")"
-      },
-      "overlaps": [
-        {
-          "start": 627,
-          "end": 656,
-          "tokenType": "comment",
-          "text": "/etc/profile.d/complete.tcsh)"
-        }
-      ]
-    },
-    {
-      "path": "cygwin/csh.cshrc",
-      "expected": {
-        "start": 748,
-        "end": 828,
-        "type": "comment",
-        "text": "# If we find $HOME/.{t}cshrc we skip our settings used for interactive sessions."
-      },
-      "overlaps": [
-        {
-          "start": 748,
-          "end": 769,
-          "tokenType": "comment",
-          "text": "# If we find $HOME/.{"
-        },
-        {
-          "start": 769,
-          "end": 828,
-          "tokenType": "comment",
-          "text": "t}cshrc we skip our settings used for interactive sessions."
+          "text": "/etc/profile.d/bindkey.tcsh"
         }
       ]
     },
@@ -3152,7 +2952,10 @@
         {
           "start": 874,
           "end": 878,
-          "tokenType": "comment",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
           "text": "goto"
         }
       ]
@@ -3269,6 +3072,123 @@
       ]
     },
     {
+      "path": "cygwin/csh.cshrc",
+      "expected": {
+        "start": 1197,
+        "end": 1204,
+        "type": "string",
+        "text": "history"
+      },
+      "overlaps": [
+        {
+          "start": 1197,
+          "end": 1204,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "history"
+        }
+      ]
+    },
+    {
+      "path": "cygwin/csh.cshrc",
+      "expected": {
+        "start": 1278,
+        "end": 1284,
+        "type": "string",
+        "text": "notify"
+      },
+      "overlaps": [
+        {
+          "start": 1278,
+          "end": 1284,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "notify"
+        }
+      ]
+    },
+    {
+      "path": "cygwin/csh.cshrc",
+      "expected": {
+        "start": 1324,
+        "end": 1329,
+        "type": "string",
+        "text": "merge"
+      },
+      "overlaps": [
+        {
+          "start": 1324,
+          "end": 1329,
+          "tokenType": "variable",
+          "text": "merge"
+        }
+      ]
+    },
+    {
+      "path": "cygwin/csh.cshrc",
+      "expected": {
+        "start": 1394,
+        "end": 1396,
+        "type": "string",
+        "text": "++"
+      },
+      "overlaps": [
+        {
+          "start": 1394,
+          "end": 1395,
+          "tokenType": "operator",
+          "text": "+"
+        },
+        {
+          "start": 1395,
+          "end": 1396,
+          "tokenType": "operator",
+          "text": "+"
+        }
+      ]
+    },
+    {
+      "path": "cygwin/csh.cshrc",
+      "expected": {
+        "start": 1436,
+        "end": 1437,
+        "type": "string",
+        "text": "h"
+      },
+      "overlaps": [
+        {
+          "start": 1436,
+          "end": 1437,
+          "tokenType": "function",
+          "text": "h"
+        }
+      ]
+    },
+    {
+      "path": "cygwin/csh.cshrc",
+      "expected": {
+        "start": 1452,
+        "end": 1453,
+        "type": "string",
+        "text": "j"
+      },
+      "overlaps": [
+        {
+          "start": 1452,
+          "end": 1453,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "j"
+        }
+      ]
+    },
+    {
       "path": "examples/functions/arrayops.bash",
       "expected": {
         "start": 969,
@@ -3323,6 +3243,23 @@
     {
       "path": "examples/functions/arrayops.bash",
       "expected": {
+        "start": 1149,
+        "end": 1165,
+        "type": "comment",
+        "text": "#:end docstring:"
+      },
+      "overlaps": [
+        {
+          "start": 1149,
+          "end": 1166,
+          "tokenType": "comment",
+          "text": "#:end docstring:\n"
+        }
+      ]
+    },
+    {
+      "path": "examples/functions/arrayops.bash",
+      "expected": {
         "start": 1187,
         "end": 1194,
         "type": "string",
@@ -3369,6 +3306,40 @@
     {
       "path": "examples/functions/arrayops.bash",
       "expected": {
+        "start": 1215,
+        "end": 1216,
+        "type": "variable",
+        "text": "2"
+      },
+      "overlaps": [
+        {
+          "start": 1215,
+          "end": 1218,
+          "tokenType": "string",
+          "text": "2-1"
+        }
+      ]
+    },
+    {
+      "path": "examples/functions/arrayops.bash",
+      "expected": {
+        "start": 1216,
+        "end": 1218,
+        "type": "string",
+        "text": "-1"
+      },
+      "overlaps": [
+        {
+          "start": 1215,
+          "end": 1218,
+          "tokenType": "string",
+          "text": "2-1"
+        }
+      ]
+    },
+    {
+      "path": "examples/functions/arrayops.bash",
+      "expected": {
         "start": 1219,
         "end": 1224,
         "type": "string",
@@ -3406,9 +3377,15 @@
         },
         {
           "start": 1776,
+          "end": 1777,
+          "tokenType": "punctuation",
+          "text": "("
+        },
+        {
+          "start": 1777,
           "end": 1794,
           "tokenType": "string",
-          "text": "(\\\"\\${@:2}\\\" \\\"\\${"
+          "text": "\\\"\\${@:2}\\\" \\\"\\${"
         }
       ]
     },
@@ -3610,29 +3587,6 @@
     {
       "path": "examples/functions/arrayops.bash",
       "expected": {
-        "start": 2528,
-        "end": 2530,
-        "type": "string",
-        "text": "@:"
-      },
-      "overlaps": [
-        {
-          "start": 2528,
-          "end": 2529,
-          "tokenType": "string",
-          "text": "@"
-        },
-        {
-          "start": 2529,
-          "end": 2530,
-          "tokenType": "operator",
-          "text": ":"
-        }
-      ]
-    },
-    {
-      "path": "examples/functions/arrayops.bash",
-      "expected": {
         "start": 2547,
         "end": 2548,
         "type": "operator",
@@ -3678,38 +3632,9 @@
           "end": 2879,
           "tokenType": "function",
           "modifiers": [
-            "default-library"
+            "declaration"
           ],
           "text": "echo"
-        }
-      ]
-    },
-    {
-      "path": "examples/functions/arrayops.bash",
-      "expected": {
-        "start": 2882,
-        "end": 2887,
-        "type": "string",
-        "text": "\"\\${#"
-      },
-      "overlaps": [
-        {
-          "start": 2882,
-          "end": 2884,
-          "tokenType": "string",
-          "text": "\"\\"
-        },
-        {
-          "start": 2884,
-          "end": 2886,
-          "tokenType": "operator",
-          "text": "${"
-        },
-        {
-          "start": 2886,
-          "end": 2887,
-          "tokenType": "string",
-          "text": "#"
         }
       ]
     },
@@ -3737,35 +3662,6 @@
         {
           "start": 2893,
           "end": 2894,
-          "tokenType": "string",
-          "text": "\""
-        }
-      ]
-    },
-    {
-      "path": "examples/functions/arrayops.bash",
-      "expected": {
-        "start": 2918,
-        "end": 2923,
-        "type": "string",
-        "text": "[@]}\""
-      },
-      "overlaps": [
-        {
-          "start": 2918,
-          "end": 2921,
-          "tokenType": "string",
-          "text": "[@]"
-        },
-        {
-          "start": 2921,
-          "end": 2922,
-          "tokenType": "operator",
-          "text": "}"
-        },
-        {
-          "start": 2922,
-          "end": 2923,
           "tokenType": "string",
           "text": "\""
         }

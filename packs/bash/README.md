@@ -22,6 +22,12 @@ inference-only bundle, never a resume checkpoint. Preserve existing formal
 models, data revisions and experiments. Repository stays private.
 
 The [selected model](model/README.md) and four-profile Playground are available.
-Its natural test F1 is 84.20% overall (Bash 93.28%, POSIX 89.33%, Csh 87.43%, Zsh
-71.55%); small natural samples and complex-script limits remain explicit in the
+Its known natural test F1 is 84.78% overall (Bash 93.20%, POSIX 88.32%, Csh 89.29%,
+Zsh 73.76%); small natural samples and complex-script limits remain explicit in the
 [benchmark](model/BENCHMARKS.md) and [known issues](model/KNOWN_ISSUES.md).
+
+The Here Document follow-up covers quoted delimiters, `<<-`, variable-first
+bodies and both function-keyword forms. New held-out focused tasks improve from
+58.84% to 96.76% exact-span F1. The previous formal model is preserved in
+[model-20261108-e16](model-20261108-e16/README.md). Short-snippet terminator
+overruns remain measured limits; inference still uses the same pure neural path.

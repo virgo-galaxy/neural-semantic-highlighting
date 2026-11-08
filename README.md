@@ -378,8 +378,13 @@ The [Shell pack](packs/bash/README.md) adds one entry for POSIX sh, Bash, Zsh an
 Csh/Tcsh, with one 893,582-parameter model and separate offline coverage profiles.
 Inference needs no native shell or lexer. The
 [benchmark](packs/bash/model/BENCHMARKS.md) separates focused grammar from the small
-natural test: Bash 93.28%, POSIX 89.33%, Csh 87.43%, Zsh 71.55% exact-span F1.
+known natural test: Bash 93.20%, POSIX 88.32%, Csh 89.29%, Zsh 73.76% exact-span F1.
 Complex expansion and name-role errors remain in the
 [measured limits](packs/bash/model/KNOWN_ISSUES.md). Data/checkpoints follow
 `NSH_DATASET_ROOT/bash` and `artifacts/bash`; `NSH_BASH_CHECKPOINT` selects a
 configuration-compatible development checkpoint. Git Bash shares Bash syntax.
+
+The Shell Here Document follow-up adds ordinary/quoted/`<<-` examples and both
+`function` forms. New focused holdout tasks score 96.76% exact-span F1, versus
+58.84% for the preserved previous model. Terminator overruns in short standalone
+fragments remain documented; formal inference still uses no source lexer.

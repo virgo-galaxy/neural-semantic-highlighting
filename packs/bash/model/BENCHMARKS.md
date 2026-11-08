@@ -1,83 +1,68 @@
-# Shell baseline evaluation
+# Shell Here Document follow-up
 
-Exact spans match UTF-16 start, end and role. Modifier-aware F1 additionally
-requires the complete modifier set. Macro F1 averages roles with Gold or predicted
-support. Natural source and original focused grammar remain separate; zero or low
-support does not establish broad accuracy.
+Exact-span F1 requires UTF-16 start, end and role to match. Modifier-aware scores
+also require the complete modifier set. Natural and original focused source stay
+separate; small sample counts do not establish broad dialect/version coverage.
 
-| Profile | Natural validation F1 | Natural test docs | Natural test F1 | Natural test macro F1 | Focus test F1 |
-| ------- | --------------------: | ----------------: | --------------: | --------------------: | ------------: |
-| POSIX   |                77.86% |                 1 |          89.33% |                89.56% |        99.88% |
-| Bash    |                89.53% |                 5 |          93.28% |                92.38% |        99.94% |
-| Zsh     |                87.03% |                 1 |          71.55% |                73.74% |        99.94% |
-| Csh     |                81.95% |                 4 |          87.43% |                90.08% |        95.90% |
+| Profile | Natural validation F1 | Natural test docs | Known natural test F1 | Known natural test macro F1 | Focus test F1 |
+| ------- | --------------------: | ----------------: | --------------------: | --------------------------: | ------------: |
+| POSIX   |                79.20% |                 1 |                88.32% |                      90.83% |        98.63% |
+| Bash    |                90.37% |                 5 |                93.20% |                      92.04% |        98.57% |
+| Zsh     |                86.35% |                 1 |                73.76% |                      74.94% |        98.66% |
+| Csh     |                83.46% |                 4 |                89.29% |                      90.96% |        95.84% |
 
-All reported rows use actual predicted-adaptive MPS inference with no Gold cursor
-cuts or runtime lexer/parser. Pooled natural test F1/macro are 84.20%/85.17%;
-focused test F1/macro are 98.99%/95.61%. Each profile has 80 focused test documents.
-Do not present the large focused sample as independent real-project coverage.
-The lone POSIX/Zsh natural test files especially limit generalization claims.
+Actual predicted-adaptive MPS inference gives pooled natural F1
+84.78% and focused F1
+98.19%. The original natural/focus test
+was already read for the preceding model. These rows are known-test comparisons,
+not new unseen evidence. The original 88 real source files and their family
+assignments are unchanged; Gold changed only for one natural training file.
 
-The frozen candidate was selected using mean per-profile natural fixed-validation
-role macro F1 (0.855868), followed by real-source, independent Golden and display
-inspection. Training fixed windows are reassembled before whole-document scoring;
-those cuts do not consult Gold. Runtime uses predicted adaptive cuts. The first
-independent test took about 2.04 seconds inside the evaluator, not a steady-state
-latency benchmark. No subsequent tuning used that test.
+## New Here Document evidence
 
-## Data and revisions
+Eight original mixed task families add 576 source files; twelve short structural
+families add 864. Delimiter quoting, `<<-`, code-like/variable-first bodies,
+function-keyword forms and post-delimiter redirections appear across families.
+Profiles share related families before windows and normalized-copy checks.
+Sources, scripts and prior snapshots are preserved, including unused revisions.
+No full corpus recrawl or architecture change was needed.
 
-The bounded natural corpus captures 88 original files from GNU Bash 5.3, Zsh 5.9
-and Tcsh 6.24.16, with pinned revisions/archive hashes and original source/license
-bytes. It does not install or execute those shells. Original curriculum, short
-fragments, mixed tasks, loop-entry fragments and collection tasks add 3,136 files.
-Pygments 2.21.0 is pinned as an isolated offline-only lexer asset; a source-local
-adapter defines command, binding and expansion roles. It is not an execution
-validator or a complete shell interpreter.
+The selected candidate was frozen before inspecting three new held-out task
+families: query-input, number-lines and repeat-input. Their 216 profile-addressed
+documents score 96.76% exact-span F1, versus 58.84% for the previous model on the
+same new tasks. These are original focused tasks, not 216 independent real
+projects. The 144 Here Document validation tasks score 86.99%, with harder
+post-delimiter redirections. See `reports/heredoc-first-holdout.json` and
+`reports/heredoc-validation.json` for the separate evidence.
 
-All 3,224 captured documents receive coordinate/coverage-valid Gold. After 241
-exact duplicate records are merged within profiles, 2,983 profile-addressed
-documents remain, representing 2,956 distinct source texts. Related profile
-aliases remain in one source family; they are not independent programs. Exact,
-lexical and identifier-normalized cross-family copies are checked before windows.
-No retained document crosses its frozen family split.
+## Selection, data and checks
+
+The two preserved follow-up runs completed 20 and 24 epochs, about 11 seconds per
+epoch after warmup, using `caffeinate -i` and explicit weights-only transfer from
+full checkpoints. Epoch 20 of the second run maximizes mean per-profile natural
+fixed-validation role macro F1 (0.8675), followed by adaptive real-code, Golden
+and actual Playground review. Runtime cursors never consult Gold boundaries.
+
+All 4,664 captured files receive coordinate-valid Gold. Duplicate merging retains
+4,423 profile-addressed documents representing 3,524 distinct source texts; no
+cross-family copies remain in this prepared snapshot. Identical profile aliases
+are not independent programs. Existing holdouts never move into training.
 
 | Split      | Natural docs | Focus docs | Windows |
 | ---------- | -----------: | ---------: | ------: |
-| Train      |           65 |      2,065 |   2,557 |
-| Validation |           12 |        510 |     575 |
-| Test       |           11 |        320 |     375 |
+| Train      |           65 |      3,145 |   3,637 |
+| Validation |           12 |        654 |     719 |
+| Test       |           11 |        536 |     591 |
 
-Existing family assignments never move when adding data. Coverage gates require
-loops, conditionals and source-leading loops in at least three training families
-per profile, plus arrays for Bash/Zsh/Csh. This prevents holding out an entire
-common syntax along with a synthetic task. Csh's single large natural training
-completion program remains intact; focused tasks provide additional basic syntax
-coverage, without being counted as independent natural projects.
+Nineteen independently marked Golden cases remain visible development probes,
+excluded from collection. 8 are entirely exact including modifiers. Failures
+include short-snippet string-end overruns and existing name/modifier errors;
+Golden is not a held-out corpus benchmark. Six actual Playground examples were
+checked and rendered through the existing HTML/theme path. The combined Here
+Document example gets ordinary, literal and tab-stripped body roles correct,
+with a measured two-newline overrun on its first string span.
 
-The four preserved experiments completed 27, 12, 16 and 20 epochs with explicit
-weights-only transfer for new snapshots/protocols. Actual epochs were roughly
-6–10 seconds. The initial run included a 3-epoch measurement before continuation.
-Smoke checks verified full checkpoint reload and pure-neural document inference.
-The final selected epoch is 16 of the coverage run, not a claim that all those
-epochs belong to one unchanged dataset or optimizer state.
-
-Earlier reports used different string canonicalization or coarser Csh quoted
-variable labels. They are retained as experiments and are not directly comparable
-to this final protocol. Shared quoted syntax now has common variable/string
-ranges, while source profiles retain their own corpus identities.
-
-Twelve independently marked, visible Golden probes are excluded from collection.
-Nine are entirely exact including modifiers. Remaining development failures are
-preserved in `reports/golden-probes.json`. Four separately authored display
-snippets were rendered with the real HTML renderer and base theme before testing;
-those are development checks, not a corpus benchmark.
-
-```sh
-make evaluate-bash BASH_CHECKPOINT=artifacts/bash/context512-coverage-20261108-01/candidates/epoch-0016.pt
-make challenge-bash BASH_CHECKPOINT=artifacts/bash/context512-coverage-20261108-01/candidates/epoch-0016.pt
-```
-
-Full checkpoint/snapshot/code hashes and the first independent test are archived
-with the inference bundle. Future measurements on this same test are known-test
-comparisons, not new unseen evidence.
+The previous formal bundle and complete first-test report remain preserved under
+`../model-20261108-e16`. Current checkpoint, dataset and code hashes accompany the
+new export. Natural Csh training still consists of one intact large completion
+program; Zsh and POSIX natural tests each contain only one file.

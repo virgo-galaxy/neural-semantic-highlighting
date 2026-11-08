@@ -26,3 +26,11 @@ real source and independent Golden before freezing a candidate. Final independen
 test uses the real predicted-adaptive cursor once, then export requires matching
 report hashes and reviewed documentation. Preserve natural/focus breakdowns and
 explicit small-coverage limits for POSIX/Bash/Zsh/Csh.
+
+The preserved Here Document follow-up uses full checkpoints in
+`artifacts/bash/context512-heredoc-20261108-01` and
+`artifacts/bash/context512-heredoc-fragments-20261108-01`. The selected candidate
+is frozen epoch 20 of the latter. The original test is already known; its next
+evaluation is a comparison, not unseen evidence. New Here Document families had
+a separate first-holdout report after candidate freezing. Keep the archived
+previous inference bundle and all full checkpoints.

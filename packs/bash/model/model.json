@@ -3,16 +3,16 @@
   "artifact": {
     "file": "model.pt",
     "format": "nsh-bash-model-v1",
-    "sha256": "e65e77ae5328d4142fb385bf57e7d58183d4502c8495ccc3d4dc2c4cb99cde43",
-    "bytes": 3628533,
+    "sha256": "04187850e1b0683d9c4550ad864df6150628ebde0aeb4390acc23f3894f1398a",
+    "bytes": 3630581,
     "parameterCount": 893582,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "selection": {
-    "epoch": 16,
+    "epoch": 20,
     "metric": "mean per-profile natural real-source validation exact-span macro F1",
-    "score": 0.8558680426845207
+    "score": 0.8674887246386958
   },
   "checkpointConfig": {
     "context_bytes": 512,
@@ -90,12 +90,12 @@
     "sha256": "ad4242dc321aba45310a7fe47003dabb496f7fd7dd3b6f9cbb9af22c7c2e6bd7"
   },
   "dataset": {
-    "snapshot": "00a93860979f5143b7feecf6c283c7e557d8f40d78844993e69e8cff29f85c34",
-    "manifestHash": "b7c2fb59ac31f7851b793f67d1d6a2ce2b56fa14d6d032cd7631bfface72fbd4"
+    "snapshot": "43fd4dffbf0e456271547b79fbb76c9610bc6b8f083397925c9fa802d2aae619",
+    "manifestHash": "4a04fac1fdec9554fd7de2cf1feae90db38c3e1e42f0ca3b934d3c6a013bebdd"
   },
   "provenance": {
-    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/bash/context512-coverage-20261108-01/candidates/epoch-0016.pt",
-    "sourceCheckpointSha256": "c00f3b0a8b45d33c9cf219ff32c39dae9508897a065b37de20f7b44242283c11",
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/bash/context512-heredoc-fragments-20261108-01/candidates/epoch-0020.pt",
+    "sourceCheckpointSha256": "a48d62548a33cd6d97ce0d240dd1bdd780de99fd52fbb0e3416a81ebf456b3ac",
     "training": {
       "codeHashes": {
         "training/bash/challenge.py": "6e743b34ccab95ff1c725f2857d6dab9f20dc32544bde959dc69201385b72a78",
@@ -131,7 +131,7 @@
         "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
         "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
       },
-      "semanticsHash": "450bcc344d4938f8f5afe214fddb0fd5b745a9ff0455d067ce231e1307130d23",
+      "semanticsHash": "9fe0c250f731ea21771fe4ea9f46898974dd937c934f2fd06fc917ffbe8bf72c",
       "packConfigHash": "7b084729fcd70d384bb1c0b7d0838c344390c4bb470dfe8e4c9c98d20c8abc6e",
       "decoderPolicy": {
         "coalesce_types": [
@@ -149,17 +149,17 @@
       },
       "pythonTorch": "2.14.0",
       "repositoryDirty": true,
-      "repositoryCommit": "573533540079a0480331b64376dbef3da800be07"
+      "repositoryCommit": "8175f82cb2b3f8bfd37441152309b304d0067d1a"
     },
     "initialization": {
       "mode": "bash-weights-only-transfer",
-      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/bash/context512-programs-20261108-01/best.pt",
-      "checkpointHash": "8dbf2b06b5b6779eae69e3a982c0cd82e124992490b99e5dd6301b8d1794b451",
-      "sourceEpoch": 13,
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/bash/context512-heredoc-20261108-01/candidates/epoch-0020.pt",
+      "checkpointHash": "b7c929633793e364eb664bfc9d9ad61643ab5bd00d10f5c119762abef54712e4",
+      "sourceEpoch": 20,
       "sourceDataset": {
-        "snapshot": "3522c490e65fd615ecb64ee3e5ac175f52c1c4fe6beea06da802aa4b2908d58f",
-        "manifestHash": "45a0180d553be3b0c3130ee57b0b16734632616b2049351a3909464fa68a14cb",
-        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/bash/prepared/3522c490e65fd615ecb64ee3e5ac175f52c1c4fe6beea06da802aa4b2908d58f"
+        "snapshot": "2a57b6dc988f4891cd682843e599d72246b300d110e254cf9c824a85b1436ac1",
+        "manifestHash": "cc1e5e371962a8cde68aeab0339aa8ac21b7ca81aa2fac78107cca6a491edad5",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/bash/prepared/2a57b6dc988f4891cd682843e599d72246b300d110e254cf9c824a85b1436ac1"
       },
       "copiedTokenTypes": [
         "keyword",
@@ -185,34 +185,10 @@
   "reports": {
     "test-metrics.json": {
       "file": "reports/test-metrics.json",
-      "sha256": "83551b12673416c4a373fe9202d13d9e59877df3edc569ba0a77354606aec60b",
-      "checkpointHash": "c00f3b0a8b45d33c9cf219ff32c39dae9508897a065b37de20f7b44242283c11",
+      "sha256": "be0141925eaf2ad7362e423451abc4e78cc0f7b565aba6a5aa9a8df9b6f68f3d",
+      "checkpointHash": "a48d62548a33cd6d97ce0d240dd1bdd780de99fd52fbb0e3416a81ebf456b3ac",
       "split": "test",
       "inference": "predicted-adaptive-cursor"
-    },
-    "validation-metrics.json": {
-      "file": "reports/validation-metrics.json",
-      "sha256": "c7e810a791019d774a6b620aa2ae560a028d8e1cf7cb0fbf4b116bc37890a435",
-      "checkpointHash": "c00f3b0a8b45d33c9cf219ff32c39dae9508897a065b37de20f7b44242283c11",
-      "split": "validation"
-    },
-    "golden-probes.json": {
-      "file": "reports/golden-probes.json",
-      "sha256": "09d69c00bec49f99177b8d75e6c80a4d20a05a574ec8d860600db68604a32d9c",
-      "checkpointHash": "c00f3b0a8b45d33c9cf219ff32c39dae9508897a065b37de20f7b44242283c11",
-      "split": "development-probes"
-    },
-    "real-code-validation.json": {
-      "file": "reports/real-code-validation.json",
-      "sha256": "11d47dd83d1e3a633cc76c8e00156ac6b7cc91c1b4ec2fb7cfdaeb184cf520a1",
-      "checkpointHash": "c00f3b0a8b45d33c9cf219ff32c39dae9508897a065b37de20f7b44242283c11",
-      "split": "validation"
-    },
-    "display-probes.json": {
-      "file": "reports/display-probes.json",
-      "sha256": "7d6a91c90e648243a10b48476efffac681c6d48d9cdc754ca583d5d082378669",
-      "checkpointHash": "c00f3b0a8b45d33c9cf219ff32c39dae9508897a065b37de20f7b44242283c11",
-      "split": "development-probes"
     }
   }
 }

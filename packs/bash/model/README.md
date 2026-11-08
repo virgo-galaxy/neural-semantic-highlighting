@@ -1,36 +1,30 @@
 # Shell neural model
 
 One 893,582-parameter, four-layer byte Transformer covers POSIX sh, Bash, Zsh and
-Csh/Tcsh through one Shell entry. Git Bash uses the same Bash syntax. Profiles
-describe offline coverage, not interchangeable execution environments or separate
-runtime parsers. Source enters the existing local neural process and returns
-UTF-16 semantic spans. No shell, Pygments, compiler, command lookup or script
-execution participates in inference.
+Csh/Tcsh through one Shell entry. Git Bash shares Bash syntax. Inference reads
+original UTF-8 source and returns UTF-16 spans, without shell execution, a lexer,
+command lookup or source-regex repairs.
 
-The selected candidate is frozen epoch 16 from
-`artifacts/bash/context512-coverage-20261108-01/candidates/epoch-0016.pt`.
-The run completed 20 epochs. It transfers full training checkpoints from the
-preserved Shell experiments, originally initialized from the full Go epoch-29
-checkpoint. No inference-only bundle was used for training.
+The selected full checkpoint is frozen epoch 20 of the 24-epoch short Here
+Document follow-up:
+`artifacts/bash/context512-heredoc-fragments-20261108-01/candidates/epoch-0020.pt`.
+It transfers from full training checkpoints under `artifacts/bash`, preserving the
+architecture and schema. No inference bundle was used to resume training.
 
-The decoder follows the pack's canonical adjacent-string and modifier-role rules,
-using predicted roles/ranges only. Checkpoint provenance binds the exact
-`pack.json` hash; older experiments with a different policy/teacher must be
-replayed with their matching code/configuration instead of silently relabeled.
-
-The first independent natural test measured 84.20% exact-span F1 overall: Bash
-93.28%, POSIX 89.33%, Csh 87.43%, Zsh 71.55%. Coverage is small and complex Zsh
-files remain a material weakness. Original focused grammar is substantially
-stronger, but is not a substitute for those natural results. Read
-[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
+The first evaluation of 216 new Here Document holdout tasks measured 96.76%
+exact-span F1, compared with 58.84% for the preserved previous model. The already
+known natural corpus scores 84.78% overall and 93.20% for Bash. These are distinct
+evidence sets; the old corpus is not newly unseen. Short-snippet terminator and
+name-role errors remain in [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
 
 ```sh
 .venv/bin/python -m packs.bash.runtime.local --file example.sh
 ```
 
-The selected artifact contains float32 inference weights, not optimizer/RNG or
-resume state. Full checkpoints remain under ignored `artifacts/bash`; source,
-Gold and immutable snapshots remain external under
-`~/Datasets/neural-semantic-highlighting/bash`. The repository stays private.
-The Playground uses the same persistent local-process bridge as existing packs;
-`NSH_BASH_CHECKPOINT` can select a configuration-compatible development candidate.
+This is a float32 inference export, without optimizer or resumable state. Full
+checkpoints stay under `artifacts/bash`; immutable source, Gold and prepared
+snapshots stay external under `~/Datasets/neural-semantic-highlighting/bash`.
+The previous formal bundle is preserved at `../model-20261108-e16`, with its
+original semantic contract. The repository remains private. Playground uses the
+same persistent local-process bridge, including explicit function/Here Document
+examples; `NSH_BASH_CHECKPOINT` can select a compatible development candidate.

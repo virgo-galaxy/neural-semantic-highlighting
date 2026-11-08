@@ -1,0 +1,234 @@
+{
+  "purpose": "first evaluation of new, frozen Here Document holdout task families after candidate selection; previous corpus test is already known",
+  "checkpointHash": "a48d62548a33cd6d97ce0d240dd1bdd780de99fd52fbb0e3416a81ebf456b3ac",
+  "epoch": 20,
+  "families": [
+    "shell-heredoc-fragments-v2:number-lines",
+    "shell-heredoc-fragments-v2:repeat-input",
+    "shell-heredocs-v2:query-input"
+  ],
+  "results": {
+    "previous-e16": {
+      "checkpointHash": "c00f3b0a8b45d33c9cf219ff32c39dae9508897a065b37de20f7b44242283c11",
+      "metrics": {
+        "documents": 216,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.43976755143709756,
+          "recall": 0.8888888888888888,
+          "f1": 0.588420720815383,
+          "tp": 2800,
+          "fp": 3567,
+          "fn": 350,
+          "support": 3150
+        },
+        "exactSpanMacroF1": 0.5802736822720304,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.420606250981624,
+          "recall": 0.8501587301587301,
+          "f1": 0.5627823894084271,
+          "tp": 2678,
+          "fp": 3689,
+          "fn": 472,
+          "support": 3150
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.7201946472019465,
+            "recall": 1.0,
+            "f1": 0.8373408769448374,
+            "tp": 592,
+            "fp": 230,
+            "fn": 0,
+            "support": 592
+          },
+          "comment": {
+            "precision": 0.16666666666666666,
+            "recall": 1.0,
+            "f1": 0.2857142857142857,
+            "tp": 12,
+            "fp": 60,
+            "fn": 0,
+            "support": 12
+          },
+          "string": {
+            "precision": 0.2680722891566265,
+            "recall": 0.712,
+            "f1": 0.38949671772428884,
+            "tp": 534,
+            "fp": 1458,
+            "fn": 216,
+            "support": 750
+          },
+          "number": {
+            "precision": 0.3582089552238806,
+            "recall": 1.0,
+            "f1": 0.5274725274725275,
+            "tp": 72,
+            "fp": 129,
+            "fn": 0,
+            "support": 72
+          },
+          "operator": {
+            "precision": 0.2596599690880989,
+            "recall": 0.9032258064516129,
+            "f1": 0.40336134453781514,
+            "tp": 168,
+            "fp": 479,
+            "fn": 18,
+            "support": 186
+          },
+          "punctuation": {
+            "precision": 0.5554335894621295,
+            "recall": 0.98828125,
+            "f1": 0.7111735769501054,
+            "tp": 506,
+            "fp": 405,
+            "fn": 6,
+            "support": 512
+          },
+          "function": {
+            "precision": 0.6234132581100141,
+            "recall": 0.8007246376811594,
+            "f1": 0.7010309278350515,
+            "tp": 442,
+            "fp": 267,
+            "fn": 110,
+            "support": 552
+          },
+          "variable": {
+            "precision": 0.4089121887287025,
+            "recall": 1.0,
+            "f1": 0.5804651162790697,
+            "tp": 312,
+            "fp": 451,
+            "fn": 0,
+            "support": 312
+          },
+          "parameter": {
+            "precision": 0.648,
+            "recall": 1.0,
+            "f1": 0.7864077669902912,
+            "tp": 162,
+            "fp": 88,
+            "fn": 0,
+            "support": 162
+          }
+        }
+      },
+      "nonWhitespaceGoldStringRoleAccuracy": 0.6473299427844882,
+      "goldStringCharacters": 18876
+    },
+    "selected-e20": {
+      "checkpointHash": "a48d62548a33cd6d97ce0d240dd1bdd780de99fd52fbb0e3416a81ebf456b3ac",
+      "metrics": {
+        "documents": 216,
+        "exactDocumentsIncludingModifiers": 108,
+        "exactSpan": {
+          "precision": 0.9667300380228137,
+          "recall": 0.9685714285714285,
+          "f1": 0.9676498572787822,
+          "tp": 3051,
+          "fp": 105,
+          "fn": 99,
+          "support": 3150
+        },
+        "exactSpanMacroF1": 0.9725513988037093,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9562737642585551,
+          "recall": 0.9580952380952381,
+          "f1": 0.9571836346336822,
+          "tp": 3018,
+          "fp": 138,
+          "fn": 132,
+          "support": 3150
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.891566265060241,
+            "recall": 1.0,
+            "f1": 0.9426751592356688,
+            "tp": 592,
+            "fp": 72,
+            "fn": 0,
+            "support": 592
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "string": {
+            "precision": 0.9841269841269841,
+            "recall": 0.992,
+            "f1": 0.9880478087649402,
+            "tp": 744,
+            "fp": 12,
+            "fn": 6,
+            "support": 750
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 72,
+            "fp": 0,
+            "fn": 0,
+            "support": 72
+          },
+          "operator": {
+            "precision": 0.9661016949152542,
+            "recall": 0.9193548387096774,
+            "f1": 0.9421487603305785,
+            "tp": 171,
+            "fp": 6,
+            "fn": 15,
+            "support": 186
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.98828125,
+            "f1": 0.9941060903732809,
+            "tp": 506,
+            "fp": 0,
+            "fn": 6,
+            "support": 512
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 0.8695652173913043,
+            "f1": 0.9302325581395349,
+            "tp": 480,
+            "fp": 0,
+            "fn": 72,
+            "support": 552
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 312,
+            "fp": 0,
+            "fn": 0,
+            "support": 312
+          },
+          "parameter": {
+            "precision": 0.9152542372881356,
+            "recall": 1.0,
+            "f1": 0.9557522123893806,
+            "tp": 162,
+            "fp": 15,
+            "fn": 0,
+            "support": 162
+          }
+        }
+      },
+      "nonWhitespaceGoldStringRoleAccuracy": 1.0,
+      "goldStringCharacters": 18876
+    }
+  }
+}
