@@ -8,6 +8,7 @@ import { createLocalProcessPack, type LocalProcessPack } from "@nsh/local";
 import type { Plugin } from "vite";
 
 import { createCompositeHtmlPack } from "../../../packs/html/runtime/composite";
+import { createCompositeVuePack } from "../../../packs/vue/runtime/composite";
 
 const LOCAL_PREFIX = "/__nsh/local";
 const REPOSITORY_ROOT = fileURLToPath(new URL("../../..", import.meta.url));
@@ -16,11 +17,13 @@ const TYPESCRIPT_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/typescript/manifes
 const GO_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/go/manifest.json");
 const CSS_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/css/manifest.json");
 const HTML_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/html/manifest.json");
+const VUE_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/vue/manifest.json");
 
 const typescriptManifest = readManifest(TYPESCRIPT_MANIFEST_PATH);
 const goManifest = readManifest(GO_MANIFEST_PATH);
 const cssManifest = readManifest(CSS_MANIFEST_PATH);
 const htmlManifest = readManifest(HTML_MANIFEST_PATH);
+const vueManifest = readManifest(VUE_MANIFEST_PATH);
 const manifest: PackManifest = {
   id: "playground-local",
   documentKinds: [
@@ -28,6 +31,7 @@ const manifest: PackManifest = {
     ...goManifest.documentKinds,
     ...cssManifest.documentKinds,
     ...htmlManifest.documentKinds,
+    ...vueManifest.documentKinds,
   ],
 };
 const goDocumentKinds = new Set(goManifest.documentKinds.map((item) => item.id));
@@ -47,8 +51,18 @@ export function localSemanticProviderPlugin(): Plugin {
   let cssPack: LocalProcessPack | undefined;
   let htmlBasePack: LocalProcessPack | undefined;
   let htmlPack: SemanticPack | undefined;
+  let vueBasePack: LocalProcessPack | undefined;
+  let vuePack: SemanticPack | undefined;
 
   const getPack = (documentKind: string): SemanticPack => {
+    if (documentKind === "vue") {
+      vueBasePack ??= createVuePack();
+      vuePack ??= createCompositeVuePack({
+        base: vueBasePack,
+        highlightEmbedded: (request) => getPack(request.documentKind).highlight(request),
+      });
+      return vuePack;
+    }
     if (documentKind === "html") {
       htmlBasePack ??= createHtmlPack();
       htmlPack ??= createCompositeHtmlPack({
@@ -117,7 +131,7 @@ export function localSemanticProviderPlugin(): Plugin {
       });
 
       server.httpServer?.once("close", () => {
-        const activePacks = [typescriptPack, goPack, cssPack, htmlBasePack].filter(
+        const activePacks = [typescriptPack, goPack, cssPack, htmlBasePack, vueBasePack].filter(
           (pack): pack is LocalProcessPack => pack !== undefined,
         );
         typescriptPack = undefined;
@@ -125,6 +139,8 @@ export function localSemanticProviderPlugin(): Plugin {
         cssPack = undefined;
         htmlBasePack = undefined;
         htmlPack = undefined;
+        vueBasePack = undefined;
+        vuePack = undefined;
 
         for (const pack of activePacks) {
           void pack.close();
@@ -199,6 +215,24 @@ function createHtmlPack(): LocalProcessPack {
   }
   return createLocalProcessPack({
     manifest: htmlManifest,
+    command: PYTHON_PATH,
+    args,
+    cwd: REPOSITORY_ROOT,
+  });
+}
+
+function createVuePack(): LocalProcessPack {
+  const args = ["-m", "packs.vue.runtime.local", "--stdio", "--device", "auto"];
+  const configuredPath = process.env.NSH_VUE_CHECKPOINT;
+  if (configuredPath) {
+    const checkpointPath = resolve(REPOSITORY_ROOT, configuredPath);
+    if (!existsSync(checkpointPath)) {
+      throw new Error(`Vue checkpoint does not exist: ${checkpointPath}`);
+    }
+    args.push("--checkpoint", checkpointPath);
+  }
+  return createLocalProcessPack({
+    manifest: vueManifest,
     command: PYTHON_PATH,
     args,
     cwd: REPOSITORY_ROOT,

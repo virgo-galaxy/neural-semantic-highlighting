@@ -58,6 +58,8 @@ HTTP is not part of the core protocol.
 | `training/css`                           | CSS-family preparation, short resumable training and per-kind evaluation                        |
 | `packs/html`                             | Modern HTML contract, offline Gold, fixtures, base model and embedded JS/CSS composition        |
 | `training/html`                          | HTML data preparation, short training, base/body and composed evaluation                        |
+| `packs/vue`                              | Vue 2/3/3.2 SFC contract, Gold, base model and existing child-pack composition                  |
+| `training/vue`                           | Versioned data preparation, short training, profile/feature and composed evaluation             |
 | `artifacts`                              | Local experimental checkpoints and reports; not a runtime package                               |
 
 The repository root is a private workspace coordinator, not a library entry point. All workspace packages remain private until distribution and licensing are reviewed. Package names are local workspace identifiers and do not imply npm publication or reservation.
@@ -84,7 +86,7 @@ No global installation or `npm link` / `pnpm link` is required. Local workspace 
 
 ## Playground
 
-The Playground runs the selected TypeScript-family, Go, CSS-family and HTML neural models through the normal NSH contracts.
+The Playground runs the selected TypeScript-family, Go, CSS-family, HTML and Vue neural models through the normal NSH contracts.
 
 ```text
 Browser Playground
@@ -99,7 +101,8 @@ selected pack model
   ├─ packs/typescript/model/model.pt
   ├─ packs/go/model/model.pt
   ├─ packs/css/model/model.pt
-  └─ packs/html/model/model.pt → existing JS/CSS packs inside predicted bodies
+  ├─ packs/html/model/model.pt → existing JS/CSS packs inside predicted bodies
+  └─ packs/vue/model/model.pt → existing JS/TS/JSX/TSX and CSS/SCSS/Less packs
   ↓
 HighlightResult
   ↓
@@ -114,7 +117,7 @@ The local model process is started lazily and kept alive. Model initialization i
 
 The Playground currently includes:
 
-- TypeScript, JavaScript, Go, CSS, SCSS, Less and HTML source examples discovered from real files;
+- TypeScript, JavaScript, Go, CSS, SCSS, Less, HTML and Vue source examples discovered from real files;
 - editable and highlighted presentation states;
 - highlighting when the code block leaves editing focus;
 - preserved native undo/redo history across presentation-state changes;
@@ -348,3 +351,14 @@ Tailwind classes and inline style/event attributes remain strings. See
 [training/html](training/html/README.md) for data, short runs and continuation.
 Normal startup needs no HTML override; `NSH_HTML_CHECKPOINT` can select an
 experimental full checkpoint. Existing language models remain unchanged.
+
+The [Vue pack](packs/vue/README.md) adds one `.vue` entry covering Vue 2,
+Vue 3 Options/Composition API and Vue 3.2 script setup. Its 894,485-parameter
+markup/region model reuses the HTML model implementation and a full HTML training
+checkpoint for weights-only initialization. Embedded code reuses existing
+JS/TS/JSX/TSX and CSS/SCSS/Less neural packs. Mustache expressions are composed;
+directive values and Tailwind classes remain whole strings initially. See the
+[versioned model report](packs/vue/model/README.md) and
+[known issues](packs/vue/model/KNOWN_ISSUES.md). Training data stays external under
+`NSH_DATASET_ROOT/vue`; full checkpoints stay in `artifacts/vue`. Start normally
+with `pnpm dev`, or set `NSH_VUE_CHECKPOINT` for an experimental checkpoint.

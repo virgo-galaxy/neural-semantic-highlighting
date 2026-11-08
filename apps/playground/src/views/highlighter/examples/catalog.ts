@@ -5,6 +5,7 @@ import javascriptIcon from "@/assets/document-kinds/javascript.svg";
 import lessIcon from "@/assets/document-kinds/less.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
 import typescriptIcon from "@/assets/document-kinds/typescript.svg";
+import vueIcon from "@/assets/document-kinds/vue.svg";
 import type { HighlighterExample, HighlighterLanguage } from "@/views/highlighter/examples/types";
 
 const sources = import.meta.glob("./*/*", {
@@ -42,6 +43,10 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
     label: "HTML",
     icon: htmlIcon,
   },
+  vue: {
+    label: "Vue",
+    icon: vueIcon,
+  },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -61,6 +66,7 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".less", "less"],
   [".html", "html"],
   [".htm", "html"],
+  [".vue", "vue"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {
