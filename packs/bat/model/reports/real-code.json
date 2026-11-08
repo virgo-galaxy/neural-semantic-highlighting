@@ -1,0 +1,1471 @@
+{
+  "checkpointHash": "8e626d938158bd7be1dc5048b9afbb8e77da1b4f49a23ddf71571dfd37b72afb",
+  "epoch": 3,
+  "scope": "natural validation development diagnosis; not test",
+  "documents": [
+    {
+      "path": "scripts/code-web.bat",
+      "characters": 322,
+      "correct": 264,
+      "accuracy": 0.8198757763975155
+    },
+    {
+      "path": "scripts/code.bat",
+      "characters": 760,
+      "correct": 632,
+      "accuracy": 0.8315789473684211
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "characters": 799,
+      "correct": 623,
+      "accuracy": 0.7797246558197747
+    },
+    {
+      "path": "scripts/code-server.bat",
+      "characters": 439,
+      "correct": 359,
+      "accuracy": 0.8177676537585421
+    }
+  ],
+  "characterTypeConfusions": {
+    "comment -> string": 221,
+    "string -> parameter": 74,
+    "string -> variable": 41,
+    "function -> string": 24,
+    "function -> keyword": 16,
+    "comment -> function": 10,
+    "keyword -> variable": 8,
+    "keyword -> string": 8,
+    "keyword -> parameter": 6,
+    "comment -> keyword": 6,
+    "variable -> string": 5,
+    "comment -> punctuation": 4,
+    "comment -> variable": 4,
+    "parameter -> number": 4,
+    "string -> function": 3,
+    "variable -> operator": 3,
+    "operator -> punctuation": 2,
+    "punctuation -> comment": 1,
+    "punctuation -> operator": 1,
+    "string -> comment": 1
+  },
+  "errors": [
+    {
+      "path": "scripts/code-web.bat",
+      "expected": {
+        "start": 33,
+        "end": 36,
+        "type": "string",
+        "text": "Web"
+      },
+      "overlaps": [
+        {
+          "start": 33,
+          "end": 36,
+          "tokenType": "function",
+          "text": "Web"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-web.bat",
+      "expected": {
+        "start": 65,
+        "end": 92,
+        "type": "comment",
+        "text": ":: Sync built-in extensions"
+      },
+      "overlaps": [
+        {
+          "start": 65,
+          "end": 68,
+          "tokenType": "comment",
+          "text": ":: "
+        },
+        {
+          "start": 68,
+          "end": 72,
+          "tokenType": "string",
+          "text": "Sync"
+        },
+        {
+          "start": 73,
+          "end": 81,
+          "tokenType": "string",
+          "text": "built-in"
+        },
+        {
+          "start": 82,
+          "end": 92,
+          "tokenType": "string",
+          "text": "extensions"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-web.bat",
+      "expected": {
+        "start": 158,
+        "end": 160,
+        "type": "keyword",
+        "text": "/F"
+      },
+      "overlaps": [
+        {
+          "start": 158,
+          "end": 160,
+          "tokenType": "parameter",
+          "text": "/F"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-web.bat",
+      "expected": {
+        "start": 180,
+        "end": 204,
+        "type": "string",
+        "text": "'node build/lib/node.js'"
+      },
+      "overlaps": [
+        {
+          "start": 180,
+          "end": 185,
+          "tokenType": "string",
+          "text": "'node"
+        },
+        {
+          "start": 186,
+          "end": 204,
+          "tokenType": "string",
+          "text": "build/lib/node.js'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-web.bat",
+      "expected": {
+        "start": 210,
+        "end": 213,
+        "type": "keyword",
+        "text": "SET"
+      },
+      "overlaps": [
+        {
+          "start": 210,
+          "end": 213,
+          "tokenType": "variable",
+          "text": "SET"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-web.bat",
+      "expected": {
+        "start": 219,
+        "end": 222,
+        "type": "variable",
+        "text": "%%g"
+      },
+      "overlaps": [
+        {
+          "start": 219,
+          "end": 220,
+          "tokenType": "variable",
+          "text": "%"
+        },
+        {
+          "start": 220,
+          "end": 222,
+          "tokenType": "variable",
+          "text": "%g"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-web.bat",
+      "expected": {
+        "start": 239,
+        "end": 245,
+        "type": "variable",
+        "text": "%NODE%"
+      },
+      "overlaps": [
+        {
+          "start": 239,
+          "end": 246,
+          "tokenType": "variable",
+          "text": "%NODE%\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-web.bat",
+      "expected": {
+        "start": 245,
+        "end": 246,
+        "type": "string",
+        "text": "\""
+      },
+      "overlaps": [
+        {
+          "start": 239,
+          "end": 246,
+          "tokenType": "variable",
+          "text": "%NODE%\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-web.bat",
+      "expected": {
+        "start": 250,
+        "end": 290,
+        "type": "comment",
+        "text": ":: Download nodejs executable for remote"
+      },
+      "overlaps": [
+        {
+          "start": 250,
+          "end": 253,
+          "tokenType": "comment",
+          "text": ":: "
+        },
+        {
+          "start": 253,
+          "end": 261,
+          "tokenType": "string",
+          "text": "Download"
+        },
+        {
+          "start": 262,
+          "end": 268,
+          "tokenType": "string",
+          "text": "nodejs"
+        },
+        {
+          "start": 269,
+          "end": 290,
+          "tokenType": "comment",
+          "text": "executable for remote"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-web.bat",
+      "expected": {
+        "start": 315,
+        "end": 316,
+        "type": "punctuation",
+        "text": ")"
+      },
+      "overlaps": [
+        {
+          "start": 315,
+          "end": 316,
+          "tokenType": "comment",
+          "text": ")"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-web.bat",
+      "expected": {
+        "start": 318,
+        "end": 334,
+        "type": "comment",
+        "text": ":: Launch Server"
+      },
+      "overlaps": [
+        {
+          "start": 318,
+          "end": 320,
+          "tokenType": "comment",
+          "text": "::"
+        },
+        {
+          "start": 321,
+          "end": 327,
+          "tokenType": "function",
+          "text": "Launch"
+        },
+        {
+          "start": 328,
+          "end": 334,
+          "tokenType": "string",
+          "text": "Server"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 54,
+        "end": 99,
+        "type": "comment",
+        "text": ":: Get electron, compile, built-in extensions"
+      },
+      "overlaps": [
+        {
+          "start": 54,
+          "end": 57,
+          "tokenType": "comment",
+          "text": ":: "
+        },
+        {
+          "start": 57,
+          "end": 60,
+          "tokenType": "string",
+          "text": "Get"
+        },
+        {
+          "start": 61,
+          "end": 70,
+          "tokenType": "string",
+          "text": "electron,"
+        },
+        {
+          "start": 71,
+          "end": 79,
+          "tokenType": "string",
+          "text": "compile,"
+        },
+        {
+          "start": 80,
+          "end": 88,
+          "tokenType": "string",
+          "text": "built-in"
+        },
+        {
+          "start": 89,
+          "end": 99,
+          "tokenType": "string",
+          "text": "extensions"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 166,
+        "end": 168,
+        "type": "keyword",
+        "text": "/f"
+      },
+      "overlaps": [
+        {
+          "start": 166,
+          "end": 168,
+          "tokenType": "parameter",
+          "text": "/f"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 198,
+        "end": 245,
+        "type": "string",
+        "text": "'findstr /R /C:\"\\\"nameShort\\\":.*\" product.json'"
+      },
+      "overlaps": [
+        {
+          "start": 198,
+          "end": 206,
+          "tokenType": "string",
+          "text": "'findstr"
+        },
+        {
+          "start": 207,
+          "end": 209,
+          "tokenType": "string",
+          "text": "/R"
+        },
+        {
+          "start": 210,
+          "end": 231,
+          "tokenType": "string",
+          "text": "/C:\"\\\"nameShort\\\":.*\""
+        },
+        {
+          "start": 232,
+          "end": 245,
+          "tokenType": "string",
+          "text": "product.json'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 283,
+        "end": 298,
+        "type": "variable",
+        "text": "%NAMESHORT: \"=%"
+      },
+      "overlaps": [
+        {
+          "start": 283,
+          "end": 294,
+          "tokenType": "variable",
+          "text": "%NAMESHORT:"
+        },
+        {
+          "start": 295,
+          "end": 297,
+          "tokenType": "string",
+          "text": "\"="
+        },
+        {
+          "start": 297,
+          "end": 298,
+          "tokenType": "variable",
+          "text": "%"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 313,
+        "end": 327,
+        "type": "variable",
+        "text": "%NAMESHORT:\"=%"
+      },
+      "overlaps": [
+        {
+          "start": 313,
+          "end": 324,
+          "tokenType": "variable",
+          "text": "%NAMESHORT:"
+        },
+        {
+          "start": 324,
+          "end": 325,
+          "tokenType": "string",
+          "text": "\""
+        },
+        {
+          "start": 325,
+          "end": 326,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 326,
+          "end": 327,
+          "tokenType": "variable",
+          "text": "%"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 358,
+        "end": 369,
+        "type": "variable",
+        "text": "%NAMESHORT%"
+      },
+      "overlaps": [
+        {
+          "start": 358,
+          "end": 370,
+          "tokenType": "variable",
+          "text": "%NAMESHORT%\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 369,
+        "end": 370,
+        "type": "string",
+        "text": "\""
+      },
+      "overlaps": [
+        {
+          "start": 358,
+          "end": 370,
+          "tokenType": "variable",
+          "text": "%NAMESHORT%\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 372,
+        "end": 401,
+        "type": "comment",
+        "text": ":: Manage built-in extensions"
+      },
+      "overlaps": [
+        {
+          "start": 372,
+          "end": 374,
+          "tokenType": "comment",
+          "text": "::"
+        },
+        {
+          "start": 375,
+          "end": 381,
+          "tokenType": "string",
+          "text": "Manage"
+        },
+        {
+          "start": 382,
+          "end": 401,
+          "tokenType": "string",
+          "text": "built-in extensions"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 424,
+        "end": 428,
+        "type": "keyword",
+        "text": "goto"
+      },
+      "overlaps": [
+        {
+          "start": 424,
+          "end": 428,
+          "tokenType": "string",
+          "text": "goto"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 429,
+        "end": 436,
+        "type": "function",
+        "text": "builtin"
+      },
+      "overlaps": [
+        {
+          "start": 429,
+          "end": 436,
+          "tokenType": "string",
+          "text": "builtin"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 468,
+        "end": 479,
+        "type": "string",
+        "text": "development"
+      },
+      "overlaps": [
+        {
+          "start": 468,
+          "end": 479,
+          "tokenType": "variable",
+          "text": "development"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 511,
+        "end": 512,
+        "type": "punctuation",
+        "text": "="
+      },
+      "overlaps": [
+        {
+          "start": 511,
+          "end": 512,
+          "tokenType": "operator",
+          "text": "="
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 608,
+        "end": 653,
+        "type": "string",
+        "text": "\"--disable-extension=vscode.vscode-api-tests\""
+      },
+      "overlaps": [
+        {
+          "start": 608,
+          "end": 629,
+          "tokenType": "parameter",
+          "text": "\"--disable-extension="
+        },
+        {
+          "start": 629,
+          "end": 653,
+          "tokenType": "string",
+          "text": "vscode.vscode-api-tests\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 680,
+        "end": 684,
+        "type": "variable",
+        "text": "%%~A"
+      },
+      "overlaps": [
+        {
+          "start": 680,
+          "end": 681,
+          "tokenType": "variable",
+          "text": "%"
+        },
+        {
+          "start": 681,
+          "end": 685,
+          "tokenType": "variable",
+          "text": "%~A\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 684,
+        "end": 685,
+        "type": "string",
+        "text": "\""
+      },
+      "overlaps": [
+        {
+          "start": 681,
+          "end": 685,
+          "tokenType": "variable",
+          "text": "%~A\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 772,
+        "end": 773,
+        "type": "string",
+        "text": "."
+      },
+      "overlaps": [
+        {
+          "start": 772,
+          "end": 773,
+          "tokenType": "comment",
+          "text": "."
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 807,
+        "end": 810,
+        "type": "function",
+        "text": "end"
+      },
+      "overlaps": [
+        {
+          "start": 807,
+          "end": 810,
+          "tokenType": "keyword",
+          "text": "end"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 813,
+        "end": 820,
+        "type": "function",
+        "text": "builtin"
+      },
+      "overlaps": [
+        {
+          "start": 813,
+          "end": 820,
+          "tokenType": "keyword",
+          "text": "builtin"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code.bat",
+      "expected": {
+        "start": 844,
+        "end": 847,
+        "type": "function",
+        "text": "end"
+      },
+      "overlaps": [
+        {
+          "start": 844,
+          "end": 847,
+          "tokenType": "keyword",
+          "text": "end"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 44,
+        "end": 49,
+        "type": "variable",
+        "text": "%~dp0"
+      },
+      "overlaps": [
+        {
+          "start": 44,
+          "end": 51,
+          "tokenType": "variable",
+          "text": "%~dp0.."
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 49,
+        "end": 51,
+        "type": "string",
+        "text": ".."
+      },
+      "overlaps": [
+        {
+          "start": 44,
+          "end": 51,
+          "tokenType": "variable",
+          "text": "%~dp0.."
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 53,
+        "end": 98,
+        "type": "comment",
+        "text": ":: Get electron, compile, built-in extensions"
+      },
+      "overlaps": [
+        {
+          "start": 53,
+          "end": 54,
+          "tokenType": "punctuation",
+          "text": ":"
+        },
+        {
+          "start": 54,
+          "end": 55,
+          "tokenType": "punctuation",
+          "text": ":"
+        },
+        {
+          "start": 56,
+          "end": 59,
+          "tokenType": "string",
+          "text": "Get"
+        },
+        {
+          "start": 60,
+          "end": 69,
+          "tokenType": "string",
+          "text": "electron,"
+        },
+        {
+          "start": 70,
+          "end": 78,
+          "tokenType": "string",
+          "text": "compile,"
+        },
+        {
+          "start": 79,
+          "end": 87,
+          "tokenType": "string",
+          "text": "built-in"
+        },
+        {
+          "start": 88,
+          "end": 98,
+          "tokenType": "string",
+          "text": "extensions"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 168,
+        "end": 188,
+        "type": "string",
+        "text": "\"tokens=2 delims=:,\""
+      },
+      "overlaps": [
+        {
+          "start": 168,
+          "end": 177,
+          "tokenType": "string",
+          "text": "\"tokens=2"
+        },
+        {
+          "start": 178,
+          "end": 188,
+          "tokenType": "string",
+          "text": "delims=:,\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 197,
+        "end": 244,
+        "type": "string",
+        "text": "'findstr /R /C:\"\\\"nameShort\\\":.*\" product.json'"
+      },
+      "overlaps": [
+        {
+          "start": 197,
+          "end": 205,
+          "tokenType": "string",
+          "text": "'findstr"
+        },
+        {
+          "start": 206,
+          "end": 208,
+          "tokenType": "string",
+          "text": "/R"
+        },
+        {
+          "start": 209,
+          "end": 230,
+          "tokenType": "string",
+          "text": "/C:\"\\\"nameShort\\\":.*\""
+        },
+        {
+          "start": 231,
+          "end": 244,
+          "tokenType": "string",
+          "text": "product.json'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 282,
+        "end": 297,
+        "type": "variable",
+        "text": "%NAMESHORT: \"=%"
+      },
+      "overlaps": [
+        {
+          "start": 282,
+          "end": 293,
+          "tokenType": "variable",
+          "text": "%NAMESHORT:"
+        },
+        {
+          "start": 294,
+          "end": 295,
+          "tokenType": "string",
+          "text": "\""
+        },
+        {
+          "start": 295,
+          "end": 296,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 296,
+          "end": 297,
+          "tokenType": "variable",
+          "text": "%"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 312,
+        "end": 326,
+        "type": "variable",
+        "text": "%NAMESHORT:\"=%"
+      },
+      "overlaps": [
+        {
+          "start": 312,
+          "end": 323,
+          "tokenType": "variable",
+          "text": "%NAMESHORT:"
+        },
+        {
+          "start": 323,
+          "end": 324,
+          "tokenType": "string",
+          "text": "\""
+        },
+        {
+          "start": 324,
+          "end": 325,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 325,
+          "end": 326,
+          "tokenType": "variable",
+          "text": "%"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 371,
+        "end": 400,
+        "type": "comment",
+        "text": ":: Manage built-in extensions"
+      },
+      "overlaps": [
+        {
+          "start": 371,
+          "end": 373,
+          "tokenType": "comment",
+          "text": "::"
+        },
+        {
+          "start": 374,
+          "end": 380,
+          "tokenType": "string",
+          "text": "Manage"
+        },
+        {
+          "start": 381,
+          "end": 389,
+          "tokenType": "string",
+          "text": "built-in"
+        },
+        {
+          "start": 390,
+          "end": 400,
+          "tokenType": "string",
+          "text": "extensions"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 411,
+        "end": 422,
+        "type": "string",
+        "text": "\"--builtin\""
+      },
+      "overlaps": [
+        {
+          "start": 411,
+          "end": 422,
+          "tokenType": "parameter",
+          "text": "\"--builtin\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 423,
+        "end": 427,
+        "type": "keyword",
+        "text": "goto"
+      },
+      "overlaps": [
+        {
+          "start": 423,
+          "end": 427,
+          "tokenType": "string",
+          "text": "goto"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 428,
+        "end": 435,
+        "type": "function",
+        "text": "builtin"
+      },
+      "overlaps": [
+        {
+          "start": 428,
+          "end": 435,
+          "tokenType": "string",
+          "text": "builtin"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 494,
+        "end": 505,
+        "type": "string",
+        "text": "development"
+      },
+      "overlaps": [
+        {
+          "start": 494,
+          "end": 505,
+          "tokenType": "variable",
+          "text": "development"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 617,
+        "end": 662,
+        "type": "string",
+        "text": "\"--disable-extension=vscode.vscode-api-tests\""
+      },
+      "overlaps": [
+        {
+          "start": 617,
+          "end": 638,
+          "tokenType": "parameter",
+          "text": "\"--disable-extension="
+        },
+        {
+          "start": 638,
+          "end": 662,
+          "tokenType": "string",
+          "text": "vscode.vscode-api-tests\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 689,
+        "end": 693,
+        "type": "variable",
+        "text": "%%~A"
+      },
+      "overlaps": [
+        {
+          "start": 689,
+          "end": 694,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "%%~A\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 693,
+        "end": 694,
+        "type": "string",
+        "text": "\""
+      },
+      "overlaps": [
+        {
+          "start": 689,
+          "end": 694,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "%%~A\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 696,
+        "end": 718,
+        "type": "string",
+        "text": "\"--extensionTestsPath\""
+      },
+      "overlaps": [
+        {
+          "start": 696,
+          "end": 697,
+          "tokenType": "string",
+          "text": "\""
+        },
+        {
+          "start": 697,
+          "end": 718,
+          "tokenType": "parameter",
+          "text": "--extensionTestsPath\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 759,
+        "end": 773,
+        "type": "comment",
+        "text": ":: Launch Code"
+      },
+      "overlaps": [
+        {
+          "start": 759,
+          "end": 760,
+          "tokenType": "punctuation",
+          "text": ":"
+        },
+        {
+          "start": 760,
+          "end": 761,
+          "tokenType": "comment",
+          "text": ":"
+        },
+        {
+          "start": 762,
+          "end": 768,
+          "tokenType": "keyword",
+          "text": "Launch"
+        },
+        {
+          "start": 769,
+          "end": 773,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "Code"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 781,
+        "end": 795,
+        "type": "parameter",
+        "text": "--inspect=5874"
+      },
+      "overlaps": [
+        {
+          "start": 781,
+          "end": 791,
+          "tokenType": "parameter",
+          "text": "--inspect="
+        },
+        {
+          "start": 791,
+          "end": 795,
+          "tokenType": "number",
+          "text": "5874"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 807,
+        "end": 812,
+        "type": "variable",
+        "text": "%~dp0"
+      },
+      "overlaps": [
+        {
+          "start": 807,
+          "end": 814,
+          "tokenType": "variable",
+          "text": "%~dp0.."
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-cli.bat",
+      "expected": {
+        "start": 812,
+        "end": 814,
+        "type": "string",
+        "text": ".."
+      },
+      "overlaps": [
+        {
+          "start": 807,
+          "end": 814,
+          "tokenType": "variable",
+          "text": "%~dp0.."
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-server.bat",
+      "expected": {
+        "start": 81,
+        "end": 97,
+        "type": "comment",
+        "text": ":: Configuration"
+      },
+      "overlaps": [
+        {
+          "start": 81,
+          "end": 83,
+          "tokenType": "comment",
+          "text": "::"
+        },
+        {
+          "start": 84,
+          "end": 97,
+          "tokenType": "string",
+          "text": "Configuration"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-server.bat",
+      "expected": {
+        "start": 111,
+        "end": 122,
+        "type": "string",
+        "text": "development"
+      },
+      "overlaps": [
+        {
+          "start": 111,
+          "end": 122,
+          "tokenType": "variable",
+          "text": "development"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-server.bat",
+      "expected": {
+        "start": 141,
+        "end": 186,
+        "type": "comment",
+        "text": ":: Get electron, compile, built-in extensions"
+      },
+      "overlaps": [
+        {
+          "start": 141,
+          "end": 166,
+          "tokenType": "comment",
+          "text": ":: Get electron, compile,"
+        },
+        {
+          "start": 167,
+          "end": 175,
+          "tokenType": "string",
+          "text": "built-in"
+        },
+        {
+          "start": 176,
+          "end": 186,
+          "tokenType": "string",
+          "text": "extensions"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-server.bat",
+      "expected": {
+        "start": 215,
+        "end": 217,
+        "type": "operator",
+        "text": "=="
+      },
+      "overlaps": [
+        {
+          "start": 215,
+          "end": 217,
+          "tokenType": "punctuation",
+          "text": "=="
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-server.bat",
+      "expected": {
+        "start": 249,
+        "end": 267,
+        "type": "comment",
+        "text": ":: Node executable"
+      },
+      "overlaps": [
+        {
+          "start": 249,
+          "end": 251,
+          "tokenType": "comment",
+          "text": "::"
+        },
+        {
+          "start": 252,
+          "end": 256,
+          "tokenType": "function",
+          "text": "Node"
+        },
+        {
+          "start": 257,
+          "end": 267,
+          "tokenType": "comment",
+          "text": "executable"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-server.bat",
+      "expected": {
+        "start": 272,
+        "end": 274,
+        "type": "keyword",
+        "text": "/F"
+      },
+      "overlaps": [
+        {
+          "start": 272,
+          "end": 274,
+          "tokenType": "parameter",
+          "text": "/F"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-server.bat",
+      "expected": {
+        "start": 290,
+        "end": 292,
+        "type": "keyword",
+        "text": "IN"
+      },
+      "overlaps": [
+        {
+          "start": 290,
+          "end": 292,
+          "tokenType": "variable",
+          "text": "IN"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-server.bat",
+      "expected": {
+        "start": 294,
+        "end": 318,
+        "type": "string",
+        "text": "'node build/lib/node.js'"
+      },
+      "overlaps": [
+        {
+          "start": 294,
+          "end": 299,
+          "tokenType": "string",
+          "text": "'node"
+        },
+        {
+          "start": 300,
+          "end": 318,
+          "tokenType": "string",
+          "text": "build/lib/node.js'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-server.bat",
+      "expected": {
+        "start": 324,
+        "end": 327,
+        "type": "keyword",
+        "text": "SET"
+      },
+      "overlaps": [
+        {
+          "start": 324,
+          "end": 327,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "SET"
+        }
+      ]
+    },
+    {
+      "path": "scripts/code-server.bat",
+      "expected": {
+        "start": 364,
+        "end": 404,
+        "type": "comment",
+        "text": ":: Download nodejs executable for remote"
+      },
+      "overlaps": [
+        {
+          "start": 364,
+          "end": 365,
+          "tokenType": "punctuation",
+          "text": ":"
+        },
+        {
+          "start": 365,
+          "end": 366,
+          "tokenType": "comment",
+          "text": ":"
+        },
+        {
+          "start": 367,
+          "end": 375,
+          "tokenType": "string",
+          "text": "Download"
+        },
+        {
+          "start": 376,
+          "end": 382,
+          "tokenType": "string",
+          "text": "nodejs"
+        },
+        {
+          "start": 383,
+          "end": 394,
+          "tokenType": "string",
+          "text": "executable "
+        },
+        {
+          "start": 394,
+          "end": 397,
+          "tokenType": "comment",
+          "text": "for"
+        },
+        {
+          "start": 398,
+          "end": 404,
+          "tokenType": "comment",
+          "text": "remote"
+        }
+      ]
+    }
+  ]
+}
