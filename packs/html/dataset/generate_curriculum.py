@@ -37,9 +37,9 @@ document.querySelector("main").innerHTML = label{n};
         "javascript-strings": doctype + f'<main id=content>{title}</main><script type="module">\n{js}</script>',
         "css-strings": doctype + f'<style>\n{css}</style><article class="panel-{n}" data-size={n}>Card {n}</article>',
         "typed-data": doctype + f'<script type="application/ld+json">{data}</script><aside><p>{title}</p></aside><script>const result{n} = {n};</script>',
-        "import-map": doctype + f'<script type="importmap">{{"imports":{{"demo-{n}":"./demo-{n}.js"}}}}</script><script type=module>import "demo-{n}";</script><p>{title}</p>',
+        "import-map": doctype + f'<script type="importmap">{{"imports":{{"demo-{n}":"./demo-{n}.js"}}}}</script><script type="application/ld+json">{data}</script><script type=module>import "demo-{n}";</script><p>{title}</p>',
         "long-bodies": doctype + f'<style>\n{long_css}\n</style><main><h1>{title}</h1><p>Content remains markup.</p></main><script>\n{long_js}\n</script>',
-        "forms-and-dialog": doctype + f'<dialog id="panel-{n}" open><form method=dialog><label>Count <input type=number min=0 max={n} value={index}></label><button autofocus>Accept</button></form></dialog><details name=help><summary>Details {n}</summary><p>{title}</p></details>',
+        "forms-and-dialog": doctype + f'<dialog id="panel-{n}" open><form method=dialog><label>Count <input type=number min=0 max={n} value={index}></label><textarea name=notes><em>literal {n}</em> &gt; notes</textarea><button autofocus>Accept</button></form></dialog><details name=help><summary>Details {n}</summary><p>{title}</p></details>',
         "inline-code": doctype + f'<button class="md:hover:opacity-75" style="color: rgb(40, 50, {n})" onclick="console.log(&quot;item-{n}&quot;)">{title}</button><output for=result>Result {n}</output>',
         "long-attributes": doctype + '<section><div class="' + " ".join(["px-4 py-2 rounded-lg hover:bg-blue-500 md:grid-cols-2"] * (8 + index % 9)) + f'" data-key="{n}">{title}</div><p>After the quoted value</p></section>',
     }
@@ -49,7 +49,7 @@ document.querySelector("main").innerHTML = label{n};
 def generate(target: Path, variants: int = 24):
     if not 4 <= variants <= 128: raise ValueError("Use a bounded curriculum with 4..128 variants per family")
     identity = {"kind": "original-modern-html-curriculum", "generatorHash": digest(Path(__file__).read_bytes()),
-                "variantsPerFamily": variants, "version": 1}
+                "variantsPerFamily": variants, "version": 2}
     if target.exists():
         saved = json.loads((target / "source.lock.json").read_text())
         if saved["identity"] != identity: raise ValueError("Preserve the existing curriculum; choose a new output directory")
@@ -71,7 +71,7 @@ def generate(target: Path, variants: int = 24):
                 raw = source.encode()
                 path.write_bytes(raw)
                 files[relative] = digest(raw)
-        lock = {**identity, "identity": identity, "spec": {"name": "nsh-html-curriculum", "version": "1"},
+        lock = {**identity, "identity": identity, "spec": {"name": "nsh-html-curriculum", "version": "2"},
                 "integrity": "sha256:" + digest(json.dumps(identity, sort_keys=True).encode()), "files": dict(sorted(files.items()))}
         (staging / "source.lock.json").write_text(json.dumps(lock, indent=2) + "\n")
         staging.rename(target)
@@ -82,7 +82,7 @@ def generate(target: Path, variants: int = 24):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output", type=Path, default=Path(os.environ.get("NSH_DATASET_ROOT", "~/Datasets/neural-semantic-highlighting")).expanduser() / "html/sources/curriculum-v1")
+    parser.add_argument("--output", type=Path, default=Path(os.environ.get("NSH_DATASET_ROOT", "~/Datasets/neural-semantic-highlighting")).expanduser() / "html/sources/curriculum-v2")
     parser.add_argument("--variants", type=int, default=24)
     args = parser.parse_args()
     generate(args.output.expanduser().resolve(), args.variants)
