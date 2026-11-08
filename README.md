@@ -373,3 +373,13 @@ and long docstrings remain weaker areas. See the
 pinned CPython; inference needs only the existing PyTorch environment.
 `NSH_PYTHON_CHECKPOINT` can select a development checkpoint. Data stays external
 under `NSH_DATASET_ROOT/python`; full checkpoints stay in `artifacts/python`.
+
+The [Shell pack](packs/bash/README.md) adds one entry for POSIX sh, Bash, Zsh and
+Csh/Tcsh, with one 893,582-parameter model and separate offline coverage profiles.
+Inference needs no native shell or lexer. The
+[benchmark](packs/bash/model/BENCHMARKS.md) separates focused grammar from the small
+natural test: Bash 93.28%, POSIX 89.33%, Csh 87.43%, Zsh 71.55% exact-span F1.
+Complex expansion and name-role errors remain in the
+[measured limits](packs/bash/model/KNOWN_ISSUES.md). Data/checkpoints follow
+`NSH_DATASET_ROOT/bash` and `artifacts/bash`; `NSH_BASH_CHECKPOINT` selects a
+configuration-compatible development checkpoint. Git Bash shares Bash syntax.

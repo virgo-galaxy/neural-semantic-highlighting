@@ -21,4 +21,7 @@ test and reviewed export workflow. Selected `packs/bash/model/model.pt` is an
 inference-only bundle, never a resume checkpoint. Preserve existing formal
 models, data revisions and experiments. Repository stays private.
 
-No Shell model is selected yet.
+The [selected model](model/README.md) and four-profile Playground are available.
+Its natural test F1 is 84.20% overall (Bash 93.28%, POSIX 89.33%, Csh 87.43%, Zsh
+71.55%); small natural samples and complex-script limits remain explicit in the
+[benchmark](model/BENCHMARKS.md) and [known issues](model/KNOWN_ISSUES.md).
