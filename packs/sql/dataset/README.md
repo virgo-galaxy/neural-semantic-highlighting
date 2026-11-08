@@ -11,3 +11,9 @@ profiles. MySQL enable/disable siblings and version helpers are grouped; complet
 Oracle schema directories stay together. Exact/lexical/normalized-copy checks
 run before windows. Profiles count coverage, not independent projects. Golden
 and Playground are excluded. Preserve all old snapshots and full checkpoints.
+
+A separate original literal revision adds 960 short dollar-quoted/Oracle q-quoted
+boundary and PostgreSQL cast tasks, with mixed indentation, prefixes and CRLF.
+These were added after validation/display diagnosis, before any independent test.
+They never copy Golden or Playground sources. All 88 family assignments are now
+frozen; previous assignments and all earlier source/prepared snapshots remain.

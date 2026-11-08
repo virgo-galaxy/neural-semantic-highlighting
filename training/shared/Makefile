@@ -276,6 +276,7 @@ dataset-sql:
 
 dataset-sql-curriculum:
 	$(PYTHON) -m packs.sql.dataset.generate_curriculum
+	$(PYTHON) -m packs.sql.dataset.generate_literals
 
 dataset-sql-collect:
 	$(PYTHON) -m packs.sql.dataset.pipeline collect
