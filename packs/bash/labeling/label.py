@@ -151,6 +151,10 @@ def label(*,source,document_kind='bash',profile='bash'):
             else:role='string'
         else:raise ValueError('Unmapped Shell token '+str(kind))
         if role is None:raise ValueError('Missing Shell role')
+        if role=='keyword':
+            if text in {'if','elif','then','else','endif'}:features.add('conditionals')
+            if text in {'for','foreach','select','while','until'}:features.add('loops')
+            if text in {'case','switch','esac','endsw'}:features.add('branches')
         span={'start':units[a],'end':units[b],'tokenType':role}
         if mods:span['modifiers']=mods
         if output and role=='string' and output[-1]['tokenType']=='string' and output[-1]['end']==units[a]:output[-1]['end']=units[b]

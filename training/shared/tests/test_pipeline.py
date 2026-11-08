@@ -9,6 +9,7 @@ import unittest
 import torch
 from training.shared.encoding import Schema, encode, windows
 from training.shared.prepare import assign_groups
+from training.shared.prepare import training_feature_coverage
 from training.shared.spec import using, current
 from training.shared.checkpoints import load_checkpoint, save_checkpoint
 from training.shared.inference import decode
@@ -80,5 +81,18 @@ class PipelineTests(unittest.TestCase):
         with using('bash'):
             with self.assertRaises(ValueError):current().verify_config({})
         with using('python'):current().verify_config({})
+
+    def test_feature_coverage_cannot_be_supplied_by_a_holdout(self):
+        with using('bash'):
+            records=[];assignments={}
+            for profile in current().profiles:
+                for index in range(3):
+                    group=f'{profile}/{index}';assignments[group]='train'
+                    records.append({'profile':profile,'sourceGroup':group,'features':['loops','conditionals']})
+            coverage=training_feature_coverage(records,assignments)
+            self.assertEqual(len(coverage['csh']['loops']['sourceGroups']),3)
+            assignments['csh/0']='test'
+            with self.assertRaisesRegex(ValueError,'Insufficient independent training groups'):
+                training_feature_coverage(records,assignments)
 
 if __name__=='__main__':unittest.main()

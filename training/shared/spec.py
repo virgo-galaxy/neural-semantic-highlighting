@@ -45,6 +45,8 @@ class PackSpec:
     scope: str
     coalesce_types: tuple[str, ...] = ()
     modifier_roles: tuple[tuple[str, tuple[str, ...]], ...] = ()
+    required_training_features: tuple[tuple[str, tuple[str, ...]], ...] = ()
+    minimum_feature_groups: int = 1
 
     @classmethod
     def open(cls, pack_id: str):
@@ -63,7 +65,12 @@ class PackSpec:
         if (set(policy)-{'coalesceAdjacentTokenTypes','modifierRoles'} or len(set(coalesce))!=len(coalesce)
                 or not set(coalesce)<=roles or any(name not in mods or not values or len(set(values))!=len(values) or not set(values)<=roles for name,values in allowed)):
             raise ValueError('Invalid pack decoder policy')
-        return cls(pack_id,config['label'],root,kinds,profiles,config['scope'],coalesce,allowed)
+        required=tuple((profile,tuple(features)) for profile,features in config.get('requiredTrainingFeatures',{}).items())
+        minimum=config.get('minimumTrainingFeatureGroups',1)
+        if (type(minimum) is not int or minimum<1 or any(profile not in profiles or not features or len(set(features))!=len(features)
+                or any(not isinstance(feature,str) or not re.fullmatch(r'[a-z][a-z0-9-]*',feature) for feature in features) for profile,features in required)):
+            raise ValueError('Invalid training feature coverage requirements')
+        return cls(pack_id,config['label'],root,kinds,profiles,config['scope'],coalesce,allowed,required,minimum)
 
     def decoder(self):
         return {'coalesce_types':self.coalesce_types,'modifier_roles':dict(self.modifier_roles) or None}

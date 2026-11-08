@@ -34,3 +34,10 @@ program stays intact rather than splitting snippets across holdouts. Per-profile
 natural/focus reports must remain separate and must not imply broad project or
 version coverage from those few files. Valid ranges/complete Gold coverage do
 not prove the code runs under every shell version.
+
+Later original revisions add 1,024 short-position fragments within the existing
+frozen grammar families and 576 mixed-feature programs in independent task
+families. Existing holdouts never move into training. Mixed tasks combine loops,
+conditionals, commands and data so holding out a task does not hold out an entire
+common syntax. Preparation requires loops and conditionals in at least three
+independent training families for every coverage profile, before any training run.

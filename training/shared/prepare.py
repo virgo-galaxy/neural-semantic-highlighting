@@ -108,6 +108,21 @@ def assign_groups(weights: dict[str, Counter], seed: int) -> dict[str, str]:
     return {group: SPLITS[index] for group, index in assigned.items()}
 
 
+def training_feature_coverage(records, assignments):
+    """Intact holdouts must not leave common syntax entirely untrained."""
+    groups=defaultdict(set);documents=Counter()
+    for record in records:
+        if assignments[record['sourceGroup']]!='train':continue
+        for feature in set(record.get('features',[])):
+            key=(record['profile'],feature);groups[key].add(record['sourceGroup']);documents[key]+=1
+    for profile,features in current().required_training_features:
+        for feature in features:
+            if len(groups[(profile,feature)])<current().minimum_feature_groups:
+                raise ValueError(f'Insufficient independent training groups for {profile}/{feature}; preserve holdouts and add mixed-feature sources')
+    return {profile:{feature:{'documents':documents[(profile,feature)],'sourceGroups':sorted(groups[(profile,feature)])}
+                     for p,feature in sorted(groups) if p==profile} for profile in current().profiles}
+
+
 def prepare(root: Path, *, seed: int = 1729, groups_file: Path | None = None) -> dict:
     root = root.expanduser().resolve()
     output = root / "prepared"
@@ -203,6 +218,7 @@ def prepare(root: Path, *, seed: int = 1729, groups_file: Path | None = None) ->
                 axis = "profile:" + profile + ":" + stream
                 if len([group for group, counts in weights.items() if counts[axis]]) < 3:
                     raise ValueError("Need three independent retained groups for " + axis)
+        coverage=training_feature_coverage([record for name,record in records.items() if name not in excluded],assignments)
         staging = Path(tempfile.mkdtemp(prefix=".staging-", dir=output))
         try:
             statistics = {}
@@ -246,6 +262,7 @@ def prepare(root: Path, *, seed: int = 1729, groups_file: Path | None = None) ->
                 "inputDocuments": manifest["files"], "uniqueDocuments": len(records),
                 "exactDuplicateRecords": manifest["files"] - len(records), "excludedCopyDocuments": len(excluded),
                 "retainedDocuments": sum(value["documents"] for value in statistics.values()),
+                "trainingFeatureCoverage": coverage,
                 "splits": statistics, "checksums": checksums}
             atomic_json(staging / "manifest.json", result)
             staging.rename(target)
