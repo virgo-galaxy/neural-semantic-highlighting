@@ -17,7 +17,7 @@ class CurriculumTests(unittest.TestCase):
             generate(root, 4)
             self.assertEqual((root / "source.lock.json").read_bytes(), saved)
             lock = json.loads(saved)
-            self.assertEqual(len(lock["files"]), 56)
+            self.assertEqual(len(lock["files"]), 60)
             self.assertIn(b"\r\n", (root / "attribute-forms/example-000.html").read_bytes())
             self.assertIn("<strong", examples(1)["javascript-strings"])
             (root / "attribute-forms/example-000.html").write_text("changed")
