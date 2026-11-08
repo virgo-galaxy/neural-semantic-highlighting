@@ -11,7 +11,8 @@ read-only JSON worker for offline labels; inference uses only PyTorch. Original
 CRLF/Unicode coordinates survive the parser's LF view. Preserve all snapshots,
 source/license bytes and full checkpoints; never resume the selected export.
 
-A bounded 400-fragment revision retains the existing task-family assignments.
-Indented Here Documents vary spaces/tabs and variable/code-like body openings;
+A bounded 640-fragment revision retains the existing task-family assignments.
+Indented Here Documents cross spaces/tabs, variable/code-like body openings and
+source prefixes independently;
 short POD, function and quote forms vary their starting positions. No Golden or
 Playground text is collected, and no existing source revision is overwritten.
