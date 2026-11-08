@@ -4,6 +4,30 @@ A runtime-agnostic neural semantic highlighting engine.
 
 NSH separates semantic inference from rendering. A semantic pack receives source code and returns theme-independent semantic spans; consumers decide how those spans are rendered and styled.
 
+## Supported languages and formats
+
+All entries below have selected models, local inference and Playground examples.
+They currently run through the local Python process bridge; native browser
+inference is not implemented.
+
+The reported metric is **exact-span F1**: a prediction must match a token's start,
+end and semantic type. It is not character accuracy or the percentage of files
+highlighted perfectly. Natural-source test results are shown where available;
+JS/TS uses its archived combined test. Different datasets and sample sizes are
+not directly comparable. Each linked report records the evaluation scope and
+remaining failures.
+
+| Name                                                        | Supported source / file extensions                                                                                                                                  | Measured test exact-span F1                                                                                 | Current state / measured limits                                                                                                  |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| [JavaScript / TypeScript](packs/typescript/model/README.md) | JS/TS modules and declarations, JSX/TSX including React component source; `.js`, `.mjs`, `.cjs`, `.jsx`, `.ts`, `.mts`, `.cts`, `.tsx`, `.d.ts`, `.d.mts`, `.d.cts` | [99.31%](packs/typescript/model/BENCHMARKS.md) — archived combined whole-document test                      | Available locally; [RegExp, comment and long-string boundaries](packs/typescript/model/KNOWN_ISSUES.md) remain limited           |
+| [Go](packs/go/model/README.md)                              | Go source; `.go`                                                                                                                                                    | [99.03%](packs/go/model/README.md#selected-candidate) — natural test                                        | Available locally; [long raw strings and cross-file names](packs/go/model/KNOWN_ISSUES.md) remain limited                        |
+| [CSS / SCSS / Less](packs/css/model/README.md)              | Stylesheets and preprocessor source; `.css`, `.scss`, `.less`                                                                                                       | [CSS 99.04%; SCSS 99.40%; Less 99.42%](packs/css/model/BENCHMARKS.md) — natural test, per language          | Available locally; [individual grid/token and boundary errors](packs/css/model/KNOWN_ISSUES.md) remain                           |
+| [HTML](packs/html/model/README.md)                          | Modern HTML; `.html`, `.htm`; JS/CSS composition inside predicted `<script>` / `<style>` bodies                                                                     | [Markup 96.37%; composed 96.53%](packs/html/model/BENCHMARKS.md) — natural test, separate scopes            | Available locally; [comments and embedded-region boundaries](packs/html/model/KNOWN_ISSUES.md) remain limited                    |
+| [Vue](packs/vue/model/README.md)                            | Vue 2 / Vue 3 / Vue 3.2 SFCs; `.vue`; existing script/style models reused                                                                                           | [97.12%](packs/vue/model/BENCHMARKS.md) — natural composed test; profile results are separate in the report | Available locally; [SFC region boundaries and sparse syntax coverage](packs/vue/model/KNOWN_ISSUES.md) remain limited            |
+| [Python](packs/python/model/README.md)                      | Python 3 source and stubs; `.py`, `.pyw`, `.pyi`                                                                                                                    | [87.52%](packs/python/model/BENCHMARKS.md) — natural test                                                   | Usable local baseline; [name roles and long docstrings](packs/python/model/KNOWN_ISSUES.md) remain weaker                        |
+| [Shell](packs/bash/model/README.md)                         | POSIX sh, Bash, Zsh, Csh/Tcsh; `.sh`, `.bash`, `.zsh`, `.csh`, `.tcsh`; Git Bash shares Bash syntax                                                                 | [84.78% overall; Bash 93.20%](packs/bash/model/BENCHMARKS.md) — known natural-test comparison               | Usable local baseline, Bash prioritized; [complex Zsh and Here Document endings](packs/bash/model/KNOWN_ISSUES.md) remain weaker |
+| [Perl](packs/perl/model/README.md)                          | Perl 5 scripts, modules and tests; `.pl`, `.pm`, `.t`, `.perl`                                                                                                      | [83.60%](packs/perl/model/BENCHMARKS.md) — natural test                                                     | Usable local baseline; [mixed Here Documents and role/modifier boundaries](packs/perl/model/KNOWN_ISSUES.md) remain weaker       |
+
 ## Architecture
 
 ```text
@@ -86,7 +110,7 @@ No global installation or `npm link` / `pnpm link` is required. Local workspace 
 
 ## Playground
 
-The Playground runs the selected TypeScript-family, Go, CSS-family, HTML and Vue neural models through the normal NSH contracts.
+The Playground runs the selected language models listed above through the normal NSH contracts.
 
 ```text
 Browser Playground
@@ -102,7 +126,10 @@ selected pack model
   ├─ packs/go/model/model.pt
   ├─ packs/css/model/model.pt
   ├─ packs/html/model/model.pt → existing JS/CSS packs inside predicted bodies
-  └─ packs/vue/model/model.pt → existing JS/TS/JSX/TSX and CSS/SCSS/Less packs
+  ├─ packs/vue/model/model.pt → existing JS/TS/JSX/TSX and CSS/SCSS/Less packs
+  ├─ packs/python/model/model.pt
+  ├─ packs/bash/model/model.pt
+  └─ packs/perl/model/model.pt
   ↓
 HighlightResult
   ↓
@@ -117,7 +144,7 @@ The local model process is started lazily and kept alive. Model initialization i
 
 The Playground currently includes:
 
-- TypeScript, JavaScript, Go, CSS, SCSS, Less, HTML and Vue source examples discovered from real files;
+- TypeScript, JavaScript, Go, CSS, SCSS, Less, HTML, Vue, Python, Shell and Perl source examples discovered from real files;
 - editable and highlighted presentation states;
 - highlighting when the code block leaves editing focus;
 - preserved native undo/redo history across presentation-state changes;
