@@ -15,3 +15,6 @@ revision. The upstream MIT license is preserved in `DEVICON-LICENSE.txt`.
 
 The Python icon is `python.svg`, from `icons/python/python-original.svg` at the
 same pinned revision and under the same preserved license.
+
+The Shell icon is `bash.svg`, from `icons/bash/bash-original.svg` at that same
+revision and under the preserved Devicon license.

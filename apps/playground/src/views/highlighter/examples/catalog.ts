@@ -1,3 +1,4 @@
+import bashIcon from "@/assets/document-kinds/bash.svg";
 import cssIcon from "@/assets/document-kinds/css.svg";
 import goIcon from "@/assets/document-kinds/go.svg";
 import htmlIcon from "@/assets/document-kinds/html.svg";
@@ -52,6 +53,10 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
     label: "Python",
     icon: pythonIcon,
   },
+  bash: {
+    label: "Shell",
+    icon: bashIcon,
+  },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -75,6 +80,11 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".py", "python"],
   [".pyw", "python"],
   [".pyi", "python"],
+  [".sh", "bash"],
+  [".bash", "bash"],
+  [".zsh", "bash"],
+  [".csh", "bash"],
+  [".tcsh", "bash"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {
