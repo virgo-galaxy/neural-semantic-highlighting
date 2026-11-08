@@ -1,27 +1,30 @@
-# React code block
+# React integration
 
-Copy `CodeBlock.tsx` into a React frontend and import it:
+Use an existing React + TypeScript frontend with an ESM bundler (Vite is verified).
+Install the local npm archives as described in the root README.
+
+1. Copy [the shared initializer](../highlighter.ts) to `src/highlighter.ts`.
+2. Copy [CodeBlock.tsx](CodeBlock.tsx) to `src/components/CodeBlock.tsx`.
+3. Use it from `src/App.tsx`:
 
 ```tsx
-<CodeBlock code={source} language="tsx" />
+import { CodeBlock } from "./components/CodeBlock";
+
+export default function App() {
+  return <CodeBlock code={"const answer = 42;"} language="typescript" />;
+}
 ```
 
-Before publication, build the local archives with `pnpm pack:browser` in the NSH
-checkout. In the consuming app, install all four archives together:
+The complete source is also included in the root README. The component handles
+changing props, plain-code loading/error fallback and obsolete results. The HTML
+passed to `dangerouslySetInnerHTML` is escaped by NSH. Effects start only on the
+client; for Next.js App Router add `"use client"` to `CodeBlock.tsx`.
 
-```bash
-npm install /path/to/neural-semantic-highlighting/artifacts/browser/npm/*.tgz
-```
+Multiple code blocks share one highlighter. Component cleanup stops updates;
+close the shared instance only when the entire application is disposed. Closing
+it whenever one block unmounts would interrupt other blocks.
 
-The component uses one shared highlighter. It displays ordinary escaped React
-text while a result is loading, ignores results for older props, and shows an
-error if inference fails. Returned markup is escaped by the NSH renderer before
-it reaches `dangerouslySetInnerHTML`. No code is executed or sent to a server.
-
-The shared instance is intentionally kept for the app lifetime. If your app owns
-the highlighter explicitly, close it when the app is disposed. Do not close a
-shared instance every time one of several code blocks unmounts. For Next.js, put
-this component behind a client boundary (`"use client"`).
-
-An independent React/Vite production app using local tarballs was verified; see
-[the runtime report](../../docs/browser-runtime.md). npm publication is pending.
+For themes and custom global CSS, follow the
+[root theme guide](../../README.md#light--dark-themes-and-custom-css). Copy
+[theme.css](../theme.css) to `src/theme.css` and import `"./theme.css"` after the
+default theme in `src/highlighter.ts` to try the example palette and layout.

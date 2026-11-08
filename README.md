@@ -10,6 +10,10 @@ process, language SDK or highlighting server.
 already published on npm**. Local tarball installation works today. Publication
 and repository visibility are separate release decisions.
 
+[Install](#try-it-now) · [Simple usage](#simple-integration-react-vue-and-vanilla-javascript) ·
+[Complete examples](#complete-integration-examples) ·
+[Themes and custom CSS](#light--dark-themes-and-custom-css)
+
 ## Try it now
 
 From this checkout, with Node.js 24 and pnpm 11:
@@ -79,63 +83,372 @@ Call `highlighter.close()` when the application no longer needs this instance;
 this terminates its worker and rejects pending requests. Create a new instance to
 start again. Module imports are safe during SSR, but call inference on the client.
 
-## React and Vue
+## Simple integration: React, Vue and vanilla JavaScript
 
-A complete React component is in [examples/react/CodeBlock.tsx](examples/react/CodeBlock.tsx):
+All three use the same asynchronous `highlighter.highlight(code, { language })`
+API. React and Vue have comparable integration steps. The short framework
+examples below use the complete `CodeBlock` components shown in the next section;
+they are application components you copy, not exports from the npm package.
+
+### React: simple usage
+
+After copying the shared initializer and React component below, in `src/App.tsx`:
 
 ```tsx
-import { CodeBlock } from "./CodeBlock";
+import { CodeBlock } from "./components/CodeBlock";
 
-<CodeBlock code={source} language="tsx" />;
+export default function App() {
+  return <CodeBlock code={"const answer = 42;"} language="typescript" />;
+}
 ```
 
-It reuses one highlighter, preserves readable code while loading, handles errors
-and ignores results from an older render. Import the theme once in your app.
+### Vue 3: simple usage
 
-In a Vue 3 component, the same API can be used with `v-html`:
+After copying the same shared initializer and Vue component below, in `src/App.vue`:
 
 ```vue
 <script setup lang="ts">
+import CodeBlock from "./components/CodeBlock.vue";
+const source = "const answer = 42;";
+</script>
+
+<template>
+  <CodeBlock :code="source" language="typescript" />
+</template>
+```
+
+### Vanilla JavaScript: simple usage
+
+Use ordinary HTML with an ESM entry (`<script type="module" src="./main.js"></script>`)
+and a `<div id="example"></div>`:
+
+```js
 import { createHighlighter } from "@nsh/highlighter";
-import { onBeforeUnmount, ref, watch } from "vue";
 import "@nsh/highlighter/theme.css";
 
-const props = defineProps<{ code: string; language: string }>();
 const highlighter = createHighlighter();
-const markup = ref("");
-const error = ref("");
-watch(
-  () => [props.code, props.language],
-  async (_, __, onCleanup) => {
+const { html } = await highlighter.highlight("const answer = 42;", { language: "javascript" });
+document.querySelector("#example").innerHTML = html;
+```
+
+Vanilla JS means no React or Vue dependency. The current npm modules still need
+an ESM bundler to resolve package imports and emit Worker/model/WASM assets.
+The complete example below uses Vite. A direct CDN `<script src>` distribution
+without a build step is not currently provided.
+
+## Complete integration examples
+
+Install the local packages as described above. The React and Vue examples assume
+an existing TypeScript frontend project; keep its normal framework/Vite setup.
+Both handle loading, errors, changing source/language, obsolete asynchronous
+results and component unmounting. Ordinary escaped code remains visible while
+inference loads or fails. No framework adapter package is required.
+
+### Shared React / Vue initializer
+
+Create `src/highlighter.ts` from [examples/highlighter.ts](examples/highlighter.ts):
+
+```ts
+import "@nsh/highlighter/theme.css";
+
+import { createHighlighter } from "@nsh/highlighter";
+
+// One worker and model cache for the whole client application.
+export const highlighter = createHighlighter();
+```
+
+Both components reuse this application-level instance. They stop updating after
+unmount, while the shared worker remains available to other code blocks. Call
+`highlighter.close()` only when the whole application no longer needs it, not
+when one shared code block unmounts. Create a new instance after closing.
+
+### React: complete component
+
+Copy [examples/react/CodeBlock.tsx](examples/react/CodeBlock.tsx) to
+`src/components/CodeBlock.tsx`, then use the short React example above:
+
+```tsx
+import { useEffect, useState } from "react";
+
+import { highlighter } from "../highlighter";
+
+type Highlighted = { code: string; language: string; value?: string; error?: string };
+
+export function CodeBlock({ code, language }: { code: string; language: string }) {
+  const [result, setResult] = useState<Highlighted>();
+  useEffect(() => {
     let active = true;
-    onCleanup(() => {
+    highlighter.highlight(code, { language }).then(
+      ({ value }) => {
+        if (active) setResult({ code, language, value });
+      },
+      (reason: unknown) => {
+        if (active) setResult({ code, language, error: String(reason) });
+      },
+    );
+    return () => {
       active = false;
-    });
-    markup.value = "";
-    error.value = "";
-    try {
-      const result = await highlighter.highlight(props.code, { language: props.language });
-      if (active) markup.value = result.value;
-    } catch (reason) {
-      if (active) error.value = String(reason);
-    }
-  },
-  { immediate: true },
-);
-onBeforeUnmount(() => highlighter.close());
+    };
+  }, [code, language]);
+  const current = result?.code === code && result.language === language ? result : undefined;
+  return (
+    <>
+      <pre className="nsh" data-language={language} aria-busy={current === undefined}>
+        {current?.value === undefined ? (
+          <code>{code}</code>
+        ) : (
+          <code dangerouslySetInnerHTML={{ __html: current.value }} />
+        )}
+      </pre>
+      {current?.error ? <p role="alert">{current.error}</p> : null}
+    </>
+  );
+}
+```
+
+React's `useEffect` starts inference on the client. For Next.js App Router, add
+`"use client"` at the top of this component. The `value` passed to
+`dangerouslySetInnerHTML` comes from the escaping NSH renderer.
+
+### Vue 3: complete component
+
+Copy [examples/vue/CodeBlock.vue](examples/vue/CodeBlock.vue) to
+`src/components/CodeBlock.vue`, then use the short Vue example above:
+
+```vue
+<script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref, watch, type WatchStopHandle } from "vue";
+
+import { highlighter } from "../highlighter";
+
+const props = defineProps<{ code: string; language: string }>();
+const markup = ref<string>();
+const error = ref("");
+let stopWatching: WatchStopHandle | undefined;
+
+// Start inference on the client, after hydration.
+onMounted(() => {
+  stopWatching = watch(
+    () => [props.code, props.language] as const,
+    ([code, language], _, onCleanup) => {
+      let active = true;
+      onCleanup(() => {
+        active = false;
+      });
+      markup.value = undefined;
+      error.value = "";
+      highlighter.highlight(code, { language }).then(
+        ({ value }) => {
+          if (active) markup.value = value;
+        },
+        (reason: unknown) => {
+          if (active) error.value = String(reason);
+        },
+      );
+    },
+    { immediate: true },
+  );
+});
+onBeforeUnmount(() => stopWatching?.());
 </script>
 
 <template>
   <pre
     class="nsh"
     :data-language="language"
-  ><code v-if="markup" v-html="markup"></code><code v-else>{{ code }}</code></pre>
+    :aria-busy="markup === undefined && !error"
+  ><code v-if="markup !== undefined" v-html="markup"></code><code v-else>{{ code }}</code></pre>
   <p v-if="error" role="alert">{{ error }}</p>
 </template>
 ```
 
-The full Vue Playground is another working consumer. No framework dependency is
-included in the highlighter package.
+Vue's `onMounted` starts inference on the client; the watcher handles prop
+changes. `v-html` receives only the renderer's escaped `value`. The extra lifecycle
+code serves the same purpose as React's effect and cleanup. It is not an extra
+model setup requirement. The existing Vue Playground is another working consumer.
+
+### Vanilla JavaScript: complete HTML / CSS / JS
+
+Copy the three files from [examples/vanilla](examples/vanilla/README.md) into a
+new directory. With the local package archives already built:
+
+```bash
+npm init -y
+npm install /path/to/neural-semantic-highlighting/artifacts/browser/npm/*.tgz
+npm install --save-dev vite@8.2.2
+npx vite
+```
+
+Open the local URL Vite prints. Use `npx vite build` to produce static files in
+`dist`; this server is a development/build tool, not a required inference service.
+Deploy `dist` to ordinary static hosting. Only the NSH packages and Vite are
+needed; no React/Vue, Python or language SDK is installed.
+
+`index.html`:
+
+```html
+<!doctype html>
+<html lang="en" data-nsh-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NSH — Vanilla JavaScript</title>
+  </head>
+  <body>
+    <main>
+      <h1>Code highlighting</h1>
+      <button id="theme" type="button">Switch to dark</button>
+      <label
+        >Language
+        <select id="language">
+          <option value="typescript">TypeScript</option>
+          <option value="javascript">JavaScript</option>
+          <option value="css">CSS</option>
+        </select>
+      </label>
+      <label for="source">Source code</label>
+      <textarea id="source" rows="6" spellcheck="false">
+const greeting = "Hello, Virgo!";
+console.log(greeting);</textarea>
+      <button id="highlight" type="button">Highlight</button>
+      <p id="status" role="status"></p>
+      <div id="preview" aria-busy="false"></div>
+    </main>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
+```
+
+`main.js`:
+
+```js
+import "@nsh/highlighter/theme.css";
+import "./style.css";
+
+import { createHighlighter } from "@nsh/highlighter";
+
+const highlighter = createHighlighter();
+const source = document.querySelector("#source");
+const language = document.querySelector("#language");
+const preview = document.querySelector("#preview");
+const status = document.querySelector("#status");
+const themeButton = document.querySelector("#theme");
+let revision = 0;
+
+function showPlainCode() {
+  const pre = document.createElement("pre");
+  pre.className = "nsh";
+  pre.dataset.language = language.value;
+  const code = document.createElement("code");
+  code.textContent = source.value;
+  pre.append(code);
+  preview.replaceChildren(pre);
+}
+
+function invalidate() {
+  revision += 1;
+  showPlainCode();
+  preview.setAttribute("aria-busy", "false");
+  status.textContent = "Ready to highlight";
+}
+
+async function highlight() {
+  const request = ++revision;
+  showPlainCode();
+  preview.setAttribute("aria-busy", "true");
+  status.textContent = "Highlighting…";
+  try {
+    const { html } = await highlighter.highlight(source.value, { language: language.value });
+    if (request !== revision) return;
+    preview.innerHTML = html; // Escaped by the NSH renderer.
+    status.textContent = "Highlighted";
+  } catch (reason) {
+    if (request !== revision) return;
+    status.textContent = `Unable to highlight: ${String(reason)}`;
+  } finally {
+    if (request === revision) preview.setAttribute("aria-busy", "false");
+  }
+}
+
+source.addEventListener("input", invalidate);
+language.addEventListener("change", invalidate);
+document.querySelector("#highlight").addEventListener("click", () => {
+  void highlight();
+});
+themeButton.addEventListener("click", () => {
+  const dark = document.documentElement.dataset.nshTheme !== "dark";
+  document.documentElement.dataset.nshTheme = dark ? "dark" : "light";
+  themeButton.textContent = dark ? "Switch to light" : "Switch to dark";
+});
+
+// Release the worker when leaving; restart normally if restored from back/forward cache.
+window.addEventListener("pagehide", (event) => {
+  if (!event.persisted) highlighter.close();
+});
+void highlight();
+```
+
+`style.css`:
+
+```css
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+main {
+  max-width: 800px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+label,
+textarea {
+  display: block;
+  margin: 16px 0 8px;
+}
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  font:
+    14px/1.6 ui-monospace,
+    monospace;
+}
+button,
+select {
+  padding: 6px 12px;
+}
+
+/* Load after @nsh/highlighter/theme.css. These are example application colors. */
+.nsh {
+  --nsh-background: #fafafa;
+  --nsh-foreground: #24292f;
+  --nsh-keyword: #8250df;
+  --nsh-string: #0a3069;
+  --nsh-comment: #57606a;
+  --nsh-number: #0550ae;
+  --nsh-function: #8250df;
+
+  padding: 16px;
+  border-radius: 8px;
+  overflow: auto;
+  font:
+    14px/1.6 ui-monospace,
+    monospace;
+}
+.nsh[data-theme="dark"],
+[data-nsh-theme="dark"] .nsh:not([data-theme="light"]) {
+  --nsh-background: #18181b;
+  --nsh-foreground: #fafafa;
+  --nsh-keyword: #c084fc;
+  --nsh-string: #a5d6ff;
+  --nsh-comment: #a1a1aa;
+  --nsh-number: #79c0ff;
+  --nsh-function: #d2a8ff;
+}
+```
+
+This version includes editable source, language selection, safe plain-text
+fallback, loading/errors and protection against obsolete results. The theme
+button changes CSS attributes only; it does not rerun inference.
 
 ## Load only the languages you need
 
@@ -163,7 +476,7 @@ Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scs
 `cmd`, `asm`, `nasm`, `masm` and `gas`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
-## Assets, performance and themes
+## Assets and performance
 
 - Models and WASM are emitted as your application's static assets. Code is sent
   only to its local worker; no source-upload endpoint or CDN is required.
@@ -176,8 +489,159 @@ profile does not install or execute that shell.
   cross-origin isolation. WebGPU and a legacy-browser fallback are not implemented.
 - First-use latency includes asset fetch, integrity verification and session
   initialization. Local smoke timings are not a mobile or network benchmark.
-- Use `data-theme="dark"` on `.nsh` or `data-nsh-theme="dark"` on an ancestor for
-  dark mode. Customize `--nsh-*` CSS variables to match your application.
+
+## Light / dark themes and custom CSS
+
+### Import the default theme once
+
+```ts
+import "@nsh/highlighter/theme.css";
+```
+
+It includes light and dark palettes. Without a theme attribute, the default is
+light. Colors are CSS variables, not model output: switching themes immediately
+restyles existing spans without calling `highlight` again.
+
+### Follow your application's theme
+
+Put `data-nsh-theme` on `<html>` or an ancestor of the code blocks:
+
+```html
+<html data-nsh-theme="light"></html>
+```
+
+When the application switches theme, update the same attribute on the client:
+
+```ts
+function setTheme(theme: "light" | "dark") {
+  document.documentElement.dataset.nshTheme = theme;
+}
+setTheme("dark"); // Change to "light" for the light palette.
+```
+
+React and Vue can also bind the attribute on their application wrapper:
+
+```tsx
+<main data-nsh-theme={theme}>{/* React code blocks */}</main>
+```
+
+```vue
+<main :data-nsh-theme="theme"><!-- Vue code blocks --></main>
+```
+
+NSH does not detect an application's existing `.dark`, `data-theme` or theme
+store automatically. Mirror that application's current `"light"`/`"dark"` value
+onto `data-nsh-theme` in its theme-switch handler or reactive binding.
+
+### Set or override one code block
+
+Set `data-theme` directly on the rendered `.nsh` element:
+
+```html
+<pre class="nsh" data-theme="dark"><code>...</code></pre>
+<pre class="nsh" data-theme="light"><code>...</code></pre>
+```
+
+A block's explicit `data-theme` takes precedence over the ancestor's
+`data-nsh-theme`. For `result.html`, set the attribute on the inserted `.nsh`
+element. For the React/Vue wrappers above, add `data-theme` directly to their
+`<pre>` when a fixed per-block theme is wanted.
+
+### Optionally follow the operating system
+
+For an app without its own theme preference, run this once on the client:
+
+```js
+const preference = window.matchMedia("(prefers-color-scheme: dark)");
+const syncTheme = () => {
+  document.documentElement.dataset.nshTheme = preference.matches ? "dark" : "light";
+};
+syncTheme();
+preference.addEventListener("change", syncTheme);
+// When disposing the application:
+// preference.removeEventListener("change", syncTheme);
+```
+
+This is an optional application recipe, not an automatic behavior of the library.
+If the app already has a user-selected theme, use that theme as the source of truth.
+
+### Customize colors, fonts and layout
+
+Import your **global** stylesheet after the default theme:
+
+```ts
+import "@nsh/highlighter/theme.css";
+import "./theme.css";
+```
+
+For the React/Vue shared initializer, add `import "./theme.css"` after the default
+theme import in `src/highlighter.ts`. Start with
+[examples/theme.css](examples/theme.css) as `src/theme.css`:
+
+```css
+/* Load after @nsh/highlighter/theme.css. These are example application colors. */
+.nsh {
+  --nsh-background: #fafafa;
+  --nsh-foreground: #24292f;
+  --nsh-keyword: #8250df;
+  --nsh-string: #0a3069;
+  --nsh-comment: #57606a;
+  --nsh-number: #0550ae;
+  --nsh-function: #8250df;
+
+  padding: 16px;
+  border-radius: 8px;
+  overflow: auto;
+  font:
+    14px/1.6 ui-monospace,
+    monospace;
+}
+.nsh[data-theme="dark"],
+[data-nsh-theme="dark"] .nsh:not([data-theme="light"]) {
+  --nsh-background: #18181b;
+  --nsh-foreground: #fafafa;
+  --nsh-keyword: #c084fc;
+  --nsh-string: #a5d6ff;
+  --nsh-comment: #a1a1aa;
+  --nsh-number: #79c0ff;
+  --nsh-function: #d2a8ff;
+}
+```
+
+The `.nsh` rule supplies your light/default values. The second rule supplies your
+dark values and respects an explicitly light block inside a dark app. Only
+variables you override change; other token colors keep their built-in defaults.
+Library selectors use `:where(...)`, so ordinary application selectors can
+override the palette and language defaults without `!important`.
+
+| Variable                                | Controls                             |
+| --------------------------------------- | ------------------------------------ |
+| `--nsh-background` / `--nsh-foreground` | Code-block background / default text |
+| `--nsh-keyword`                         | Keywords                             |
+| `--nsh-comment`                         | Comments                             |
+| `--nsh-string`                          | Strings and entities                 |
+| `--nsh-number`                          | Numbers                              |
+| `--nsh-regexp`                          | Regular expressions                  |
+| `--nsh-function` / `--nsh-method`       | Functions / methods                  |
+| `--nsh-type` / `--nsh-class`            | Types / classes                      |
+| `--nsh-tag` / `--nsh-attribute`         | Tags / attributes                    |
+| `--nsh-operator` / `--nsh-punctuation`  | Operators / punctuation              |
+
+For individual semantic styles, target the rendered attributes:
+
+```css
+.nsh [data-token-type="comment"] {
+  font-style: normal;
+}
+.nsh [data-modifiers~="deprecated"] {
+  text-decoration: line-through;
+}
+```
+
+In Vue, put these rules in a global stylesheet. A component's `<style scoped>`
+does not automatically reach token elements inserted by `v-html`; use `:deep()`
+for those token selectors if you keep them scoped. Setting `--nsh-*` on the
+component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 

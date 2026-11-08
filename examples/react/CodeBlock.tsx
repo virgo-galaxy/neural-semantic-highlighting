@@ -1,39 +1,36 @@
-import { createHighlighter } from "@nsh/highlighter";
 import { useEffect, useState } from "react";
-import "@nsh/highlighter/theme.css";
 
-// Reuse one worker and its loaded models across code blocks.
-const highlighter = createHighlighter();
+import { highlighter } from "../highlighter";
+
+type Highlighted = { code: string; language: string; value?: string; error?: string };
 
 export function CodeBlock({ code, language }: { code: string; language: string }) {
-  const [result, setResult] = useState<{ code: string; language: string; value: string }>();
-  const [error, setError] = useState("");
+  const [result, setResult] = useState<Highlighted>();
   useEffect(() => {
     let active = true;
-    setError("");
     highlighter.highlight(code, { language }).then(
       ({ value }) => {
         if (active) setResult({ code, language, value });
       },
       (reason: unknown) => {
-        if (active) setError(String(reason));
+        if (active) setResult({ code, language, error: String(reason) });
       },
     );
     return () => {
       active = false;
     };
   }, [code, language]);
-  const value = result?.code === code && result.language === language ? result.value : undefined;
+  const current = result?.code === code && result.language === language ? result : undefined;
   return (
     <>
-      <pre className="nsh" data-language={language}>
-        {value === undefined ? (
+      <pre className="nsh" data-language={language} aria-busy={current === undefined}>
+        {current?.value === undefined ? (
           <code>{code}</code>
         ) : (
-          <code dangerouslySetInnerHTML={{ __html: value }} />
+          <code dangerouslySetInnerHTML={{ __html: current.value }} />
         )}
       </pre>
-      {error && <p role="alert">{error}</p>}
+      {current?.error ? <p role="alert">{current.error}</p> : null}
     </>
   );
 }

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-nsh-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NSH — Vanilla JavaScript</title>
+  </head>
+  <body>
+    <main>
+      <h1>Code highlighting</h1>
+      <button id="theme" type="button">Switch to dark</button>
+      <label
+        >Language
+        <select id="language">
+          <option value="typescript">TypeScript</option>
+          <option value="javascript">JavaScript</option>
+          <option value="css">CSS</option>
+        </select>
+      </label>
+      <label for="source">Source code</label>
+      <textarea id="source" rows="6" spellcheck="false">
+const greeting = "Hello, Virgo!";
+console.log(greeting);</textarea>
+      <button id="highlight" type="button">Highlight</button>
+      <p id="status" role="status"></p>
+      <div id="preview" aria-busy="false"></div>
+    </main>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

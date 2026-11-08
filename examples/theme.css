@@ -1,0 +1,27 @@
+/* Load after @nsh/highlighter/theme.css. These are example application colors. */
+.nsh {
+  --nsh-background: #fafafa;
+  --nsh-foreground: #24292f;
+  --nsh-keyword: #8250df;
+  --nsh-string: #0a3069;
+  --nsh-comment: #57606a;
+  --nsh-number: #0550ae;
+  --nsh-function: #8250df;
+
+  padding: 16px;
+  border-radius: 8px;
+  overflow: auto;
+  font:
+    14px/1.6 ui-monospace,
+    monospace;
+}
+.nsh[data-theme="dark"],
+[data-nsh-theme="dark"] .nsh:not([data-theme="light"]) {
+  --nsh-background: #18181b;
+  --nsh-foreground: #fafafa;
+  --nsh-keyword: #c084fc;
+  --nsh-string: #a5d6ff;
+  --nsh-comment: #a1a1aa;
+  --nsh-number: #79c0ff;
+  --nsh-function: #d2a8ff;
+}
