@@ -1,0 +1,74 @@
+[
+  {
+    "id": "module-import",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦keyword|use⟧ ⟦namespace|File::Spec⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "lexical-binding",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦keyword|my⟧ ⟦punctuation|(⟧⟦variable+declaration|$name⟧⟦punctuation|,⟧ ⟦variable+declaration|$size⟧⟦punctuation|)⟧ ⟦operator|=⟧ ⟦punctuation|(⟧⟦string|\"Virgo\"⟧⟦punctuation|,⟧ ⟦number|3⟧⟦punctuation|)⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "subroutine",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦keyword|sub⟧ ⟦function+declaration|greet⟧ ⟦punctuation|{⟧ ⟦keyword|return⟧ ⟦function+default-library|uc⟧ ⟦function+default-library|shift⟧⟦punctuation|;⟧ ⟦punctuation|}⟧\n⟦function|greet⟧⟦punctuation|(⟧⟦string|\"Virgo\"⟧⟦punctuation|)⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "method-and-property",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦variable|$item⟧⟦operator|->⟧⟦method|save⟧⟦punctuation|(⟧⟦property|force⟧ ⟦operator|=>⟧ ⟦number|1⟧⟦punctuation|)⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "regexp-match",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦keyword|my⟧ ⟦variable+declaration|$rule⟧ ⟦operator|=⟧ ⟦regexp|qr{^[a-z]+$}i⟧⟦punctuation|;⟧\n⟦variable|$text⟧ ⟦operator|=~⟧ ⟦regexp|s/old/new/g⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "whole-quotes",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦function+default-library|say⟧ ⟦string|qq(Hello $name)⟧⟦punctuation|;⟧\n⟦keyword|my⟧ ⟦variable+declaration|@words⟧ ⟦operator|=⟧ ⟦string|qw(alpha beta)⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "heredoc-literal",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦keyword|my⟧ ⟦variable+declaration|$text⟧ ⟦operator|=⟧ ⟦string|<<'BODY'⟧⟦punctuation|;⟧\n⟦string|$name is literal 🌌\nBODY⟧\n⟦function+default-library|print⟧ ⟦variable|$text⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "heredoc-indent",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦keyword|my⟧ ⟦variable+declaration|$text⟧ ⟦operator|=⟧ ⟦string|<<~'TEXT'⟧⟦punctuation|;⟧\r\n⟦string|  Indented $literal\r\n  TEXT⟧\r\n⟦function+default-library|say⟧ ⟦variable|$text⟧⟦punctuation|;⟧\r\n"
+  },
+  {
+    "id": "heredoc-queued",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦keyword|my⟧ ⟦punctuation|(⟧⟦variable+declaration|$a⟧⟦punctuation|,⟧⟦variable+declaration|$b⟧⟦punctuation|)⟧⟦operator|=⟧⟦punctuation|(⟧⟦string|<<A⟧⟦punctuation|,⟧⟦string|<<'B'⟧⟦punctuation|)⟧⟦punctuation|;⟧\n⟦string|first\nA⟧\n⟦string|second\nB⟧\n"
+  },
+  {
+    "id": "builtin-shadow",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦keyword|sub⟧ ⟦function+declaration|length⟧ ⟦punctuation|{⟧ ⟦keyword|return⟧ ⟦number|2⟧⟦punctuation|;⟧ ⟦punctuation|}⟧\n⟦function|length⟧⟦punctuation|(⟧⟦string|\"ready\"⟧⟦punctuation|)⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "data-section",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦function+default-library|print⟧ ⟦string|\"ready\"⟧⟦punctuation|;⟧\n⟦comment|__DATA__⟧\n⟦comment|Original record 🌌⟧\n"
+  },
+  {
+    "id": "pod-comment",
+    "profile": "perl5",
+    "documentKind": "perl",
+    "markedSource": "⟦comment|=pod\n\nShort source notes.\n\n=cut⟧\n\n⟦function+default-library|say⟧ ⟦string|\"ready\"⟧⟦punctuation|;⟧\n"
+  }
+]

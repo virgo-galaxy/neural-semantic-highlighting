@@ -140,6 +140,9 @@ check:
 	$(MAKE) test-labeling-bash
 	$(PYTHON) -m compileall -q training/bash packs/bash/runtime
 	$(PYTHON) -c 'import packs.bash.runtime.local'
+	$(MAKE) test-labeling-perl
+	$(PYTHON) -m compileall -q training/perl packs/perl/runtime
+	$(PYTHON) -c 'import packs.perl.runtime.local'
 	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime training/go packs/go/runtime training/css
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'

@@ -1,0 +1,16 @@
+{
+  "label": "Perl",
+  "profiles": ["perl5"],
+  "scope": "perl-local-semantic-spans",
+  "contextBytes": 512,
+  "decoder": {
+    "modifierRoles": {
+      "declaration": ["variable", "function", "namespace", "parameter", "label"],
+      "default-library": ["function"]
+    }
+  },
+  "requiredTrainingFeatures": {
+    "perl5": ["loops", "conditionals", "functions", "regexps", "heredocs"]
+  },
+  "minimumTrainingFeatureGroups": 3
+}

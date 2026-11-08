@@ -130,3 +130,65 @@ challenge-bash:
 export-bash-model:
 	@test -n "$(BASH_CHECKPOINT)" -a -n "$(BASH_TEST_REPORT)" || (echo 'Set BASH_CHECKPOINT and BASH_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.bash.export_model --checkpoint "$(BASH_CHECKPOINT)" --test-report "$(BASH_TEST_REPORT)"
+
+PERL_DEVICE ?= auto
+PERL_EPOCHS ?= 3
+PERL_BATCH_SIZE ?= 32
+PERL_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-perl dataset-perl-sources dataset-perl-curriculum dataset-perl-collect dataset-perl-label dataset-perl-validate dataset-perl-prepare test-labeling-perl train-perl-smoke train-perl continue-perl predict-perl evaluate-perl challenge-perl export-perl-model
+
+dataset-perl-sources:
+	$(PYTHON) -m packs.perl.dataset.fetch_sources
+
+dataset-perl:
+	$(MAKE) dataset-perl-sources
+	$(MAKE) dataset-perl-curriculum
+	$(MAKE) dataset-perl-collect
+	$(MAKE) dataset-perl-label
+	$(MAKE) dataset-perl-validate
+	$(MAKE) dataset-perl-prepare
+
+dataset-perl-curriculum:
+	$(PYTHON) -m packs.perl.dataset.generate_curriculum
+
+dataset-perl-collect:
+	$(PYTHON) -m packs.perl.dataset.pipeline collect
+
+dataset-perl-label:
+	$(PYTHON) -m packs.perl.dataset.pipeline label
+
+dataset-perl-validate:
+	$(PYTHON) -m packs.perl.dataset.pipeline validate
+
+dataset-perl-prepare:
+	$(PYTHON) -m training.perl.prepare
+
+test-labeling-perl:
+	$(PYTHON) -m unittest discover -s packs/perl/tests -v
+
+train-perl-smoke:
+	$(PYTHON) -m training.perl.train --smoke --epochs 1 --device $(PERL_DEVICE) $(if $(PERL_RUN),--output-dir "$(PERL_RUN)") $(if $(PERL_INIT_FROM),--init-from "$(PERL_INIT_FROM)")
+
+train-perl:
+	$(PYTHON) -m training.perl.train --epochs $(PERL_EPOCHS) --device $(PERL_DEVICE) --batch-size $(PERL_BATCH_SIZE) $(if $(PERL_RUN),--output-dir "$(PERL_RUN)") $(if $(PERL_INIT_FROM),--init-from "$(PERL_INIT_FROM)")
+
+continue-perl:
+	@test -n "$(PERL_CHECKPOINT)" || (echo 'Set PERL_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.perl.train --resume "$(PERL_CHECKPOINT)" --epochs $(PERL_EPOCHS) --device $(PERL_DEVICE)
+
+predict-perl:
+	@test -n "$(PERL_SOURCE)" || (echo 'Set PERL_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.perl.predict --device $(PERL_DEVICE) --file "$(PERL_SOURCE)" $(if $(PERL_CHECKPOINT),--checkpoint "$(PERL_CHECKPOINT)")
+
+evaluate-perl:
+	@test -n "$(PERL_CHECKPOINT)" || (echo 'Set PERL_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.perl.evaluate --checkpoint "$(PERL_CHECKPOINT)" --device $(PERL_DEVICE) --split $(PERL_EVAL_SPLIT)
+
+challenge-perl:
+	@test -n "$(PERL_CHECKPOINT)" || (echo 'Set PERL_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.perl.challenge --checkpoint "$(PERL_CHECKPOINT)" --device $(PERL_DEVICE)
+
+export-perl-model:
+	@test -n "$(PERL_CHECKPOINT)" -a -n "$(PERL_TEST_REPORT)" || (echo 'Set PERL_CHECKPOINT and PERL_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.perl.export_model --checkpoint "$(PERL_CHECKPOINT)" --test-report "$(PERL_TEST_REPORT)"
