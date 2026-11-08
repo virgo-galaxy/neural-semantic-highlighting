@@ -1,0 +1,8190 @@
+{
+  "scope": "composed-vue-plus-existing-neural-packs",
+  "split": "validation",
+  "inference": "neural-predicted-regions-and-neural-child-packs",
+  "checkpointHash": "fbfc85c895e652452529d0579b7ab798fb939cd4cc245fd5e017352df8b772c8",
+  "checkpointEpoch": 35,
+  "modelConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1,
+    "local_kernel": 1
+  },
+  "smokeCheckpoint": false,
+  "dataset": {
+    "snapshot": "29c6af2a7842f582322911aab1b99f076f2704f6e73565e1d5cd452884d0b848",
+    "manifestHash": "19dc1f859c3de80a7d4445ef62a92a664cd4f7b766c5bf089b9387b067eed5e5"
+  },
+  "childModels": {
+    "typescript": "a63c132df376d956f8feb19c60620a3a922a5299ad012224d58a4ff3a09597a0",
+    "css": "a6c271903b5b65f0cc1f82a4406cb1fc831c1a4ad21c54ddd1fd0f2de324645a"
+  },
+  "device": "mps",
+  "streams": {
+    "natural": {
+      "documents": 7,
+      "exactSpan": {
+        "precision": 0.9707602339181286,
+        "recall": 0.9715719063545151,
+        "f1": 0.9711659005432511,
+        "tp": 1162,
+        "fp": 35,
+        "fn": 34,
+        "support": 1196
+      },
+      "exactSpanMacroF1": 0.8774829992285053,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9690893901420217,
+        "recall": 0.9698996655518395,
+        "f1": 0.9694943585457585,
+        "tp": 1160,
+        "fp": 37,
+        "fn": 36,
+        "support": 1196
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8933333333333333,
+          "recall": 1,
+          "f1": 0.9436619718309859,
+          "tp": 67,
+          "fp": 8,
+          "fn": 0,
+          "support": 67
+        },
+        "comment": {
+          "precision": 0.8888888888888888,
+          "recall": 0.8888888888888888,
+          "f1": 0.8888888888888888,
+          "tp": 8,
+          "fp": 1,
+          "fn": 1,
+          "support": 9
+        },
+        "string": {
+          "precision": 0.9852941176470589,
+          "recall": 0.9852941176470589,
+          "f1": 0.9852941176470589,
+          "tp": 67,
+          "fp": 1,
+          "fn": 1,
+          "support": 68
+        },
+        "number": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 0.9655172413793104,
+          "recall": 0.9032258064516129,
+          "f1": 0.9333333333333333,
+          "tp": 28,
+          "fp": 1,
+          "fn": 3,
+          "support": 31
+        },
+        "punctuation": {
+          "precision": 0.985781990521327,
+          "recall": 0.9889064976228209,
+          "f1": 0.9873417721518988,
+          "tp": 624,
+          "fp": 9,
+          "fn": 7,
+          "support": 631
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "class": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "interface": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 1,
+          "recall": 0.9473684210526315,
+          "f1": 0.972972972972973,
+          "tp": 18,
+          "fp": 0,
+          "fn": 1,
+          "support": 19
+        },
+        "method": {
+          "precision": 1,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "tp": 12,
+          "fp": 0,
+          "fn": 4,
+          "support": 16
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 8,
+          "fp": 0,
+          "fn": 0,
+          "support": 8
+        },
+        "variable": {
+          "precision": 0.9868421052631579,
+          "recall": 0.974025974025974,
+          "f1": 0.9803921568627451,
+          "tp": 75,
+          "fp": 1,
+          "fn": 2,
+          "support": 77
+        },
+        "property": {
+          "precision": 1,
+          "recall": 0.9242424242424242,
+          "f1": 0.9606299212598425,
+          "tp": 61,
+          "fp": 0,
+          "fn": 5,
+          "support": 66
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9927007299270073,
+          "recall": 1,
+          "f1": 0.9963369963369964,
+          "tp": 136,
+          "fp": 1,
+          "fn": 0,
+          "support": 136
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 35,
+          "fp": 0,
+          "fn": 0,
+          "support": 35
+        },
+        "text": {
+          "precision": 0.6363636363636364,
+          "recall": 0.6774193548387096,
+          "f1": 0.65625,
+          "tp": 21,
+          "fp": 12,
+          "fn": 10,
+          "support": 31
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "focus": {
+      "documents": 96,
+      "exactSpan": {
+        "precision": 0.9819045279620077,
+        "recall": 0.9842416283650689,
+        "f1": 0.9830716891421076,
+        "tp": 11992,
+        "fp": 221,
+        "fn": 192,
+        "support": 12184
+      },
+      "exactSpanMacroF1": 0.9560783213477424,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9799394088266601,
+        "recall": 0.9822718319107026,
+        "f1": 0.9811042341271468,
+        "tp": 11968,
+        "fp": 245,
+        "fn": 216,
+        "support": 12184
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9129213483146067,
+          "recall": 0.9730538922155688,
+          "f1": 0.9420289855072463,
+          "tp": 650,
+          "fp": 62,
+          "fn": 18,
+          "support": 668
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 0.9313572542901716,
+          "recall": 0.9754901960784313,
+          "f1": 0.9529130087789306,
+          "tp": 597,
+          "fp": 44,
+          "fn": 15,
+          "support": 612
+        },
+        "number": {
+          "precision": 0.971830985915493,
+          "recall": 0.9951923076923077,
+          "f1": 0.9833729216152018,
+          "tp": 414,
+          "fp": 12,
+          "fn": 2,
+          "support": 416
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 400,
+          "fp": 0,
+          "fn": 0,
+          "support": 400
+        },
+        "punctuation": {
+          "precision": 0.9948292071450956,
+          "recall": 0.9889408099688474,
+          "f1": 0.9918762693329167,
+          "tp": 6349,
+          "fp": 33,
+          "fn": 71,
+          "support": 6420
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 1,
+          "recall": 0.9807692307692307,
+          "f1": 0.9902912621359223,
+          "tp": 51,
+          "fp": 0,
+          "fn": 1,
+          "support": 52
+        },
+        "class": {
+          "precision": 0.9411764705882353,
+          "recall": 1,
+          "f1": 0.9696969696969697,
+          "tp": 96,
+          "fp": 6,
+          "fn": 0,
+          "support": 96
+        },
+        "interface": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.8823529411764706,
+          "recall": 1,
+          "f1": 0.9375,
+          "tp": 180,
+          "fp": 24,
+          "fn": 0,
+          "support": 180
+        },
+        "method": {
+          "precision": 1,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 36,
+          "fp": 0,
+          "fn": 36,
+          "support": 72
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 0.9642857142857143,
+          "f1": 0.9818181818181818,
+          "tp": 81,
+          "fp": 0,
+          "fn": 3,
+          "support": 84
+        },
+        "variable": {
+          "precision": 0.9856115107913669,
+          "recall": 0.9319727891156463,
+          "f1": 0.958041958041958,
+          "tp": 548,
+          "fp": 8,
+          "fn": 40,
+          "support": 588
+        },
+        "property": {
+          "precision": 0.9842381786339754,
+          "recall": 0.9894366197183099,
+          "f1": 0.9868305531167691,
+          "tp": 562,
+          "fp": 9,
+          "fn": 6,
+          "support": 568
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9968847352024922,
+          "recall": 1,
+          "f1": 0.9984399375975039,
+          "tp": 1280,
+          "fp": 4,
+          "fn": 0,
+          "support": 1280
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 640,
+          "fp": 0,
+          "fn": 0,
+          "support": 640
+        },
+        "text": {
+          "precision": 0.8080808080808081,
+          "recall": 1,
+          "f1": 0.8938547486033519,
+          "tp": 80,
+          "fp": 19,
+          "fn": 0,
+          "support": 80
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 16,
+          "fp": 0,
+          "fn": 0,
+          "support": 16
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "profiles": {
+    "vue2": {
+      "natural": {
+        "documents": 3,
+        "exactSpan": {
+          "precision": 0.9783783783783784,
+          "recall": 0.9731182795698925,
+          "f1": 0.9757412398921833,
+          "tp": 362,
+          "fp": 8,
+          "fn": 10,
+          "support": 372
+        },
+        "exactSpanMacroF1": 0.9249814492083819,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9756756756756757,
+          "recall": 0.9704301075268817,
+          "f1": 0.9730458221024259,
+          "tp": 361,
+          "fp": 9,
+          "fn": 11,
+          "support": 372
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.8421052631578947,
+            "recall": 1,
+            "f1": 0.9142857142857143,
+            "tp": 16,
+            "fp": 3,
+            "fn": 0,
+            "support": 16
+          },
+          "comment": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 23,
+            "fp": 0,
+            "fn": 0,
+            "support": 23
+          },
+          "number": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "regexp": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1,
+            "recall": 0.7142857142857143,
+            "f1": 0.8333333333333334,
+            "tp": 5,
+            "fp": 0,
+            "fn": 2,
+            "support": 7
+          },
+          "punctuation": {
+            "precision": 0.995,
+            "recall": 0.9900497512437811,
+            "f1": 0.9925187032418953,
+            "tp": 199,
+            "fp": 1,
+            "fn": 2,
+            "support": 201
+          },
+          "namespace": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "interface": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type-parameter": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "method": {
+            "precision": 1,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "tp": 2,
+            "fp": 0,
+            "fn": 2,
+            "support": 4
+          },
+          "constructor": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "variable": {
+            "precision": 1,
+            "recall": 0.9473684210526315,
+            "f1": 0.972972972972973,
+            "tp": 18,
+            "fp": 0,
+            "fn": 1,
+            "support": 19
+          },
+          "property": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 22,
+            "fp": 0,
+            "fn": 0,
+            "support": 22
+          },
+          "label": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "tag": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 49,
+            "fp": 0,
+            "fn": 0,
+            "support": 49
+          },
+          "attribute": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "text": {
+            "precision": 0.6923076923076923,
+            "recall": 0.75,
+            "f1": 0.72,
+            "tp": 9,
+            "fp": 4,
+            "fn": 3,
+            "support": 12
+          },
+          "entity": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-css": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-data": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-jsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-tsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "focus": {
+        "documents": 32,
+        "exactSpan": {
+          "precision": 0.97877223178428,
+          "recall": 0.9815880322209436,
+          "f1": 0.9801781097385809,
+          "tp": 3412,
+          "fp": 74,
+          "fn": 64,
+          "support": 3476
+        },
+        "exactSpanMacroF1": 0.9577786267435533,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.97877223178428,
+          "recall": 0.9815880322209436,
+          "f1": 0.9801781097385809,
+          "tp": 3412,
+          "fp": 74,
+          "fn": 64,
+          "support": 3476
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.8875,
+            "recall": 0.9342105263157895,
+            "f1": 0.9102564102564102,
+            "tp": 142,
+            "fp": 18,
+            "fn": 10,
+            "support": 152
+          },
+          "comment": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.7763975155279503,
+            "recall": 0.8928571428571429,
+            "f1": 0.8305647840531561,
+            "tp": 125,
+            "fp": 36,
+            "fn": 15,
+            "support": 140
+          },
+          "number": {
+            "precision": 0.9661016949152542,
+            "recall": 0.9827586206896551,
+            "f1": 0.9743589743589743,
+            "tp": 114,
+            "fp": 4,
+            "fn": 2,
+            "support": 116
+          },
+          "regexp": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 56,
+            "fp": 0,
+            "fn": 0,
+            "support": 56
+          },
+          "punctuation": {
+            "precision": 0.9979518689196109,
+            "recall": 0.9903455284552846,
+            "f1": 0.9941341494516704,
+            "tp": 1949,
+            "fp": 4,
+            "fn": 19,
+            "support": 1968
+          },
+          "namespace": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 0.9411764705882353,
+            "recall": 1,
+            "f1": 0.9696969696969697,
+            "tp": 32,
+            "fp": 2,
+            "fn": 0,
+            "support": 32
+          },
+          "interface": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type-parameter": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.75,
+            "recall": 1,
+            "f1": 0.8571428571428571,
+            "tp": 12,
+            "fp": 4,
+            "fn": 0,
+            "support": 12
+          },
+          "method": {
+            "precision": 1,
+            "recall": 0.9,
+            "f1": 0.9473684210526315,
+            "tp": 36,
+            "fp": 0,
+            "fn": 4,
+            "support": 40
+          },
+          "constructor": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 36,
+            "fp": 0,
+            "fn": 0,
+            "support": 36
+          },
+          "variable": {
+            "precision": 0.9615384615384616,
+            "recall": 0.9259259259259259,
+            "f1": 0.9433962264150944,
+            "tp": 100,
+            "fp": 4,
+            "fn": 8,
+            "support": 108
+          },
+          "property": {
+            "precision": 0.990909090909091,
+            "recall": 0.9732142857142857,
+            "f1": 0.9819819819819819,
+            "tp": 218,
+            "fp": 2,
+            "fn": 6,
+            "support": 224
+          },
+          "label": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "tag": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 400,
+            "fp": 0,
+            "fn": 0,
+            "support": 400
+          },
+          "attribute": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 176,
+            "fp": 0,
+            "fn": 0,
+            "support": 176
+          },
+          "text": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "entity": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-css": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-data": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-jsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-tsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      }
+    },
+    "vue3": {
+      "natural": {
+        "documents": 3,
+        "exactSpan": {
+          "precision": 0.966996699669967,
+          "recall": 0.9718076285240465,
+          "f1": 0.9693961952026469,
+          "tp": 586,
+          "fp": 20,
+          "fn": 17,
+          "support": 603
+        },
+        "exactSpanMacroF1": 0.8747555443865568,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9653465346534653,
+          "recall": 0.9701492537313433,
+          "f1": 0.967741935483871,
+          "tp": 585,
+          "fp": 21,
+          "fn": 18,
+          "support": 603
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.8863636363636364,
+            "recall": 1,
+            "f1": 0.9397590361445783,
+            "tp": 39,
+            "fp": 5,
+            "fn": 0,
+            "support": 39
+          },
+          "comment": {
+            "precision": 0.8888888888888888,
+            "recall": 0.8888888888888888,
+            "f1": 0.8888888888888888,
+            "tp": 8,
+            "fp": 1,
+            "fn": 1,
+            "support": 9
+          },
+          "string": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 33,
+            "fp": 0,
+            "fn": 0,
+            "support": 33
+          },
+          "number": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "regexp": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.9411764705882353,
+            "recall": 1,
+            "f1": 0.9696969696969697,
+            "tp": 16,
+            "fp": 1,
+            "fn": 0,
+            "support": 16
+          },
+          "punctuation": {
+            "precision": 0.9779179810725552,
+            "recall": 0.9872611464968153,
+            "f1": 0.9825673534072901,
+            "tp": 310,
+            "fp": 7,
+            "fn": 4,
+            "support": 314
+          },
+          "namespace": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "interface": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type-parameter": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1,
+            "recall": 0.9166666666666666,
+            "f1": 0.9565217391304348,
+            "tp": 11,
+            "fp": 0,
+            "fn": 1,
+            "support": 12
+          },
+          "method": {
+            "precision": 1,
+            "recall": 0.7777777777777778,
+            "f1": 0.875,
+            "tp": 7,
+            "fp": 0,
+            "fn": 2,
+            "support": 9
+          },
+          "constructor": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "variable": {
+            "precision": 0.9782608695652174,
+            "recall": 1,
+            "f1": 0.989010989010989,
+            "tp": 45,
+            "fp": 1,
+            "fn": 0,
+            "support": 45
+          },
+          "property": {
+            "precision": 1,
+            "recall": 0.8857142857142857,
+            "f1": 0.9393939393939394,
+            "tp": 31,
+            "fp": 0,
+            "fn": 4,
+            "support": 35
+          },
+          "label": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "tag": {
+            "precision": 0.9830508474576272,
+            "recall": 1,
+            "f1": 0.9914529914529915,
+            "tp": 58,
+            "fp": 1,
+            "fn": 0,
+            "support": 58
+          },
+          "attribute": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 15,
+            "fp": 0,
+            "fn": 0,
+            "support": 15
+          },
+          "text": {
+            "precision": 0.7692307692307693,
+            "recall": 0.6666666666666666,
+            "f1": 0.7142857142857143,
+            "tp": 10,
+            "fp": 3,
+            "fn": 5,
+            "support": 15
+          },
+          "entity": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-css": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-data": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-jsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-tsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "focus": {
+        "documents": 32,
+        "exactSpan": {
+          "precision": 0.9864191942055228,
+          "recall": 0.9886569872958257,
+          "f1": 0.9875368230228869,
+          "tp": 4358,
+          "fp": 60,
+          "fn": 50,
+          "support": 4408
+        },
+        "exactSpanMacroF1": 0.9171521342948041,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9859665006790402,
+          "recall": 0.9882032667876588,
+          "f1": 0.9870836165873556,
+          "tp": 4356,
+          "fp": 62,
+          "fn": 52,
+          "support": 4408
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9382716049382716,
+            "recall": 0.9743589743589743,
+            "f1": 0.9559748427672956,
+            "tp": 304,
+            "fp": 20,
+            "fn": 8,
+            "support": 312
+          },
+          "comment": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.9615384615384616,
+            "recall": 1,
+            "f1": 0.9803921568627451,
+            "tp": 200,
+            "fp": 8,
+            "fn": 0,
+            "support": 200
+          },
+          "number": {
+            "precision": 0.9767441860465116,
+            "recall": 1,
+            "f1": 0.9882352941176471,
+            "tp": 168,
+            "fp": 4,
+            "fn": 0,
+            "support": 168
+          },
+          "regexp": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 176,
+            "fp": 0,
+            "fn": 0,
+            "support": 176
+          },
+          "punctuation": {
+            "precision": 0.9991103202846975,
+            "recall": 0.9991103202846975,
+            "f1": 0.9991103202846975,
+            "tp": 2246,
+            "fp": 2,
+            "fn": 2,
+            "support": 2248
+          },
+          "namespace": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 0.9411764705882353,
+            "recall": 1,
+            "f1": 0.9696969696969697,
+            "tp": 32,
+            "fp": 2,
+            "fn": 0,
+            "support": 32
+          },
+          "interface": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type-parameter": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.8,
+            "recall": 1,
+            "f1": 0.8888888888888888,
+            "tp": 80,
+            "fp": 20,
+            "fn": 0,
+            "support": 80
+          },
+          "method": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 32,
+            "support": 32
+          },
+          "constructor": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 24,
+            "fp": 0,
+            "fn": 0,
+            "support": 24
+          },
+          "variable": {
+            "precision": 0.9917355371900827,
+            "recall": 0.967741935483871,
+            "f1": 0.9795918367346939,
+            "tp": 240,
+            "fp": 2,
+            "fn": 8,
+            "support": 248
+          },
+          "property": {
+            "precision": 0.9908256880733946,
+            "recall": 1,
+            "f1": 0.9953917050691244,
+            "tp": 216,
+            "fp": 2,
+            "fn": 0,
+            "support": 216
+          },
+          "label": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "tag": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 416,
+            "fp": 0,
+            "fn": 0,
+            "support": 416
+          },
+          "attribute": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 192,
+            "fp": 0,
+            "fn": 0,
+            "support": 192
+          },
+          "text": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 48,
+            "fp": 0,
+            "fn": 0,
+            "support": 48
+          },
+          "entity": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-css": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-data": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "embedded-typescript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-jsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-tsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      }
+    },
+    "vue3.2": {
+      "natural": {
+        "documents": 1,
+        "exactSpan": {
+          "precision": 0.9683257918552036,
+          "recall": 0.9683257918552036,
+          "f1": 0.9683257918552036,
+          "tp": 214,
+          "fp": 7,
+          "fn": 7,
+          "support": 221
+        },
+        "exactSpanMacroF1": 0.9312455495822636,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9683257918552036,
+          "recall": 0.9683257918552036,
+          "f1": 0.9683257918552036,
+          "tp": 214,
+          "fp": 7,
+          "fn": 7,
+          "support": 221
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "comment": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.9166666666666666,
+            "recall": 0.9166666666666666,
+            "f1": 0.9166666666666666,
+            "tp": 11,
+            "fp": 1,
+            "fn": 1,
+            "support": 12
+          },
+          "number": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "regexp": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1,
+            "recall": 0.875,
+            "f1": 0.9333333333333333,
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "support": 8
+          },
+          "punctuation": {
+            "precision": 0.9913793103448276,
+            "recall": 0.9913793103448276,
+            "f1": 0.9913793103448276,
+            "tp": 115,
+            "fp": 1,
+            "fn": 1,
+            "support": 116
+          },
+          "namespace": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "interface": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type-parameter": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "method": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "constructor": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "variable": {
+            "precision": 1,
+            "recall": 0.9230769230769231,
+            "f1": 0.96,
+            "tp": 12,
+            "fp": 0,
+            "fn": 1,
+            "support": 13
+          },
+          "property": {
+            "precision": 1,
+            "recall": 0.8888888888888888,
+            "f1": 0.9411764705882353,
+            "tp": 8,
+            "fp": 0,
+            "fn": 1,
+            "support": 9
+          },
+          "label": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "tag": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 29,
+            "fp": 0,
+            "fn": 0,
+            "support": 29
+          },
+          "attribute": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "text": {
+            "precision": 0.2857142857142857,
+            "recall": 0.5,
+            "f1": 0.36363636363636365,
+            "tp": 2,
+            "fp": 5,
+            "fn": 2,
+            "support": 4
+          },
+          "entity": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-css": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-data": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-jsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-tsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "focus": {
+        "documents": 32,
+        "exactSpan": {
+          "precision": 0.9798097006265954,
+          "recall": 0.9818604651162791,
+          "f1": 0.980834010918806,
+          "tp": 4222,
+          "fp": 87,
+          "fn": 78,
+          "support": 4300
+        },
+        "exactSpanMacroF1": 0.9566972860447112,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9747041076815967,
+          "recall": 0.9767441860465116,
+          "f1": 0.9757230804971542,
+          "tp": 4200,
+          "fp": 109,
+          "fn": 100,
+          "support": 4300
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.8947368421052632,
+            "recall": 1,
+            "f1": 0.9444444444444444,
+            "tp": 204,
+            "fp": 24,
+            "fn": 0,
+            "support": 204
+          },
+          "comment": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 272,
+            "fp": 0,
+            "fn": 0,
+            "support": 272
+          },
+          "number": {
+            "precision": 0.9705882352941176,
+            "recall": 1,
+            "f1": 0.9850746268656716,
+            "tp": 132,
+            "fp": 4,
+            "fn": 0,
+            "support": 132
+          },
+          "regexp": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 168,
+            "fp": 0,
+            "fn": 0,
+            "support": 168
+          },
+          "punctuation": {
+            "precision": 0.9876203576341128,
+            "recall": 0.9773139745916516,
+            "f1": 0.9824401368301027,
+            "tp": 2154,
+            "fp": 27,
+            "fn": 50,
+            "support": 2204
+          },
+          "namespace": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type": {
+            "precision": 1,
+            "recall": 0.9807692307692307,
+            "f1": 0.9902912621359223,
+            "tp": 51,
+            "fp": 0,
+            "fn": 1,
+            "support": 52
+          },
+          "class": {
+            "precision": 0.9411764705882353,
+            "recall": 1,
+            "f1": 0.9696969696969697,
+            "tp": 32,
+            "fp": 2,
+            "fn": 0,
+            "support": 32
+          },
+          "interface": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "enum": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type-parameter": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 88,
+            "fp": 0,
+            "fn": 0,
+            "support": 88
+          },
+          "method": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "constructor": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1,
+            "recall": 0.875,
+            "f1": 0.9333333333333333,
+            "tp": 21,
+            "fp": 0,
+            "fn": 3,
+            "support": 24
+          },
+          "variable": {
+            "precision": 0.9904761904761905,
+            "recall": 0.896551724137931,
+            "f1": 0.9411764705882353,
+            "tp": 208,
+            "fp": 2,
+            "fn": 24,
+            "support": 232
+          },
+          "property": {
+            "precision": 0.9624060150375939,
+            "recall": 1,
+            "f1": 0.9808429118773946,
+            "tp": 128,
+            "fp": 5,
+            "fn": 0,
+            "support": 128
+          },
+          "label": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "tag": {
+            "precision": 0.9914529914529915,
+            "recall": 1,
+            "f1": 0.9957081545064378,
+            "tp": 464,
+            "fp": 4,
+            "fn": 0,
+            "support": 464
+          },
+          "attribute": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "tp": 272,
+            "fp": 0,
+            "fn": 0,
+            "support": 272
+          },
+          "text": {
+            "precision": 0.45714285714285713,
+            "recall": 1,
+            "f1": 0.6274509803921569,
+            "tp": 16,
+            "fp": 19,
+            "fn": 0,
+            "support": 16
+          },
+          "entity": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-css": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-data": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-jsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-tsx": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      }
+    }
+  },
+  "features": {
+    "directives": {
+      "documents": 86,
+      "exactSpan": {
+        "precision": 0.9799342981443665,
+        "recall": 0.9821142552055526,
+        "f1": 0.9810230656415271,
+        "tp": 11037,
+        "fp": 226,
+        "fn": 201,
+        "support": 11238
+      },
+      "exactSpanMacroF1": 0.8988960095588693,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9777146408594513,
+        "recall": 0.9798896600818651,
+        "f1": 0.9788009421803475,
+        "tp": 11012,
+        "fp": 251,
+        "fn": 226,
+        "support": 11238
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9030694668820679,
+          "recall": 0.9755671902268761,
+          "f1": 0.9379194630872483,
+          "tp": 559,
+          "fp": 60,
+          "fn": 14,
+          "support": 573
+        },
+        "comment": {
+          "precision": 0.8888888888888888,
+          "recall": 0.8888888888888888,
+          "f1": 0.8888888888888888,
+          "tp": 8,
+          "fp": 1,
+          "fn": 1,
+          "support": 9
+        },
+        "string": {
+          "precision": 0.9345047923322684,
+          "recall": 0.9733777038269551,
+          "f1": 0.9535452322738386,
+          "tp": 585,
+          "fp": 41,
+          "fn": 16,
+          "support": 601
+        },
+        "number": {
+          "precision": 0.9707602339181286,
+          "recall": 0.9940119760479041,
+          "f1": 0.9822485207100592,
+          "tp": 332,
+          "fp": 10,
+          "fn": 2,
+          "support": 334
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 0.9970674486803519,
+          "recall": 0.9912536443148688,
+          "f1": 0.9941520467836257,
+          "tp": 340,
+          "fp": 1,
+          "fn": 3,
+          "support": 343
+        },
+        "punctuation": {
+          "precision": 0.993064952638701,
+          "recall": 0.9870544720914594,
+          "f1": 0.9900505902192243,
+          "tp": 5871,
+          "fp": 41,
+          "fn": 77,
+          "support": 5948
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 1,
+          "recall": 0.9807692307692307,
+          "f1": 0.9902912621359223,
+          "tp": 51,
+          "fp": 0,
+          "fn": 1,
+          "support": 52
+        },
+        "class": {
+          "precision": 0.9411764705882353,
+          "recall": 1,
+          "f1": 0.9696969696969697,
+          "tp": 80,
+          "fp": 5,
+          "fn": 0,
+          "support": 80
+        },
+        "interface": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.9186046511627907,
+          "recall": 0.9937106918238994,
+          "f1": 0.9546827794561934,
+          "tp": 158,
+          "fp": 14,
+          "fn": 1,
+          "support": 159
+        },
+        "method": {
+          "precision": 1,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "tp": 48,
+          "fp": 0,
+          "fn": 24,
+          "support": 72
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 0.9625,
+          "f1": 0.9808917197452229,
+          "tp": 77,
+          "fp": 0,
+          "fn": 3,
+          "support": 80
+        },
+        "variable": {
+          "precision": 0.9842829076620825,
+          "recall": 0.9294990723562152,
+          "f1": 0.9561068702290076,
+          "tp": 501,
+          "fp": 8,
+          "fn": 38,
+          "support": 539
+        },
+        "property": {
+          "precision": 0.9846153846153847,
+          "recall": 0.9789674952198852,
+          "f1": 0.9817833173537871,
+          "tp": 512,
+          "fp": 8,
+          "fn": 11,
+          "support": 523
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9958847736625515,
+          "recall": 1,
+          "f1": 0.9979381443298969,
+          "tp": 1210,
+          "fp": 5,
+          "fn": 0,
+          "support": 1210
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 610,
+          "fp": 0,
+          "fn": 0,
+          "support": 610
+        },
+        "text": {
+          "precision": 0.7280701754385965,
+          "recall": 0.8924731182795699,
+          "f1": 0.8019323671497585,
+          "tp": 83,
+          "fp": 31,
+          "fn": 10,
+          "support": 93
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "embedded-less": {
+      "documents": 30,
+      "exactSpan": {
+        "precision": 0.980142566191446,
+        "recall": 0.9838998211091234,
+        "f1": 0.9820175997959444,
+        "tp": 3850,
+        "fp": 78,
+        "fn": 63,
+        "support": 3913
+      },
+      "exactSpanMacroF1": 0.9577646446920027,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9781059063136456,
+        "recall": 0.9818553539483772,
+        "f1": 0.9799770437444204,
+        "tp": 3842,
+        "fp": 86,
+        "fn": 71,
+        "support": 3913
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8617886178861789,
+          "recall": 0.9906542056074766,
+          "f1": 0.9217391304347826,
+          "tp": 212,
+          "fp": 34,
+          "fn": 2,
+          "support": 214
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 0.9593908629441624,
+          "recall": 0.9792746113989638,
+          "f1": 0.9692307692307692,
+          "tp": 189,
+          "fp": 8,
+          "fn": 4,
+          "support": 193
+        },
+        "number": {
+          "precision": 0.9568345323741008,
+          "recall": 1,
+          "f1": 0.9779411764705882,
+          "tp": 133,
+          "fp": 6,
+          "fn": 0,
+          "support": 133
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 130,
+          "fp": 0,
+          "fn": 0,
+          "support": 130
+        },
+        "punctuation": {
+          "precision": 0.9960956564177648,
+          "recall": 0.9917395529640428,
+          "f1": 0.9939128317506696,
+          "tp": 2041,
+          "fp": 8,
+          "fn": 17,
+          "support": 2058
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 17,
+          "fp": 0,
+          "fn": 0,
+          "support": 17
+        },
+        "class": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 30,
+          "fp": 0,
+          "fn": 0,
+          "support": 30
+        },
+        "interface": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.8676470588235294,
+          "recall": 1,
+          "f1": 0.9291338582677166,
+          "tp": 59,
+          "fp": 9,
+          "fn": 0,
+          "support": 59
+        },
+        "method": {
+          "precision": 1,
+          "recall": 0.5217391304347826,
+          "f1": 0.6857142857142857,
+          "tp": 12,
+          "fp": 0,
+          "fn": 11,
+          "support": 23
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 28,
+          "fp": 0,
+          "fn": 0,
+          "support": 28
+        },
+        "variable": {
+          "precision": 0.9682539682539683,
+          "recall": 0.8632075471698113,
+          "f1": 0.912718204488778,
+          "tp": 183,
+          "fp": 6,
+          "fn": 29,
+          "support": 212
+        },
+        "property": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 182,
+          "fp": 0,
+          "fn": 0,
+          "support": 182
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9975062344139651,
+          "recall": 1,
+          "f1": 0.9987515605493134,
+          "tp": 400,
+          "fp": 1,
+          "fn": 0,
+          "support": 400
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 200,
+          "fp": 0,
+          "fn": 0,
+          "support": 200
+        },
+        "text": {
+          "precision": 0.8064516129032258,
+          "recall": 1,
+          "f1": 0.8928571428571429,
+          "tp": 25,
+          "fp": 6,
+          "fn": 0,
+          "support": 25
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "embedded-tsx": {
+      "documents": 24,
+      "exactSpan": {
+        "precision": 0.9679960610536681,
+        "recall": 0.9694280078895463,
+        "f1": 0.9687115052968711,
+        "tp": 1966,
+        "fp": 65,
+        "fn": 62,
+        "support": 2028
+      },
+      "exactSpanMacroF1": 0.8901584531512537,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9591334318069916,
+        "recall": 0.960552268244576,
+        "f1": 0.9598423256959843,
+        "tp": 1948,
+        "fp": 83,
+        "fn": 80,
+        "support": 2028
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8846153846153846,
+          "recall": 0.9583333333333334,
+          "f1": 0.92,
+          "tp": 92,
+          "fp": 12,
+          "fn": 4,
+          "support": 96
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 120,
+          "fp": 0,
+          "fn": 0,
+          "support": 120
+        },
+        "number": {
+          "precision": 0.9696969696969697,
+          "recall": 1,
+          "f1": 0.9846153846153847,
+          "tp": 64,
+          "fp": 2,
+          "fn": 0,
+          "support": 64
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 80,
+          "fp": 0,
+          "fn": 0,
+          "support": 80
+        },
+        "punctuation": {
+          "precision": 0.9745098039215686,
+          "recall": 0.9502868068833652,
+          "f1": 0.9622458857696031,
+          "tp": 994,
+          "fp": 26,
+          "fn": 52,
+          "support": 1046
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "class": {
+          "precision": 0.96,
+          "recall": 1,
+          "f1": 0.9795918367346939,
+          "tp": 24,
+          "fp": 1,
+          "fn": 0,
+          "support": 24
+        },
+        "interface": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "method": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 0.9876543209876543,
+          "recall": 0.9302325581395349,
+          "f1": 0.9580838323353293,
+          "tp": 80,
+          "fp": 1,
+          "fn": 6,
+          "support": 86
+        },
+        "property": {
+          "precision": 0.9846153846153847,
+          "recall": 1,
+          "f1": 0.9922480620155039,
+          "tp": 64,
+          "fp": 1,
+          "fn": 0,
+          "support": 64
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9899665551839465,
+          "recall": 1,
+          "f1": 0.9949579831932773,
+          "tp": 296,
+          "fp": 3,
+          "fn": 0,
+          "support": 296
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 152,
+          "fp": 0,
+          "fn": 0,
+          "support": 152
+        },
+        "text": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 19,
+          "fn": 0,
+          "support": 0
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "scoped-style": {
+      "documents": 96,
+      "exactSpan": {
+        "precision": 0.9819045279620077,
+        "recall": 0.9842416283650689,
+        "f1": 0.9830716891421076,
+        "tp": 11992,
+        "fp": 221,
+        "fn": 192,
+        "support": 12184
+      },
+      "exactSpanMacroF1": 0.9560783213477424,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9799394088266601,
+        "recall": 0.9822718319107026,
+        "f1": 0.9811042341271468,
+        "tp": 11968,
+        "fp": 245,
+        "fn": 216,
+        "support": 12184
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9129213483146067,
+          "recall": 0.9730538922155688,
+          "f1": 0.9420289855072463,
+          "tp": 650,
+          "fp": 62,
+          "fn": 18,
+          "support": 668
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 0.9313572542901716,
+          "recall": 0.9754901960784313,
+          "f1": 0.9529130087789306,
+          "tp": 597,
+          "fp": 44,
+          "fn": 15,
+          "support": 612
+        },
+        "number": {
+          "precision": 0.971830985915493,
+          "recall": 0.9951923076923077,
+          "f1": 0.9833729216152018,
+          "tp": 414,
+          "fp": 12,
+          "fn": 2,
+          "support": 416
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 400,
+          "fp": 0,
+          "fn": 0,
+          "support": 400
+        },
+        "punctuation": {
+          "precision": 0.9948292071450956,
+          "recall": 0.9889408099688474,
+          "f1": 0.9918762693329167,
+          "tp": 6349,
+          "fp": 33,
+          "fn": 71,
+          "support": 6420
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 1,
+          "recall": 0.9807692307692307,
+          "f1": 0.9902912621359223,
+          "tp": 51,
+          "fp": 0,
+          "fn": 1,
+          "support": 52
+        },
+        "class": {
+          "precision": 0.9411764705882353,
+          "recall": 1,
+          "f1": 0.9696969696969697,
+          "tp": 96,
+          "fp": 6,
+          "fn": 0,
+          "support": 96
+        },
+        "interface": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.8823529411764706,
+          "recall": 1,
+          "f1": 0.9375,
+          "tp": 180,
+          "fp": 24,
+          "fn": 0,
+          "support": 180
+        },
+        "method": {
+          "precision": 1,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 36,
+          "fp": 0,
+          "fn": 36,
+          "support": 72
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 0.9642857142857143,
+          "f1": 0.9818181818181818,
+          "tp": 81,
+          "fp": 0,
+          "fn": 3,
+          "support": 84
+        },
+        "variable": {
+          "precision": 0.9856115107913669,
+          "recall": 0.9319727891156463,
+          "f1": 0.958041958041958,
+          "tp": 548,
+          "fp": 8,
+          "fn": 40,
+          "support": 588
+        },
+        "property": {
+          "precision": 0.9842381786339754,
+          "recall": 0.9894366197183099,
+          "f1": 0.9868305531167691,
+          "tp": 562,
+          "fp": 9,
+          "fn": 6,
+          "support": 568
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9968847352024922,
+          "recall": 1,
+          "f1": 0.9984399375975039,
+          "tp": 1280,
+          "fp": 4,
+          "fn": 0,
+          "support": 1280
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 640,
+          "fp": 0,
+          "fn": 0,
+          "support": 640
+        },
+        "text": {
+          "precision": 0.8080808080808081,
+          "recall": 1,
+          "f1": 0.8938547486033519,
+          "tp": 80,
+          "fp": 19,
+          "fn": 0,
+          "support": 80
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 16,
+          "fp": 0,
+          "fn": 0,
+          "support": 16
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "script-setup": {
+      "documents": 33,
+      "exactSpan": {
+        "precision": 0.9792494481236204,
+        "recall": 0.9811988498119885,
+        "f1": 0.9802231797591426,
+        "tp": 4436,
+        "fp": 94,
+        "fn": 85,
+        "support": 4521
+      },
+      "exactSpanMacroF1": 0.9565719781756413,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.97439293598234,
+        "recall": 0.9763326697633267,
+        "f1": 0.9753618384708872,
+        "tp": 4414,
+        "fp": 116,
+        "fn": 107,
+        "support": 4521
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9,
+          "recall": 1,
+          "f1": 0.9473684210526315,
+          "tp": 216,
+          "fp": 24,
+          "fn": 0,
+          "support": 216
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 0.9964788732394366,
+          "recall": 0.9964788732394366,
+          "f1": 0.9964788732394366,
+          "tp": 283,
+          "fp": 1,
+          "fn": 1,
+          "support": 284
+        },
+        "number": {
+          "precision": 0.9710144927536232,
+          "recall": 1,
+          "f1": 0.9852941176470589,
+          "tp": 134,
+          "fp": 4,
+          "fn": 0,
+          "support": 134
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 0.9943181818181818,
+          "f1": 0.9971509971509972,
+          "tp": 175,
+          "fp": 0,
+          "fn": 1,
+          "support": 176
+        },
+        "punctuation": {
+          "precision": 0.9878101872006966,
+          "recall": 0.9780172413793103,
+          "f1": 0.9828893220706086,
+          "tp": 2269,
+          "fp": 28,
+          "fn": 51,
+          "support": 2320
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 1,
+          "recall": 0.9807692307692307,
+          "f1": 0.9902912621359223,
+          "tp": 51,
+          "fp": 0,
+          "fn": 1,
+          "support": 52
+        },
+        "class": {
+          "precision": 0.9411764705882353,
+          "recall": 1,
+          "f1": 0.9696969696969697,
+          "tp": 32,
+          "fp": 2,
+          "fn": 0,
+          "support": 32
+        },
+        "interface": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 91,
+          "fp": 0,
+          "fn": 0,
+          "support": 91
+        },
+        "method": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 0.8846153846153846,
+          "f1": 0.9387755102040817,
+          "tp": 23,
+          "fp": 0,
+          "fn": 3,
+          "support": 26
+        },
+        "variable": {
+          "precision": 0.990990990990991,
+          "recall": 0.8979591836734694,
+          "f1": 0.9421841541755889,
+          "tp": 220,
+          "fp": 2,
+          "fn": 25,
+          "support": 245
+        },
+        "property": {
+          "precision": 0.9645390070921985,
+          "recall": 0.9927007299270073,
+          "f1": 0.9784172661870504,
+          "tp": 136,
+          "fp": 5,
+          "fn": 1,
+          "support": 137
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9919517102615694,
+          "recall": 1,
+          "f1": 0.9959595959595959,
+          "tp": 493,
+          "fp": 4,
+          "fn": 0,
+          "support": 493
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 280,
+          "fp": 0,
+          "fn": 0,
+          "support": 280
+        },
+        "text": {
+          "precision": 0.42857142857142855,
+          "recall": 0.9,
+          "f1": 0.5806451612903226,
+          "tp": 18,
+          "fp": 24,
+          "fn": 2,
+          "support": 20
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "embedded-css": {
+      "documents": 37,
+      "exactSpan": {
+        "precision": 0.9825942809780357,
+        "recall": 0.9836133582244347,
+        "f1": 0.9831035555094848,
+        "tp": 4742,
+        "fp": 84,
+        "fn": 79,
+        "support": 4821
+      },
+      "exactSpanMacroF1": 0.9539238708463071,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9807293825113966,
+        "recall": 0.9817465256170919,
+        "f1": 0.9812376904737224,
+        "tp": 4733,
+        "fp": 93,
+        "fn": 88,
+        "support": 4821
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9390681003584229,
+          "recall": 0.9597069597069597,
+          "f1": 0.9492753623188406,
+          "tp": 262,
+          "fp": 17,
+          "fn": 11,
+          "support": 273
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 0.9263565891472868,
+          "recall": 0.9755102040816327,
+          "f1": 0.9502982107355865,
+          "tp": 239,
+          "fp": 19,
+          "fn": 6,
+          "support": 245
+        },
+        "number": {
+          "precision": 1,
+          "recall": 0.9939024390243902,
+          "f1": 0.9969418960244648,
+          "tp": 163,
+          "fp": 0,
+          "fn": 1,
+          "support": 164
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 0.9940476190476191,
+          "f1": 0.9970149253731343,
+          "tp": 167,
+          "fp": 0,
+          "fn": 1,
+          "support": 168
+        },
+        "punctuation": {
+          "precision": 0.9928712871287129,
+          "recall": 0.9881750098541584,
+          "f1": 0.9905175819834058,
+          "tp": 2507,
+          "fp": 18,
+          "fn": 30,
+          "support": 2537
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 1,
+          "recall": 0.9523809523809523,
+          "f1": 0.975609756097561,
+          "tp": 20,
+          "fp": 0,
+          "fn": 1,
+          "support": 21
+        },
+        "class": {
+          "precision": 0.8571428571428571,
+          "recall": 1,
+          "f1": 0.9230769230769231,
+          "tp": 36,
+          "fp": 6,
+          "fn": 0,
+          "support": 36
+        },
+        "interface": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.9156626506024096,
+          "recall": 1,
+          "f1": 0.9559748427672956,
+          "tp": 76,
+          "fp": 7,
+          "fn": 0,
+          "support": 76
+        },
+        "method": {
+          "precision": 1,
+          "recall": 0.5806451612903226,
+          "f1": 0.7346938775510204,
+          "tp": 18,
+          "fp": 0,
+          "fn": 13,
+          "support": 31
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 0.918918918918919,
+          "f1": 0.9577464788732394,
+          "tp": 34,
+          "fp": 0,
+          "fn": 3,
+          "support": 37
+        },
+        "variable": {
+          "precision": 1,
+          "recall": 0.965,
+          "f1": 0.9821882951653944,
+          "tp": 193,
+          "fp": 0,
+          "fn": 7,
+          "support": 200
+        },
+        "property": {
+          "precision": 0.9869565217391304,
+          "recall": 0.9826839826839827,
+          "f1": 0.9848156182212582,
+          "tp": 227,
+          "fp": 3,
+          "fn": 4,
+          "support": 231
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9960861056751468,
+          "recall": 1,
+          "f1": 0.9980392156862745,
+          "tp": 509,
+          "fp": 2,
+          "fn": 0,
+          "support": 509
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 248,
+          "fp": 0,
+          "fn": 0,
+          "support": 248
+        },
+        "text": {
+          "precision": 0.7272727272727273,
+          "recall": 0.9411764705882353,
+          "f1": 0.8205128205128205,
+          "tp": 32,
+          "fp": 12,
+          "fn": 2,
+          "support": 34
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 6,
+          "fp": 0,
+          "fn": 0,
+          "support": 6
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "embedded-javascript": {
+      "documents": 53,
+      "exactSpan": {
+        "precision": 0.9811574697173621,
+        "recall": 0.9834075273168758,
+        "f1": 0.9822812099979789,
+        "tp": 7290,
+        "fp": 140,
+        "fn": 123,
+        "support": 7413
+      },
+      "exactSpanMacroF1": 0.8911379367778409,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9806191117092867,
+        "recall": 0.9828679347092945,
+        "f1": 0.9817422353971569,
+        "tp": 7286,
+        "fp": 144,
+        "fn": 127,
+        "support": 7413
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9310344827586207,
+          "recall": 0.9773755656108597,
+          "f1": 0.9536423841059603,
+          "tp": 432,
+          "fp": 32,
+          "fn": 10,
+          "support": 442
+        },
+        "comment": {
+          "precision": 0.8888888888888888,
+          "recall": 0.8888888888888888,
+          "f1": 0.8888888888888888,
+          "tp": 8,
+          "fp": 1,
+          "fn": 1,
+          "support": 9
+        },
+        "string": {
+          "precision": 0.8797814207650273,
+          "recall": 0.9554896142433235,
+          "f1": 0.9160739687055477,
+          "tp": 322,
+          "fp": 44,
+          "fn": 15,
+          "support": 337
+        },
+        "number": {
+          "precision": 0.9765625,
+          "recall": 0.9920634920634921,
+          "f1": 0.984251968503937,
+          "tp": 250,
+          "fp": 6,
+          "fn": 2,
+          "support": 252
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 0.9954545454545455,
+          "recall": 0.9909502262443439,
+          "f1": 0.9931972789115646,
+          "tp": 219,
+          "fp": 1,
+          "fn": 2,
+          "support": 221
+        },
+        "punctuation": {
+          "precision": 0.9969364309420475,
+          "recall": 0.9941446028513238,
+          "f1": 0.9955385595920969,
+          "tp": 3905,
+          "fp": 12,
+          "fn": 23,
+          "support": 3928
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "class": {
+          "precision": 0.9411764705882353,
+          "recall": 1,
+          "f1": 0.9696969696969697,
+          "tp": 48,
+          "fp": 3,
+          "fn": 0,
+          "support": 48
+        },
+        "interface": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.8125,
+          "recall": 0.9904761904761905,
+          "f1": 0.8927038626609443,
+          "tp": 104,
+          "fp": 24,
+          "fn": 1,
+          "support": 105
+        },
+        "method": {
+          "precision": 1,
+          "recall": 0.5061728395061729,
+          "f1": 0.6721311475409836,
+          "tp": 41,
+          "fp": 0,
+          "fn": 40,
+          "support": 81
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 65,
+          "fp": 0,
+          "fn": 0,
+          "support": 65
+        },
+        "variable": {
+          "precision": 0.9834254143646409,
+          "recall": 0.964769647696477,
+          "f1": 0.9740082079343365,
+          "tp": 356,
+          "fp": 6,
+          "fn": 13,
+          "support": 369
+        },
+        "property": {
+          "precision": 0.9927184466019418,
+          "recall": 0.9761336515513126,
+          "f1": 0.9843561973525873,
+          "tp": 409,
+          "fp": 3,
+          "fn": 10,
+          "support": 419
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 724,
+          "fp": 0,
+          "fn": 0,
+          "support": 724
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 311,
+          "fp": 0,
+          "fn": 0,
+          "support": 311
+        },
+        "text": {
+          "precision": 0.9195402298850575,
+          "recall": 0.9302325581395349,
+          "f1": 0.9248554913294798,
+          "tp": 80,
+          "fp": 7,
+          "fn": 6,
+          "support": 86
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 16,
+          "fp": 0,
+          "fn": 0,
+          "support": 16
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "vue3-v-model": {
+      "documents": 16,
+      "exactSpan": {
+        "precision": 0.9871630295250321,
+        "recall": 0.9892795883361921,
+        "f1": 0.9882201756264725,
+        "tp": 2307,
+        "fp": 30,
+        "fn": 25,
+        "support": 2332
+      },
+      "exactSpanMacroF1": 0.9115042188410346,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9867351305091998,
+        "recall": 0.9888507718696398,
+        "f1": 0.9877918183765261,
+        "tp": 2306,
+        "fp": 31,
+        "fn": 26,
+        "support": 2332
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9382716049382716,
+          "recall": 0.9743589743589743,
+          "f1": 0.9559748427672956,
+          "tp": 152,
+          "fp": 10,
+          "fn": 4,
+          "support": 156
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 0.96875,
+          "recall": 1,
+          "f1": 0.9841269841269841,
+          "tp": 124,
+          "fp": 4,
+          "fn": 0,
+          "support": 124
+        },
+        "number": {
+          "precision": 0.9767441860465116,
+          "recall": 1,
+          "f1": 0.9882352941176471,
+          "tp": 84,
+          "fp": 2,
+          "fn": 0,
+          "support": 84
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 88,
+          "fp": 0,
+          "fn": 0,
+          "support": 88
+        },
+        "punctuation": {
+          "precision": 0.9991525423728813,
+          "recall": 0.9991525423728813,
+          "f1": 0.9991525423728813,
+          "tp": 1179,
+          "fp": 1,
+          "fn": 1,
+          "support": 1180
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "class": {
+          "precision": 0.9411764705882353,
+          "recall": 1,
+          "f1": 0.9696969696969697,
+          "tp": 16,
+          "fp": 1,
+          "fn": 0,
+          "support": 16
+        },
+        "interface": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.8,
+          "recall": 1,
+          "f1": 0.8888888888888888,
+          "tp": 40,
+          "fp": 10,
+          "fn": 0,
+          "support": 40
+        },
+        "method": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 16,
+          "support": 16
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "variable": {
+          "precision": 0.9917355371900827,
+          "recall": 0.967741935483871,
+          "f1": 0.9795918367346939,
+          "tp": 120,
+          "fp": 1,
+          "fn": 4,
+          "support": 124
+        },
+        "property": {
+          "precision": 0.9908256880733946,
+          "recall": 1,
+          "f1": 0.9953917050691244,
+          "tp": 108,
+          "fp": 1,
+          "fn": 0,
+          "support": 108
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 224,
+          "fp": 0,
+          "fn": 0,
+          "support": 224
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 128,
+          "fp": 0,
+          "fn": 0,
+          "support": 128
+        },
+        "text": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "support": 32
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "crlf": {
+      "documents": 18,
+      "exactSpan": {
+        "precision": 0.977299880525687,
+        "recall": 0.9939246658566221,
+        "f1": 0.9855421686746988,
+        "tp": 2454,
+        "fp": 57,
+        "fn": 15,
+        "support": 2469
+      },
+      "exactSpanMacroF1": 0.9573031941757184,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9757068896853843,
+        "recall": 0.9923045767517213,
+        "f1": 0.9839357429718876,
+        "tp": 2450,
+        "fp": 61,
+        "fn": 19,
+        "support": 2469
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.94,
+          "recall": 1,
+          "f1": 0.9690721649484536,
+          "tp": 141,
+          "fp": 9,
+          "fn": 0,
+          "support": 141
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 120,
+          "fp": 0,
+          "fn": 0,
+          "support": 120
+        },
+        "number": {
+          "precision": 0.8787878787878788,
+          "recall": 1,
+          "f1": 0.9354838709677419,
+          "tp": 87,
+          "fp": 12,
+          "fn": 0,
+          "support": 87
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 90,
+          "fp": 0,
+          "fn": 0,
+          "support": 90
+        },
+        "punctuation": {
+          "precision": 0.9930555555555556,
+          "recall": 0.9953596287703016,
+          "f1": 0.9942062572421785,
+          "tp": 1287,
+          "fp": 9,
+          "fn": 6,
+          "support": 1293
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "class": {
+          "precision": 0.75,
+          "recall": 1,
+          "f1": 0.8571428571428571,
+          "tp": 18,
+          "fp": 6,
+          "fn": 0,
+          "support": 18
+        },
+        "interface": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 42,
+          "fp": 0,
+          "fn": 0,
+          "support": 42
+        },
+        "method": {
+          "precision": 1,
+          "recall": 0.6,
+          "f1": 0.75,
+          "tp": 9,
+          "fp": 0,
+          "fn": 6,
+          "support": 15
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 21,
+          "fp": 0,
+          "fn": 0,
+          "support": 21
+        },
+        "variable": {
+          "precision": 0.9545454545454546,
+          "recall": 0.9767441860465116,
+          "f1": 0.9655172413793104,
+          "tp": 126,
+          "fp": 6,
+          "fn": 3,
+          "support": 129
+        },
+        "property": {
+          "precision": 0.9523809523809523,
+          "recall": 1,
+          "f1": 0.975609756097561,
+          "tp": 120,
+          "fp": 6,
+          "fn": 0,
+          "support": 120
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9876543209876543,
+          "recall": 1,
+          "f1": 0.9937888198757764,
+          "tp": 240,
+          "fp": 3,
+          "fn": 0,
+          "support": 240
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 120,
+          "fp": 0,
+          "fn": 0,
+          "support": 120
+        },
+        "text": {
+          "precision": 0.7142857142857143,
+          "recall": 1,
+          "f1": 0.8333333333333334,
+          "tp": 15,
+          "fp": 6,
+          "fn": 0,
+          "support": 15
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "embedded-expression": {
+      "documents": 38,
+      "exactSpan": {
+        "precision": 0.9810479375696767,
+        "recall": 0.983083306734759,
+        "f1": 0.9820645675567955,
+        "tp": 6160,
+        "fp": 119,
+        "fn": 106,
+        "support": 6266
+      },
+      "exactSpanMacroF1": 0.9057904135411303,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9800923713967192,
+        "recall": 0.982125758059368,
+        "f1": 0.9811080111598246,
+        "tp": 6154,
+        "fp": 125,
+        "fn": 112,
+        "support": 6266
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8996865203761756,
+          "recall": 0.9930795847750865,
+          "f1": 0.944078947368421,
+          "tp": 287,
+          "fp": 32,
+          "fn": 2,
+          "support": 289
+        },
+        "comment": {
+          "precision": 0.8888888888888888,
+          "recall": 0.8888888888888888,
+          "f1": 0.8888888888888888,
+          "tp": 8,
+          "fp": 1,
+          "fn": 1,
+          "support": 9
+        },
+        "string": {
+          "precision": 0.8954802259887006,
+          "recall": 0.9519519519519519,
+          "f1": 0.9228529839883551,
+          "tp": 317,
+          "fp": 37,
+          "fn": 16,
+          "support": 333
+        },
+        "number": {
+          "precision": 0.9767441860465116,
+          "recall": 0.9882352941176471,
+          "f1": 0.9824561403508771,
+          "tp": 168,
+          "fp": 4,
+          "fn": 2,
+          "support": 170
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 0.9936305732484076,
+          "recall": 0.9811320754716981,
+          "f1": 0.9873417721518988,
+          "tp": 156,
+          "fp": 1,
+          "fn": 3,
+          "support": 159
+        },
+        "punctuation": {
+          "precision": 0.9961481481481481,
+          "recall": 0.9934988179669031,
+          "f1": 0.9948217191892291,
+          "tp": 3362,
+          "fp": 13,
+          "fn": 22,
+          "support": 3384
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 1,
+          "recall": 0.9807692307692307,
+          "f1": 0.9902912621359223,
+          "tp": 51,
+          "fp": 0,
+          "fn": 1,
+          "support": 52
+        },
+        "class": {
+          "precision": 0.9411764705882353,
+          "recall": 1,
+          "f1": 0.9696969696969697,
+          "tp": 32,
+          "fp": 2,
+          "fn": 0,
+          "support": 32
+        },
+        "interface": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.9672131147540983,
+          "recall": 0.9915966386554622,
+          "f1": 0.979253112033195,
+          "tp": 118,
+          "fp": 4,
+          "fn": 1,
+          "support": 119
+        },
+        "method": {
+          "precision": 1,
+          "recall": 0.8571428571428571,
+          "f1": 0.9230769230769231,
+          "tp": 48,
+          "fp": 0,
+          "fn": 8,
+          "support": 56
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 0.9558823529411765,
+          "f1": 0.9774436090225563,
+          "tp": 65,
+          "fp": 0,
+          "fn": 3,
+          "support": 68
+        },
+        "variable": {
+          "precision": 0.9827586206896551,
+          "recall": 0.9163987138263665,
+          "f1": 0.9484193011647255,
+          "tp": 285,
+          "fp": 5,
+          "fn": 26,
+          "support": 311
+        },
+        "property": {
+          "precision": 0.9840255591054313,
+          "recall": 0.9655172413793104,
+          "f1": 0.9746835443037974,
+          "tp": 308,
+          "fp": 5,
+          "fn": 11,
+          "support": 319
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9966887417218543,
+          "recall": 1,
+          "f1": 0.9983416252072969,
+          "tp": 602,
+          "fp": 2,
+          "fn": 0,
+          "support": 602
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 290,
+          "fp": 0,
+          "fn": 0,
+          "support": 290
+        },
+        "text": {
+          "precision": 0.8095238095238095,
+          "recall": 0.8360655737704918,
+          "f1": 0.8225806451612904,
+          "tp": 51,
+          "fp": 12,
+          "fn": 10,
+          "support": 61
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "embedded-typescript": {
+      "documents": 18,
+      "exactSpan": {
+        "precision": 0.9882988298829883,
+        "recall": 0.9900811541929666,
+        "f1": 0.9891891891891892,
+        "tp": 3294,
+        "fp": 39,
+        "fn": 33,
+        "support": 3327
+      },
+      "exactSpanMacroF1": 0.9725659045343279,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9870987098709871,
+        "recall": 0.9888788698527202,
+        "f1": 0.987987987987988,
+        "tp": 3290,
+        "fp": 43,
+        "fn": 37,
+        "support": 3327
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8918918918918919,
+          "recall": 1,
+          "f1": 0.9428571428571428,
+          "tp": 165,
+          "fp": 20,
+          "fn": 0,
+          "support": 165
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 0.9949748743718593,
+          "recall": 0.9949748743718593,
+          "f1": 0.9949748743718593,
+          "tp": 198,
+          "fp": 1,
+          "fn": 1,
+          "support": 199
+        },
+        "number": {
+          "precision": 0.9772727272727273,
+          "recall": 1,
+          "f1": 0.9885057471264368,
+          "tp": 86,
+          "fp": 2,
+          "fn": 0,
+          "support": 86
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 0.9912280701754386,
+          "f1": 0.9955947136563876,
+          "tp": 113,
+          "fp": 0,
+          "fn": 1,
+          "support": 114
+        },
+        "punctuation": {
+          "precision": 0.9982768523836876,
+          "recall": 0.9994249568717654,
+          "f1": 0.9988505747126437,
+          "tp": 1738,
+          "fp": 3,
+          "fn": 1,
+          "support": 1739
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 1,
+          "recall": 0.9807692307692307,
+          "f1": 0.9902912621359223,
+          "tp": 51,
+          "fp": 0,
+          "fn": 1,
+          "support": 52
+        },
+        "class": {
+          "precision": 0.9411764705882353,
+          "recall": 1,
+          "f1": 0.9696969696969697,
+          "tp": 16,
+          "fp": 1,
+          "fn": 0,
+          "support": 16
+        },
+        "interface": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 94,
+          "fp": 0,
+          "fn": 0,
+          "support": 94
+        },
+        "method": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 0.8888888888888888,
+          "f1": 0.9411764705882353,
+          "tp": 24,
+          "fp": 0,
+          "fn": 3,
+          "support": 27
+        },
+        "variable": {
+          "precision": 0.9941860465116279,
+          "recall": 0.890625,
+          "f1": 0.9395604395604396,
+          "tp": 171,
+          "fp": 1,
+          "fn": 21,
+          "support": 192
+        },
+        "property": {
+          "precision": 0.9672131147540983,
+          "recall": 0.9915966386554622,
+          "f1": 0.979253112033195,
+          "tp": 118,
+          "fp": 4,
+          "fn": 1,
+          "support": 119
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9935483870967742,
+          "recall": 1,
+          "f1": 0.9967637540453075,
+          "tp": 308,
+          "fp": 2,
+          "fn": 0,
+          "support": 308
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 172,
+          "fp": 0,
+          "fn": 0,
+          "support": 172
+        },
+        "text": {
+          "precision": 0.8076923076923077,
+          "recall": 0.84,
+          "f1": 0.8235294117647058,
+          "tp": 21,
+          "fp": 5,
+          "fn": 4,
+          "support": 25
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "embedded-data": {
+      "documents": 16,
+      "exactSpan": {
+        "precision": 0.9855838539163864,
+        "recall": 0.9879576107899807,
+        "f1": 0.9867693047871061,
+        "tp": 2051,
+        "fp": 30,
+        "fn": 25,
+        "support": 2076
+      },
+      "exactSpanMacroF1": 0.9167468121363719,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9851033157135992,
+        "recall": 0.98747591522158,
+        "f1": 0.9862881885975463,
+        "tp": 2050,
+        "fp": 31,
+        "fn": 26,
+        "support": 2076
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9382716049382716,
+          "recall": 0.9743589743589743,
+          "f1": 0.9559748427672956,
+          "tp": 152,
+          "fp": 10,
+          "fn": 4,
+          "support": 156
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 0.95,
+          "recall": 1,
+          "f1": 0.9743589743589743,
+          "tp": 76,
+          "fp": 4,
+          "fn": 0,
+          "support": 76
+        },
+        "number": {
+          "precision": 0.9767441860465116,
+          "recall": 1,
+          "f1": 0.9882352941176471,
+          "tp": 84,
+          "fp": 2,
+          "fn": 0,
+          "support": 84
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 88,
+          "fp": 0,
+          "fn": 0,
+          "support": 88
+        },
+        "punctuation": {
+          "precision": 0.9990636704119851,
+          "recall": 0.9990636704119851,
+          "f1": 0.9990636704119851,
+          "tp": 1067,
+          "fp": 1,
+          "fn": 1,
+          "support": 1068
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "class": {
+          "precision": 0.9411764705882353,
+          "recall": 1,
+          "f1": 0.9696969696969697,
+          "tp": 16,
+          "fp": 1,
+          "fn": 0,
+          "support": 16
+        },
+        "interface": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.8,
+          "recall": 1,
+          "f1": 0.8888888888888888,
+          "tp": 40,
+          "fp": 10,
+          "fn": 0,
+          "support": 40
+        },
+        "method": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 16,
+          "support": 16
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "variable": {
+          "precision": 0.9917355371900827,
+          "recall": 0.967741935483871,
+          "f1": 0.9795918367346939,
+          "tp": 120,
+          "fp": 1,
+          "fn": 4,
+          "support": 124
+        },
+        "property": {
+          "precision": 0.9908256880733946,
+          "recall": 1,
+          "f1": 0.9953917050691244,
+          "tp": 108,
+          "fp": 1,
+          "fn": 0,
+          "support": 108
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 192,
+          "fp": 0,
+          "fn": 0,
+          "support": 192
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 64,
+          "fp": 0,
+          "fn": 0,
+          "support": 64
+        },
+        "text": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 16,
+          "fp": 0,
+          "fn": 0,
+          "support": 16
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 16,
+          "fp": 0,
+          "fn": 0,
+          "support": 16
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "embedded-scss": {
+      "documents": 30,
+      "exactSpan": {
+        "precision": 0.9820652173913044,
+        "recall": 0.9844728956687551,
+        "f1": 0.9832675826418175,
+        "tp": 3614,
+        "fp": 66,
+        "fn": 57,
+        "support": 3671
+      },
+      "exactSpanMacroF1": 0.9546255327639331,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9801630434782609,
+        "recall": 0.9825660582947425,
+        "f1": 0.9813630798530812,
+        "tp": 3607,
+        "fp": 73,
+        "fn": 64,
+        "support": 3671
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9447236180904522,
+          "recall": 0.9740932642487047,
+          "f1": 0.9591836734693877,
+          "tp": 188,
+          "fp": 11,
+          "fn": 5,
+          "support": 193
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 0.9090909090909091,
+          "recall": 0.967741935483871,
+          "f1": 0.9375,
+          "tp": 180,
+          "fp": 18,
+          "fn": 6,
+          "support": 186
+        },
+        "number": {
+          "precision": 0.9523809523809523,
+          "recall": 0.9917355371900827,
+          "f1": 0.97165991902834,
+          "tp": 120,
+          "fp": 6,
+          "fn": 1,
+          "support": 121
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 110,
+          "fp": 0,
+          "fn": 0,
+          "support": 110
+        },
+        "punctuation": {
+          "precision": 0.9958419958419958,
+          "recall": 0.9871200412158682,
+          "f1": 0.9914618369987064,
+          "tp": 1916,
+          "fp": 8,
+          "fn": 25,
+          "support": 1941
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 14,
+          "fp": 0,
+          "fn": 0,
+          "support": 14
+        },
+        "class": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 30,
+          "fp": 0,
+          "fn": 0,
+          "support": 30
+        },
+        "interface": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.8571428571428571,
+          "recall": 1,
+          "f1": 0.9230769230769231,
+          "tp": 48,
+          "fp": 8,
+          "fn": 0,
+          "support": 48
+        },
+        "method": {
+          "precision": 1,
+          "recall": 0.42857142857142855,
+          "f1": 0.6,
+          "tp": 9,
+          "fp": 0,
+          "fn": 12,
+          "support": 21
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 21,
+          "fp": 0,
+          "fn": 0,
+          "support": 21
+        },
+        "variable": {
+          "precision": 0.989247311827957,
+          "recall": 0.9735449735449735,
+          "f1": 0.9813333333333333,
+          "tp": 184,
+          "fp": 2,
+          "fn": 5,
+          "support": 189
+        },
+        "property": {
+          "precision": 0.9640718562874252,
+          "recall": 0.9817073170731707,
+          "f1": 0.972809667673716,
+          "tp": 161,
+          "fp": 6,
+          "fn": 3,
+          "support": 164
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 0.9975062344139651,
+          "recall": 1,
+          "f1": 0.9987515605493134,
+          "tp": 400,
+          "fp": 1,
+          "fn": 0,
+          "support": 400
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 200,
+          "fp": 0,
+          "fn": 0,
+          "support": 200
+        },
+        "text": {
+          "precision": 0.8064516129032258,
+          "recall": 1,
+          "f1": 0.8928571428571429,
+          "tp": 25,
+          "fp": 6,
+          "fn": 0,
+          "support": 25
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "embedded-jsx": {
+      "documents": 8,
+      "exactSpan": {
+        "precision": 0.9805194805194806,
+        "recall": 0.9869281045751634,
+        "f1": 0.9837133550488599,
+        "tp": 604,
+        "fp": 12,
+        "fn": 8,
+        "support": 612
+      },
+      "exactSpanMacroF1": 0.9625294444117974,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9805194805194806,
+        "recall": 0.9869281045751634,
+        "f1": 0.9837133550488599,
+        "tp": 604,
+        "fp": 12,
+        "fn": 8,
+        "support": 612
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8235294117647058,
+          "recall": 0.875,
+          "f1": 0.8484848484848485,
+          "tp": 28,
+          "fp": 6,
+          "fn": 4,
+          "support": 32
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 24,
+          "fp": 0,
+          "fn": 0,
+          "support": 24
+        },
+        "number": {
+          "precision": 0.8888888888888888,
+          "recall": 1,
+          "f1": 0.9411764705882353,
+          "tp": 16,
+          "fp": 2,
+          "fn": 0,
+          "support": 16
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 16,
+          "fp": 0,
+          "fn": 0,
+          "support": 16
+        },
+        "punctuation": {
+          "precision": 0.9970326409495549,
+          "recall": 0.9940828402366864,
+          "f1": 0.9955555555555555,
+          "tp": 336,
+          "fp": 1,
+          "fn": 2,
+          "support": 338
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "class": {
+          "precision": 0.8888888888888888,
+          "recall": 1,
+          "f1": 0.9411764705882353,
+          "tp": 8,
+          "fp": 1,
+          "fn": 0,
+          "support": 8
+        },
+        "interface": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "method": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 0.9411764705882353,
+          "recall": 0.8888888888888888,
+          "f1": 0.9142857142857143,
+          "tp": 16,
+          "fp": 1,
+          "fn": 2,
+          "support": 18
+        },
+        "property": {
+          "precision": 0.9696969696969697,
+          "recall": 1,
+          "f1": 0.9846153846153847,
+          "tp": 32,
+          "fp": 1,
+          "fn": 0,
+          "support": 32
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 88,
+          "fp": 0,
+          "fn": 0,
+          "support": 88
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "support": 40
+        },
+        "text": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "slots": {
+      "documents": 1,
+      "exactSpan": {
+        "precision": 0.9683257918552036,
+        "recall": 0.9683257918552036,
+        "f1": 0.9683257918552036,
+        "tp": 214,
+        "fp": 7,
+        "fn": 7,
+        "support": 221
+      },
+      "exactSpanMacroF1": 0.9312455495822636,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9683257918552036,
+        "recall": 0.9683257918552036,
+        "f1": 0.9683257918552036,
+        "tp": 214,
+        "fp": 7,
+        "fn": 7,
+        "support": 221
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 0.9166666666666666,
+          "recall": 0.9166666666666666,
+          "f1": 0.9166666666666666,
+          "tp": 11,
+          "fp": 1,
+          "fn": 1,
+          "support": 12
+        },
+        "number": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 0.875,
+          "f1": 0.9333333333333333,
+          "tp": 7,
+          "fp": 0,
+          "fn": 1,
+          "support": 8
+        },
+        "punctuation": {
+          "precision": 0.9913793103448276,
+          "recall": 0.9913793103448276,
+          "f1": 0.9913793103448276,
+          "tp": 115,
+          "fp": 1,
+          "fn": 1,
+          "support": 116
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "class": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "interface": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "method": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "variable": {
+          "precision": 1,
+          "recall": 0.9230769230769231,
+          "f1": 0.96,
+          "tp": 12,
+          "fp": 0,
+          "fn": 1,
+          "support": 13
+        },
+        "property": {
+          "precision": 1,
+          "recall": 0.8888888888888888,
+          "f1": 0.9411764705882353,
+          "tp": 8,
+          "fp": 0,
+          "fn": 1,
+          "support": 9
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 29,
+          "fp": 0,
+          "fn": 0,
+          "support": 29
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 8,
+          "fp": 0,
+          "fn": 0,
+          "support": 8
+        },
+        "text": {
+          "precision": 0.2857142857142857,
+          "recall": 0.5,
+          "f1": 0.36363636363636365,
+          "tp": 2,
+          "fp": 5,
+          "fn": 2,
+          "support": 4
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "filter-pipes": {
+      "documents": 2,
+      "exactSpan": {
+        "precision": 0.9736842105263158,
+        "recall": 0.9673202614379085,
+        "f1": 0.9704918032786886,
+        "tp": 296,
+        "fp": 8,
+        "fn": 10,
+        "support": 306
+      },
+      "exactSpanMacroF1": 0.9164054508038482,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9703947368421053,
+        "recall": 0.9640522875816994,
+        "f1": 0.9672131147540983,
+        "tp": 295,
+        "fp": 9,
+        "fn": 11,
+        "support": 306
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.7692307692307693,
+          "recall": 1,
+          "f1": 0.8695652173913043,
+          "tp": 10,
+          "fp": 3,
+          "fn": 0,
+          "support": 10
+        },
+        "comment": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "support": 20
+        },
+        "number": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "regexp": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1,
+          "recall": 0.7142857142857143,
+          "f1": 0.8333333333333334,
+          "tp": 5,
+          "fp": 0,
+          "fn": 2,
+          "support": 7
+        },
+        "punctuation": {
+          "precision": 0.9939393939393939,
+          "recall": 0.9879518072289156,
+          "f1": 0.9909365558912386,
+          "tp": 164,
+          "fp": 1,
+          "fn": 2,
+          "support": 166
+        },
+        "namespace": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "class": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "interface": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "method": {
+          "precision": 1,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 2,
+          "fp": 0,
+          "fn": 2,
+          "support": 4
+        },
+        "constructor": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "variable": {
+          "precision": 1,
+          "recall": 0.9411764705882353,
+          "f1": 0.9696969696969697,
+          "tp": 16,
+          "fp": 0,
+          "fn": 1,
+          "support": 17
+        },
+        "property": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 19,
+          "fp": 0,
+          "fn": 0,
+          "support": 19
+        },
+        "label": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "tag": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 35,
+          "fp": 0,
+          "fn": 0,
+          "support": 35
+        },
+        "attribute": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "tp": 11,
+          "fp": 0,
+          "fn": 0,
+          "support": 11
+        },
+        "text": {
+          "precision": 0.6363636363636364,
+          "recall": 0.7,
+          "f1": 0.6666666666666666,
+          "tp": 7,
+          "fp": 4,
+          "fn": 3,
+          "support": 10
+        },
+        "entity": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-typescript": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "attemptedDocuments": 103,
+  "excludedGoldDocuments": [],
+  "seconds": 8.798598791999998,
+  "provenance": {
+    "packs/vue/labeling/embedded.ts": "0ce2d355529c799cbe7630a7358c9427da7839f18ed2ddf54de21ada787f575a",
+    "packs/vue/labeling/label.ts": "dfcd432d25276a0f3e97095b5df9adf8a1e90df080b8e99f01e157df3af188ec",
+    "packs/vue/runtime/composite.ts": "0639a9a37b02403ee45eee4cc5cd941552b7ff7e990fbdf540ffd69b6be84e12",
+    "packs/css/labeling/label.ts": "fc0bfefc97e67bec163917ea2ad53bd963176dbe3899a78571d8a4adee3b7c83",
+    "packs/typescript/labeling/label.ts": "f8b90dafa13c042c31db77116fa0332356a40c157dfe0dc9560797b93e273e79",
+    "pnpm-lock.yaml": "dfc8b3dbced125ae5c168b33ce35abb14a7fba5bc6408b60d4f60cf35e1230dc",
+    "training/vue/evaluate-composed.ts": "3f2f2b8d21f77d3ed66db7cb44c5d0e9ac46b6d0ecf376ac9773f790aa7df63c",
+    "packs/vue/runtime/local.py": "a8836e0576fd4e1786283007c09de761adafd852589a4f754b96134e1d06208a",
+    "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+    "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+    "packages/runtimes/local/src/local-process-pack.ts": "03ba2fab8f7a68112e10a8f525cb4dc658ba6b5eec5f519128a55b6d8cfbb5be"
+  }
+}

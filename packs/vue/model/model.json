@@ -1,0 +1,222 @@
+{
+  "id": "vue",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-vue-model-v1",
+    "sha256": "8733409079fcead598dc2405b82abc9f59537e3284afcd841a36a061eccaecaa",
+    "bytes": 3650229,
+    "parameterCount": 894485,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 35,
+    "metric": "mean per-profile natural real-source validation exact-span macro F1",
+    "score": 0.8091739238952309
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1,
+    "local_kernel": 1
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "punctuation",
+      "tag",
+      "attribute",
+      "text",
+      "entity",
+      "embedded-javascript",
+      "embedded-css",
+      "embedded-data",
+      "embedded-typescript",
+      "embedded-jsx",
+      "embedded-tsx",
+      "embedded-scss",
+      "embedded-less",
+      "embedded-expression"
+    ],
+    "modifiers": [
+      "closing"
+    ]
+  },
+  "documentKinds": [
+    "vue"
+  ],
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy-mean-logit-with-adjacent-body-coalescing",
+    "modifierThreshold": 0.6,
+    "parserRequired": false
+  },
+  "scope": "base-vue-markup-and-neural-regions",
+  "modelSchema": {
+    "file": "../model-schema.json",
+    "sha256": "2ece6b913f64a2f65a925cfcbfe1b191726a5957fd1e34079b50b1c462441048"
+  },
+  "publicSchema": {
+    "file": "../schema.json",
+    "sha256": "ccc7a92a0353f9d9112ed9d716324d864aedce6a975c346efcf88a089792d042"
+  },
+  "dataset": {
+    "snapshot": "29c6af2a7842f582322911aab1b99f076f2704f6e73565e1d5cd452884d0b848",
+    "manifestHash": "19dc1f859c3de80a7d4445ef62a92a664cd4f7b766c5bf089b9387b067eed5e5"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/vue/context512-compact-20261108-01/best.pt",
+    "sourceCheckpointSha256": "fbfc85c895e652452529d0579b7ab798fb939cd4cc245fd5e017352df8b772c8",
+    "training": {
+      "codeHashes": {
+        "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+        "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+        "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/vue/challenge.py": "6d994189e252150312d1e64d27f56e0c973447ea8428c3cb6a8eadb33f99058f",
+        "training/vue/checkpoints.py": "81b2ca255e4baff3361cc6aa1e8860339960377aca12b709c6b503cdbd9bd1c6",
+        "training/vue/dataset.py": "5bff9c911e14f33883300b5b4df046b65bbb1ea2ebd8ba8d91a9862709737e10",
+        "training/vue/encoding.py": "eb44cfdb3235c9dc79ede0269db4a5e3805bce480506378ea05d0aace6a51acc",
+        "training/vue/evaluate.py": "7ed9571656e45690975f57655d04f6b42b520a594a34d84958160344fb09b91b",
+        "training/vue/export_model.py": "6545393ffdd29edb1376342986ad1b24edcf850431060d58fc56f43473865990",
+        "training/vue/inference.py": "273f410a2f37e8c028ab686615d467e29b59b6a9d5c59ac56e483c7f372d73f2",
+        "training/vue/initialization.py": "a3b3c1a7f6ce9527803c5d569061c63d5130e2a4de412d1e5f28b791b636d636",
+        "training/vue/io.py": "8a4dece85394a4392c7e069a2f3d6f41196c47cf62b0f672dfa3a3c7ff860a16",
+        "training/vue/losses.py": "c114402cb85f0b3e6dfc11eb4ccf1071e7c9724a89b1db36c9cbf90b812ed737",
+        "training/vue/metrics.py": "d18bfe40fd6d570e85d75198912159ac3033f0c8d6921e21b73c09b0742b2ff6",
+        "training/vue/model.py": "ba6e9742e903aa9227efabdf72707d996d6b59553346b7de14e2e5e3185ad979",
+        "training/vue/predict.py": "80bcce66ed7a19ccfa1ed20b148a231cc0057504f75cb3a7e2d28dde064db477",
+        "training/vue/prepare.py": "97fbee6786bec9a50bff78b5fdc00475772b3d2c2c4928f1f5808be34d4efc47",
+        "training/vue/progress.py": "b411c76b29150e9c86756f5874950cb2595dcecc364df93b8ff602ba59e4f6e8",
+        "training/vue/provenance.py": "e4489245283d0653d7936835a40345fc45ff92e21fba2a8207a736ae6a0b05e6",
+        "training/vue/train.py": "a97397a0e9d13bd5dd60d1d3fbc3aea2aab1911ce682643c585392596342bb91",
+        "training/vue/trainer_data.py": "1cb2539d463610fc870f3caa859ca200492678ac58e1aa6b30146b601c5b7f5a"
+      },
+      "semanticsHash": "3c72bd6247a861962a2ee57d635be0184ebace21f1b96c0ee18fa5cc1905423b",
+      "pythonTorch": "2.14.0",
+      "repositoryDirty": true,
+      "repositoryCommit": "b360a0c9c10739e9992a237568350c0fc2343816"
+    },
+    "initialization": {
+      "mode": "html-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/html/context512-fragments-20261108-01/best.pt",
+      "checkpointHash": "5ec23730af06c00f5311dc84f59d5d1610d4071b22cdfbbd9b0022a0858c1569",
+      "sourceEpoch": 20,
+      "sourceDataset": {
+        "snapshot": "6b817884ae7a25904db1fe5edba5f424d0f07f04da4a223fb6cf814cdc07c98c",
+        "manifestHash": "135bff5786454f70265e29a844e5f53b338840e0f196630ef9dff8fbe8002e9b",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/html/prepared/6b817884ae7a25904db1fe5edba5f424d0f07f04da4a223fb6cf814cdc07c98c"
+      },
+      "copiedTokenTypes": [
+        "keyword",
+        "comment",
+        "string",
+        "punctuation",
+        "tag",
+        "attribute",
+        "text",
+        "entity",
+        "embedded-javascript",
+        "embedded-css",
+        "embedded-data"
+      ],
+      "newTokenTypes": [
+        "embedded-typescript",
+        "embedded-jsx",
+        "embedded-tsx",
+        "embedded-scss",
+        "embedded-less",
+        "embedded-expression"
+      ],
+      "newTensors": [],
+      "copiedModifiers": [
+        "closing"
+      ],
+      "optimizerAndTrainingState": "fresh Vue run"
+    },
+    "exporterSha256": "6545393ffdd29edb1376342986ad1b24edcf850431060d58fc56f43473865990"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "92a5b651aefe509504e1225f85c35043e30ed5f5b4a721240d51bd392156d3a3",
+      "checkpointHash": "fbfc85c895e652452529d0579b7ab798fb939cd4cc245fd5e017352df8b772c8",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    },
+    "validation-base.json": {
+      "file": "reports/validation-base.json",
+      "sha256": "d0dab1dfee9c7d2345866b96664db22b7b2ef59071a458375f463235ca75d524",
+      "checkpointHash": "fbfc85c895e652452529d0579b7ab798fb939cd4cc245fd5e017352df8b772c8",
+      "scope": "base-vue-markup-and-neural-regions"
+    },
+    "validation-composed.json": {
+      "file": "reports/validation-composed.json",
+      "sha256": "cb7b4da7e77190318b93c0fe0fc22858cbc81e2a7b1e4957bca1823d6619f9b3",
+      "checkpointHash": "fbfc85c895e652452529d0579b7ab798fb939cd4cc245fd5e017352df8b772c8",
+      "scope": "composed-vue-plus-existing-neural-packs"
+    },
+    "test-composed.json": {
+      "file": "reports/test-composed.json",
+      "sha256": "f1795ce0bfa296d131263a74136d074d67dbe95be890279d3d521dd334d5642a",
+      "checkpointHash": "fbfc85c895e652452529d0579b7ab798fb939cd4cc245fd5e017352df8b772c8",
+      "scope": "composed-vue-plus-existing-neural-packs"
+    },
+    "golden-probes.json": {
+      "file": "reports/golden-probes.json",
+      "sha256": "34534eaba18f850db1a79dd7d9f6b26d63f90daea75805b773d087068797755b",
+      "checkpointHash": "fbfc85c895e652452529d0579b7ab798fb939cd4cc245fd5e017352df8b772c8",
+      "scope": "visible development probes, not held-out corpus test"
+    },
+    "dataset-manifest.json": {
+      "file": "reports/dataset-manifest.json",
+      "sha256": "19dc1f859c3de80a7d4445ef62a92a664cd4f7b766c5bf089b9387b067eed5e5"
+    },
+    "split-groups.json": {
+      "file": "reports/split-groups.json",
+      "sha256": "02c37ba6d267a82f4ae937dd55c8ff71302230bb79f28e2dc7a786eb8c98d090"
+    },
+    "source-family-split-policy.json": {
+      "file": "reports/source-family-split-policy.json",
+      "sha256": "749d65415fd8a5c4e6975cdfb0187d6521adb473040cefb3294f143972a0ab18"
+    }
+  },
+  "composition": {
+    "runtime": "../runtime/composite.ts",
+    "regionSource": "Vue neural predictions only",
+    "childModels": {
+      "typescript": "a63c132df376d956f8feb19c60620a3a922a5299ad012224d58a4ff3a09597a0",
+      "css": "a6c271903b5b65f0cc1f82a4406cb1fc831c1a4ad21c54ddd1fd0f2de324645a"
+    },
+    "profiles": [
+      "vue2",
+      "vue3",
+      "vue3.2"
+    ],
+    "attributes": "whole strings",
+    "interpolations": "fixed expression context projected to original UTF-16 source",
+    "testReport": "reports/test-composed.json"
+  }
+}

@@ -1,0 +1,962 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "65836162565c536cf4a176103d42adb2e07fd0b03930ca4966bedc949b383230",
+  "cases": [
+    {
+      "id": "vue2-filter-and-directives",
+      "profile": "vue2",
+      "documentKind": "vue",
+      "source": "<template><p v-if=\"ready\">{{ price | currency('USD') }}</p></template>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "vue2-sync-native-slot-scope",
+      "profile": "vue2",
+      "documentKind": "vue",
+      "source": "<template><Panel :open.sync=\"open\" @click.native=\"select\"><template slot=\"row\" slot-scope=\"{ item }\">{{ item.name }}</template></Panel></template>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "vue3-model-slot-and-fragment",
+      "profile": "vue3",
+      "documentKind": "vue",
+      "source": "<template><Editor v-model:title.trim=\"title\"><template #default=\"{ row }\">{{ row.label }}</template></Editor><p>Done</p></template>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "vue32-typed-setup",
+      "profile": "vue3.2",
+      "documentKind": "vue",
+      "source": "<script setup lang=\"ts\">\ninterface Props { title?: string }\nconst props = withDefaults(defineProps<Props>(), { title: 'Note' });\nconst emit = defineEmits<{ (e: 'save', value: string): void }>();\ndefineExpose({ props });\n</script>\n<template><button @click=\"emit('save', props.title)\">{{ props.title }}</button></template>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "vue3-options-and-setup",
+      "profile": "vue3",
+      "documentKind": "vue",
+      "source": "<script>export default { name: 'Counter', setup() { return { count: 1 }; } };</script><template><output>{{ count }}</output></template>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "vue32-dual-script-tsx-and-styles",
+      "profile": "vue3.2",
+      "documentKind": "vue",
+      "source": "<script lang=\"tsx\">export const badge = <span>Ready</span>;</script><script setup lang=\"tsx\">const count = 1;</script><style scoped lang=\"scss\">$space: 8px; .card { padding: $space; }</style>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 19,
+          "end": 59,
+          "text": "export const badge = <span>Ready</span>;",
+          "tokenType": "embedded-tsx",
+          "modifiers": []
+        },
+        {
+          "start": 93,
+          "end": 109,
+          "text": "const count = 1;",
+          "tokenType": "embedded-tsx",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 19,
+          "end": 32,
+          "text": "export const ",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 32,
+          "end": 37,
+          "text": "badge",
+          "tokenType": "attribute",
+          "modifiers": []
+        },
+        {
+          "start": 38,
+          "end": 39,
+          "text": "=",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 40,
+          "end": 41,
+          "text": "<",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 41,
+          "end": 45,
+          "text": "span",
+          "tokenType": "tag",
+          "modifiers": []
+        },
+        {
+          "start": 45,
+          "end": 46,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 46,
+          "end": 51,
+          "text": "Ready",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 51,
+          "end": 53,
+          "text": "</",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 53,
+          "end": 57,
+          "text": "span",
+          "tokenType": "tag",
+          "modifiers": [
+            "closing"
+          ]
+        },
+        {
+          "start": 57,
+          "end": 58,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 58,
+          "end": 59,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 93,
+          "end": 99,
+          "text": "const ",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 99,
+          "end": 109,
+          "text": "count = 1;",
+          "tokenType": "embedded-jsx",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "less-module-and-custom-block",
+      "profile": "vue2",
+      "documentKind": "vue",
+      "source": "<style module lang=\"less\">@tone: red; .card { color: @tone; }</style><i18n lang=\"json\">{\"en\":{\"title\":\"Note\"}}</i18n>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 26,
+          "end": 61,
+          "text": "@tone: red; .card { color: @tone; }",
+          "tokenType": "embedded-less",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 26,
+          "end": 44,
+          "text": "@tone: red; .card ",
+          "tokenType": "embedded-less",
+          "modifiers": []
+        },
+        {
+          "start": 44,
+          "end": 45,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 45,
+          "end": 61,
+          "text": " color: @tone; }",
+          "tokenType": "embedded-expression",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf-and-dynamic-arguments",
+      "profile": "vue3",
+      "documentKind": "vue",
+      "source": "<!-- \u661f \ud83c\udf0c -->\r\n<template><Panel :[field]=\"value\" @[event].stop=\"save\">\u661f &amp; \ud83d\ude80 {{ title }}</Panel></template>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "unsupported-template-and-external-script",
+      "profile": "vue3.2",
+      "documentKind": "vue",
+      "source": "<template lang=\"pug\">\np Hello\n</template><script src=\"https://example.invalid/app.js\"></script>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 21,
+          "end": 30,
+          "text": "\np Hello\n",
+          "tokenType": "embedded-data",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 21,
+          "end": 30,
+          "text": "\np Hello\n",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "vue2": {
+      "documents": 3,
+      "exactDocumentsIncludingModifiers": 2,
+      "exactSpan": {
+        "precision": 0.9594594594594594,
+        "recall": 0.9861111111111112,
+        "f1": 0.9726027397260274,
+        "tp": 71,
+        "fp": 3,
+        "fn": 1,
+        "support": 72
+      },
+      "exactSpanMacroF1": 0.8267631103074141,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9594594594594594,
+        "recall": 0.9861111111111112,
+        "f1": 0.9726027397260274,
+        "tp": 71,
+        "fp": 3,
+        "fn": 1,
+        "support": 72
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "comment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7
+        },
+        "punctuation": {
+          "precision": 0.975,
+          "recall": 1.0,
+          "f1": 0.9873417721518988,
+          "tp": 39,
+          "fp": 1,
+          "fn": 0,
+          "support": 39
+        },
+        "tag": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 14,
+          "fp": 0,
+          "fn": 0,
+          "support": 14
+        },
+        "attribute": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 8,
+          "fp": 0,
+          "fn": 0,
+          "support": 8
+        },
+        "text": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "entity": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-typescript": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "support": 1
+        },
+        "embedded-expression": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "support": 2
+        }
+      }
+    },
+    "vue3": {
+      "documents": 3,
+      "exactDocumentsIncludingModifiers": 3,
+      "exactSpan": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 81,
+        "fp": 0,
+        "fn": 0,
+        "support": 81
+      },
+      "exactSpanMacroF1": 1.0,
+      "exactSpanIncludingModifiers": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 81,
+        "fp": 0,
+        "fn": 0,
+        "support": 81
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 46,
+          "fp": 0,
+          "fn": 0,
+          "support": 46
+        },
+        "tag": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "attribute": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "text": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "entity": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-javascript": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-css": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-typescript": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-jsx": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-scss": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-less": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        }
+      }
+    },
+    "vue3.2": {
+      "documents": 3,
+      "exactDocumentsIncludingModifiers": 1,
+      "exactSpan": {
+        "precision": 0.8461538461538461,
+        "recall": 0.9625,
+        "f1": 0.9005847953216374,
+        "tp": 77,
+        "fp": 14,
+        "fn": 3,
+        "support": 80
+      },
+      "exactSpanMacroF1": 0.6204886913443063,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8461538461538461,
+        "recall": 0.9625,
+        "f1": 0.9005847953216374,
+        "tp": 77,
+        "fp": 14,
+        "fn": 3,
+        "support": 80
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "comment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7
+        },
+        "punctuation": {
+          "precision": 0.8723404255319149,
+          "recall": 1.0,
+          "f1": 0.9318181818181818,
+          "tp": 41,
+          "fp": 6,
+          "fn": 0,
+          "support": 41
+        },
+        "tag": {
+          "precision": 0.8888888888888888,
+          "recall": 1.0,
+          "f1": 0.9411764705882353,
+          "tp": 16,
+          "fp": 2,
+          "fn": 0,
+          "support": 16
+        },
+        "attribute": {
+          "precision": 0.9090909090909091,
+          "recall": 1.0,
+          "f1": 0.9523809523809523,
+          "tp": 10,
+          "fp": 1,
+          "fn": 0,
+          "support": 10
+        },
+        "text": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 4,
+          "fn": 0,
+          "support": 0
+        },
+        "entity": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-javascript": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-css": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        },
+        "embedded-typescript": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-jsx": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        },
+        "embedded-scss": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-less": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-expression": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "vue": {
+      "documents": 9,
+      "exactDocumentsIncludingModifiers": 6,
+      "exactSpan": {
+        "precision": 0.9308943089430894,
+        "recall": 0.9828326180257511,
+        "f1": 0.9561586638830898,
+        "tp": 229,
+        "fp": 17,
+        "fn": 4,
+        "support": 233
+      },
+      "exactSpanMacroF1": 0.7413390784819356,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9308943089430894,
+        "recall": 0.9828326180257511,
+        "f1": 0.9561586638830898,
+        "tp": 229,
+        "fp": 17,
+        "fn": 4,
+        "support": 233
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "punctuation": {
+          "precision": 0.9473684210526315,
+          "recall": 1.0,
+          "f1": 0.972972972972973,
+          "tp": 126,
+          "fp": 7,
+          "fn": 0,
+          "support": 126
+        },
+        "tag": {
+          "precision": 0.96,
+          "recall": 1.0,
+          "f1": 0.9795918367346939,
+          "tp": 48,
+          "fp": 2,
+          "fn": 0,
+          "support": 48
+        },
+        "attribute": {
+          "precision": 0.9565217391304348,
+          "recall": 1.0,
+          "f1": 0.9777777777777777,
+          "tp": 22,
+          "fp": 1,
+          "fn": 0,
+          "support": 22
+        },
+        "text": {
+          "precision": 0.42857142857142855,
+          "recall": 1.0,
+          "f1": 0.6,
+          "tp": 3,
+          "fp": 4,
+          "fn": 0,
+          "support": 3
+        },
+        "entity": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-javascript": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-css": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-data": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "support": 2
+        },
+        "embedded-typescript": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-jsx": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "support": 0
+        },
+        "embedded-tsx": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        },
+        "embedded-scss": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-less": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "support": 1
+        },
+        "embedded-expression": {
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
+          "support": 6
+        }
+      }
+    }
+  },
+  "checkpointHash": "fbfc85c895e652452529d0579b7ab798fb939cd4cc245fd5e017352df8b772c8",
+  "checkpointEpoch": 35,
+  "device": "cpu"
+}

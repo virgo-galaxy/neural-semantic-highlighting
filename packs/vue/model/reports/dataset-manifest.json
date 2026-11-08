@@ -1,0 +1,191 @@
+{
+  "format": "nsh-vue-byte-dataset-v1",
+  "snapshot": "29c6af2a7842f582322911aab1b99f076f2704f6e73565e1d5cd452884d0b848",
+  "contextBytes": 512,
+  "identity": {
+    "format": "nsh-vue-byte-dataset-v1",
+    "gold": "fccd8d7499cc73a6aa65fdf5294e8a0e88599d621b96eed52849a8989cc65bef",
+    "schema": "2ece6b913f64a2f65a925cfcbfe1b191726a5957fd1e34079b50b1c462441048",
+    "builders": {
+      "prepare.py": "97fbee6786bec9a50bff78b5fdc00475772b3d2c2c4928f1f5808be34d4efc47",
+      "encoding.py": "eb44cfdb3235c9dc79ede0269db4a5e3805bce480506378ea05d0aace6a51acc",
+      "io.py": "8a4dece85394a4392c7e069a2f3d6f41196c47cf62b0f672dfa3a3c7ff860a16"
+    },
+    "fixedGroupsHash": "749d65415fd8a5c4e6975cdfb0187d6521adb473040cefb3294f143972a0ab18",
+    "contextBytes": 512,
+    "seed": 1729,
+    "semanticContractHash": "3c72bd6247a861962a2ee57d635be0184ebace21f1b96c0ee18fa5cc1905423b"
+  },
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "punctuation",
+      "tag",
+      "attribute",
+      "text",
+      "entity",
+      "embedded-javascript",
+      "embedded-css",
+      "embedded-data",
+      "embedded-typescript",
+      "embedded-jsx",
+      "embedded-tsx",
+      "embedded-scss",
+      "embedded-less",
+      "embedded-expression"
+    ],
+    "modifiers": [
+      "closing"
+    ]
+  },
+  "labels": {
+    "padByteId": 256,
+    "ignoreId": -100,
+    "boundaryClasses": [
+      "outside",
+      "begin",
+      "inside"
+    ],
+    "modifierSupervision": "span-beginnings",
+    "continuationBytes": "ignored"
+  },
+  "policy": {
+    "split": "intact-source-directories-before-windowing",
+    "trainingWindowing": "gold-adaptive-cursor",
+    "evaluationWindowing": "character-safe-fixed-cursor",
+    "crossGroupCopies": "excluded",
+    "targetRatios": [
+      0.8,
+      0.1,
+      0.1
+    ],
+    "balanceAxes": "document-kind-stream-and-profile",
+    "fixedSourceGroupsHash": "749d65415fd8a5c4e6975cdfb0187d6521adb473040cefb3294f143972a0ab18"
+  },
+  "inputDocuments": 797,
+  "uniqueDocuments": 795,
+  "exactDuplicateRecords": 2,
+  "excludedCopyDocuments": 2,
+  "retainedDocuments": 793,
+  "splits": {
+    "train": {
+      "documents": 584,
+      "windows": 1167,
+      "naturalWindows": 168,
+      "focusWindows": 999,
+      "documentKinds": {
+        "vue": {
+          "documents": 584,
+          "windows": 1167,
+          "spans": 38221
+        }
+      },
+      "tokenTypes": {
+        "vue": {
+          "punctuation": 20285,
+          "tag": 8062,
+          "attribute": 4003,
+          "string": 2949,
+          "embedded-less": 170,
+          "embedded-javascript": 314,
+          "embedded-expression": 606,
+          "text": 909,
+          "embedded-typescript": 253,
+          "entity": 128,
+          "embedded-scss": 170,
+          "embedded-css": 222,
+          "comment": 102,
+          "embedded-data": 32,
+          "embedded-tsx": 8,
+          "embedded-jsx": 8
+        }
+      }
+    },
+    "validation": {
+      "documents": 103,
+      "windows": 155,
+      "naturalWindows": 16,
+      "focusWindows": 139,
+      "documentKinds": {
+        "vue": {
+          "documents": 103,
+          "windows": 155,
+          "spans": 6179
+        }
+      },
+      "tokenTypes": {
+        "vue": {
+          "punctuation": 3291,
+          "tag": 1351,
+          "attribute": 659,
+          "string": 481,
+          "embedded-tsx": 40,
+          "embedded-less": 30,
+          "text": 111,
+          "embedded-javascript": 53,
+          "embedded-css": 37,
+          "embedded-expression": 54,
+          "embedded-typescript": 18,
+          "embedded-data": 16,
+          "embedded-scss": 30,
+          "embedded-jsx": 8
+        }
+      }
+    },
+    "test": {
+      "documents": 106,
+      "windows": 151,
+      "naturalWindows": 17,
+      "focusWindows": 134,
+      "documentKinds": {
+        "vue": {
+          "documents": 106,
+          "windows": 151,
+          "spans": 5894
+        }
+      },
+      "tokenTypes": {
+        "vue": {
+          "punctuation": 3244,
+          "tag": 1326,
+          "attribute": 527,
+          "string": 334,
+          "text": 116,
+          "embedded-expression": 129,
+          "embedded-javascript": 73,
+          "embedded-css": 36,
+          "entity": 16,
+          "embedded-typescript": 17,
+          "embedded-scss": 30,
+          "embedded-less": 30,
+          "embedded-tsx": 8,
+          "embedded-jsx": 8
+        }
+      }
+    }
+  },
+  "checksums": {
+    "cross-group-copies.jsonl": "0a8997941327507ef71bfa4c04566a04ddc7fe129c97944dfaba8e8879bab8a1",
+    "split-groups.json": "02c37ba6d267a82f4ae937dd55c8ff71302230bb79f28e2dc7a786eb8c98d090",
+    "test/boundary_labels.bin": "8e47ce489d390553cdff0ec22eda95a205279e9b28dc31e4b656202d93834e91",
+    "test/documents.jsonl": "50d0616b0e260ad406c29703b4dbda920ad9f85dd2863d1e5d8e748ebb2e8194",
+    "test/input_ids.bin": "d43a6935b746436f42c8bea8840361269ec0d0cd857fc31d053656a435993b92",
+    "test/modifier_bits.bin": "639ec40ca83c0ae8c57c798440fffbf5ea28e4cf8eff58c8c98a6db04cb6b030",
+    "test/token_type_labels.bin": "03d773fdc3d614d69151a01ed98ae4eb9f9d575de7881f26e6f0eef6ff5dc6e3",
+    "test/windows.jsonl": "c6e77d48fc06bdef08bf013cece52d906d3ddf94bc0241b0125aac4a4786eefa",
+    "train/boundary_labels.bin": "ecf10edc92b0f8f003a6e3a9900001e006851277620d145db6143609a1bdc0f0",
+    "train/documents.jsonl": "3f73d1fbe58034c30ae0909d5af48cc418a02b6286b0eca21f3b4c094c18c060",
+    "train/input_ids.bin": "88e2df2ee9da35ff54bbe25059e18418044ba833f496b0c7cc8cf84f5681e188",
+    "train/modifier_bits.bin": "6573d9751623e197bd6a4e8d026691e30583df6bce123e3208ab3445854afc5a",
+    "train/token_type_labels.bin": "67c34e58e695201ecc6cd427c1aa0851d09401fc65f882b720a7725f50788805",
+    "train/windows.jsonl": "4585ef61bfea981b3b8b607ba68430df7f4cd2249d5e873a97e5fb9f936c21a2",
+    "validation/boundary_labels.bin": "b9c2bd36706fbb52066258921ef12df705758c3dbea519317f952bd3a539500c",
+    "validation/documents.jsonl": "01327f419c1dad2e5559a9bc32b80d3f0e106c212efa3f5dbeedf1c2c0fcc414",
+    "validation/input_ids.bin": "0a5b42b36d1b637d16dcff5ab24e7182a9b3a063ac9a3424fb816f44a462e201",
+    "validation/modifier_bits.bin": "353e4f400fabcffa0b08431ae53e5d87d9d598729ffbac3485c0cf35d9dd7b8c",
+    "validation/token_type_labels.bin": "ad8ca14e032346c42c875d99eecb93b6a18652499cb35d5434ea517f00173d88",
+    "validation/windows.jsonl": "963f85069cb6698d0ec71c29a20b2ac1e1071faf004dacc0feefa9cfc9fa1008"
+  }
+}

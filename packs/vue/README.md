@@ -26,4 +26,5 @@ Use `NSH_DATASET_ROOT` for the shared external parent. Resume only full `last.pt
 checkpoints, never `packs/*/model/model.pt`. This project remains private and
 independent of Virgo Design. See [SEMANTICS.md](SEMANTICS.md).
 
-No Vue inference model is selected yet.
+The selected [model](model/README.md) is integrated into one Playground entry.
+Read its separate base/composed reports and [known issues](model/KNOWN_ISSUES.md).
