@@ -58,3 +58,10 @@ Bash/Zsh. An offline exact-line adapter replaces the base lexer's substring
 terminator rule; bodies remain whole strings. Independently marked Golden covers
 queued documents, CRLF/Unicode, following redirections and arithmetic/here-string
 exclusions. Existing sources, snapshots and family assignments are preserved.
+
+`sources/heredoc-fragments-v2` adds 864 short forms. Bodies can start with
+variables, substitutions, quotes or code-like text; each structural family
+contains every delimiter form. Command-at-source-start and post-delimiter
+redirections are explicit coverage. Related profiles share a frozen family;
+the normalized-copy audit excludes collisions rather than counting renamed
+body literals as independent templates.
