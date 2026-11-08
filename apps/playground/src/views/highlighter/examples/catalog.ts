@@ -1,5 +1,6 @@
 import awkIcon from "@/assets/document-kinds/awk.svg";
 import bashIcon from "@/assets/document-kinds/bash.svg";
+import batIcon from "@/assets/document-kinds/bat.svg";
 import cssIcon from "@/assets/document-kinds/css.svg";
 import goIcon from "@/assets/document-kinds/go.svg";
 import htmlIcon from "@/assets/document-kinds/html.svg";
@@ -71,6 +72,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   },
   sql: { label: "SQL", icon: sqlIcon },
   powershell: { label: "PowerShell", icon: powershellIcon },
+  bat: { label: "BAT / CMD", icon: batIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -112,6 +114,8 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".ps1", "powershell"],
   [".psm1", "powershell"],
   [".psd1", "powershell"],
+  [".bat", "bat"],
+  [".cmd", "bat"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

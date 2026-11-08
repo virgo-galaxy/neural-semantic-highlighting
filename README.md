@@ -30,6 +30,7 @@ remaining failures.
 | [AWK](packs/awk/model/README.md)                            | Common POSIX-style / GNU AWK; `.awk`, `.gawk`                                                                                                                       | [96.89%](packs/awk/model/BENCHMARKS.md) — natural test                                                      | Available locally; [regex span boundaries and advanced GNU calls](packs/awk/model/KNOWN_ISSUES.md) remain limited                   |
 | [SQL](packs/sql/model/README.md)                            | PostgreSQL/psql, MySQL, Oracle/SQL*Plus; `.sql`, `.psql`, `.pgsql`, `.plsql`                                                                                        | [88.41%](packs/sql/model/BENCHMARKS.md) — natural test; per-profile results in report                       | Usable local baseline; [special strings, mixed client commands and procedural names](packs/sql/model/KNOWN_ISSUES.md) remain weaker |
 | [PowerShell](packs/powershell/model/README.md)              | Common Windows/modern PowerShell scripts, modules and data; `.ps1`, `.psm1`, `.psd1`                                                                                | [90.67%](packs/powershell/model/BENCHMARKS.md) — natural test                                               | Usable local baseline; [string boundaries, long bodies and name flags](packs/powershell/model/KNOWN_ISSUES.md) remain limited       |
+| [BAT / CMD](packs/bat/model/README.md)                      | Common Windows cmd.exe batch scripts; `.bat`, `.cmd`                                                                                                                | [74.29%](packs/bat/model/BENCHMARKS.md) — natural test, 3 scripts                                           | Initial local baseline; [conditional tails, quoted variables and argument roles](packs/bat/model/KNOWN_ISSUES.md) remain weaker     |
 
 ## Architecture
 
@@ -135,7 +136,8 @@ selected pack model
   ├─ packs/perl/model/model.pt
   ├─ packs/awk/model/model.pt
   ├─ packs/sql/model/model.pt
-  └─ packs/powershell/model/model.pt
+  ├─ packs/powershell/model/model.pt
+  └─ packs/bat/model/model.pt
   ↓
 HighlightResult
   ↓
@@ -150,7 +152,7 @@ The local model process is started lazily and kept alive. Model initialization i
 
 The Playground currently includes:
 
-- TypeScript, JavaScript, Go, CSS, SCSS, Less, HTML, Vue, Python, Shell, Perl, AWK, SQL and PowerShell source examples discovered from real files;
+- TypeScript, JavaScript, Go, CSS, SCSS, Less, HTML, Vue, Python, Shell, Perl, AWK, SQL, PowerShell and BAT/CMD source examples discovered from real files;
 - editable and highlighted presentation states;
 - highlighting when the code block leaves editing focus;
 - preserved native undo/redo history across presentation-state changes;
@@ -449,4 +451,10 @@ The [PowerShell pack](packs/powershell/README.md) adds one common PowerShell scr
 It follows the same immutable external dataset, full-checkpoint training, independent
 Golden/test and pure-neural local bridge workflow. Measured evidence and limits
 are linked in the support table. `NSH_POWERSHELL_CHECKPOINT` selects a compatible
+development candidate in Playground.
+
+The [BAT / CMD pack](packs/bat/README.md) adds one shared Windows batch source entry for `.bat` and `.cmd`.
+It follows the same immutable external dataset, full-checkpoint training, independent
+Golden/test and pure-neural local bridge workflow. Measured evidence and limits
+are linked in the support table. `NSH_BAT_CHECKPOINT` selects a compatible
 development candidate in Playground.

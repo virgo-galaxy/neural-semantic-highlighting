@@ -6,7 +6,7 @@
   expose SQL-like interior tokens instead of staying one opaque string. The
   literal supplement improved held-out development scores without solving these
   combinations. Retain these cases as regression evidence.
-- **Client directives depend on context.** Isolated `\\dt`, `\\d+` and `\\set`
+- **Client directives depend on context.** Isolated `\dt`, `\d+` and `\set`
   Golden probes work. In a mixed PostgreSQL routine example some leading psql
   command words become string-like. SQL*Plus PROMPT arguments and MySQL closing
   DELIMITER arguments also have boundary/role errors. No client command is run.

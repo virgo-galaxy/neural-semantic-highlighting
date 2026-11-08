@@ -31,3 +31,6 @@ the SQL entry, whose supported profiles are PostgreSQL, MySQL and Oracle.
 
 The PowerShell icon is `powershell.svg`, from `icons/powershell/powershell-original.svg`
 at that same pinned Devicon revision and under the preserved license.
+
+The BAT / CMD icon is `bat.svg`, from `icons/windows11/windows11-original.svg`
+at that same pinned Devicon revision and under the preserved license.
