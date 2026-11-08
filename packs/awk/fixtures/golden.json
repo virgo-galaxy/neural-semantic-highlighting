@@ -1,0 +1,86 @@
+[
+  {
+    "id": "phase-builtin",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦keyword|BEGIN⟧ ⟦punctuation|{⟧ ⟦variable+default-library|FS⟧ ⟦operator|=⟧ ⟦string|\",\"⟧⟦punctuation|;⟧ ⟦keyword|print⟧ ⟦string|\"ready\"⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "field-action",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦variable|$2⟧ ⟦operator|>⟧ ⟦number|10⟧ ⟦punctuation|{⟧ ⟦keyword|print⟧ ⟦variable|$1⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "record-regexp",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦regexp|/^#/⟧ ⟦punctuation|{⟧ ⟦keyword|next⟧ ⟦punctuation|}⟧\n⟦regexp|/ready|pending/⟧ ⟦punctuation|{⟧ ⟦keyword|print⟧ ⟦variable|$0⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "function-definition",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦keyword|function⟧ ⟦function+declaration|twice⟧⟦punctuation|(⟧⟦variable+declaration|value⟧⟦punctuation|)⟧ ⟦punctuation|{⟧ ⟦keyword|return⟧ ⟦variable|value⟧ ⟦operator|*⟧ ⟦number|2⟧ ⟦punctuation|}⟧\n⟦punctuation|{⟧ ⟦keyword|print⟧ ⟦function|twice⟧⟦punctuation|(⟧⟦variable|$1⟧⟦punctuation|)⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "builtin-substitution",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦punctuation|{⟧ ⟦function+default-library|gsub⟧⟦punctuation|(⟧⟦regexp|/ +/⟧⟦punctuation|,⟧ ⟦string|\"-\"⟧⟦punctuation|,⟧ ⟦variable|$0⟧⟦punctuation|)⟧⟦punctuation|;⟧ ⟦keyword|print⟧ ⟦variable|$0⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "division-regexp",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦keyword|BEGIN⟧ ⟦punctuation|{⟧ ⟦variable|ratio⟧ ⟦operator|=⟧ ⟦number|8⟧ ⟦operator|/⟧ ⟦number|2⟧⟦punctuation|;⟧ ⟦variable|ok⟧ ⟦operator|=⟧ ⟦string|\"foo\"⟧ ⟦operator|~⟧ ⟦regexp|/f.o/⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "computed-fields",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦punctuation|{⟧ ⟦keyword|print⟧ ⟦variable|$NF⟧⟦punctuation|,⟧ ⟦operator|$⟧⟦punctuation|(⟧⟦variable|column⟧ ⟦operator|+⟧ ⟦number|1⟧⟦punctuation|)⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "gnu-phases",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦keyword|BEGINFILE⟧ ⟦punctuation|{⟧ ⟦keyword|print⟧ ⟦variable+default-library|FILENAME⟧ ⟦punctuation|}⟧\n⟦keyword|ENDFILE⟧ ⟦punctuation|{⟧ ⟦keyword|print⟧ ⟦variable+default-library|FNR⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "gnu-typed-regexp",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦keyword|BEGIN⟧ ⟦punctuation|{⟧ ⟦variable|rule⟧ ⟦operator|=⟧ ⟦regexp|@/ab+/⟧⟦punctuation|;⟧ ⟦keyword|print⟧ ⟦punctuation|(⟧⟦string|\"ab\"⟧ ⟦operator|~⟧ ⟦variable|rule⟧⟦punctuation|)⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "gnu-include",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦keyword|@include⟧ ⟦string|\"helpers.awk\"⟧\n⟦keyword|BEGIN⟧ ⟦punctuation|{⟧ ⟦keyword|print⟧ ⟦number|1⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "indirect-call",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦keyword|BEGIN⟧ ⟦punctuation|{⟧ ⟦variable|fn⟧ ⟦operator|=⟧ ⟦string|\"render\"⟧⟦punctuation|;⟧ ⟦operator|@⟧⟦variable|fn⟧⟦punctuation|(⟧⟦string|\"sample\"⟧⟦punctuation|)⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "unicode-crlf",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦comment|# 星空 🌌⟧\r\n⟦keyword|BEGIN⟧ ⟦punctuation|{⟧ ⟦keyword|print⟧ ⟦string|\"你好 🚀\"⟧ ⟦punctuation|}⟧\r\n"
+  },
+  {
+    "id": "coprocess",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦keyword|BEGIN⟧ ⟦punctuation|{⟧ ⟦keyword|print⟧ ⟦string|\"request\"⟧ ⟦operator||&⟧ ⟦variable|service⟧⟦punctuation|;⟧ ⟦variable|service⟧ ⟦operator||&⟧ ⟦keyword|getline⟧ ⟦variable|reply⟧ ⟦punctuation|}⟧\n"
+  },
+  {
+    "id": "continued-regexp",
+    "profile": "awk",
+    "documentKind": "awk",
+    "markedSource": "⟦variable|$0⟧ ⟦operator|~⟧ ⟦operator|\\⟧\r\n ⟦regexp|/^[0-9]+([.][0-9]+)?$/⟧ ⟦punctuation|{⟧ ⟦keyword|print⟧ ⟦variable|$1⟧ ⟦punctuation|}⟧\r\n"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "label": "AWK",
+  "profiles": ["awk"],
+  "scope": "awk-local-semantic-spans",
+  "contextBytes": 512,
+  "decoder": {
+    "modifierRoles": {
+      "declaration": ["function", "variable"],
+      "default-library": ["function", "variable"]
+    }
+  },
+  "requiredTrainingFeatures": {
+    "awk": ["loops", "conditionals", "functions", "regexps", "fields"]
+  },
+  "minimumTrainingFeatureGroups": 3
+}

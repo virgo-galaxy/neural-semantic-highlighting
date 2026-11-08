@@ -193,3 +193,65 @@ challenge-perl:
 export-perl-model:
 	@test -n "$(PERL_CHECKPOINT)" -a -n "$(PERL_TEST_REPORT)" || (echo 'Set PERL_CHECKPOINT and PERL_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.perl.export_model --checkpoint "$(PERL_CHECKPOINT)" --test-report "$(PERL_TEST_REPORT)"
+
+AWK_DEVICE ?= auto
+AWK_EPOCHS ?= 3
+AWK_BATCH_SIZE ?= 32
+AWK_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-awk dataset-awk-sources dataset-awk-curriculum dataset-awk-collect dataset-awk-label dataset-awk-validate dataset-awk-prepare test-labeling-awk train-awk-smoke train-awk continue-awk predict-awk evaluate-awk challenge-awk export-awk-model
+
+dataset-awk-sources:
+	$(PYTHON) -m packs.awk.dataset.fetch_sources
+
+dataset-awk:
+	$(MAKE) dataset-awk-sources
+	$(MAKE) dataset-awk-curriculum
+	$(MAKE) dataset-awk-collect
+	$(MAKE) dataset-awk-label
+	$(MAKE) dataset-awk-validate
+	$(MAKE) dataset-awk-prepare
+
+dataset-awk-curriculum:
+	$(PYTHON) -m packs.awk.dataset.generate_curriculum
+
+dataset-awk-collect:
+	$(PYTHON) -m packs.awk.dataset.pipeline collect
+
+dataset-awk-label:
+	$(PYTHON) -m packs.awk.dataset.pipeline label
+
+dataset-awk-validate:
+	$(PYTHON) -m packs.awk.dataset.pipeline validate
+
+dataset-awk-prepare:
+	$(PYTHON) -m training.awk.prepare
+
+test-labeling-awk:
+	$(PYTHON) -m unittest discover -s packs/awk/tests -v
+
+train-awk-smoke:
+	$(PYTHON) -m training.awk.train --smoke --epochs 1 --device $(AWK_DEVICE) $(if $(AWK_RUN),--output-dir "$(AWK_RUN)") $(if $(AWK_INIT_FROM),--init-from "$(AWK_INIT_FROM)")
+
+train-awk:
+	$(PYTHON) -m training.awk.train --epochs $(AWK_EPOCHS) --device $(AWK_DEVICE) --batch-size $(AWK_BATCH_SIZE) $(if $(AWK_RUN),--output-dir "$(AWK_RUN)") $(if $(AWK_INIT_FROM),--init-from "$(AWK_INIT_FROM)")
+
+continue-awk:
+	@test -n "$(AWK_CHECKPOINT)" || (echo 'Set AWK_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.awk.train --resume "$(AWK_CHECKPOINT)" --epochs $(AWK_EPOCHS) --device $(AWK_DEVICE)
+
+predict-awk:
+	@test -n "$(AWK_SOURCE)" || (echo 'Set AWK_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.awk.predict --device $(AWK_DEVICE) --file "$(AWK_SOURCE)" $(if $(AWK_CHECKPOINT),--checkpoint "$(AWK_CHECKPOINT)")
+
+evaluate-awk:
+	@test -n "$(AWK_CHECKPOINT)" || (echo 'Set AWK_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.awk.evaluate --checkpoint "$(AWK_CHECKPOINT)" --device $(AWK_DEVICE) --split $(AWK_EVAL_SPLIT)
+
+challenge-awk:
+	@test -n "$(AWK_CHECKPOINT)" || (echo 'Set AWK_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.awk.challenge --checkpoint "$(AWK_CHECKPOINT)" --device $(AWK_DEVICE)
+
+export-awk-model:
+	@test -n "$(AWK_CHECKPOINT)" -a -n "$(AWK_TEST_REPORT)" || (echo 'Set AWK_CHECKPOINT and AWK_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.awk.export_model --checkpoint "$(AWK_CHECKPOINT)" --test-report "$(AWK_TEST_REPORT)"
