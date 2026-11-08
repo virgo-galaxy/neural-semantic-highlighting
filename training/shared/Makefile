@@ -16,6 +16,7 @@ dataset-python:
 
 dataset-python-curriculum:
 	$(PYTHON) -m packs.python.dataset.generate_curriculum
+	$(PYTHON) -m packs.python.dataset.generate_fragments
 
 dataset-python-collect:
 	$(PYTHON_GOLD) -m packs.python.dataset.pipeline collect

@@ -23,3 +23,9 @@ install or upgrade any system environment. Dataset snapshots remain under
 `artifacts/python`, and the selected inference-only bundle under `../model`.
 Frozen `split-groups.json` prevents existing validation/test families moving into
 training in later revisions. Do not regenerate that map after looking at scores.
+
+The short-fragment revision adds 576 independently generated development examples
+for ordinary imports, decorators, async/non-async functions, builtin shadowing,
+operators, contextual keywords, adjacent strings and Unicode/CRLF. Layouts and
+leading positions vary. The first revision remains intact; existing source-family
+assignments are preserved and only new families are assigned before training.

@@ -134,6 +134,9 @@ check:
 	$(MAKE) test-training-data-html
 	$(MAKE) test-training-data-vue
 	$(MAKE) test-training-data-shared
+	$(PYTHON) -m unittest discover -s packs/python/tests -v
+	$(PYTHON) -m compileall -q training/shared training/python packs/python/runtime
+	$(PYTHON) -c 'import packs.python.runtime.local'
 	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime training/go packs/go/runtime training/css
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'
