@@ -147,8 +147,11 @@ def run(args) -> Path:
         if fresh_directory and any((directory / name).exists() for name in ("last.pt", "best.pt", "run.json")):
             raise ValueError("Existing run; resume its last.pt instead of overwriting it")
         seed_all(config.seed)
+        local_kernel = args.local_kernel
+        if checkpoint and local_kernel is not None and local_kernel != checkpoint["modelConfig"].get("local_kernel", 1):
+            raise ValueError("Resume must preserve model configuration")
         model = model_from_checkpoint(checkpoint, device) if checkpoint else HtmlSemanticTransformer(
-            ModelConfig(), len(snapshot.schema["tokenTypes"]), len(snapshot.schema["modifiers"])).to(device)
+            ModelConfig(local_kernel=local_kernel or 1), len(snapshot.schema["tokenTypes"]), len(snapshot.schema["modifiers"])).to(device)
         initialization = checkpoint.get("initialization") if checkpoint else None
         if args.init_from:
             initialization = initialize_from_checkpoint(model, args.init_from)
@@ -264,6 +267,8 @@ def main():
     parser.add_argument("--batch-size", type=int)
     parser.add_argument("--learning-rate", type=float)
     parser.add_argument("--patience", type=int)
+    parser.add_argument("--local-kernel", type=int, choices=[1, 3, 5],
+                        help="Fresh bounded experiment: optional learned adjacent-byte residual; default historical backbone")
     parser.add_argument("--smoke", action="store_true", default=None)
     parser.add_argument("--device", choices=["auto", "cpu", "mps", "cuda"], default="auto")
     parser.add_argument("--snapshot", type=Path)

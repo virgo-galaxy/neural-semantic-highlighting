@@ -7,7 +7,7 @@ from pathlib import Path
 
 import torch
 
-from training.html.model import HtmlSemanticTransformer
+from training.html.model import HtmlSemanticTransformer, ModelConfig
 
 
 def initialize_from_checkpoint(model: HtmlSemanticTransformer, path: Path) -> dict:
@@ -18,7 +18,12 @@ def initialize_from_checkpoint(model: HtmlSemanticTransformer, path: Path) -> di
     if (not isinstance(source, dict) or source.get("format") not in {"nsh-css-checkpoint-v1", "nsh-go-checkpoint-v1", "nsh-html-checkpoint-v1"}
             or not required.issubset(source) or source["trainingConfig"].get("smoke")):
         raise ValueError("Initialization requires a full, non-smoke compatible training checkpoint from artifacts")
-    if source["modelConfig"] != model.config.to_dict():
+    source_config = ModelConfig(**source["modelConfig"])
+    target_dimensions = model.config.to_dict()
+    source_dimensions = source_config.to_dict()
+    target_kernel = target_dimensions.pop("local_kernel")
+    source_kernel = source_dimensions.pop("local_kernel")
+    if source_dimensions != target_dimensions or source_kernel not in (1, target_kernel):
         raise ValueError("Initialization requires identical model dimensions")
     schema = source["schema"]
     for name in ("tokenTypes", "modifiers"):
@@ -30,15 +35,22 @@ def initialize_from_checkpoint(model: HtmlSemanticTransformer, path: Path) -> di
     labels = {"token_head": (list(target_schema.token_types), schema["tokenTypes"]),
               "modifier_head": (list(target_schema.modifiers), schema["modifiers"])}
     current, original = model.state_dict(), source["model"]
-    if set(current) != set(original):
+    fresh_local = {name for name in current if name.startswith("local_context.") and source_kernel == 1}
+    if set(current) - fresh_local != set(original):
         raise ValueError("Incompatible initialization checkpoint tensor names")
     for name, tensor in current.items():
+        if name in fresh_local:
+            if bool(tensor.any()):
+                raise ValueError("New local context must start as an identity residual")
+            continue
         head = name.split(".")[0]
         shape = ((len(labels[head][1]), *tensor.shape[1:]) if head in labels else tensor.shape)
         if original[name].shape != shape or original[name].dtype != tensor.dtype:
             raise ValueError("Incompatible initialization checkpoint tensor: " + name)
     with torch.no_grad():
         for name, tensor in current.items():
+            if name in fresh_local:
+                continue
             head = name.split(".")[0]
             if head in labels:
                 target_labels, source_labels = labels[head]
@@ -52,5 +64,6 @@ def initialize_from_checkpoint(model: HtmlSemanticTransformer, path: Path) -> di
             "sourceDataset": source["dataset"],
             "copiedTokenTypes": [name for name in target_schema.token_types if name in schema["tokenTypes"]],
             "newTokenTypes": [name for name in target_schema.token_types if name not in schema["tokenTypes"]],
+            "newTensors": sorted(fresh_local),
             "copiedModifiers": [name for name in target_schema.modifiers if name in schema["modifiers"]],
             "optimizerAndTrainingState": "fresh HTML run"}

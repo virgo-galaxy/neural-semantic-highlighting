@@ -67,6 +67,19 @@ class TrainingTests(unittest.TestCase):
             for name, value in model.state_dict().items():
                 torch.testing.assert_close(value, restored.state_dict()[name], rtol=0, atol=0)
 
+    def test_local_context_starts_as_identity_and_survives_checkpoint_reload(self):
+        plain = tiny_model().eval()
+        config = {**plain.config.to_dict(), "local_kernel": 3}
+        local = HtmlSemanticTransformer(ModelConfig(**config), 11, 1).eval()
+        local.load_state_dict(plain.state_dict(), strict=False)
+        ids = torch.tensor([[60, 98, 62]])
+        mask = torch.ones_like(ids, dtype=torch.bool)
+        torch.testing.assert_close(plain(ids, mask).boundary, local(ids, mask).boundary, rtol=0, atol=0)
+        with torch.no_grad(): local.local_context.weight.fill_(.1)
+        payload = {"modelConfig": config, "schema": SCHEMA, "model": local.state_dict()}
+        restored = model_from_checkpoint(payload, torch.device("cpu")).eval()
+        torch.testing.assert_close(local(ids, mask).boundary, restored(ids, mask).boundary, rtol=0, atol=0)
+
     def test_masks_ignore_continuation_bytes_and_non_begin_modifiers(self):
         output = ModelOutput(torch.randn(1, 4, 3), torch.randn(1, 4, 11), torch.randn(1, 4, 1))
         batch = {"boundary_labels": torch.tensor([[1, -100, 2, 0]]),

@@ -5,6 +5,13 @@ Transformer layers, width 128, four heads and FFN 512. The base HTML model has
 893,711 parameters, 11 markup/body roles and one closing-tag modifier. Its compact
 `model-schema.json` is distinct from the public schema reserved for composition.
 
+An optional `--local-kernel 3` experiment adds a learned depthwise adjacent-byte
+residual (512 parameters, total 894,223). It starts at zero, so compatible full
+checkpoint transfer initially preserves the backbone. This is a neural input
+layer, with no hardcoded source rules. Default kernel one preserves historical
+architecture/checkpoints; a resumed run cannot change kernels. Compare candidates
+on the same immutable snapshot and inspect failures before selecting a variant.
+
 ```bash
 make train-html-smoke
 make train-html HTML_INIT_FROM=artifacts/css/<run>/best.pt HTML_EPOCHS=3

@@ -37,7 +37,8 @@ class RegionTests(unittest.TestCase):
     def test_transfer_matches_semantic_names_and_keeps_new_roles_and_closing_head(self):
         schema = Schema.load(REPOSITORY / "packs/html/model-schema.json")
         cfg = ModelConfig(context_bytes=16, width=8, heads=2, layers=1, feed_forward=16)
-        target = HtmlSemanticTransformer(cfg, len(schema.token_types), len(schema.modifiers))
+        target = HtmlSemanticTransformer(ModelConfig(**{**cfg.to_dict(), "local_kernel": 3}),
+                                         len(schema.token_types), len(schema.modifiers))
         source = HtmlSemanticTransformer(cfg, 3, 1)
         names = ["attribute", "string", "tag"]
         with torch.no_grad():
@@ -54,6 +55,8 @@ class RegionTests(unittest.TestCase):
             lineage = initialize_from_checkpoint(target, path)
             self.assertEqual(path.read_bytes(), original)
             self.assertEqual(lineage["mode"], "css-weights-only-transfer")
+            self.assertEqual(lineage["newTensors"], ["local_context.bias", "local_context.weight"])
+            self.assertFalse(bool(target.local_context.weight.any()))
             for i, name in enumerate(names):
                 torch.testing.assert_close(target.token_head.weight[schema.token_types.index(name)], source.token_head.weight[i])
             torch.testing.assert_close(target.token_head.weight[schema.token_types.index("text")], text_before)
