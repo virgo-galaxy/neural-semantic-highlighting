@@ -1,0 +1,545 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "45a03945e1af1b1adc3a4a88c116e8b56015cc339218986c9a6b7a25d86c1825",
+  "cases": [
+    {
+      "id": "module-import",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "use File::Spec;\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "lexical-binding",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "my ($name, $size) = (\"Virgo\", 3);\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "subroutine",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "sub greet { return uc shift; }\ngreet(\"Virgo\");\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 19,
+          "end": 21,
+          "text": "uc",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 19,
+          "end": 21,
+          "text": "uc",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "method-and-property",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "$item->save(force => 1);\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "regexp-match",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "my $rule = qr{^[a-z]+$}i;\n$text =~ s/old/new/g;\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "whole-quotes",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "say qq(Hello $name);\nmy @words = qw(alpha beta);\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "say",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "say",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "heredoc-literal",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "my $text = <<'BODY';\n$name is literal \ud83c\udf0c\nBODY\nprint $text;\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "heredoc-indent",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "my $text = <<~'TEXT';\r\n  Indented $literal\r\n  TEXT\r\nsay $text;\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 23,
+          "end": 50,
+          "text": "  Indented $literal\r\n  TEXT",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 23,
+          "end": 51,
+          "text": "  Indented $literal\r\n  TEXT\r",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "heredoc-queued",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "my ($a,$b)=(<<A,<<'B');\nfirst\nA\nsecond\nB\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 32,
+          "end": 40,
+          "text": "second\nB",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 32,
+          "end": 41,
+          "text": "second\nB\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "builtin-shadow",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "sub length { return 2; }\nlength(\"ready\");\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 25,
+          "end": 31,
+          "text": "length",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 25,
+          "end": 31,
+          "text": "length",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data-section",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "print \"ready\";\n__DATA__\nOriginal record \ud83c\udf0c\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 5,
+          "text": "print",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 5,
+          "text": "print",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "pod-comment",
+      "profile": "perl5",
+      "documentKind": "perl",
+      "source": "=pod\n\nShort source notes.\n\n=cut\n\nsay \"ready\";\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 33,
+          "end": 36,
+          "text": "say",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 33,
+          "end": 36,
+          "text": "say",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "perl5": {
+      "documents": 12,
+      "exactDocumentsIncludingModifiers": 5,
+      "exactSpan": {
+        "precision": 0.9541284403669725,
+        "recall": 0.9541284403669725,
+        "f1": 0.9541284403669725,
+        "tp": 104,
+        "fp": 5,
+        "fn": 5,
+        "support": 109
+      },
+      "exactSpanMacroF1": 0.9410087719298246,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9357798165137615,
+        "recall": 0.9357798165137615,
+        "f1": 0.9357798165137615,
+        "tp": 102,
+        "fp": 7,
+        "fn": 7,
+        "support": 109
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8461538461538461,
+          "recall": 1.0,
+          "f1": 0.9166666666666666,
+          "tp": 11,
+          "fp": 2,
+          "fn": 0,
+          "support": 11
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "string": {
+          "precision": 0.8666666666666667,
+          "recall": 0.8666666666666667,
+          "f1": 0.8666666666666667,
+          "tp": 13,
+          "fp": 2,
+          "fn": 2,
+          "support": 15
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "regexp": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 9,
+          "fp": 0,
+          "fn": 0,
+          "support": 9
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "support": 40
+        },
+        "namespace": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 0.7272727272727273,
+          "f1": 0.8421052631578947,
+          "tp": 8,
+          "fp": 0,
+          "fn": 3,
+          "support": 11
+        },
+        "method": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "perl": {
+      "documents": 12,
+      "exactDocumentsIncludingModifiers": 5,
+      "exactSpan": {
+        "precision": 0.9541284403669725,
+        "recall": 0.9541284403669725,
+        "f1": 0.9541284403669725,
+        "tp": 104,
+        "fp": 5,
+        "fn": 5,
+        "support": 109
+      },
+      "exactSpanMacroF1": 0.9410087719298246,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9357798165137615,
+        "recall": 0.9357798165137615,
+        "f1": 0.9357798165137615,
+        "tp": 102,
+        "fp": 7,
+        "fn": 7,
+        "support": 109
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8461538461538461,
+          "recall": 1.0,
+          "f1": 0.9166666666666666,
+          "tp": 11,
+          "fp": 2,
+          "fn": 0,
+          "support": 11
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "string": {
+          "precision": 0.8666666666666667,
+          "recall": 0.8666666666666667,
+          "f1": 0.8666666666666667,
+          "tp": 13,
+          "fp": 2,
+          "fn": 2,
+          "support": 15
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "regexp": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 9,
+          "fp": 0,
+          "fn": 0,
+          "support": 9
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "support": 40
+        },
+        "namespace": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 0.7272727272727273,
+          "f1": 0.8421052631578947,
+          "tp": 8,
+          "fp": 0,
+          "fn": 3,
+          "support": 11
+        },
+        "method": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "checkpointHash": "5e547ab386fd7792e5a05d787226584900b254bece6e041ba6acca3d2249380b",
+  "checkpointEpoch": 9
+}

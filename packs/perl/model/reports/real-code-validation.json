@@ -1,0 +1,2246 @@
+{
+  "checkpointHash": "5e547ab386fd7792e5a05d787226584900b254bece6e041ba6acca3d2249380b",
+  "epoch": 9,
+  "scope": "natural validation development diagnosis; not test",
+  "documents": [
+    {
+      "path": "utf8.pm",
+      "characters": 8638,
+      "correct": 8377,
+      "accuracy": 0.9697846723778653
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "characters": 13390,
+      "correct": 12869,
+      "accuracy": 0.9610903659447348
+    },
+    {
+      "path": "sort.pm",
+      "characters": 3010,
+      "correct": 2658,
+      "accuracy": 0.8830564784053156
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "characters": 5980,
+      "correct": 5840,
+      "accuracy": 0.9765886287625418
+    }
+  ],
+  "characterTypeConfusions": {
+    "comment -> function": 206,
+    "comment -> variable": 142,
+    "comment -> string": 140,
+    "string -> comment": 129,
+    "variable -> comment": 80,
+    "comment -> punctuation": 64,
+    "operator -> variable": 63,
+    "keyword -> comment": 57,
+    "function -> comment": 55,
+    "punctuation -> comment": 49,
+    "comment -> keyword": 41,
+    "function -> property": 33,
+    "comment -> namespace": 19,
+    "function -> regexp": 19,
+    "function -> method": 19,
+    "comment -> operator": 17,
+    "string -> variable": 17,
+    "operator -> comment": 15,
+    "namespace -> comment": 15,
+    "function -> keyword": 15,
+    "number -> comment": 11,
+    "comment -> method": 7,
+    "property -> function": 6,
+    "string -> keyword": 6,
+    "string -> function": 5,
+    "string -> operator": 5,
+    "number -> namespace": 4,
+    "operator -> number": 4,
+    "namespace -> function": 4,
+    "namespace -> string": 4,
+    "keyword -> function": 4,
+    "comment -> number": 3,
+    "comment -> parameter": 3,
+    "operator -> label": 3,
+    "string -> punctuation": 3,
+    "operator -> regexp": 3,
+    "operator -> method": 2,
+    "operator -> function": 1,
+    "punctuation -> variable": 1
+  },
+  "errors": [
+    {
+      "path": "utf8.pm",
+      "expected": {
+        "start": 341,
+        "end": 10755,
+        "type": "comment",
+        "text": "=head1 NAME\n\nutf8 - Perl pragma to enable/disable UTF-8 (or UTF-EBCDIC) in source code\n\n=head1 SYNOPSIS\n\n use utf8;\n no utf8;\n\n # Convert the internal representation of a Perl scalar to/from UTF-8.\n\n $num_octets = utf8::upgrade($string);\n $success    = utf8::downgrade($string[, $fail_ok]);\n\n # Change each character of a Perl scalar to/from a series of\n # characters that represent the UTF-8 bytes of each original character.\n\n utf8::encode($string);  # \"\\x{100}\"  becomes \"\\xc4\\x80\"\n utf8::decode($string);  # \"\\xc4\\x80\" becomes \"\\x{100}\"\n\n # Convert a code point from the platform native character set to\n # Unicode, and vice-versa.\n $unicode = utf8::native_to_unicode(ord('A')); # returns 65 on both\n                                               # ASCII and EBCDIC\n                                               # platforms\n $native = utf8::unicode_to_native(65);        # returns 65 on ASCII\n                                               # platforms; 193 on\n                                               # EBCDIC\n\n $flag = utf8::is_utf8($string); # since Perl 5.8.1\n $flag = utf8::valid($string);\n\n=head1 DESCRIPTION\n\nThe C<use utf8> pragma tells the Perl parser to allow UTF-8 in the\nprogram text in the current lexical scope.  The C<no utf8> pragma tells Perl\nto switch back to treating the source text as literal bytes in the current\nlexical scope.  (On EBCDIC platforms, technically it is allowing UTF-EBCDIC,\nand not UTF-8, but this distinction is academic, so in this document the term\nUTF-8 is used to mean both).\n\nB<Do not use this pragma for anything else than telling Perl that your\nscript is written in UTF-8.> The utility functions described below are\ndirectly usable without C<use utf8;>.\n\nBecause it is not possible to reliably tell UTF-8 from native 8 bit\nencodings, you need either a Byte Order Mark at the beginning of your\nsource code, or C<use utf8;>, to instruct perl.\n\nWhen UTF-8 becomes the standard source format, this pragma will\neffectively become a no-op.\n\nSee also the effects of the C<-C> switch and its cousin, the\nC<PERL_UNICODE> environment variable, in L<perlrun>.\n\nEnabling the C<utf8> pragma has the following effect:\n\n=over 4\n\n=item *\n\nBytes in the source text that are not in the ASCII character set will be\ntreated as being part of a literal UTF-8 sequence.  This includes most\nliterals such as identifier names, string constants, and constant\nregular expression patterns.\n\n=back\n\nNote that if you have non-ASCII, non-UTF-8 bytes in your script (for example\nembedded Latin-1 in your string literals), C<use utf8> will be unhappy.  If\nyou want to have such bytes under C<use utf8>, you can disable this pragma\nuntil the end the block (or file, if at top level) by C<no utf8;>.\n\n=head2 Utility functions\n\nThe following functions are defined in the C<utf8::> package by the\nPerl core.  You do not need to say C<use utf8> to use these and in fact\nyou should not say that unless you really want to have UTF-8 source code.\n\n=over 4\n\n=item * C<$num_octets = utf8::upgrade($string)>\n\n(Since Perl v5.8.0)\nConverts in-place the internal representation of the string from an octet\nsequence in the native encoding (Latin-1 or EBCDIC) to UTF-8. The\nlogical character sequence itself is unchanged.  If I<$string> is already\nupgraded, then this is a no-op. Returns the\nnumber of octets necessary to represent the string as UTF-8.\n\nIf your code needs to be compatible with versions of perl without\nC<use feature 'unicode_strings';>, you can force Unicode semantics on\na given string:\n\n  # force unicode semantics for $string without the\n  # \"unicode_strings\" feature\n  utf8::upgrade($string);\n\nFor example:\n\n  # without explicit or implicit use feature 'unicode_strings'\n  my $x = \"\\xDF\";    # LATIN SMALL LETTER SHARP S\n  $x =~ /ss/i;       # won't match\n  my $y = uc($x);    # won't convert\n  utf8::upgrade($x);\n  $x =~ /ss/i;       # matches\n  my $z = uc($x);    # converts to \"SS\"\n\nB<Note that this function does not handle arbitrary encodings>;\nuse L<Encode> instead.\n\n=item * C<$success = utf8::downgrade($string[, $fail_ok])>\n\n(Since Perl v5.8.0)\nConverts in-place the internal representation of the string from UTF-8 to the\nequivalent octet sequence in the native encoding (Latin-1 or EBCDIC). The\nlogical character sequence itself is unchanged. If I<$string> is already\nstored as native 8 bit, then this is a no-op.  Can be used to make sure that\nthe UTF-8 flag is off, e.g. when you want to make sure that the substr() or\nlength() function works with the usually faster byte algorithm.\n\nFails if the original UTF-8 sequence cannot be represented in the\nnative 8 bit encoding. On failure dies or, if the value of I<$fail_ok> is\ntrue, returns false. \n\nReturns true on success.\n\nIf your code expects an octet sequence this can be used to validate\nthat you've received one:\n\n  # throw an exception if not representable as octets\n  utf8::downgrade($string)\n\n  # or do your own error handling\n  utf8::downgrade($string, 1) or die \"string must be octets\";\n\nB<Note that this function does not handle arbitrary encodings>;\nuse L<Encode> instead.\n\n=item * C<utf8::encode($string)>\n\n(Since Perl v5.8.0)\nConverts in-place the character sequence to the corresponding octet\nsequence in Perl's extended UTF-8. That is, every (possibly wide) character\ngets replaced with a sequence of one or more characters that represent the\nindividual UTF-8 bytes of the character.  The UTF8 flag is turned off.\nReturns nothing.\n\n my $x = \"\\x{100}\"; # $x contains one character, with ord 0x100\n utf8::encode($x);  # $x contains two characters, with ords (on\n                    # ASCII platforms) 0xc4 and 0x80.  On EBCDIC\n                    # 1047, this would instead be 0x8C and 0x41.\n\nSimilar to:\n\n  use Encode;\n  $x = Encode::encode(\"utf8\", $x);\n\nB<Note that this function does not handle arbitrary encodings>;\nuse L<Encode> instead.\n\n=item * C<$success = utf8::decode($string)>\n\n(Since Perl v5.8.0)\nAttempts to convert in-place the octet sequence encoded in Perl's extended\nUTF-8 to the corresponding character sequence. That is, it replaces each\nsequence of characters in the string whose ords represent a valid (extended)\nUTF-8 byte sequence, with the corresponding single character.  The UTF-8 flag\nis turned on only if the source string contains multiple-byte UTF-8\ncharacters.  If I<$string> is invalid as extended UTF-8, returns false;\notherwise returns true.\n\n my $x = \"\\xc4\\x80\"; # $x contains two characters, with ords\n                     # 0xc4 and 0x80\n utf8::decode($x);   # On ASCII platforms, $x contains one char,\n                     # with ord 0x100.   Since these bytes aren't\n                     # legal UTF-EBCDIC, on EBCDIC platforms, $x is\n                     # unchanged and the function returns FALSE.\n my $y = \"\\xc3\\x83\\xc2\\xab\"; This has been encoded twice; this\n                     # example is only for ASCII platforms\n utf8::decode($y);   # Converts $y to \\xc3\\xab, returns TRUE;\n utf8::decode($y);   # Further converts to \\xeb, returns TRUE;\n utf8::decode($y);   # Returns FALSE, leaves $y unchanged\n\nB<Note that this function does not handle arbitrary encodings>;\nuse L<Encode> instead.\n\n=item * C<$unicode = utf8::native_to_unicode($code_point)>\n\n(Since Perl v5.8.0)\nThis takes an unsigned integer (which represents the ordinal number of a\ncharacter (or a code point) on the platform the program is being run on) and\nreturns its Unicode equivalent value.  Since ASCII platforms natively use the\nUnicode code points, this function returns its input on them.  On EBCDIC\nplatforms it converts from EBCDIC to Unicode.\n\nA meaningless value will currently be returned if the input is not an unsigned\ninteger.\n\nSince Perl v5.22.0, calls to this function are optimized out on ASCII\nplatforms, so there is no performance hit in using it there.\n\n=item * C<$native = utf8::unicode_to_native($code_point)>\n\n(Since Perl v5.8.0)\nThis is the inverse of C<utf8::native_to_unicode()>, converting the other\ndirection.  Again, on ASCII platforms, this returns its input, but on EBCDIC\nplatforms it will find the native platform code point, given any Unicode one.\n\nA meaningless value will currently be returned if the input is not an unsigned\ninteger.\n\nSince Perl v5.22.0, calls to this function are optimized out on ASCII\nplatforms, so there is no performance hit in using it there.\n\n=item * C<$flag = utf8::is_utf8($string)>\n\n(Since Perl 5.8.1)  Test whether I<$string> is marked internally as encoded in\nUTF-8.  Functionally the same as C<Encode::is_utf8($string)>.\n\nTypically only necessary for debugging and testing, if you need to\ndump the internals of an SV, L<Devel::Peek's|Devel::Peek> Dump()\nprovides more detail in a compact form.\n\nIf you still think you need this outside of debugging, testing or\ndealing with filenames, you should probably read L<perlunitut> and\nL<perlunifaq/What is \"the UTF8 flag\"?>.\n\nDon't use this flag as a marker to distinguish character and binary\ndata: that should be decided for each variable when you write your\ncode.\n\nTo force unicode semantics in code portable to perl 5.8 and 5.10, call\nC<utf8::upgrade($string)> unconditionally.\n\n=item * C<$flag = utf8::valid($string)>\n\n[INTERNAL] Test whether I<$string> is in a consistent state regarding\nUTF-8.  Will return true if it is well-formed Perl extended UTF-8 and has the\nUTF-8 flag\non B<or> if I<$string> is held as bytes (both these states are 'consistent').\nThe main reason for this routine is to allow Perl's test suite to check\nthat operations have left strings in a consistent state.\n\n=back\n\nC<utf8::encode> is like C<utf8::upgrade>, but the UTF8 flag is\ncleared.  See L<perlunicode>, and the C API\nfunctions C<L<sv_utf8_upgrade|perlapi/sv_utf8_upgrade>>,\nC<L<perlapi/sv_utf8_downgrade>>, C<L<perlapi/sv_utf8_encode>>,\nand C<L<perlapi/sv_utf8_decode>>, which are wrapped by the Perl functions\nC<utf8::upgrade>, C<utf8::downgrade>, C<utf8::encode> and\nC<utf8::decode>.  Also, the functions C<utf8::is_utf8>, C<utf8::valid>,\nC<utf8::encode>, C<utf8::decode>, C<utf8::upgrade>, and C<utf8::downgrade> are\nactually internal, and thus always available, without a C<require utf8>\nstatement.\n\n=head1 BUGS\n\nSome filesystems may not support UTF-8 file names, or they may be supported\nincompatibly with Perl.  Therefore UTF-8 names that are visible to the\nfilesystem, such as module names may not work.\n\n=head1 SEE ALSO\n\nL<perlunitut>, L<perluniintro>, L<perlrun>, L<bytes>, L<perlunicode>\n\n=cut"
+      },
+      "overlaps": [
+        {
+          "start": 341,
+          "end": 352,
+          "tokenType": "comment",
+          "text": "=head1 NAME"
+        },
+        {
+          "start": 354,
+          "end": 358,
+          "tokenType": "keyword",
+          "text": "utf8"
+        },
+        {
+          "start": 359,
+          "end": 360,
+          "tokenType": "number",
+          "text": "-"
+        },
+        {
+          "start": 361,
+          "end": 365,
+          "tokenType": "comment",
+          "text": "Perl"
+        },
+        {
+          "start": 366,
+          "end": 427,
+          "tokenType": "comment",
+          "text": "pragma to enable/disable UTF-8 (or UTF-EBCDIC) in source code"
+        },
+        {
+          "start": 429,
+          "end": 430,
+          "tokenType": "comment",
+          "text": "="
+        },
+        {
+          "start": 430,
+          "end": 435,
+          "tokenType": "comment",
+          "text": "head1"
+        },
+        {
+          "start": 436,
+          "end": 444,
+          "tokenType": "string",
+          "text": "SYNOPSIS"
+        },
+        {
+          "start": 447,
+          "end": 450,
+          "tokenType": "keyword",
+          "text": "use"
+        },
+        {
+          "start": 451,
+          "end": 455,
+          "tokenType": "namespace",
+          "text": "utf8"
+        },
+        {
+          "start": 455,
+          "end": 456,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 458,
+          "end": 460,
+          "tokenType": "keyword",
+          "text": "no"
+        },
+        {
+          "start": 461,
+          "end": 465,
+          "tokenType": "namespace",
+          "text": "utf8"
+        },
+        {
+          "start": 465,
+          "end": 466,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 468,
+          "end": 538,
+          "tokenType": "comment",
+          "text": " # Convert the internal representation of a Perl scalar to/from UTF-8."
+        },
+        {
+          "start": 541,
+          "end": 555,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$num_octets = "
+        },
+        {
+          "start": 555,
+          "end": 568,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "utf8::upgrade"
+        },
+        {
+          "start": 568,
+          "end": 569,
+          "tokenType": "punctuation",
+          "text": "("
+        },
+        {
+          "start": 569,
+          "end": 576,
+          "tokenType": "variable",
+          "text": "$string"
+        },
+        {
+          "start": 576,
+          "end": 577,
+          "tokenType": "punctuation",
+          "text": ")"
+        },
+        {
+          "start": 577,
+          "end": 594,
+          "tokenType": "comment",
+          "text": ";\n $success    = "
+        },
+        {
+          "start": 594,
+          "end": 609,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "utf8::downgrade"
+        },
+        {
+          "start": 609,
+          "end": 610,
+          "tokenType": "punctuation",
+          "text": "("
+        },
+        {
+          "start": 610,
+          "end": 617,
+          "tokenType": "variable",
+          "text": "$string"
+        },
+        {
+          "start": 617,
+          "end": 618,
+          "tokenType": "punctuation",
+          "text": "["
+        },
+        {
+          "start": 618,
+          "end": 620,
+          "tokenType": "comment",
+          "text": ", "
+        },
+        {
+          "start": 620,
+          "end": 630,
+          "tokenType": "comment",
+          "text": "$fail_ok])"
+        },
+        {
+          "start": 630,
+          "end": 631,
+          "tokenType": "comment",
+          "text": ";"
+        },
+        {
+          "start": 633,
+          "end": 694,
+          "tokenType": "comment",
+          "text": " # Change each character of a Perl scalar to/from a series of"
+        },
+        {
+          "start": 695,
+          "end": 767,
+          "tokenType": "comment",
+          "text": " # characters that represent the UTF-8 bytes of each original character."
+        },
+        {
+          "start": 770,
+          "end": 782,
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "utf8::encode"
+        },
+        {
+          "start": 782,
+          "end": 783,
+          "tokenType": "punctuation",
+          "text": "("
+        },
+        {
+          "start": 783,
+          "end": 790,
+          "tokenType": "variable",
+          "text": "$string"
+        },
+        {
+          "start": 790,
+          "end": 791,
+          "tokenType": "punctuation",
+          "text": ")"
+        },
+        {
+          "start": 791,
+          "end": 792,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 794,
+          "end": 825,
+          "tokenType": "comment",
+          "text": "# \"\\x{100}\"  becomes \"\\xc4\\x80\""
+        },
+        {
+          "start": 827,
+          "end": 839,
+          "tokenType": "function",
+          "text": "utf8::decode"
+        },
+        {
+          "start": 839,
+          "end": 840,
+          "tokenType": "punctuation",
+          "text": "("
+        },
+        {
+          "start": 840,
+          "end": 847,
+          "tokenType": "variable",
+          "text": "$string"
+        },
+        {
+          "start": 847,
+          "end": 848,
+          "tokenType": "punctuation",
+          "text": ")"
+        },
+        {
+          "start": 848,
+          "end": 849,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 851,
+          "end": 881,
+          "tokenType": "comment",
+          "text": "# \"\\xc4\\x80\" becomes \"\\x{100}\""
+        },
+        {
+          "start": 883,
+          "end": 948,
+          "tokenType": "comment",
+          "text": " # Convert a code point from the platform native character set to"
+        },
+        {
+          "start": 949,
+          "end": 976,
+          "tokenType": "comment",
+          "text": " # Unicode, and vice-versa."
+        },
+        {
+          "start": 978,
+          "end": 979,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$"
+        },
+        {
+          "start": 979,
+          "end": 986,
+          "tokenType": "namespace",
+          "text": "unicode"
+        },
+        {
+          "start": 987,
+          "end": 988,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 989,
+          "end": 1012,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "utf8::native_to_unicode"
+        },
+        {
+          "start": 1012,
+          "end": 1013,
+          "tokenType": "punctuation",
+          "text": "("
+        },
+        {
+          "start": 1013,
+          "end": 1016,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "ord"
+        },
+        {
+          "start": 1016,
+          "end": 1017,
+          "tokenType": "punctuation",
+          "text": "("
+        },
+        {
+          "start": 1017,
+          "end": 1020,
+          "tokenType": "string",
+          "text": "'A'"
+        },
+        {
+          "start": 1020,
+          "end": 1021,
+          "tokenType": "punctuation",
+          "text": ")"
+        },
+        {
+          "start": 1021,
+          "end": 1022,
+          "tokenType": "punctuation",
+          "text": ")"
+        },
+        {
+          "start": 1022,
+          "end": 1023,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 1024,
+          "end": 1044,
+          "tokenType": "comment",
+          "text": "# returns 65 on both"
+        },
+        {
+          "start": 1045,
+          "end": 1110,
+          "tokenType": "comment",
+          "text": "                                               # ASCII and EBCDIC"
+        },
+        {
+          "start": 1111,
+          "end": 1169,
+          "tokenType": "comment",
+          "text": "                                               # platforms"
+        },
+        {
+          "start": 1171,
+          "end": 1178,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$native"
+        },
+        {
+          "start": 1179,
+          "end": 1180,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 1181,
+          "end": 1204,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "utf8::unicode_to_native"
+        },
+        {
+          "start": 1204,
+          "end": 1208,
+          "tokenType": "comment",
+          "text": "(65)"
+        },
+        {
+          "start": 1208,
+          "end": 1238,
+          "tokenType": "comment",
+          "text": ";        # returns 65 on ASCII"
+        },
+        {
+          "start": 1239,
+          "end": 1305,
+          "tokenType": "comment",
+          "text": "                                               # platforms; 193 on"
+        },
+        {
+          "start": 1306,
+          "end": 1361,
+          "tokenType": "comment",
+          "text": "                                               # EBCDIC"
+        },
+        {
+          "start": 1363,
+          "end": 1372,
+          "tokenType": "comment",
+          "text": " $flag = "
+        },
+        {
+          "start": 1372,
+          "end": 1385,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "utf8::is_utf8"
+        },
+        {
+          "start": 1385,
+          "end": 1386,
+          "tokenType": "punctuation",
+          "text": "("
+        },
+        {
+          "start": 1386,
+          "end": 1393,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$string"
+        },
+        {
+          "start": 1393,
+          "end": 1394,
+          "tokenType": "punctuation",
+          "text": ")"
+        },
+        {
+          "start": 1394,
+          "end": 1414,
+          "tokenType": "comment",
+          "text": "; # since Perl 5.8.1"
+        },
+        {
+          "start": 1416,
+          "end": 1421,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$flag"
+        },
+        {
+          "start": 1422,
+          "end": 4090,
+          "tokenType": "comment",
+          "text": "= utf8::valid($string);\n\n=head1 DESCRIPTION\n\nThe C<use utf8> pragma tells the Perl parser to allow UTF-8 in the\nprogram text in the current lexical scope.  The C<no utf8> pragma tells Perl\nto switch back to treating the source text as literal bytes in the current\nlexical scope.  (On EBCDIC platforms, technically it is allowing UTF-EBCDIC,\nand not UTF-8, but this distinction is academic, so in this document the term\nUTF-8 is used to mean both).\n\nB<Do not use this pragma for anything else than telling Perl that your\nscript is written in UTF-8.> The utility functions described below are\ndirectly usable without C<use utf8;>.\n\nBecause it is not possible to reliably tell UTF-8 from native 8 bit\nencodings, you need either a Byte Order Mark at the beginning of your\nsource code, or C<use utf8;>, to instruct perl.\n\nWhen UTF-8 becomes the standard source format, this pragma will\neffectively become a no-op.\n\nSee also the effects of the C<-C> switch and its cousin, the\nC<PERL_UNICODE> environment variable, in L<perlrun>.\n\nEnabling the C<utf8> pragma has the following effect:\n\n=over 4\n\n=item *\n\nBytes in the source text that are not in the ASCII character set will be\ntreated as being part of a literal UTF-8 sequence.  This includes most\nliterals such as identifier names, string constants, and constant\nregular expression patterns.\n\n=back\n\nNote that if you have non-ASCII, non-UTF-8 bytes in your script (for example\nembedded Latin-1 in your string literals), C<use utf8> will be unhappy.  If\nyou want to have such bytes under C<use utf8>, you can disable this pragma\nuntil the end the block (or file, if at top level) by C<no utf8;>.\n\n=head2 Utility functions\n\nThe following functions are defined in the C<utf8::> package by the\nPerl core.  You do not need to say C<use utf8> to use these and in fact\nyou should not say that unless you really want to have UTF-8 source code.\n\n=over 4\n\n=item * C<$num_octets = utf8::upgrade($string)>\n\n(Since Perl v5.8.0)\nConverts in-place the internal representation of the string from an octet\nsequence in the native encoding (Latin-1 or EBCDIC) to UTF-8. The\nlogical character sequence itself is unchanged.  If I<$string> is already\nupgraded, then this is a no-op. Returns the\nnumber of octets necessary to represent the string as UTF-8.\n\nIf your code needs to be compatible with versions of perl without\nC<use feature 'unicode_strings';>, you can force Unicode semantics on\na given string:\n\n  # force unicode semantics for $string without the\n  # \"unicode_strings\" feature\n  utf8::upgrade($string);\n\nFor example:\n\n  # without explicit or implicit use feature 'unicode_strings'\n  my $x = \"\\xDF\";    # LATIN SMALL LETTER SHARP S"
+        },
+        {
+          "start": 4091,
+          "end": 4125,
+          "tokenType": "comment",
+          "text": "  $x =~ /ss/i;       # won't match"
+        },
+        {
+          "start": 4126,
+          "end": 4131,
+          "tokenType": "comment",
+          "text": "  my "
+        },
+        {
+          "start": 4131,
+          "end": 4133,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$y"
+        },
+        {
+          "start": 4134,
+          "end": 4135,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 4136,
+          "end": 4139,
+          "tokenType": "comment",
+          "text": "uc("
+        },
+        {
+          "start": 4139,
+          "end": 4162,
+          "tokenType": "comment",
+          "text": "$x);    # won't convert"
+        },
+        {
+          "start": 4163,
+          "end": 4178,
+          "tokenType": "function",
+          "text": "  utf8::upgrade"
+        },
+        {
+          "start": 4178,
+          "end": 4181,
+          "tokenType": "parameter",
+          "text": "($x"
+        },
+        {
+          "start": 4181,
+          "end": 4182,
+          "tokenType": "punctuation",
+          "text": ")"
+        },
+        {
+          "start": 4182,
+          "end": 4184,
+          "tokenType": "comment",
+          "text": ";\n"
+        },
+        {
+          "start": 4185,
+          "end": 4192,
+          "tokenType": "comment",
+          "text": " $x =~ "
+        },
+        {
+          "start": 4192,
+          "end": 4214,
+          "tokenType": "comment",
+          "text": "/ss/i;       # matches"
+        },
+        {
+          "start": 4217,
+          "end": 4219,
+          "tokenType": "keyword",
+          "text": "my"
+        },
+        {
+          "start": 4220,
+          "end": 4222,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$z"
+        },
+        {
+          "start": 4223,
+          "end": 4224,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 4225,
+          "end": 5778,
+          "tokenType": "comment",
+          "text": "uc($x);    # converts to \"SS\"\n\nB<Note that this function does not handle arbitrary encodings>;\nuse L<Encode> instead.\n\n=item * C<$success = utf8::downgrade($string[, $fail_ok])>\n\n(Since Perl v5.8.0)\nConverts in-place the internal representation of the string from UTF-8 to the\nequivalent octet sequence in the native encoding (Latin-1 or EBCDIC). The\nlogical character sequence itself is unchanged. If I<$string> is already\nstored as native 8 bit, then this is a no-op.  Can be used to make sure that\nthe UTF-8 flag is off, e.g. when you want to make sure that the substr() or\nlength() function works with the usually faster byte algorithm.\n\nFails if the original UTF-8 sequence cannot be represented in the\nnative 8 bit encoding. On failure dies or, if the value of I<$fail_ok> is\ntrue, returns false. \n\nReturns true on success.\n\nIf your code expects an octet sequence this can be used to validate\nthat you've received one:\n\n  # throw an exception if not representable as octets\n  utf8::downgrade($string)\n\n  # or do your own error handling\n  utf8::downgrade($string, 1) or die \"string must be octets\";\n\nB<Note that this function does not handle arbitrary encodings>;\nuse L<Encode> instead.\n\n=item * C<utf8::encode($string)>\n\n(Since Perl v5.8.0)\nConverts in-place the character sequence to the corresponding octet\nsequence in Perl's extended UTF-8. That is, every (possibly wide) character\ngets replaced with a sequence of one or more characters that represent the\nindividual UTF-8 bytes of the character.  The UTF8 flag is turned off.\nReturns nothing."
+        },
+        {
+          "start": 5781,
+          "end": 5783,
+          "tokenType": "keyword",
+          "text": "my"
+        },
+        {
+          "start": 5784,
+          "end": 5786,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$x"
+        },
+        {
+          "start": 5787,
+          "end": 5788,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 5789,
+          "end": 5843,
+          "tokenType": "comment",
+          "text": "\"\\x{100}\"; # $x contains one character, with ord 0x100"
+        },
+        {
+          "start": 5844,
+          "end": 6089,
+          "tokenType": "comment",
+          "text": " utf8::encode($x);  # $x contains two characters, with ords (on\n                    # ASCII platforms) 0xc4 and 0x80.  On EBCDIC\n                    # 1047, this would instead be 0x8C and 0x41.\n\nSimilar to:\n\n  use Encode;\n  $x = Encode::encode(\""
+        },
+        {
+          "start": 6089,
+          "end": 6721,
+          "tokenType": "comment",
+          "text": "utf8\", $x);\n\nB<Note that this function does not handle arbitrary encodings>;\nuse L<Encode> instead.\n\n=item * C<$success = utf8::decode($string)>\n\n(Since Perl v5.8.0)\nAttempts to convert in-place the octet sequence encoded in Perl's extended\nUTF-8 to the corresponding character sequence. That is, it replaces each\nsequence of characters in the string whose ords represent a valid (extended)\nUTF-8 byte sequence, with the corresponding single character.  The UTF-8 flag\nis turned on only if the source string contains multiple-byte UTF-8\ncharacters.  If I<$string> is invalid as extended UTF-8, returns false;\notherwise returns true."
+        },
+        {
+          "start": 6722,
+          "end": 7111,
+          "tokenType": "comment",
+          "text": "\n my $x = \"\\xc4\\x80\"; # $x contains two characters, with ords\n                     # 0xc4 and 0x80\n utf8::decode($x);   # On ASCII platforms, $x contains one char,\n                     # with ord 0x100.   Since these bytes aren't\n                     # legal UTF-EBCDIC, on EBCDIC platforms, $x is\n                     # unchanged and the function returns FALSE.\n my $y = \"\\xc3\\x83\\xc2\\xab"
+        },
+        {
+          "start": 7111,
+          "end": 10755,
+          "tokenType": "comment",
+          "text": "\"; This has been encoded twice; this\n                     # example is only for ASCII platforms\n utf8::decode($y);   # Converts $y to \\xc3\\xab, returns TRUE;\n utf8::decode($y);   # Further converts to \\xeb, returns TRUE;\n utf8::decode($y);   # Returns FALSE, leaves $y unchanged\n\nB<Note that this function does not handle arbitrary encodings>;\nuse L<Encode> instead.\n\n=item * C<$unicode = utf8::native_to_unicode($code_point)>\n\n(Since Perl v5.8.0)\nThis takes an unsigned integer (which represents the ordinal number of a\ncharacter (or a code point) on the platform the program is being run on) and\nreturns its Unicode equivalent value.  Since ASCII platforms natively use the\nUnicode code points, this function returns its input on them.  On EBCDIC\nplatforms it converts from EBCDIC to Unicode.\n\nA meaningless value will currently be returned if the input is not an unsigned\ninteger.\n\nSince Perl v5.22.0, calls to this function are optimized out on ASCII\nplatforms, so there is no performance hit in using it there.\n\n=item * C<$native = utf8::unicode_to_native($code_point)>\n\n(Since Perl v5.8.0)\nThis is the inverse of C<utf8::native_to_unicode()>, converting the other\ndirection.  Again, on ASCII platforms, this returns its input, but on EBCDIC\nplatforms it will find the native platform code point, given any Unicode one.\n\nA meaningless value will currently be returned if the input is not an unsigned\ninteger.\n\nSince Perl v5.22.0, calls to this function are optimized out on ASCII\nplatforms, so there is no performance hit in using it there.\n\n=item * C<$flag = utf8::is_utf8($string)>\n\n(Since Perl 5.8.1)  Test whether I<$string> is marked internally as encoded in\nUTF-8.  Functionally the same as C<Encode::is_utf8($string)>.\n\nTypically only necessary for debugging and testing, if you need to\ndump the internals of an SV, L<Devel::Peek's|Devel::Peek> Dump()\nprovides more detail in a compact form.\n\nIf you still think you need this outside of debugging, testing or\ndealing with filenames, you should probably read L<perlunitut> and\nL<perlunifaq/What is \"the UTF8 flag\"?>.\n\nDon't use this flag as a marker to distinguish character and binary\ndata: that should be decided for each variable when you write your\ncode.\n\nTo force unicode semantics in code portable to perl 5.8 and 5.10, call\nC<utf8::upgrade($string)> unconditionally.\n\n=item * C<$flag = utf8::valid($string)>\n\n[INTERNAL] Test whether I<$string> is in a consistent state regarding\nUTF-8.  Will return true if it is well-formed Perl extended UTF-8 and has the\nUTF-8 flag\non B<or> if I<$string> is held as bytes (both these states are 'consistent').\nThe main reason for this routine is to allow Perl's test suite to check\nthat operations have left strings in a consistent state.\n\n=back\n\nC<utf8::encode> is like C<utf8::upgrade>, but the UTF8 flag is\ncleared.  See L<perlunicode>, and the C API\nfunctions C<L<sv_utf8_upgrade|perlapi/sv_utf8_upgrade>>,\nC<L<perlapi/sv_utf8_downgrade>>, C<L<perlapi/sv_utf8_encode>>,\nand C<L<perlapi/sv_utf8_decode>>, which are wrapped by the Perl functions\nC<utf8::upgrade>, C<utf8::downgrade>, C<utf8::encode> and\nC<utf8::decode>.  Also, the functions C<utf8::is_utf8>, C<utf8::valid>,\nC<utf8::encode>, C<utf8::decode>, C<utf8::upgrade>, and C<utf8::downgrade> are\nactually internal, and thus always available, without a C<require utf8>\nstatement.\n\n=head1 BUGS\n\nSome filesystems may not support UTF-8 file names, or they may be supported\nincompatibly with Perl.  Therefore UTF-8 names that are visible to the\nfilesystem, such as module names may not work.\n\n=head1 SEE ALSO\n\nL<perlunitut>, L<perluniintro>, L<perlrun>, L<bytes>, L<perlunicode>\n\n=cut"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 72,
+        "end": 73,
+        "type": "punctuation",
+        "text": ";"
+      },
+      "overlaps": [
+        {
+          "start": 72,
+          "end": 120,
+          "tokenType": "comment",
+          "text": ";          # remember to update version in POD!\n"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 83,
+        "end": 119,
+        "type": "comment",
+        "text": "# remember to update version in POD!"
+      },
+      "overlaps": [
+        {
+          "start": 72,
+          "end": 120,
+          "tokenType": "comment",
+          "text": ";          # remember to update version in POD!\n"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 120,
+        "end": 128,
+        "type": "variable",
+        "text": "$VERSION"
+      },
+      "overlaps": [
+        {
+          "start": 120,
+          "end": 131,
+          "tokenType": "comment",
+          "text": "$VERSION = "
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 129,
+        "end": 130,
+        "type": "operator",
+        "text": "="
+      },
+      "overlaps": [
+        {
+          "start": 120,
+          "end": 131,
+          "tokenType": "comment",
+          "text": "$VERSION = "
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 131,
+        "end": 135,
+        "type": "keyword",
+        "text": "eval"
+      },
+      "overlaps": [
+        {
+          "start": 131,
+          "end": 135,
+          "tokenType": "comment",
+          "text": "eval"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 151,
+        "end": 166,
+        "type": "namespace",
+        "text": "threads::shared"
+      },
+      "overlaps": [
+        {
+          "start": 151,
+          "end": 171,
+          "tokenType": "comment",
+          "text": "threads::shared 1.21"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 167,
+        "end": 171,
+        "type": "number",
+        "text": "1.21"
+      },
+      "overlaps": [
+        {
+          "start": 151,
+          "end": 171,
+          "tokenType": "comment",
+          "text": "threads::shared 1.21"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 177,
+        "end": 189,
+        "type": "namespace",
+        "text": "Scalar::Util"
+      },
+      "overlaps": [
+        {
+          "start": 177,
+          "end": 194,
+          "tokenType": "namespace",
+          "text": "Scalar::Util 1.10"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 190,
+        "end": 194,
+        "type": "number",
+        "text": "1.10"
+      },
+      "overlaps": [
+        {
+          "start": 177,
+          "end": 194,
+          "tokenType": "namespace",
+          "text": "Scalar::Util 1.10"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 195,
+        "end": 240,
+        "type": "string",
+        "text": "qw(looks_like_number blessed reftype refaddr)"
+      },
+      "overlaps": [
+        {
+          "start": 195,
+          "end": 241,
+          "tokenType": "comment",
+          "text": "qw(looks_like_number blessed reftype refaddr);"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 240,
+        "end": 241,
+        "type": "punctuation",
+        "text": ";"
+      },
+      "overlaps": [
+        {
+          "start": 195,
+          "end": 241,
+          "tokenType": "comment",
+          "text": "qw(looks_like_number blessed reftype refaddr);"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 313,
+        "end": 316,
+        "type": "keyword",
+        "text": "our"
+      },
+      "overlaps": [
+        {
+          "start": 313,
+          "end": 330,
+          "tokenType": "comment",
+          "text": "our @CARP_NOT = ("
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 317,
+        "end": 326,
+        "type": "variable",
+        "text": "@CARP_NOT"
+      },
+      "overlaps": [
+        {
+          "start": 313,
+          "end": 330,
+          "tokenType": "comment",
+          "text": "our @CARP_NOT = ("
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 327,
+        "end": 328,
+        "type": "operator",
+        "text": "="
+      },
+      "overlaps": [
+        {
+          "start": 313,
+          "end": 330,
+          "tokenType": "comment",
+          "text": "our @CARP_NOT = ("
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 329,
+        "end": 330,
+        "type": "punctuation",
+        "text": "("
+      },
+      "overlaps": [
+        {
+          "start": 313,
+          "end": 330,
+          "tokenType": "comment",
+          "text": "our @CARP_NOT = ("
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 406,
+        "end": 409,
+        "type": "keyword",
+        "text": "sub"
+      },
+      "overlaps": [
+        {
+          "start": 406,
+          "end": 409,
+          "tokenType": "comment",
+          "text": "sub"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 414,
+        "end": 415,
+        "type": "punctuation",
+        "text": "{"
+      },
+      "overlaps": [
+        {
+          "start": 414,
+          "end": 437,
+          "tokenType": "comment",
+          "text": "{\n    my $class = shift"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 420,
+        "end": 422,
+        "type": "keyword",
+        "text": "my"
+      },
+      "overlaps": [
+        {
+          "start": 414,
+          "end": 437,
+          "tokenType": "comment",
+          "text": "{\n    my $class = shift"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 423,
+        "end": 429,
+        "type": "variable",
+        "text": "$class"
+      },
+      "overlaps": [
+        {
+          "start": 414,
+          "end": 437,
+          "tokenType": "comment",
+          "text": "{\n    my $class = shift"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Queue.pm",
+      "expected": {
+        "start": 430,
+        "end": 431,
+        "type": "operator",
+        "text": "="
+      },
+      "overlaps": [
+        {
+          "start": 414,
+          "end": 437,
+          "tokenType": "comment",
+          "text": "{\n    my $class = shift"
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 397,
+        "end": 401,
+        "type": "function",
+        "text": "sort"
+      },
+      "overlaps": [
+        {
+          "start": 397,
+          "end": 401,
+          "tokenType": "property",
+          "text": "sort"
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 403,
+        "end": 406,
+        "type": "operator",
+        "text": "//="
+      },
+      "overlaps": [
+        {
+          "start": 403,
+          "end": 406,
+          "tokenType": "regexp",
+          "text": "//="
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 471,
+        "end": 475,
+        "type": "function",
+        "text": "sort"
+      },
+      "overlaps": [
+        {
+          "start": 471,
+          "end": 475,
+          "tokenType": "property",
+          "text": "sort"
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 509,
+        "end": 513,
+        "type": "function",
+        "text": "sort"
+      },
+      "overlaps": [
+        {
+          "start": 509,
+          "end": 513,
+          "tokenType": "regexp",
+          "text": "sort"
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 579,
+        "end": 583,
+        "type": "function",
+        "text": "sort"
+      },
+      "overlaps": [
+        {
+          "start": 579,
+          "end": 583,
+          "tokenType": "property",
+          "text": "sort"
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 638,
+        "end": 668,
+        "type": "string",
+        "text": "\"sort: unknown subpragma '$_'\""
+      },
+      "overlaps": [
+        {
+          "start": 638,
+          "end": 662,
+          "tokenType": "string",
+          "text": "\"sort: unknown subpragma"
+        },
+        {
+          "start": 663,
+          "end": 668,
+          "tokenType": "string",
+          "text": "'$_'\""
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 925,
+        "end": 929,
+        "type": "function",
+        "text": "sort"
+      },
+      "overlaps": [
+        {
+          "start": 925,
+          "end": 929,
+          "tokenType": "property",
+          "text": "sort"
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 963,
+        "end": 967,
+        "type": "function",
+        "text": "sort"
+      },
+      "overlaps": [
+        {
+          "start": 963,
+          "end": 967,
+          "tokenType": "property",
+          "text": "sort"
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 1017,
+        "end": 1021,
+        "type": "namespace",
+        "text": "Carp"
+      },
+      "overlaps": [
+        {
+          "start": 1017,
+          "end": 1021,
+          "tokenType": "string",
+          "text": "Carp"
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 1125,
+        "end": 1129,
+        "type": "function",
+        "text": "sort"
+      },
+      "overlaps": [
+        {
+          "start": 1125,
+          "end": 1129,
+          "tokenType": "property",
+          "text": "sort"
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 1166,
+        "end": 1170,
+        "type": "function",
+        "text": "sort"
+      },
+      "overlaps": [
+        {
+          "start": 1166,
+          "end": 1170,
+          "tokenType": "property",
+          "text": "sort"
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 1208,
+        "end": 1211,
+        "type": "string",
+        "text": "' '"
+      },
+      "overlaps": [
+        {
+          "start": 1208,
+          "end": 1210,
+          "tokenType": "string",
+          "text": "' "
+        },
+        {
+          "start": 1210,
+          "end": 1211,
+          "tokenType": "string",
+          "text": "'"
+        }
+      ]
+    },
+    {
+      "path": "sort.pm",
+      "expected": {
+        "start": 1236,
+        "end": 3909,
+        "type": "comment",
+        "text": "=head1 NAME\n\nsort - perl pragma to control sort() behaviour\n\n=head1 SYNOPSIS\n\n    use sort 'stable';\t\t# guarantee stability\n    use sort 'defaults';\t# revert to default behavior\n    no  sort 'stable';\t\t# stability not important\n\n    my $current;\n    BEGIN {\n\t$current = sort::current();\t# identify prevailing pragmata\n    }\n\n=head1 DESCRIPTION\n\nWith the C<sort> pragma you can control the behaviour of the builtin\nC<sort()> function.\n\nA stable sort means that for records that compare equal, the original\ninput ordering is preserved.\nStability will matter only if elements that compare equal can be\ndistinguished in some other way.  That means that simple numerical\nand lexical sorts do not profit from stability, since equal elements\nare indistinguishable.  However, with a comparison such as\n\n   { substr($a, 0, 3) cmp substr($b, 0, 3) }\n\nstability might matter because elements that compare equal on the\nfirst 3 characters may be distinguished based on subsequent characters.\n\nWhether sorting is stable by default is an accident of implementation\nthat can change (and has changed) between Perl versions.\nIf stability is important, be sure to\nsay so with a\n\n  use sort 'stable';\n\nThe C<no sort> pragma doesn't\nI<forbid> what follows, it just leaves the choice open.  Thus, after\n\n  no sort 'stable';\n\nsorting may happen to be stable anyway.\n\n=head1 CAVEATS\n\nAs of Perl 5.10, this pragma is lexically scoped and takes effect\nat compile time. In earlier versions its effect was global and took\neffect at run-time; the documentation suggested using C<eval()> to\nchange the behaviour:\n\n  { eval 'no sort \"stable\"';      # stability not wanted\n    print sort::current . \"\\n\";\n    @a = sort @b;\n    eval 'use sort \"defaults\"';   # clean up, for others\n  }\n  { eval 'use sort qw(defaults stable)';     # force stability\n    print sort::current . \"\\n\";\n    @c = sort @d;\n    eval 'use sort \"defaults\"';   # clean up, for others\n  }\n\nSuch code no longer has the desired effect, for two reasons.\nFirstly, the use of C<eval()> means that the sorting algorithm\nis not changed until runtime, by which time it's too late to\nhave any effect. Secondly, C<sort::current> is also called at\nrun-time, when in fact the compile-time value of C<sort::current>\nis the one that matters.\n\nSo now this code would be written:\n\n  { no sort \"stable\";      # stability not wanted\n    my $current;\n    BEGIN { $current = sort::current; }\n    print \"$current\\n\";\n    @a = sort @b;\n    # Pragmas go out of scope at the end of the block\n  }\n  { use sort qw(defaults stable);     # force stability\n    my $current;\n    BEGIN { $current = sort::current; }\n    print \"$current\\n\";\n    @c = sort @d;\n  }\n\n=cut"
+      },
+      "overlaps": [
+        {
+          "start": 1236,
+          "end": 1247,
+          "tokenType": "comment",
+          "text": "=head1 NAME"
+        },
+        {
+          "start": 1249,
+          "end": 1253,
+          "tokenType": "string",
+          "text": "sort"
+        },
+        {
+          "start": 1254,
+          "end": 1315,
+          "tokenType": "string",
+          "text": "- perl pragma to control sort() behaviour\n\n=head1 SYNOPSIS\n\n "
+        },
+        {
+          "start": 1317,
+          "end": 1318,
+          "tokenType": "comment",
+          "text": " "
+        },
+        {
+          "start": 1318,
+          "end": 1327,
+          "tokenType": "comment",
+          "text": "use sort "
+        },
+        {
+          "start": 1327,
+          "end": 1335,
+          "tokenType": "string",
+          "text": "'stable'"
+        },
+        {
+          "start": 1335,
+          "end": 1336,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 1337,
+          "end": 1359,
+          "tokenType": "comment",
+          "text": "\t# guarantee stability"
+        },
+        {
+          "start": 1364,
+          "end": 1383,
+          "tokenType": "comment",
+          "text": "use sort 'defaults'"
+        },
+        {
+          "start": 1383,
+          "end": 1384,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 1385,
+          "end": 1413,
+          "tokenType": "comment",
+          "text": "# revert to default behavior"
+        },
+        {
+          "start": 1418,
+          "end": 1420,
+          "tokenType": "keyword",
+          "text": "no"
+        },
+        {
+          "start": 1422,
+          "end": 1426,
+          "tokenType": "namespace",
+          "text": "sort"
+        },
+        {
+          "start": 1427,
+          "end": 1435,
+          "tokenType": "string",
+          "text": "'stable'"
+        },
+        {
+          "start": 1435,
+          "end": 1436,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 1437,
+          "end": 1463,
+          "tokenType": "comment",
+          "text": "\t# stability not important"
+        },
+        {
+          "start": 1469,
+          "end": 1471,
+          "tokenType": "keyword",
+          "text": "my"
+        },
+        {
+          "start": 1472,
+          "end": 1480,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$current"
+        },
+        {
+          "start": 1480,
+          "end": 1481,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 1486,
+          "end": 1491,
+          "tokenType": "keyword",
+          "text": "BEGIN"
+        },
+        {
+          "start": 1492,
+          "end": 1493,
+          "tokenType": "punctuation",
+          "text": "{"
+        },
+        {
+          "start": 1495,
+          "end": 1503,
+          "tokenType": "variable",
+          "text": "$current"
+        },
+        {
+          "start": 1504,
+          "end": 1505,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 1506,
+          "end": 1519,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "sort::current"
+        },
+        {
+          "start": 1519,
+          "end": 1520,
+          "tokenType": "punctuation",
+          "text": "("
+        },
+        {
+          "start": 1520,
+          "end": 1521,
+          "tokenType": "punctuation",
+          "text": ")"
+        },
+        {
+          "start": 1521,
+          "end": 1522,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 1523,
+          "end": 2029,
+          "tokenType": "comment",
+          "text": "# identify prevailing pragmata\n    }\n\n=head1 DESCRIPTION\n\nWith the C<sort> pragma you can control the behaviour of the builtin\nC<sort()> function.\n\nA stable sort means that for records that compare equal, the original\ninput ordering is preserved.\nStability will matter only if elements that compare equal can be\ndistinguished in some other way.  That means that simple numerical\nand lexical sorts do not profit from stability, since equal elements\nare indistinguishable.  However, with a comparison such as"
+        },
+        {
+          "start": 2034,
+          "end": 2447,
+          "tokenType": "comment",
+          "text": "{ substr($a, 0, 3) cmp substr($b, 0, 3) }\n\nstability might matter because elements that compare equal on the\nfirst 3 characters may be distinguished based on subsequent characters.\n\nWhether sorting is stable by default is an accident of implementation\nthat can change (and has changed) between Perl versions.\nIf stability is important, be sure to\nsay so with a\n\n  use sort 'stable';\n\nThe C<no sort> pragma doesn't"
+        },
+        {
+          "start": 2448,
+          "end": 2536,
+          "tokenType": "comment",
+          "text": "I<forbid> what follows, it just leaves the choice open.  Thus, after\n\n  no sort 'stable'"
+        },
+        {
+          "start": 2536,
+          "end": 2537,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 2539,
+          "end": 2907,
+          "tokenType": "comment",
+          "text": "sorting may happen to be stable anyway.\n\n=head1 CAVEATS\n\nAs of Perl 5.10, this pragma is lexically scoped and takes effect\nat compile time. In earlier versions its effect was global and took\neffect at run-time; the documentation suggested using C<eval()> to\nchange the behaviour:\n\n  { eval 'no sort \"stable\"';      # stability not wanted\n    print sort::current . \"\\n\""
+        },
+        {
+          "start": 2907,
+          "end": 2908,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 2913,
+          "end": 2915,
+          "tokenType": "variable",
+          "text": "@a"
+        },
+        {
+          "start": 2916,
+          "end": 2917,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 2918,
+          "end": 2922,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "sort"
+        },
+        {
+          "start": 2923,
+          "end": 2925,
+          "tokenType": "variable",
+          "text": "@b"
+        },
+        {
+          "start": 2925,
+          "end": 2926,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 2931,
+          "end": 2935,
+          "tokenType": "keyword",
+          "text": "eval"
+        },
+        {
+          "start": 2936,
+          "end": 2945,
+          "tokenType": "comment",
+          "text": "'use sort"
+        },
+        {
+          "start": 2946,
+          "end": 2957,
+          "tokenType": "string",
+          "text": "\"defaults\"'"
+        },
+        {
+          "start": 2957,
+          "end": 2958,
+          "tokenType": "comment",
+          "text": ";"
+        },
+        {
+          "start": 2959,
+          "end": 2983,
+          "tokenType": "comment",
+          "text": "  # clean up, for others"
+        },
+        {
+          "start": 2985,
+          "end": 2987,
+          "tokenType": "comment",
+          "text": " }"
+        },
+        {
+          "start": 2990,
+          "end": 3567,
+          "tokenType": "comment",
+          "text": "{ eval 'use sort qw(defaults stable)';     # force stability\n    print sort::current . \"\\n\";\n    @c = sort @d;\n    eval 'use sort \"defaults\"';   # clean up, for others\n  }\n\nSuch code no longer has the desired effect, for two reasons.\nFirstly, the use of C<eval()> means that the sorting algorithm\nis not changed until runtime, by which time it's too late to\nhave any effect. Secondly, C<sort::current> is also called at\nrun-time, when in fact the compile-time value of C<sort::current>\nis the one that matters.\n\nSo now this code would be written:\n\n  { no sort \"stable\";      # "
+        },
+        {
+          "start": 3567,
+          "end": 3587,
+          "tokenType": "comment",
+          "text": "stability not wanted"
+        },
+        {
+          "start": 3592,
+          "end": 3594,
+          "tokenType": "keyword",
+          "text": "my"
+        },
+        {
+          "start": 3595,
+          "end": 3603,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$current"
+        },
+        {
+          "start": 3603,
+          "end": 3604,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 3609,
+          "end": 3614,
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "BEGIN"
+        },
+        {
+          "start": 3615,
+          "end": 3616,
+          "tokenType": "punctuation",
+          "text": "{"
+        },
+        {
+          "start": 3617,
+          "end": 3625,
+          "tokenType": "variable",
+          "text": "$current"
+        },
+        {
+          "start": 3626,
+          "end": 3627,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 3628,
+          "end": 3641,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "sort::current"
+        },
+        {
+          "start": 3641,
+          "end": 3642,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 3643,
+          "end": 3644,
+          "tokenType": "punctuation",
+          "text": "}"
+        },
+        {
+          "start": 3649,
+          "end": 3654,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "print"
+        },
+        {
+          "start": 3655,
+          "end": 3667,
+          "tokenType": "string",
+          "text": "\"$current\\n\""
+        },
+        {
+          "start": 3667,
+          "end": 3668,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 3673,
+          "end": 3675,
+          "tokenType": "variable",
+          "text": "@a"
+        },
+        {
+          "start": 3676,
+          "end": 3677,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 3678,
+          "end": 3682,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "sort"
+        },
+        {
+          "start": 3683,
+          "end": 3685,
+          "tokenType": "variable",
+          "text": "@b"
+        },
+        {
+          "start": 3685,
+          "end": 3686,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 3688,
+          "end": 3740,
+          "tokenType": "comment",
+          "text": "   # Pragmas go out of scope at the end of the block"
+        },
+        {
+          "start": 3743,
+          "end": 3744,
+          "tokenType": "punctuation",
+          "text": "}"
+        },
+        {
+          "start": 3747,
+          "end": 3748,
+          "tokenType": "punctuation",
+          "text": "{"
+        },
+        {
+          "start": 3749,
+          "end": 3752,
+          "tokenType": "keyword",
+          "text": "use"
+        },
+        {
+          "start": 3753,
+          "end": 3757,
+          "tokenType": "keyword",
+          "text": "sort"
+        },
+        {
+          "start": 3758,
+          "end": 3760,
+          "tokenType": "function",
+          "text": "qw"
+        },
+        {
+          "start": 3760,
+          "end": 3761,
+          "tokenType": "punctuation",
+          "text": "("
+        },
+        {
+          "start": 3761,
+          "end": 3769,
+          "tokenType": "string",
+          "text": "defaults"
+        },
+        {
+          "start": 3770,
+          "end": 3777,
+          "tokenType": "string",
+          "text": "stable)"
+        },
+        {
+          "start": 3777,
+          "end": 3783,
+          "tokenType": "comment",
+          "text": ";     "
+        },
+        {
+          "start": 3783,
+          "end": 3800,
+          "tokenType": "comment",
+          "text": "# force stability"
+        },
+        {
+          "start": 3805,
+          "end": 3807,
+          "tokenType": "keyword",
+          "text": "my"
+        },
+        {
+          "start": 3808,
+          "end": 3816,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$current"
+        },
+        {
+          "start": 3816,
+          "end": 3817,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 3822,
+          "end": 3827,
+          "tokenType": "function",
+          "text": "BEGIN"
+        },
+        {
+          "start": 3828,
+          "end": 3829,
+          "tokenType": "punctuation",
+          "text": "{"
+        },
+        {
+          "start": 3830,
+          "end": 3838,
+          "tokenType": "variable",
+          "text": "$current"
+        },
+        {
+          "start": 3839,
+          "end": 3840,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 3841,
+          "end": 3854,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "sort::current"
+        },
+        {
+          "start": 3854,
+          "end": 3855,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 3856,
+          "end": 3857,
+          "tokenType": "punctuation",
+          "text": "}"
+        },
+        {
+          "start": 3862,
+          "end": 3867,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "print"
+        },
+        {
+          "start": 3868,
+          "end": 3880,
+          "tokenType": "string",
+          "text": "\"$current\\n\""
+        },
+        {
+          "start": 3880,
+          "end": 3881,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 3886,
+          "end": 3888,
+          "tokenType": "variable",
+          "text": "@c"
+        },
+        {
+          "start": 3889,
+          "end": 3890,
+          "tokenType": "operator",
+          "text": "="
+        },
+        {
+          "start": 3891,
+          "end": 3895,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "sort"
+        },
+        {
+          "start": 3896,
+          "end": 3898,
+          "tokenType": "variable",
+          "text": "@d"
+        },
+        {
+          "start": 3898,
+          "end": 3899,
+          "tokenType": "punctuation",
+          "text": ";"
+        },
+        {
+          "start": 3902,
+          "end": 3903,
+          "tokenType": "punctuation",
+          "text": "}"
+        },
+        {
+          "start": 3905,
+          "end": 3909,
+          "tokenType": "comment",
+          "text": "=cut"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 89,
+        "end": 93,
+        "type": "keyword",
+        "text": "eval"
+      },
+      "overlaps": [
+        {
+          "start": 89,
+          "end": 93,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "eval"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 148,
+        "end": 169,
+        "type": "string",
+        "text": "qw(looks_like_number)"
+      },
+      "overlaps": [
+        {
+          "start": 148,
+          "end": 168,
+          "tokenType": "string",
+          "text": "qw(looks_like_number"
+        },
+        {
+          "start": 168,
+          "end": 169,
+          "tokenType": "punctuation",
+          "text": ")"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 359,
+        "end": 360,
+        "type": "operator",
+        "text": ":"
+      },
+      "overlaps": [
+        {
+          "start": 359,
+          "end": 366,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": ":shared"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 360,
+        "end": 366,
+        "type": "string",
+        "text": "shared"
+      },
+      "overlaps": [
+        {
+          "start": 359,
+          "end": 366,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": ":shared"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 858,
+        "end": 863,
+        "type": "function",
+        "text": "shift"
+      },
+      "overlaps": [
+        {
+          "start": 858,
+          "end": 863,
+          "tokenType": "regexp",
+          "text": "shift"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 865,
+        "end": 866,
+        "type": "operator",
+        "text": ":"
+      },
+      "overlaps": [
+        {
+          "start": 865,
+          "end": 866,
+          "tokenType": "label",
+          "text": ":"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 880,
+        "end": 881,
+        "type": "operator",
+        "text": "$"
+      },
+      "overlaps": [
+        {
+          "start": 880,
+          "end": 881,
+          "tokenType": "variable",
+          "text": "$"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 903,
+        "end": 904,
+        "type": "operator",
+        "text": "$"
+      },
+      "overlaps": [
+        {
+          "start": 903,
+          "end": 904,
+          "tokenType": "variable",
+          "text": "$"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 918,
+        "end": 919,
+        "type": "operator",
+        "text": "$"
+      },
+      "overlaps": [
+        {
+          "start": 918,
+          "end": 919,
+          "tokenType": "variable",
+          "text": "$"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 939,
+        "end": 940,
+        "type": "operator",
+        "text": "$"
+      },
+      "overlaps": [
+        {
+          "start": 939,
+          "end": 940,
+          "tokenType": "variable",
+          "text": "$"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 1130,
+        "end": 1135,
+        "type": "function",
+        "text": "shift"
+      },
+      "overlaps": [
+        {
+          "start": 1130,
+          "end": 1135,
+          "tokenType": "regexp",
+          "text": "shift"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 1137,
+        "end": 1138,
+        "type": "operator",
+        "text": ":"
+      },
+      "overlaps": [
+        {
+          "start": 1137,
+          "end": 1138,
+          "tokenType": "label",
+          "text": ":"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 1147,
+        "end": 1151,
+        "type": "function",
+        "text": "lock"
+      },
+      "overlaps": [
+        {
+          "start": 1147,
+          "end": 1151,
+          "tokenType": "keyword",
+          "text": "lock"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 1152,
+        "end": 1153,
+        "type": "operator",
+        "text": "$"
+      },
+      "overlaps": [
+        {
+          "start": 1152,
+          "end": 1153,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 1175,
+        "end": 1176,
+        "type": "operator",
+        "text": "$"
+      },
+      "overlaps": [
+        {
+          "start": 1175,
+          "end": 1176,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "$"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 1196,
+        "end": 1197,
+        "type": "operator",
+        "text": "$"
+      },
+      "overlaps": [
+        {
+          "start": 1196,
+          "end": 1202,
+          "tokenType": "variable",
+          "text": "$$sema"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 1197,
+        "end": 1202,
+        "type": "variable",
+        "text": "$sema"
+      },
+      "overlaps": [
+        {
+          "start": 1196,
+          "end": 1202,
+          "tokenType": "variable",
+          "text": "$$sema"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 1411,
+        "end": 1416,
+        "type": "function",
+        "text": "shift"
+      },
+      "overlaps": [
+        {
+          "start": 1411,
+          "end": 1416,
+          "tokenType": "property",
+          "text": "shift"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 1433,
+        "end": 1434,
+        "type": "operator",
+        "text": "$"
+      },
+      "overlaps": [
+        {
+          "start": 1433,
+          "end": 1434,
+          "tokenType": "variable",
+          "text": "$"
+        }
+      ]
+    },
+    {
+      "path": "Thread/Semaphore.pm",
+      "expected": {
+        "start": 1446,
+        "end": 1447,
+        "type": "operator",
+        "text": "$"
+      },
+      "overlaps": [
+        {
+          "start": 1446,
+          "end": 1447,
+          "tokenType": "variable",
+          "text": "$"
+        }
+      ]
+    }
+  ]
+}
