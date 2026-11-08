@@ -151,6 +151,7 @@ dataset-perl:
 
 dataset-perl-curriculum:
 	$(PYTHON) -m packs.perl.dataset.generate_curriculum
+	$(PYTHON) -m packs.perl.dataset.generate_fragments
 
 dataset-perl-collect:
 	$(PYTHON) -m packs.perl.dataset.pipeline collect
