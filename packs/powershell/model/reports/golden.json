@@ -1,0 +1,545 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "00dc88cc92ef4fb371e794a06b26d5b1eb9d8ff360d17b3579a626dee71f6176",
+  "cases": [
+    {
+      "id": "cmdlet-arguments",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "Write-Host -ForegroundColor Green \"Ready\"\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 11,
+          "end": 27,
+          "text": "-ForegroundColor",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 11,
+          "end": 28,
+          "text": "-ForegroundColor ",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "typed-function",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "function Get-Title { param([string]$Name) \"Hi $Name\" }\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "pipeline-members",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "Get-Service | Where-Object { $_.Status -eq 'Running' }\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 39,
+          "end": 42,
+          "text": "-eq",
+          "tokenType": "operator",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 39,
+          "end": 42,
+          "text": "-eq",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "hashtable",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "$options = @{ Name = 'Virgo'; Count = 8 }\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "here-literal",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "$text = @'\n$HOME # literal text\n'@\nWrite-Output $text\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 34,
+          "text": "@'\n$HOME # literal text\n'@",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 11,
+          "text": "@'\n",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 11,
+          "end": 16,
+          "text": "$HOME",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 34,
+          "text": "# literal text\n'@",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "here-expand",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "$text = @\"\r\nHello $name\r\n\"@\r\nGet-Date\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 27,
+          "text": "@\"\r\nHello $name\r\n\"@",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 10,
+          "text": "@\"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 17,
+          "text": "Hello",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 18,
+          "end": 23,
+          "text": "$name",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 25,
+          "end": 27,
+          "text": "\"@",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "nested-comment",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "<# outer <# nested #> final #>\nWrite-Output 3\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "modern-operators",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "$name = $value ?? 'guest'\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "automatic-environment",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "$root = $env:TEMP\nWrite-Output $PSScriptRoot\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 31,
+          "end": 44,
+          "text": "$PSScriptRoot",
+          "tokenType": "variable",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 31,
+          "end": 44,
+          "text": "$PSScriptRoot",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "static-method",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "$count = [int]::Parse('12')\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 14,
+          "end": 16,
+          "text": "::",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 21,
+          "text": "Parse",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 14,
+          "end": 21,
+          "text": "::Parse",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "# \u661f\u7a7a \ud83c\udf0c\r\nWrite-Output \"\u4f60\u597d \ud83d\ude80\"\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "class-declaration",
+      "profile": "powershell",
+      "documentKind": "powershell",
+      "source": "class Note { [string]$Name }\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 21,
+          "end": 26,
+          "text": "$Name",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 21,
+          "end": 26,
+          "text": "$Name",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "powershell": {
+      "documents": 12,
+      "exactDocumentsIncludingModifiers": 5,
+      "exactSpan": {
+        "precision": 0.8734177215189873,
+        "recall": 0.92,
+        "f1": 0.8961038961038961,
+        "tp": 69,
+        "fp": 10,
+        "fn": 6,
+        "support": 75
+      },
+      "exactSpanMacroF1": 0.85900826446281,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8481012658227848,
+        "recall": 0.8933333333333333,
+        "f1": 0.8701298701298701,
+        "tp": 67,
+        "fp": 12,
+        "fn": 8,
+        "support": 75
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.5333333333333333,
+          "recall": 0.8,
+          "f1": 0.64,
+          "tp": 8,
+          "fp": 7,
+          "fn": 2,
+          "support": 10
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.8333333333333334,
+          "f1": 0.9090909090909091,
+          "tp": 10,
+          "fp": 0,
+          "fn": 2,
+          "support": 12
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 15,
+          "fp": 0,
+          "fn": 0,
+          "support": 15
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "function": {
+          "precision": 0.9,
+          "recall": 0.9,
+          "f1": 0.9,
+          "tp": 9,
+          "fp": 1,
+          "fn": 1,
+          "support": 10
+        },
+        "parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 2,
+          "fn": 1,
+          "support": 1
+        },
+        "variable": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 13,
+          "fp": 0,
+          "fn": 0,
+          "support": 13
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "namespace": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "powershell": {
+      "documents": 12,
+      "exactDocumentsIncludingModifiers": 5,
+      "exactSpan": {
+        "precision": 0.8734177215189873,
+        "recall": 0.92,
+        "f1": 0.8961038961038961,
+        "tp": 69,
+        "fp": 10,
+        "fn": 6,
+        "support": 75
+      },
+      "exactSpanMacroF1": 0.85900826446281,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8481012658227848,
+        "recall": 0.8933333333333333,
+        "f1": 0.8701298701298701,
+        "tp": 67,
+        "fp": 12,
+        "fn": 8,
+        "support": 75
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.5333333333333333,
+          "recall": 0.8,
+          "f1": 0.64,
+          "tp": 8,
+          "fp": 7,
+          "fn": 2,
+          "support": 10
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.8333333333333334,
+          "f1": 0.9090909090909091,
+          "tp": 10,
+          "fp": 0,
+          "fn": 2,
+          "support": 12
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 15,
+          "fp": 0,
+          "fn": 0,
+          "support": 15
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "function": {
+          "precision": 0.9,
+          "recall": 0.9,
+          "f1": 0.9,
+          "tp": 9,
+          "fp": 1,
+          "fn": 1,
+          "support": 10
+        },
+        "parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 2,
+          "fn": 1,
+          "support": 1
+        },
+        "variable": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 13,
+          "fp": 0,
+          "fn": 0,
+          "support": 13
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "namespace": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "checkpointHash": "daee9c4a1549780b0d55153972b10d19461d52abe07598e10842122cc2cccf37",
+  "checkpointEpoch": 26
+}
