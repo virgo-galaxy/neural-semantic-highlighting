@@ -1,0 +1,56 @@
+[
+  {
+    "id": "vue2-filter-and-directives",
+    "profile": "vue2",
+    "documentKind": "vue",
+    "markedSource": "⟦punctuation|<⟧⟦tag|template⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|p⟧ ⟦attribute|v-if⟧⟦punctuation|=⟧⟦string|\"ready\"⟧⟦punctuation|>⟧⟦punctuation|{{⟧⟦embedded-expression| price | currency('USD') ⟧⟦punctuation|}}⟧⟦punctuation|</⟧⟦tag+closing|p⟧⟦punctuation|>⟧⟦punctuation|</⟧⟦tag+closing|template⟧⟦punctuation|>⟧"
+  },
+  {
+    "id": "vue2-sync-native-slot-scope",
+    "profile": "vue2",
+    "documentKind": "vue",
+    "markedSource": "⟦punctuation|<⟧⟦tag|template⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|Panel⟧ ⟦attribute|:open.sync⟧⟦punctuation|=⟧⟦string|\"open\"⟧ ⟦attribute|@click.native⟧⟦punctuation|=⟧⟦string|\"select\"⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|template⟧ ⟦attribute|slot⟧⟦punctuation|=⟧⟦string|\"row\"⟧ ⟦attribute|slot-scope⟧⟦punctuation|=⟧⟦string|\"{ item }\"⟧⟦punctuation|>⟧⟦punctuation|{{⟧⟦embedded-expression| item.name ⟧⟦punctuation|}}⟧⟦punctuation|</⟧⟦tag+closing|template⟧⟦punctuation|>⟧⟦punctuation|</⟧⟦tag+closing|Panel⟧⟦punctuation|>⟧⟦punctuation|</⟧⟦tag+closing|template⟧⟦punctuation|>⟧"
+  },
+  {
+    "id": "vue3-model-slot-and-fragment",
+    "profile": "vue3",
+    "documentKind": "vue",
+    "markedSource": "⟦punctuation|<⟧⟦tag|template⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|Editor⟧ ⟦attribute|v-model:title.trim⟧⟦punctuation|=⟧⟦string|\"title\"⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|template⟧ ⟦attribute|#default⟧⟦punctuation|=⟧⟦string|\"{ row }\"⟧⟦punctuation|>⟧⟦punctuation|{{⟧⟦embedded-expression| row.label ⟧⟦punctuation|}}⟧⟦punctuation|</⟧⟦tag+closing|template⟧⟦punctuation|>⟧⟦punctuation|</⟧⟦tag+closing|Editor⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|p⟧⟦punctuation|>⟧⟦text|Done⟧⟦punctuation|</⟧⟦tag+closing|p⟧⟦punctuation|>⟧⟦punctuation|</⟧⟦tag+closing|template⟧⟦punctuation|>⟧"
+  },
+  {
+    "id": "vue32-typed-setup",
+    "profile": "vue3.2",
+    "documentKind": "vue",
+    "markedSource": "⟦punctuation|<⟧⟦tag|script⟧ ⟦attribute|setup⟧ ⟦attribute|lang⟧⟦punctuation|=⟧⟦string|\"ts\"⟧⟦punctuation|>⟧⟦embedded-typescript|\ninterface Props { title?: string }\nconst props = withDefaults(defineProps<Props>(), { title: 'Note' });\nconst emit = defineEmits<{ (e: 'save', value: string): void }>();\ndefineExpose({ props });\n⟧⟦punctuation|</⟧⟦tag+closing|script⟧⟦punctuation|>⟧\n⟦punctuation|<⟧⟦tag|template⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|button⟧ ⟦attribute|@click⟧⟦punctuation|=⟧⟦string|\"emit('save', props.title)\"⟧⟦punctuation|>⟧⟦punctuation|{{⟧⟦embedded-expression| props.title ⟧⟦punctuation|}}⟧⟦punctuation|</⟧⟦tag+closing|button⟧⟦punctuation|>⟧⟦punctuation|</⟧⟦tag+closing|template⟧⟦punctuation|>⟧"
+  },
+  {
+    "id": "vue3-options-and-setup",
+    "profile": "vue3",
+    "documentKind": "vue",
+    "markedSource": "⟦punctuation|<⟧⟦tag|script⟧⟦punctuation|>⟧⟦embedded-javascript|export default { name: 'Counter', setup() { return { count: 1 }; } };⟧⟦punctuation|</⟧⟦tag+closing|script⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|template⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|output⟧⟦punctuation|>⟧⟦punctuation|{{⟧⟦embedded-expression| count ⟧⟦punctuation|}}⟧⟦punctuation|</⟧⟦tag+closing|output⟧⟦punctuation|>⟧⟦punctuation|</⟧⟦tag+closing|template⟧⟦punctuation|>⟧"
+  },
+  {
+    "id": "vue32-dual-script-tsx-and-styles",
+    "profile": "vue3.2",
+    "documentKind": "vue",
+    "markedSource": "⟦punctuation|<⟧⟦tag|script⟧ ⟦attribute|lang⟧⟦punctuation|=⟧⟦string|\"tsx\"⟧⟦punctuation|>⟧⟦embedded-tsx|export const badge = <span>Ready</span>;⟧⟦punctuation|</⟧⟦tag+closing|script⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|script⟧ ⟦attribute|setup⟧ ⟦attribute|lang⟧⟦punctuation|=⟧⟦string|\"tsx\"⟧⟦punctuation|>⟧⟦embedded-tsx|const count = 1;⟧⟦punctuation|</⟧⟦tag+closing|script⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|style⟧ ⟦attribute|scoped⟧ ⟦attribute|lang⟧⟦punctuation|=⟧⟦string|\"scss\"⟧⟦punctuation|>⟧⟦embedded-scss|$space: 8px; .card { padding: $space; }⟧⟦punctuation|</⟧⟦tag+closing|style⟧⟦punctuation|>⟧"
+  },
+  {
+    "id": "less-module-and-custom-block",
+    "profile": "vue2",
+    "documentKind": "vue",
+    "markedSource": "⟦punctuation|<⟧⟦tag|style⟧ ⟦attribute|module⟧ ⟦attribute|lang⟧⟦punctuation|=⟧⟦string|\"less\"⟧⟦punctuation|>⟧⟦embedded-less|@tone: red; .card { color: @tone; }⟧⟦punctuation|</⟧⟦tag+closing|style⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|i18n⟧ ⟦attribute|lang⟧⟦punctuation|=⟧⟦string|\"json\"⟧⟦punctuation|>⟧⟦embedded-data|{\"en\":{\"title\":\"Note\"}}⟧⟦punctuation|</⟧⟦tag+closing|i18n⟧⟦punctuation|>⟧"
+  },
+  {
+    "id": "unicode-crlf-and-dynamic-arguments",
+    "profile": "vue3",
+    "documentKind": "vue",
+    "markedSource": "⟦comment|<!-- 星 🌌 -->⟧\r\n⟦punctuation|<⟧⟦tag|template⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|Panel⟧ ⟦attribute|:[field]⟧⟦punctuation|=⟧⟦string|\"value\"⟧ ⟦attribute|@[event].stop⟧⟦punctuation|=⟧⟦string|\"save\"⟧⟦punctuation|>⟧⟦text|星 ⟧⟦entity|&amp;⟧⟦text| 🚀 ⟧⟦punctuation|{{⟧⟦embedded-expression| title ⟧⟦punctuation|}}⟧⟦punctuation|</⟧⟦tag+closing|Panel⟧⟦punctuation|>⟧⟦punctuation|</⟧⟦tag+closing|template⟧⟦punctuation|>⟧"
+  },
+  {
+    "id": "unsupported-template-and-external-script",
+    "profile": "vue3.2",
+    "documentKind": "vue",
+    "markedSource": "⟦punctuation|<⟧⟦tag|template⟧ ⟦attribute|lang⟧⟦punctuation|=⟧⟦string|\"pug\"⟧⟦punctuation|>⟧⟦embedded-data|\np Hello\n⟧⟦punctuation|</⟧⟦tag+closing|template⟧⟦punctuation|>⟧⟦punctuation|<⟧⟦tag|script⟧ ⟦attribute|src⟧⟦punctuation|=⟧⟦string|\"https://example.invalid/app.js\"⟧⟦punctuation|>⟧⟦punctuation|</⟧⟦tag+closing|script⟧⟦punctuation|>⟧"
+  }
+]
