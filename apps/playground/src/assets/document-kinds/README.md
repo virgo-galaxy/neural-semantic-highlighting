@@ -12,3 +12,6 @@ revision `32fe1d3b3f36ad11f90ab94f7db59738139c2bf6` of [devicons/devicon](https:
 
 The Vue icon is `vue.svg`, from `icons/vuejs/vuejs-original.svg` in the same
 revision. The upstream MIT license is preserved in `DEVICON-LICENSE.txt`.
+
+The Python icon is `python.svg`, from `icons/python/python-original.svg` at the
+same pinned revision and under the same preserved license.

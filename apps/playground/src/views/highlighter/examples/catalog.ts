@@ -3,6 +3,7 @@ import goIcon from "@/assets/document-kinds/go.svg";
 import htmlIcon from "@/assets/document-kinds/html.svg";
 import javascriptIcon from "@/assets/document-kinds/javascript.svg";
 import lessIcon from "@/assets/document-kinds/less.svg";
+import pythonIcon from "@/assets/document-kinds/python.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
 import typescriptIcon from "@/assets/document-kinds/typescript.svg";
 import vueIcon from "@/assets/document-kinds/vue.svg";
@@ -47,6 +48,10 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
     label: "Vue",
     icon: vueIcon,
   },
+  python: {
+    label: "Python",
+    icon: pythonIcon,
+  },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -67,6 +72,9 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".html", "html"],
   [".htm", "html"],
   [".vue", "vue"],
+  [".py", "python"],
+  [".pyw", "python"],
+  [".pyi", "python"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {
