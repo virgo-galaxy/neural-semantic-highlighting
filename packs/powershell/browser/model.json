@@ -1,0 +1,70 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "powershell",
+  "manifest": {
+    "id": "powershell",
+    "documentKinds": [
+      {
+        "id": "powershell",
+        "extensions": [
+          ".ps1",
+          ".psm1",
+          ".psd1"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "d0b3bdc10bd2c1feb446d104f4253c25183aed49261f9962e81cd5f314f38cba",
+    "bytes": 3704507
+  },
+  "source": {
+    "file": "packs/powershell/model/model.pt",
+    "sha256": "a45cec6dbe18161c4faaf99cf35fca11854dd301e773c3d2e8d76ebb8a20a0fe"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "type",
+      "function",
+      "parameter",
+      "variable",
+      "property",
+      "namespace"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": [
+      "comment"
+    ],
+    "modifierRoles": {
+      "declaration": [
+        "function",
+        "variable",
+        "type"
+      ],
+      "default-library": [
+        "function",
+        "variable"
+      ]
+    }
+  },
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "889577b2dc24ad6a2cbb1179fdfc7f9afcbc5a5906cde6c5835a64e8bb8ed2f5",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}

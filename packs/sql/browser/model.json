@@ -1,0 +1,71 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "sql",
+  "manifest": {
+    "id": "sql",
+    "documentKinds": [
+      {
+        "id": "sql",
+        "extensions": [
+          ".sql",
+          ".psql",
+          ".pgsql",
+          ".plsql"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "2c14ab1ed319eaf23e05af5708a306795afd10e4252e879e12eb6a780729dde7",
+    "bytes": 3704507
+  },
+  "source": {
+    "file": "packs/sql/model/model.pt",
+    "sha256": "864244dfcfb3a22bdd0dc894d7a1c107d82a7311552d313853517c96c42c923e"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "namespace",
+      "type",
+      "function",
+      "parameter",
+      "variable",
+      "property"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": [
+      "comment"
+    ],
+    "modifierRoles": {
+      "declaration": [
+        "namespace",
+        "function",
+        "variable",
+        "parameter"
+      ],
+      "default-library": [
+        "function"
+      ]
+    }
+  },
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "889577b2dc24ad6a2cbb1179fdfc7f9afcbc5a5906cde6c5835a64e8bb8ed2f5",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}

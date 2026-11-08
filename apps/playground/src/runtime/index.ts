@@ -1,1 +1,1 @@
-export { createLocalSemanticPack } from "@/runtime/local-pack";
+export { createBrowserSemanticPack } from "@/runtime/browser-pack";

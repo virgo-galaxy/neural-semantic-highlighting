@@ -6,7 +6,7 @@ export interface RenderToHtmlOptions {
   result: HighlightResult;
 }
 
-export function renderToHtml({ source, documentKind, result }: RenderToHtmlOptions): string {
+export function renderCodeToHtml({ source, result }: RenderToHtmlOptions): string {
   const spans = [...result.spans].sort(
     (left, right) => left.start - right.start || left.end - right.end,
   );
@@ -50,9 +50,11 @@ export function renderToHtml({ source, documentKind, result }: RenderToHtmlOptio
     parts.push(escapeHtml(source.slice(cursor)));
   }
 
-  return `<pre class="nsh" data-language="${escapeAttribute(
-    documentKind,
-  )}"><code>${parts.join("")}</code></pre>`;
+  return parts.join("");
+}
+
+export function renderToHtml(options: RenderToHtmlOptions): string {
+  return `<pre class="nsh" data-language="${escapeAttribute(options.documentKind)}"><code>${renderCodeToHtml(options)}</code></pre>`;
 }
 
 function createUtf16OffsetResolver(

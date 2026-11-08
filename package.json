@@ -29,7 +29,9 @@
     "dataset:validate:html": "tsx packs/html/dataset/pipeline.ts validate",
     "dataset:collect:vue": "tsx packs/vue/dataset/pipeline.ts collect",
     "dataset:label:vue": "tsx packs/vue/dataset/pipeline.ts label",
-    "dataset:validate:vue": "tsx packs/vue/dataset/pipeline.ts validate"
+    "dataset:validate:vue": "tsx packs/vue/dataset/pipeline.ts validate",
+    "pack:browser": "pnpm build:packages && node scripts/pack-browser.mjs",
+    "browser:reference": "pnpm build:packages && node --import tsx scripts/browser-reference.ts"
   },
   "devEngines": {
     "packageManager": {
@@ -57,6 +59,8 @@
     "vitest": "^5.0.0",
     "vscode-css-languageservice": "6.3.10",
     "vscode-languageserver-textdocument": "1.0.16",
-    "vue-eslint-parser": "^10.4.1"
+    "vue-eslint-parser": "^10.4.1",
+    "@nsh/browser": "workspace:*",
+    "@nsh/highlighter": "workspace:*"
   }
 }

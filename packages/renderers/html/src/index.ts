@@ -1,1 +1,1 @@
-export { renderToHtml, type RenderToHtmlOptions } from "./render.js";
+export { renderCodeToHtml, renderToHtml, type RenderToHtmlOptions } from "./render.js";

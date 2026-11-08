@@ -1,8 +1,8 @@
 import { createHighlighter, type Highlighter } from "@nsh/core";
 import { renderToHtml } from "@nsh/html";
-import { computed, ref } from "vue";
+import { computed, onBeforeUnmount, ref } from "vue";
 
-import { createLocalSemanticPack } from "@/runtime";
+import { createBrowserSemanticPack } from "@/runtime";
 import {
   examplesForLanguage,
   type HighlighterExample,
@@ -40,17 +40,24 @@ export function useHighlighter() {
   const source = ref(currentExample.value?.source ?? "");
 
   let revision = 0;
+  let disposed = false;
+  let closePack: (() => void) | undefined;
+  onBeforeUnmount(() => {
+    disposed = true;
+    revision += 1;
+    closePack?.();
+  });
   let highlighterPromise: Promise<Highlighter> | undefined;
 
   const currentFilename = computed(() => currentExample.value?.filename ?? "custom");
 
   function getHighlighter(): Promise<Highlighter> {
-    highlighterPromise ??= createLocalSemanticPack()
-      .then((pack) =>
-        createHighlighter({
-          packs: [pack],
-        }),
-      )
+    highlighterPromise ??= createBrowserSemanticPack()
+      .then((pack) => {
+        closePack = () => pack.close();
+        if (disposed) pack.close();
+        return createHighlighter({ packs: [pack] });
+      })
       .catch((error: unknown) => {
         highlighterPromise = undefined;
         throw error;

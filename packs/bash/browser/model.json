@@ -1,0 +1,67 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "bash",
+  "manifest": {
+    "id": "bash",
+    "documentKinds": [
+      {
+        "id": "bash",
+        "extensions": [
+          ".sh",
+          ".bash",
+          ".zsh",
+          ".csh",
+          ".tcsh"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "69e515b768fb399bda1d6716d3466838c8e858d1025d08992a49698a964d454e",
+    "bytes": 3702959
+  },
+  "source": {
+    "file": "packs/bash/model/model.pt",
+    "sha256": "04187850e1b0683d9c4550ad864df6150628ebde0aeb4390acc23f3894f1398a"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "function",
+      "variable",
+      "parameter"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": [
+      "string"
+    ],
+    "modifierRoles": {
+      "declaration": [
+        "function",
+        "variable"
+      ],
+      "default-library": [
+        "function"
+      ]
+    }
+  },
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "889577b2dc24ad6a2cbb1179fdfc7f9afcbc5a5906cde6c5835a64e8bb8ed2f5",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}

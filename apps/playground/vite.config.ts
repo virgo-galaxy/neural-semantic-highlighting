@@ -3,10 +3,8 @@ import { fileURLToPath, URL } from "node:url";
 import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
 
-import { localSemanticProviderPlugin } from "./vite/local-semantic-provider.ts";
-
 export default defineConfig({
-  plugins: [vue(), localSemanticProviderPlugin()],
+  plugins: [vue()],
 
   resolve: {
     alias: {

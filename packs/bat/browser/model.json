@@ -1,0 +1,65 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "bat",
+  "manifest": {
+    "id": "bat",
+    "documentKinds": [
+      {
+        "id": "bat",
+        "extensions": [
+          ".bat",
+          ".cmd"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "c5c527c4d6501035d8c32077279d1ba4e50f2840dea2bef794f03c3cb105fff3",
+    "bytes": 3702959
+  },
+  "source": {
+    "file": "packs/bat/model/model.pt",
+    "sha256": "a9c4ef3d90d2a6b32074c411035b9640b08282b92c16e47a897bd506ee17c27e"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "function",
+      "variable",
+      "parameter"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": [
+      "comment",
+      "string"
+    ],
+    "modifierRoles": {
+      "declaration": [
+        "function",
+        "variable"
+      ],
+      "default-library": [
+        "function"
+      ]
+    }
+  },
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "889577b2dc24ad6a2cbb1179fdfc7f9afcbc5a5906cde6c5835a64e8bb8ed2f5",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}

@@ -128,6 +128,7 @@ TYPESCRIPT_ANALYSIS_EXAMPLES ?= 30
 
 check:
 	pnpm all
+	$(PYTHON) -m compileall -q training/browser
 	$(MAKE) test-labeling-go
 	$(MAKE) test-training-data-go
 	$(MAKE) test-training-data-css

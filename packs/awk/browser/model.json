@@ -1,0 +1,62 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "awk",
+  "manifest": {
+    "id": "awk",
+    "documentKinds": [
+      {
+        "id": "awk",
+        "extensions": [
+          ".awk",
+          ".gawk"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "ca36f5bcd4485bb1a78b81d0e4c08d27201a86ad6f5e797833d9fba2bc66dff8",
+    "bytes": 3702959
+  },
+  "source": {
+    "file": "packs/awk/model/model.pt",
+    "sha256": "cf230cd59618824f0f4834ef1ad4158cf8c04e5e684c5b4b8fc7cfb3c412ba68"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "regexp",
+      "operator",
+      "punctuation",
+      "function",
+      "variable"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {
+    "modifierRoles": {
+      "declaration": [
+        "function",
+        "variable"
+      ],
+      "default-library": [
+        "function",
+        "variable"
+      ]
+    }
+  },
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "889577b2dc24ad6a2cbb1179fdfc7f9afcbc5a5906cde6c5835a64e8bb8ed2f5",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}

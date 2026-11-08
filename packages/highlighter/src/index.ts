@@ -1,0 +1,39 @@
+import {
+  createHighlighter as createConfiguredHighlighter,
+  type HighlighterOptions,
+} from "./highlighter.js";
+import assembly from "./languages/assembly.js";
+import awk from "./languages/awk.js";
+import bash from "./languages/bash.js";
+import bat from "./languages/bat.js";
+import css from "./languages/css.js";
+import go from "./languages/go.js";
+import html from "./languages/html.js";
+import perl from "./languages/perl.js";
+import powershell from "./languages/powershell.js";
+import python from "./languages/python.js";
+import sql from "./languages/sql.js";
+import typescript from "./languages/typescript.js";
+import vue from "./languages/vue.js";
+
+export type { BrowserHighlighter, HighlightedCode, HighlighterOptions } from "./highlighter.js";
+export function createHighlighter(options: HighlighterOptions = {}) {
+  return createConfiguredHighlighter({
+    ...options,
+    languages: options.languages ?? [
+      typescript,
+      go,
+      css,
+      html,
+      vue,
+      python,
+      bash,
+      perl,
+      awk,
+      sql,
+      powershell,
+      bat,
+      assembly,
+    ],
+  });
+}

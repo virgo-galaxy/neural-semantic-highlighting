@@ -1,4 +1,4 @@
-import { renderToHtml } from "@nsh/html";
+import { renderCodeToHtml, renderToHtml } from "@nsh/html";
 import { describe, expect, it } from "vitest";
 
 describe("renderToHtml", () => {
@@ -124,5 +124,22 @@ describe("renderToHtml", () => {
         },
       }),
     ).toThrow("Semantic spans must not overlap.");
+  });
+});
+
+describe("renderCodeToHtml", () => {
+  it("returns an escaped fragment without adding a wrapper", () => {
+    expect(
+      renderCodeToHtml({
+        source: "<>&",
+        documentKind: "html",
+        result: {
+          offsetEncoding: "utf-16",
+          spans: [{ start: 0, end: 1, tokenType: 'tag"onclick="x' }],
+        },
+      }),
+    ).toBe(
+      '<span class="nsh-token" data-token-type="tag&quot;onclick=&quot;x">&lt;</span>&gt;&amp;',
+    );
   });
 });

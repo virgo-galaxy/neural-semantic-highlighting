@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8" /><title>NSH browser parity</title>
+<h1>Browser / native parity</h1>
+<p id="status">Starting</p>
+<pre id="report"></pre>
+<script type="module">
+  import { createHighlighter } from "../packages/highlighter/dist/index.js";
+  const highlighter = createHighlighter();
+  const { cases } = await (await fetch("../artifacts/browser/reference.json")).json();
+  const report = { total: cases.length, passed: 0, failures: [], timings: [] };
+  try {
+    for (const test of cases) {
+      document.querySelector("#status").textContent = `Running ${test.filename}`;
+      const start = performance.now();
+      const result = await highlighter.highlightTokens({
+        source: test.source,
+        documentKind: test.documentKind,
+      });
+      report.timings.push({ filename: test.filename, ms: performance.now() - start });
+      if (JSON.stringify(result) === JSON.stringify(test.result)) report.passed++;
+      else report.failures.push({ filename: test.filename, expected: test.result, actual: result });
+    }
+    document.querySelector("#status").textContent =
+      `Completed: ${report.passed}/${report.total} exact matches`;
+  } catch (error) {
+    report.error = String(error);
+    document.querySelector("#status").textContent = "Failed";
+  } finally {
+    highlighter.close();
+    document.querySelector("#report").textContent = JSON.stringify(report, null, 2);
+  }
+</script>

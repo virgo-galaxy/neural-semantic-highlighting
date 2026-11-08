@@ -1,0 +1,70 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "assembly",
+  "manifest": {
+    "id": "assembly",
+    "documentKinds": [
+      {
+        "id": "assembly",
+        "extensions": [
+          ".asm",
+          ".ASM",
+          ".nasm",
+          ".masm",
+          ".s",
+          ".S",
+          ".inc"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "366d770f40ec20bcb97ed83d78c1a11f8a001a182efa0a5f31c69e03d04f6ad6",
+    "bytes": 3703475
+  },
+  "source": {
+    "file": "packs/assembly/model/model.pt",
+    "sha256": "a1c669891bc4386312dc445bd9be07b17abcbef6aabb41585e052a7838b4f3b1"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "type",
+      "function",
+      "parameter",
+      "variable"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": [
+      "comment"
+    ],
+    "modifierRoles": {
+      "declaration": [
+        "function",
+        "variable"
+      ],
+      "default-library": [
+        "variable"
+      ]
+    }
+  },
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "889577b2dc24ad6a2cbb1179fdfc7f9afcbc5a5906cde6c5835a64e8bb8ed2f5",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}

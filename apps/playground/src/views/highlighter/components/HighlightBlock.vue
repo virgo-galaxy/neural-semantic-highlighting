@@ -80,7 +80,7 @@ watch(
       </div>
 
       <div class="highlight-block__status">
-        <AppTag tone="success">Local process</AppTag>
+        <AppTag tone="success">Browser</AppTag>
 
         <HighlightStatus :state="state" :latency-ms="lastHighlightMs" />
       </div>
