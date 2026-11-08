@@ -1,0 +1,24 @@
+<style>
+  .counter {
+    display: grid;
+    gap: 12px;
+  }
+  .counter button {
+    color: var(--accent, royalblue);
+  }
+</style>
+
+<section class="counter">
+  <button id="increment" type="button">Add one</button>
+  <output id="total">0</output>
+</section>
+
+<script type="module">
+  const button = document.querySelector("#increment");
+  const total = document.querySelector("#total");
+  let count = 0;
+  button.addEventListener("click", () => {
+    count += 1;
+    total.textContent = String(count);
+  });
+</script>

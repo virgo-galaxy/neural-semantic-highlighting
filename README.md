@@ -56,6 +56,8 @@ HTTP is not part of the core protocol.
 | `tests`                                  | Shared package and pack regression tests                                                        |
 | `packs/css`                              | CSS/SCSS/Less semantic contract, offline Gold tooling, fixtures and local neural runtime        |
 | `training/css`                           | CSS-family preparation, short resumable training and per-kind evaluation                        |
+| `packs/html`                             | Modern HTML contract, offline Gold, fixtures, base model and embedded JS/CSS composition        |
+| `training/html`                          | HTML data preparation, short training, base/body and composed evaluation                        |
 | `artifacts`                              | Local experimental checkpoints and reports; not a runtime package                               |
 
 The repository root is a private workspace coordinator, not a library entry point. All workspace packages remain private until distribution and licensing are reviewed. Package names are local workspace identifiers and do not imply npm publication or reservation.
@@ -82,7 +84,7 @@ No global installation or `npm link` / `pnpm link` is required. Local workspace 
 
 ## Playground
 
-The Playground runs the selected TypeScript-family, Go and CSS-family neural models through the normal NSH contracts.
+The Playground runs the selected TypeScript-family, Go, CSS-family and HTML neural models through the normal NSH contracts.
 
 ```text
 Browser Playground
@@ -96,7 +98,8 @@ long-lived Python process over stdin/stdout
 selected pack model
   ├─ packs/typescript/model/model.pt
   ├─ packs/go/model/model.pt
-  └─ packs/css/model/model.pt
+  ├─ packs/css/model/model.pt
+  └─ packs/html/model/model.pt → existing JS/CSS packs inside predicted bodies
   ↓
 HighlightResult
   ↓
@@ -111,7 +114,7 @@ The local model process is started lazily and kept alive. Model initialization i
 
 The Playground currently includes:
 
-- TypeScript, JavaScript, Go, CSS, SCSS and Less source examples discovered from real files;
+- TypeScript, JavaScript, Go, CSS, SCSS, Less and HTML source examples discovered from real files;
 - editable and highlighted presentation states;
 - highlighting when the code block leaves editing focus;
 - preserved native undo/redo history across presentation-state changes;
@@ -335,3 +338,13 @@ See [training/css](training/css/README.md) for short runs, checkpoint continuati
 explicit weights-only initialization and independent adaptive evaluation.
 Normal startup needs no CSS checkpoint variable; `NSH_CSS_CHECKPOINT` can select
 an experimental checkpoint before running `pnpm dev`.
+
+The [HTML pack](packs/html/README.md) adds one modern HTML entry, using an
+893,711-parameter base model and existing JS/CSS models inside neurally predicted
+body regions. Its [model report](packs/html/model/README.md) separates base and
+composed evidence and records material raw-text/boundary limits. Explicitly obsolete
+features are not training targets; current uncommon syntax stays in scope.
+Tailwind classes and inline style/event attributes remain strings. See
+[training/html](training/html/README.md) for data, short runs and continuation.
+Normal startup needs no HTML override; `NSH_HTML_CHECKPOINT` can select an
+experimental full checkpoint. Existing language models remain unchanged.

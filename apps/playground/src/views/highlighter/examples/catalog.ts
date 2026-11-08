@@ -1,5 +1,6 @@
 import cssIcon from "@/assets/document-kinds/css.svg";
 import goIcon from "@/assets/document-kinds/go.svg";
+import htmlIcon from "@/assets/document-kinds/html.svg";
 import javascriptIcon from "@/assets/document-kinds/javascript.svg";
 import lessIcon from "@/assets/document-kinds/less.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
@@ -37,6 +38,10 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
     label: "Less",
     icon: lessIcon,
   },
+  html: {
+    label: "HTML",
+    icon: htmlIcon,
+  },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -54,6 +59,8 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".css", "css"],
   [".scss", "scss"],
   [".less", "less"],
+  [".html", "html"],
+  [".htm", "html"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {
