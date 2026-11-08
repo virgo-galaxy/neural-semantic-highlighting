@@ -28,3 +28,6 @@ pinned revision and under the preserved Devicon license.
 The SQL icon is `sql.svg`, from `icons/azuresqldatabase/azuresqldatabase-original.svg`
 at that same pinned Devicon revision and under the preserved license. It denotes
 the SQL entry, whose supported profiles are PostgreSQL, MySQL and Oracle.
+
+The PowerShell icon is `powershell.svg`, from `icons/powershell/powershell-original.svg`
+at that same pinned Devicon revision and under the preserved license.

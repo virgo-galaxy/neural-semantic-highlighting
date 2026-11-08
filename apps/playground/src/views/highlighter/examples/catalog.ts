@@ -6,6 +6,7 @@ import htmlIcon from "@/assets/document-kinds/html.svg";
 import javascriptIcon from "@/assets/document-kinds/javascript.svg";
 import lessIcon from "@/assets/document-kinds/less.svg";
 import perlIcon from "@/assets/document-kinds/perl.svg";
+import powershellIcon from "@/assets/document-kinds/powershell.svg";
 import pythonIcon from "@/assets/document-kinds/python.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
 import sqlIcon from "@/assets/document-kinds/sql.svg";
@@ -69,6 +70,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
     icon: awkIcon,
   },
   sql: { label: "SQL", icon: sqlIcon },
+  powershell: { label: "PowerShell", icon: powershellIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -107,6 +109,9 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".psql", "sql"],
   [".pgsql", "sql"],
   [".plsql", "sql"],
+  [".ps1", "powershell"],
+  [".psm1", "powershell"],
+  [".psd1", "powershell"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

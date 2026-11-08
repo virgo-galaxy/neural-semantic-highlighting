@@ -29,6 +29,7 @@ remaining failures.
 | [Perl](packs/perl/model/README.md)                          | Perl 5 scripts, modules and tests; `.pl`, `.pm`, `.t`, `.perl`                                                                                                      | [83.60%](packs/perl/model/BENCHMARKS.md) — natural test                                                     | Usable local baseline; [mixed Here Documents and role/modifier boundaries](packs/perl/model/KNOWN_ISSUES.md) remain weaker          |
 | [AWK](packs/awk/model/README.md)                            | Common POSIX-style / GNU AWK; `.awk`, `.gawk`                                                                                                                       | [96.89%](packs/awk/model/BENCHMARKS.md) — natural test                                                      | Available locally; [regex span boundaries and advanced GNU calls](packs/awk/model/KNOWN_ISSUES.md) remain limited                   |
 | [SQL](packs/sql/model/README.md)                            | PostgreSQL/psql, MySQL, Oracle/SQL*Plus; `.sql`, `.psql`, `.pgsql`, `.plsql`                                                                                        | [88.41%](packs/sql/model/BENCHMARKS.md) — natural test; per-profile results in report                       | Usable local baseline; [special strings, mixed client commands and procedural names](packs/sql/model/KNOWN_ISSUES.md) remain weaker |
+| [PowerShell](packs/powershell/model/README.md)              | Common Windows/modern PowerShell scripts, modules and data; `.ps1`, `.psm1`, `.psd1`                                                                                | [90.67%](packs/powershell/model/BENCHMARKS.md) — natural test                                               | Usable local baseline; [string boundaries, long bodies and name flags](packs/powershell/model/KNOWN_ISSUES.md) remain limited       |
 
 ## Architecture
 
@@ -133,7 +134,8 @@ selected pack model
   ├─ packs/bash/model/model.pt
   ├─ packs/perl/model/model.pt
   ├─ packs/awk/model/model.pt
-  └─ packs/sql/model/model.pt
+  ├─ packs/sql/model/model.pt
+  └─ packs/powershell/model/model.pt
   ↓
 HighlightResult
   ↓
@@ -148,7 +150,7 @@ The local model process is started lazily and kept alive. Model initialization i
 
 The Playground currently includes:
 
-- TypeScript, JavaScript, Go, CSS, SCSS, Less, HTML, Vue, Python, Shell, Perl, AWK and SQL source examples discovered from real files;
+- TypeScript, JavaScript, Go, CSS, SCSS, Less, HTML, Vue, Python, Shell, Perl, AWK, SQL and PowerShell source examples discovered from real files;
 - editable and highlighted presentation states;
 - highlighting when the code block leaves editing focus;
 - preserved native undo/redo history across presentation-state changes;
@@ -442,3 +444,9 @@ PostgreSQL/psql, MySQL and Oracle/SQL*Plus source. No database environment is
 needed. Its first natural/focus tests measure 88.41%/97.48% exact-span F1; per-profile
 evidence and remaining mixed literal/client boundaries are documented separately.
 `NSH_SQL_CHECKPOINT` selects a compatible development candidate in Playground.
+
+The [PowerShell pack](packs/powershell/README.md) adds one common PowerShell script/module entry.
+It follows the same immutable external dataset, full-checkpoint training, independent
+Golden/test and pure-neural local bridge workflow. Measured evidence and limits
+are linked in the support table. `NSH_POWERSHELL_CHECKPOINT` selects a compatible
+development candidate in Playground.
