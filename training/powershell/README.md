@@ -6,12 +6,12 @@ schema, data paths, frozen families, full checkpoints and selected artifact path
 ```sh
 make dataset-powershell
 make test-labeling-powershell
-make train-powershell-smoke PowerShell_DEVICE=mps
-caffeinate -i make train-powershell PowerShell_DEVICE=mps PowerShell_EPOCHS=3 \
-  PowerShell_RUN=artifacts/powershell/new-run \
-  PowerShell_INIT_FROM=artifacts/go/context512-20260913-074648-569634/best.pt
-caffeinate -i make continue-powershell PowerShell_DEVICE=mps PowerShell_EPOCHS=3 \
-  PowerShell_CHECKPOINT=artifacts/powershell/new-run/last.pt
+make train-powershell-smoke POWERSHELL_DEVICE=mps
+caffeinate -i make train-powershell POWERSHELL_DEVICE=mps POWERSHELL_EPOCHS=3 \
+  POWERSHELL_RUN=artifacts/powershell/new-run \
+  POWERSHELL_INIT_FROM=artifacts/go/context512-20260913-074648-569634/best.pt
+caffeinate -i make continue-powershell POWERSHELL_DEVICE=mps POWERSHELL_EPOCHS=3 \
+  POWERSHELL_CHECKPOINT=artifacts/powershell/new-run/last.pt
 ```
 
 No Windows/PowerShell environment is required. Resume `last.pt` in its original directory;
