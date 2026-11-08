@@ -18,13 +18,13 @@ Gold describes the original source; Sass compilation must not replace it.
 
 ## Engineering boundaries
 
-| Location | Contents | Git |
-| --- | --- | --- |
-| `packs/css/` | Manifest, schema, semantic contract, offline Gold tools, fixtures, runtime, selected model | Tracked |
-| `training/css/` | Preparation, training, inference, evaluation, export and tests | Tracked |
-| `~/Datasets/neural-semantic-highlighting/css/` | Corpus manifests, original source, Gold, statistics and prepared snapshots | External |
-| `artifacts/css/<run>/` | Historical experiments, reports, resumable `best.pt` / `last.pt` | Ignored |
-| `packs/css/model/` | Reviewed inference artifact and its identity, reports and known issues | Tracked |
+| Location                                       | Contents                                                                                   | Git      |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------ | -------- |
+| `packs/css/`                                   | Manifest, schema, semantic contract, offline Gold tools, fixtures, runtime, selected model | Tracked  |
+| `training/css/`                                | Preparation, training, inference, evaluation, export and tests                             | Tracked  |
+| `~/Datasets/neural-semantic-highlighting/css/` | Corpus manifests, original source, Gold, statistics and prepared snapshots                 | External |
+| `artifacts/css/<run>/`                         | Historical experiments, reports, resumable `best.pt` / `last.pt`                           | Ignored  |
+| `packs/css/model/`                             | Reviewed inference artifact and its identity, reports and known issues                     | Tracked  |
 
 `NSH_DATASET_ROOT` overrides the common dataset parent, just as for TS and Go.
 The collector must not read or modify the adjacent Virgo Design checkout.
