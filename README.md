@@ -54,6 +54,8 @@ HTTP is not part of the core protocol.
 | `packs/go`                               | Go manifest, semantic contract, data/labeling tools, runtime, and selected model                |
 | `training/go`                            | Go Python training, prediction, evaluation, export, and diagnostics                             |
 | `tests`                                  | Shared package and pack regression tests                                                        |
+| `packs/css`                              | CSS/SCSS/Less semantic contract, offline Gold tooling, fixtures and local neural runtime        |
+| `training/css`                           | CSS-family preparation, short resumable training and per-kind evaluation                        |
 | `artifacts`                              | Local experimental checkpoints and reports; not a runtime package                               |
 
 The repository root is a private workspace coordinator, not a library entry point. All workspace packages remain private until distribution and licensing are reviewed. Package names are local workspace identifiers and do not imply npm publication or reservation.
@@ -324,3 +326,9 @@ Do not pass the selected inference artifact in `packs/typescript/model/model.pt`
 ## Status
 
 NSH is currently an early-stage private project. The TypeScript-family and Go models, local process runtimes, HTML renderer, CSS themes, and Vue Playground are integrated and working together. Browser-native and remote runtime implementations remain future directions rather than current requirements.
+
+The [CSS family pack](packs/css/README.md) is under development for CSS, SCSS and
+Less with one shared small model. Its Gold/data pipeline and bounded MPS smoke
+check are verified. No CSS inference artifact is selected yet; Playground continues
+to use the selected TypeScript and Go models. See [training/css](training/css/README.md)
+for short runs, checkpoint continuation and independent adaptive evaluation.

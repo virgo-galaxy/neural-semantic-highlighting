@@ -7,6 +7,11 @@
 	dataset-css-validate \
 	dataset-css-prepare \
 	test-training-data-css \
+	train-css-smoke \
+	train-css \
+	continue-css \
+	predict-css \
+	evaluate-css \
 	test-labeling-go \
 	dataset-typescript \
 	dataset-go \
@@ -44,6 +49,14 @@
 	challenge-jsx-tsx-typescript
 
 PYTHON := .venv/bin/python
+CSS_DEVICE ?= auto
+CSS_EPOCHS ?= 3
+CSS_BATCH_SIZE ?= 32
+CSS_RUN ?=
+CSS_CHECKPOINT ?=
+CSS_SOURCE ?=
+CSS_DOCUMENT_KIND ?= css
+CSS_EVAL_SPLIT ?= validation
 GO_GOLD_TOOLCHAIN := go1.27.1
 GO_CORPUS ?=
 GO_DEVICE ?= auto
@@ -83,6 +96,7 @@ check:
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'
 	$(PYTHON) -c 'import packs.go.runtime.local'
+	$(PYTHON) -c 'import packs.css.runtime.local'
 
 
 test-labeling-go:
@@ -118,6 +132,29 @@ dataset-css-prepare:
 
 test-training-data-css:
 	$(PYTHON) -m unittest discover -s training/css/tests -v
+
+train-css-smoke:
+	$(PYTHON) -m training.css.train --smoke --epochs 1 --device $(CSS_DEVICE) \
+		--batch-size $(CSS_BATCH_SIZE) $(if $(CSS_RUN),--output-dir "$(CSS_RUN)")
+
+train-css:
+	$(PYTHON) -m training.css.train --epochs $(CSS_EPOCHS) --device $(CSS_DEVICE) \
+		--batch-size $(CSS_BATCH_SIZE) $(if $(CSS_RUN),--output-dir "$(CSS_RUN)")
+
+continue-css:
+	@test -n "$(CSS_CHECKPOINT)" || (echo 'Set CSS_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.css.train --resume "$(CSS_CHECKPOINT)" --epochs $(CSS_EPOCHS) --device $(CSS_DEVICE)
+
+predict-css:
+	@test -n "$(CSS_CHECKPOINT)" || (echo 'Set CSS_CHECKPOINT to a CSS checkpoint'; exit 1)
+	@test -n "$(CSS_SOURCE)" || (echo 'Set CSS_SOURCE to a CSS/SCSS/Less source file'; exit 1)
+	$(PYTHON) -m training.css.predict --checkpoint "$(CSS_CHECKPOINT)" --device $(CSS_DEVICE) \
+		--file "$(CSS_SOURCE)" --document-kind $(CSS_DOCUMENT_KIND)
+
+evaluate-css:
+	@test -n "$(CSS_CHECKPOINT)" || (echo 'Set CSS_CHECKPOINT to a CSS checkpoint'; exit 1)
+	$(PYTHON) -m training.css.evaluate --checkpoint "$(CSS_CHECKPOINT)" --device $(CSS_DEVICE) \
+		--split $(CSS_EVAL_SPLIT) --inference adaptive
 
 dataset-go:
 	$(MAKE) dataset-go-collect
