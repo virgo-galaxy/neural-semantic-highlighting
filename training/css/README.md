@@ -3,8 +3,13 @@
 CSS, SCSS and Less share one 894,227-parameter byte Transformer: 512-byte context,
 four layers, width 128, four heads, FFN 512, three BIO classes, 15 semantic roles
 and one declaration modifier. The architecture follows the existing Go/TS family.
-The model starts with new CSS weights; existing Go and TypeScript models are never
-loaded, changed or used as resume checkpoints.
+By default the model starts with new CSS weights. An explicit `--init-from-go`
+experiment can copy the compatible Go byte/BIO backbone and semantic head rows
+matched by label name; CSS-only roles retain their fresh initialization. Use a
+full checkpoint under `artifacts/go`, never a selected inference artifact.
+This starts a new CSS run with fresh optimizer, sampler, RNG and selection state;
+it is distinct from `--resume`. Source weights are read-only and their hash,
+epoch, dataset and copied labels remain in every descendant CSS checkpoint.
 
 ## Short iterations
 
@@ -14,6 +19,7 @@ Run from the repository root with the existing Python/PyTorch environment:
 make train-css-smoke
 make train-css CSS_EPOCHS=3
 make continue-css CSS_CHECKPOINT=artifacts/css/<run>/last.pt CSS_EPOCHS=3
+.venv/bin/python -m training.css.train --init-from-go artifacts/go/<run>/best.pt --epochs 3
 ```
 
 The smoke run performs at most eight batches, evaluates complete validation

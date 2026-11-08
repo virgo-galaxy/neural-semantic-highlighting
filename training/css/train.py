@@ -16,6 +16,7 @@ import torch
 from training.css.checkpoints import (FORMAT, atomic_json, capture_rng, load_checkpoint,
     model_from_checkpoint, restore_rng, save_checkpoint, seed_all, select_device, training_lock)
 from training.css.inference import document_logits
+from training.css.initialization import initialize_from_go
 from training.css.losses import compute_loss
 from training.css.metrics import evaluate_fixed
 from training.css.model import CssSemanticTransformer, ModelConfig, parameter_count
@@ -97,6 +98,11 @@ def selection_score(report: dict) -> float:
 def run(args) -> Path:
     if args.epochs < 1 or args.log_every < 1:
         raise ValueError("Epoch and log budgets must be positive")
+    if args.resume and args.init_from_go:
+        raise ValueError("Use either --resume or --init-from-go, not both")
+    if args.resume and (args.resume.name != "last.pt" or (args.output_dir is not None
+            and args.output_dir.resolve() != args.resume.resolve().parent)):
+        raise ValueError("Resume last.pt in its existing run directory; initialization starts a separate run")
     device = select_device(args.device)
     if device.type == "cpu":
         torch.set_num_threads(min(4, torch.get_num_threads()))
@@ -127,6 +133,9 @@ def run(args) -> Path:
         seed_all(config.seed)
         model = model_from_checkpoint(checkpoint, device) if checkpoint else CssSemanticTransformer(
             ModelConfig(), len(snapshot.schema["tokenTypes"]), len(snapshot.schema["modifiers"])).to(device)
+        initialization = checkpoint.get("initialization") if checkpoint else None
+        if args.init_from_go:
+            initialization = initialize_from_go(model, args.init_from_go)
         optimizer = torch.optim.AdamW(model.parameters(), lr=config.learning_rate, weight_decay=config.weight_decay)
         state = checkpoint["trainingState"].copy() if checkpoint else {
             "bestScore": -1., "bestEpoch": 0, "epochsWithoutImprovement": 0, "optimizerSteps": 0}
@@ -150,6 +159,7 @@ def run(args) -> Path:
                 "modelConfig": model.config.to_dict(), "parameters": parameter_count(model),
                 "dataset": {**snapshot.identity(), "path": str(snapshot.path)},
                 "selection": "mean CSS/SCSS/Less validation exact-span macro F1; fixed-window logits reassembled",
+                "initialization": initialization,
                 "provenance": provenance, "resumeCheckpoint": str(args.resume) if args.resume else None}
             if not checkpoint:
                 atomic_json(directory / "run.json", invocation)
@@ -182,7 +192,8 @@ def run(args) -> Path:
                 payload = {"format": FORMAT, "epoch": epoch, "model": model.state_dict(), "optimizer": optimizer.state_dict(),
                     "rng": capture_rng(device), "modelConfig": model.config.to_dict(), "schema": snapshot.schema,
                     "dataset": invocation["dataset"], "trainingConfig": asdict(config), "trainingState": state.copy(),
-                    "lossWeights": weights, "validation": report, "provenance": provenance, "documentKinds": list(KINDS)}
+                    "lossWeights": weights, "validation": report, "provenance": provenance, "documentKinds": list(KINDS),
+                    "initialization": initialization}
                 checkpoint_start = time.monotonic()
                 save_checkpoint(directory / "last.pt", payload)
                 if improved:
@@ -238,6 +249,8 @@ def main():
     parser.add_argument("--device", choices=["auto", "cpu", "mps", "cuda"], default="auto")
     parser.add_argument("--snapshot", type=Path)
     parser.add_argument("--resume", type=Path)
+    parser.add_argument("--init-from-go", type=Path,
+                        help="Weights-only Go training checkpoint initialization; starts a fresh CSS experiment")
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--log-every", type=int, default=25)
     run(parser.parse_args())

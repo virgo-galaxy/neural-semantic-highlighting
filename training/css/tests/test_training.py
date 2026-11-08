@@ -14,6 +14,7 @@ from packs.css.runtime.local import CssLocalPack, run_stdio
 from training.css.checkpoints import (FORMAT, MODEL_FORMAT, capture_rng, load_checkpoint,
     model_from_checkpoint, restore_rng, save_checkpoint, seed_all)
 from training.css.losses import compute_loss
+from training.css.initialization import initialize_from_go
 from training.css.model import CssSemanticTransformer, ModelConfig, ModelOutput, parameter_count
 from training.css.train import TrainingConfig, epoch_batches
 
@@ -65,6 +66,49 @@ class TrainingTests(unittest.TestCase):
             step(restored, resumed_optimizer)
             for name, value in model.state_dict().items():
                 torch.testing.assert_close(value, restored.state_dict()[name], rtol=0, atol=0)
+
+    def test_go_initialization_maps_labels_and_preserves_new_css_roles(self):
+        target = tiny_model()
+        source_types = ["property", "variable", "keyword"]
+        source_modifiers = ["readonly", "declaration"]
+        source = CssSemanticTransformer(target.config, len(source_types), len(source_modifiers))
+        with torch.no_grad():
+            for index in range(len(source_types)):
+                source.token_head.weight[index].fill_(index + 10)
+                source.token_head.bias[index].fill_(index + 20)
+            source.modifier_head.weight[1].fill_(30)
+        initial_class = target.token_head.weight[SCHEMA["tokenTypes"].index("class")].clone()
+        payload = {"format": "nsh-go-checkpoint-v1", "model": source.state_dict(),
+                   "modelConfig": source.config.to_dict(),
+                   "schema": {"tokenTypes": source_types, "modifiers": source_modifiers},
+                   "epoch": 29, "dataset": {"snapshot": "source"}, "trainingConfig": {"smoke": False},
+                   "optimizer": {}, "rng": {}, "trainingState": {"bestEpoch": 29}}
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "best.pt"
+            save_checkpoint(path, payload)
+            original = path.read_bytes()
+            lineage = initialize_from_go(target, path)
+            self.assertEqual(path.read_bytes(), original)
+            self.assertEqual(lineage["sourceEpoch"], 29)
+            self.assertEqual(lineage["copiedTokenTypes"], ["keyword", "variable", "property"])
+            self.assertIn("class", lineage["newTokenTypes"])
+            for index, name in enumerate(source_types):
+                row = SCHEMA["tokenTypes"].index(name)
+                torch.testing.assert_close(target.token_head.weight[row], source.token_head.weight[index])
+                torch.testing.assert_close(target.token_head.bias[row], source.token_head.bias[index])
+            torch.testing.assert_close(target.token_head.weight[SCHEMA["tokenTypes"].index("class")], initial_class)
+            torch.testing.assert_close(target.modifier_head.weight[0], source.modifier_head.weight[1])
+            torch.testing.assert_close(target.layers[0].linear1.weight, source.layers[0].linear1.weight)
+            torch.testing.assert_close(target.boundary_head.weight, source.boundary_head.weight)
+            payload["format"] = "nsh-go-model-v1"
+            save_checkpoint(path, payload)
+            with self.assertRaisesRegex(ValueError, "full, non-smoke"):
+                initialize_from_go(target, path)
+            payload["format"] = "nsh-go-checkpoint-v1"
+            payload["modelConfig"]["layers"] = 2
+            save_checkpoint(path, payload)
+            with self.assertRaisesRegex(ValueError, "identical model dimensions"):
+                initialize_from_go(target, path)
 
     def test_masks_ignore_continuation_bytes_and_non_begin_modifiers(self):
         output = ModelOutput(torch.randn(1, 4, 3), torch.randn(1, 4, 15), torch.randn(1, 4, 1))

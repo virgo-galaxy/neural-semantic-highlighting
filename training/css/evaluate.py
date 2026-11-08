@@ -22,7 +22,10 @@ def main():
     parser.add_argument("--inference", choices=["adaptive", "fixed"], default="adaptive")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
+    checkpoint_hash = sha256_file(args.checkpoint)
     payload = load_model_artifact(args.checkpoint)
+    if sha256_file(args.checkpoint) != checkpoint_hash:
+        raise ValueError("Checkpoint changed while loading; evaluate a frozen checkpoint")
     snapshot = Snapshot.open(args.snapshot or Path(payload["dataset"]["path"]))
     if snapshot.identity() != {name: payload["dataset"][name] for name in ("snapshot", "manifestHash")}:
         raise ValueError("Evaluation dataset differs from the checkpoint")
@@ -36,7 +39,7 @@ def main():
     try:
         report = (evaluate_adaptive if args.inference == "adaptive" else evaluate_fixed)(
             model, split, device, threshold=payload["trainingConfig"]["modifier_threshold"])
-        report.update(checkpointHash=sha256_file(args.checkpoint), checkpointEpoch=payload["epoch"],
+        report.update(checkpointHash=checkpoint_hash, checkpointEpoch=payload["epoch"],
             smokeCheckpoint=bool(payload["trainingConfig"].get("smoke")), dataset=snapshot.identity(),
             modelConfig=payload["modelConfig"], device=device.type, torchVersion=str(torch.__version__))
     finally:
