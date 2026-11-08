@@ -388,3 +388,12 @@ The Shell Here Document follow-up adds ordinary/quoted/`<<-` examples and both
 `function` forms. New focused holdout tasks score 96.76% exact-span F1, versus
 58.84% for the preserved previous model. Terminator overruns in short standalone
 fragments remain documented; formal inference still uses no source lexer.
+
+The [Perl pack](packs/perl/README.md) adds a Perl 5 entry with one independent
+894,227-parameter model, five examples and the same local process bridge. Offline
+Gold uses existing PPI without executing source; inference needs no Perl parser.
+First natural/focus test F1 is 83.60%/88.21%, with bounded core-module coverage.
+Read its [benchmark](packs/perl/model/BENCHMARKS.md) and
+[measured limits](packs/perl/model/KNOWN_ISSUES.md), including mixed Here Documents.
+Data/checkpoints follow `NSH_DATASET_ROOT/perl` and `artifacts/perl`;
+`NSH_PERL_CHECKPOINT` selects a compatible development candidate.

@@ -4,6 +4,7 @@ import goIcon from "@/assets/document-kinds/go.svg";
 import htmlIcon from "@/assets/document-kinds/html.svg";
 import javascriptIcon from "@/assets/document-kinds/javascript.svg";
 import lessIcon from "@/assets/document-kinds/less.svg";
+import perlIcon from "@/assets/document-kinds/perl.svg";
 import pythonIcon from "@/assets/document-kinds/python.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
 import typescriptIcon from "@/assets/document-kinds/typescript.svg";
@@ -57,6 +58,10 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
     label: "Shell",
     icon: bashIcon,
   },
+  perl: {
+    label: "Perl",
+    icon: perlIcon,
+  },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -85,6 +90,10 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".zsh", "bash"],
   [".csh", "bash"],
   [".tcsh", "bash"],
+  [".pl", "perl"],
+  [".pm", "perl"],
+  [".t", "perl"],
+  [".perl", "perl"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

@@ -10,3 +10,7 @@ Original source/Gold/prepared snapshots stay external under
 under `artifacts/perl`. Selected `model/model.pt` is inference-only, never a
 resume checkpoint. Preserve existing models, datasets and historical experiments.
 The repository remains private. Golden/Playground are excluded from collection.
+
+The [selected model](model/README.md) and five Playground examples are available.
+First natural/focus exact-span test F1 is 83.60%/88.21%. Consecutive mixed Here
+Documents and role/modifier boundaries remain explicit measured limits.
