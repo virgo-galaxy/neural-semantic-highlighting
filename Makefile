@@ -66,6 +66,16 @@
 	validate-jsx-tsx-challenge-typescript \
 	challenge-jsx-tsx-typescript
 
+VUE_DEVICE ?= auto
+VUE_EPOCHS ?= 3
+VUE_BATCH_SIZE ?= 32
+VUE_RUN ?=
+VUE_CHECKPOINT ?=
+VUE_INIT_FROM ?=
+VUE_SOURCE ?=
+VUE_EVAL_SPLIT ?= validation
+VUE_TEST_REPORT ?=
+
 PYTHON := .venv/bin/python
 HTML_DEVICE ?= auto
 HTML_EPOCHS ?= 3
@@ -122,6 +132,7 @@ check:
 	$(MAKE) test-training-data-go
 	$(MAKE) test-training-data-css
 	$(MAKE) test-training-data-html
+	$(MAKE) test-training-data-vue
 	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime training/go packs/go/runtime training/css
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'
@@ -129,6 +140,8 @@ check:
 	$(PYTHON) -c 'import packs.css.runtime.local'
 	$(PYTHON) -m compileall -q training/html packs/html/runtime
 	$(PYTHON) -c 'import packs.html.runtime.local'
+	$(PYTHON) -m compileall -q training/vue packs/vue/runtime
+	$(PYTHON) -c 'import packs.vue.runtime.local'
 
 dataset-html-sources:
 	$(PYTHON) packs/html/dataset/fetch_sources.py
@@ -426,3 +439,70 @@ export-go-model:
 	$(PYTHON) training/go/export_model.py --checkpoint "$(GO_CHECKPOINT)" \
 		--output packs/go/model/model.pt --metadata packs/go/model/model.json \
 		$(if $(GO_TEST_REPORT),--test-report "$(GO_TEST_REPORT)")
+
+
+.PHONY: dataset-vue-sources dataset-vue-curriculum dataset-vue dataset-vue-collect dataset-vue-label dataset-vue-validate dataset-vue-prepare test-training-data-vue train-vue-smoke train-vue continue-vue predict-vue evaluate-vue evaluate-vue-composed challenge-vue export-vue-model
+
+dataset-vue-sources:
+	$(PYTHON) packs/vue/dataset/fetch_sources.py
+
+dataset-vue-curriculum:
+	$(PYTHON) packs/vue/dataset/generate_curriculum.py
+
+dataset-vue:
+	$(MAKE) dataset-vue-curriculum
+	$(MAKE) dataset-vue-collect
+	$(MAKE) dataset-vue-label
+	$(MAKE) dataset-vue-validate
+	$(MAKE) dataset-vue-prepare
+
+dataset-vue-collect:
+	pnpm dataset:collect:vue
+
+dataset-vue-label:
+	pnpm dataset:label:vue
+
+dataset-vue-validate:
+	pnpm dataset:validate:vue
+
+dataset-vue-prepare:
+	$(PYTHON) -m training.vue.prepare
+
+test-training-data-vue:
+	$(PYTHON) -m unittest discover -s training/vue/tests -v
+
+train-vue-smoke:
+	$(PYTHON) -m training.vue.train --smoke --epochs 1 --device $(VUE_DEVICE) \
+		--batch-size $(VUE_BATCH_SIZE) $(if $(VUE_RUN),--output-dir "$(VUE_RUN)")
+
+train-vue:
+	$(PYTHON) -m training.vue.train --epochs $(VUE_EPOCHS) --device $(VUE_DEVICE) \
+		--batch-size $(VUE_BATCH_SIZE) $(if $(VUE_RUN),--output-dir "$(VUE_RUN)") \
+		$(if $(VUE_INIT_FROM),--init-from "$(VUE_INIT_FROM)")
+
+continue-vue:
+	@test -n "$(VUE_CHECKPOINT)" || (echo 'Set VUE_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.vue.train --resume "$(VUE_CHECKPOINT)" --epochs $(VUE_EPOCHS) --device $(VUE_DEVICE)
+
+predict-vue:
+	@test -n "$(VUE_CHECKPOINT)" || (echo 'Set VUE_CHECKPOINT to an VUE checkpoint'; exit 1)
+	@test -n "$(VUE_SOURCE)" || (echo 'Set VUE_SOURCE to an VUE source file'; exit 1)
+	$(PYTHON) -m training.vue.predict --checkpoint "$(VUE_CHECKPOINT)" --device $(VUE_DEVICE) --file "$(VUE_SOURCE)"
+
+evaluate-vue:
+	@test -n "$(VUE_CHECKPOINT)" || (echo 'Set VUE_CHECKPOINT to an VUE checkpoint'; exit 1)
+	$(PYTHON) -m training.vue.evaluate --checkpoint "$(VUE_CHECKPOINT)" --device $(VUE_DEVICE) --split $(VUE_EVAL_SPLIT)
+
+evaluate-vue-composed:
+	@test -n "$(VUE_CHECKPOINT)" || (echo 'Set VUE_CHECKPOINT to an VUE checkpoint'; exit 1)
+	node --import tsx training/vue/evaluate-composed.ts --checkpoint "$(VUE_CHECKPOINT)" --device $(VUE_DEVICE) --split $(VUE_EVAL_SPLIT)
+
+challenge-vue:
+	@test -n "$(VUE_CHECKPOINT)" || (echo 'Set VUE_CHECKPOINT to an VUE checkpoint'; exit 1)
+	$(PYTHON) -m training.vue.challenge --checkpoint "$(VUE_CHECKPOINT)" --device $(VUE_DEVICE)
+
+export-vue-model:
+	@test -n "$(VUE_CHECKPOINT)" || (echo 'Set VUE_CHECKPOINT to the reviewed best.pt'; exit 1)
+	@test -n "$(VUE_TEST_REPORT)" || (echo 'Set VUE_TEST_REPORT to its held-out adaptive test report'; exit 1)
+	$(PYTHON) -m training.vue.export_model --checkpoint "$(VUE_CHECKPOINT)" --test-report "$(VUE_TEST_REPORT)"
+
