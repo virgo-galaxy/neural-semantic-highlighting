@@ -48,3 +48,13 @@ with POSIX positional-parameter counterparts. Coverage checks require leading
 loops for all profiles and arrays for Bash/Zsh/Csh in three training families.
 Documents retain profile identity even when shared syntax has identical source;
 those aliases remain in one family and are not additional independent programs.
+
+The bounded Here Document follow-up adds 576 original mixed tasks in
+`sources/heredoc-programs-v2`, with ordinary/single-quoted/double-quoted delimiters,
+tab stripping, body text resembling shell/HTML/SQL, and commands after the
+terminator. Six task families train, one validates and one tests, shared across
+POSIX/Bash/Zsh. Both `function name()` and `function name` are included for
+Bash/Zsh. An offline exact-line adapter replaces the base lexer's substring
+terminator rule; bodies remain whole strings. Independently marked Golden covers
+queued documents, CRLF/Unicode, following redirections and arithmetic/here-string
+exclusions. Existing sources, snapshots and family assignments are preserved.

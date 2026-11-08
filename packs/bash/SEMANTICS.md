@@ -34,6 +34,13 @@ is attempted. Adjacent lexer fragments of a string are canonicalized into one
 span; separated literals remain separate. Interpolated variable/command tokens
 retain their own roles where provided by the lexer.
 
+POSIX/Bash/Zsh Here Documents are opaque strings, including any interpolation
+syntax in their bodies. The offline adapter removes quotes from delimiter words,
+requires an exact terminator line and accepts tab-indented terminators for `<<-`.
+The introducer through terminator is one string when contiguous; intervening
+command syntax and multiple queued bodies keep their own original ranges. This
+does not compose SQL/HTML/JS or execute expansion inside a Here Document.
+
 Common double-quoted interpolation in Csh is refined through the same offline
 quoted-token grammar as Bash so shared source has shared variable/string ranges.
 Csh-specific expansion modifiers are not a promise of complete expansion

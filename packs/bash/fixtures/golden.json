@@ -70,5 +70,47 @@
     "profile": "bash",
     "documentKind": "bash",
     "markedSource": "⟦comment|# 星空 🌌⟧\r\n⟦function+default-library|printf⟧ ⟦string|'%s\\n'⟧ ⟦string|'你好 🚀'⟧\r\n"
+  },
+  {
+    "id": "function-keyword-parentheses",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦keyword|function⟧ ⟦function+declaration|announce⟧⟦punctuation|(⟧⟦punctuation|)⟧ ⟦punctuation|{⟧\n  ⟦function+default-library|echo⟧ ⟦string|ready⟧\n⟦punctuation|}⟧\n⟦function|announce⟧\n"
+  },
+  {
+    "id": "function-keyword-braces",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦keyword|function⟧ ⟦function+declaration|notify⟧ ⟦punctuation|{⟧\n  ⟦function+default-library|printf⟧ ⟦string|'%s\\n'⟧ ⟦string|ready⟧\n⟦punctuation|}⟧\n⟦function|notify⟧\n"
+  },
+  {
+    "id": "heredoc-plain",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦function|cat⟧ ⟦string|<<END\nHello $name\nThe END token is not alone here.\nEND⟧\n⟦function+default-library|echo⟧ ⟦string|ready⟧\n"
+  },
+  {
+    "id": "heredoc-literal",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦function|cat⟧ ⟦string|<<'TEXT'\n$name $(not_a_command)\n'quotes' and \"double quotes\"\nTEXT⟧\n⟦function+default-library|pwd⟧\n"
+  },
+  {
+    "id": "heredoc-double-quoted",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦function|cat⟧ ⟦string|<<\"DATA\"\n${value:-fallback}\nDATA⟧\n⟦function+default-library|echo⟧ ⟦string|ready⟧\n"
+  },
+  {
+    "id": "heredoc-strip-tabs",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦function|cat⟧ ⟦string|<<-END\n\tHello $USER\n\t星空 🌌\n\tEND⟧\n⟦function+default-library|echo⟧ ⟦string|ready⟧\n"
+  },
+  {
+    "id": "heredoc-following-redirection",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦function|cat⟧ ⟦string|<<'CFG'⟧ ⟦operator|>⟧ ⟦string|config.txt⟧\n⟦string|name: Virgo\nCFG⟧\n⟦function+default-library|pwd⟧\n"
   }
 ]

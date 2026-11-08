@@ -14,6 +14,18 @@ class ShellTeacherTests(unittest.TestCase):
     def test_no_source_execution(self):
         self.assertTrue(label(source='unavailable-command --never-run\n')['spans'])
 
+    def test_multiple_heredocs_and_exact_terminator_lines(self):
+        marked="⟦function|cat⟧ ⟦string|<<A⟧ ⟦string|<<'B'⟧\r\n⟦string|A appears inside a line\r\nA⟧\r\n⟦string|星空 🌌 $name\r\nB⟧\r\n⟦function+default-library|echo⟧ ⟦string|ready⟧\r\n"
+        gold=unmark(marked)
+        result=label(source=gold['source'])
+        self.assertEqual(result['spans'],gold['spans'])
+        self.assertIn('heredocs',result['features'])
+
+    def test_heredoc_exclusions_and_incomplete_source(self):
+        for source in ['echo "<<EOF"\n', '# cat <<EOF\n', 'echo $((1 << 2))\n', 'cat <<< "$value"\n']:
+            self.assertNotIn('heredocs',label(source=source)['features'])
+        with self.assertRaises(ValueError): label(source='cat <<EOF\nmissing terminator\n')
+
     def test_builtin_shadow_and_environment_prefix(self):
         source='echo() { printf ready; }\nTOKEN="$token" run --fast\necho done\n'
         result=label(source=source);raw=source.encode('utf-16-le')

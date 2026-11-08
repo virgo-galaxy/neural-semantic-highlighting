@@ -18,7 +18,9 @@ def label(*,source,document_kind='bash',profile='bash'):
     from pygments.token import Token as T
     # Importing token types follows opening the isolated lexer; no system package.
     def original_tokens():
-        for a,kind,text in parser.get_tokens_unprocessed(source):
+        from .heredoc import tokens as heredoc_tokens
+        original=parser.get_tokens_unprocessed(source) if profile=='csh' else heredoc_tokens(source)
+        for a,kind,text in original:
             if profile=='csh' and kind in T.Literal.String.Double:
                 # Common quoted variable syntax must have identical labels in
                 # a shared model, rather than inherit lexer-specific chunking.
@@ -109,6 +111,7 @@ def label(*,source,document_kind='bash',profile='bash'):
         elif kind in T.Comment:role='comment';features.add('comments')
         elif kind in T.Literal.String:
             role='string';features.add('strings')
+            if kind in T.Literal.String.Heredoc:features.add('heredocs')
             delimiter='"' if kind in T.Literal.String.Double else "'" if kind in T.Literal.String.Single else None
             if delimiter and quote==delimiter and text.endswith(delimiter):
                 quote=None;command=quote_parent

@@ -87,6 +87,7 @@ dataset-bash-curriculum:
 	$(PYTHON) -m packs.bash.dataset.generate_programs
 	$(PYTHON) -m packs.bash.dataset.generate_program_fragments
 	$(PYTHON) -m packs.bash.dataset.generate_arrays
+	$(PYTHON) -m packs.bash.dataset.generate_heredocs
 
 dataset-bash-collect:
 	$(PYTHON) -m packs.bash.dataset.pipeline collect
