@@ -60,7 +60,7 @@ def collect():
             if not raw or len(raw)>entry.get('maxBytes',50000):continue
             source=raw.decode('utf-8')
             if source.encode('utf-8')!=raw:raise ValueError('Source byte roundtrip failed')
-            group=entry.get('groupFamily') or relative.with_suffix('').as_posix()
+            group=entry.get('groups',{}).get(relative.as_posix()) or entry.get('groupFamily') or relative.with_suffix('').as_posix()
             if entry.get('groupBy')=='directory':group=relative.parts[0]
             record={'repository':entry['id'],'path':relative.as_posix(),'sourceGroup':entry['id']+':'+group,
                     'documentKind':entry.get('documentKind',spec.document_kinds[0]),'profile':entry.get('profile',spec.profiles[0]),
@@ -91,6 +91,7 @@ def gold():
     provenance={'schemaHash':file_hash(spec.schema_path),'semanticContractHash':file_hash(spec.semantics_path),
                 'teacherFiles':teacher_files,'compiler':{'implementation':platform.python_implementation(),
                 'version':platform.python_version(),'executableSha256':file_hash(Path(sys.executable).resolve())}}
+    if hasattr(module,'provenance'):provenance['teacherDependencies']=module.provenance()
     identity={'format':f'nsh-{spec.id}-gold-v1','corpusManifestHash':pointer['manifestHash'],'provenance':provenance,
               'pipelineHash':file_hash(Path(__file__))}
     schema=Schema.load(spec.schema_path)

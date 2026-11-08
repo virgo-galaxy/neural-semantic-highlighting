@@ -1,0 +1,74 @@
+[
+  {
+    "id": "posix-command-arguments",
+    "profile": "posix",
+    "documentKind": "bash",
+    "markedSource": "⟦function+default-library|echo⟧ ⟦string|if⟧ ⟦string|done⟧\n"
+  },
+  {
+    "id": "assignment-and-reference",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦variable+declaration|name⟧⟦operator|=⟧⟦string|\"Virgo\"⟧\n⟦function+default-library|echo⟧ ⟦string|\"⟧⟦variable|$name⟧⟦string|\"⟧\n"
+  },
+  {
+    "id": "function-definition",
+    "profile": "posix",
+    "documentKind": "bash",
+    "markedSource": "⟦function+declaration|greet⟧⟦punctuation|(⟧⟦punctuation|)⟧ ⟦punctuation|{⟧ ⟦function+default-library|printf⟧ ⟦string|'%s\\n'⟧ ⟦string|ready⟧⟦punctuation|;⟧ ⟦punctuation|}⟧\n⟦function|greet⟧ ⟦parameter|--brief⟧\n"
+  },
+  {
+    "id": "pipeline-and-redirection",
+    "profile": "posix",
+    "documentKind": "bash",
+    "markedSource": "⟦function+default-library|printf⟧ ⟦string|'%s'⟧ ⟦string|ready⟧ ⟦operator||⟧ ⟦function|sort⟧ ⟦operator|>⟧ ⟦string|output.txt⟧\n"
+  },
+  {
+    "id": "loop-binding",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦keyword|for⟧ ⟦variable+declaration|item⟧ ⟦keyword|in⟧ ⟦string|one⟧ ⟦string|two⟧⟦punctuation|;⟧ ⟦keyword|do⟧ ⟦function+default-library|echo⟧ ⟦string|\"⟧⟦variable|$item⟧⟦string|\"⟧⟦punctuation|;⟧ ⟦keyword|done⟧\n"
+  },
+  {
+    "id": "command-substitution",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦variable+declaration|result⟧⟦operator|=⟧⟦operator|$(⟧⟦function+default-library|printf⟧ ⟦string|'%s'⟧ ⟦string|done⟧⟦punctuation|)⟧\n"
+  },
+  {
+    "id": "arithmetic",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦variable+declaration|sum⟧⟦operator|=⟧⟦operator|$((⟧⟦variable|count⟧ ⟦operator|+⟧ ⟦number|1⟧⟦punctuation|))⟧\n"
+  },
+  {
+    "id": "conditional",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦keyword|if⟧ ⟦punctuation|[[⟧ ⟦variable|$count⟧ ⟦operator|-gt⟧ ⟦number|3⟧ ⟦punctuation|]]⟧⟦punctuation|;⟧ ⟦keyword|then⟧ ⟦function+default-library|echo⟧ ⟦string|ready⟧⟦punctuation|;⟧ ⟦keyword|fi⟧\n"
+  },
+  {
+    "id": "zsh-array",
+    "profile": "zsh",
+    "documentKind": "bash",
+    "markedSource": "⟦variable+declaration|files⟧⟦operator|=⟧⟦punctuation|(⟧⟦string|one⟧ ⟦string|two⟧⟦punctuation|)⟧\n⟦function|print⟧ ⟦parameter|-r⟧ ⟦parameter|--⟧ ⟦variable|$files⟧\n"
+  },
+  {
+    "id": "csh-foreach",
+    "profile": "csh",
+    "documentKind": "bash",
+    "markedSource": "⟦keyword|foreach⟧ ⟦variable+declaration|item⟧ ⟦punctuation|(⟧ ⟦string|one⟧ ⟦string|two⟧ ⟦punctuation|)⟧\n ⟦function+default-library|echo⟧ ⟦variable|$item⟧\n⟦keyword|end⟧\n"
+  },
+  {
+    "id": "csh-binding",
+    "profile": "csh",
+    "documentKind": "bash",
+    "markedSource": "⟦function+default-library|set⟧ ⟦variable+declaration|mode⟧ ⟦operator|=⟧ ⟦string|\"blue\"⟧\n⟦function+default-library|echo⟧ ⟦variable|$mode⟧\n"
+  },
+  {
+    "id": "unicode-crlf",
+    "profile": "bash",
+    "documentKind": "bash",
+    "markedSource": "⟦comment|# 星空 🌌⟧\r\n⟦function+default-library|printf⟧ ⟦string|'%s\\n'⟧ ⟦string|'你好 🚀'⟧\r\n"
+  }
+]

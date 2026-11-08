@@ -1,7 +1,7 @@
 """Explicit weights-only initialization from a compatible full training checkpoint."""
 from __future__ import annotations
 
-from training.shared.spec import current
+from training.shared.spec import current, PackSpec, REPOSITORY
 
 import hashlib
 import io
@@ -17,7 +17,9 @@ def initialize_from_checkpoint(model: SemanticTransformer, path: Path) -> dict:
     source = torch.load(io.BytesIO(raw), map_location="cpu", weights_only=True)
     required = {"model", "modelConfig", "schema", "epoch", "dataset", "trainingConfig",
                 "optimizer", "rng", "trainingState"}
-    if (not isinstance(source, dict) or source.get("format") not in {"nsh-css-checkpoint-v1", "nsh-go-checkpoint-v1", "nsh-html-checkpoint-v1", "nsh-vue-checkpoint-v1", current().checkpoint_format}
+    allowed={"nsh-css-checkpoint-v1", "nsh-go-checkpoint-v1", "nsh-html-checkpoint-v1", "nsh-vue-checkpoint-v1"}
+    allowed.update(PackSpec.open(path.parent.name).checkpoint_format for path in (REPOSITORY/'packs').glob('*/pack.json'))
+    if (not isinstance(source, dict) or source.get("format") not in allowed
             or not required.issubset(source) or source["trainingConfig"].get("smoke")):
         raise ValueError("Initialization requires a full, non-smoke compatible training checkpoint from artifacts")
     source_config = ModelConfig(**source["modelConfig"])
@@ -32,7 +34,6 @@ def initialize_from_checkpoint(model: SemanticTransformer, path: Path) -> dict:
         if not schema.get(name) or len(schema[name]) != len(set(schema[name])):
             raise ValueError("Invalid initialization checkpoint schema")
     from training.shared.encoding import Schema
-    from training.shared.prepare import REPOSITORY
     target_schema = Schema.load(current().schema_path)
     labels = {"token_head": (list(target_schema.token_types), schema["tokenTypes"]),
               "modifier_head": (list(target_schema.modifiers), schema["modifiers"])}

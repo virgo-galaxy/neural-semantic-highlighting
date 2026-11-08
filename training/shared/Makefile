@@ -61,3 +61,66 @@ challenge-python:
 export-python-model:
 	@test -n "$(PYTHON_CHECKPOINT)" -a -n "$(PYTHON_TEST_REPORT)" || (echo 'Set PYTHON_CHECKPOINT and PYTHON_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.python.export_model --checkpoint "$(PYTHON_CHECKPOINT)" --test-report "$(PYTHON_TEST_REPORT)"
+
+BASH_DEVICE ?= auto
+BASH_EPOCHS ?= 3
+BASH_BATCH_SIZE ?= 32
+BASH_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-bash dataset-bash-sources dataset-bash-curriculum dataset-bash-collect dataset-bash-label dataset-bash-validate dataset-bash-prepare test-labeling-bash train-bash-smoke train-bash continue-bash predict-bash evaluate-bash challenge-bash export-bash-model
+
+dataset-bash-sources:
+	$(PYTHON) -m training.shared.offline_tools
+	$(PYTHON) -m packs.bash.dataset.fetch_sources
+
+dataset-bash:
+	$(MAKE) dataset-bash-sources
+	$(MAKE) dataset-bash-curriculum
+	$(MAKE) dataset-bash-collect
+	$(MAKE) dataset-bash-label
+	$(MAKE) dataset-bash-validate
+	$(MAKE) dataset-bash-prepare
+
+dataset-bash-curriculum:
+	$(PYTHON) -m packs.bash.dataset.generate_curriculum
+
+dataset-bash-collect:
+	$(PYTHON) -m packs.bash.dataset.pipeline collect
+
+dataset-bash-label:
+	$(PYTHON) -m packs.bash.dataset.pipeline label
+
+dataset-bash-validate:
+	$(PYTHON) -m packs.bash.dataset.pipeline validate
+
+dataset-bash-prepare:
+	$(PYTHON) -m training.bash.prepare
+
+test-labeling-bash:
+	$(PYTHON) -m unittest discover -s packs/bash/tests -v
+
+train-bash-smoke:
+	$(PYTHON) -m training.bash.train --smoke --epochs 1 --device $(BASH_DEVICE) $(if $(BASH_RUN),--output-dir "$(BASH_RUN)") $(if $(BASH_INIT_FROM),--init-from "$(BASH_INIT_FROM)")
+
+train-bash:
+	$(PYTHON) -m training.bash.train --epochs $(BASH_EPOCHS) --device $(BASH_DEVICE) --batch-size $(BASH_BATCH_SIZE) $(if $(BASH_RUN),--output-dir "$(BASH_RUN)") $(if $(BASH_INIT_FROM),--init-from "$(BASH_INIT_FROM)")
+
+continue-bash:
+	@test -n "$(BASH_CHECKPOINT)" || (echo 'Set BASH_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.bash.train --resume "$(BASH_CHECKPOINT)" --epochs $(BASH_EPOCHS) --device $(BASH_DEVICE)
+
+predict-bash:
+	@test -n "$(BASH_SOURCE)" || (echo 'Set BASH_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.bash.predict --device $(BASH_DEVICE) --file "$(BASH_SOURCE)" $(if $(BASH_CHECKPOINT),--checkpoint "$(BASH_CHECKPOINT)")
+
+evaluate-bash:
+	@test -n "$(BASH_CHECKPOINT)" || (echo 'Set BASH_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.bash.evaluate --checkpoint "$(BASH_CHECKPOINT)" --device $(BASH_DEVICE) --split $(BASH_EVAL_SPLIT)
+
+challenge-bash:
+	@test -n "$(BASH_CHECKPOINT)" || (echo 'Set BASH_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.bash.challenge --checkpoint "$(BASH_CHECKPOINT)" --device $(BASH_DEVICE)
+
+export-bash-model:
+	@test -n "$(BASH_CHECKPOINT)" -a -n "$(BASH_TEST_REPORT)" || (echo 'Set BASH_CHECKPOINT and BASH_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.bash.export_model --checkpoint "$(BASH_CHECKPOINT)" --test-report "$(BASH_TEST_REPORT)"
