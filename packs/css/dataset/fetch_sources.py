@@ -13,7 +13,7 @@ import shutil
 import subprocess
 import tarfile
 import tempfile
-from urllib.parse import urlsplit
+from urllib.parse import quote, urlsplit
 
 
 def digest(raw: bytes) -> str:
@@ -42,8 +42,9 @@ def fetch(root: Path, config: Path) -> None:
             stream.write(str(os.getpid()) + "\n")
         for spec in json.loads(config.read_text())["packages"]:
             name, version, directory = spec["name"], spec["version"], spec["directory"]
-            if (not re.fullmatch(r"[a-z0-9-]+", name) or not re.fullmatch(r"\d+\.\d+\.\d+", version)
-                    or directory != name + "-" + version or spec["suffix"] not in {".css", ".scss", ".less"}
+            if (not re.fullmatch(r"(?:@[a-z0-9-]+/)?[a-z0-9-]+", name) or not re.fullmatch(r"\d+\.\d+\.\d+", version)
+                    or directory != name.lstrip("@").replace("/", "-") + "-" + version
+                    or spec["suffix"] not in {".css", ".scss", ".less"}
                     or ".." in PurePosixPath(spec["prefix"]).parts):
                 raise ValueError("Invalid pinned style source")
             target = root / directory
@@ -57,7 +58,7 @@ def fetch(root: Path, config: Path) -> None:
                         raise ValueError("Locked source was modified: " + str(file))
                 print(f"Reused {name}@{version}: {len(saved['files'])} source/license files", flush=True)
                 continue
-            metadata = json.loads(download(f"https://registry.npmjs.org/{name}/{version}", 4 << 20))
+            metadata = json.loads(download(f"https://registry.npmjs.org/{quote(name, safe='@')}/{version}", 4 << 20))
             if metadata["name"] != name or metadata["version"] != version:
                 raise ValueError("Registry package identity mismatch")
             distribution = metadata["dist"]

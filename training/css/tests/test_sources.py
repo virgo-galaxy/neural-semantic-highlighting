@@ -68,6 +68,23 @@ class SourceTests(unittest.TestCase):
             self.assertFalse((base / "escape.scss").exists())
             self.assertFalse((root / "example-1.2.3").exists())
 
+    def test_scoped_package_metadata_and_storage_identity(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            config, content, responses = self.fixture(base)
+            settings = json.loads(config.read_text())
+            settings["packages"][0].update(name="@scope/example", directory="scope-example-1.2.3")
+            config.write_text(json.dumps(settings))
+            metadata = json.loads(responses[0])
+            metadata["name"] = "@scope/example"
+            responses[0] = json.dumps(metadata).encode()
+            root = base / "sources"
+            with patch.object(fetch_sources, "download", side_effect=responses) as download:
+                fetch_sources.fetch(root, config)
+            self.assertEqual(download.call_args_list[0].args[0],
+                             "https://registry.npmjs.org/@scope%2Fexample/1.2.3")
+            self.assertEqual((root / "scope-example-1.2.3/scss/theme.scss").read_bytes(), content)
+
 
 if __name__ == "__main__":
     unittest.main()

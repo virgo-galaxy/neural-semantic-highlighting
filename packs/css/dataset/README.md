@@ -1,6 +1,6 @@
 # CSS family data pipeline
 
-Fetch the three explicitly pinned style-source packages once, then run the local
+Fetch the explicitly pinned style-source packages once, then run the local
 pipeline from the repository root:
 
 ```bash
@@ -21,6 +21,8 @@ fail collection. Only `.css`, `.scss` and `.less` are considered. Dependencies,
 build outputs, fixture/challenge directories, minified CSS and files over 100 KB
 are excluded. No source is executed or compiled. Collecting source records does
 not claim that the full preprocessor project can be compiled.
+The Playground allowlist includes only its application style directories;
+highlighter demonstration sources are excluded from collection.
 
 The shared parent defaults to `~/Datasets/neural-semantic-highlighting` and can
 be overridden with `NSH_DATASET_ROOT`. This pack appends `/css`:
@@ -87,8 +89,9 @@ iterative validation and real-source diagnostics.
 
 ## Pinned supplementary sources
 
-`packages.json` pins Bootstrap 5.3.8 and Bulma 1.0.4 SCSS, plus Ant Design
-4.24.16 Less. `dataset-css-sources` downloads only these explicit npm archives,
+`packages.json` pins Bootstrap 5.3.8, Bulma 1.0.4 and Pico 2.1.1 SCSS, plus Ant
+Design 4.24.16 Less. Pico was added after real Grid code exposed missing `auto-fit`
+and `minmax` training coverage. `dataset-css-sources` downloads only these explicit npm archives,
 verifies SHA-512 registry integrity and keeps the selected original style files,
 license files and `source.lock.json` under the external CSS dataset. It uses
 normal system TLS validation through curl. It performs no npm installation or
