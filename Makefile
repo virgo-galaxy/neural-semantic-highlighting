@@ -12,6 +12,8 @@
 	continue-css \
 	predict-css \
 	evaluate-css \
+	challenge-css \
+	export-css-model \
 	test-labeling-go \
 	dataset-typescript \
 	dataset-go \
@@ -57,6 +59,8 @@ CSS_CHECKPOINT ?=
 CSS_SOURCE ?=
 CSS_DOCUMENT_KIND ?= css
 CSS_EVAL_SPLIT ?= validation
+CSS_INIT_FROM_GO ?=
+CSS_TEST_REPORT ?=
 GO_GOLD_TOOLCHAIN := go1.27.1
 GO_CORPUS ?=
 GO_DEVICE ?= auto
@@ -139,7 +143,8 @@ train-css-smoke:
 
 train-css:
 	$(PYTHON) -m training.css.train --epochs $(CSS_EPOCHS) --device $(CSS_DEVICE) \
-		--batch-size $(CSS_BATCH_SIZE) $(if $(CSS_RUN),--output-dir "$(CSS_RUN)")
+		--batch-size $(CSS_BATCH_SIZE) $(if $(CSS_RUN),--output-dir "$(CSS_RUN)") \
+		$(if $(CSS_INIT_FROM_GO),--init-from-go "$(CSS_INIT_FROM_GO)")
 
 continue-css:
 	@test -n "$(CSS_CHECKPOINT)" || (echo 'Set CSS_CHECKPOINT to the run last.pt'; exit 1)
@@ -155,6 +160,15 @@ evaluate-css:
 	@test -n "$(CSS_CHECKPOINT)" || (echo 'Set CSS_CHECKPOINT to a CSS checkpoint'; exit 1)
 	$(PYTHON) -m training.css.evaluate --checkpoint "$(CSS_CHECKPOINT)" --device $(CSS_DEVICE) \
 		--split $(CSS_EVAL_SPLIT) --inference adaptive
+
+challenge-css:
+	@test -n "$(CSS_CHECKPOINT)" || (echo 'Set CSS_CHECKPOINT to a CSS checkpoint'; exit 1)
+	$(PYTHON) -m training.css.challenge --checkpoint "$(CSS_CHECKPOINT)" --device $(CSS_DEVICE)
+
+export-css-model:
+	@test -n "$(CSS_CHECKPOINT)" || (echo 'Set CSS_CHECKPOINT to the reviewed best.pt'; exit 1)
+	@test -n "$(CSS_TEST_REPORT)" || (echo 'Set CSS_TEST_REPORT to its held-out adaptive test report'; exit 1)
+	$(PYTHON) -m training.css.export_model --checkpoint "$(CSS_CHECKPOINT)" --test-report "$(CSS_TEST_REPORT)"
 
 dataset-go:
 	$(MAKE) dataset-go-collect

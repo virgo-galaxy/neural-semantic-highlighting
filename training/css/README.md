@@ -19,7 +19,7 @@ Run from the repository root with the existing Python/PyTorch environment:
 make train-css-smoke
 make train-css CSS_EPOCHS=3
 make continue-css CSS_CHECKPOINT=artifacts/css/<run>/last.pt CSS_EPOCHS=3
-.venv/bin/python -m training.css.train --init-from-go artifacts/go/<run>/best.pt --epochs 3
+make train-css CSS_INIT_FROM_GO=artifacts/go/<run>/best.pt CSS_EPOCHS=3
 ```
 
 The smoke run performs at most eight batches, evaluates complete validation
@@ -52,6 +52,7 @@ Before promotion, evaluate the actual predicted-adaptive-cursor runtime:
 
 ```bash
 make evaluate-css CSS_CHECKPOINT=artifacts/css/<run>/best.pt
+make challenge-css CSS_CHECKPOINT=artifacts/css/<run>/best.pt
 ```
 
 This defaults to validation and writes a new timestamped report. Reserve the test
@@ -59,6 +60,10 @@ split for final independent evaluation of a selected candidate. Match means exac
 document/start/end/type; modifier-aware span metrics are reported separately.
 Missing Gold support remains a coverage gap. Use real source diagnostics and
 acceptable, documented limits to decide when further iterations have low value.
+The challenge command records exact mismatches against the independently marked
+Golden cases, including the Virgo Surface layout shown during product review.
+These are visible development probes excluded from datasets, not a statistical
+held-out test. Their Gold is never passed to runtime inference.
 
 ## Local outputs and runtime
 
@@ -98,3 +103,15 @@ Use an explicit development checkpoint until a model is selected:
 
 The selected `packs/css/model/model.pt` is reserved for a reviewed inference-only
 export with matching metadata, reports and known issues; never resume from it.
+After candidate review, create `README.md`, `BENCHMARKS.md` and `KNOWN_ISSUES.md`
+in the model directory, evaluate the candidate once on held-out test, and run:
+
+```bash
+make export-css-model CSS_CHECKPOINT=artifacts/css/<run>/best.pt \
+  CSS_TEST_REPORT=artifacts/css/<run>/<test-report>.json
+```
+
+Export verifies the checkpoint/report hash, epoch, dataset and configuration,
+preserves float32 tensors, omits optimizer/RNG state, and writes the matching
+`model.json` and report. It refuses to replace an existing selected artifact;
+archive a previous reviewed bundle explicitly before a later promotion.
