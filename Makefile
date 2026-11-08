@@ -1,5 +1,12 @@
 .PHONY: \
 	check \
+	dataset-css \
+	dataset-css-sources \
+	dataset-css-collect \
+	dataset-css-label \
+	dataset-css-validate \
+	dataset-css-prepare \
+	test-training-data-css \
 	test-labeling-go \
 	dataset-typescript \
 	dataset-go \
@@ -71,7 +78,8 @@ check:
 	pnpm all
 	$(MAKE) test-labeling-go
 	$(MAKE) test-training-data-go
-	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime training/go packs/go/runtime
+	$(MAKE) test-training-data-css
+	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime training/go packs/go/runtime training/css
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'
 	$(PYTHON) -c 'import packs.go.runtime.local'
@@ -86,6 +94,30 @@ dataset-typescript:
 	pnpm dataset:label:typescript
 	pnpm dataset:validate:typescript
 	pnpm dataset:split:typescript
+
+dataset-css:
+	$(MAKE) dataset-css-collect
+	$(MAKE) dataset-css-label
+	$(MAKE) dataset-css-validate
+	$(MAKE) dataset-css-prepare
+
+dataset-css-sources:
+	$(PYTHON) packs/css/dataset/fetch_sources.py
+
+dataset-css-collect:
+	pnpm dataset:collect:css
+
+dataset-css-label:
+	pnpm dataset:label:css
+
+dataset-css-validate:
+	pnpm dataset:validate:css
+
+dataset-css-prepare:
+	$(PYTHON) -m training.css.prepare
+
+test-training-data-css:
+	$(PYTHON) -m unittest discover -s training/css/tests -v
 
 dataset-go:
 	$(MAKE) dataset-go-collect
