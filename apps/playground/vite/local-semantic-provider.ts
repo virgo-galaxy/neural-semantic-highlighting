@@ -3,9 +3,11 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import type { HighlightRequest, PackManifest } from "@nsh/core";
+import type { HighlightRequest, PackManifest, SemanticPack } from "@nsh/core";
 import { createLocalProcessPack, type LocalProcessPack } from "@nsh/local";
 import type { Plugin } from "vite";
+
+import { createCompositeHtmlPack } from "../../../packs/html/runtime/composite";
 
 const LOCAL_PREFIX = "/__nsh/local";
 const REPOSITORY_ROOT = fileURLToPath(new URL("../../..", import.meta.url));
@@ -13,16 +15,19 @@ const PYTHON_PATH = join(REPOSITORY_ROOT, ".venv/bin/python");
 const TYPESCRIPT_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/typescript/manifest.json");
 const GO_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/go/manifest.json");
 const CSS_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/css/manifest.json");
+const HTML_MANIFEST_PATH = join(REPOSITORY_ROOT, "packs/html/manifest.json");
 
 const typescriptManifest = readManifest(TYPESCRIPT_MANIFEST_PATH);
 const goManifest = readManifest(GO_MANIFEST_PATH);
 const cssManifest = readManifest(CSS_MANIFEST_PATH);
+const htmlManifest = readManifest(HTML_MANIFEST_PATH);
 const manifest: PackManifest = {
   id: "playground-local",
   documentKinds: [
     ...typescriptManifest.documentKinds,
     ...goManifest.documentKinds,
     ...cssManifest.documentKinds,
+    ...htmlManifest.documentKinds,
   ],
 };
 const goDocumentKinds = new Set(goManifest.documentKinds.map((item) => item.id));
@@ -34,13 +39,24 @@ const cssDocumentKinds = new Set(cssManifest.documentKinds.map((item) => item.id
  *
  * Language models run as long-lived local Python processes. Go and CSS-family
  * paths consume neural weights directly without invoking language tooling.
+ * HTML composes those same processes inside neurally predicted body regions.
  */
 export function localSemanticProviderPlugin(): Plugin {
   let typescriptPack: LocalProcessPack | undefined;
   let goPack: LocalProcessPack | undefined;
   let cssPack: LocalProcessPack | undefined;
+  let htmlBasePack: LocalProcessPack | undefined;
+  let htmlPack: SemanticPack | undefined;
 
-  const getPack = (documentKind: string): LocalProcessPack => {
+  const getPack = (documentKind: string): SemanticPack => {
+    if (documentKind === "html") {
+      htmlBasePack ??= createHtmlPack();
+      htmlPack ??= createCompositeHtmlPack({
+        base: htmlBasePack,
+        highlightEmbedded: (request) => getPack(request.documentKind).highlight(request),
+      });
+      return htmlPack;
+    }
     if (cssDocumentKinds.has(documentKind)) {
       cssPack ??= createCssPack();
       return cssPack;
@@ -101,12 +117,14 @@ export function localSemanticProviderPlugin(): Plugin {
       });
 
       server.httpServer?.once("close", () => {
-        const activePacks = [typescriptPack, goPack, cssPack].filter(
+        const activePacks = [typescriptPack, goPack, cssPack, htmlBasePack].filter(
           (pack): pack is LocalProcessPack => pack !== undefined,
         );
         typescriptPack = undefined;
         goPack = undefined;
         cssPack = undefined;
+        htmlBasePack = undefined;
+        htmlPack = undefined;
 
         for (const pack of activePacks) {
           void pack.close();
@@ -163,6 +181,24 @@ function createCssPack(): LocalProcessPack {
   }
   return createLocalProcessPack({
     manifest: cssManifest,
+    command: PYTHON_PATH,
+    args,
+    cwd: REPOSITORY_ROOT,
+  });
+}
+
+function createHtmlPack(): LocalProcessPack {
+  const args = ["-m", "packs.html.runtime.local", "--stdio", "--device", "auto"];
+  const configuredPath = process.env.NSH_HTML_CHECKPOINT;
+  if (configuredPath) {
+    const checkpointPath = resolve(REPOSITORY_ROOT, configuredPath);
+    if (!existsSync(checkpointPath)) {
+      throw new Error(`HTML checkpoint does not exist: ${checkpointPath}`);
+    }
+    args.push("--checkpoint", checkpointPath);
+  }
+  return createLocalProcessPack({
+    manifest: htmlManifest,
     command: PYTHON_PATH,
     args,
     cwd: REPOSITORY_ROOT,
