@@ -6,6 +6,11 @@ including less common conforming elements, custom elements, templates/slots,
 declarative shadow DOM, SVG and MathML. This is source highlighting, not DOM
 execution, a conformance checker, resource fetching or template compilation.
 
+`model-schema.json` freezes the compact markup/body role vocabulary learned by
+the HTML model. `schema.json` is the public superset, including the existing
+JS/CSS roles/modifiers needed for later composition. Reserving those public
+roles does not claim that the HTML model predicts JavaScript/CSS semantics.
+
 ## Source roles
 
 | Source                                      | Role                  | Boundaries / modifiers                                                   |
