@@ -1,0 +1,983 @@
+{
+  "packId": "awk",
+  "checkpointHash": "684b7d6dfbe371a5654b856ab5e1d5c3c79ca31859f820498bae7258bd7bf3ac",
+  "epoch": 15,
+  "cases": [
+    {
+      "filename": "counts.awk",
+      "source": "{\n    for (i = 1; i <= NF; i++) {\n        word = tolower($i)\n        if (word ~ /^[[:alpha:]]+$/)\n            counts[word]++\n    }\n}\n\nEND {\n    for (word in counts)\n        if (counts[word] > 1)\n            print word, counts[word]\n}\n",
+      "documentKind": "awk",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 6,
+            "end": 9,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 10,
+            "end": 11,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 11,
+            "end": 12,
+            "tokenType": "variable"
+          },
+          {
+            "start": 13,
+            "end": 14,
+            "tokenType": "operator"
+          },
+          {
+            "start": 15,
+            "end": 16,
+            "tokenType": "number"
+          },
+          {
+            "start": 16,
+            "end": 17,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 18,
+            "end": 19,
+            "tokenType": "variable"
+          },
+          {
+            "start": 20,
+            "end": 22,
+            "tokenType": "operator"
+          },
+          {
+            "start": 23,
+            "end": 25,
+            "tokenType": "variable",
+            "modifiers": [
+              "default-library"
+            ]
+          },
+          {
+            "start": 25,
+            "end": 26,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 27,
+            "end": 28,
+            "tokenType": "variable"
+          },
+          {
+            "start": 28,
+            "end": 30,
+            "tokenType": "operator"
+          },
+          {
+            "start": 30,
+            "end": 31,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 32,
+            "end": 33,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 42,
+            "end": 46,
+            "tokenType": "variable"
+          },
+          {
+            "start": 47,
+            "end": 48,
+            "tokenType": "operator"
+          },
+          {
+            "start": 49,
+            "end": 56,
+            "tokenType": "function",
+            "modifiers": [
+              "default-library"
+            ]
+          },
+          {
+            "start": 56,
+            "end": 57,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 57,
+            "end": 59,
+            "tokenType": "variable"
+          },
+          {
+            "start": 59,
+            "end": 60,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 69,
+            "end": 71,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 72,
+            "end": 73,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 73,
+            "end": 77,
+            "tokenType": "variable"
+          },
+          {
+            "start": 78,
+            "end": 79,
+            "tokenType": "operator"
+          },
+          {
+            "start": 80,
+            "end": 96,
+            "tokenType": "regexp"
+          },
+          {
+            "start": 96,
+            "end": 97,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 110,
+            "end": 116,
+            "tokenType": "variable"
+          },
+          {
+            "start": 116,
+            "end": 117,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 117,
+            "end": 121,
+            "tokenType": "variable"
+          },
+          {
+            "start": 121,
+            "end": 122,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 122,
+            "end": 124,
+            "tokenType": "operator"
+          },
+          {
+            "start": 129,
+            "end": 130,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 131,
+            "end": 132,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 134,
+            "end": 137,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 138,
+            "end": 139,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 144,
+            "end": 147,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 148,
+            "end": 149,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 149,
+            "end": 153,
+            "tokenType": "variable"
+          },
+          {
+            "start": 154,
+            "end": 156,
+            "tokenType": "operator"
+          },
+          {
+            "start": 157,
+            "end": 163,
+            "tokenType": "variable"
+          },
+          {
+            "start": 163,
+            "end": 164,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 173,
+            "end": 175,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 176,
+            "end": 177,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 177,
+            "end": 183,
+            "tokenType": "variable"
+          },
+          {
+            "start": 183,
+            "end": 184,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 184,
+            "end": 188,
+            "tokenType": "variable"
+          },
+          {
+            "start": 188,
+            "end": 189,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 190,
+            "end": 191,
+            "tokenType": "operator"
+          },
+          {
+            "start": 192,
+            "end": 193,
+            "tokenType": "number"
+          },
+          {
+            "start": 193,
+            "end": 194,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 207,
+            "end": 212,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 213,
+            "end": 217,
+            "tokenType": "variable"
+          },
+          {
+            "start": 217,
+            "end": 218,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 219,
+            "end": 225,
+            "tokenType": "variable"
+          },
+          {
+            "start": 225,
+            "end": 226,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 226,
+            "end": 230,
+            "tokenType": "variable"
+          },
+          {
+            "start": 230,
+            "end": 231,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 232,
+            "end": 233,
+            "tokenType": "punctuation"
+          }
+        ]
+      }
+    },
+    {
+      "filename": "files.awk",
+      "source": "BEGINFILE { matched = 0 }\n\n/ready|complete/ {\n    matched++\n    print FILENAME, FNR, $0\n}\n\nENDFILE {\n    printf \"%s: %d matches\\n\", FILENAME, matched\n}\n",
+      "documentKind": "awk",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 9,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 10,
+            "end": 11,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 12,
+            "end": 19,
+            "tokenType": "variable"
+          },
+          {
+            "start": 20,
+            "end": 21,
+            "tokenType": "operator"
+          },
+          {
+            "start": 22,
+            "end": 23,
+            "tokenType": "number"
+          },
+          {
+            "start": 24,
+            "end": 25,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 27,
+            "end": 34,
+            "tokenType": "regexp"
+          },
+          {
+            "start": 34,
+            "end": 43,
+            "tokenType": "regexp"
+          },
+          {
+            "start": 44,
+            "end": 45,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 50,
+            "end": 57,
+            "tokenType": "variable"
+          },
+          {
+            "start": 57,
+            "end": 59,
+            "tokenType": "operator"
+          },
+          {
+            "start": 64,
+            "end": 69,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 70,
+            "end": 78,
+            "tokenType": "variable",
+            "modifiers": [
+              "default-library"
+            ]
+          },
+          {
+            "start": 78,
+            "end": 79,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 80,
+            "end": 83,
+            "tokenType": "variable",
+            "modifiers": [
+              "default-library"
+            ]
+          },
+          {
+            "start": 83,
+            "end": 84,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 85,
+            "end": 87,
+            "tokenType": "variable"
+          },
+          {
+            "start": 88,
+            "end": 89,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 91,
+            "end": 98,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 99,
+            "end": 100,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 105,
+            "end": 111,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 112,
+            "end": 130,
+            "tokenType": "string"
+          },
+          {
+            "start": 130,
+            "end": 131,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 132,
+            "end": 140,
+            "tokenType": "variable",
+            "modifiers": [
+              "default-library"
+            ]
+          },
+          {
+            "start": 140,
+            "end": 141,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 142,
+            "end": 149,
+            "tokenType": "variable"
+          },
+          {
+            "start": 150,
+            "end": 151,
+            "tokenType": "punctuation"
+          }
+        ]
+      }
+    },
+    {
+      "filename": "normalize.awk",
+      "source": "function normalize(text) {\n    gsub(/^[[:space:]]+|[[:space:]]+$/, \"\", text)\n    gsub(/[[:space:]]+/, \"-\", text)\n    return tolower(text)\n}\n\nNF && $0 !~ /^#/ {\n    print NR, normalize($0)\n}\n",
+      "documentKind": "awk",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 8,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 9,
+            "end": 18,
+            "tokenType": "function",
+            "modifiers": [
+              "declaration"
+            ]
+          },
+          {
+            "start": 18,
+            "end": 19,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 19,
+            "end": 23,
+            "tokenType": "variable",
+            "modifiers": [
+              "declaration"
+            ]
+          },
+          {
+            "start": 23,
+            "end": 24,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 25,
+            "end": 26,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 31,
+            "end": 35,
+            "tokenType": "function",
+            "modifiers": [
+              "default-library"
+            ]
+          },
+          {
+            "start": 35,
+            "end": 36,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 36,
+            "end": 65,
+            "tokenType": "regexp"
+          },
+          {
+            "start": 65,
+            "end": 66,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 67,
+            "end": 69,
+            "tokenType": "string"
+          },
+          {
+            "start": 69,
+            "end": 70,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 71,
+            "end": 75,
+            "tokenType": "variable"
+          },
+          {
+            "start": 75,
+            "end": 76,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 81,
+            "end": 85,
+            "tokenType": "function",
+            "modifiers": [
+              "default-library"
+            ]
+          },
+          {
+            "start": 85,
+            "end": 86,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 86,
+            "end": 100,
+            "tokenType": "regexp"
+          },
+          {
+            "start": 100,
+            "end": 101,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 102,
+            "end": 105,
+            "tokenType": "string"
+          },
+          {
+            "start": 105,
+            "end": 106,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 107,
+            "end": 111,
+            "tokenType": "variable"
+          },
+          {
+            "start": 111,
+            "end": 112,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 117,
+            "end": 123,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 124,
+            "end": 131,
+            "tokenType": "function"
+          },
+          {
+            "start": 131,
+            "end": 132,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 132,
+            "end": 136,
+            "tokenType": "variable"
+          },
+          {
+            "start": 136,
+            "end": 137,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 138,
+            "end": 139,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 141,
+            "end": 143,
+            "tokenType": "variable"
+          },
+          {
+            "start": 144,
+            "end": 146,
+            "tokenType": "operator"
+          },
+          {
+            "start": 147,
+            "end": 149,
+            "tokenType": "variable"
+          },
+          {
+            "start": 150,
+            "end": 152,
+            "tokenType": "operator"
+          },
+          {
+            "start": 153,
+            "end": 157,
+            "tokenType": "regexp"
+          },
+          {
+            "start": 158,
+            "end": 159,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 164,
+            "end": 169,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 170,
+            "end": 172,
+            "tokenType": "variable"
+          },
+          {
+            "start": 172,
+            "end": 173,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 174,
+            "end": 183,
+            "tokenType": "function"
+          },
+          {
+            "start": 183,
+            "end": 184,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 184,
+            "end": 186,
+            "tokenType": "variable"
+          },
+          {
+            "start": 186,
+            "end": 187,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 188,
+            "end": 189,
+            "tokenType": "punctuation"
+          }
+        ]
+      }
+    },
+    {
+      "filename": "report.awk",
+      "source": "BEGIN {\n    FS = \",\"\n    OFS = \"\\t\"\n}\n\nNR == 1 { next }\n$3 >= 10 {\n    totals[$1] += $3\n    records++\n}\n\nEND {\n    for (name in totals)\n        printf \"%s\\t%.2f\\n\", name, totals[name]\n    print \"Processed\", records, \"records\"\n}\n",
+      "documentKind": "awk",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 5,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 6,
+            "end": 7,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 12,
+            "end": 14,
+            "tokenType": "variable",
+            "modifiers": [
+              "default-library"
+            ]
+          },
+          {
+            "start": 15,
+            "end": 16,
+            "tokenType": "operator"
+          },
+          {
+            "start": 17,
+            "end": 20,
+            "tokenType": "string"
+          },
+          {
+            "start": 25,
+            "end": 28,
+            "tokenType": "variable",
+            "modifiers": [
+              "default-library"
+            ]
+          },
+          {
+            "start": 29,
+            "end": 30,
+            "tokenType": "operator"
+          },
+          {
+            "start": 31,
+            "end": 35,
+            "tokenType": "string"
+          },
+          {
+            "start": 36,
+            "end": 37,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 39,
+            "end": 41,
+            "tokenType": "variable",
+            "modifiers": [
+              "default-library"
+            ]
+          },
+          {
+            "start": 42,
+            "end": 44,
+            "tokenType": "operator"
+          },
+          {
+            "start": 45,
+            "end": 46,
+            "tokenType": "number"
+          },
+          {
+            "start": 47,
+            "end": 48,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 49,
+            "end": 53,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 54,
+            "end": 55,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 56,
+            "end": 58,
+            "tokenType": "variable"
+          },
+          {
+            "start": 59,
+            "end": 61,
+            "tokenType": "operator"
+          },
+          {
+            "start": 62,
+            "end": 64,
+            "tokenType": "number"
+          },
+          {
+            "start": 65,
+            "end": 66,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 71,
+            "end": 77,
+            "tokenType": "variable"
+          },
+          {
+            "start": 77,
+            "end": 78,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 78,
+            "end": 80,
+            "tokenType": "variable"
+          },
+          {
+            "start": 80,
+            "end": 81,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 82,
+            "end": 84,
+            "tokenType": "operator"
+          },
+          {
+            "start": 85,
+            "end": 87,
+            "tokenType": "variable"
+          },
+          {
+            "start": 92,
+            "end": 99,
+            "tokenType": "variable"
+          },
+          {
+            "start": 99,
+            "end": 101,
+            "tokenType": "operator"
+          },
+          {
+            "start": 102,
+            "end": 103,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 105,
+            "end": 108,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 109,
+            "end": 110,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 115,
+            "end": 118,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 119,
+            "end": 120,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 120,
+            "end": 124,
+            "tokenType": "variable"
+          },
+          {
+            "start": 125,
+            "end": 127,
+            "tokenType": "operator"
+          },
+          {
+            "start": 128,
+            "end": 134,
+            "tokenType": "variable"
+          },
+          {
+            "start": 134,
+            "end": 135,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 144,
+            "end": 150,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 151,
+            "end": 163,
+            "tokenType": "string"
+          },
+          {
+            "start": 163,
+            "end": 164,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 165,
+            "end": 169,
+            "tokenType": "variable"
+          },
+          {
+            "start": 169,
+            "end": 170,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 171,
+            "end": 177,
+            "tokenType": "variable"
+          },
+          {
+            "start": 177,
+            "end": 178,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 178,
+            "end": 182,
+            "tokenType": "variable"
+          },
+          {
+            "start": 182,
+            "end": 183,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 188,
+            "end": 193,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 194,
+            "end": 205,
+            "tokenType": "string"
+          },
+          {
+            "start": 205,
+            "end": 206,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 207,
+            "end": 214,
+            "tokenType": "variable"
+          },
+          {
+            "start": 214,
+            "end": 215,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 216,
+            "end": 225,
+            "tokenType": "string"
+          },
+          {
+            "start": 226,
+            "end": 227,
+            "tokenType": "punctuation"
+          }
+        ]
+      }
+    }
+  ]
+}

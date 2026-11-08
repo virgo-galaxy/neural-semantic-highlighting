@@ -1,0 +1,502 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "1af4533981cd3357493940dc0fee5de4601b81b2fba3d57313c94b1023244251",
+  "cases": [
+    {
+      "id": "phase-builtin",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "BEGIN { FS = \",\"; print \"ready\" }\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "field-action",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "$2 > 10 { print $1 }\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "record-regexp",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "/^#/ { next }\n/ready|pending/ { print $0 }\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 11,
+          "text": "next",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 14,
+          "end": 29,
+          "text": "/ready|pending/",
+          "tokenType": "regexp",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 11,
+          "text": "next",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 14,
+          "end": 21,
+          "text": "/ready|",
+          "tokenType": "regexp",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 29,
+          "text": "pending/",
+          "tokenType": "regexp",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "function-definition",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "function twice(value) { return value * 2 }\n{ print twice($1) }\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 51,
+          "end": 56,
+          "text": "twice",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 51,
+          "end": 56,
+          "text": "twice",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "builtin-substitution",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "{ gsub(/ +/, \"-\", $0); print $0 }\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 11,
+          "text": "/ +/",
+          "tokenType": "regexp",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 8,
+          "text": "/",
+          "tokenType": "regexp",
+          "modifiers": []
+        },
+        {
+          "start": 9,
+          "end": 11,
+          "text": "+/",
+          "tokenType": "regexp",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "division-regexp",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "BEGIN { ratio = 8 / 2; ok = \"foo\" ~ /f.o/ }\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "computed-fields",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "{ print $NF, $(column + 1) }\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "gnu-phases",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "BEGINFILE { print FILENAME }\nENDFILE { print FNR }\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 18,
+          "end": 26,
+          "text": "FILENAME",
+          "tokenType": "variable",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 18,
+          "end": 26,
+          "text": "FILENAME",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "gnu-typed-regexp",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "BEGIN { rule = @/ab+/; print (\"ab\" ~ rule) }\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "gnu-include",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "@include \"helpers.awk\"\nBEGIN { print 1 }\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "indirect-call",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "BEGIN { fn = \"render\"; @fn(\"sample\") }\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 23,
+          "end": 24,
+          "text": "@",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 24,
+          "end": 26,
+          "text": "fn",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 23,
+          "end": 26,
+          "text": "@fn",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "# \u661f\u7a7a \ud83c\udf0c\r\nBEGIN { print \"\u4f60\u597d \ud83d\ude80\" }\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "coprocess",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "BEGIN { print \"request\" |& service; service |& getline reply }\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 27,
+          "end": 34,
+          "text": "service",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 43,
+          "text": "service",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 27,
+          "end": 34,
+          "text": "service",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 43,
+          "text": "service",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "continued-regexp",
+      "profile": "awk",
+      "documentKind": "awk",
+      "source": "$0 ~ \\\r\n /^[0-9]+([.][0-9]+)?$/ { print $1 }\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    }
+  ],
+  "profiles": {
+    "awk": {
+      "documents": 14,
+      "exactDocumentsIncludingModifiers": 8,
+      "exactSpan": {
+        "precision": 0.9466666666666667,
+        "recall": 0.9530201342281879,
+        "f1": 0.9498327759197325,
+        "tp": 142,
+        "fp": 8,
+        "fn": 7,
+        "support": 149
+      },
+      "exactSpanMacroF1": 0.8826358826358827,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9333333333333333,
+        "recall": 0.9395973154362416,
+        "f1": 0.9364548494983278,
+        "tp": 140,
+        "fp": 10,
+        "fn": 9,
+        "support": 149
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9285714285714286,
+          "recall": 0.9629629629629629,
+          "f1": 0.9454545454545454,
+          "tp": 26,
+          "fp": 2,
+          "fn": 1,
+          "support": 27
+        },
+        "comment": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 10,
+          "fp": 0,
+          "fn": 0,
+          "support": 10
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 6,
+          "fp": 0,
+          "fn": 0,
+          "support": 6
+        },
+        "regexp": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285714,
+          "tp": 4,
+          "fp": 4,
+          "fn": 2,
+          "support": 6
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.9411764705882353,
+          "f1": 0.9696969696969697,
+          "tp": 16,
+          "fp": 0,
+          "fn": 1,
+          "support": 17
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 55,
+          "fp": 0,
+          "fn": 0,
+          "support": 55
+        },
+        "function": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 1,
+          "fn": 0,
+          "support": 3
+        },
+        "variable": {
+          "precision": 1.0,
+          "recall": 0.875,
+          "f1": 0.9333333333333333,
+          "tp": 21,
+          "fp": 0,
+          "fn": 3,
+          "support": 24
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "awk": {
+      "documents": 14,
+      "exactDocumentsIncludingModifiers": 8,
+      "exactSpan": {
+        "precision": 0.9466666666666667,
+        "recall": 0.9530201342281879,
+        "f1": 0.9498327759197325,
+        "tp": 142,
+        "fp": 8,
+        "fn": 7,
+        "support": 149
+      },
+      "exactSpanMacroF1": 0.8826358826358827,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9333333333333333,
+        "recall": 0.9395973154362416,
+        "f1": 0.9364548494983278,
+        "tp": 140,
+        "fp": 10,
+        "fn": 9,
+        "support": 149
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9285714285714286,
+          "recall": 0.9629629629629629,
+          "f1": 0.9454545454545454,
+          "tp": 26,
+          "fp": 2,
+          "fn": 1,
+          "support": 27
+        },
+        "comment": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 10,
+          "fp": 0,
+          "fn": 0,
+          "support": 10
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 6,
+          "fp": 0,
+          "fn": 0,
+          "support": 6
+        },
+        "regexp": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285714,
+          "tp": 4,
+          "fp": 4,
+          "fn": 2,
+          "support": 6
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.9411764705882353,
+          "f1": 0.9696969696969697,
+          "tp": 16,
+          "fp": 0,
+          "fn": 1,
+          "support": 17
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 55,
+          "fp": 0,
+          "fn": 0,
+          "support": 55
+        },
+        "function": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 1,
+          "fn": 0,
+          "support": 3
+        },
+        "variable": {
+          "precision": 1.0,
+          "recall": 0.875,
+          "f1": 0.9333333333333333,
+          "tp": 21,
+          "fp": 0,
+          "fn": 3,
+          "support": 24
+        }
+      }
+    }
+  },
+  "checkpointHash": "684b7d6dfbe371a5654b856ab5e1d5c3c79ca31859f820498bae7258bd7bf3ac",
+  "checkpointEpoch": 15
+}

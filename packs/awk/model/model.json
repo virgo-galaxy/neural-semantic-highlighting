@@ -1,0 +1,192 @@
+{
+  "id": "awk",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-awk-model-v1",
+    "sha256": "cf230cd59618824f0f4834ef1ad4158cf8c04e5e684c5b4b8fc7cfb3c412ba68",
+    "bytes": 3614389,
+    "parameterCount": 893582,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 15,
+    "metric": "mean per-profile natural real-source validation exact-span macro F1",
+    "score": 0.9372410779314245
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1,
+    "local_kernel": 1
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "regexp",
+      "operator",
+      "punctuation",
+      "function",
+      "variable"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "documentKinds": [
+    "awk"
+  ],
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy-mean-logit",
+    "packPolicy": {
+      "coalesce_types": [],
+      "modifier_roles": {
+        "declaration": [
+          "function",
+          "variable"
+        ],
+        "default-library": [
+          "function",
+          "variable"
+        ]
+      }
+    },
+    "modifierThreshold": 0.6,
+    "parserRequired": false
+  },
+  "scope": "awk-local-semantic-spans",
+  "modelSchema": {
+    "file": "../schema.json",
+    "sha256": "fe5de13ccfa4ba422e22a6602febf56a8e67cacaddeef7d9b99780e09fac2079"
+  },
+  "publicSchema": {
+    "file": "../schema.json",
+    "sha256": "fe5de13ccfa4ba422e22a6602febf56a8e67cacaddeef7d9b99780e09fac2079"
+  },
+  "dataset": {
+    "snapshot": "cfc1ac383d9c23b7639221c63c8a69a22370a3745f6b3fec65c0d74e779627ab",
+    "manifestHash": "4cc605a12616593e9c40d9b12b4497dc62f9bb903a73533785301a697dbf0d6a"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/awk/context512-20261108-01/candidates/epoch-0015.pt",
+    "sourceCheckpointSha256": "684b7d6dfbe371a5654b856ab5e1d5c3c79ca31859f820498bae7258bd7bf3ac",
+    "training": {
+      "codeHashes": {
+        "training/awk/challenge.py": "99125efb3456654d8003b839d8996c9df24aee320ea337064d87dd7456499486",
+        "training/awk/evaluate.py": "6b3f0ab32c1e04b3a20f594c0a902eb570f40f55a2f710402b28033500be5135",
+        "training/awk/export_model.py": "7aab4b19f809cd423333ab384993443c834a2b5673bbf9672a5591c45d9ad3ab",
+        "training/awk/predict.py": "cbae2d66165d3e9f440825a73f41ed04ea202ba76a38b2fb5e0edba2b5979625",
+        "training/awk/prepare.py": "d3613f5a094d7fb3f337d0bf501e88b669a9cd7142ab580c27e1af8f9bd4d6c8",
+        "training/awk/train.py": "b6cdf3cfa803f54c9d9e3bebf48da32c13a030f0441a0a48e55f164228ddffff",
+        "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+        "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+        "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+        "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+        "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+        "training/shared/encoding.py": "cb7a2e784b3e96fcc7b12671f780549e29183be4ae24727e961f78574ad27602",
+        "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
+        "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+        "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+        "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+        "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+        "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+        "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+        "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+        "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+        "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+        "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+        "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+        "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+        "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+        "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+        "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+        "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+        "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
+      },
+      "semanticsHash": "1be25f0e06d0a392e53c9638856a28e0731353dd23e79c4f27230e2122475f92",
+      "packConfigHash": "c6df06271a5ac9e7896b668e377210df538cbf820b891fdea1a8b40990058127",
+      "decoderPolicy": {
+        "coalesce_types": [],
+        "modifier_roles": {
+          "declaration": [
+            "function",
+            "variable"
+          ],
+          "default-library": [
+            "function",
+            "variable"
+          ]
+        }
+      },
+      "pythonTorch": "2.14.0",
+      "repositoryDirty": false,
+      "repositoryCommit": "28758ebad5f34a5778c006563ecf64301171ac25"
+    },
+    "initialization": {
+      "mode": "perl-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/perl/context512-fragments-v2-20261108-01/candidates/epoch-0009.pt",
+      "checkpointHash": "5e547ab386fd7792e5a05d787226584900b254bece6e041ba6acca3d2249380b",
+      "sourceEpoch": 9,
+      "sourceDataset": {
+        "snapshot": "bca8675f8cc042125f8aa878c20acf47b14993ecc3b22ca3af4ebd0cc0cdc96a",
+        "manifestHash": "bf5707340d7a5899a543f49226aec8b47135080e60abda3d4ccee87f086263fd",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/perl/prepared/bca8675f8cc042125f8aa878c20acf47b14993ecc3b22ca3af4ebd0cc0cdc96a"
+      },
+      "copiedTokenTypes": [
+        "keyword",
+        "comment",
+        "string",
+        "number",
+        "regexp",
+        "operator",
+        "punctuation",
+        "function",
+        "variable"
+      ],
+      "newTokenTypes": [],
+      "newTensors": [],
+      "copiedModifiers": [
+        "declaration",
+        "default-library"
+      ],
+      "optimizerAndTrainingState": "fresh pack run"
+    },
+    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "13d475d9090e086695a6eb70bb95b9e8414ab54b2da7661a8a7b19e9e3898e2f",
+      "checkpointHash": "684b7d6dfbe371a5654b856ab5e1d5c3c79ca31859f820498bae7258bd7bf3ac",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    }
+  }
+}

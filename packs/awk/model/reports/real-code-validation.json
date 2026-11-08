@@ -1,0 +1,351 @@
+{
+  "checkpointHash": "684b7d6dfbe371a5654b856ab5e1d5c3c79ca31859f820498bae7258bd7bf3ac",
+  "epoch": 15,
+  "scope": "natural validation development diagnosis; not test",
+  "documents": [
+    {
+      "path": "prog/histsort.awk",
+      "characters": 328,
+      "correct": 328,
+      "accuracy": 1.0
+    },
+    {
+      "path": "network/webgrab.awk",
+      "characters": 138,
+      "correct": 138,
+      "accuracy": 1.0
+    },
+    {
+      "path": "prog/cut.awk",
+      "characters": 2135,
+      "correct": 2100,
+      "accuracy": 0.9836065573770492
+    },
+    {
+      "path": "lib/noassign.awk",
+      "characters": 444,
+      "correct": 444,
+      "accuracy": 1.0
+    },
+    {
+      "path": "prog/wc.awk",
+      "characters": 1328,
+      "correct": 1322,
+      "accuracy": 0.9954819277108434
+    },
+    {
+      "path": "lib/tocsv.awk",
+      "characters": 697,
+      "correct": 694,
+      "accuracy": 0.9956958393113343
+    }
+  ],
+  "characterTypeConfusions": {
+    "variable -> keyword": 20,
+    "string -> variable": 9,
+    "comment -> variable": 5,
+    "string -> punctuation": 3,
+    "string -> operator": 3,
+    "comment -> punctuation": 1,
+    "variable -> operator": 1,
+    "variable -> comment": 1,
+    "punctuation -> comment": 1
+  },
+  "errors": [
+    {
+      "path": "prog/cut.awk",
+      "expected": {
+        "start": 500,
+        "end": 545,
+        "type": "string",
+        "text": "\"usage: cut [-f list] [-d c] [-s] [files...]\""
+      },
+      "overlaps": [
+        {
+          "start": 500,
+          "end": 511,
+          "tokenType": "string",
+          "text": "\"usage: cut"
+        },
+        {
+          "start": 512,
+          "end": 513,
+          "tokenType": "punctuation",
+          "text": "["
+        },
+        {
+          "start": 513,
+          "end": 514,
+          "tokenType": "operator",
+          "text": "-"
+        },
+        {
+          "start": 514,
+          "end": 515,
+          "tokenType": "variable",
+          "text": "f"
+        },
+        {
+          "start": 516,
+          "end": 520,
+          "tokenType": "variable",
+          "text": "list"
+        },
+        {
+          "start": 520,
+          "end": 521,
+          "tokenType": "punctuation",
+          "text": "]"
+        },
+        {
+          "start": 522,
+          "end": 523,
+          "tokenType": "punctuation",
+          "text": "["
+        },
+        {
+          "start": 523,
+          "end": 524,
+          "tokenType": "operator",
+          "text": "-"
+        },
+        {
+          "start": 524,
+          "end": 525,
+          "tokenType": "operator",
+          "text": "d"
+        },
+        {
+          "start": 526,
+          "end": 527,
+          "tokenType": "variable",
+          "text": "c"
+        },
+        {
+          "start": 527,
+          "end": 545,
+          "tokenType": "string",
+          "text": "] [-s] [files...]\""
+        }
+      ]
+    },
+    {
+      "path": "prog/cut.awk",
+      "expected": {
+        "start": 573,
+        "end": 606,
+        "type": "string",
+        "text": "\"       cut [-c list] [files...]\""
+      },
+      "overlaps": [
+        {
+          "start": 573,
+          "end": 574,
+          "tokenType": "string",
+          "text": "\""
+        },
+        {
+          "start": 581,
+          "end": 584,
+          "tokenType": "variable",
+          "text": "cut"
+        },
+        {
+          "start": 585,
+          "end": 606,
+          "tokenType": "string",
+          "text": "[-c list] [files...]\""
+        }
+      ]
+    },
+    {
+      "path": "prog/cut.awk",
+      "expected": {
+        "start": 1258,
+        "end": 1261,
+        "type": "string",
+        "text": "\" \""
+      },
+      "overlaps": [
+        {
+          "start": 1258,
+          "end": 1259,
+          "tokenType": "string",
+          "text": "\""
+        },
+        {
+          "start": 1260,
+          "end": 1261,
+          "tokenType": "string",
+          "text": "\""
+        }
+      ]
+    },
+    {
+      "path": "prog/cut.awk",
+      "expected": {
+        "start": 1310,
+        "end": 1315,
+        "type": "string",
+        "text": "\"[ ]\""
+      },
+      "overlaps": [
+        {
+          "start": 1310,
+          "end": 1312,
+          "tokenType": "string",
+          "text": "\"["
+        },
+        {
+          "start": 1313,
+          "end": 1315,
+          "tokenType": "string",
+          "text": "]\""
+        }
+      ]
+    },
+    {
+      "path": "prog/cut.awk",
+      "expected": {
+        "start": 3095,
+        "end": 3101,
+        "type": "variable",
+        "text": "filler"
+      },
+      "overlaps": [
+        {
+          "start": 3095,
+          "end": 3101,
+          "tokenType": "keyword",
+          "text": "filler"
+        }
+      ]
+    },
+    {
+      "path": "prog/cut.awk",
+      "expected": {
+        "start": 3390,
+        "end": 3396,
+        "type": "variable",
+        "text": "filler"
+      },
+      "overlaps": [
+        {
+          "start": 3390,
+          "end": 3396,
+          "tokenType": "keyword",
+          "text": "filler"
+        }
+      ]
+    },
+    {
+      "path": "prog/cut.awk",
+      "expected": {
+        "start": 3584,
+        "end": 3592,
+        "type": "variable",
+        "text": "suppress"
+      },
+      "overlaps": [
+        {
+          "start": 3584,
+          "end": 3592,
+          "tokenType": "keyword",
+          "text": "suppress"
+        }
+      ]
+    },
+    {
+      "path": "prog/wc.awk",
+      "expected": {
+        "start": 985,
+        "end": 1024,
+        "type": "comment",
+        "text": "# if no options, do lines, words, bytes"
+      },
+      "overlaps": [
+        {
+          "start": 985,
+          "end": 1010,
+          "tokenType": "comment",
+          "text": "# if no options, do lines"
+        },
+        {
+          "start": 1010,
+          "end": 1011,
+          "tokenType": "comment",
+          "text": ","
+        },
+        {
+          "start": 1012,
+          "end": 1017,
+          "tokenType": "comment",
+          "text": "words"
+        },
+        {
+          "start": 1017,
+          "end": 1018,
+          "tokenType": "punctuation",
+          "text": ","
+        },
+        {
+          "start": 1019,
+          "end": 1024,
+          "tokenType": "variable",
+          "text": "bytes"
+        }
+      ]
+    },
+    {
+      "path": "lib/tocsv.awk",
+      "expected": {
+        "start": 436,
+        "end": 437,
+        "type": "variable",
+        "text": "i"
+      },
+      "overlaps": [
+        {
+          "start": 436,
+          "end": 437,
+          "tokenType": "operator",
+          "text": "i"
+        }
+      ]
+    },
+    {
+      "path": "lib/tocsv.awk",
+      "expected": {
+        "start": 652,
+        "end": 653,
+        "type": "variable",
+        "text": "i"
+      },
+      "overlaps": [
+        {
+          "start": 652,
+          "end": 654,
+          "tokenType": "comment",
+          "text": "i]"
+        }
+      ]
+    },
+    {
+      "path": "lib/tocsv.awk",
+      "expected": {
+        "start": 653,
+        "end": 654,
+        "type": "punctuation",
+        "text": "]"
+      },
+      "overlaps": [
+        {
+          "start": 652,
+          "end": 654,
+          "tokenType": "comment",
+          "text": "i]"
+        }
+      ]
+    }
+  ]
+}
