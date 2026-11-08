@@ -1,4 +1,4 @@
-"""Pure-neural HTML inference; no HTML/HTML parser or compiler at runtime."""
+"""Pure-neural HTML inference; no source parser or compiler at runtime."""
 from __future__ import annotations
 
 import argparse

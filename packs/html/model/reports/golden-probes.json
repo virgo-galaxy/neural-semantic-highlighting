@@ -1,0 +1,522 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "fa8387f78da9dda816a7dc9ed0e1a42505fa260983eb002a0cf438fc0ff491b2",
+  "cases": [
+    {
+      "id": "doctype-tailwind-attributes",
+      "documentKind": "html",
+      "source": "<!DOCTYPE html>\n<html lang=\"en\"><div class=\"flex md:gap-4 hover:bg-[#123456]\" data-state=open>Hello</div></html>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "modern-dialog-and-details",
+      "documentKind": "html",
+      "source": "<dialog open><details name='faq'><summary>More</summary>Information</details></dialog>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "custom-elements-shadow-template",
+      "documentKind": "html",
+      "source": "<my-card><template shadowrootmode=\"open\"><slot name=\"title\">Card</slot></template></my-card>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-and-mathml-source-case",
+      "documentKind": "html",
+      "source": "<svg viewBox=\"0 0 10 10\"><linearGradient id=\"g\"/></svg><math><mi>x</mi></math>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 65,
+          "end": 66,
+          "text": "x",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 65,
+          "end": 66,
+          "text": "x",
+          "tokenType": "tag",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "void-boolean-and-quoted-entities",
+      "documentKind": "html",
+      "source": "<input type=email required value=\"a&amp;b\"><br/>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 17,
+          "text": "email",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 18,
+          "end": 26,
+          "text": "required",
+          "tokenType": "attribute",
+          "modifiers": []
+        },
+        {
+          "start": 44,
+          "end": 46,
+          "text": "br",
+          "tokenType": "tag",
+          "modifiers": []
+        },
+        {
+          "start": 46,
+          "end": 48,
+          "text": "/>",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 26,
+          "text": "email required",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 44,
+          "end": 48,
+          "text": "br/>",
+          "tokenType": "tag",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf-entities-rcdata",
+      "documentKind": "html",
+      "source": "<!-- \ud83c\udf0c -->\r\n<textarea>\n<b>&copy; \ud83d\ude80</textarea>\r\n<p>&#x1f680; &copy x &notit;</p>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 24,
+          "end": 27,
+          "text": "<b>",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 33,
+          "text": "&copy;",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 33,
+          "end": 36,
+          "text": " \ud83d\ude80",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 62,
+          "end": 67,
+          "text": "&copy",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 67,
+          "end": 70,
+          "text": " x ",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 70,
+          "end": 74,
+          "text": "&not",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 74,
+          "end": 77,
+          "text": "it;",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 24,
+          "end": 25,
+          "text": "<",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "text": "b",
+          "tokenType": "tag",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 27,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 36,
+          "text": "&copy; \ud83d\ude80",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 62,
+          "end": 70,
+          "text": "&copy x ",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 70,
+          "end": 77,
+          "text": "&notit;",
+          "tokenType": "entity",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "script-style-and-data-regions",
+      "documentKind": "html",
+      "source": "<style>\n.card { color: red; }\n</style><script type=\"module\">const x = '<b>';</script><script type=\"application/ld+json\">{\"name\":\"Virgo\"}</script>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 60,
+          "end": 76,
+          "text": "const x = '<b>';",
+          "tokenType": "embedded-javascript",
+          "modifiers": []
+        },
+        {
+          "start": 120,
+          "end": 136,
+          "text": "{\"name\":\"Virgo\"}",
+          "tokenType": "embedded-data",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 60,
+          "end": 65,
+          "text": "const",
+          "tokenType": "attribute",
+          "modifiers": []
+        },
+        {
+          "start": 66,
+          "end": 67,
+          "text": "x",
+          "tokenType": "attribute",
+          "modifiers": []
+        },
+        {
+          "start": 68,
+          "end": 69,
+          "text": "=",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 70,
+          "end": 71,
+          "text": "'",
+          "tokenType": "embedded-css",
+          "modifiers": []
+        },
+        {
+          "start": 71,
+          "end": 72,
+          "text": "<",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 72,
+          "end": 73,
+          "text": "b",
+          "tokenType": "tag",
+          "modifiers": []
+        },
+        {
+          "start": 73,
+          "end": 74,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 74,
+          "end": 76,
+          "text": "';",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 120,
+          "end": 135,
+          "text": "{\"name\":\"Virgo\"",
+          "tokenType": "embedded-data",
+          "modifiers": []
+        },
+        {
+          "start": 135,
+          "end": 136,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "optional-end-tags",
+      "documentKind": "html",
+      "source": "<ul><li>A<li>B</ul>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "attribute-code-remains-string",
+      "documentKind": "html",
+      "source": "<button style='color: red' onclick=\"alert(&quot;Hi&quot;)\" class=\"md:hover:bg-blue-500\">Go</button>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 35,
+          "end": 58,
+          "text": "\"alert(&quot;Hi&quot;)\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 35,
+          "end": 48,
+          "text": "\"alert(&quot;",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 48,
+          "end": 58,
+          "text": "Hi&quot;)\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "foreign-cdata",
+      "documentKind": "html",
+      "source": "<svg><text><![CDATA[x &amp; y < z]]></text></svg>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 11,
+          "end": 36,
+          "text": "<![CDATA[x &amp; y < z]]>",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 11,
+          "end": 12,
+          "text": "<",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 30,
+          "text": "![CDATA[x &amp; y ",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 30,
+          "end": 31,
+          "text": "<",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 32,
+          "end": 35,
+          "text": "z]]",
+          "tokenType": "embedded-css",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 36,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "documentKinds": {
+    "html": {
+      "documents": 10,
+      "exactDocumentsIncludingModifiers": 4,
+      "exactSpan": {
+        "precision": 0.8790697674418605,
+        "recall": 0.9219512195121952,
+        "f1": 0.9,
+        "tp": 189,
+        "fp": 26,
+        "fn": 16,
+        "support": 205
+      },
+      "exactSpanMacroF1": 0.6003099518527288,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8790697674418605,
+        "recall": 0.9219512195121952,
+        "f1": 0.9,
+        "tp": 189,
+        "fp": 26,
+        "fn": 16,
+        "support": 205
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "comment": {
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "tp": 1,
+          "fp": 2,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.8125,
+          "recall": 0.8666666666666667,
+          "f1": 0.8387096774193549,
+          "tp": 13,
+          "fp": 3,
+          "fn": 2,
+          "support": 15
+        },
+        "punctuation": {
+          "precision": 0.9285714285714286,
+          "recall": 0.9904761904761905,
+          "f1": 0.9585253456221198,
+          "tp": 104,
+          "fp": 8,
+          "fn": 1,
+          "support": 105
+        },
+        "tag": {
+          "precision": 0.9166666666666666,
+          "recall": 0.9777777777777777,
+          "f1": 0.946236559139785,
+          "tp": 44,
+          "fp": 4,
+          "fn": 1,
+          "support": 45
+        },
+        "attribute": {
+          "precision": 0.8888888888888888,
+          "recall": 0.9411764705882353,
+          "f1": 0.9142857142857143,
+          "tp": 16,
+          "fp": 2,
+          "fn": 1,
+          "support": 17
+        },
+        "text": {
+          "precision": 0.8888888888888888,
+          "recall": 0.5714285714285714,
+          "f1": 0.6956521739130435,
+          "tp": 8,
+          "fp": 1,
+          "fn": 6,
+          "support": 14
+        },
+        "entity": {
+          "precision": 0.25,
+          "recall": 0.25,
+          "f1": 0.25,
+          "tp": 1,
+          "fp": 3,
+          "fn": 3,
+          "support": 4
+        },
+        "embedded-javascript": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        },
+        "embedded-css": {
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "tp": 1,
+          "fp": 2,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-data": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "support": 1
+        }
+      }
+    }
+  },
+  "checkpointHash": "5ec23730af06c00f5311dc84f59d5d1610d4071b22cdfbbd9b0022a0858c1569",
+  "checkpointEpoch": 20,
+  "device": "cpu"
+}

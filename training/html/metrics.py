@@ -154,6 +154,7 @@ def evaluate_fixed(model: HtmlSemanticTransformer, split: WindowSplit, device: t
     diagnostics = {kind: Diagnostics(schema) for kind in split.streams}
     features: dict[str, SpanMetrics] = {}
     regions = RegionMetrics()
+    stream_regions = {stream: RegionMetrics() for stream in split.streams}
     count_windows = Counter()
     pending_id, pending, pending_bytes = None, [], []
 
@@ -170,6 +171,7 @@ def evaluate_fixed(model: HtmlSemanticTransformer, split: WindowSplit, device: t
         spans[doc["stream"]].add(doc["result"], predicted)
         document_kinds[doc["documentKind"]].add(doc["result"], predicted)
         regions.add(doc["result"], predicted)
+        stream_regions[doc["stream"]].add(doc["result"], predicted)
         for feature in doc.get("features", []):
             features.setdefault(feature, SpanMetrics(schema)).add(doc["result"], predicted)
 
@@ -203,6 +205,7 @@ def evaluate_fixed(model: HtmlSemanticTransformer, split: WindowSplit, device: t
                                "diagnostics": diagnostics[kind].report(schema)} for kind in spans},
             "documentKinds": {kind: value.report() for kind, value in document_kinds.items()},
             "features": {name: value.report() for name, value in features.items()}, "bodyRegions": regions.report(),
+            "bodyRegionsByStream": {name: value.report() for name, value in stream_regions.items()},
             "scope": "base-markup-and-neural-body-regions"}
 
 
@@ -214,6 +217,7 @@ def evaluate_adaptive(model: HtmlSemanticTransformer, split: WindowSplit, device
     document_kinds = {kind: SpanMetrics(schema) for kind in ("html",)}
     features: dict[str, SpanMetrics] = {}
     regions = RegionMetrics()
+    stream_regions = {stream: RegionMetrics() for stream in split.streams}
     started = time.monotonic()
     for index, doc in enumerate(docs.values(), 1):
         output = document_logits(model, doc["source"], device)
@@ -221,6 +225,7 @@ def evaluate_adaptive(model: HtmlSemanticTransformer, split: WindowSplit, device
         metrics[doc["stream"]].add(doc["result"], result)
         document_kinds[doc["documentKind"]].add(doc["result"], result)
         regions.add(doc["result"], result)
+        stream_regions[doc["stream"]].add(doc["result"], result)
         for feature in doc.get("features", []):
             features.setdefault(feature, SpanMetrics(schema)).add(doc["result"], result)
         if index == 1 or index % 10 == 0 or index == len(docs):
@@ -229,4 +234,5 @@ def evaluate_adaptive(model: HtmlSemanticTransformer, split: WindowSplit, device
             "streams": {kind: value.report() for kind, value in metrics.items()},
             "documentKinds": {kind: value.report() for kind, value in document_kinds.items()},
             "features": {name: value.report() for name, value in features.items()}, "bodyRegions": regions.report(),
+            "bodyRegionsByStream": {name: value.report() for name, value in stream_regions.items()},
             "scope": "base-markup-and-neural-body-regions"}

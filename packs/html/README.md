@@ -23,11 +23,13 @@ language data/checkpoints/models. Do not modify Virgo Design or publish the repo
 Initialization/continuation uses full checkpoints under `artifacts`, never selected
 `packs/*/model/model.pt` inference artifacts.
 
-Stage one learns markup plus explicit script/style body roles. Later composition
-can invoke existing JS/CSS neural models inside predicted regions, with the
+The base model learns markup plus explicit script/style body roles. Composition
+invokes existing JS/CSS neural models inside predicted regions, with the
 original UTF-16 offsets restored. Attribute snippets need their own evaluation.
 Tailwind class strings are ordinary attribute values initially; deeper Tailwind
 coloring is a separate enhancement shared with JSX/TSX and other carriers.
 
-See [SEMANTICS.md](SEMANTICS.md). No HTML model is selected yet. A successful
-Gold or smoke test is not a mixed-language model-quality claim.
+See [SEMANTICS.md](SEMANTICS.md), the selected [model report](model/README.md)
+and [known issues](model/KNOWN_ISSUES.md). The Playground has one HTML entry for
+both markup and composed bodies. Base and composed scopes have separate evidence;
+a successful Gold or smoke test is not a mixed-language model-quality claim.

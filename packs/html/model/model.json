@@ -1,0 +1,191 @@
+{
+  "id": "html",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-html-model-v1",
+    "sha256": "7006144cd38d18c563f6548ffac1f8c51cf2916e5656b97ff3e83b97b5dccc95",
+    "bytes": 3609205,
+    "parameterCount": 893711,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 20,
+    "metric": "natural real-source validation exact-span macro F1",
+    "score": 0.7925265538669013
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "punctuation",
+      "tag",
+      "attribute",
+      "text",
+      "entity",
+      "embedded-javascript",
+      "embedded-css",
+      "embedded-data"
+    ],
+    "modifiers": [
+      "closing"
+    ]
+  },
+  "documentKinds": [
+    "html"
+  ],
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy-mean-logit-with-adjacent-body-coalescing",
+    "modifierThreshold": 0.6,
+    "parserRequired": false
+  },
+  "scope": "base-markup-and-neural-body-regions",
+  "modelSchema": {
+    "file": "../model-schema.json",
+    "sha256": "615f76d6faf292be1bf5218ad4a937cd89bbd2fc8577350c43cd32d57378d088"
+  },
+  "publicSchema": {
+    "file": "../schema.json",
+    "sha256": "37b30db6072b2771e48db574766b981e4163b46261eb3ffd0476dc391d99773f"
+  },
+  "dataset": {
+    "snapshot": "6b817884ae7a25904db1fe5edba5f424d0f07f04da4a223fb6cf814cdc07c98c",
+    "manifestHash": "135bff5786454f70265e29a844e5f53b338840e0f196630ef9dff8fbe8002e9b"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/html/context512-fragments-20261108-01/best.pt",
+    "sourceCheckpointSha256": "5ec23730af06c00f5311dc84f59d5d1610d4071b22cdfbbd9b0022a0858c1569",
+    "training": {
+      "codeHashes": {
+        "challenge.py": "45a8cac3d6284233f54173137ce8b915d87d0c98c3a3895c388ca6c6fb10e49a",
+        "checkpoints.py": "29d4fa39db83baaf5cf08c975b6b8d27a1c18a3eaa17fb4a60ca9984df322067",
+        "dataset.py": "62b41b6e9c9f7a258bed6b891f1c60c1d732d94b2e9b59463d2200da83c43e9a",
+        "encoding.py": "4fcdc9067a4c3301001024ae360165e9fae4fd103896dc6b3d8fe180b12a93ee",
+        "evaluate.py": "423d3b9462e48d1ef020354b4bbe4df0666b9270ad8fb486c1d34f89dcd97114",
+        "export_model.py": "56d0b662f01f466a6bdb64f71e65f014cedcd1725b12ff87ad6938346255e272",
+        "inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+        "initialization.py": "3af8e90507a075abb3de90aef498cd5f78bb1f4ef0ba20e970ae232517e51027",
+        "io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+        "losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+        "metrics.py": "92e19ff8541a350d830b0cc89af221915fe740f658f55ddbe81210ff3ae1a311",
+        "model.py": "f401b083949933487edff99e6b922f0f400422e4880d69cbaedece5e6b711f7c",
+        "predict.py": "14d18bbfe3d466bc7f3716044e63baf0dabcb10109091929be5c4703065f1558",
+        "prepare.py": "93042f4bd520886727c660b0994d95c061a4026e25f1df211cc335b5d5e58c35",
+        "progress.py": "b411c76b29150e9c86756f5874950cb2595dcecc364df93b8ff602ba59e4f6e8",
+        "train.py": "5dc843af1c86dccbbc92d6248f795e136c95cb9fea3aacd6e904c7194b8adb0d",
+        "trainer_data.py": "c18d42af6aeb687654d3e8057a980007bf6616a11320c8e850e7df745e25942f"
+      },
+      "semanticsHash": "f3232295a8c86092c5ea3be280d58cf34ec9749261cb441742cb91601db0c7b3",
+      "pythonTorch": "2.14.0",
+      "repositoryDirty": false,
+      "repositoryCommit": "79e90bd2df3bc0b454303fe49b31d139e53d7097"
+    },
+    "initialization": {
+      "mode": "css-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/css/context512-modern-grid-20261108-01/best.pt",
+      "checkpointHash": "e11caba76ad1f2ca878b967595c24f206192768c25a1c2f6a07aa091979ff5d5",
+      "sourceEpoch": 8,
+      "sourceDataset": {
+        "snapshot": "237f8d8278ef5797976a91f19e1fd6cda95bd31bc528503bf0aed9e529d8f697",
+        "manifestHash": "def66fc355441dedb3c9c9836b616764757d8efdd48d679a01129b0621c74f12",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/css/prepared/237f8d8278ef5797976a91f19e1fd6cda95bd31bc528503bf0aed9e529d8f697"
+      },
+      "copiedTokenTypes": [
+        "keyword",
+        "comment",
+        "string",
+        "punctuation",
+        "tag",
+        "attribute"
+      ],
+      "newTokenTypes": [
+        "text",
+        "entity",
+        "embedded-javascript",
+        "embedded-css",
+        "embedded-data"
+      ],
+      "copiedModifiers": [],
+      "optimizerAndTrainingState": "fresh HTML run"
+    },
+    "exporterSha256": "56d0b662f01f466a6bdb64f71e65f014cedcd1725b12ff87ad6938346255e272"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "7ae9a2183ffba678b388157e9c3fdbb81c0a8037ad276947f6f6b8a86ae93395",
+      "checkpointHash": "5ec23730af06c00f5311dc84f59d5d1610d4071b22cdfbbd9b0022a0858c1569",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    },
+    "validation-base.json": {
+      "file": "reports/validation-base.json",
+      "sha256": "d8e4c389c4bda579ef1cd270f50c94ac3d6919b5c0d3e41b58ffeff8df6a1af8",
+      "checkpointHash": "5ec23730af06c00f5311dc84f59d5d1610d4071b22cdfbbd9b0022a0858c1569",
+      "scope": "base-markup-and-neural-body-regions"
+    },
+    "validation-composed.json": {
+      "file": "reports/validation-composed.json",
+      "sha256": "ab64ed7cc565489a59b56875fbae58dcea6340b89a62a862619f185d007f0eb6",
+      "checkpointHash": "5ec23730af06c00f5311dc84f59d5d1610d4071b22cdfbbd9b0022a0858c1569",
+      "scope": "composed-markup-plus-javascript-and-css-bodies"
+    },
+    "test-composed.json": {
+      "file": "reports/test-composed.json",
+      "sha256": "16ddf6f928b11455c74b1635b25dfc252d4c7c0135f0341f49877596689af502",
+      "checkpointHash": "5ec23730af06c00f5311dc84f59d5d1610d4071b22cdfbbd9b0022a0858c1569",
+      "scope": "composed-markup-plus-javascript-and-css-bodies"
+    },
+    "golden-probes.json": {
+      "file": "reports/golden-probes.json",
+      "sha256": "80371016d1690d467e989199c3367a8950f5d4d85c8e5bc2773fb0f28f1454c5",
+      "checkpointHash": "5ec23730af06c00f5311dc84f59d5d1610d4071b22cdfbbd9b0022a0858c1569",
+      "scope": "visible development probes, not held-out corpus test"
+    },
+    "dataset-manifest.json": {
+      "file": "reports/dataset-manifest.json",
+      "sha256": "135bff5786454f70265e29a844e5f53b338840e0f196630ef9dff8fbe8002e9b"
+    },
+    "split-groups.json": {
+      "file": "reports/split-groups.json",
+      "sha256": "ca79540a07adf93d850f855eee10ea8827c4bfd364eab8007bf1044f7e36be97"
+    }
+  },
+  "composition": {
+    "runtime": "../runtime/composite.ts",
+    "regionSource": "HTML neural predictions only",
+    "childModels": {
+      "typescript": "a63c132df376d956f8feb19c60620a3a922a5299ad012224d58a4ff3a09597a0",
+      "css": "a6c271903b5b65f0cc1f82a4406cb1fc831c1a4ad21c54ddd1fd0f2de324645a"
+    },
+    "attributeSnippets": "whole strings",
+    "testReport": "reports/test-composed.json"
+  }
+}

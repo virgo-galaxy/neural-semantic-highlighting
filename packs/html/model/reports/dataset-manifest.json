@@ -1,0 +1,170 @@
+{
+  "format": "nsh-html-byte-dataset-v1",
+  "snapshot": "6b817884ae7a25904db1fe5edba5f424d0f07f04da4a223fb6cf814cdc07c98c",
+  "contextBytes": 512,
+  "identity": {
+    "format": "nsh-html-byte-dataset-v1",
+    "gold": "0411940483ba5c5d5fba5a3aec3e168545886066bd2734d046642f6ec3d0d0af",
+    "schema": "615f76d6faf292be1bf5218ad4a937cd89bbd2fc8577350c43cd32d57378d088",
+    "builders": {
+      "prepare.py": "93042f4bd520886727c660b0994d95c061a4026e25f1df211cc335b5d5e58c35",
+      "encoding.py": "4fcdc9067a4c3301001024ae360165e9fae4fd103896dc6b3d8fe180b12a93ee",
+      "io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82"
+    },
+    "contextBytes": 512,
+    "seed": 1729,
+    "semanticContractHash": "f3232295a8c86092c5ea3be280d58cf34ec9749261cb441742cb91601db0c7b3"
+  },
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "punctuation",
+      "tag",
+      "attribute",
+      "text",
+      "entity",
+      "embedded-javascript",
+      "embedded-css",
+      "embedded-data"
+    ],
+    "modifiers": [
+      "closing"
+    ]
+  },
+  "labels": {
+    "padByteId": 256,
+    "ignoreId": -100,
+    "boundaryClasses": [
+      "outside",
+      "begin",
+      "inside"
+    ],
+    "modifierSupervision": "span-beginnings",
+    "continuationBytes": "ignored"
+  },
+  "policy": {
+    "split": "intact-source-directories-before-windowing",
+    "trainingWindowing": "gold-adaptive-cursor",
+    "evaluationWindowing": "character-safe-fixed-cursor",
+    "crossGroupCopies": "excluded",
+    "targetRatios": [
+      0.8,
+      0.1,
+      0.1
+    ],
+    "balanceAxes": "document-kind-and-stream"
+  },
+  "inputDocuments": 554,
+  "uniqueDocuments": 531,
+  "exactDuplicateRecords": 23,
+  "excludedCopyDocuments": 63,
+  "retainedDocuments": 468,
+  "splits": {
+    "train": {
+      "documents": 359,
+      "windows": 762,
+      "naturalWindows": 358,
+      "focusWindows": 404,
+      "documentKinds": {
+        "html": {
+          "documents": 359,
+          "windows": 762,
+          "spans": 26640
+        }
+      },
+      "tokenTypes": {
+        "html": {
+          "punctuation": 14036,
+          "tag": 5997,
+          "attribute": 2115,
+          "string": 2042,
+          "text": 1764,
+          "keyword": 130,
+          "embedded-css": 83,
+          "entity": 189,
+          "embedded-javascript": 142,
+          "comment": 68,
+          "embedded-data": 74
+        }
+      }
+    },
+    "validation": {
+      "documents": 51,
+      "windows": 96,
+      "naturalWindows": 43,
+      "focusWindows": 53,
+      "documentKinds": {
+        "html": {
+          "documents": 51,
+          "windows": 96,
+          "spans": 3334
+        }
+      },
+      "tokenTypes": {
+        "html": {
+          "keyword": 22,
+          "punctuation": 1786,
+          "tag": 775,
+          "text": 144,
+          "embedded-css": 43,
+          "attribute": 239,
+          "string": 236,
+          "embedded-javascript": 63,
+          "embedded-data": 24,
+          "comment": 2
+        }
+      }
+    },
+    "test": {
+      "documents": 58,
+      "windows": 91,
+      "naturalWindows": 43,
+      "focusWindows": 48,
+      "documentKinds": {
+        "html": {
+          "documents": 58,
+          "windows": 91,
+          "spans": 3407
+        }
+      },
+      "tokenTypes": {
+        "html": {
+          "keyword": 22,
+          "punctuation": 1762,
+          "tag": 720,
+          "attribute": 375,
+          "string": 322,
+          "text": 174,
+          "embedded-css": 26,
+          "embedded-data": 1,
+          "embedded-javascript": 3,
+          "entity": 2
+        }
+      }
+    }
+  },
+  "checksums": {
+    "cross-group-copies.jsonl": "2b6db51a5a4d214b63c7e252ee3d885985404ff52dca94bb79969526c4e3a90e",
+    "split-groups.json": "ca79540a07adf93d850f855eee10ea8827c4bfd364eab8007bf1044f7e36be97",
+    "test/boundary_labels.bin": "2fc17abb74e500f0d65799a3f9ab1c8b1ae1d35dfe02bb64c4d440f658d333bd",
+    "test/documents.jsonl": "6d2685d2e1ac49b50ef7874126b56af37233072435ac8ea1f61fb61dcc9eb84a",
+    "test/input_ids.bin": "5f49ace6a0f80ff197bed76090ea1dd857aed6d2e813248d422489f1318301a2",
+    "test/modifier_bits.bin": "aeb52e19cbea49b96cda414eba083e4b943cbd4521138300189bf4ef51afd8e4",
+    "test/token_type_labels.bin": "85addb2e2031039eb969955f1fa3066e0c496b985a5101113649beabf54e270d",
+    "test/windows.jsonl": "ed16e015334e3105335af052cb89a987e53a4cb0fe25158e4983cd4e49ffa164",
+    "train/boundary_labels.bin": "3abc30f4b42344bb5794d7f980a7d65a3681e89941ea9849bd1aea180466999b",
+    "train/documents.jsonl": "41e9415ebc5b11fcbbb50ba92f64e64e588e23892a4a70f799f7071d293b52ea",
+    "train/input_ids.bin": "eb2cd786bfa25eeba7b2506a2cc67abef7a8d50c3ad664a1d76148edbc794a85",
+    "train/modifier_bits.bin": "0809a847c73a423e5bdbac32a901b7d57a9d04898ce1fc523b27e1ec580dbe83",
+    "train/token_type_labels.bin": "8fe7a933f7c599015ff0de1a58ea89cf8a07a0a54e0fc344da4836142b9526a6",
+    "train/windows.jsonl": "79ccbf0a1241acc76dbda10516a07fa9312b1c4b77670ba6dcf10acfb970d2e1",
+    "validation/boundary_labels.bin": "82ffdfb1b5020650dae6058787109292e3794d92491ec724a9971febdc558e29",
+    "validation/documents.jsonl": "d7f8c89d1284225075b40c22ecbfdc9b925d3c556b8d98084be421272381d13a",
+    "validation/input_ids.bin": "8e208a4f9a716b8b0a0c165921c7f50ff1bd11c3c36b9b2905286fc3aedf8ec9",
+    "validation/modifier_bits.bin": "416e0cd2ecba2c4c35d920df089c15de856e1d0c28be197793b272b168f5f7de",
+    "validation/token_type_labels.bin": "99aa5a4cfb3b7738bae26cb2f74c08729cda1a9d8516e1882f1d106307de08e1",
+    "validation/windows.jsonl": "a6c350076bd9dede5b4b93a153f9243c695707013e580b2a51acfa100dd5313b"
+  }
+}
