@@ -255,3 +255,65 @@ challenge-awk:
 export-awk-model:
 	@test -n "$(AWK_CHECKPOINT)" -a -n "$(AWK_TEST_REPORT)" || (echo 'Set AWK_CHECKPOINT and AWK_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.awk.export_model --checkpoint "$(AWK_CHECKPOINT)" --test-report "$(AWK_TEST_REPORT)"
+
+SQL_DEVICE ?= auto
+SQL_EPOCHS ?= 3
+SQL_BATCH_SIZE ?= 32
+SQL_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-sql dataset-sql-sources dataset-sql-curriculum dataset-sql-collect dataset-sql-label dataset-sql-validate dataset-sql-prepare test-labeling-sql train-sql-smoke train-sql continue-sql predict-sql evaluate-sql challenge-sql export-sql-model
+
+dataset-sql-sources:
+	$(PYTHON) -m packs.sql.dataset.fetch_sources
+
+dataset-sql:
+	$(MAKE) dataset-sql-sources
+	$(MAKE) dataset-sql-curriculum
+	$(MAKE) dataset-sql-collect
+	$(MAKE) dataset-sql-label
+	$(MAKE) dataset-sql-validate
+	$(MAKE) dataset-sql-prepare
+
+dataset-sql-curriculum:
+	$(PYTHON) -m packs.sql.dataset.generate_curriculum
+
+dataset-sql-collect:
+	$(PYTHON) -m packs.sql.dataset.pipeline collect
+
+dataset-sql-label:
+	$(PYTHON) -m packs.sql.dataset.pipeline label
+
+dataset-sql-validate:
+	$(PYTHON) -m packs.sql.dataset.pipeline validate
+
+dataset-sql-prepare:
+	$(PYTHON) -m training.sql.prepare
+
+test-labeling-sql:
+	$(PYTHON) -m unittest discover -s packs/sql/tests -v
+
+train-sql-smoke:
+	$(PYTHON) -m training.sql.train --smoke --epochs 1 --device $(SQL_DEVICE) $(if $(SQL_RUN),--output-dir "$(SQL_RUN)") $(if $(SQL_INIT_FROM),--init-from "$(SQL_INIT_FROM)")
+
+train-sql:
+	$(PYTHON) -m training.sql.train --epochs $(SQL_EPOCHS) --device $(SQL_DEVICE) --batch-size $(SQL_BATCH_SIZE) $(if $(SQL_RUN),--output-dir "$(SQL_RUN)") $(if $(SQL_INIT_FROM),--init-from "$(SQL_INIT_FROM)")
+
+continue-sql:
+	@test -n "$(SQL_CHECKPOINT)" || (echo 'Set SQL_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.sql.train --resume "$(SQL_CHECKPOINT)" --epochs $(SQL_EPOCHS) --device $(SQL_DEVICE)
+
+predict-sql:
+	@test -n "$(SQL_SOURCE)" || (echo 'Set SQL_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.sql.predict --device $(SQL_DEVICE) --file "$(SQL_SOURCE)" $(if $(SQL_CHECKPOINT),--checkpoint "$(SQL_CHECKPOINT)")
+
+evaluate-sql:
+	@test -n "$(SQL_CHECKPOINT)" || (echo 'Set SQL_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.sql.evaluate --checkpoint "$(SQL_CHECKPOINT)" --device $(SQL_DEVICE) --split $(SQL_EVAL_SPLIT)
+
+challenge-sql:
+	@test -n "$(SQL_CHECKPOINT)" || (echo 'Set SQL_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.sql.challenge --checkpoint "$(SQL_CHECKPOINT)" --device $(SQL_DEVICE)
+
+export-sql-model:
+	@test -n "$(SQL_CHECKPOINT)" -a -n "$(SQL_TEST_REPORT)" || (echo 'Set SQL_CHECKPOINT and SQL_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.sql.export_model --checkpoint "$(SQL_CHECKPOINT)" --test-report "$(SQL_TEST_REPORT)"

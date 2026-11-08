@@ -1,0 +1,19 @@
+{
+  "label": "SQL",
+  "profiles": ["postgres", "mysql", "oracle"],
+  "scope": "sql-local-semantic-spans",
+  "contextBytes": 512,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": ["comment"],
+    "modifierRoles": {
+      "declaration": ["namespace", "function", "variable", "parameter"],
+      "default-library": ["function"]
+    }
+  },
+  "requiredTrainingFeatures": {
+    "postgres": ["queries", "ddl", "joins", "functions", "parameters", "client-commands"],
+    "mysql": ["queries", "ddl", "joins", "functions", "parameters", "client-commands"],
+    "oracle": ["queries", "ddl", "joins", "functions", "parameters", "client-commands"]
+  },
+  "minimumTrainingFeatureGroups": 3
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "id": "select-basic",
+    "profile": "postgres",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|SELECT⟧ ⟦property|id⟧⟦punctuation|,⟧ ⟦property|name⟧ ⟦keyword|FROM⟧ ⟦namespace|accounts⟧ ⟦keyword|WHERE⟧ ⟦property|active⟧ ⟦operator|=⟧ ⟦keyword|TRUE⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "create-table",
+    "profile": "mysql",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|CREATE⟧ ⟦keyword|TABLE⟧ ⟦namespace+declaration|records⟧ ⟦punctuation|(⟧⟦property|id⟧ ⟦type|INT⟧ ⟦keyword|PRIMARY⟧ ⟦keyword|KEY⟧⟦punctuation|,⟧ ⟦property|name⟧ ⟦type|VARCHAR⟧⟦punctuation|(⟧⟦number|80⟧⟦punctuation|)⟧⟦punctuation|)⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "qualified-name",
+    "profile": "postgres",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|SELECT⟧ ⟦namespace|u⟧⟦punctuation|.⟧⟦property|name⟧ ⟦keyword|AS⟧ ⟦property|name⟧ ⟦keyword|FROM⟧ ⟦namespace|users⟧ ⟦property|u⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "postgres-parameters",
+    "profile": "postgres",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|SELECT⟧ ⟦parameter|$1⟧⟦operator|::⟧⟦type|integer⟧⟦punctuation|,⟧ ⟦function+default-library|COALESCE⟧⟦punctuation|(⟧⟦property|name⟧⟦punctuation|,⟧ ⟦string|'unknown'⟧⟦punctuation|)⟧ ⟦keyword|FROM⟧ ⟦namespace|accounts⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "psql-inspection",
+    "profile": "postgres",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|\\dt⟧ ⟦string|public.*⟧\n⟦keyword|\\d+⟧ ⟦string|accounts⟧\n⟦keyword|SELECT⟧ ⟦property|id⟧ ⟦keyword|FROM⟧ ⟦namespace|accounts⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "psql-set",
+    "profile": "postgres",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|\\set⟧ ⟦string|threshold 10⟧\n⟦keyword|SELECT⟧ ⟦property|name⟧ ⟦keyword|FROM⟧ ⟦namespace|accounts⟧ ⟦keyword|WHERE⟧ ⟦property|score⟧ ⟦operator|>⟧ ⟦parameter|:threshold⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "postgres-dollar-string",
+    "profile": "postgres",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|DO⟧ ⟦string|$body$\nBEGIN\n  RAISE NOTICE 'hello';\nEND\n$body$⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "mysql-variables",
+    "profile": "mysql",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|SET⟧ ⟦variable|@threshold⟧ ⟦operator|=⟧ ⟦number|10⟧⟦punctuation|;⟧\n⟦keyword|SELECT⟧ ⟦property|name⟧ ⟦keyword|FROM⟧ ⟦namespace|accounts⟧ ⟦keyword|WHERE⟧ ⟦property|id⟧ ⟦operator|=⟧ ⟦parameter|?⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "mysql-delimiter",
+    "profile": "mysql",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|DELIMITER⟧ ⟦string|//⟧\n⟦keyword|CREATE⟧ ⟦keyword|FUNCTION⟧ ⟦function+declaration|inc⟧⟦punctuation|(⟧⟦parameter+declaration|p_value⟧ ⟦type|INT⟧⟦punctuation|)⟧ ⟦keyword|RETURNS⟧ ⟦type|INT⟧ ⟦keyword|DETERMINISTIC⟧\n⟦keyword|BEGIN⟧ ⟦keyword|RETURN⟧ ⟦parameter|p_value⟧ ⟦operator|+⟧ ⟦number|1⟧⟦punctuation|;⟧ ⟦keyword|END⟧⟦operator|//⟧\n⟦keyword|DELIMITER⟧ ⟦string|;⟧\n"
+  },
+  {
+    "id": "oracle-bind",
+    "profile": "oracle",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|SELECT⟧ ⟦property|name⟧ ⟦keyword|FROM⟧ ⟦namespace|employees⟧ ⟦keyword|WHERE⟧ ⟦property|id⟧ ⟦operator|=⟧ ⟦parameter|:id⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "oracle-alternative-quote",
+    "profile": "oracle",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|SELECT⟧ ⟦string|q'[it's ready 🌌]'⟧ ⟦keyword|AS⟧ ⟦property|note⟧ ⟦keyword|FROM⟧ ⟦namespace|dual⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "sqlplus-directives",
+    "profile": "oracle",
+    "documentKind": "sql",
+    "markedSource": "⟦keyword|PROMPT⟧ ⟦string|Report ready⟧\n⟦keyword|@@⟧⟦string|helpers.sql⟧\n⟦keyword|SPOOL⟧ ⟦string|report.txt⟧\n⟦keyword|SELECT⟧ ⟦property|id⟧ ⟦keyword|FROM⟧ ⟦parameter|&schema⟧⟦punctuation|.⟧⟦punctuation|.⟧⟦namespace|records⟧⟦punctuation|;⟧\n"
+  },
+  {
+    "id": "nested-comment",
+    "profile": "postgres",
+    "documentKind": "sql",
+    "markedSource": "⟦comment|/* outer\r\n /* inner */\r\n */⟧\r\n⟦keyword|SELECT⟧ ⟦number|1⟧⟦punctuation|;⟧\r\n"
+  },
+  {
+    "id": "unicode-string",
+    "profile": "mysql",
+    "documentKind": "sql",
+    "markedSource": "⟦comment|-- 星空 🌌⟧\r\n⟦keyword|SELECT⟧ ⟦string|'你好 🚀'⟧ ⟦keyword|AS⟧ ⟦property|message⟧⟦punctuation|;⟧\r\n"
+  }
+]

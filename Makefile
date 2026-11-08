@@ -146,6 +146,9 @@ check:
 	$(MAKE) test-labeling-awk
 	$(PYTHON) -m compileall -q training/awk packs/awk/runtime
 	$(PYTHON) -c 'import packs.awk.runtime.local'
+	$(MAKE) test-labeling-sql
+	$(PYTHON) -m compileall -q training/sql packs/sql/runtime
+	$(PYTHON) -c 'import packs.sql.runtime.local'
 	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime training/go packs/go/runtime training/css
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'
