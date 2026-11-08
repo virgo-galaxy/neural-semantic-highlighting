@@ -362,3 +362,14 @@ directive values and Tailwind classes remain whole strings initially. See the
 [known issues](packs/vue/model/KNOWN_ISSUES.md). Training data stays external under
 `NSH_DATASET_ROOT/vue`; full checkpoints stay in `artifacts/vue`. Start normally
 with `pnpm dev`, or set `NSH_VUE_CHECKPOINT` for an experimental checkpoint.
+
+The [Python pack](packs/python/README.md) adds one `.py`/`.pyw`/`.pyi` entry with
+an independent 894,614-parameter model and the same persistent local process
+bridge. The bounded first baseline covers modern Python source, with f/t-strings
+kept whole. Natural held-out exact-span F1 is 87.52%; local name-role distinctions
+and long docstrings remain weaker areas. See the
+[benchmark](packs/python/model/BENCHMARKS.md) and
+[measured limits](packs/python/model/KNOWN_ISSUES.md). Offline Gold uses a separate
+pinned CPython; inference needs only the existing PyTorch environment.
+`NSH_PYTHON_CHECKPOINT` can select a development checkpoint. Data stays external
+under `NSH_DATASET_ROOT/python`; full checkpoints stay in `artifacts/python`.

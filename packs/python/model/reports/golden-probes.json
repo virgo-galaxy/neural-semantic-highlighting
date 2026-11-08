@@ -1,0 +1,613 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "804166470e3d242a5deea905fd50dd28df9277dfab324d3a4235869adbf9da4c",
+  "cases": [
+    {
+      "id": "annotated-function",
+      "profile": "python3",
+      "documentKind": "python",
+      "source": "def square(value: int) -> int:\n    return value ** 2\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 10,
+          "text": "square",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 10,
+          "text": "square",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration",
+            "generator"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "class-method",
+      "profile": "python3",
+      "documentKind": "python",
+      "source": "class Cache:\n    def get(self):\n        return self.value\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "async-generator",
+      "profile": "python3",
+      "documentKind": "python",
+      "source": "async def events():\n    yield await receive()\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 36,
+          "end": 43,
+          "text": "receive",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 36,
+          "end": 43,
+          "text": "receive",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decorator",
+      "profile": "python3",
+      "documentKind": "python",
+      "source": "@cached(size=8)\ndef load():\n    return None\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 1,
+          "end": 7,
+          "text": "cached",
+          "tokenType": "decorator",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 12,
+          "text": "size",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 1,
+          "end": 7,
+          "text": "cached",
+          "tokenType": "method",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 8,
+          "end": 12,
+          "text": "size",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "imports",
+      "profile": "python3",
+      "documentKind": "python",
+      "source": "import os as system\nfrom pathlib import Path\nsystem.getcwd()\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 10,
+          "end": 12,
+          "text": "as",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 10,
+          "end": 12,
+          "text": "as",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "shadowed-builtin",
+      "profile": "python3",
+      "documentKind": "python",
+      "source": "def measure(len, items):\n    return len(items)\nprint(1)\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 11,
+          "text": "measure",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 36,
+          "end": 39,
+          "text": "len",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 11,
+          "text": "measure",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration",
+            "generator"
+          ]
+        },
+        {
+          "start": 36,
+          "end": 39,
+          "text": "len",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "soft-keywords",
+      "profile": "python3",
+      "documentKind": "python",
+      "source": "match = 1\nmatch value:\n    case _: pass\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "value",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 39,
+          "text": "pass",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "value",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 35,
+          "end": 39,
+          "text": "pass",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "generic-alias",
+      "profile": "python3",
+      "documentKind": "python",
+      "source": "type Batch[T] = list[T]\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "whole-adjacent-strings",
+      "profile": "python3",
+      "documentKind": "python",
+      "source": "message = f\"Hi {name!r}\" \"!\"\ntemplate = t\"Hello {user}\"\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 10,
+          "end": 24,
+          "text": "f\"Hi {name!r}\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 10,
+          "end": 25,
+          "text": "f\"Hi {name!r}\" ",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf",
+      "profile": "python3",
+      "documentKind": "python",
+      "source": "# \ud83c\udf0c\r\n\u540d\u5b57 = \"\ud83d\ude80\"; print(\u540d\u5b57)\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 4,
+          "text": "# \ud83c\udf0c",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 5,
+          "text": "# \ud83c\udf0c\r",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "python3": {
+      "documents": 10,
+      "exactDocumentsIncludingModifiers": 2,
+      "exactSpan": {
+        "precision": 0.9491525423728814,
+        "recall": 0.9491525423728814,
+        "f1": 0.9491525423728814,
+        "tp": 112,
+        "fp": 6,
+        "fn": 6,
+        "support": 118
+      },
+      "exactSpanMacroF1": 0.8134184987126164,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9067796610169492,
+        "recall": 0.9067796610169492,
+        "f1": 0.9067796610169492,
+        "tp": 107,
+        "fp": 11,
+        "fn": 11,
+        "support": 118
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 0.9130434782608695,
+          "f1": 0.9545454545454546,
+          "tp": 21,
+          "fp": 0,
+          "fn": 2,
+          "support": 23
+        },
+        "comment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.75,
+          "recall": 0.75,
+          "f1": 0.75,
+          "tp": 3,
+          "fp": 1,
+          "fn": 1,
+          "support": 4
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 8,
+          "fp": 0,
+          "fn": 0,
+          "support": 8
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "support": 40
+        },
+        "namespace": {
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.8888888888888888,
+          "tp": 4,
+          "fp": 1,
+          "fn": 0,
+          "support": 4
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 6,
+          "fp": 0,
+          "fn": 0,
+          "support": 6
+        },
+        "class": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "function": {
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333333333333333,
+          "tp": 7,
+          "fp": 1,
+          "fn": 0,
+          "support": 7
+        },
+        "method": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "support": 2
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 0.8888888888888888,
+          "f1": 0.9411764705882353,
+          "tp": 8,
+          "fp": 0,
+          "fn": 1,
+          "support": 9
+        },
+        "variable": {
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333333333333333,
+          "tp": 7,
+          "fp": 1,
+          "fn": 0,
+          "support": 7
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "python": {
+      "documents": 10,
+      "exactDocumentsIncludingModifiers": 2,
+      "exactSpan": {
+        "precision": 0.9491525423728814,
+        "recall": 0.9491525423728814,
+        "f1": 0.9491525423728814,
+        "tp": 112,
+        "fp": 6,
+        "fn": 6,
+        "support": 118
+      },
+      "exactSpanMacroF1": 0.8134184987126164,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9067796610169492,
+        "recall": 0.9067796610169492,
+        "f1": 0.9067796610169492,
+        "tp": 107,
+        "fp": 11,
+        "fn": 11,
+        "support": 118
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 0.9130434782608695,
+          "f1": 0.9545454545454546,
+          "tp": 21,
+          "fp": 0,
+          "fn": 2,
+          "support": 23
+        },
+        "comment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.75,
+          "recall": 0.75,
+          "f1": 0.75,
+          "tp": 3,
+          "fp": 1,
+          "fn": 1,
+          "support": 4
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 8,
+          "fp": 0,
+          "fn": 0,
+          "support": 8
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "support": 40
+        },
+        "namespace": {
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.8888888888888888,
+          "tp": 4,
+          "fp": 1,
+          "fn": 0,
+          "support": 4
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 6,
+          "fp": 0,
+          "fn": 0,
+          "support": 6
+        },
+        "class": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "function": {
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333333333333333,
+          "tp": 7,
+          "fp": 1,
+          "fn": 0,
+          "support": 7
+        },
+        "method": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "support": 2
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 0.8888888888888888,
+          "f1": 0.9411764705882353,
+          "tp": 8,
+          "fp": 0,
+          "fn": 1,
+          "support": 9
+        },
+        "variable": {
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333333333333333,
+          "tp": 7,
+          "fp": 1,
+          "fn": 0,
+          "support": 7
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        }
+      }
+    }
+  },
+  "checkpointHash": "3c67fb9809b847292e66cae259a8930bce6af9dd1e3bcb5905edcec8c5df07c3",
+  "checkpointEpoch": 7
+}

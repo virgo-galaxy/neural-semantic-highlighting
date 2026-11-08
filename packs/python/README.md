@@ -22,4 +22,8 @@ Keep `NSH_DATASET_ROOT` as the external parent. Initialize/resume only from full
 training checkpoints under `artifacts`, never inference-only `model.pt` exports.
 Do not modify adjacent Virgo Design, replace previous models or publish the repo.
 
-No Python model is selected yet. See [SEMANTICS.md](SEMANTICS.md).
+The [selected 894,614-parameter model](model/README.md) and
+[measured limits](model/KNOWN_ISSUES.md) are integrated with the local runtime and
+Playground. Natural independent test exact-span F1 is 87.52%; source-local name
+roles and long strings remain material limits. See [SEMANTICS.md](SEMANTICS.md)
+and [training commands](../../training/python/README.md).

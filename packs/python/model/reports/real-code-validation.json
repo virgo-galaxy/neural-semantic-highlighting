@@ -1,0 +1,1820 @@
+{
+  "checkpointHash": "3c67fb9809b847292e66cae259a8930bce6af9dd1e3bcb5905edcec8c5df07c3",
+  "epoch": 7,
+  "scope": "natural validation development diagnosis; not test",
+  "documents": [
+    {
+      "path": "bz2.py",
+      "characters": 8348,
+      "correct": 8016,
+      "accuracy": 0.9602299952084331
+    },
+    {
+      "path": "tracemalloc.py",
+      "characters": 12003,
+      "correct": 10806,
+      "accuracy": 0.9002749312671832
+    },
+    {
+      "path": "codeop.py",
+      "characters": 4455,
+      "correct": 4239,
+      "accuracy": 0.9515151515151515
+    },
+    {
+      "path": "reprlib.py",
+      "characters": 5413,
+      "correct": 4927,
+      "accuracy": 0.9102161463144283
+    }
+  ],
+  "characterTypeConfusions": {
+    "parameter -> variable": 644,
+    "variable -> parameter": 458,
+    "variable -> class": 139,
+    "variable -> function": 104,
+    "variable -> namespace": 74,
+    "function -> variable": 66,
+    "string -> keyword": 61,
+    "string -> parameter": 58,
+    "class -> type": 52,
+    "variable -> type": 51,
+    "parameter -> function": 37,
+    "function -> method": 36,
+    "class -> variable": 34,
+    "string -> punctuation": 33,
+    "namespace -> variable": 29,
+    "parameter -> type": 28,
+    "namespace -> parameter": 27,
+    "class -> function": 24,
+    "variable -> keyword": 23,
+    "property -> variable": 19,
+    "string -> function": 19,
+    "type -> function": 18,
+    "function -> parameter": 18,
+    "keyword -> parameter": 13,
+    "string -> type": 12,
+    "type -> property": 10,
+    "string -> operator": 10,
+    "type -> parameter": 10,
+    "comment -> string": 10,
+    "method -> function": 10,
+    "function -> type": 9,
+    "keyword -> variable": 9,
+    "type -> namespace": 8,
+    "string -> variable": 8,
+    "type -> variable": 8,
+    "parameter -> string": 8,
+    "property -> decorator": 8,
+    "class -> parameter": 7,
+    "string -> property": 7,
+    "keyword -> class": 5,
+    "string -> class": 5,
+    "variable -> string": 5,
+    "punctuation -> string": 5,
+    "parameter -> keyword": 4,
+    "parameter -> namespace": 4,
+    "comment -> punctuation": 2,
+    "comment -> operator": 2
+  },
+  "errors": [
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 359,
+        "end": 363,
+        "type": "variable",
+        "text": "open"
+      },
+      "overlaps": [
+        {
+          "start": 359,
+          "end": 363,
+          "tokenType": "keyword",
+          "text": "open"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 460,
+        "end": 473,
+        "type": "variable",
+        "text": "BZ2Compressor"
+      },
+      "overlaps": [
+        {
+          "start": 460,
+          "end": 473,
+          "tokenType": "type",
+          "text": "BZ2Compressor"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 475,
+        "end": 490,
+        "type": "variable",
+        "text": "BZ2Decompressor"
+      },
+      "overlaps": [
+        {
+          "start": 475,
+          "end": 490,
+          "tokenType": "type",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "BZ2Decompressor"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 597,
+        "end": 605,
+        "type": "type",
+        "text": "_streams"
+      },
+      "overlaps": [
+        {
+          "start": 597,
+          "end": 605,
+          "tokenType": "namespace",
+          "text": "_streams"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 606,
+        "end": 616,
+        "type": "type",
+        "text": "BaseStream"
+      },
+      "overlaps": [
+        {
+          "start": 606,
+          "end": 616,
+          "tokenType": "property",
+          "text": "BaseStream"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 1024,
+        "end": 1806,
+        "type": "string",
+        "text": "\"\"\"Open a bzip2-compressed file.\n\n        If filename is a str, bytes, or PathLike object, it gives the\n        name of the file to be opened. Otherwise, it should be a file\n        object, which will be used to read or write the compressed data.\n\n        mode can be 'r' for reading (default), 'w' for (over)writing,\n        'x' for creating exclusively, or 'a' for appending. These can\n        equivalently be given as 'rb', 'wb', 'xb', and 'ab'.\n\n        If mode is 'w', 'x' or 'a', compresslevel can be a number between 1\n        and 9 specifying the level of compression: 1 produces the least\n        compression, and 9 (default) produces the most compression.\n\n        If mode is 'r', the input file may be the concatenation of\n        multiple compressed streams.\n        \"\"\""
+      },
+      "overlaps": [
+        {
+          "start": 1024,
+          "end": 1319,
+          "tokenType": "string",
+          "text": "\"\"\"Open a bzip2-compressed file.\n\n        If filename is a str, bytes, or PathLike object, it gives the\n        name of the file to be opened. Otherwise, it should be a file\n        object, which will be used to read or write the compressed data.\n\n        mode can be 'r' for reading (default), "
+        },
+        {
+          "start": 1319,
+          "end": 1451,
+          "tokenType": "string",
+          "text": "'w' for (over)writing,\n        'x' for creating exclusively, or 'a' for appending. These can\n        equivalently be given as 'rb', "
+        },
+        {
+          "start": 1451,
+          "end": 1455,
+          "tokenType": "string",
+          "text": "'wb'"
+        },
+        {
+          "start": 1455,
+          "end": 1456,
+          "tokenType": "string",
+          "text": ","
+        },
+        {
+          "start": 1457,
+          "end": 1461,
+          "tokenType": "string",
+          "text": "'xb'"
+        },
+        {
+          "start": 1461,
+          "end": 1462,
+          "tokenType": "punctuation",
+          "text": ","
+        },
+        {
+          "start": 1463,
+          "end": 1466,
+          "tokenType": "string",
+          "text": "and"
+        },
+        {
+          "start": 1467,
+          "end": 1472,
+          "tokenType": "string",
+          "text": "'ab'."
+        },
+        {
+          "start": 1473,
+          "end": 1493,
+          "tokenType": "string",
+          "text": "\n        If mode is "
+        },
+        {
+          "start": 1493,
+          "end": 1496,
+          "tokenType": "string",
+          "text": "'w'"
+        },
+        {
+          "start": 1496,
+          "end": 1497,
+          "tokenType": "punctuation",
+          "text": ","
+        },
+        {
+          "start": 1498,
+          "end": 1505,
+          "tokenType": "string",
+          "text": "'x' or "
+        },
+        {
+          "start": 1505,
+          "end": 1508,
+          "tokenType": "string",
+          "text": "'a'"
+        },
+        {
+          "start": 1508,
+          "end": 1806,
+          "tokenType": "string",
+          "text": ", compresslevel can be a number between 1\n        and 9 specifying the level of compression: 1 produces the least\n        compression, and 9 (default) produces the most compression.\n\n        If mode is 'r', the input file may be the concatenation of\n        multiple compressed streams.\n        \"\"\""
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2049,
+        "end": 2053,
+        "type": "parameter",
+        "text": "mode"
+      },
+      "overlaps": [
+        {
+          "start": 2049,
+          "end": 2053,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "mode"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2142,
+        "end": 2146,
+        "type": "parameter",
+        "text": "mode"
+      },
+      "overlaps": [
+        {
+          "start": 2142,
+          "end": 2146,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "mode"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2221,
+        "end": 2234,
+        "type": "variable",
+        "text": "BZ2Compressor"
+      },
+      "overlaps": [
+        {
+          "start": 2221,
+          "end": 2234,
+          "tokenType": "class",
+          "text": "BZ2Compressor"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2235,
+        "end": 2248,
+        "type": "parameter",
+        "text": "compresslevel"
+      },
+      "overlaps": [
+        {
+          "start": 2235,
+          "end": 2248,
+          "tokenType": "variable",
+          "text": "compresslevel"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2296,
+        "end": 2300,
+        "type": "parameter",
+        "text": "mode"
+      },
+      "overlaps": [
+        {
+          "start": 2296,
+          "end": 2300,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "mode"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2375,
+        "end": 2388,
+        "type": "variable",
+        "text": "BZ2Compressor"
+      },
+      "overlaps": [
+        {
+          "start": 2375,
+          "end": 2388,
+          "tokenType": "class",
+          "text": "BZ2Compressor"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2417,
+        "end": 2421,
+        "type": "parameter",
+        "text": "mode"
+      },
+      "overlaps": [
+        {
+          "start": 2417,
+          "end": 2421,
+          "tokenType": "keyword",
+          "text": "mode"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2450,
+        "end": 2454,
+        "type": "parameter",
+        "text": "mode"
+      },
+      "overlaps": [
+        {
+          "start": 2450,
+          "end": 2454,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "mode"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2529,
+        "end": 2542,
+        "type": "variable",
+        "text": "BZ2Compressor"
+      },
+      "overlaps": [
+        {
+          "start": 2529,
+          "end": 2542,
+          "tokenType": "class",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "BZ2Compressor"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2543,
+        "end": 2556,
+        "type": "parameter",
+        "text": "compresslevel"
+      },
+      "overlaps": [
+        {
+          "start": 2543,
+          "end": 2556,
+          "tokenType": "type",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "compresslevel"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2623,
+        "end": 2627,
+        "type": "parameter",
+        "text": "mode"
+      },
+      "overlaps": [
+        {
+          "start": 2623,
+          "end": 2627,
+          "tokenType": "variable",
+          "text": "mode"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2715,
+        "end": 2728,
+        "type": "variable",
+        "text": "_builtin_open"
+      },
+      "overlaps": [
+        {
+          "start": 2715,
+          "end": 2728,
+          "tokenType": "function",
+          "text": "_builtin_open"
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 2992,
+        "end": 3048,
+        "type": "string",
+        "text": "\"filename must be a str, bytes, file or PathLike object\""
+      },
+      "overlaps": [
+        {
+          "start": 2992,
+          "end": 3040,
+          "tokenType": "string",
+          "text": "\"filename must be a str, bytes, file or PathLike"
+        },
+        {
+          "start": 3041,
+          "end": 3048,
+          "tokenType": "string",
+          "text": "object\""
+        }
+      ]
+    },
+    {
+      "path": "bz2.py",
+      "expected": {
+        "start": 3106,
+        "end": 3114,
+        "type": "variable",
+        "text": "_streams"
+      },
+      "overlaps": [
+        {
+          "start": 3106,
+          "end": 3114,
+          "tokenType": "namespace",
+          "text": "_streams"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 267,
+        "end": 278,
+        "type": "variable",
+        "text": "_get_traces"
+      },
+      "overlaps": [
+        {
+          "start": 267,
+          "end": 278,
+          "tokenType": "function",
+          "text": "_get_traces"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 304,
+        "end": 308,
+        "type": "parameter",
+        "text": "sign"
+      },
+      "overlaps": [
+        {
+          "start": 304,
+          "end": 308,
+          "tokenType": "type",
+          "modifiers": [
+            "declaration",
+            "default-library"
+          ],
+          "text": "sign"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 319,
+        "end": 323,
+        "type": "variable",
+        "text": "unit"
+      },
+      "overlaps": [
+        {
+          "start": 319,
+          "end": 323,
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "unit"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 377,
+        "end": 381,
+        "type": "parameter",
+        "text": "size"
+      },
+      "overlaps": [
+        {
+          "start": 377,
+          "end": 381,
+          "tokenType": "variable",
+          "text": "size"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 393,
+        "end": 397,
+        "type": "variable",
+        "text": "unit"
+      },
+      "overlaps": [
+        {
+          "start": 393,
+          "end": 397,
+          "tokenType": "keyword",
+          "text": "unit"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 456,
+        "end": 460,
+        "type": "parameter",
+        "text": "sign"
+      },
+      "overlaps": [
+        {
+          "start": 456,
+          "end": 460,
+          "tokenType": "variable",
+          "text": "sign"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 485,
+        "end": 495,
+        "type": "string",
+        "text": "\"%+.1f %s\""
+      },
+      "overlaps": [
+        {
+          "start": 485,
+          "end": 486,
+          "tokenType": "string",
+          "text": "\""
+        },
+        {
+          "start": 486,
+          "end": 491,
+          "tokenType": "string",
+          "text": "%+.1f"
+        },
+        {
+          "start": 492,
+          "end": 495,
+          "tokenType": "string",
+          "text": "%s\""
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 505,
+        "end": 509,
+        "type": "variable",
+        "text": "unit"
+      },
+      "overlaps": [
+        {
+          "start": 505,
+          "end": 509,
+          "tokenType": "parameter",
+          "text": "unit"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 592,
+        "end": 596,
+        "type": "parameter",
+        "text": "size"
+      },
+      "overlaps": [
+        {
+          "start": 592,
+          "end": 596,
+          "tokenType": "variable",
+          "text": "size"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 683,
+        "end": 687,
+        "type": "parameter",
+        "text": "sign"
+      },
+      "overlaps": [
+        {
+          "start": 683,
+          "end": 687,
+          "tokenType": "variable",
+          "text": "sign"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 712,
+        "end": 722,
+        "type": "string",
+        "text": "\"%+.0f %s\""
+      },
+      "overlaps": [
+        {
+          "start": 712,
+          "end": 718,
+          "tokenType": "string",
+          "text": "\"%+.0f"
+        },
+        {
+          "start": 719,
+          "end": 722,
+          "tokenType": "string",
+          "text": "%s\""
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 779,
+        "end": 788,
+        "type": "string",
+        "text": "\"%.0f %s\""
+      },
+      "overlaps": [
+        {
+          "start": 779,
+          "end": 784,
+          "tokenType": "string",
+          "text": "\"%.0f"
+        },
+        {
+          "start": 785,
+          "end": 788,
+          "tokenType": "string",
+          "text": "%s\""
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 798,
+        "end": 802,
+        "type": "variable",
+        "text": "unit"
+      },
+      "overlaps": [
+        {
+          "start": 798,
+          "end": 802,
+          "tokenType": "parameter",
+          "text": "unit"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 812,
+        "end": 816,
+        "type": "parameter",
+        "text": "size"
+      },
+      "overlaps": [
+        {
+          "start": 812,
+          "end": 816,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "size"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 848,
+        "end": 937,
+        "type": "string",
+        "text": "\"\"\"\n    Statistic difference on memory allocations between two Snapshot instance.\n    \"\"\""
+      },
+      "overlaps": [
+        {
+          "start": 848,
+          "end": 851,
+          "tokenType": "string",
+          "text": "\"\"\""
+        },
+        {
+          "start": 856,
+          "end": 937,
+          "tokenType": "string",
+          "text": "Statistic difference on memory allocations between two Snapshot instance.\n    \"\"\""
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 1021,
+        "end": 1025,
+        "type": "parameter",
+        "text": "size"
+      },
+      "overlaps": [
+        {
+          "start": 1021,
+          "end": 1025,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "size"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 1271,
+        "end": 1280,
+        "type": "class",
+        "text": "Statistic"
+      },
+      "overlaps": [
+        {
+          "start": 1271,
+          "end": 1280,
+          "tokenType": "type",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "Statistic"
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 1498,
+        "end": 1521,
+        "type": "string",
+        "text": "\"%s: size=%s, count=%i\""
+      },
+      "overlaps": [
+        {
+          "start": 1498,
+          "end": 1512,
+          "tokenType": "string",
+          "text": "\"%s: size=%s, "
+        },
+        {
+          "start": 1512,
+          "end": 1521,
+          "tokenType": "string",
+          "text": "count=%i\""
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 1731,
+        "end": 1745,
+        "type": "string",
+        "text": "\", average=%s\""
+      },
+      "overlaps": [
+        {
+          "start": 1731,
+          "end": 1732,
+          "tokenType": "string",
+          "text": "\""
+        },
+        {
+          "start": 1732,
+          "end": 1733,
+          "tokenType": "punctuation",
+          "text": ","
+        },
+        {
+          "start": 1734,
+          "end": 1741,
+          "tokenType": "parameter",
+          "text": "average"
+        },
+        {
+          "start": 1741,
+          "end": 1745,
+          "tokenType": "string",
+          "text": "=%s\""
+        }
+      ]
+    },
+    {
+      "path": "tracemalloc.py",
+      "expected": {
+        "start": 2049,
+        "end": 2155,
+        "type": "string",
+        "text": "\"\"\"\n    Statistic difference on memory allocations between an old and a new\n    Snapshot instance.\n    \"\"\""
+      },
+      "overlaps": [
+        {
+          "start": 2049,
+          "end": 2052,
+          "tokenType": "string",
+          "text": "\"\"\""
+        },
+        {
+          "start": 2057,
+          "end": 2155,
+          "tokenType": "string",
+          "text": "Statistic difference on memory allocations between an old and a new\n    Snapshot instance.\n    \"\"\""
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 0,
+        "end": 1096,
+        "type": "string",
+        "text": "r\"\"\"Utilities to compile possibly incomplete Python source code.\n\nThis module provides two interfaces, broadly similar to the builtin\nfunction compile(), which take program text, a filename and a 'mode'\nand:\n\n- Return code object if the command is complete and valid\n- Return None if the command is incomplete\n- Raise SyntaxError, ValueError or OverflowError if the command is a\n  syntax error (OverflowError and ValueError can be produced by\n  malformed literals).\n\nThe two interfaces are:\n\ncompile_command(source, filename, symbol):\n\n    Compiles a single command in the manner described above.\n\nCommandCompiler():\n\n    Instances of this class have __call__ methods identical in\n    signature to compile_command; the difference is that if the\n    instance compiles program text containing a __future__ statement,\n    the instance 'remembers' and compiles all subsequent program texts\n    with the statement in force.\n\nThe module also provides another class:\n\nCompile():\n\n    Instances of this class act like the built-in function compile,\n    but with 'memory' in the sense described above.\n\"\"\""
+      },
+      "overlaps": [
+        {
+          "start": 0,
+          "end": 1,
+          "tokenType": "string",
+          "text": "r"
+        },
+        {
+          "start": 1,
+          "end": 486,
+          "tokenType": "string",
+          "text": "\"\"\"Utilities to compile possibly incomplete Python source code.\n\nThis module provides two interfaces, broadly similar to the builtin\nfunction compile(), which take program text, a filename and a 'mode'\nand:\n\n- Return code object if the command is complete and valid\n- Return None if the command is incomplete\n- Raise SyntaxError, ValueError or OverflowError if the command is a\n  syntax error (OverflowError and ValueError can be produced by\n  malformed literals).\n\nThe two interfaces "
+        },
+        {
+          "start": 486,
+          "end": 489,
+          "tokenType": "string",
+          "text": "are"
+        },
+        {
+          "start": 489,
+          "end": 490,
+          "tokenType": "punctuation",
+          "text": ":"
+        },
+        {
+          "start": 492,
+          "end": 507,
+          "tokenType": "function",
+          "text": "compile_command"
+        },
+        {
+          "start": 507,
+          "end": 508,
+          "tokenType": "punctuation",
+          "text": "("
+        },
+        {
+          "start": 508,
+          "end": 514,
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "source"
+        },
+        {
+          "start": 514,
+          "end": 515,
+          "tokenType": "punctuation",
+          "text": ","
+        },
+        {
+          "start": 516,
+          "end": 524,
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "filename"
+        },
+        {
+          "start": 524,
+          "end": 525,
+          "tokenType": "punctuation",
+          "text": ","
+        },
+        {
+          "start": 526,
+          "end": 532,
+          "tokenType": "type",
+          "text": "symbol"
+        },
+        {
+          "start": 532,
+          "end": 533,
+          "tokenType": "punctuation",
+          "text": ")"
+        },
+        {
+          "start": 533,
+          "end": 534,
+          "tokenType": "punctuation",
+          "text": ":"
+        },
+        {
+          "start": 536,
+          "end": 1019,
+          "tokenType": "string",
+          "text": "    Compiles a single command in the manner described above.\n\nCommandCompiler():\n\n    Instances of this class have __call__ methods identical in\n    signature to compile_command; the difference is that if the\n    instance compiles program text containing a __future__ statement,\n    the instance 'remembers' and compiles all subsequent program texts\n    with the statement in force.\n\nThe module also provides another class:\n\nCompile():\n\n    Instances of this class act like the built"
+        },
+        {
+          "start": 1019,
+          "end": 1096,
+          "tokenType": "string",
+          "text": "-in function compile,\n    but with 'memory' in the sense described above.\n\"\"\""
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 1154,
+        "end": 1164,
+        "type": "namespace",
+        "text": "__future__"
+      },
+      "overlaps": [
+        {
+          "start": 1154,
+          "end": 1164,
+          "tokenType": "variable",
+          "text": "__future__"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 1166,
+        "end": 1171,
+        "type": "variable",
+        "text": "fname"
+      },
+      "overlaps": [
+        {
+          "start": 1166,
+          "end": 1171,
+          "tokenType": "parameter",
+          "text": "fname"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 1199,
+        "end": 1209,
+        "type": "namespace",
+        "text": "__future__"
+      },
+      "overlaps": [
+        {
+          "start": 1199,
+          "end": 1209,
+          "tokenType": "variable",
+          "text": "__future__"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 1637,
+        "end": 1643,
+        "type": "parameter",
+        "text": "symbol"
+      },
+      "overlaps": [
+        {
+          "start": 1637,
+          "end": 1643,
+          "tokenType": "type",
+          "modifiers": [
+            "declaration",
+            "default-library"
+          ],
+          "text": "symbol"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 1645,
+        "end": 1650,
+        "type": "parameter",
+        "text": "flags"
+      },
+      "overlaps": [
+        {
+          "start": 1645,
+          "end": 1650,
+          "tokenType": "type",
+          "modifiers": [
+            "declaration",
+            "default-library"
+          ],
+          "text": "flags"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 1772,
+        "end": 1776,
+        "type": "variable",
+        "text": "line"
+      },
+      "overlaps": [
+        {
+          "start": 1772,
+          "end": 1776,
+          "tokenType": "parameter",
+          "text": "line"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 1796,
+        "end": 1800,
+        "type": "variable",
+        "text": "line"
+      },
+      "overlaps": [
+        {
+          "start": 1796,
+          "end": 1800,
+          "tokenType": "keyword",
+          "text": "line"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 1892,
+        "end": 1898,
+        "type": "parameter",
+        "text": "symbol"
+      },
+      "overlaps": [
+        {
+          "start": 1892,
+          "end": 1898,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "symbol"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 1922,
+        "end": 1928,
+        "type": "parameter",
+        "text": "source"
+      },
+      "overlaps": [
+        {
+          "start": 1922,
+          "end": 1928,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "source"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 2186,
+        "end": 2194,
+        "type": "parameter",
+        "text": "compiler"
+      },
+      "overlaps": [
+        {
+          "start": 2186,
+          "end": 2194,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "compiler"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 2336,
+        "end": 2344,
+        "type": "parameter",
+        "text": "compiler"
+      },
+      "overlaps": [
+        {
+          "start": 2336,
+          "end": 2344,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "compiler"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 2345,
+        "end": 2351,
+        "type": "parameter",
+        "text": "source"
+      },
+      "overlaps": [
+        {
+          "start": 2345,
+          "end": 2351,
+          "tokenType": "variable",
+          "text": "source"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 2584,
+        "end": 2592,
+        "type": "parameter",
+        "text": "compiler"
+      },
+      "overlaps": [
+        {
+          "start": 2584,
+          "end": 2592,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "compiler"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 2726,
+        "end": 2742,
+        "type": "parameter",
+        "text": "incomplete_input"
+      },
+      "overlaps": [
+        {
+          "start": 2726,
+          "end": 2742,
+          "tokenType": "variable",
+          "text": "incomplete_input"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 2752,
+        "end": 2757,
+        "type": "parameter",
+        "text": "flags"
+      },
+      "overlaps": [
+        {
+          "start": 2752,
+          "end": 2757,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "flags"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 2919,
+        "end": 2928,
+        "type": "string",
+        "text": "\"<input>\""
+      },
+      "overlaps": [
+        {
+          "start": 2919,
+          "end": 2921,
+          "tokenType": "string",
+          "text": "\"<"
+        },
+        {
+          "start": 2921,
+          "end": 2928,
+          "tokenType": "string",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "input>\""
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 2961,
+        "end": 3617,
+        "type": "string",
+        "text": "r\"\"\"Compile a command and determine whether it is incomplete.\n\n    Arguments:\n\n    source -- the source string; may contain \\n characters\n    filename -- optional filename from which source was read; default\n                \"<input>\"\n    symbol -- optional grammar start symbol; \"single\" (default), \"exec\"\n              or \"eval\"\n\n    Return value / exceptions raised:\n\n    - Return a code object if the command is complete and valid\n    - Return None if the command is incomplete\n    - Raise SyntaxError, ValueError or OverflowError if the command is a\n      syntax error (OverflowError and ValueError can be produced by\n      malformed literals).\n    \"\"\""
+      },
+      "overlaps": [
+        {
+          "start": 2961,
+          "end": 2962,
+          "tokenType": "string",
+          "text": "r"
+        },
+        {
+          "start": 2962,
+          "end": 3185,
+          "tokenType": "string",
+          "text": "\"\"\"Compile a command and determine whether it is incomplete.\n\n    Arguments:\n\n    source -- the source string; may contain \\n characters\n    filename -- optional filename from which source was read; default\n                "
+        },
+        {
+          "start": 3185,
+          "end": 3194,
+          "tokenType": "string",
+          "text": "\"<input>\""
+        },
+        {
+          "start": 3199,
+          "end": 3239,
+          "tokenType": "string",
+          "text": "symbol -- optional grammar start symbol;"
+        },
+        {
+          "start": 3240,
+          "end": 3266,
+          "tokenType": "string",
+          "text": "\"single\" (default), \"exec\""
+        },
+        {
+          "start": 3281,
+          "end": 3283,
+          "tokenType": "keyword",
+          "text": "or"
+        },
+        {
+          "start": 3284,
+          "end": 3290,
+          "tokenType": "string",
+          "text": "\"eval\""
+        },
+        {
+          "start": 3296,
+          "end": 3302,
+          "tokenType": "string",
+          "text": "Return"
+        },
+        {
+          "start": 3303,
+          "end": 3308,
+          "tokenType": "variable",
+          "text": "value"
+        },
+        {
+          "start": 3309,
+          "end": 3617,
+          "tokenType": "string",
+          "text": "/ exceptions raised:\n\n    - Return a code object if the command is complete and valid\n    - Return None if the command is incomplete\n    - Raise SyntaxError, ValueError or OverflowError if the command is a\n      syntax error (OverflowError and ValueError can be produced by\n      malformed literals).\n    \"\"\""
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 3644,
+        "end": 3652,
+        "type": "function",
+        "text": "_compile"
+      },
+      "overlaps": [
+        {
+          "start": 3644,
+          "end": 3652,
+          "tokenType": "parameter",
+          "text": "_compile"
+        }
+      ]
+    },
+    {
+      "path": "codeop.py",
+      "expected": {
+        "start": 4215,
+        "end": 4220,
+        "type": "parameter",
+        "text": "flags"
+      },
+      "overlaps": [
+        {
+          "start": 4215,
+          "end": 4220,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "flags"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 325,
+        "end": 344,
+        "type": "function",
+        "text": "decorating_function"
+      },
+      "overlaps": [
+        {
+          "start": 325,
+          "end": 344,
+          "tokenType": "method",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "decorating_function"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 403,
+        "end": 410,
+        "type": "function",
+        "text": "wrapper"
+      },
+      "overlaps": [
+        {
+          "start": 403,
+          "end": 410,
+          "tokenType": "method",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "wrapper"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 446,
+        "end": 455,
+        "type": "variable",
+        "text": "get_ident"
+      },
+      "overlaps": [
+        {
+          "start": 446,
+          "end": 455,
+          "tokenType": "function",
+          "text": "get_ident"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 517,
+        "end": 526,
+        "type": "parameter",
+        "text": "fillvalue"
+      },
+      "overlaps": [
+        {
+          "start": 517,
+          "end": 526,
+          "tokenType": "variable",
+          "text": "fillvalue"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 603,
+        "end": 616,
+        "type": "parameter",
+        "text": "user_function"
+      },
+      "overlaps": [
+        {
+          "start": 603,
+          "end": 616,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "user_function"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 635,
+        "end": 642,
+        "type": "keyword",
+        "text": "finally"
+      },
+      "overlaps": [
+        {
+          "start": 635,
+          "end": 642,
+          "tokenType": "parameter",
+          "text": "finally"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 792,
+        "end": 799,
+        "type": "function",
+        "text": "wrapper"
+      },
+      "overlaps": [
+        {
+          "start": 792,
+          "end": 799,
+          "tokenType": "variable",
+          "text": "wrapper"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 821,
+        "end": 834,
+        "type": "parameter",
+        "text": "user_function"
+      },
+      "overlaps": [
+        {
+          "start": 821,
+          "end": 834,
+          "tokenType": "variable",
+          "text": "user_function"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 858,
+        "end": 865,
+        "type": "function",
+        "text": "wrapper"
+      },
+      "overlaps": [
+        {
+          "start": 858,
+          "end": 865,
+          "tokenType": "variable",
+          "text": "wrapper"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 884,
+        "end": 897,
+        "type": "parameter",
+        "text": "user_function"
+      },
+      "overlaps": [
+        {
+          "start": 884,
+          "end": 897,
+          "tokenType": "variable",
+          "text": "user_function"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 918,
+        "end": 925,
+        "type": "function",
+        "text": "wrapper"
+      },
+      "overlaps": [
+        {
+          "start": 918,
+          "end": 925,
+          "tokenType": "variable",
+          "text": "wrapper"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 945,
+        "end": 958,
+        "type": "parameter",
+        "text": "user_function"
+      },
+      "overlaps": [
+        {
+          "start": 945,
+          "end": 958,
+          "tokenType": "variable",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "user_function"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 980,
+        "end": 987,
+        "type": "function",
+        "text": "wrapper"
+      },
+      "overlaps": [
+        {
+          "start": 980,
+          "end": 987,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "wrapper"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 1050,
+        "end": 1057,
+        "type": "function",
+        "text": "wrapper"
+      },
+      "overlaps": [
+        {
+          "start": 1050,
+          "end": 1057,
+          "tokenType": "parameter",
+          "text": "wrapper"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 1081,
+        "end": 1094,
+        "type": "parameter",
+        "text": "user_function"
+      },
+      "overlaps": [
+        {
+          "start": 1081,
+          "end": 1094,
+          "tokenType": "variable",
+          "text": "user_function"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 1126,
+        "end": 1133,
+        "type": "function",
+        "text": "wrapper"
+      },
+      "overlaps": [
+        {
+          "start": 1126,
+          "end": 1133,
+          "tokenType": "variable",
+          "text": "wrapper"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 1160,
+        "end": 1173,
+        "type": "parameter",
+        "text": "user_function"
+      },
+      "overlaps": [
+        {
+          "start": 1160,
+          "end": 1173,
+          "tokenType": "variable",
+          "text": "user_function"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 1206,
+        "end": 1213,
+        "type": "function",
+        "text": "wrapper"
+      },
+      "overlaps": [
+        {
+          "start": 1206,
+          "end": 1213,
+          "tokenType": "variable",
+          "text": "wrapper"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 1228,
+        "end": 1241,
+        "type": "parameter",
+        "text": "user_function"
+      },
+      "overlaps": [
+        {
+          "start": 1228,
+          "end": 1241,
+          "tokenType": "variable",
+          "text": "user_function"
+        }
+      ]
+    },
+    {
+      "path": "reprlib.py",
+      "expected": {
+        "start": 1257,
+        "end": 1264,
+        "type": "function",
+        "text": "wrapper"
+      },
+      "overlaps": [
+        {
+          "start": 1257,
+          "end": 1264,
+          "tokenType": "variable",
+          "text": "wrapper"
+        }
+      ]
+    }
+  ]
+}
