@@ -225,6 +225,9 @@ importers:
       '@typescript/native':
         specifier: npm:typescript@^7.0.2
         version: typescript@7.0.2
+      entities:
+        specifier: 9.0.0
+        version: 9.0.0
       eslint:
         specifier: ^10.10.0
         version: 10.10.0
@@ -234,6 +237,9 @@ importers:
       eslint-plugin-vue:
         specifier: ^10.11.0
         version: 10.11.0(@typescript-eslint/parser@8.69.0(@typescript/typescript6@6.0.2)(eslint@10.10.0))(eslint@10.10.0)(vue-eslint-parser@10.4.1(eslint@10.10.0))
+      parse5-sax-parser:
+        specifier: 8.0.0
+        version: 8.0.0
       prettier:
         specifier: ^3.9.6
         version: 3.9.6
@@ -1147,6 +1153,10 @@ packages:
     resolution: {integrity: sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA==}
     engines: {node: '>=0.12'}
 
+  entities@9.0.0:
+    resolution: {integrity: sha512-oJFNDJg3kTPwAD1cNn2+WmUq4wFoo09npc3Ydf1D7ED4smRiWrsKnaLxykrTWgyGEcusc87P5dxlAleol9kpkg==}
+    engines: {node: '>=20.19.0'}
+
   es-module-lexer@2.3.2:
     resolution: {integrity: sha512-poHGpORABojJJucnV9KbOavETW8lBVnphkW77ER5/BQ5Fz7oXSoCNek7IH3vR5nRjdsEz926ibFYX8KtLQmdyw==}
 
@@ -1445,6 +1455,12 @@ packages:
   p-locate@5.0.0:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
+
+  parse5-sax-parser@8.0.0:
+    resolution: {integrity: sha512-/dQ8UzHZwnrzs3EvDj6IkKrD/jIZyTlB+8XrHJvcjNgRdmWruNdN9i9RK/JtxakmlUdPwKubKPTCqvbTgzGhrw==}
+
+  parse5@8.1.0:
+    resolution: {integrity: sha512-sq3qBFpee5jeocbFbO48VHlGr8sT7mbXS0vxlKN6sottBtJzrOG3998sr0llSZcQAGgfpdmEYAIZE0P9z0dE8w==}
 
   path-browserify@1.0.1:
     resolution: {integrity: sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==}
@@ -2405,6 +2421,8 @@ snapshots:
 
   entities@7.0.1: {}
 
+  entities@9.0.0: {}
+
   es-module-lexer@2.3.2: {}
 
   esbuild@0.28.2:
@@ -2698,6 +2716,14 @@ snapshots:
   p-locate@5.0.0:
     dependencies:
       p-limit: 3.1.0
+
+  parse5-sax-parser@8.0.0:
+    dependencies:
+      parse5: 8.1.0
+
+  parse5@8.1.0:
+    dependencies:
+      entities: 9.0.0
 
   path-browserify@1.0.1: {}
 
