@@ -380,3 +380,65 @@ challenge-powershell:
 export-powershell-model:
 	@test -n "$(POWERSHELL_CHECKPOINT)" -a -n "$(POWERSHELL_TEST_REPORT)" || (echo 'Set POWERSHELL_CHECKPOINT and POWERSHELL_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.powershell.export_model --checkpoint "$(POWERSHELL_CHECKPOINT)" --test-report "$(POWERSHELL_TEST_REPORT)"
+
+BAT_DEVICE ?= auto
+BAT_EPOCHS ?= 3
+BAT_BATCH_SIZE ?= 32
+BAT_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-bat dataset-bat-sources dataset-bat-curriculum dataset-bat-collect dataset-bat-label dataset-bat-validate dataset-bat-prepare test-labeling-bat train-bat-smoke train-bat continue-bat predict-bat evaluate-bat challenge-bat export-bat-model
+
+dataset-bat-sources:
+	$(PYTHON) -m packs.bat.dataset.fetch_sources
+
+dataset-bat:
+	$(MAKE) dataset-bat-sources
+	$(MAKE) dataset-bat-curriculum
+	$(MAKE) dataset-bat-collect
+	$(MAKE) dataset-bat-label
+	$(MAKE) dataset-bat-validate
+	$(MAKE) dataset-bat-prepare
+
+dataset-bat-curriculum:
+	$(PYTHON) -m packs.bat.dataset.generate_curriculum
+
+dataset-bat-collect:
+	$(PYTHON) -m packs.bat.dataset.pipeline collect
+
+dataset-bat-label:
+	$(PYTHON) -m packs.bat.dataset.pipeline label
+
+dataset-bat-validate:
+	$(PYTHON) -m packs.bat.dataset.pipeline validate
+
+dataset-bat-prepare:
+	$(PYTHON) -m training.bat.prepare
+
+test-labeling-bat:
+	$(PYTHON) -m unittest discover -s packs/bat/tests -v
+
+train-bat-smoke:
+	$(PYTHON) -m training.bat.train --smoke --epochs 1 --device $(BAT_DEVICE) $(if $(BAT_RUN),--output-dir "$(BAT_RUN)") $(if $(BAT_INIT_FROM),--init-from "$(BAT_INIT_FROM)")
+
+train-bat:
+	$(PYTHON) -m training.bat.train --epochs $(BAT_EPOCHS) --device $(BAT_DEVICE) --batch-size $(BAT_BATCH_SIZE) $(if $(BAT_RUN),--output-dir "$(BAT_RUN)") $(if $(BAT_INIT_FROM),--init-from "$(BAT_INIT_FROM)")
+
+continue-bat:
+	@test -n "$(BAT_CHECKPOINT)" || (echo 'Set BAT_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.bat.train --resume "$(BAT_CHECKPOINT)" --epochs $(BAT_EPOCHS) --device $(BAT_DEVICE)
+
+predict-bat:
+	@test -n "$(BAT_SOURCE)" || (echo 'Set BAT_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.bat.predict --device $(BAT_DEVICE) --file "$(BAT_SOURCE)" $(if $(BAT_CHECKPOINT),--checkpoint "$(BAT_CHECKPOINT)")
+
+evaluate-bat:
+	@test -n "$(BAT_CHECKPOINT)" || (echo 'Set BAT_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.bat.evaluate --checkpoint "$(BAT_CHECKPOINT)" --device $(BAT_DEVICE) --split $(BAT_EVAL_SPLIT)
+
+challenge-bat:
+	@test -n "$(BAT_CHECKPOINT)" || (echo 'Set BAT_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.bat.challenge --checkpoint "$(BAT_CHECKPOINT)" --device $(BAT_DEVICE)
+
+export-bat-model:
+	@test -n "$(BAT_CHECKPOINT)" -a -n "$(BAT_TEST_REPORT)" || (echo 'Set BAT_CHECKPOINT and BAT_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.bat.export_model --checkpoint "$(BAT_CHECKPOINT)" --test-report "$(BAT_TEST_REPORT)"

@@ -1,0 +1,17 @@
+{
+  "label": "BAT / CMD",
+  "profiles": ["bat"],
+  "scope": "bat-local-semantic-spans",
+  "contextBytes": 512,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": ["comment", "string"],
+    "modifierRoles": {
+      "declaration": ["function", "variable"],
+      "default-library": ["function"]
+    }
+  },
+  "requiredTrainingFeatures": {
+    "bat": ["variables", "loops", "labels", "conditionals", "strings"]
+  },
+  "minimumTrainingFeatureGroups": 3
+}
