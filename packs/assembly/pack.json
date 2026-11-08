@@ -1,0 +1,20 @@
+{
+  "label": "Assembly",
+  "profiles": ["nasm", "gas", "masm", "aarch64"],
+  "scope": "assembly-local-semantic-spans",
+  "contextBytes": 512,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": ["comment"],
+    "modifierRoles": {
+      "declaration": ["function", "variable"],
+      "default-library": ["variable"]
+    }
+  },
+  "requiredTrainingFeatures": {
+    "nasm": ["instructions", "registers", "labels", "directives", "numbers", "strings"],
+    "gas": ["instructions", "registers", "labels", "directives", "numbers", "strings"],
+    "masm": ["instructions", "registers", "labels", "directives", "numbers", "strings"],
+    "aarch64": ["instructions", "registers", "labels", "directives", "numbers", "strings"]
+  },
+  "minimumTrainingFeatureGroups": 3
+}

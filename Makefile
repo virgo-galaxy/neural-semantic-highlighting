@@ -149,12 +149,15 @@ check:
 	$(MAKE) test-labeling-sql
 	$(MAKE) test-labeling-powershell
 	$(MAKE) test-labeling-bat
+	$(MAKE) test-labeling-assembly
 	$(PYTHON) -m compileall -q training/sql packs/sql/runtime
 	$(PYTHON) -m compileall -q training/powershell packs/powershell/runtime
 	$(PYTHON) -m compileall -q training/bat packs/bat/runtime
+	$(PYTHON) -m compileall -q training/assembly packs/assembly/runtime
 	$(PYTHON) -c 'import packs.sql.runtime.local'
 	$(PYTHON) -c 'import packs.powershell.runtime.local'
 	$(PYTHON) -c 'import packs.bat.runtime.local'
+	$(PYTHON) -c 'import packs.assembly.runtime.local'
 	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime training/go packs/go/runtime training/css
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'

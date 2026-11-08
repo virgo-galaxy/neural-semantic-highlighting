@@ -1,0 +1,122 @@
+[
+  {
+    "id": "nasm-registers",
+    "profile": "nasm",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|mov\u27e7 \u27e6variable+default-library|rax\u27e7\u27e6punctuation|,\u27e7 \u27e6variable+default-library|rdi\u27e7\n\u27e6keyword|add\u27e7 \u27e6variable+default-library|rax\u27e7\u27e6punctuation|,\u27e7 \u27e6number|42\u27e7\n\u27e6keyword|ret\u27e7\n"
+  },
+  {
+    "id": "nasm-label",
+    "profile": "nasm",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|global\u27e7 \u27e6function|entry\u27e7\n\u27e6function+declaration|entry\u27e7\u27e6punctuation|:\u27e7\n \u27e6keyword|jmp\u27e7 \u27e6function|entry\u27e7 \u27e6comment|; loop\u27e7\n"
+  },
+  {
+    "id": "nasm-data",
+    "profile": "nasm",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|section\u27e7 \u27e6variable|.data\u27e7\n\u27e6variable+declaration|message\u27e7 \u27e6keyword|db\u27e7 \u27e6string|\"Ready\"\u27e7\u27e6punctuation|,\u27e7 \u27e6number|0\u27e7\n"
+  },
+  {
+    "id": "nasm-macro",
+    "profile": "nasm",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|%macro\u27e7 \u27e6function+declaration|bump\u27e7 \u27e6number|1\u27e7\n \u27e6keyword|add\u27e7 \u27e6variable+default-library|rax\u27e7\u27e6punctuation|,\u27e7 \u27e6parameter|%1\u27e7\n\u27e6keyword|%endmacro\u27e7\n"
+  },
+  {
+    "id": "nasm-sized-memory",
+    "profile": "nasm",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|mov\u27e7 \u27e6type|qword\u27e7 \u27e6punctuation|[\u27e7\u27e6variable+default-library|rdi\u27e7 \u27e6operator|+\u27e7 \u27e6number|8\u27e7\u27e6punctuation|]\u27e7\u27e6punctuation|,\u27e7 \u27e6number|0FFh\u27e7\n"
+  },
+  {
+    "id": "gas-att",
+    "profile": "gas",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|.text\u27e7\n\u27e6function+declaration|add_one\u27e7\u27e6punctuation|:\u27e7\n \u27e6keyword|movq\u27e7 \u27e6variable+default-library|%rdi\u27e7\u27e6punctuation|,\u27e7 \u27e6variable+default-library|%rax\u27e7\n \u27e6keyword|addq\u27e7 \u27e6operator|$\u27e7\u27e6number|1\u27e7\u27e6punctuation|,\u27e7 \u27e6variable+default-library|%rax\u27e7 \u27e6comment|# amount\u27e7\n \u27e6keyword|ret\u27e7\n"
+  },
+  {
+    "id": "gas-numeric-label",
+    "profile": "gas",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6function+declaration|1\u27e7\u27e6punctuation|:\u27e7 \u27e6keyword|subq\u27e7 \u27e6operator|$\u27e7\u27e6number|1\u27e7\u27e6punctuation|,\u27e7 \u27e6variable+default-library|%rcx\u27e7\n \u27e6keyword|jnz\u27e7 \u27e6function|1b\u27e7\n"
+  },
+  {
+    "id": "gas-string",
+    "profile": "gas",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|.section\u27e7 \u27e6variable|.rodata\u27e7\n\u27e6keyword|.asciz\u27e7 \u27e6string|\"Hello\\n\"\u27e7\n"
+  },
+  {
+    "id": "gas-preprocessor",
+    "profile": "gas",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|#include\u27e7 \u27e6string|\"symbols.inc\"\u27e7\n\u27e6keyword|#define\u27e7 \u27e6variable+declaration|LIMIT\u27e7 \u27e6number|16\u27e7\n"
+  },
+  {
+    "id": "gas-intel-mode",
+    "profile": "gas",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|.intel_syntax\u27e7 \u27e6variable|noprefix\u27e7\n\u27e6keyword|mov\u27e7 \u27e6variable+default-library|rax\u27e7\u27e6punctuation|,\u27e7 \u27e6type|QWORD\u27e7 \u27e6type|PTR\u27e7 \u27e6punctuation|[\u27e7\u27e6variable+default-library|rdi\u27e7\u27e6operator|+\u27e7\u27e6number|8\u27e7\u27e6punctuation|]\u27e7\n"
+  },
+  {
+    "id": "masm-procedure",
+    "profile": "masm",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|.code\u27e7\n\u27e6function+declaration|ReadCount\u27e7 \u27e6keyword|PROC\u27e7\n \u27e6keyword|mov\u27e7 \u27e6variable+default-library|eax\u27e7\u27e6punctuation|,\u27e7 \u27e6number|2Ah\u27e7\n \u27e6keyword|ret\u27e7\n\u27e6function|ReadCount\u27e7 \u27e6keyword|ENDP\u27e7\n\u27e6keyword|END\u27e7\n"
+  },
+  {
+    "id": "masm-typed-data",
+    "profile": "masm",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|.data\u27e7\n\u27e6variable+declaration|count\u27e7 \u27e6keyword|DWORD\u27e7 \u27e6number|7\u27e7\n\u27e6variable+declaration|title\u27e7 \u27e6keyword|BYTE\u27e7 \u27e6string|\"Virgo\"\u27e7\u27e6punctuation|,\u27e7 \u27e6number|0\u27e7\n"
+  },
+  {
+    "id": "masm-frame",
+    "profile": "masm",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6function+declaration|SaveState\u27e7 \u27e6keyword|PROC\u27e7 \u27e6keyword|FRAME\u27e7\n \u27e6keyword|sub\u27e7 \u27e6variable+default-library|rsp\u27e7\u27e6punctuation|,\u27e7 \u27e6number|40\u27e7\n \u27e6keyword|.allocstack\u27e7 \u27e6number|40\u27e7\n \u27e6keyword|.endprolog\u27e7\n\u27e6function|SaveState\u27e7 \u27e6keyword|ENDP\u27e7\n"
+  },
+  {
+    "id": "masm-macro",
+    "profile": "masm",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6function+declaration|INC_VALUE\u27e7 \u27e6keyword|MACRO\u27e7 \u27e6variable|value\u27e7\n \u27e6keyword|add\u27e7 \u27e6variable+default-library|rax\u27e7\u27e6punctuation|,\u27e7 \u27e6variable|value\u27e7\n\u27e6keyword|ENDM\u27e7\n"
+  },
+  {
+    "id": "aarch64-immediate",
+    "profile": "aarch64",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|add\u27e7 \u27e6variable+default-library|x0\u27e7\u27e6punctuation|,\u27e7 \u27e6variable+default-library|x1\u27e7\u27e6punctuation|,\u27e7 \u27e6operator|#\u27e7 \u27e6number|12\u27e7 \u27e6comment|// value\u27e7\n\u27e6keyword|svc\u27e7 \u27e6operator|#\u27e7\u27e6number|0\u27e7\n"
+  },
+  {
+    "id": "aarch64-stack",
+    "profile": "aarch64",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|stp\u27e7 \u27e6variable+default-library|x29\u27e7\u27e6punctuation|,\u27e7 \u27e6variable+default-library|x30\u27e7\u27e6punctuation|,\u27e7 \u27e6punctuation|[\u27e7\u27e6variable+default-library|sp\u27e7\u27e6punctuation|,\u27e7 \u27e6operator|#\u27e7\u27e6operator|-\u27e7\u27e6number|16\u27e7\u27e6punctuation|]\u27e7\u27e6operator|!\u27e7\n"
+  },
+  {
+    "id": "aarch64-vector",
+    "profile": "aarch64",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|add\u27e7 \u27e6variable+default-library|v0.4s\u27e7\u27e6punctuation|,\u27e7 \u27e6variable+default-library|v1.4s\u27e7\u27e6punctuation|,\u27e7 \u27e6variable+default-library|v2.4s\u27e7\n\u27e6keyword|ldr\u27e7 \u27e6variable+default-library|q0\u27e7\u27e6punctuation|,\u27e7 \u27e6punctuation|[\u27e7\u27e6variable+default-library|x1\u27e7\u27e6punctuation|]\u27e7\n"
+  },
+  {
+    "id": "aarch64-macro",
+    "profile": "aarch64",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6keyword|.macro\u27e7 \u27e6function+declaration|increment\u27e7 \u27e6variable|amount\u27e7\n \u27e6keyword|add\u27e7 \u27e6variable+default-library|x0\u27e7\u27e6punctuation|,\u27e7 \u27e6variable+default-library|x0\u27e7\u27e6punctuation|,\u27e7 \u27e6operator|#\u27e7\u27e6parameter|\\amount\u27e7\n\u27e6keyword|.endm\u27e7\n"
+  },
+  {
+    "id": "unicode-crlf",
+    "profile": "nasm",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6comment|; \u661f\u7a7a \ud83c\udf0c\u27e7\r\n\u27e6variable+declaration|text\u27e7 \u27e6keyword|db\u27e7 \u27e6string|\"\u4f60\u597d \ud83d\ude80\"\u27e7\u27e6punctuation|,\u27e7 \u27e6number|0\u27e7\r\n"
+  },
+  {
+    "id": "block-comment",
+    "profile": "aarch64",
+    "documentKind": "assembly",
+    "markedSource": "\u27e6comment|/* source\n   note */\u27e7\n\u27e6keyword|ret\u27e7\n"
+  }
+]

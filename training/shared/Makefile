@@ -443,3 +443,66 @@ challenge-bat:
 export-bat-model:
 	@test -n "$(BAT_CHECKPOINT)" -a -n "$(BAT_TEST_REPORT)" || (echo 'Set BAT_CHECKPOINT and BAT_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.bat.export_model --checkpoint "$(BAT_CHECKPOINT)" --test-report "$(BAT_TEST_REPORT)"
+
+ASSEMBLY_DEVICE ?= auto
+ASSEMBLY_EPOCHS ?= 3
+ASSEMBLY_BATCH_SIZE ?= 32
+ASSEMBLY_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-assembly dataset-assembly-sources dataset-assembly-curriculum dataset-assembly-collect dataset-assembly-label dataset-assembly-validate dataset-assembly-prepare test-labeling-assembly train-assembly-smoke train-assembly continue-assembly predict-assembly evaluate-assembly challenge-assembly export-assembly-model
+
+dataset-assembly-sources:
+	$(PYTHON) -m training.shared.offline_tools
+	$(PYTHON) -m packs.assembly.dataset.fetch_sources
+
+dataset-assembly:
+	$(MAKE) dataset-assembly-sources
+	$(MAKE) dataset-assembly-curriculum
+	$(MAKE) dataset-assembly-collect
+	$(MAKE) dataset-assembly-label
+	$(MAKE) dataset-assembly-validate
+	$(MAKE) dataset-assembly-prepare
+
+dataset-assembly-curriculum:
+	$(PYTHON) -m packs.assembly.dataset.generate_curriculum
+
+dataset-assembly-collect:
+	$(PYTHON) -m packs.assembly.dataset.pipeline collect
+
+dataset-assembly-label:
+	$(PYTHON) -m packs.assembly.dataset.pipeline label
+
+dataset-assembly-validate:
+	$(PYTHON) -m packs.assembly.dataset.pipeline validate
+
+dataset-assembly-prepare:
+	$(PYTHON) -m training.assembly.prepare
+
+test-labeling-assembly:
+	$(PYTHON) -m unittest discover -s packs/assembly/tests -v
+
+train-assembly-smoke:
+	$(PYTHON) -m training.assembly.train --smoke --epochs 1 --device $(ASSEMBLY_DEVICE) $(if $(ASSEMBLY_RUN),--output-dir "$(ASSEMBLY_RUN)") $(if $(ASSEMBLY_INIT_FROM),--init-from "$(ASSEMBLY_INIT_FROM)")
+
+train-assembly:
+	$(PYTHON) -m training.assembly.train --epochs $(ASSEMBLY_EPOCHS) --device $(ASSEMBLY_DEVICE) --batch-size $(ASSEMBLY_BATCH_SIZE) $(if $(ASSEMBLY_RUN),--output-dir "$(ASSEMBLY_RUN)") $(if $(ASSEMBLY_INIT_FROM),--init-from "$(ASSEMBLY_INIT_FROM)")
+
+continue-assembly:
+	@test -n "$(ASSEMBLY_CHECKPOINT)" || (echo 'Set ASSEMBLY_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.assembly.train --resume "$(ASSEMBLY_CHECKPOINT)" --epochs $(ASSEMBLY_EPOCHS) --device $(ASSEMBLY_DEVICE)
+
+predict-assembly:
+	@test -n "$(ASSEMBLY_SOURCE)" || (echo 'Set ASSEMBLY_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.assembly.predict --device $(ASSEMBLY_DEVICE) --file "$(ASSEMBLY_SOURCE)" $(if $(ASSEMBLY_CHECKPOINT),--checkpoint "$(ASSEMBLY_CHECKPOINT)")
+
+evaluate-assembly:
+	@test -n "$(ASSEMBLY_CHECKPOINT)" || (echo 'Set ASSEMBLY_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.assembly.evaluate --checkpoint "$(ASSEMBLY_CHECKPOINT)" --device $(ASSEMBLY_DEVICE) --split $(ASSEMBLY_EVAL_SPLIT)
+
+challenge-assembly:
+	@test -n "$(ASSEMBLY_CHECKPOINT)" || (echo 'Set ASSEMBLY_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.assembly.challenge --checkpoint "$(ASSEMBLY_CHECKPOINT)" --device $(ASSEMBLY_DEVICE)
+
+export-assembly-model:
+	@test -n "$(ASSEMBLY_CHECKPOINT)" -a -n "$(ASSEMBLY_TEST_REPORT)" || (echo 'Set ASSEMBLY_CHECKPOINT and ASSEMBLY_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.assembly.export_model --checkpoint "$(ASSEMBLY_CHECKPOINT)" --test-report "$(ASSEMBLY_TEST_REPORT)"
