@@ -63,7 +63,7 @@ describe("CSS family offline Gold", () => {
   it("rejects syntax errors and unsupported kinds instead of emitting partial Gold", () => {
     expect(() => labelCss({ source: ".x { color: red;", documentKind: "css" })).toThrow();
     expect(() => labelCss({ source: "a {", documentKind: "scss" })).toThrow();
-    expect(() => labelCss({ source: ".x {}", documentKind: "less" })).toThrow();
+    expect(() => labelCss({ source: ".x {}", documentKind: "stylus" })).toThrow();
     expect(() => labelCss({ source: "$gap: 1px;", documentKind: "css" })).toThrow();
   });
 

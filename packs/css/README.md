@@ -1,6 +1,6 @@
 # CSS family pack
 
-One semantic pack and one shared neural model for CSS and SCSS. The document kinds
+One semantic pack and one shared neural model for CSS, SCSS and Less. The document kinds
 remain separate so data coverage and evaluation can be inspected for each syntax.
 The existing TypeScript-family and Go packs are independent and unchanged.
 
@@ -10,7 +10,9 @@ The existing TypeScript-family and Go packs are independent and unchanged.
   properties, functions, at-rules, queries, nesting, comments, and strings.
 - `scss`: CSS-compatible source plus Sass variables, parameters, mixin/function
   declarations and calls, module references, directives, and interpolation.
-- Indented `.sass` syntax, Less, Stylus, and embedded style sections are outside
+- `less`: CSS-compatible source plus Less variables, parameterized mixins, guards,
+  detached rulesets, imports and interpolation. Offline tools never execute Less.
+- Indented `.sass` syntax, Stylus, and embedded style sections are outside
   this initial pack. A source extension is not evidence of equal measured quality.
 
 See [SEMANTICS.md](SEMANTICS.md) for exact local roles and span boundaries.
@@ -58,3 +60,20 @@ The CSS/SCSS pack is under development. No CSS model has been selected yet.
 Golden correctness and a successful smoke run do not establish trained-model
 quality. Existing Playground models remain the selected TypeScript and Go artifacts.
 The repository remains private.
+
+## Acceptance and stopping
+
+Aim for stable real-source highlighting comparable to the existing TS/Go baseline,
+with measured, documented remaining limitations. Inspect each document kind and
+important role, not only an aggregate score. Repeated zero-support categories are
+coverage gaps, not proof of accuracy. A tiny pathological lane is a diagnostic,
+not a requirement to keep collecting data or training indefinitely.
+
+Use short experiments first, inspect validation and real-source errors, then
+continue only while useful improvements justify the next budget. Stop at a
+reviewed usable candidate or a plateau. Final long training is reserved for a
+frozen, promising setup. Golden offset correctness, split isolation and checkpoint
+integrity remain strict even when model predictions have accepted imperfections.
+
+Short runs may be observed in the current chat. Give estimates for longer runs;
+keep logs and resumable checkpoints durable across interrupted chats.

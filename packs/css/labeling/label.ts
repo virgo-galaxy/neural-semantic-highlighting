@@ -1,7 +1,11 @@
 import { createRequire } from "node:module";
 
 import type { HighlightRequest, HighlightResult, SemanticSpan } from "@nsh/core";
-import { getCSSLanguageService, getSCSSLanguageService } from "vscode-css-languageservice";
+import {
+  getCSSLanguageService,
+  getLESSLanguageService,
+  getSCSSLanguageService,
+} from "vscode-css-languageservice";
 import { TextDocument } from "vscode-languageserver-textdocument";
 
 // The public language service does not expose lexical spans. These narrow
@@ -51,7 +55,14 @@ const scssScanner = require("vscode-css-languageservice/lib/umd/parser/scssScann
   InterpolationFunction: number;
 };
 
-const services = { css: getCSSLanguageService(), scss: getSCSSLanguageService() };
+const { LESSScanner } = require("vscode-css-languageservice/lib/umd/parser/lessScanner.js") as {
+  LESSScanner: new () => Scanner;
+};
+const services = {
+  css: getCSSLanguageService(),
+  scss: getSCSSLanguageService(),
+  less: getLESSLanguageService(),
+};
 const numericTokens = new Set(
   [
     "Num",
@@ -87,7 +98,7 @@ interface Candidate extends SemanticSpan {
 
 /** Construct local-role Gold without compiling Sass, resolving imports, or executing code. */
 export function labelCss({ source, documentKind }: HighlightRequest): HighlightResult {
-  if (documentKind !== "css" && documentKind !== "scss") {
+  if (documentKind !== "css" && documentKind !== "scss" && documentKind !== "less") {
     throw new Error("Unsupported CSS document kind: " + documentKind);
   }
   if (!source.length) return { offsetEncoding: "utf-16", spans: [] };
@@ -120,7 +131,12 @@ export function labelCss({ source, documentKind }: HighlightRequest): HighlightR
       ...(declaration ? { modifiers: ["declaration"] } : {}),
     });
   };
-  const scan = documentKind === "scss" ? new scssScanner.SCSSScanner() : new CSSScanner();
+  const scan =
+    documentKind === "scss"
+      ? new scssScanner.SCSSScanner()
+      : documentKind === "less"
+        ? new LESSScanner()
+        : new CSSScanner();
   scan.ignoreWhitespace = false;
   scan.ignoreComment = false;
   scan.setSource(source);
@@ -136,7 +152,11 @@ export function labelCss({ source, documentKind }: HighlightRequest): HighlightR
     const end = token.offset + token.len;
     if (token.type === tokens.Comment || token.type === tokens.SingleLineComment) {
       add(token.offset, end, "comment", 100);
-    } else if (token.type === tokens.String || token.type === tokens.UnquotedString) {
+    } else if (
+      token.type === tokens.String ||
+      token.type === tokens.UnquotedString ||
+      token.type === tokens.EscapedJavaScript
+    ) {
       add(token.offset, end, "string", 90);
     } else if (numericTokens.has(token.type)) {
       add(token.offset, end, "number", 20);
@@ -198,8 +218,12 @@ export function labelCss({ source, documentKind }: HighlightRequest): HighlightR
         parameter || parent === nodes.VariableDeclaration,
       );
     } else if (kind === nodes.Interpolation) {
-      add(start, start + 2, "punctuation", 70);
-      add(end - 1, end, "punctuation", 70);
+      if (documentKind === "less") {
+        add(start, end, "variable", 65);
+      } else {
+        add(start, start + 2, "punctuation", 70);
+        add(end - 1, end, "punctuation", 70);
+      }
     } else if (kind === nodes.PseudoSelector) {
       const name = node.getChildren().find((child) => child.type === nodes.Identifier);
       if (name) add(start, name.offset + name.length, "function", 40);
