@@ -505,4 +505,3 @@ export-vue-model:
 	@test -n "$(VUE_CHECKPOINT)" || (echo 'Set VUE_CHECKPOINT to the reviewed best.pt'; exit 1)
 	@test -n "$(VUE_TEST_REPORT)" || (echo 'Set VUE_TEST_REPORT to its held-out adaptive test report'; exit 1)
 	$(PYTHON) -m training.vue.export_model --checkpoint "$(VUE_CHECKPOINT)" --test-report "$(VUE_TEST_REPORT)"
-

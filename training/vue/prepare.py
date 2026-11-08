@@ -108,7 +108,7 @@ def assign_groups(weights: dict[str, Counter], seed: int) -> dict[str, str]:
     return {group: SPLITS[index] for group, index in assigned.items()}
 
 
-def prepare(root: Path, *, seed: int = 1729) -> dict:
+def prepare(root: Path, *, seed: int = 1729, groups_file: Path | None = None) -> dict:
     root = root.expanduser().resolve()
     output = root / "prepared"
     output.mkdir(parents=True, exist_ok=True)
@@ -133,8 +133,13 @@ def prepare(root: Path, *, seed: int = 1729) -> dict:
             raise ValueError("Gold semantic contract changed; create a new Gold snapshot")
         builder_hashes = {name: file_hash(Path(__file__).with_name(name))
                           for name in ("prepare.py", "encoding.py", "io.py")}
+        groups_file = groups_file or REPOSITORY / "packs/vue/dataset/split-groups.json"
+        frozen_groups = json.loads(groups_file.read_text())
+        if frozen_groups.get("format") != "nsh-vue-split-groups-v1" or any(value not in SPLITS for value in frozen_groups["assignments"].values()):
+            raise ValueError("Invalid frozen Vue source-family assignments")
         identity = {"format": FORMAT, "gold": pointer["manifestHash"], "schema": file_hash(schema_path),
-                    "builders": builder_hashes, "contextBytes": 512, "seed": seed, "semanticContractHash": semantic_hash}
+                    "builders": builder_hashes, "fixedGroupsHash": file_hash(groups_file),
+                    "contextBytes": 512, "seed": seed, "semanticContractHash": semantic_hash}
         snapshot = hashlib.sha256(dumps(identity).encode()).hexdigest()
         target = output / snapshot
         if target.exists():
@@ -187,6 +192,11 @@ def prepare(root: Path, *, seed: int = 1729) -> dict:
             weights[record["sourceGroup"]][record["documentKind"] + ":" + record["stream"]] += len(fixed)
             weights[record["sourceGroup"]]["profile:" + record["profile"] + ":" + record["stream"]] += len(fixed)
         assignments = assign_groups(dict(weights), seed)
+        assignments.update({group: split for group, split in frozen_groups["assignments"].items() if group in weights})
+        for split in SPLITS:
+            for axis in {axis for value in weights.values() for axis in value}:
+                if not any(counts[axis] for group, counts in weights.items() if assignments[group] == split):
+                    raise ValueError("Frozen groups leave missing coverage: " + split + ":" + axis)
         for profile in ("vue2", "vue3", "vue3.2"):
             for stream in ("natural", "focus"):
                 axis = "profile:" + profile + ":" + stream
@@ -230,7 +240,8 @@ def prepare(root: Path, *, seed: int = 1729) -> dict:
                     "modifierSupervision": "span-beginnings", "continuationBytes": "ignored"},
                 "policy": {"split": "intact-source-directories-before-windowing",
                     "trainingWindowing": "gold-adaptive-cursor", "evaluationWindowing": "character-safe-fixed-cursor",
-                    "crossGroupCopies": "excluded", "targetRatios": [.8, .1, .1], "balanceAxes": "document-kind-stream-and-profile"},
+                    "crossGroupCopies": "excluded", "targetRatios": [.8, .1, .1], "balanceAxes": "document-kind-stream-and-profile",
+                    "fixedSourceGroupsHash": file_hash(groups_file)},
                 "inputDocuments": manifest["files"], "uniqueDocuments": len(records),
                 "exactDuplicateRecords": manifest["files"] - len(records), "excludedCopyDocuments": len(excluded),
                 "retainedDocuments": sum(value["documents"] for value in statistics.values()),
@@ -247,8 +258,9 @@ def prepare(root: Path, *, seed: int = 1729) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=dataset_root(), help="Vue dataset directory, not its parent")
+    parser.add_argument("--groups-file", type=Path)
     args = parser.parse_args()
-    print(json.dumps(prepare(args.root), indent=2))
+    print(json.dumps(prepare(args.root, groups_file=args.groups_file), indent=2))
 
 
 if __name__ == "__main__":

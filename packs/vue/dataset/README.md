@@ -31,3 +31,14 @@ SFC templates support self-closing components/elements; all other parse errors
 remain failures. Gold failures retain source and reasons in quarantine. The
 dependency lock, labeler, schema, semantic contract, grouping and byte-builder
 hashes bind each snapshot. Evaluation windows never use Gold cuts.
+
+`split-groups.json` freezes the source-family assignments of the first trained
+snapshot. Later curriculum/source revisions restore every overlapping family's
+original split; new groups are allocated without moving the old holdouts. The
+map hash is part of preparation identity. Preserve this map when adding samples,
+so a previously inspected validation document cannot become a new test example.
+
+Composed reference Gold reuses the existing script teacher, adds only missing
+punctuation leaves identified by the official TypeScript AST, and respects
+intentional neutral JSX text. It does not invent roles for arbitrary uncovered
+identifiers. This offline adapter never changes child-model runtime predictions.

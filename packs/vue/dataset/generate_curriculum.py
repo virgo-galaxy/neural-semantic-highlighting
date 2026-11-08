@@ -42,6 +42,13 @@ defineExpose({{ amount }});\n</script>''')
            f'$gap: {n}px; .entry-{n} {{ padding: $gap; color: #3157ab; }}' if lang=="scss" else
            f'@gap: {n}px; .entry-{n} {{ padding: @gap; color: #3157ab; }}')
     style=f'<style scoped lang="{lang}">\n{style}\n</style>'
+    if index % 4 == 1:
+        if profile == "vue2":
+            script = f'<script>\nexport default {{ data() {{ return {{ title: "{title}", amount: {n}, open: true, items: [] }}; }} }};\n</script>'
+        elif profile == "vue3":
+            script = f'<script>\nimport {{ ref }} from "vue"; export default {{ setup() {{ const amount = ref({n}); return {{ amount }}; }} }};\n</script>'
+        else:
+            script = f'<script setup lang="ts">\nconst props = defineProps<{{ title: string }}>(); const amount = {n};\n</script>'
     def template(body):return '<template>\n'+wrapper[0]+body+wrapper[1]+'\n</template>'
     legacy_slot=f'<span slot="heading">{title}</span><template slot="row" slot-scope="{{ row }}">{{{{ row.name }}}}</template>'
     slot=legacy_slot if profile=="vue2" else f'<template #heading>{title}</template><template #row="{{ row }}">{{{{ row.name }}}}</template>'
@@ -72,11 +79,19 @@ defineExpose({{ amount }});\n</script>''')
     results['custom-blocks']=template(f'<p>{title}</p>')+'\n'+script+f'\n<i18n lang="json">{{"en":{{"title":"Entry {n}"}}}}</i18n>\n'+style
     long_js='\n'.join(f'const item{n}_{i} = {{ label: "row-{i}", count: {i} }};' for i in range(14+index%7))
     results['long-bodies']=template(f'<h3>{title}</h3><p>{{{{ title }}}}</p>')+f'\n<script lang="ts">\n{long_js}\nexport const title = "{title}";\n</script>\n'+style
+    if profile == "vue3.2":
+        normal=f'<script lang="tsx">\nexport const EntryBadge = () => <span>Entry {n}</span>;\n</script>'
+        setup=f'<script setup lang="tsx">\nconst title = "{title}"; const amount = {n};\n</script>'
+        results['dual-scripts']=normal+'\n'+setup+'\n'+template('<EntryBadge/>')+'\n'+style
+    # Compact/pretty source is a formatting variation, not a constant newline
+    # cue for mode recognition. Current generated scripts have no line comments.
+    if index % 5 == 0:
+        results={family:source.replace('\n','') for family,source in results.items()}
     return {k:v.replace('\n','\r\n') if index%4==0 else v for k,v in results.items()}
 
 def generate(target:Path,variants=16):
     if not 4<=variants<=64:raise ValueError('Use a bounded 4..64 variants per family')
-    identity={'kind':'original-vue-version-curriculum','version':2,'profiles':list(PROFILES),'variantsPerFamily':variants,'generatorHash':digest(Path(__file__).read_bytes())}
+    identity={'kind':'original-vue-version-curriculum','version':4,'profiles':list(PROFILES),'variantsPerFamily':variants,'generatorHash':digest(Path(__file__).read_bytes())}
     if target.exists():
         lock=json.loads((target/'source.lock.json').read_text())
         if lock['identity']!=identity:raise ValueError('Preserve previous curriculum; choose another output directory')
@@ -92,12 +107,12 @@ def generate(target:Path,variants=16):
             for index in range(variants):
                 for family,source in examples(index,profile).items():
                     name=f'{profile}/{family}/example-{index:03d}.vue';p=staging/name;p.parent.mkdir(parents=True,exist_ok=True);raw=source.encode();p.write_bytes(raw);files[name]=digest(raw)
-        lock={'identity':identity,'spec':{'name':'nsh-vue-curriculum','version':'2'},'integrity':'sha256:'+digest(json.dumps(identity,sort_keys=True).encode()),'files':dict(sorted(files.items()))}
+        lock={'identity':identity,'spec':{'name':'nsh-vue-curriculum','version':'4'},'integrity':'sha256:'+digest(json.dumps(identity,sort_keys=True).encode()),'files':dict(sorted(files.items()))}
         (staging/'source.lock.json').write_text(json.dumps(lock,indent=2)+'\n');staging.rename(target)
         print('Generated Vue curriculum:',len(files),'documents',target)
     finally:
         if staging.exists():shutil.rmtree(staging)
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,default=Path(os.environ.get('NSH_DATASET_ROOT','~/Datasets/neural-semantic-highlighting')).expanduser()/'vue/sources/curriculum-v2');p.add_argument('--variants',type=int,default=16);a=p.parse_args();generate(a.output.expanduser().resolve(),a.variants)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,default=Path(os.environ.get('NSH_DATASET_ROOT','~/Datasets/neural-semantic-highlighting')).expanduser()/'vue/sources/curriculum-v4');p.add_argument('--variants',type=int,default=16);a=p.parse_args();generate(a.output.expanduser().resolve(),a.variants)
 if __name__=='__main__':main()
