@@ -1,0 +1,168 @@
+{
+  "id": "css",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-css-model-v1",
+    "sha256": "a6c271903b5b65f0cc1f82a4406cb1fc831c1a4ad21c54ddd1fd0f2de324645a",
+    "bytes": 3607797,
+    "parameterCount": 894227,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 8,
+    "metric": "mean per-kind validation exact-span macro F1",
+    "score": 0.8829993120084559
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "namespace",
+      "class",
+      "function",
+      "parameter",
+      "variable",
+      "property",
+      "label",
+      "tag",
+      "attribute"
+    ],
+    "modifiers": [
+      "declaration"
+    ]
+  },
+  "documentKinds": [
+    "css",
+    "scss",
+    "less"
+  ],
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy",
+    "modifierThreshold": 0.6,
+    "parserRequired": false
+  },
+  "dataset": {
+    "snapshot": "237f8d8278ef5797976a91f19e1fd6cda95bd31bc528503bf0aed9e529d8f697",
+    "manifestHash": "def66fc355441dedb3c9c9836b616764757d8efdd48d679a01129b0621c74f12",
+    "manifestFile": "reports/dataset-manifest.json"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/css/context512-modern-grid-20261108-01/best.pt",
+    "sourceCheckpointSha256": "e11caba76ad1f2ca878b967595c24f206192768c25a1c2f6a07aa091979ff5d5",
+    "training": {
+      "codeHashes": {
+        "challenge.py": "6d35704d6dd29452fb9e8b215eeafdd8a82b087bc1ad0f74ddf60a9095cb7691",
+        "checkpoints.py": "444bb29f10f4f4ad121cfaa1fb17a7d5ca7db04042c1362dd979d399992c351b",
+        "dataset.py": "aee9092fa3c864957cd2b53d0ee6b0cca0385896820a3dc90595b547fc0da0e3",
+        "encoding.py": "9d9209e5a1f2e5bf55196e2b0dfe2fd73592704101e18dde2a3a645fd92ba47f",
+        "evaluate.py": "29e8e5fc68df63e67e7a79f38a363343b913f026e4d9ed1b98ec240af74e591f",
+        "export_model.py": "b988c4039a6f16197d7464d8dca3fa27cae714ee62e8f1399dc48468a3c9be98",
+        "inference.py": "60cd4445e7df63767b91b51504f96a560336859e24768af0b06e53e36918026f",
+        "initialization.py": "f22e90b0ea7aa57e42c5c7ce352644d937563e0487f5c33da183e4c8d85c16cf",
+        "io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+        "losses.py": "ad86957d1a6b70ec5ec7e375009bce387877762c172377f571b6fa35c961af87",
+        "metrics.py": "043cef0a7f42259e697f0483bc22319ce1589ad918a635071b691d64bed47d8f",
+        "model.py": "da5d9fa501d2a67de6d22186827a0eb43466d5fb91f9b9630998654d33de6950",
+        "predict.py": "08a322ad61a9553baa4f583ab38b088c58b7faeab7adf587926541d4fcc35050",
+        "prepare.py": "c9e30221231701ec8d74f0d8ce27a4f0d41c0ef9446758680afea384ec2b3f5b",
+        "progress.py": "b411c76b29150e9c86756f5874950cb2595dcecc364df93b8ff602ba59e4f6e8",
+        "train.py": "808daea15dca89bc216c437bdbb758092514dacf3d860a0f5964bbdb1fa735d3",
+        "trainer_data.py": "ea6cb610104f0cddcb94a3766928b1d5c5e327a11cae49358f5a97a5ba931dde"
+      },
+      "semanticsHash": "0643ea0bd0c1bdfa6171da1ac7f2f870ee54c74698657dd0106bd16cf9e10ebb",
+      "pythonTorch": "2.14.0",
+      "repositoryDirty": true,
+      "repositoryCommit": "dda3992de868d0b27f6bda52c0b4615a411c6ebd"
+    },
+    "initialization": {
+      "mode": "go-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/go/context512-20260913-074648-569634/best.pt",
+      "checkpointHash": "db2bb6bab9b89111e5a3dd0072735dd5c0f01329edb8371ebb14b913c78f0f0d",
+      "sourceEpoch": 29,
+      "sourceDataset": {
+        "snapshot": "6e017fa2d4da5306fae0764baeb4ed68fcf1e8bc192e3e607843256fc7ec0631",
+        "manifestHash": "0a9f42191058be4a0f525ca3fda06750d8a2ec095b7f30126188209e30de587e"
+      },
+      "copiedTokenTypes": [
+        "keyword",
+        "comment",
+        "string",
+        "number",
+        "operator",
+        "punctuation",
+        "namespace",
+        "function",
+        "parameter",
+        "variable",
+        "property",
+        "label"
+      ],
+      "newTokenTypes": [
+        "class",
+        "tag",
+        "attribute"
+      ],
+      "copiedModifiers": [
+        "declaration"
+      ],
+      "optimizerAndTrainingState": "fresh CSS run"
+    },
+    "exporterSha256": "b988c4039a6f16197d7464d8dca3fa27cae714ee62e8f1399dc48468a3c9be98"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "8f5609c43bf86a88493191fc42a7c2e75f822ed28e7a94d7f7369dc82f11d20e",
+      "checkpointHash": "e11caba76ad1f2ca878b967595c24f206192768c25a1c2f6a07aa091979ff5d5",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    },
+    "validation-metrics.json": {
+      "file": "reports/validation-metrics.json",
+      "sha256": "1e53cdd198b17b32dd144f5786c09fd9cc10cb2df4d1c16dff01f5d5724a2b7b",
+      "checkpointHash": "e11caba76ad1f2ca878b967595c24f206192768c25a1c2f6a07aa091979ff5d5",
+      "inference": "predicted-adaptive-cursor",
+      "purpose": "validation",
+      "device": "cpu"
+    },
+    "golden-probes.json": {
+      "file": "reports/golden-probes.json",
+      "sha256": "5c68843467b0f6851ae7bf2500f0b475bddb84476e04b565f87ae946fff9bee8",
+      "checkpointHash": "e11caba76ad1f2ca878b967595c24f206192768c25a1c2f6a07aa091979ff5d5",
+      "inference": "predicted-adaptive-cursor",
+      "purpose": "visible development probes, not held-out corpus test",
+      "device": "cpu"
+    }
+  }
+}

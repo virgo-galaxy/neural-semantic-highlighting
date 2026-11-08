@@ -75,7 +75,7 @@ def main():
     if file_hash(args.checkpoint) != checkpoint_hash:
         raise ValueError("Checkpoint changed while loading; inspect a frozen checkpoint")
     report = inspect(pack)
-    report.update(checkpointHash=checkpoint_hash, checkpointEpoch=pack.checkpoint["epoch"])
+    report.update(checkpointHash=checkpoint_hash, checkpointEpoch=pack.checkpoint["epoch"], device=pack.device.type)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S-%f")
     output = args.output or args.checkpoint.parent / ("golden-" + stamp + ".json")
     atomic_json(output, report)

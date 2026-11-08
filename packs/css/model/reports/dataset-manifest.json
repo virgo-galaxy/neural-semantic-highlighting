@@ -1,0 +1,301 @@
+{
+  "format": "nsh-css-byte-dataset-v1",
+  "snapshot": "237f8d8278ef5797976a91f19e1fd6cda95bd31bc528503bf0aed9e529d8f697",
+  "contextBytes": 512,
+  "identity": {
+    "format": "nsh-css-byte-dataset-v1",
+    "gold": "7afeda063f39261da6d58838262df8599475fbb325c0215b7c732059da183b0b",
+    "schema": "12c9ddb8322fc9ec43f73d853e7a74dd8e182e4c8e7f35c37c33f5fb641b6b18",
+    "builders": {
+      "prepare.py": "c9e30221231701ec8d74f0d8ce27a4f0d41c0ef9446758680afea384ec2b3f5b",
+      "encoding.py": "9d9209e5a1f2e5bf55196e2b0dfe2fd73592704101e18dde2a3a645fd92ba47f",
+      "io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82"
+    },
+    "contextBytes": 512,
+    "seed": 1729,
+    "semanticContractHash": "0643ea0bd0c1bdfa6171da1ac7f2f870ee54c74698657dd0106bd16cf9e10ebb"
+  },
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "namespace",
+      "class",
+      "function",
+      "parameter",
+      "variable",
+      "property",
+      "label",
+      "tag",
+      "attribute"
+    ],
+    "modifiers": [
+      "declaration"
+    ]
+  },
+  "labels": {
+    "padByteId": 256,
+    "ignoreId": -100,
+    "boundaryClasses": [
+      "outside",
+      "begin",
+      "inside"
+    ],
+    "modifierSupervision": "span-beginnings",
+    "continuationBytes": "ignored"
+  },
+  "policy": {
+    "split": "intact-source-directories-before-windowing",
+    "trainingWindowing": "gold-adaptive-cursor",
+    "evaluationWindowing": "character-safe-fixed-cursor",
+    "crossGroupCopies": "excluded",
+    "targetRatios": [
+      0.8,
+      0.1,
+      0.1
+    ]
+  },
+  "inputDocuments": 786,
+  "uniqueDocuments": 671,
+  "exactDuplicateRecords": 115,
+  "excludedCopyDocuments": 151,
+  "retainedDocuments": 520,
+  "splits": {
+    "train": {
+      "documents": 411,
+      "windows": 2653,
+      "naturalWindows": 2653,
+      "focusWindows": 0,
+      "documentKinds": {
+        "css": {
+          "documents": 51,
+          "windows": 146,
+          "spans": 6987
+        },
+        "scss": {
+          "documents": 190,
+          "windows": 1374,
+          "spans": 101787
+        },
+        "less": {
+          "documents": 170,
+          "windows": 1133,
+          "spans": 66693
+        }
+      },
+      "tokenTypes": {
+        "css": {
+          "keyword": 484,
+          "punctuation": 3534,
+          "property": 931,
+          "string": 188,
+          "number": 779,
+          "function": 253,
+          "tag": 256,
+          "class": 218,
+          "comment": 10,
+          "operator": 127,
+          "attribute": 100,
+          "variable": 45,
+          "label": 62
+        },
+        "scss": {
+          "comment": 2059,
+          "class": 3905,
+          "punctuation": 48147,
+          "property": 5066,
+          "keyword": 7584,
+          "number": 4394,
+          "variable": 11995,
+          "function": 5276,
+          "string": 3661,
+          "namespace": 3039,
+          "operator": 5573,
+          "tag": 566,
+          "attribute": 242,
+          "parameter": 279,
+          "label": 1
+        },
+        "less": {
+          "keyword": 4766,
+          "punctuation": 29852,
+          "string": 983,
+          "variable": 8291,
+          "operator": 4618,
+          "comment": 1190,
+          "function": 2286,
+          "number": 5017,
+          "property": 5804,
+          "tag": 273,
+          "class": 3422,
+          "parameter": 131,
+          "attribute": 60
+        }
+      }
+    },
+    "validation": {
+      "documents": 50,
+      "windows": 327,
+      "naturalWindows": 327,
+      "focusWindows": 0,
+      "documentKinds": {
+        "css": {
+          "documents": 16,
+          "windows": 18,
+          "spans": 487
+        },
+        "scss": {
+          "documents": 14,
+          "windows": 169,
+          "spans": 12120
+        },
+        "less": {
+          "documents": 20,
+          "windows": 140,
+          "spans": 8422
+        }
+      },
+      "tokenTypes": {
+        "css": {
+          "class": 16,
+          "punctuation": 247,
+          "property": 69,
+          "keyword": 55,
+          "function": 12,
+          "string": 12,
+          "number": 50,
+          "tag": 19,
+          "comment": 5,
+          "operator": 2
+        },
+        "scss": {
+          "keyword": 577,
+          "string": 782,
+          "punctuation": 6455,
+          "operator": 465,
+          "comment": 208,
+          "function": 761,
+          "property": 517,
+          "variable": 1275,
+          "namespace": 134,
+          "number": 619,
+          "tag": 128,
+          "attribute": 178,
+          "class": 19,
+          "parameter": 2
+        },
+        "less": {
+          "keyword": 861,
+          "string": 93,
+          "punctuation": 3465,
+          "class": 500,
+          "variable": 751,
+          "function": 242,
+          "comment": 244,
+          "operator": 810,
+          "property": 888,
+          "number": 409,
+          "attribute": 31,
+          "tag": 118,
+          "parameter": 10
+        }
+      }
+    },
+    "test": {
+      "documents": 59,
+      "windows": 328,
+      "naturalWindows": 328,
+      "focusWindows": 0,
+      "documentKinds": {
+        "css": {
+          "documents": 5,
+          "windows": 18,
+          "spans": 1091
+        },
+        "scss": {
+          "documents": 28,
+          "windows": 169,
+          "spans": 12108
+        },
+        "less": {
+          "documents": 26,
+          "windows": 141,
+          "spans": 9001
+        }
+      },
+      "tokenTypes": {
+        "css": {
+          "label": 1,
+          "punctuation": 539,
+          "property": 137,
+          "keyword": 62,
+          "comment": 6,
+          "function": 69,
+          "number": 94,
+          "variable": 35,
+          "operator": 23,
+          "attribute": 15,
+          "string": 18,
+          "class": 65,
+          "tag": 27
+        },
+        "scss": {
+          "keyword": 674,
+          "string": 689,
+          "punctuation": 5719,
+          "comment": 160,
+          "class": 611,
+          "property": 708,
+          "function": 757,
+          "number": 307,
+          "variable": 867,
+          "operator": 888,
+          "attribute": 26,
+          "tag": 120,
+          "namespace": 582
+        },
+        "less": {
+          "keyword": 768,
+          "string": 118,
+          "punctuation": 3835,
+          "variable": 801,
+          "operator": 858,
+          "class": 627,
+          "property": 932,
+          "comment": 113,
+          "number": 478,
+          "tag": 234,
+          "function": 223,
+          "attribute": 10,
+          "parameter": 4
+        }
+      }
+    }
+  },
+  "checksums": {
+    "cross-group-copies.jsonl": "de0199115cc685e1a6f2ed2fdcc1cefd737e3de0e566ee255bbfbaecedc7d5f9",
+    "split-groups.json": "8b3ea05e18afd7d47ea027dc8ba5f08288a37aa5461aabab748e48a4e952e074",
+    "test/boundary_labels.bin": "98795f774e2e9aca97f33203bac67ee233cdd2fd643b9dec53cd17cbd47ce77e",
+    "test/documents.jsonl": "7fa74200a0bdd6cdb115a983afcc6aadab2e5359c5710f96f071644bfdc5fc6e",
+    "test/input_ids.bin": "0899d7fa965396494853d9c6a415307d666bafb43ac67eb44e71de83e36bd21c",
+    "test/modifier_bits.bin": "7aa1f8d2392d224bfa59ee635c5f694aa8168338368ca3255c2c3b36730b28fe",
+    "test/token_type_labels.bin": "2f99159a9a33c5f49f587faa25c0dd623703000006499f423d88d3d0b4296cdc",
+    "test/windows.jsonl": "7f5315282bebca7d9969bec9c98adc8333d4cff65bbdf57b1adcccdac39c6200",
+    "train/boundary_labels.bin": "fb23249db5d38d94fea6767f81da81f79d18e9d8c3f3db1f2b98f4cb6dfacc85",
+    "train/documents.jsonl": "a842d884b6eb0757b0783e2ef2b8baa0f6aec80b74c95141fac0733f33fae34c",
+    "train/input_ids.bin": "730f5fcc4012dbc42dc2cfa9fb9daf18312cac200c9baaca674bf0b86ee37396",
+    "train/modifier_bits.bin": "fdef1025a6267f9a18bb750c245f0df93fb23a56361c65b03382058780b150c8",
+    "train/token_type_labels.bin": "f27555a47122ae19d56041b98093a17766cc1431be41d6a4e9cc60f023632c7c",
+    "train/windows.jsonl": "3a53644782ae4fde2bc5a0761eefdc88ddbbcb9ff61a1057ec37193584c049f1",
+    "validation/boundary_labels.bin": "4b707e1751864915c0afaf500ac55117348aa22daef067d4934bb0ed4589069b",
+    "validation/documents.jsonl": "822af5eac9ce2ffb3f0144b19d65c6f4e20bc42577f47fe9daca250d92f405d0",
+    "validation/input_ids.bin": "76902a328799f3eae46d0a408efb3a6189dea04665a4b5e932b6b04ef07e963e",
+    "validation/modifier_bits.bin": "12dbb66c118e9cb7b56ae380fd11ca447d71a5acc6c581ead01d050711e57ec5",
+    "validation/token_type_labels.bin": "3d4e92da2723cd5ee15c8184ef931046324703b46658982f448ed3b58aec255a",
+    "validation/windows.jsonl": "763ee5663d61655e7db9f1f312540ffc7937674e94ad4a133d9438931c8fa11f"
+  }
+}

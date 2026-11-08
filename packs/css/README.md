@@ -56,10 +56,10 @@ to return for a manual check. Do not configure scheduled monitoring or notificat
 
 ## Status
 
-The CSS/SCSS pack is under development. No CSS model has been selected yet.
-Golden correctness and a successful smoke run do not establish trained-model
-quality. Existing Playground models remain the selected TypeScript and Go artifacts.
-The repository remains private.
+The first [selected model](model/README.md) supports CSS, SCSS and Less through
+the local Python runtime and Playground. It has independent per-kind test evidence
+and explicit [known issues](model/KNOWN_ISSUES.md). Golden tooling correctness is
+separate from trained-model prediction quality. The repository remains private.
 
 ## Acceptance and stopping
 

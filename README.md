@@ -82,7 +82,7 @@ No global installation or `npm link` / `pnpm link` is required. Local workspace 
 
 ## Playground
 
-The Playground runs the selected TypeScript-family and Go neural models through the normal NSH contracts.
+The Playground runs the selected TypeScript-family, Go and CSS-family neural models through the normal NSH contracts.
 
 ```text
 Browser Playground
@@ -95,7 +95,8 @@ long-lived Python process over stdin/stdout
   ↓
 selected pack model
   ├─ packs/typescript/model/model.pt
-  └─ packs/go/model/model.pt
+  ├─ packs/go/model/model.pt
+  └─ packs/css/model/model.pt
   ↓
 HighlightResult
   ↓
@@ -110,7 +111,7 @@ The local model process is started lazily and kept alive. Model initialization i
 
 The Playground currently includes:
 
-- TypeScript, JavaScript, and Go source examples discovered from real files;
+- TypeScript, JavaScript, Go, CSS, SCSS and Less source examples discovered from real files;
 - editable and highlighted presentation states;
 - highlighting when the code block leaves editing focus;
 - preserved native undo/redo history across presentation-state changes;
@@ -327,8 +328,10 @@ Do not pass the selected inference artifact in `packs/typescript/model/model.pt`
 
 NSH is currently an early-stage private project. The TypeScript-family and Go models, local process runtimes, HTML renderer, CSS themes, and Vue Playground are integrated and working together. Browser-native and remote runtime implementations remain future directions rather than current requirements.
 
-The [CSS family pack](packs/css/README.md) is under development for CSS, SCSS and
-Less with one shared small model. Its Gold/data pipeline and bounded MPS smoke
-check are verified. No CSS inference artifact is selected yet; Playground continues
-to use the selected TypeScript and Go models. See [training/css](training/css/README.md)
-for short runs, checkpoint continuation and independent adaptive evaluation.
+The [CSS family pack](packs/css/README.md) adds CSS, SCSS and Less with one shared
+894,227-parameter model, a local neural runtime and Playground examples. Its
+[model report](packs/css/model/README.md) records held-out results and known issues.
+See [training/css](training/css/README.md) for short runs, checkpoint continuation,
+explicit weights-only initialization and independent adaptive evaluation.
+Normal startup needs no CSS checkpoint variable; `NSH_CSS_CHECKPOINT` can select
+an experimental checkpoint before running `pnpm dev`.
