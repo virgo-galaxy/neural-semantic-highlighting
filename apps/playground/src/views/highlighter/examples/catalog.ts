@@ -8,6 +8,7 @@ import lessIcon from "@/assets/document-kinds/less.svg";
 import perlIcon from "@/assets/document-kinds/perl.svg";
 import pythonIcon from "@/assets/document-kinds/python.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
+import sqlIcon from "@/assets/document-kinds/sql.svg";
 import typescriptIcon from "@/assets/document-kinds/typescript.svg";
 import vueIcon from "@/assets/document-kinds/vue.svg";
 import type { HighlighterExample, HighlighterLanguage } from "@/views/highlighter/examples/types";
@@ -67,6 +68,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
     label: "AWK",
     icon: awkIcon,
   },
+  sql: { label: "SQL", icon: sqlIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -101,6 +103,10 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".perl", "perl"],
   [".awk", "awk"],
   [".gawk", "awk"],
+  [".sql", "sql"],
+  [".psql", "sql"],
+  [".pgsql", "sql"],
+  [".plsql", "sql"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

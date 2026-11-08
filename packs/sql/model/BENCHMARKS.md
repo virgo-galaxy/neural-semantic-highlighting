@@ -31,7 +31,7 @@ Offline pinned lexer/local-role Gold never executes input or needs a database.
 Original common/dialect tasks (1,680 profile-addressed records) and a later
 960-record literal/cast supplement stay separate from natural-source scoring.
 Shared text repeated under profiles is coverage, not independent source evidence.
-All 88 family assignments are frozen before windows; 102 exact duplicate records
+All 88 family assignments are frozen before windows; 262 exact duplicate records
 merge and four cross-family copies are excluded. Golden and display probes are
 not collected. The retained data includes 1,756 distinct source texts.
 
