@@ -401,6 +401,7 @@ dataset-bat:
 
 dataset-bat-curriculum:
 	$(PYTHON) -m packs.bat.dataset.generate_curriculum
+	$(PYTHON) -m packs.bat.dataset.generate_fragments
 
 dataset-bat-collect:
 	$(PYTHON) -m packs.bat.dataset.pipeline collect

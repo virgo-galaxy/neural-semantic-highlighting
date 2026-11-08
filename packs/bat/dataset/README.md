@@ -13,3 +13,8 @@ Golden and Playground are excluded from collection. Keep all immutable revisions
 The bounded offline adapter also confines FOR /F quoted-command matching to one
 physical line, preventing the upstream rule from backtracking through later
 commands. The original full VS Code regression script stays unchanged.
+
+A later 432-record short-label/position revision shares the exact original label
+family IDs and frozen folds. It addresses validation/display failures for short
+labels after the first models learned too much from four underscore-style names.
+No Golden/display source was copied and no independent test had been read.
