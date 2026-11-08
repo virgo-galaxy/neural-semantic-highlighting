@@ -10,3 +10,7 @@ Original source/Gold/prepared snapshots stay external under
 under `artifacts/awk`. Selected `model/model.pt` is inference-only. Golden and
 Playground remain outside collection. Preserve existing data, models and
 experiments. The repository remains private.
+
+The [selected model](model/README.md) and four Playground examples are available.
+First natural/focus exact-span test F1 is 96.89%/99.87%. Regex span fragmentation
+and advanced GNU call roles remain explicit measured limits.

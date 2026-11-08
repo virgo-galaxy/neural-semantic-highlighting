@@ -27,6 +27,7 @@ remaining failures.
 | [Python](packs/python/model/README.md)                      | Python 3 source and stubs; `.py`, `.pyw`, `.pyi`                                                                                                                    | [87.52%](packs/python/model/BENCHMARKS.md) — natural test                                                   | Usable local baseline; [name roles and long docstrings](packs/python/model/KNOWN_ISSUES.md) remain weaker                        |
 | [Shell](packs/bash/model/README.md)                         | POSIX sh, Bash, Zsh, Csh/Tcsh; `.sh`, `.bash`, `.zsh`, `.csh`, `.tcsh`; Git Bash shares Bash syntax                                                                 | [84.78% overall; Bash 93.20%](packs/bash/model/BENCHMARKS.md) — known natural-test comparison               | Usable local baseline, Bash prioritized; [complex Zsh and Here Document endings](packs/bash/model/KNOWN_ISSUES.md) remain weaker |
 | [Perl](packs/perl/model/README.md)                          | Perl 5 scripts, modules and tests; `.pl`, `.pm`, `.t`, `.perl`                                                                                                      | [83.60%](packs/perl/model/BENCHMARKS.md) — natural test                                                     | Usable local baseline; [mixed Here Documents and role/modifier boundaries](packs/perl/model/KNOWN_ISSUES.md) remain weaker       |
+| [AWK](packs/awk/model/README.md)                            | Common POSIX-style / GNU AWK; `.awk`, `.gawk`                                                                                                                       | [96.89%](packs/awk/model/BENCHMARKS.md) — natural test                                                      | Available locally; [regex span boundaries and advanced GNU calls](packs/awk/model/KNOWN_ISSUES.md) remain limited                |
 
 ## Architecture
 
@@ -129,7 +130,8 @@ selected pack model
   ├─ packs/vue/model/model.pt → existing JS/TS/JSX/TSX and CSS/SCSS/Less packs
   ├─ packs/python/model/model.pt
   ├─ packs/bash/model/model.pt
-  └─ packs/perl/model/model.pt
+  ├─ packs/perl/model/model.pt
+  └─ packs/awk/model/model.pt
   ↓
 HighlightResult
   ↓
@@ -144,7 +146,7 @@ The local model process is started lazily and kept alive. Model initialization i
 
 The Playground currently includes:
 
-- TypeScript, JavaScript, Go, CSS, SCSS, Less, HTML, Vue, Python, Shell and Perl source examples discovered from real files;
+- TypeScript, JavaScript, Go, CSS, SCSS, Less, HTML, Vue, Python, Shell, Perl and AWK source examples discovered from real files;
 - editable and highlighted presentation states;
 - highlighting when the code block leaves editing focus;
 - preserved native undo/redo history across presentation-state changes;
@@ -424,3 +426,11 @@ Read its [benchmark](packs/perl/model/BENCHMARKS.md) and
 [measured limits](packs/perl/model/KNOWN_ISSUES.md), including mixed Here Documents.
 Data/checkpoints follow `NSH_DATASET_ROOT/perl` and `artifacts/perl`;
 `NSH_PERL_CHECKPOINT` selects a compatible development candidate.
+
+The [AWK pack](packs/awk/README.md) adds one AWK/GNU AWK entry with an independent
+893,582-parameter model and the same local process bridge. Source/Gold preparation
+uses pinned offline lexer assets without installing or executing AWK. First
+natural/focus test F1 is 96.89%/99.87%; regex boundaries and advanced GNU calls
+remain in the [measured limits](packs/awk/model/KNOWN_ISSUES.md). Data and full
+checkpoints follow `NSH_DATASET_ROOT/awk` and `artifacts/awk`;
+`NSH_AWK_CHECKPOINT` selects a compatible development candidate.

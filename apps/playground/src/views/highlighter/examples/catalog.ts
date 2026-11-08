@@ -1,3 +1,4 @@
+import awkIcon from "@/assets/document-kinds/awk.svg";
 import bashIcon from "@/assets/document-kinds/bash.svg";
 import cssIcon from "@/assets/document-kinds/css.svg";
 import goIcon from "@/assets/document-kinds/go.svg";
@@ -62,6 +63,10 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
     label: "Perl",
     icon: perlIcon,
   },
+  awk: {
+    label: "AWK",
+    icon: awkIcon,
+  },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -94,6 +99,8 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".pm", "perl"],
   [".t", "perl"],
   [".perl", "perl"],
+  [".awk", "awk"],
+  [".gawk", "awk"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

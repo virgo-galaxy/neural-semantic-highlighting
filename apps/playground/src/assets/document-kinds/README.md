@@ -21,3 +21,6 @@ revision and under the preserved Devicon license.
 
 The Perl icon is `perl.svg`, from `icons/perl/perl-original.svg` at that same
 pinned revision and under the preserved Devicon license.
+
+The AWK icon is `awk.svg`, from `icons/awk/awk-original.svg` at that same
+pinned revision and under the preserved Devicon license.
