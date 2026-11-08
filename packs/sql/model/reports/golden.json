@@ -1,0 +1,855 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "b37f2bc8f957b43402c7fe21224da0b6c5196224f46dfbe7a9baf8072deda42e",
+  "cases": [
+    {
+      "id": "select-basic",
+      "profile": "postgres",
+      "documentKind": "sql",
+      "source": "SELECT id, name FROM accounts WHERE active = TRUE;\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "create-table",
+      "profile": "mysql",
+      "documentKind": "sql",
+      "source": "CREATE TABLE records (id INT PRIMARY KEY, name VARCHAR(80));\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "qualified-name",
+      "profile": "postgres",
+      "documentKind": "sql",
+      "source": "SELECT u.name AS name FROM users u;\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 33,
+          "end": 34,
+          "text": "u",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 33,
+          "end": 34,
+          "text": "u",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "postgres-parameters",
+      "profile": "postgres",
+      "documentKind": "sql",
+      "source": "SELECT $1::integer, COALESCE(name, 'unknown') FROM accounts;\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 9,
+          "text": "$1",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 9,
+          "end": 11,
+          "text": "::",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 11,
+          "end": 18,
+          "text": "integer",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 18,
+          "text": "$1::integer",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "psql-inspection",
+      "profile": "postgres",
+      "documentKind": "sql",
+      "source": "\\dt public.*\n\\d+ accounts\nSELECT id FROM accounts;\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "psql-set",
+      "profile": "postgres",
+      "documentKind": "sql",
+      "source": "\\set threshold 10\nSELECT name FROM accounts WHERE score > :threshold;\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "postgres-dollar-string",
+      "profile": "postgres",
+      "documentKind": "sql",
+      "source": "DO $body$\nBEGIN\n  RAISE NOTICE 'hello';\nEND\n$body$;\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 3,
+          "end": 50,
+          "text": "$body$\nBEGIN\n  RAISE NOTICE 'hello';\nEND\n$body$",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 50,
+          "end": 51,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 3,
+          "end": 52,
+          "text": "$body$\nBEGIN\n  RAISE NOTICE 'hello';\nEND\n$body$;\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "mysql-variables",
+      "profile": "mysql",
+      "documentKind": "sql",
+      "source": "SET @threshold = 10;\nSELECT name FROM accounts WHERE id = ?;\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "mysql-delimiter",
+      "profile": "mysql",
+      "documentKind": "sql",
+      "source": "DELIMITER //\nCREATE FUNCTION inc(p_value INT) RETURNS INT DETERMINISTIC\nBEGIN RETURN p_value + 1; END//\nDELIMITER ;\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 29,
+          "end": 32,
+          "text": "inc",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 85,
+          "end": 92,
+          "text": "p_value",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 29,
+          "end": 32,
+          "text": "inc",
+          "tokenType": "function",
+          "modifiers": []
+        },
+        {
+          "start": 85,
+          "end": 92,
+          "text": "p_value",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "oracle-bind",
+      "profile": "oracle",
+      "documentKind": "sql",
+      "source": "SELECT name FROM employees WHERE id = :id;\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "oracle-alternative-quote",
+      "profile": "oracle",
+      "documentKind": "sql",
+      "source": "SELECT q'[it's ready \ud83c\udf0c]' AS note FROM dual;\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "sqlplus-directives",
+      "profile": "oracle",
+      "documentKind": "sql",
+      "source": "PROMPT Report ready\n@@helpers.sql\nSPOOL report.txt\nSELECT id FROM &schema..records;\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 19,
+          "text": "Report ready",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 20,
+          "end": 22,
+          "text": "@@",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 22,
+          "end": 33,
+          "text": "helpers.sql",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 14,
+          "text": "Report ",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 14,
+          "end": 19,
+          "text": "ready",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 20,
+          "end": 21,
+          "text": "@",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 33,
+          "text": "@helpers.sql",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "nested-comment",
+      "profile": "postgres",
+      "documentKind": "sql",
+      "source": "/* outer\r\n /* inner */\r\n */\r\nSELECT 1;\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 27,
+          "text": "/* outer\r\n /* inner */\r\n */",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 9,
+          "text": "/* outer\r",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 11,
+          "end": 23,
+          "text": "/* inner */\r",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 25,
+          "end": 27,
+          "text": "*/",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-string",
+      "profile": "mysql",
+      "documentKind": "sql",
+      "source": "-- \u661f\u7a7a \ud83c\udf0c\r\nSELECT '\u4f60\u597d \ud83d\ude80' AS message;\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    }
+  ],
+  "profiles": {
+    "postgres": {
+      "documents": 7,
+      "exactDocumentsIncludingModifiers": 3,
+      "exactSpan": {
+        "precision": 0.9016393442622951,
+        "recall": 0.8870967741935484,
+        "f1": 0.8943089430894309,
+        "tp": 55,
+        "fp": 6,
+        "fn": 7,
+        "support": 62
+      },
+      "exactSpanMacroF1": 0.7364825286356388,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9016393442622951,
+        "recall": 0.8870967741935484,
+        "f1": 0.8943089430894309,
+        "tp": 55,
+        "fp": 6,
+        "fn": 7,
+        "support": 62
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 19,
+          "fp": 0,
+          "fn": 0,
+          "support": 19
+        },
+        "comment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 3,
+          "fn": 1,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.6666666666666666,
+          "recall": 0.8,
+          "f1": 0.7272727272727273,
+          "tp": 4,
+          "fp": 2,
+          "fn": 1,
+          "support": 5
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 0,
+          "fn": 1,
+          "support": 3
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9230769230769231,
+          "f1": 0.96,
+          "tp": 12,
+          "fp": 0,
+          "fn": 1,
+          "support": 13
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 6,
+          "fp": 0,
+          "fn": 0,
+          "support": 6
+        },
+        "type": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "support": 1
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "support": 2
+        },
+        "variable": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526315,
+          "tp": 9,
+          "fp": 0,
+          "fn": 1,
+          "support": 10
+        }
+      }
+    },
+    "mysql": {
+      "documents": 4,
+      "exactDocumentsIncludingModifiers": 3,
+      "exactSpan": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 58,
+        "fp": 0,
+        "fn": 0,
+        "support": 58
+      },
+      "exactSpanMacroF1": 1.0,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9655172413793104,
+        "recall": 0.9655172413793104,
+        "f1": 0.9655172413793104,
+        "tp": 56,
+        "fp": 2,
+        "fn": 2,
+        "support": 58
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 19,
+          "fp": 0,
+          "fn": 0,
+          "support": 19
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "variable": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        }
+      }
+    },
+    "oracle": {
+      "documents": 3,
+      "exactDocumentsIncludingModifiers": 2,
+      "exactSpan": {
+        "precision": 0.8709677419354839,
+        "recall": 0.9,
+        "f1": 0.8852459016393442,
+        "tp": 27,
+        "fp": 4,
+        "fn": 3,
+        "support": 30
+      },
+      "exactSpanMacroF1": 0.9076479076479077,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8709677419354839,
+        "recall": 0.9,
+        "f1": 0.8852459016393442,
+        "tp": 27,
+        "fp": 4,
+        "fn": 3,
+        "support": 30
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9090909090909091,
+          "recall": 0.9090909090909091,
+          "f1": 0.9090909090909091,
+          "tp": 10,
+          "fp": 1,
+          "fn": 1,
+          "support": 11
+        },
+        "comment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 0.4,
+          "recall": 0.5,
+          "f1": 0.4444444444444444,
+          "tp": 2,
+          "fp": 3,
+          "fn": 2,
+          "support": 4
+        },
+        "number": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "type": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "variable": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "sql": {
+      "documents": 14,
+      "exactDocumentsIncludingModifiers": 8,
+      "exactSpan": {
+        "precision": 0.9333333333333333,
+        "recall": 0.9333333333333333,
+        "f1": 0.9333333333333333,
+        "tp": 140,
+        "fp": 10,
+        "fn": 10,
+        "support": 150
+      },
+      "exactSpanMacroF1": 0.8848055782680481,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.92,
+        "recall": 0.92,
+        "f1": 0.92,
+        "tp": 138,
+        "fp": 12,
+        "fn": 12,
+        "support": 150
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9795918367346939,
+          "recall": 0.9795918367346939,
+          "f1": 0.9795918367346939,
+          "tp": 48,
+          "fp": 1,
+          "fn": 1,
+          "support": 49
+        },
+        "comment": {
+          "precision": 0.25,
+          "recall": 0.5,
+          "f1": 0.3333333333333333,
+          "tp": 1,
+          "fp": 3,
+          "fn": 1,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.6428571428571429,
+          "recall": 0.75,
+          "f1": 0.6923076923076923,
+          "tp": 9,
+          "fp": 5,
+          "fn": 3,
+          "support": 12
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.875,
+          "f1": 0.9333333333333333,
+          "tp": 7,
+          "fp": 0,
+          "fn": 1,
+          "support": 8
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9666666666666667,
+          "f1": 0.9830508474576272,
+          "tp": 29,
+          "fp": 0,
+          "fn": 1,
+          "support": 30
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 11,
+          "fp": 0,
+          "fn": 0,
+          "support": 11
+        },
+        "type": {
+          "precision": 0.8,
+          "recall": 0.8,
+          "f1": 0.8,
+          "tp": 4,
+          "fp": 1,
+          "fn": 1,
+          "support": 5
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 0.8571428571428571,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 0,
+          "fn": 1,
+          "support": 7
+        },
+        "variable": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 0.9473684210526315,
+          "f1": 0.972972972972973,
+          "tp": 18,
+          "fp": 0,
+          "fn": 1,
+          "support": 19
+        }
+      }
+    }
+  },
+  "checkpointHash": "b2468a31ce3930b74ecc5ddc028ea2c656b6a4c849b6d786c1939251bb389afc",
+  "checkpointEpoch": 11
+}
