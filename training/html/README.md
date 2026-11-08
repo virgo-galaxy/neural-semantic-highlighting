@@ -23,12 +23,17 @@ on the same backend; it cannot silently fork or alter configuration.
 
 Defaults are three additional epochs, batch 32, AdamW 0.0003, weight decay 0.01,
 clip norm 1.0, modifier loss weight 0.1, threshold 0.60, seed 42 and patience five.
-Each unique training window is shuffled/presented once per epoch. Loss weights
+Each natural window is shuffled/presented once per epoch. A bounded focus batch
+of 16 grammar-curriculum windows follows each natural batch; the curriculum order
+rotates across epochs, rather than replacing real-source training or counting
+repetitions as new data. Earlier runs retain their recorded sampler on resume.
+Loss weights
 count unique train labels; padding/UTF-8 continuation bytes are masked and
 modifiers are supervised only at Gold span beginnings.
 
 Validation reassembles fixed, character-safe windows before whole-document
-decoding; it never uses Gold cuts. Selection uses validation exact-span macro F1.
+decoding; it never uses Gold cuts. Selection uses natural real-source validation
+exact-span macro F1. Focus scores are reported separately.
 Independent adaptive evaluation and Golden probes use actual neural cursor cuts.
 Adjacent body predictions of the same neural role are coalesced by the decoder;
 this does not parse or recognize any source language spelling.

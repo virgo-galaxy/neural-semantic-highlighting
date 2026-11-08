@@ -39,30 +39,37 @@ class TrainingConfig:
     smoke: bool = False
     smoke_batches: int = 8
     smoke_eval_windows: int = 48
-    sampling: str = "shuffled-windows"
+    sampling: str = "natural-plus-curriculum"
+    focus_every: int = 1
+    focus_batch_size: int = 16
 
     def validate(self):
-        if min(self.batch_size, self.smoke_batches, self.smoke_eval_windows) < 1 or self.patience < 0:
+        if min(self.batch_size, self.smoke_batches, self.smoke_eval_windows, self.focus_every, self.focus_batch_size) < 1 or self.patience < 0:
             raise ValueError("Invalid training budget")
         if (not all(math.isfinite(x) and x > 0 for x in (self.learning_rate, self.modifier_loss_weight))
                 or not math.isfinite(self.weight_decay) or self.weight_decay < 0
-                or not 0 < self.modifier_threshold < 1 or self.sampling != "shuffled-windows"):
+                or not 0 < self.modifier_threshold < 1 or self.sampling not in {"shuffled-windows", "natural-plus-curriculum"}):
             raise ValueError("Invalid optimizer, decoder or sampler configuration")
 
 
 def epoch_batches(split: WindowSplit, config: TrainingConfig, epoch: int) -> list[list[int]]:
-    """Shuffle each unique HTML window exactly once per epoch."""
-    buckets = defaultdict(list)
-    for index, ref in enumerate(split.refs):
-        buckets[ref["documentKind"]].append(index)
-    if any(not buckets[kind] for kind in KINDS):
-        raise ValueError("Training must contain every declared document kind")
+    """Preserve natural coverage; rotate a bounded independently marked curriculum."""
     rng = random.Random(config.seed + epoch)
-    for bucket in buckets.values():
-        rng.shuffle(bucket)
-    order = [buckets[kind][index % len(buckets[kind])]
-             for index in range(max(map(len, buckets.values()))) for kind in KINDS]
-    batches = [order[start:start + config.batch_size] for start in range(0, len(order), config.batch_size)]
+    natural = [i for i, ref in enumerate(split.refs) if ref.get("stream", "natural") == "natural"]
+    focus = [i for i, ref in enumerate(split.refs) if ref.get("stream") == "focus"]
+    if not natural: raise ValueError("Training needs real-source natural windows")
+    if config.sampling == "shuffled-windows": natural, focus = list(range(len(split.refs))), []
+    rng.shuffle(natural)
+    main = [natural[start:start + config.batch_size] for start in range(0, len(natural), config.batch_size)]
+    batches = []
+    random.Random(config.seed).shuffle(focus)
+    focus_steps = (len(main) + config.focus_every - 1) // config.focus_every
+    cursor = (epoch - 1) * focus_steps * config.focus_batch_size
+    for step, batch in enumerate(main, 1):
+        batches.append(batch)
+        if focus and (step % config.focus_every == 0 or step == len(main)):
+            batches.append([focus[(cursor + i) % len(focus)] for i in range(config.focus_batch_size)])
+            cursor += config.focus_batch_size
     return batches[:config.smoke_batches] if config.smoke else batches
 
 
@@ -70,6 +77,9 @@ def train_epoch(model, split, optimizer, weights, config, device, epoch, log_eve
     batches = epoch_batches(split, config, epoch)
     model.train()
     start, total, presented = time.monotonic(), 0., 0
+    main_steps = sum(split.refs[b[0]].get("stream", "natural") == "natural" for b in batches)
+    focus_steps = len(batches) - main_steps
+    main_step = focus_step = natural_presented = focus_presented = 0
     for step, indices in enumerate(batches, 1):
         batch = split.batch(indices, device)
         optimizer.zero_grad(set_to_none=True)
@@ -82,17 +92,23 @@ def train_epoch(model, split, optimizer, weights, config, device, epoch, log_eve
         optimizer.step()
         total += parts["total"]
         presented += len(indices)
+        if split.refs[indices[0]].get("stream", "natural") == "focus":
+            focus_step += 1
+            focus_presented += len(indices)
+        else:
+            main_step += 1
+            natural_presented += len(indices)
         if step in (1, len(batches)) or step % log_every == 0:
-            print(training_line(step, len(batches), 0, 0, parts, presented, time.monotonic() - start), flush=True)
+            print(training_line(main_step, main_steps, focus_step, focus_steps, parts, presented, time.monotonic() - start), flush=True)
     return {"loss": total / len(batches), "seconds": time.monotonic() - start,
-            "optimizerSteps": len(batches), "presentedWindows": presented}
+            "optimizerSteps": len(batches), "presentedWindows": presented,
+            "naturalPresentations": natural_presented, "focusPresentations": focus_presented}
 
 
 def selection_score(report: dict) -> float:
-    values = report["documentKinds"]
-    if any(not values[kind]["documents"] for kind in KINDS):
-        raise ValueError("Validation must report every document kind separately")
-    return sum(values[kind]["exactSpanMacroF1"] for kind in KINDS) / len(KINDS)
+    values = report["streams"]["natural"]
+    if not values["documents"]: raise ValueError("Selection requires real-source natural validation")
+    return values["exactSpanMacroF1"]
 
 
 def run(args) -> Path:
@@ -158,7 +174,7 @@ def run(args) -> Path:
             invocation = {"device": device.type, "initialEpochBudget": args.epochs, "trainingConfig": asdict(config),
                 "modelConfig": model.config.to_dict(), "parameters": parameter_count(model),
                 "dataset": {**snapshot.identity(), "path": str(snapshot.path)},
-                "selection": "HTML validation exact-span macro F1; fixed-window logits reassembled",
+                "selection": "natural real-source validation exact-span macro F1; fixed-window logits reassembled",
                 "initialization": initialization,
                 "provenance": provenance, "resumeCheckpoint": str(args.resume) if args.resume else None}
             if not checkpoint:
@@ -168,7 +184,7 @@ def run(args) -> Path:
                   f"Parameters: {parameter_count(model):,}; context: 512 UTF-8 bytes\nRun: {directory}\n"
                   f"Epoch budget: {args.epochs} additional; range {first_epoch}..{first_epoch + args.epochs - 1}\n"
                   f"Batch size: {config.batch_size}; patience: {config.patience}; smoke: {config.smoke}\n"
-                  f"Unique train windows: {len(train.refs)}; one shuffled presentation per unique window\n"
+                  f"Unique train windows: {len(train.refs)}; bounded curriculum is separate from real-source windows\n"
                   f"Optimizer steps/epoch: {len(epoch_batches(train, config, first_epoch))}", flush=True)
             timings = []
             for epoch in range(first_epoch, first_epoch + args.epochs):
@@ -206,6 +222,9 @@ def run(args) -> Path:
                 for kind, metrics in report["documentKinds"].items():
                     print(f"  {kind:<4} validation: F1={metrics['exactSpan']['f1']:.4f} "
                           f"macro={metrics['exactSpanMacroF1']:.4f} documents={metrics['documents']}", flush=True)
+                for stream, metrics in report["streams"].items():
+                    if metrics["documents"]:
+                        print(f"  {stream:<7}: F1={metrics['exactSpan']['f1']:.4f} macro={metrics['exactSpanMacroF1']:.4f} documents={metrics['documents']}", flush=True)
                 remaining = first_epoch + args.epochs - epoch - 1
                 print(f"  selection={score:.4f}; best={state['bestScore']:.4f} (epoch {state['bestEpoch']}); "
                       f"no improvement={state['epochsWithoutImprovement']}/{config.patience}\n"

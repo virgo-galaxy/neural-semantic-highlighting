@@ -24,6 +24,15 @@ downloaded. Each blob is verified against the pinned Git tree and frozen with
 SHA-256 in `source.lock.json`; images, scripts and repository installations are
 not downloaded or executed. Existing locked sources are verified and reused.
 
+`make dataset-html-curriculum` generates a small, original grammar curriculum in
+an immutable versioned directory with a generator/source hash lock. It is marked
+`focus`; collected source remains `natural`. Its templates cover failures seen
+in development (attribute forms, entities, raw text, foreign content, script/CSS
+strings and typed data) without reading Golden fixture source or answers.
+Source/template directories remain intact during splitting, with both streams
+balanced separately across holdouts. Real-source and synthetic scores stay
+separate; final selection uses real-source validation.
+
 Offline parse5 SAX locations supply original-source boundaries. Entity decoding
 identifies reference lengths without replacing the raw source. Scripts/styles
 remain explicitly typed opaque regions at this stage. No network requests,

@@ -38,16 +38,17 @@ def dataset_root() -> Path:
 
 def assign_groups(weights: dict[str, Counter], seed: int) -> dict[str, str]:
     """Balance HTML and SHTML while keeping each source directory intact."""
-    totals = {kind: sum(value[kind] for value in weights.values()) for kind in KINDS}
-    for kind in KINDS:
+    axes = sorted({kind for value in weights.values() for kind in value})
+    totals = {kind: sum(value[kind] for value in weights.values()) for kind in axes}
+    for kind in axes:
         if sum(bool(value[kind]) for value in weights.values()) < 3:
             raise ValueError(f"{kind} needs at least three independent source groups after deduplication")
     ratios = (.8, .1, .1)
     loads = [Counter(), Counter(), Counter()]
     groups = [set(), set(), set()]
-    targets = [{kind: max(1., totals[kind] * ratio) for kind in KINDS} for ratio in ratios]
+    targets = [{kind: max(1., totals[kind] * ratio) for kind in axes} for ratio in ratios]
     def error(index: int, values: Counter) -> float:
-        return sum((values[kind] - targets[index][kind]) ** 2 / targets[index][kind] for kind in KINDS)
+        return sum((values[kind] - targets[index][kind]) ** 2 / targets[index][kind] for kind in axes)
     ordered = sorted(weights, key=lambda group: (-sum(weights[group].values()),
         hashlib.sha256(f"{seed}:{group}".encode()).hexdigest()))
     assigned = {}
@@ -62,7 +63,7 @@ def assign_groups(weights: dict[str, Counter], seed: int) -> dict[str, str]:
         changed = False
         for group in ordered:
             old, size = assigned[group], weights[group]
-            if any(size[kind] and loads[old][kind] <= size[kind] for kind in KINDS):
+            if any(size[kind] and loads[old][kind] <= size[kind] for kind in axes):
                 continue
             best, delta = old, -1e-9
             for new in range(3):
@@ -82,7 +83,7 @@ def assign_groups(weights: dict[str, Counter], seed: int) -> dict[str, str]:
         if not changed:
             break
     for index in range(3):
-        for kind in KINDS:
+        for kind in axes:
             if not loads[index][kind]:
                 raise ValueError(f"Grouped allocation has no {kind} in {SPLITS[index]}; add independent sources")
     return {group: SPLITS[index] for group, index in assigned.items()}
@@ -138,7 +139,7 @@ def prepare(root: Path, *, seed: int = 1729) -> dict:
                     raise ValueError("Conflicting Gold for identical source")
                 records[doc_id]["origins"].append({key: record[key] for key in ("repository", "path", "sourceGroup")})
             else:
-                records[doc_id] = {**record, "id": doc_id, "stream": "natural",
+                records[doc_id] = {**record, "id": doc_id, "stream": record.get("stream", "natural"),
                     "origins": [{key: record[key] for key in ("repository", "path", "sourceGroup")}]}
             for label, value in (("exact", record["contentHash"]), ("lexical", encoded.normalized_hash),
                                  ("shape", encoded.shape_hash)):
@@ -164,7 +165,7 @@ def prepare(root: Path, *, seed: int = 1729) -> dict:
                 raise ValueError("Cross-group copies were not excluded")
             record["sourceGroup"] = next(iter(groups))
             fixed, _ = windows(encode(record, schema), 512, adaptive=False)
-            weights[record["sourceGroup"]][record["documentKind"]] += len(fixed)
+            weights[record["sourceGroup"]][record["documentKind"] + ":" + record["stream"]] += len(fixed)
         assignments = assign_groups(dict(weights), seed)
         staging = Path(tempfile.mkdtemp(prefix=".staging-", dir=output))
         try:
@@ -185,12 +186,12 @@ def prepare(root: Path, *, seed: int = 1729) -> dict:
                         encoded = encode(record, schema)
                         ranges, _ = windows(encoded, 512, adaptive=split == "train")
                         docs.write(dumps(record) + "\n")
-                        counts.update(documents=1, windows=len(ranges), naturalWindows=len(ranges))
+                        counts.update(documents=1, windows=len(ranges), **{record["stream"] + "Windows": len(ranges)})
                         kind_counts[record["documentKind"]].update(documents=1, windows=len(ranges),
                             spans=len(record["result"]["spans"]))
                         role_counts[record["documentKind"]].update(span["tokenType"] for span in record["result"]["spans"])
                         for lo, hi in ranges:
-                            refs.write(dumps({"documentId": name, "stream": "natural", "documentKind": record["documentKind"],
+                            refs.write(dumps({"documentId": name, "stream": record.get("stream", "natural"), "documentKind": record["documentKind"],
                                 "startByte": lo, "endByte": hi, "length": hi - lo}) + "\n")
                             for column, values in padded_window(encoded, lo, hi, 512).items():
                                 columns[column].write(little_endian_bytes(values))
@@ -204,7 +205,7 @@ def prepare(root: Path, *, seed: int = 1729) -> dict:
                     "modifierSupervision": "span-beginnings", "continuationBytes": "ignored"},
                 "policy": {"split": "intact-source-directories-before-windowing",
                     "trainingWindowing": "gold-adaptive-cursor", "evaluationWindowing": "character-safe-fixed-cursor",
-                    "crossGroupCopies": "excluded", "targetRatios": [.8, .1, .1]},
+                    "crossGroupCopies": "excluded", "targetRatios": [.8, .1, .1], "balanceAxes": "document-kind-and-stream"},
                 "inputDocuments": manifest["files"], "uniqueDocuments": len(records),
                 "exactDuplicateRecords": manifest["files"] - len(records), "excludedCopyDocuments": len(excluded),
                 "retainedDocuments": sum(value["documents"] for value in statistics.values()),

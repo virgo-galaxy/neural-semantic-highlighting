@@ -32,12 +32,14 @@ interface SourceSpec {
   base: "repository" | "dataset" | "absolute";
   path: string;
   lock?: string;
+  stream?: "natural" | "focus";
 }
 
 interface SourceRecord {
   repository: string;
   path: string;
   documentKind: "html";
+  stream: "natural" | "focus";
   sourceGroup: string;
   source: string;
   contentHash: string;
@@ -157,6 +159,8 @@ export async function collect(root: string, configPath = defaultConfig): Promise
       ids.add(spec.id);
       if (!["repository", "dataset", "absolute"].includes(spec.base))
         throw new Error("Invalid source base");
+      if (spec.stream && spec.stream !== "natural" && spec.stream !== "focus")
+        throw new Error("Invalid sampling stream");
       const base =
         spec.base === "repository" ? repository : spec.base === "dataset" ? dirname(root) : "/";
       const folder = resolve(base, spec.path);
@@ -174,6 +178,7 @@ export async function collect(root: string, configPath = defaultConfig): Promise
           commit?: string;
           tree?: string;
           upstream?: string;
+          generatorHash?: string;
         };
         lockedFiles = sourceLock.files;
         sourceLocks[spec.id] = {
@@ -184,6 +189,7 @@ export async function collect(root: string, configPath = defaultConfig): Promise
           commit: sourceLock.commit,
           tree: sourceLock.tree,
           upstream: sourceLock.upstream,
+          generatorHash: sourceLock.generatorHash,
         };
       }
       const walk = async (directory: string): Promise<void> => {
@@ -226,6 +232,7 @@ export async function collect(root: string, configPath = defaultConfig): Promise
             path: name,
             source,
             documentKind: "html",
+            stream: spec.stream ?? "natural",
             sourceGroup: spec.id + ":" + dirname(name),
             contentHash: sha256(raw),
           });
@@ -287,6 +294,7 @@ const count = (values: string[]): Record<string, number> => {
 
 export function validateRecord(record: SourceRecord, schema: PackSchema): void {
   if (record.documentKind !== "html") throw new Error("Unknown document kind");
+  if (!["natural", "focus"].includes(record.stream)) throw new Error("Unknown sampling stream");
   if (sha256(record.source) !== record.contentHash) throw new Error("Source content hash mismatch");
   if (!record.sourceGroup || !record.repository || !record.path)
     throw new Error("Missing source identity");

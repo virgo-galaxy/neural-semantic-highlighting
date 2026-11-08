@@ -2,6 +2,7 @@
 	check \
 	dataset-html \
 	dataset-html-sources \
+	dataset-html-curriculum \
 	dataset-html-collect \
 	dataset-html-label \
 	dataset-html-validate \
@@ -131,7 +132,11 @@ check:
 dataset-html-sources:
 	$(PYTHON) packs/html/dataset/fetch_sources.py
 
+dataset-html-curriculum:
+	$(PYTHON) packs/html/dataset/generate_curriculum.py
+
 dataset-html:
+	$(MAKE) dataset-html-curriculum
 	$(MAKE) dataset-html-collect
 	$(MAKE) dataset-html-label
 	$(MAKE) dataset-html-validate

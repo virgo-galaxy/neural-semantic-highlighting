@@ -64,7 +64,7 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
         "artifact": {"file": output.name, "format": MODEL_FORMAT, "sha256": file_hash(output),
             "bytes": output.stat().st_size, "parameterCount": sum(value.numel() for value in checkpoint["model"].values()),
             "containsOptimizerState": False, "resumableTrainingCheckpoint": False},
-        "selection": {"epoch": checkpoint["epoch"], "metric": "mean per-kind validation exact-span macro F1",
+        "selection": {"epoch": checkpoint["epoch"], "metric": "natural real-source validation exact-span macro F1",
                       "score": checkpoint["trainingState"]["bestScore"]},
         "checkpointConfig": checkpoint["modelConfig"],
         "orderedLabels": {"boundary": ["O", "B", "I"], "tokenTypes": checkpoint["schema"]["tokenTypes"],

@@ -86,6 +86,19 @@ class TrainingTests(unittest.TestCase):
         self.assertEqual(first, epoch_batches(split, TrainingConfig(batch_size=4), 2))
         self.assertEqual(sorted(i for batch in first for i in batch), list(range(13)))
 
+    def test_curriculum_is_bounded_and_rotates_without_replacing_natural_windows(self):
+        refs = [{"documentKind": "html", "stream": "natural"} for _ in range(13)]
+        refs += [{"documentKind": "html", "stream": "focus"} for _ in range(50)]
+        split = SimpleNamespace(refs=refs)
+        config = TrainingConfig(batch_size=8, focus_batch_size=4)
+        first = epoch_batches(split, config, 1)
+        self.assertEqual(first, epoch_batches(split, config, 1))
+        self.assertEqual(sorted(i for b in first for i in b if i < 13), list(range(13)))
+        focus_first = {i for b in first for i in b if i >= 13}
+        focus_second = {i for b in epoch_batches(split, config, 2) for i in b if i >= 13}
+        self.assertEqual(len(focus_first), 8)
+        self.assertFalse(focus_first & focus_second)
+
     def test_local_runtime_unicode_stdio_and_inference_artifact_cannot_resume(self):
         model = tiny_model()
         with torch.no_grad():
