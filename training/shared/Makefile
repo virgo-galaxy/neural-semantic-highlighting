@@ -318,3 +318,65 @@ challenge-sql:
 export-sql-model:
 	@test -n "$(SQL_CHECKPOINT)" -a -n "$(SQL_TEST_REPORT)" || (echo 'Set SQL_CHECKPOINT and SQL_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.sql.export_model --checkpoint "$(SQL_CHECKPOINT)" --test-report "$(SQL_TEST_REPORT)"
+
+POWERSHELL_DEVICE ?= auto
+POWERSHELL_EPOCHS ?= 3
+POWERSHELL_BATCH_SIZE ?= 32
+POWERSHELL_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-powershell dataset-powershell-sources dataset-powershell-curriculum dataset-powershell-collect dataset-powershell-label dataset-powershell-validate dataset-powershell-prepare test-labeling-powershell train-powershell-smoke train-powershell continue-powershell predict-powershell evaluate-powershell challenge-powershell export-powershell-model
+
+dataset-powershell-sources:
+	$(PYTHON) -m packs.powershell.dataset.fetch_sources
+
+dataset-powershell:
+	$(MAKE) dataset-powershell-sources
+	$(MAKE) dataset-powershell-curriculum
+	$(MAKE) dataset-powershell-collect
+	$(MAKE) dataset-powershell-label
+	$(MAKE) dataset-powershell-validate
+	$(MAKE) dataset-powershell-prepare
+
+dataset-powershell-curriculum:
+	$(PYTHON) -m packs.powershell.dataset.generate_curriculum
+
+dataset-powershell-collect:
+	$(PYTHON) -m packs.powershell.dataset.pipeline collect
+
+dataset-powershell-label:
+	$(PYTHON) -m packs.powershell.dataset.pipeline label
+
+dataset-powershell-validate:
+	$(PYTHON) -m packs.powershell.dataset.pipeline validate
+
+dataset-powershell-prepare:
+	$(PYTHON) -m training.powershell.prepare
+
+test-labeling-powershell:
+	$(PYTHON) -m unittest discover -s packs/powershell/tests -v
+
+train-powershell-smoke:
+	$(PYTHON) -m training.powershell.train --smoke --epochs 1 --device $(POWERSHELL_DEVICE) $(if $(POWERSHELL_RUN),--output-dir "$(POWERSHELL_RUN)") $(if $(POWERSHELL_INIT_FROM),--init-from "$(POWERSHELL_INIT_FROM)")
+
+train-powershell:
+	$(PYTHON) -m training.powershell.train --epochs $(POWERSHELL_EPOCHS) --device $(POWERSHELL_DEVICE) --batch-size $(POWERSHELL_BATCH_SIZE) $(if $(POWERSHELL_RUN),--output-dir "$(POWERSHELL_RUN)") $(if $(POWERSHELL_INIT_FROM),--init-from "$(POWERSHELL_INIT_FROM)")
+
+continue-powershell:
+	@test -n "$(POWERSHELL_CHECKPOINT)" || (echo 'Set POWERSHELL_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.powershell.train --resume "$(POWERSHELL_CHECKPOINT)" --epochs $(POWERSHELL_EPOCHS) --device $(POWERSHELL_DEVICE)
+
+predict-powershell:
+	@test -n "$(POWERSHELL_SOURCE)" || (echo 'Set POWERSHELL_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.powershell.predict --device $(POWERSHELL_DEVICE) --file "$(POWERSHELL_SOURCE)" $(if $(POWERSHELL_CHECKPOINT),--checkpoint "$(POWERSHELL_CHECKPOINT)")
+
+evaluate-powershell:
+	@test -n "$(POWERSHELL_CHECKPOINT)" || (echo 'Set POWERSHELL_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.powershell.evaluate --checkpoint "$(POWERSHELL_CHECKPOINT)" --device $(POWERSHELL_DEVICE) --split $(POWERSHELL_EVAL_SPLIT)
+
+challenge-powershell:
+	@test -n "$(POWERSHELL_CHECKPOINT)" || (echo 'Set POWERSHELL_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.powershell.challenge --checkpoint "$(POWERSHELL_CHECKPOINT)" --device $(POWERSHELL_DEVICE)
+
+export-powershell-model:
+	@test -n "$(POWERSHELL_CHECKPOINT)" -a -n "$(POWERSHELL_TEST_REPORT)" || (echo 'Set POWERSHELL_CHECKPOINT and POWERSHELL_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.powershell.export_model --checkpoint "$(POWERSHELL_CHECKPOINT)" --test-report "$(POWERSHELL_TEST_REPORT)"

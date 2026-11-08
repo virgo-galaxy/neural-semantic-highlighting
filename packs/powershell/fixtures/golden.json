@@ -1,0 +1,74 @@
+[
+  {
+    "id": "cmdlet-arguments",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6function+default-library|Write-Host\u27e7 \u27e6parameter|-ForegroundColor\u27e7 \u27e6string|Green\u27e7 \u27e6string|\"Ready\"\u27e7\n"
+  },
+  {
+    "id": "typed-function",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6keyword|function\u27e7 \u27e6function+declaration|Get-Title\u27e7 \u27e6punctuation|{\u27e7 \u27e6keyword|param\u27e7\u27e6punctuation|(\u27e7\u27e6type|[string]\u27e7\u27e6variable+declaration|$Name\u27e7\u27e6punctuation|)\u27e7 \u27e6string|\"Hi $Name\"\u27e7 \u27e6punctuation|}\u27e7\n"
+  },
+  {
+    "id": "pipeline-members",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6function+default-library|Get-Service\u27e7 \u27e6operator||\u27e7 \u27e6function+default-library|Where-Object\u27e7 \u27e6punctuation|{\u27e7 \u27e6variable+default-library|$_\u27e7\u27e6punctuation|.\u27e7\u27e6property|Status\u27e7 \u27e6operator|-eq\u27e7 \u27e6string|'Running'\u27e7 \u27e6punctuation|}\u27e7\n"
+  },
+  {
+    "id": "hashtable",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6variable+declaration|$options\u27e7 \u27e6operator|=\u27e7 \u27e6punctuation|@\u27e7\u27e6punctuation|{\u27e7 \u27e6property|Name\u27e7 \u27e6operator|=\u27e7 \u27e6string|'Virgo'\u27e7\u27e6punctuation|;\u27e7 \u27e6property|Count\u27e7 \u27e6operator|=\u27e7 \u27e6number|8\u27e7 \u27e6punctuation|}\u27e7\n"
+  },
+  {
+    "id": "here-literal",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6variable+declaration|$text\u27e7 \u27e6operator|=\u27e7 \u27e6string|@'\n$HOME # literal text\n'@\u27e7\n\u27e6function+default-library|Write-Output\u27e7 \u27e6variable|$text\u27e7\n"
+  },
+  {
+    "id": "here-expand",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6variable+declaration|$text\u27e7 \u27e6operator|=\u27e7 \u27e6string|@\"\r\nHello $name\r\n\"@\u27e7\r\n\u27e6function+default-library|Get-Date\u27e7\r\n"
+  },
+  {
+    "id": "nested-comment",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6comment|<# outer <# nested #> final #>\u27e7\n\u27e6function+default-library|Write-Output\u27e7 \u27e6number|3\u27e7\n"
+  },
+  {
+    "id": "modern-operators",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6variable+declaration|$name\u27e7 \u27e6operator|=\u27e7 \u27e6variable|$value\u27e7 \u27e6operator|??\u27e7 \u27e6string|'guest'\u27e7\n"
+  },
+  {
+    "id": "automatic-environment",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6variable+declaration|$root\u27e7 \u27e6operator|=\u27e7 \u27e6variable|$env:TEMP\u27e7\n\u27e6function+default-library|Write-Output\u27e7 \u27e6variable+default-library|$PSScriptRoot\u27e7\n"
+  },
+  {
+    "id": "static-method",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6variable+declaration|$count\u27e7 \u27e6operator|=\u27e7 \u27e6type|[int]\u27e7\u27e6operator|::\u27e7\u27e6function|Parse\u27e7\u27e6punctuation|(\u27e7\u27e6string|'12'\u27e7\u27e6punctuation|)\u27e7\n"
+  },
+  {
+    "id": "unicode-crlf",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6comment|# \u661f\u7a7a \ud83c\udf0c\u27e7\r\n\u27e6function+default-library|Write-Output\u27e7 \u27e6string|\"\u4f60\u597d \ud83d\ude80\"\u27e7\r\n"
+  },
+  {
+    "id": "class-declaration",
+    "profile": "powershell",
+    "documentKind": "powershell",
+    "markedSource": "\u27e6keyword|class\u27e7 \u27e6type+declaration|Note\u27e7 \u27e6punctuation|{\u27e7 \u27e6type|[string]\u27e7\u27e6variable|$Name\u27e7 \u27e6punctuation|}\u27e7\n"
+  }
+]

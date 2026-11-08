@@ -1,0 +1,17 @@
+{
+  "label": "PowerShell",
+  "profiles": ["powershell"],
+  "scope": "powershell-local-semantic-spans",
+  "contextBytes": 512,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": ["comment"],
+    "modifierRoles": {
+      "declaration": ["function", "variable", "type"],
+      "default-library": ["function", "variable"]
+    }
+  },
+  "requiredTrainingFeatures": {
+    "powershell": ["functions", "parameters", "pipelines", "strings", "hashtables", "here-strings"]
+  },
+  "minimumTrainingFeatureGroups": 3
+}
