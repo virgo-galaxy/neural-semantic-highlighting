@@ -63,4 +63,22 @@ class PipelineTests(unittest.TestCase):
         result=decode('x',out,{'tokenTypes':['function'],'modifiers':['declaration']})
         self.assertEqual(result['spans'],[{'start':0,'end':1,'tokenType':'function','modifiers':['declaration']}])
 
+    def test_pack_string_canonicalization_uses_predicted_ranges_only(self):
+        schema={'tokenTypes':['string','variable'],'modifiers':['declaration']}
+        out=ModelOutput(torch.tensor([[0.,9.,0.]]*4),torch.tensor([[9.,0.],[9.,0.],[0.,9.],[0.,9.]]),torch.tensor([[-9.]]*4))
+        baseline=decode('abcd',out,schema)
+        canonical=decode('abcd',out,schema,coalesce_types=('string',))
+        self.assertEqual(len(baseline['spans']),4)
+        self.assertEqual([(s['start'],s['end'],s['tokenType']) for s in canonical['spans']],[(0,2,'string'),(2,3,'variable'),(3,4,'variable')])
+        gap=ModelOutput(torch.tensor([[0.,9.,0.],[9.,0.,0.],[0.,9.,0.]]),torch.tensor([[9.,0.]]*3),torch.tensor([[-9.]]*3))
+        self.assertEqual(len(decode('a b',gap,schema,coalesce_types=('string',))['spans']),2)
+
+    def test_modifier_role_validity_and_policy_binding(self):
+        out=ModelOutput(torch.tensor([[0.,9.,0.]]),torch.tensor([[9.]]),torch.tensor([[9.]]))
+        schema={'tokenTypes':['string'],'modifiers':['declaration']}
+        self.assertNotIn('modifiers',decode('x',out,schema,modifier_roles={'declaration':('function',)})['spans'][0])
+        with using('bash'):
+            with self.assertRaises(ValueError):current().verify_config({})
+        with using('python'):current().verify_config({})
+
 if __name__=='__main__':unittest.main()

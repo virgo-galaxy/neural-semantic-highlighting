@@ -126,6 +126,7 @@ def run(args) -> Path:
     if device.type == "cpu":
         torch.set_num_threads(min(4, torch.get_num_threads()))
     checkpoint = load_checkpoint(args.resume.resolve()) if args.resume else None
+    if checkpoint:current().verify_config(checkpoint.get('provenance',{}))
     values = checkpoint["trainingConfig"].copy() if checkpoint else asdict(TrainingConfig())
     for name in ("batch_size", "learning_rate", "patience", "smoke", "focus_batch_size", "focus_every"):
         value = getattr(args, name)
@@ -174,6 +175,8 @@ def run(args) -> Path:
                 weights = {name: value.to(device) for name, value in training_weights(train).items()}
             provenance = {"codeHashes": code_hashes(),
                 "semanticsHash": file_hash(current().semantics_path),
+                "packConfigHash": file_hash(current().directory/'pack.json'),
+                "decoderPolicy": current().decoder(),
                 "pythonTorch": str(torch.__version__),
                 "repositoryDirty": bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=REPOSITORY, text=True)),
                 "repositoryCommit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPOSITORY, text=True).strip()}

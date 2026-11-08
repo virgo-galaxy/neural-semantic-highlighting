@@ -141,7 +141,7 @@ def evaluate_fixed(model: SemanticTransformer, split: WindowSplit, device: torch
             raise ValueError("Prepared bytes do not match document source")
         output = ModelOutput(torch.cat([p.boundary for p in pending]), torch.cat([p.token_type for p in pending]),
                              torch.cat([p.modifier for p in pending]))
-        predicted = decode(source, output, schema, threshold=threshold)
+        predicted = decode(source, output, schema, threshold=threshold, **current().decoder())
         spans[doc["stream"]].add(doc["result"], predicted)
         profiles[doc["profile"]][doc["stream"]].add(doc["result"], predicted)
         document_kinds[doc["documentKind"]].add(doc["result"], predicted)
@@ -193,7 +193,7 @@ def evaluate_adaptive(model: SemanticTransformer, split: WindowSplit, device: to
     started = time.monotonic()
     for index, doc in enumerate(docs.values(), 1):
         output = document_logits(model, doc["source"], device)
-        result = decode(doc["source"], output, schema, threshold=threshold)
+        result = decode(doc["source"], output, schema, threshold=threshold, **current().decoder())
         metrics[doc["stream"]].add(doc["result"], result)
         profiles[doc["profile"]][doc["stream"]].add(doc["result"], result)
         document_kinds[doc["documentKind"]].add(doc["result"], result)

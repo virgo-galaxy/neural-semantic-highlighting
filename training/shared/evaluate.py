@@ -43,6 +43,7 @@ def main():
         report = (evaluate_adaptive if args.inference == "adaptive" else evaluate_fixed)(
             model, split, device, threshold=payload["trainingConfig"]["modifier_threshold"])
         report.update(checkpointHash=checkpoint_hash, checkpointEpoch=payload["epoch"],
+            decoderPolicy=current().decoder(),
             smokeCheckpoint=bool(payload["trainingConfig"].get("smoke")), dataset=snapshot.identity(),
             modelConfig=payload["modelConfig"], device=device.type, torchVersion=str(torch.__version__), codeHashes=code_hashes())
     finally:

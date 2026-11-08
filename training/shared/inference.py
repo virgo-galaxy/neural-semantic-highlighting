@@ -70,7 +70,8 @@ def document_logits(model: SemanticTransformer, source: str, device: torch.devic
     return result
 
 
-def decode(source: str, logits: ModelOutput, schema: dict, *, threshold: float = .60) -> dict:
+def decode(source: str, logits: ModelOutput, schema: dict, *, threshold: float = .60,
+           coalesce_types: tuple[str, ...] = (), modifier_roles: dict | None = None) -> dict:
     if not 0 < threshold < 1:
         raise ValueError("Modifier threshold must be between 0 and 1")
     starts, units = character_map(source)
@@ -111,8 +112,13 @@ def decode(source: str, logits: ModelOutput, schema: dict, *, threshold: float =
     for (a, b), role, flags in zip(ranges, role_ids, modifier_flags):
         item = {"start": units[a], "end": units[b], "tokenType": schema["tokenTypes"][role]}
         modifiers = [name for name, present in zip(schema["modifiers"], flags)
-                     if present]
+                     if present and (modifier_roles is None or name not in modifier_roles or item['tokenType'] in modifier_roles[name])]
         if modifiers:
             item["modifiers"] = modifiers
-        spans.append(item)
+        if (spans and item['tokenType'] in coalesce_types and spans[-1]['tokenType']==item['tokenType']
+                and spans[-1]['end']==item['start'] and spans[-1].get('modifiers',[])==item.get('modifiers',[])):
+            # Match the pack's canonical adjacent-region contract. This does
+            # not inspect source spelling or change any predicted token role.
+            spans[-1]['end']=item['end']
+        else:spans.append(item)
     return {"offsetEncoding": "utf-16", "spans": spans}

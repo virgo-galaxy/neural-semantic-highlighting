@@ -47,6 +47,7 @@ class Snapshot:
             raise ValueError("pack snapshot/schema mismatch")
         if manifest["identity"].get("semanticContractHash") != file_hash(current().semantics_path):
             raise ValueError("pack snapshot/semantic contract mismatch")
+        current().verify_config(manifest['identity'])
         expected = {"padByteId": PAD, "ignoreId": IGNORE, "boundaryClasses": ["outside", "begin", "inside"],
                     "modifierSupervision": "span-beginnings", "continuationBytes": "ignored"}
         if manifest.get("labels") != expected:

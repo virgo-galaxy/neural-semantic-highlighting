@@ -34,6 +34,13 @@ is attempted. Adjacent lexer fragments of a string are canonicalized into one
 span; separated literals remain separate. Interpolated variable/command tokens
 retain their own roles where provided by the lexer.
 
+The neural decoder applies that same canonical adjacent-string rule, merging only
+touching predicted string spans with equal modifier sets. Whitespace gaps and
+other roles stay separate. `declaration` is valid on function/variable roles;
+`default-library` is valid on functions. These schema/output rules use predicted
+roles and ranges only, never source spelling, lexer state or Gold boundaries.
+The decoder policy is bound to the checkpoint's pack-configuration hash.
+
 Ranges use original Unicode characters mapped to UTF-16 `[start,end)` offsets,
 with complete non-whitespace Gold coverage. No newline normalization, tab
 expansion or automatic EOF newline is allowed. Unknown lexer tokens and invalid

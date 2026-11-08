@@ -2,5 +2,12 @@
   "label": "Shell",
   "profiles": ["posix", "bash", "zsh", "csh"],
   "scope": "shell-local-semantic-spans",
-  "contextBytes": 512
+  "contextBytes": 512,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": ["string"],
+    "modifierRoles": {
+      "declaration": ["function", "variable"],
+      "default-library": ["function"]
+    }
+  }
 }

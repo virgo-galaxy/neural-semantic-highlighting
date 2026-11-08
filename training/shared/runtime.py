@@ -18,6 +18,7 @@ class LocalPack:
             if self.device.type == 'cpu': torch.set_num_threads(min(4,torch.get_num_threads()))
             path=Path(checkpoint_path or spec.directory/'model/model.pt')
             self.checkpoint=load_model_artifact(path)
+            spec.verify_config(self.checkpoint.get('provenance',{}))
             if self.checkpoint['schema'] != spec.schema() or self.checkpoint.get('documentKinds') != list(spec.document_kinds):
                 raise ValueError('Artifact does not match pack schema/document kinds')
             self.model=model_from_checkpoint(self.checkpoint,self.device)
@@ -27,7 +28,7 @@ class LocalPack:
         if not isinstance(source,str) or document_kind not in self.spec.document_kinds:
             raise ValueError('Unsupported source or document kind')
         return decode(source,document_logits(self.model,source,self.device),self.checkpoint['schema'],
-                      threshold=self.checkpoint['trainingConfig']['modifier_threshold'])
+                      threshold=self.checkpoint['trainingConfig']['modifier_threshold'],**self.spec.decoder())
 
 def run_stdio(pack):
     for line in sys.stdin:

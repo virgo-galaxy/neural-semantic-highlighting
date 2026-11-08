@@ -10,6 +10,13 @@ offline teacher, sources, frozen source-family assignments, Golden and model bun
 offline command configuration with a context variable; runtime objects retain their
 own model/schema and can coexist without changing another pack's configuration.
 
+Optional pack-owned decoder policies declare canonical touching regions and valid
+modifier/role combinations. Defaults preserve the original standalone behavior.
+Gold, validation and runtime must share those rules; they never inspect source
+spelling or repair a predicted type. Custom policies require a checkpoint-bound
+pack-configuration hash. Changing a policy starts a new experiment/protocol, with
+old reports and checkpoints preserved rather than silently reinterpreted.
+
 Data stays under `$NSH_DATASET_ROOT/<pack>` (default
 `~/Datasets/neural-semantic-highlighting/<pack>`), with immutable `corpora`, `gold`
 and `prepared` snapshots. Every source retains original UTF-8 bytes and origin,

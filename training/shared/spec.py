@@ -43,6 +43,8 @@ class PackSpec:
     document_kinds: tuple[str, ...]
     profiles: tuple[str, ...]
     scope: str
+    coalesce_types: tuple[str, ...] = ()
+    modifier_roles: tuple[tuple[str, tuple[str, ...]], ...] = ()
 
     @classmethod
     def open(cls, pack_id: str):
@@ -53,7 +55,25 @@ class PackSpec:
         kinds=tuple(item['id'] for item in manifest['documentKinds'])
         profiles=tuple(config['profiles'])
         if manifest['id']!=pack_id or not kinds or not profiles or len(set(kinds))!=len(kinds) or len(set(profiles))!=len(profiles):raise ValueError('Invalid pack manifest/profiles')
-        return cls(pack_id,config['label'],root,kinds,profiles,config['scope'])
+        policy=config.get('decoder',{})
+        schema=json.loads((root/'schema.json').read_text())
+        roles={item['id'] for item in schema['tokenTypes']};mods={item['id'] for item in schema['tokenModifiers']}
+        coalesce=tuple(policy.get('coalesceAdjacentTokenTypes',[]))
+        allowed=tuple((name,tuple(values)) for name,values in policy.get('modifierRoles',{}).items())
+        if (set(policy)-{'coalesceAdjacentTokenTypes','modifierRoles'} or len(set(coalesce))!=len(coalesce)
+                or not set(coalesce)<=roles or any(name not in mods or not values or len(set(values))!=len(values) or not set(values)<=roles for name,values in allowed)):
+            raise ValueError('Invalid pack decoder policy')
+        return cls(pack_id,config['label'],root,kinds,profiles,config['scope'],coalesce,allowed)
+
+    def decoder(self):
+        return {'coalesce_types':self.coalesce_types,'modifier_roles':dict(self.modifier_roles) or None}
+
+    def verify_config(self, provenance):
+        expected=provenance.get('packConfigHash')
+        if expected is not None:
+            if expected!=file_hash(self.directory/'pack.json'):raise ValueError('Checkpoint pack configuration changed')
+        elif self.coalesce_types or self.modifier_roles:
+            raise ValueError('A custom decoder requires a configuration-bound training checkpoint')
 
     @property
     def schema_path(self):return self.directory/'schema.json'

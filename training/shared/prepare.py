@@ -138,6 +138,7 @@ def prepare(root: Path, *, seed: int = 1729, groups_file: Path | None = None) ->
         if frozen_groups.get("format") != f"nsh-{current().id}-split-groups-v1" or any(value not in SPLITS for value in frozen_groups["assignments"].values()):
             raise ValueError("Invalid frozen pack source-family assignments")
         identity = {"format": current().dataset_format, "gold": pointer["manifestHash"], "schema": file_hash(schema_path),
+                    "packConfigHash": file_hash(current().directory/'pack.json'),
                     "builders": builder_hashes, "fixedGroupsHash": file_hash(groups_file),
                     "contextBytes": 512, "seed": seed, "semanticContractHash": semantic_hash}
         snapshot = hashlib.sha256(dumps(identity).encode()).hexdigest()

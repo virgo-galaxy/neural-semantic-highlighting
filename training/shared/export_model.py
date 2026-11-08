@@ -17,6 +17,7 @@ from training.shared.prepare import REPOSITORY, file_hash
 def export_model(source: Path, test_report: Path, output: Path) -> dict:
     source_hash = file_hash(source)
     checkpoint = load_checkpoint(source)
+    current().verify_config(checkpoint.get('provenance',{}))
     if file_hash(source) != source_hash:
         raise ValueError("Checkpoint changed while loading; export a frozen checkpoint")
     if checkpoint["trainingConfig"].get("smoke"):
@@ -77,6 +78,7 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
         "input": {"encoding": "utf-8", "unit": "byte", "vocabSize": 257, "paddingId": 256, "maxLengthBytes": 512},
         "output": {"offsetEncoding": "utf-16", "interval": "[start,end)", "contract": "../SEMANTICS.md"},
         "inference": {"windowing": "predicted-adaptive-cursor", "decoder": "greedy-mean-logit",
+                      "packPolicy": current().decoder(),
                       "modifierThreshold": artifact["trainingConfig"]["modifier_threshold"], "parserRequired": False},
         "scope": current().scope,
         "modelSchema": {"file": "../schema.json", "sha256": file_hash(current().schema_path)},
