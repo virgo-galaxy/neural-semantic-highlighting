@@ -133,6 +133,7 @@ check:
 	$(MAKE) test-training-data-css
 	$(MAKE) test-training-data-html
 	$(MAKE) test-training-data-vue
+	$(MAKE) test-training-data-shared
 	$(PYTHON) -m compileall -q training/typescript packs/typescript/runtime training/go packs/go/runtime training/css
 	$(PYTHON) -c 'import importlib, pathlib, sys; sys.path.insert(0, "training/typescript"); [importlib.import_module(path.stem) for path in pathlib.Path("training/typescript").glob("*.py")]'
 	$(PYTHON) -c 'import packs.typescript.runtime.local'
@@ -142,6 +143,8 @@ check:
 	$(PYTHON) -c 'import packs.html.runtime.local'
 	$(PYTHON) -m compileall -q training/vue packs/vue/runtime
 	$(PYTHON) -c 'import packs.vue.runtime.local'
+
+include training/shared/Makefile
 
 dataset-html-sources:
 	$(PYTHON) packs/html/dataset/fetch_sources.py
