@@ -1,6 +1,8 @@
 import type { HighlightResult, SemanticPack } from "@nsh/core";
 import { describe, expect, it, vi } from "vitest";
 
+import { composeHtmlGold } from "../packs/html/labeling/embedded.js";
+import { labelHtml } from "../packs/html/labeling/label.js";
 import { createCompositeHtmlPack } from "../packs/html/runtime/composite.js";
 
 function base(result: HighlightResult): SemanticPack {
@@ -11,6 +13,33 @@ function base(result: HighlightResult): SemanticPack {
 }
 
 describe("HTML neural region composition", () => {
+  it("offline composed Gold preserves independently checked HTML, CSS and JavaScript roles", async () => {
+    const source = '<style>.card{color:red;}</style><script>const count = "<b>";</script>';
+    const result = composeHtmlGold(source, await labelHtml({ source, documentKind: "html" }));
+    const values = result.spans.map((span) => ({
+      text: source.slice(span.start, span.end),
+      role: span.tokenType,
+      modifiers: span.modifiers ?? [],
+    }));
+    expect(values).toContainEqual({ text: "color", role: "property", modifiers: ["declaration"] });
+    expect(
+      values.some(
+        (span) =>
+          span.text === "count" &&
+          span.role === "variable" &&
+          span.modifiers.includes("declaration"),
+      ),
+    ).toBe(true);
+    expect(values).toContainEqual({ text: '"<b>"', role: "string", modifiers: [] });
+    expect(values).toContainEqual({ text: "style", role: "tag", modifiers: ["closing"] });
+    expect(values.some((span) => span.role.startsWith("embedded-"))).toBe(false);
+  });
+
+  it("offline composition quarantines invalid embedded syntax", async () => {
+    const source = "<script>const count = ;</script>";
+    const baseGold = await labelHtml({ source, documentKind: "html" });
+    expect(() => composeHtmlGold(source, baseGold)).toThrow("syntax");
+  });
   it("calls the matching existing pack and restores original UTF-16 offsets and modifiers", async () => {
     const source = "🌌<style>.x{color:red}</style><script>let x=1;</script>";
     const css = source.indexOf(".x{"),

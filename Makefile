@@ -13,6 +13,7 @@
 	continue-html \
 	predict-html \
 	evaluate-html \
+	evaluate-html-composed \
 	challenge-html \
 	export-html-model \
 	dataset-css \
@@ -178,6 +179,10 @@ predict-html:
 evaluate-html:
 	@test -n "$(HTML_CHECKPOINT)" || (echo 'Set HTML_CHECKPOINT to an HTML checkpoint'; exit 1)
 	$(PYTHON) -m training.html.evaluate --checkpoint "$(HTML_CHECKPOINT)" --device $(HTML_DEVICE) --split $(HTML_EVAL_SPLIT)
+
+evaluate-html-composed:
+	@test -n "$(HTML_CHECKPOINT)" || (echo 'Set HTML_CHECKPOINT to an HTML checkpoint'; exit 1)
+	node --import tsx training/html/evaluate-composed.ts --checkpoint "$(HTML_CHECKPOINT)" --device $(HTML_DEVICE) --split $(HTML_EVAL_SPLIT)
 
 challenge-html:
 	@test -n "$(HTML_CHECKPOINT)" || (echo 'Set HTML_CHECKPOINT to an HTML checkpoint'; exit 1)
