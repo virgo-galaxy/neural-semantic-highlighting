@@ -707,3 +707,70 @@ challenge-c:
 export-c-model:
 	@test -n "$(C_CHECKPOINT)" -a -n "$(C_TEST_REPORT)" || (echo 'Set C_CHECKPOINT and C_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.c.export_model --checkpoint "$(C_CHECKPOINT)" --test-report "$(C_TEST_REPORT)"
+
+CPP_DEVICE ?= auto
+CPP_EPOCHS ?= 3
+CPP_BATCH_SIZE ?= 32
+CPP_LEARNING_RATE ?=
+CPP_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-cpp dataset-cpp-tools dataset-cpp-sources dataset-cpp-curriculum dataset-cpp-collect dataset-cpp-label dataset-cpp-validate dataset-cpp-prepare test-labeling-cpp train-cpp-smoke train-cpp continue-cpp predict-cpp evaluate-cpp challenge-cpp export-cpp-model
+
+dataset-cpp-tools:
+	$(PYTHON) -m packs.cpp.labeling.tools
+
+dataset-cpp-sources:
+	$(PYTHON) -m packs.cpp.dataset.fetch_sources
+
+dataset-cpp:
+	$(MAKE) dataset-cpp-tools
+	$(MAKE) dataset-cpp-sources
+	$(MAKE) dataset-cpp-curriculum
+	$(MAKE) dataset-cpp-collect
+	$(MAKE) dataset-cpp-label
+	$(MAKE) dataset-cpp-validate
+	$(MAKE) dataset-cpp-prepare
+
+dataset-cpp-curriculum:
+	$(PYTHON) -m packs.cpp.dataset.generate_curriculum
+
+dataset-cpp-collect:
+	$(PYTHON) -m packs.cpp.dataset.pipeline collect
+
+dataset-cpp-label:
+	$(PYTHON) -m packs.cpp.dataset.pipeline label
+
+dataset-cpp-validate:
+	$(PYTHON) -m packs.cpp.dataset.pipeline validate
+
+dataset-cpp-prepare:
+	$(PYTHON) -m training.cpp.prepare
+
+test-labeling-cpp:
+	$(PYTHON) -m unittest discover -s packs/cpp/tests -v
+
+train-cpp-smoke:
+	$(PYTHON) -m training.cpp.train --smoke --epochs 1 --device $(CPP_DEVICE) $(if $(CPP_RUN),--output-dir "$(CPP_RUN)") $(if $(CPP_INIT_FROM),--init-from "$(CPP_INIT_FROM)")
+
+train-cpp:
+	$(PYTHON) -m training.cpp.train --epochs $(CPP_EPOCHS) --device $(CPP_DEVICE) --batch-size $(CPP_BATCH_SIZE) $(if $(CPP_LEARNING_RATE),--learning-rate $(CPP_LEARNING_RATE)) $(if $(CPP_RUN),--output-dir "$(CPP_RUN)") $(if $(CPP_INIT_FROM),--init-from "$(CPP_INIT_FROM)")
+
+continue-cpp:
+	@test -n "$(CPP_CHECKPOINT)" || (echo 'Set CPP_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.cpp.train --resume "$(CPP_CHECKPOINT)" --epochs $(CPP_EPOCHS) --device $(CPP_DEVICE)
+
+predict-cpp:
+	@test -n "$(CPP_SOURCE)" || (echo 'Set CPP_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.cpp.predict --device $(CPP_DEVICE) --file "$(CPP_SOURCE)" $(if $(CPP_CHECKPOINT),--checkpoint "$(CPP_CHECKPOINT)")
+
+evaluate-cpp:
+	@test -n "$(CPP_CHECKPOINT)" || (echo 'Set CPP_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.cpp.evaluate --checkpoint "$(CPP_CHECKPOINT)" --device $(CPP_DEVICE) --split $(CPP_EVAL_SPLIT)
+
+challenge-cpp:
+	@test -n "$(CPP_CHECKPOINT)" || (echo 'Set CPP_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.cpp.challenge --checkpoint "$(CPP_CHECKPOINT)" --device $(CPP_DEVICE)
+
+export-cpp-model:
+	@test -n "$(CPP_CHECKPOINT)" -a -n "$(CPP_TEST_REPORT)" || (echo 'Set CPP_CHECKPOINT and CPP_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.cpp.export_model --checkpoint "$(CPP_CHECKPOINT)" --test-report "$(CPP_TEST_REPORT)"
