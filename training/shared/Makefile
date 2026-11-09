@@ -733,6 +733,7 @@ dataset-cpp:
 
 dataset-cpp-curriculum:
 	$(PYTHON) -m packs.cpp.dataset.generate_curriculum
+	$(PYTHON) -m packs.cpp.dataset.generate_mixed
 
 dataset-cpp-collect:
 	$(PYTHON) -m packs.cpp.dataset.pipeline collect
