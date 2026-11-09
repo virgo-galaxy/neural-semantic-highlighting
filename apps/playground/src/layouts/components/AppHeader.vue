@@ -1,15 +1,21 @@
 <script setup lang="ts">
+import { themes } from "@nsh/highlighter/themes";
+
 import AppIcon from "@/components/AppIcon.vue";
+import AppSelect from "@/components/AppSelect.vue";
 import AppTooltip from "@/components/AppTooltip.vue";
 import type { AppTheme } from "@/layouts/types";
 
 defineProps<{
   theme: AppTheme;
+  preset: string;
 }>();
 
 const emit = defineEmits<{
   themeChange: [theme: AppTheme];
+  presetChange: [preset: string];
 }>();
+const presetOptions = themes.map(({ id, name }) => ({ value: id, label: name }));
 </script>
 
 <template>
@@ -25,6 +31,15 @@ const emit = defineEmits<{
       </div>
 
       <div class="app-header__actions">
+        <div class="theme-preset-control">
+          <span class="theme-preset-control__label" aria-hidden="true">Theme</span>
+          <AppSelect
+            :model-value="preset"
+            :options="presetOptions"
+            ariaLabel="Code theme"
+            @update:model-value="emit('presetChange', $event)"
+          />
+        </div>
         <div class="theme-switch" role="group" aria-label="Color theme">
           <AppTooltip text="Light theme">
             <button

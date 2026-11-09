@@ -4,18 +4,18 @@ Frontend usage is documented in the [root README](../README.md).
 
 ## Workspace
 
-| Location                    | Responsibility                                             |
-| --------------------------- | ---------------------------------------------------------- |
-| `packages/highlighter`      | Consumer API, language descriptors and bundled models      |
-| `packages/core`             | Pack registry, result contracts and HTML/Vue composition   |
-| `packages/runtimes/browser` | Worker, WASM inference, cursor and decoding                |
-| `packages/renderers/html`   | Escaped HTML, full blocks and fragments                    |
-| `packages/themes`           | CSS palette and language overrides                         |
-| `packages/runtimes/local`   | Development/native process adapter                         |
-| `apps/playground`           | Vue consumer; uses browser inference                       |
-| `packs/<name>`              | Manifests, offline Gold tools, selected models and reports |
-| `training/<name>`           | Training/evaluation tools                                  |
-| `training/browser`          | Export and native parity tools                             |
+| Location                    | Responsibility                                              |
+| --------------------------- | ----------------------------------------------------------- |
+| `packages/highlighter`      | Consumer API, language descriptors and bundled models       |
+| `packages/core`             | Pack registry, result contracts and HTML/Vue composition    |
+| `packages/runtimes/browser` | Worker, WASM inference, cursor and decoding                 |
+| `packages/renderers/html`   | Escaped HTML, full blocks and fragments                     |
+| `packages/themes`           | Validated theme JSON, CSS generation and language overrides |
+| `packages/runtimes/local`   | Development/native process adapter                          |
+| `apps/playground`           | Vue consumer; uses browser inference                        |
+| `packs/<name>`              | Manifests, offline Gold tools, selected models and reports  |
+| `training/<name>`           | Training/evaluation tools                                   |
+| `training/browser`          | Export and native parity tools                              |
 
 `SemanticPack` accepts `{ source, documentKind }` and asynchronously returns a
 `HighlightResult`. Spans have inclusive `start`, exclusive `end`, a `tokenType`
@@ -89,3 +89,23 @@ Offline Gold environments do not become inference dependencies. Keep independent
 holdouts and real-source challenges; overall scores alone do not justify model
 promotion. Preserve the reports and known issues under each selected model.
 Browser conversion and parity are documented [here](../training/browser/README.md).
+
+## Theme development
+
+Source configuration is in `packages/themes/web/src/themes/<id>/`: metadata,
+complete light/dark palettes and sparse language patches. `src/schema.json`
+defines the accepted roles and styles. `pnpm build` validates and generates CSS
+before highlighter assets and the Playground are built.
+
+The highlighter exposes `themes.css`, per-preset `themes/<id>.css`, and a `themes`
+metadata catalog. Its existing `theme.css` remains the Default entry. The
+Playground consumes these workspace exports; theme changes update CSS attributes
+without changing inference or requiring a Python environment.
+
+`SemanticSpan.documentKind` optionally preserves the language of composed child
+spans. The renderer emits `data-nsh-language`; outer `data-language` remains the
+document kind. Offsets/types/modifiers are unchanged. This prevents an HTML/Vue
+wrapper from applying its own accents to an embedded CSS/JS/TS region.
+
+See [the theme package guide](../packages/themes/web/README.md) for merge rules,
+compatibility entries and custom CSS precedence.

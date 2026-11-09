@@ -492,13 +492,69 @@ profile does not install or execute that shell.
 
 ## Light / dark themes and custom CSS
 
+### Choose a theme style independently of light / dark
+
+Three built-in presets are available:
+
+| ID         | Name     | Direction                                                            |
+| ---------- | -------- | -------------------------------------------------------------------- |
+| `default`  | Default  | Cool neutral surfaces with violet, lake blue, jade and amber accents |
+| `muted`    | Muted    | Warm neutral surfaces and restrained green, plum and blue accents    |
+| `contrast` | Contrast | Black/white surfaces with strong, distinct semantic colors           |
+
+For a theme selector, import all presets once:
+
+```ts
+import "@nsh/highlighter/themes.css";
+import { themes } from "@nsh/highlighter/themes";
+// themes contains { id, name, description } for each preset.
+```
+
+Select the style and mode on an ancestor of the rendered code:
+
+```html
+<main data-nsh-preset="muted" data-nsh-theme="dark">
+  <!-- Code blocks -->
+</main>
+```
+
+```ts
+document.documentElement.dataset.nshPreset = "contrast";
+document.documentElement.dataset.nshTheme = "light";
+```
+
+The Playground offers the same independent controls: a **Theme** selector and
+light/dark buttons. It retains workspace dependencies and browser inference.
+Neither palette switching nor mode switching reruns the model.
+
+To include only one preset, use `@nsh/highlighter/themes/muted.css` and select
+`data-nsh-preset="muted"`. Import the corresponding CSS before selecting a
+preset; importing the metadata catalog alone does not load styles.
+
+Set `data-nsh-preset` directly on `.nsh` to override an ancestor's style:
+
+```html
+<pre class="nsh" data-nsh-preset="contrast" data-theme="light"><code>...</code></pre>
+```
+
+Each preset contains its own complete light/dark base palette and optional
+language adjustments. CSS/SCSS/Less selectors and JS/TS/JSX/TSX types can have
+suitable accents within the same theme. Other languages inherit the selected
+preset's base. Embedded HTML/Vue spans retain their child-language context for
+these adjustments. Your public `--nsh-*` overrides have the final say.
+
+Theme JSON files, validation and CSS generation are documented in
+[packages/themes/web](packages/themes/web/README.md). They are development assets;
+consumers use the generated CSS directly.
+
 ### Import the default theme once
 
 ```ts
 import "@nsh/highlighter/theme.css";
 ```
 
-It includes light and dark palettes. Without a theme attribute, the default is
+This existing entry includes the Default preset with light and dark palettes.
+Without a theme attribute, the default is
 light. Colors are CSS variables, not model output: switching themes immediately
 restyles existing spans without calling `highlight` again.
 

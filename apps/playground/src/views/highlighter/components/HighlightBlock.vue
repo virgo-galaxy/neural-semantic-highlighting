@@ -90,7 +90,8 @@ watch(
       v-show="state === 'editing'"
       ref="editor"
       v-model="source"
-      class="highlight-block__editor"
+      class="highlight-block__editor nsh"
+      :data-language="languageId"
       :aria-label="`${languageLabel} source`"
       spellcheck="false"
       @input="emit('sourceChanged')"
@@ -114,7 +115,11 @@ watch(
         v-html="previewHtml"
       ></div>
 
-      <pre v-else class="highlight-block__source"><code>{{ source }}</code></pre>
+      <pre
+        v-else
+        class="highlight-block__source nsh"
+        :data-language="languageId"
+      ><code>{{ source }}</code></pre>
     </div>
 
     <div class="highlight-block__footer" :data-state="state">

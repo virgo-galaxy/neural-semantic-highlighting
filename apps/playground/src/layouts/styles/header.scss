@@ -70,7 +70,9 @@
   flex: 0 0 auto;
   align-items: center;
 
-  gap: 8px;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .theme-switch {
@@ -169,5 +171,43 @@
   .theme-switch__button {
     width: 28px;
     height: 24px;
+  }
+}
+
+.theme-preset-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.theme-preset-control__label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+.theme-preset-control .app-select-trigger {
+  width: 116px;
+  height: 30px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.theme-preset-control .app-select-trigger:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+@media (max-width: 480px) {
+  .app-header__top {
+    flex-wrap: wrap;
+  }
+  .app-header__actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .theme-preset-control .app-select-trigger {
+    height: 44px;
+  }
+  .theme-switch__button {
+    width: 44px;
+    height: 44px;
   }
 }

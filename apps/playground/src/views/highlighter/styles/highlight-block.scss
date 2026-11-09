@@ -157,7 +157,8 @@
   border: 0;
   border-radius: 0;
 
-  background: transparent;
+  background: var(--nsh-background, var(--_nsh-background));
+  color: var(--nsh-foreground, var(--_nsh-foreground));
 
   font-family:
     ui-monospace,
@@ -181,13 +182,14 @@
 
   resize: none;
 
-  color: var(--muted);
+  color: var(--nsh-foreground, var(--_nsh-foreground));
+  caret-color: var(--focus);
 
   outline: none;
 }
 
 .highlight-block__source {
-  color: var(--muted);
+  color: var(--nsh-foreground, var(--_nsh-foreground));
 }
 
 .highlight-block__preview {
@@ -296,5 +298,34 @@
     height: 56px;
 
     padding: 0 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .highlight-block__toolbar {
+    height: 56px;
+    padding: 0 10px;
+    gap: 8px;
+  }
+  .highlight-block__meta {
+    gap: 4px;
+  }
+  .highlight-block__meta .app-select-trigger {
+    width: 104px;
+    flex-basis: 104px;
+    height: 44px;
+  }
+  .highlight-block__filename,
+  .highlight-block__divider,
+  .highlight-block__toolbar .highlight-block__status .app-tag {
+    display: none;
+  }
+  .highlight-block__example-switcher {
+    gap: 0;
+    flex: 0 0 auto;
+  }
+  .highlight-block__shuffle {
+    width: 44px;
+    height: 44px;
   }
 }

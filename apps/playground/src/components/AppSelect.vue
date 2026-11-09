@@ -30,6 +30,8 @@ const emit = defineEmits<{
   "update:modelValue": [value: string];
 }>();
 
+const hasIcons = computed(() => props.options.some((option) => option.icon));
+
 const selectedOption = computed(() =>
   props.options.find((option) => option.value === props.modelValue),
 );
@@ -43,7 +45,11 @@ function handleValueChange(value: unknown): void {
 
 <template>
   <SelectRoot :model-value="props.modelValue" @update:model-value="handleValueChange">
-    <SelectTrigger class="app-select-trigger" :aria-label="props.ariaLabel">
+    <SelectTrigger
+      class="app-select-trigger"
+      :class="{ 'app-select-trigger--plain': !hasIcons }"
+      :aria-label="props.ariaLabel"
+    >
       <img
         v-if="selectedOption?.icon"
         class="app-select-trigger-icon"
@@ -60,6 +66,7 @@ function handleValueChange(value: unknown): void {
     <SelectPortal>
       <SelectContent
         class="app-select-content"
+        :class="{ 'app-select-content--plain': !hasIcons }"
         position="popper"
         side="bottom"
         align="start"
@@ -72,7 +79,7 @@ function handleValueChange(value: unknown): void {
             class="app-select-item"
             :value="option.value"
           >
-            <span class="app-select-item-icon-slot" aria-hidden="true">
+            <span v-if="hasIcons" class="app-select-item-icon-slot" aria-hidden="true">
               <img v-if="option.icon" class="app-select-item-icon" :src="option.icon" alt="" />
             </span>
 
@@ -295,6 +302,13 @@ function handleValueChange(value: unknown): void {
   place-items: center;
 
   color: var(--focus);
+}
+
+.app-select-trigger--plain {
+  grid-template-columns: minmax(0, 1fr) 12px;
+}
+.app-select-content--plain .app-select-item {
+  grid-template-columns: minmax(0, 1fr) 18px;
 }
 
 @keyframes app-select-in {
