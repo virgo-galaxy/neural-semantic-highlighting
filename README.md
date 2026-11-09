@@ -701,11 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **16 model packs**, with browser inference and Playground examples.
+There are **17 model packs**, with browser inference and Playground examples.
 The browser conversion preserves the selected weights without retraining or
 quantization. [Browser verification](docs/browser-runtime.md) records conversion
-checks and the exact-output comparison across 99 examples/edge cases, including
-Java, C# and C. Independent local-package verification also covers its public imports. This is
+checks and the exact-output comparison across 107 examples/edge cases, including
+Java, C#, C and C++. Independent local-package verification also covers its public imports. This is
 runtime parity evidence, not a new accuracy evaluation.
 
 The table reports **exact-span F1**: token start, end and semantic type must match.
@@ -730,6 +730,11 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [Java](packs/java/model/README.md)                          | Java source and package/module descriptors; `.java`; common Java 8–22 and non-preview modern syntax through JDK 22                                                  | [92.60%](packs/java/model/BENCHMARKS.md) — natural test, 29 files                                           | Browser + local; [local name roles, guarded patterns and module paths](packs/java/model/KNOWN_ISSUES.md) remain limited               |
 | [C#](packs/csharp/model/README.md)                          | C# source; `.cs`; classes, structs, records, attributes, LINQ, async and modern strings accepted by the pinned grammar                                              | [94.64%](packs/csharp/model/BENCHMARKS.md) — natural test, 24 files                                         | Browser + local; [complex property patterns, record names and distant local roles](packs/csharp/model/KNOWN_ISSUES.md) remain limited |
 | [C](packs/c/model/README.md)                                | C source and explicitly C headers; `.c`, `.h`; common C11/C17 and accepted modern/GNU forms, including pointers, structs, macros and callbacks                      | [93.90%](packs/c/model/BENCHMARKS.md) — natural test, 18 files                                              | Browser + local; [macro parameters, local roles and string/literal boundaries](packs/c/model/KNOWN_ISSUES.md) remain limited          |
+| [C++](packs/cpp/model/README.md)                            | C++ source / explicit C++ headers; `.cpp`, `.cc`, `.cxx`, `.c++`, `.C`, `.hpp`, `.hh`, `.hxx`, `.h++`, `.ipp`, `.tpp`; common C++11–20 and accepted modern forms    | [92.67%](packs/cpp/model/BENCHMARKS.md) — natural test, 14 files                                            | Browser + local; [raw strings, local/template roles and attribute boundaries](packs/cpp/model/KNOWN_ISSUES.md) remain limited         |
+
+C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
+pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
+separate models and their own measured evidence.
 
 ## Development and training
 

@@ -3,6 +3,7 @@ import awkIcon from "@/assets/document-kinds/awk.svg";
 import bashIcon from "@/assets/document-kinds/bash.svg";
 import batIcon from "@/assets/document-kinds/bat.svg";
 import cIcon from "@/assets/document-kinds/c.svg";
+import cppIcon from "@/assets/document-kinds/cpp.svg";
 import csharpIcon from "@/assets/document-kinds/csharp.svg";
 import cssIcon from "@/assets/document-kinds/css.svg";
 import goIcon from "@/assets/document-kinds/go.svg";
@@ -81,6 +82,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   java: { label: "Java", icon: javaIcon },
   csharp: { label: "C#", icon: csharpIcon },
   c: { label: "C", icon: cIcon },
+  cpp: { label: "C++", icon: cppIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -135,6 +137,17 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".cs", "csharp"],
   [".c", "c"],
   [".h", "c"],
+  [".cpp", "cpp"],
+  [".cc", "cpp"],
+  [".cxx", "cpp"],
+  [".c++", "cpp"],
+  [".C", "cpp"],
+  [".hpp", "cpp"],
+  [".hh", "cpp"],
+  [".hxx", "cpp"],
+  [".h++", "cpp"],
+  [".ipp", "cpp"],
+  [".tpp", "cpp"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

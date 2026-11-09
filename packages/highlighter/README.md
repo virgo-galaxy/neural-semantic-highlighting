@@ -28,7 +28,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 ```
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML and Vue descriptors include
-their JS/TS/CSS dependencies automatically. Default registration covers 13 packs;
+their JS/TS/CSS dependencies automatically. Default registration covers 17 packs;
 weights are fetched lazily. Models are about 3.7 MB each, with a shared 14.8 MB
 uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -61,3 +61,9 @@ All three built-in theme presets cover its roles. No JDK is required by consumer
 C# source uses `{ language: "csharp" }`, with `cs` and `c#` aliases. Import
 `@nsh/highlighter/languages/csharp` with the configurable `./core` entry to include
 only that model. Browser consumers need no .NET SDK, Mono or source parser.
+
+C source uses `{ language: "c" }`, or the selective descriptor
+`@nsh/highlighter/languages/c`. C++ uses `{ language: "cpp" }`, with `c++` and
+`cxx` aliases, or `@nsh/highlighter/languages/cpp`. They are separate models;
+existing `.h` extension mapping remains C. Pass `cpp` explicitly for C++ header
+contents. Consumers need no C/C++ compiler, SDK, parser or preprocessor.

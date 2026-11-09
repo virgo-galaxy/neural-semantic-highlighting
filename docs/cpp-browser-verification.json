@@ -1,0 +1,247 @@
+{
+  "date": "2026-11-09",
+  "scope": "C++ addition using existing Apple Clang/SDK; no environment installation or prior model replacement",
+  "modelsAvailable": 17,
+  "selectedModel": {
+    "file": "model.pt",
+    "format": "nsh-cpp-model-v1",
+    "sha256": "c10725d39082379d545cafd493a6df9d3473099d9f570c3c8b3c473b0f4f348f",
+    "bytes": 3636597,
+    "parameterCount": 894743,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "browserModel": {
+    "file": "model.onnx",
+    "sha256": "c4bf80ec01700967279423c72315977d829841903481f712870317bf5dbdb890",
+    "bytes": 3707603
+  },
+  "nativeSource": {
+    "file": "packs/cpp/model/model.pt",
+    "sha256": "c10725d39082379d545cafd493a6df9d3473099d9f570c3c8b3c473b0f4f348f"
+  },
+  "conversion": {
+    "reference": "selected PyTorch CPU inference",
+    "torch": "2.14.0",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "sourceSha256": "c10725d39082379d545cafd493a6df9d3473099d9f570c3c8b3c473b0f4f348f",
+    "modelSha256": "c4bf80ec01700967279423c72315977d829841903481f712870317bf5dbdb890",
+    "comparisons": [
+      {
+        "bytes": 1,
+        "maxAbsoluteErrors": [5.7220458984375e-6, 6.4373016357421875e-6, 9.5367431640625e-7]
+      },
+      {
+        "bytes": 2,
+        "maxAbsoluteErrors": [4.291534423828125e-6, 8.344650268554688e-6, 1.049041748046875e-5]
+      },
+      {
+        "bytes": 7,
+        "maxAbsoluteErrors": [6.4373016357421875e-6, 1.6927719116210938e-5, 2.6702880859375e-5]
+      },
+      {
+        "bytes": 31,
+        "maxAbsoluteErrors": [1.1920928955078125e-5, 1.8596649169921875e-5, 1.9550323486328125e-5]
+      },
+      {
+        "bytes": 64,
+        "maxAbsoluteErrors": [1.049041748046875e-5, 1.7642974853515625e-5, 1.33514404296875e-5]
+      },
+      {
+        "bytes": 127,
+        "maxAbsoluteErrors": [1.5854835510253906e-5, 3.1948089599609375e-5, 3.147125244140625e-5]
+      },
+      {
+        "bytes": 511,
+        "maxAbsoluteErrors": [1.6689300537109375e-5, 2.4318695068359375e-5, 3.647804260253906e-5]
+      },
+      {
+        "bytes": 512,
+        "maxAbsoluteErrors": [1.52587890625e-5, 4.565715789794922e-5, 2.47955322265625e-5]
+      }
+    ]
+  },
+  "browserParity": {
+    "total": 107,
+    "passed": 107,
+    "failures": [],
+    "cppExamples": [
+      {
+        "filename": "cpp/algorithms.cpp",
+        "ms": 54
+      },
+      {
+        "filename": "cpp/bindings.cpp",
+        "ms": 24.69999998807907
+      },
+      {
+        "filename": "cpp/classes.cpp",
+        "ms": 27.19999998807907
+      },
+      {
+        "filename": "cpp/concepts.cpp",
+        "ms": 17.900000035762787
+      },
+      {
+        "filename": "cpp/hello.cpp",
+        "ms": 20.69999998807907
+      },
+      {
+        "filename": "cpp/raw-strings.cpp",
+        "ms": 22.80000001192093
+      },
+      {
+        "filename": "cpp/smart-pointers.cpp",
+        "ms": 22.400000035762787
+      },
+      {
+        "filename": "cpp/templates.hpp",
+        "ms": 23.599999964237213
+      }
+    ]
+  },
+  "independentPackage": {
+    "build": "Vite 8.2.2 production build; four private local tarballs installed offline in a fresh external project",
+    "emittedOnnxModels": 1,
+    "cases": [
+      {
+        "filename": "cpp/algorithms.cpp",
+        "spans": 100,
+        "equal": true,
+        "alias": "cpp"
+      },
+      {
+        "filename": "cpp/bindings.cpp",
+        "spans": 83,
+        "equal": true,
+        "alias": "c++"
+      },
+      {
+        "filename": "cpp/classes.cpp",
+        "spans": 85,
+        "equal": true,
+        "alias": "cxx"
+      },
+      {
+        "filename": "cpp/concepts.cpp",
+        "spans": 68,
+        "equal": true,
+        "alias": "cpp"
+      },
+      {
+        "filename": "cpp/hello.cpp",
+        "spans": 65,
+        "equal": true,
+        "alias": "c++"
+      },
+      {
+        "filename": "cpp/raw-strings.cpp",
+        "spans": 30,
+        "equal": true,
+        "alias": "cxx"
+      },
+      {
+        "filename": "cpp/smart-pointers.cpp",
+        "spans": 73,
+        "equal": true,
+        "alias": "cpp"
+      },
+      {
+        "filename": "cpp/templates.hpp",
+        "spans": 79,
+        "equal": true,
+        "alias": "c++"
+      },
+      {
+        "filename": "empty.cpp",
+        "spans": 0,
+        "equal": true,
+        "alias": "cxx"
+      },
+      {
+        "filename": "crlf.cpp",
+        "spans": 0,
+        "equal": true,
+        "alias": "cpp"
+      },
+      {
+        "filename": "unicode.cpp",
+        "spans": 8,
+        "equal": true,
+        "alias": "c++"
+      },
+      {
+        "filename": "long.cpp",
+        "spans": 382,
+        "equal": true,
+        "alias": "cxx"
+      },
+      {
+        "filename": "explicit-cpp-header.h",
+        "spans": 19,
+        "equal": true,
+        "alias": "cpp"
+      }
+    ],
+    "languageIds": ["cpp"],
+    "aliases": ["cpp", "c++", "cxx"],
+    "originalTextPreserved": true,
+    "covers": [
+      "eight authored display probes",
+      "empty source",
+      "CRLF",
+      "BOM and Unicode/astral characters",
+      "long multi-window source",
+      "explicit C++ .h contents"
+    ],
+    "palettes": [
+      {
+        "preset": "default",
+        "mode": "light",
+        "background": "rgb(251, 252, 255)"
+      },
+      {
+        "preset": "default",
+        "mode": "dark",
+        "background": "rgb(21, 27, 41)"
+      },
+      {
+        "preset": "muted",
+        "mode": "light",
+        "background": "rgb(246, 245, 241)"
+      },
+      {
+        "preset": "muted",
+        "mode": "dark",
+        "background": "rgb(38, 40, 35)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "light",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "dark",
+        "background": "rgb(0, 0, 0)"
+      }
+    ],
+    "consoleWarningsOrErrors": {
+      "playground": [],
+      "independentPackage": [],
+      "parity": []
+    }
+  },
+  "checks": {
+    "makeCheck": "passed",
+    "typescriptTests": 141,
+    "cppTeacherTests": 8,
+    "independentCppGoldenCases": 29,
+    "priorNativeAndOnnxArtifactsPreserved": 33
+  },
+  "compilerOrSdkInstalled": false,
+  "globalPackagesInstalled": false,
+  "npmPublished": false,
+  "repositoryVisibilityChanged": false
+}

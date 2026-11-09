@@ -108,6 +108,31 @@ retains export hashes, numerical comparisons and additive end-to-end checks.
 Original records, datasets and experiments remain preserved. No package was
 published and repository visibility was not changed.
 
+## C++ addition
+
+C++ is the seventeenth model. Its [verification record](cpp-browser-verification.json)
+retains export hashes, numerical checks and additive end-to-end results.
+
+- **107/107** example/edge cases across all models matched native CPU semantic
+  spans, offsets and modifiers exactly, including eight C++ display sources.
+- A fresh external Vite 8.2.2 project installed four private local tarballs from
+  cache, built through public package paths and passed **13/13** C++ cases.
+  `cpp`/`c++`/`cxx`, explicit C++ `.h`, empty input, BOM, CRLF, Unicode and long
+  source retained exact rendered text. Six theme/mode combinations were observed.
+- The selective C++ build emitted **one ONNX model**. Full `make check` passed
+  141 frontend tests, eight C++ teacher tests and all existing Gold/data checks.
+  All 33 prior native/browser artifacts remain byte-identical, including C/C#
+  and the historical Bash model. Earlier verification records remain unchanged.
+- Existing Apple Clang/SDK probes compiled and ran; no compiler, SDK or global
+  package was installed. Browser inference uses no compiler, parser, SDK,
+  preprocessor or Python provider. No console warnings/errors were observed in
+  the Playground, parity harness or independent production fixture.
+
+Language quality is separate in [the C++ report](../packs/cpp/model/BENCHMARKS.md)
+and [known limits](../packs/cpp/model/KNOWN_ISSUES.md), including raw strings and
+local/template roles. Original data and every experiment remain preserved.
+No package was published and repository visibility did not change.
+
 ## Scope and limits
 
 This is conversion and integration evidence, **not a new model quality score**.

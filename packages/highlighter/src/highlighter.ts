@@ -49,6 +49,8 @@ const aliases: Readonly<Record<string, string>> = {
   py: "python",
   cs: "csharp",
   "c#": "csharp",
+  "c++": "cpp",
+  cxx: "cpp",
 };
 
 /** Configure selected models explicitly; no Node/Python imports or source uploads. */

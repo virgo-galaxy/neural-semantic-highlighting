@@ -143,3 +143,19 @@ before freezing the first adaptive test. [Scope](../packs/c/SEMANTICS.md) and
 [measured limits](../packs/c/model/KNOWN_ISSUES.md) remain explicit. Frontend
 consumers use `language: "c"` or `@nsh/highlighter/languages/c`; browser inference
 requires no compiler, SDK, Python process or grammar.
+
+## C++ offline workflow
+
+The existing Apple Clang 21 / macOS SDK compiles authored C++17/20/23 option
+probes and C++20 display examples. No compiler, SDK or global package is installed.
+`make dataset-cpp-tools` builds fixed official grammar sources into ignored cache;
+`make dataset-cpp` captures pinned original bytes/licenses, labels syntax/local
+scopes, quarantines unsupported code and prepares audited frozen source families.
+Collected projects never run and includes/macros are not followed or expanded.
+
+Use [C++ training](../training/cpp/README.md) and only complete `artifacts`
+checkpoints for transfer/resumption. The [report](../packs/cpp/model/BENCHMARKS.md)
+records all short experiments, the family/copy audit, natural/focus evidence and
+known limits. Frontends use `cpp` / `c++` / `cxx`, or selectively import
+`@nsh/highlighter/languages/cpp`; no Python provider or compiler is involved.
+C++ header text uses explicit `cpp`; existing `.h` mapping remains C.
