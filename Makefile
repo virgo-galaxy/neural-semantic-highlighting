@@ -151,6 +151,9 @@ check:
 	$(MAKE) test-labeling-powershell
 	$(MAKE) test-labeling-bat
 	$(MAKE) test-labeling-assembly
+	$(MAKE) test-labeling-java
+	$(PYTHON) -m compileall -q training/java packs/java/runtime
+	$(PYTHON) -c 'import packs.java.runtime.local'
 	$(PYTHON) -m compileall -q training/sql packs/sql/runtime
 	$(PYTHON) -m compileall -q training/powershell packs/powershell/runtime
 	$(PYTHON) -m compileall -q training/bat packs/bat/runtime

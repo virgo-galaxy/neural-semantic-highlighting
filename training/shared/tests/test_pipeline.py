@@ -40,6 +40,14 @@ class PipelineTests(unittest.TestCase):
             return encode(self.record(source,[{'start':0,'end':n,'tokenType':'variable'},{'start':n,'end':n+1,'tokenType':'operator'},{'start':n+1,'end':n+2,'tokenType':'number'}]),schema)
         self.assertEqual(sample('alpha').shape_hash,sample('beta').shape_hash)
 
+    def test_java_declaration_names_are_normalized_for_copy_audits(self):
+        for role in ('interface', 'enum', 'enum-member', 'constructor'):
+            with self.subTest(role=role):
+                schema = Schema((role,), ())
+                def sample(name):
+                    return encode(self.record(name, [{'start': 0, 'end': len(name), 'tokenType': role}]), schema)
+                self.assertEqual(sample('Cedar').shape_hash, sample('Harbor').shape_hash)
+
     def test_grouped_split_coverage(self):
         weights={f'g{i}':Counter({'python:natural':i+1}) for i in range(12)}
         result=assign_groups(weights,1729)

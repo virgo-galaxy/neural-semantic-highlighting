@@ -81,7 +81,7 @@ def encode(record: dict[str, Any], schema: Schema) -> Encoded:
     modifier_ids = {value: index for index, value in enumerate(schema.modifiers)}
     spans, lexical, shape, names = [], [], [], {}
     previous_end = 0
-    identifier_roles = {"namespace", "type", "class", "tag", "attribute", "function", "parameter", "variable", "property", "method", "decorator", "label"}
+    identifier_roles = {"namespace", "type", "class", "interface", "enum", "enum-member", "constructor", "tag", "attribute", "function", "parameter", "variable", "property", "method", "decorator", "label"}
     for span in result["spans"]:
         lo, hi = span["start"], span["end"]
         if type(lo) is not int or type(hi) is not int or lo not in mapping or hi not in mapping or lo >= hi:

@@ -506,3 +506,66 @@ challenge-assembly:
 export-assembly-model:
 	@test -n "$(ASSEMBLY_CHECKPOINT)" -a -n "$(ASSEMBLY_TEST_REPORT)" || (echo 'Set ASSEMBLY_CHECKPOINT and ASSEMBLY_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.assembly.export_model --checkpoint "$(ASSEMBLY_CHECKPOINT)" --test-report "$(ASSEMBLY_TEST_REPORT)"
+
+JAVA_DEVICE ?= auto
+JAVA_EPOCHS ?= 3
+JAVA_BATCH_SIZE ?= 32
+JAVA_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-java dataset-java-sources dataset-java-curriculum dataset-java-collect dataset-java-label dataset-java-validate dataset-java-prepare test-labeling-java train-java-smoke train-java continue-java predict-java evaluate-java challenge-java export-java-model
+
+dataset-java-sources:
+	$(PYTHON) -m packs.java.dataset.fetch_sources
+	$(PYTHON) -m packs.java.dataset.capture_jdk
+
+dataset-java:
+	$(MAKE) dataset-java-sources
+	$(MAKE) dataset-java-curriculum
+	$(MAKE) dataset-java-collect
+	$(MAKE) dataset-java-label
+	$(MAKE) dataset-java-validate
+	$(MAKE) dataset-java-prepare
+
+dataset-java-curriculum:
+	$(PYTHON) -m packs.java.dataset.generate_curriculum
+
+dataset-java-collect:
+	$(PYTHON) -m packs.java.dataset.pipeline collect
+
+dataset-java-label:
+	$(PYTHON) -m packs.java.dataset.pipeline label
+
+dataset-java-validate:
+	$(PYTHON) -m packs.java.dataset.pipeline validate
+
+dataset-java-prepare:
+	$(PYTHON) -m training.java.prepare
+
+test-labeling-java:
+	$(PYTHON) -m unittest discover -s packs/java/tests -v
+
+train-java-smoke:
+	$(PYTHON) -m training.java.train --smoke --epochs 1 --device $(JAVA_DEVICE) $(if $(JAVA_RUN),--output-dir "$(JAVA_RUN)") $(if $(JAVA_INIT_FROM),--init-from "$(JAVA_INIT_FROM)")
+
+train-java:
+	$(PYTHON) -m training.java.train --epochs $(JAVA_EPOCHS) --device $(JAVA_DEVICE) --batch-size $(JAVA_BATCH_SIZE) $(if $(JAVA_RUN),--output-dir "$(JAVA_RUN)") $(if $(JAVA_INIT_FROM),--init-from "$(JAVA_INIT_FROM)")
+
+continue-java:
+	@test -n "$(JAVA_CHECKPOINT)" || (echo 'Set JAVA_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.java.train --resume "$(JAVA_CHECKPOINT)" --epochs $(JAVA_EPOCHS) --device $(JAVA_DEVICE)
+
+predict-java:
+	@test -n "$(JAVA_SOURCE)" || (echo 'Set JAVA_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.java.predict --device $(JAVA_DEVICE) --file "$(JAVA_SOURCE)" $(if $(JAVA_CHECKPOINT),--checkpoint "$(JAVA_CHECKPOINT)")
+
+evaluate-java:
+	@test -n "$(JAVA_CHECKPOINT)" || (echo 'Set JAVA_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.java.evaluate --checkpoint "$(JAVA_CHECKPOINT)" --device $(JAVA_DEVICE) --split $(JAVA_EVAL_SPLIT)
+
+challenge-java:
+	@test -n "$(JAVA_CHECKPOINT)" || (echo 'Set JAVA_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.java.challenge --checkpoint "$(JAVA_CHECKPOINT)" --device $(JAVA_DEVICE)
+
+export-java-model:
+	@test -n "$(JAVA_CHECKPOINT)" -a -n "$(JAVA_TEST_REPORT)" || (echo 'Set JAVA_CHECKPOINT and JAVA_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.java.export_model --checkpoint "$(JAVA_CHECKPOINT)" --test-report "$(JAVA_TEST_REPORT)"
