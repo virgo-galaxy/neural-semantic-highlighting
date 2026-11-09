@@ -1,0 +1,190 @@
+{
+  "id": "java",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-java-model-v1",
+    "sha256": "60ded3abfa9f6058ef8c377ad9c21021988a2e6eeb97508a0052a706db9d3f3c",
+    "bytes": 3632757,
+    "parameterCount": 894614,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 1,
+    "metric": "mean per-profile natural real-source validation exact-span macro F1",
+    "score": 0.8674458080181165
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1,
+    "local_kernel": 1
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "namespace",
+      "type",
+      "class",
+      "interface",
+      "enum",
+      "enum-member",
+      "constructor",
+      "method",
+      "parameter",
+      "variable",
+      "property",
+      "decorator"
+    ],
+    "modifiers": [
+      "declaration"
+    ]
+  },
+  "documentKinds": [
+    "java"
+  ],
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy-mean-logit",
+    "packPolicy": {
+      "coalesce_types": [],
+      "modifier_roles": null
+    },
+    "modifierThreshold": 0.6,
+    "parserRequired": false
+  },
+  "scope": "java-local-semantic-spans",
+  "modelSchema": {
+    "file": "../schema.json",
+    "sha256": "5d08d0ba509f1bc21af2d37221f1196ca944a75d5ca8d41660730cb76911c2f7"
+  },
+  "publicSchema": {
+    "file": "../schema.json",
+    "sha256": "5d08d0ba509f1bc21af2d37221f1196ca944a75d5ca8d41660730cb76911c2f7"
+  },
+  "dataset": {
+    "snapshot": "7b8d5f36c75052d120aeaa28477dea9fa7b4a47f28012cbb0e8f93c0bf55f878",
+    "manifestHash": "d8d8d0eab1171744dee5e279f41200ce7c4130fe59068aa2fa9b7e85110cd160"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/java/context512-mixed-20261109-01/candidates/epoch-0001.pt",
+    "sourceCheckpointSha256": "7604ac8483f1ef65155579d1c84d21c402de652747cddb7f5ffbb1bca9a779b2",
+    "training": {
+      "codeHashes": {
+        "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+        "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+        "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/java/challenge.py": "51783c59f9f318042b36d436b4a06722a78e234fd54b579c9b7d29d5754611bd",
+        "training/java/evaluate.py": "ebe44d08c91db53fb3377b559db966350cbe558d3a0a12106da8e328cf04f8b4",
+        "training/java/export_model.py": "d5572e9955eafbb01b5e01d5eff714f3f74285c0560405e5485725711432e06f",
+        "training/java/predict.py": "d5461bdb3d63cb028119df2c854c45e86f762b23442f9160d4ec6f29293ae06d",
+        "training/java/prepare.py": "9fc20a04540b3fbb6bf54d10332cf15938e7ed06368d6df5db39978078cd7225",
+        "training/java/train.py": "8d4c847e8a4c5b65815d2af34cad8fc17c1bef17ca58f22bc1b14a5f5a16af80",
+        "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+        "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+        "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+        "training/shared/encoding.py": "02dcb636d566925ba08ac554472e5fe10312f79eba62425629cba3b25678796c",
+        "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
+        "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+        "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+        "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+        "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+        "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+        "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+        "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+        "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+        "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+        "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+        "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+        "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+        "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+        "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+        "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+        "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+        "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
+      },
+      "semanticsHash": "d3377d442cdc0fa2ce760fde7cb4cc2677c0d275ce69320f2687ec8fd572d179",
+      "packConfigHash": "c6b8d462026847d523c694b65b01fd53f0480ca0d29863c62cdef8fd26d3a61a",
+      "decoderPolicy": {
+        "coalesce_types": [],
+        "modifier_roles": null
+      },
+      "pythonTorch": "2.14.0",
+      "repositoryDirty": true,
+      "repositoryCommit": "4a875b65603827ab4853f8052eb1dbf6a39c5565"
+    },
+    "initialization": {
+      "mode": "java-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/java/context512-20261109-01/candidates/epoch-0009.pt",
+      "checkpointHash": "821baee0e63e3ada6d839dd0f04e786b01dd7dfcdda2850c8f411a953f8615ed",
+      "sourceEpoch": 9,
+      "sourceDataset": {
+        "snapshot": "bb55c5511ca034820a03c6dae01e23e1fc9f088506fa3971a1f772cae5fdb5ec",
+        "manifestHash": "eaefa68a7ff5a61f9450137d9b054d1de842cc3ce4bbf85b795e9f06a08de5bc",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/java/prepared/bb55c5511ca034820a03c6dae01e23e1fc9f088506fa3971a1f772cae5fdb5ec"
+      },
+      "copiedTokenTypes": [
+        "keyword",
+        "comment",
+        "string",
+        "number",
+        "operator",
+        "punctuation",
+        "namespace",
+        "type",
+        "class",
+        "interface",
+        "enum",
+        "enum-member",
+        "constructor",
+        "method",
+        "parameter",
+        "variable",
+        "property",
+        "decorator"
+      ],
+      "newTokenTypes": [],
+      "newTensors": [],
+      "copiedModifiers": [
+        "declaration"
+      ],
+      "optimizerAndTrainingState": "fresh pack run"
+    },
+    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "a3b76b4e6bbc61e6df50f0bf86e2ca11a9dc9f9e15acc847696137ee0ee0fdf0",
+      "checkpointHash": "7604ac8483f1ef65155579d1c84d21c402de652747cddb7f5ffbb1bca9a779b2",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    }
+  }
+}

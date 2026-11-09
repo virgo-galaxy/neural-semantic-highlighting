@@ -10,3 +10,8 @@ semantic spans. Local and browser inference require no JDK or source parser.
 [SEMANTICS.md](SEMANTICS.md) describes local roles, lexical scope and boundaries.
 [Training](../../training/java/README.md) preserves the existing data/checkpoint
 locations, short experiments and matching-test promotion process.
+
+The selected baseline and first independent test are documented in
+[model/README.md](model/README.md), [BENCHMARKS.md](model/BENCHMARKS.md) and
+[KNOWN_ISSUES.md](model/KNOWN_ISSUES.md). Java is available through the public
+`@nsh/highlighter` browser API and the Playground, using the existing theme presets.
