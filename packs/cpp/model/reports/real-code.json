@@ -1,0 +1,4618 @@
+{
+  "split": "validation",
+  "cases": [
+    {
+      "path": "src/async.cpp",
+      "repository": "spdlog-cpp-v1",
+      "source": "// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.\n// Distributed under the MIT License (http://opensource.org/licenses/MIT)\n\n#ifndef SPDLOG_COMPILED_LIB\n    #error Please define SPDLOG_COMPILED_LIB to compile this file.\n#endif\n\n#include <spdlog/async.h>\n#include <spdlog/async_logger-inl.h>\n#include <spdlog/details/periodic_worker-inl.h>\n#include <spdlog/details/thread_pool-inl.h>\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8235294117647058,
+          "recall": 0.9333333333333333,
+          "f1": 0.875,
+          "tp": 14,
+          "fp": 3,
+          "fn": 1,
+          "support": 15
+        },
+        "exactSpanMacroF1": 0.9166666666666666,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8235294117647058,
+          "recall": 0.9333333333333333,
+          "f1": 0.875,
+          "tp": 14,
+          "fp": 3,
+          "fn": 1,
+          "support": 15
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "string": {
+            "precision": 0.5714285714285714,
+            "recall": 0.8,
+            "f1": 0.6666666666666666,
+            "tp": 4,
+            "fp": 3,
+            "fn": 1,
+            "support": 5
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "namespace": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type-parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "Please define SPDLOG_COMPILED_LIB to compile this file.",
+          "tokenType": "string",
+          "start": 179,
+          "end": 234
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "Please ",
+          "tokenType": "string",
+          "start": 179,
+          "end": 186
+        },
+        {
+          "text": "define",
+          "tokenType": "string",
+          "start": 186,
+          "end": 192
+        },
+        {
+          "text": "SPDLOG_COMPILED_LIB to compile this file.",
+          "tokenType": "string",
+          "start": 193,
+          "end": 234
+        }
+      ]
+    },
+    {
+      "path": "src/catch2/internal/catch_getenv.hpp",
+      "repository": "catch-cpp-v1",
+      "source": "\n//              Copyright Catch2 Authors\n// Distributed under the Boost Software License, Version 1.0.\n//   (See accompanying file LICENSE.txt or copy at\n//        https://www.boost.org/LICENSE_1_0.txt)\n\n// SPDX-License-Identifier: BSL-1.0\n#ifndef CATCH_GETENV_HPP_INCLUDED\n#define CATCH_GETENV_HPP_INCLUDED\n\nnamespace Catch {\nnamespace Detail {\n\n    //! Wrapper over `std::getenv` that compiles on UWP (and always returns nullptr there)\n    char const* getEnv(char const* varName);\n\n}\n}\n\n#endif // CATCH_GETENV_HPP_INCLUDED\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 31,
+          "fp": 0,
+          "fn": 0,
+          "support": 31
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 31,
+          "fp": 0,
+          "fn": 0,
+          "support": 31
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "type-parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "path": "src/catch2/catch_timer.hpp",
+      "repository": "catch-cpp-v1",
+      "source": "\n//              Copyright Catch2 Authors\n// Distributed under the Boost Software License, Version 1.0.\n//   (See accompanying file LICENSE.txt or copy at\n//        https://www.boost.org/LICENSE_1_0.txt)\n\n// SPDX-License-Identifier: BSL-1.0\n#ifndef CATCH_TIMER_HPP_INCLUDED\n#define CATCH_TIMER_HPP_INCLUDED\n\n#include <cstdint>\n\nnamespace Catch {\n\n    class Timer {\n        uint64_t m_nanoseconds = 0;\n    public:\n        void start();\n        auto getElapsedNanoseconds() const -> uint64_t;\n        auto getElapsedMicroseconds() const -> uint64_t;\n        auto getElapsedMilliseconds() const -> unsigned int;\n        auto getElapsedSeconds() const -> double;\n    };\n\n} // namespace Catch\n\n#endif // CATCH_TIMER_HPP_INCLUDED\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9264705882352942,
+          "recall": 0.9264705882352942,
+          "f1": 0.9264705882352942,
+          "tp": 63,
+          "fp": 5,
+          "fn": 5,
+          "support": 68
+        },
+        "exactSpanMacroF1": 0.7972222222222222,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9117647058823529,
+          "recall": 0.9117647058823529,
+          "f1": 0.9117647058823529,
+          "tp": 62,
+          "fp": 6,
+          "fn": 6,
+          "support": 68
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.8181818181818182,
+            "f1": 0.9,
+            "tp": 18,
+            "fp": 0,
+            "fn": 4,
+            "support": 22
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 21,
+            "fp": 0,
+            "fn": 0,
+            "support": 21
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "support": 0
+          },
+          "type-parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666,
+            "tp": 2,
+            "fp": 2,
+            "fn": 0,
+            "support": 2
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 1,
+            "support": 1
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "m_nanoseconds",
+          "tokenType": "property",
+          "start": 382,
+          "end": 395
+        },
+        {
+          "text": "const",
+          "tokenType": "keyword",
+          "start": 472,
+          "end": 477
+        },
+        {
+          "text": "uint64_t",
+          "tokenType": "keyword",
+          "start": 481,
+          "end": 489
+        },
+        {
+          "text": "uint64_t",
+          "tokenType": "keyword",
+          "start": 538,
+          "end": 546
+        },
+        {
+          "text": "double",
+          "tokenType": "keyword",
+          "start": 651,
+          "end": 657
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "m_nanoseconds",
+          "tokenType": "variable",
+          "start": 382,
+          "end": 395
+        },
+        {
+          "text": "const",
+          "tokenType": "parameter",
+          "start": 472,
+          "end": 477
+        },
+        {
+          "text": "uint64_t",
+          "tokenType": "parameter",
+          "start": 481,
+          "end": 489
+        },
+        {
+          "text": "uint64_t",
+          "tokenType": "variable",
+          "start": 538,
+          "end": 546
+        },
+        {
+          "text": "double",
+          "tokenType": "property",
+          "start": 651,
+          "end": 657
+        }
+      ]
+    },
+    {
+      "path": "src/catch2/internal/catch_getenv.cpp",
+      "repository": "catch-cpp-v1",
+      "source": "\n//              Copyright Catch2 Authors\n// Distributed under the Boost Software License, Version 1.0.\n//   (See accompanying file LICENSE.txt or copy at\n//        https://www.boost.org/LICENSE_1_0.txt)\n\n// SPDX-License-Identifier: BSL-1.0\n\n#include <catch2/internal/catch_getenv.hpp>\n\n#include <catch2/internal/catch_platform.hpp>\n#include <catch2/internal/catch_compiler_capabilities.hpp>\n\n#include <cstdlib>\n\nnamespace Catch {\n    namespace Detail {\n\n#if !defined (CATCH_CONFIG_GETENV)\n        char const* getEnv( char const* ) { return nullptr; }\n#else\n\n        char const* getEnv( char const* varName ) {\n#    if defined( _MSC_VER )\n#        pragma warning( push )\n#        pragma warning( disable : 4996 ) // use getenv_s instead of getenv\n#    endif\n\n            return std::getenv( varName );\n\n#    if defined( _MSC_VER )\n#        pragma warning( pop )\n#    endif\n        }\n#endif\n} // namespace Detail\n} // namespace Catch\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.7156862745098039,
+          "recall": 0.8795180722891566,
+          "f1": 0.7891891891891892,
+          "tp": 73,
+          "fp": 29,
+          "fn": 10,
+          "support": 83
+        },
+        "exactSpanMacroF1": 0.7445578231292517,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.7156862745098039,
+          "recall": 0.8795180722891566,
+          "f1": 0.7891891891891892,
+          "tp": 73,
+          "fp": 29,
+          "fn": 10,
+          "support": 83
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.6,
+            "recall": 0.8,
+            "f1": 0.6857142857142857,
+            "tp": 24,
+            "fp": 16,
+            "fn": 6,
+            "support": 30
+          },
+          "comment": {
+            "precision": 0.875,
+            "recall": 1.0,
+            "f1": 0.9333333333333333,
+            "tp": 7,
+            "fp": 1,
+            "fn": 0,
+            "support": 7
+          },
+          "string": {
+            "precision": 0.8,
+            "recall": 0.5714285714285714,
+            "f1": 0.6666666666666666,
+            "tp": 4,
+            "fp": 1,
+            "fn": 3,
+            "support": 7
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.8333333333333334,
+            "recall": 0.8333333333333334,
+            "f1": 0.8333333333333334,
+            "tp": 5,
+            "fp": 1,
+            "fn": 1,
+            "support": 6
+          },
+          "punctuation": {
+            "precision": 0.8148148148148148,
+            "recall": 1.0,
+            "f1": 0.8979591836734694,
+            "tp": 22,
+            "fp": 5,
+            "fn": 0,
+            "support": 22
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "tp": 3,
+            "fp": 1,
+            "fn": 0,
+            "support": 3
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 0.4,
+            "recall": 1.0,
+            "f1": 0.5714285714285714,
+            "tp": 2,
+            "fp": 3,
+            "fn": 0,
+            "support": 2
+          },
+          "type-parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "!",
+          "tokenType": "operator",
+          "start": 459,
+          "end": 460
+        },
+        {
+          "text": "#    if",
+          "tokenType": "keyword",
+          "start": 611,
+          "end": 618
+        },
+        {
+          "text": "#        pragma",
+          "tokenType": "keyword",
+          "start": 639,
+          "end": 654
+        },
+        {
+          "text": "warning( push )",
+          "tokenType": "string",
+          "start": 655,
+          "end": 670
+        },
+        {
+          "text": "#        pragma",
+          "tokenType": "keyword",
+          "start": 671,
+          "end": 686
+        },
+        {
+          "text": "warning( disable : 4996 ) // use getenv_s instead of getenv",
+          "tokenType": "string",
+          "start": 687,
+          "end": 746
+        },
+        {
+          "text": "#    endif",
+          "tokenType": "keyword",
+          "start": 747,
+          "end": 757
+        },
+        {
+          "text": "#    if",
+          "tokenType": "keyword",
+          "start": 803,
+          "end": 810
+        },
+        {
+          "text": "#        pragma",
+          "tokenType": "keyword",
+          "start": 831,
+          "end": 846
+        },
+        {
+          "text": "warning( pop )",
+          "tokenType": "string",
+          "start": 847,
+          "end": 861
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "!",
+          "tokenType": "keyword",
+          "start": 459,
+          "end": 460
+        },
+        {
+          "text": "#   ",
+          "tokenType": "keyword",
+          "start": 611,
+          "end": 615
+        },
+        {
+          "text": "if",
+          "tokenType": "keyword",
+          "start": 616,
+          "end": 618
+        },
+        {
+          "text": "#        ",
+          "tokenType": "keyword",
+          "start": 639,
+          "end": 648
+        },
+        {
+          "text": "pragma",
+          "tokenType": "keyword",
+          "start": 648,
+          "end": 654
+        },
+        {
+          "text": "warning",
+          "tokenType": "keyword",
+          "start": 655,
+          "end": 662
+        },
+        {
+          "text": "(",
+          "tokenType": "punctuation",
+          "start": 662,
+          "end": 663
+        },
+        {
+          "text": "push",
+          "tokenType": "parameter",
+          "start": 664,
+          "end": 668
+        },
+        {
+          "text": ")",
+          "tokenType": "punctuation",
+          "start": 669,
+          "end": 670
+        },
+        {
+          "text": "#       ",
+          "tokenType": "keyword",
+          "start": 671,
+          "end": 679
+        },
+        {
+          "text": "pragma",
+          "tokenType": "keyword",
+          "start": 680,
+          "end": 686
+        },
+        {
+          "text": "warning",
+          "tokenType": "keyword",
+          "start": 687,
+          "end": 694
+        },
+        {
+          "text": "( ",
+          "tokenType": "string",
+          "start": 694,
+          "end": 696
+        },
+        {
+          "text": "disable",
+          "tokenType": "parameter",
+          "start": 696,
+          "end": 703
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 704,
+          "end": 705
+        },
+        {
+          "text": "4996",
+          "tokenType": "number",
+          "start": 706,
+          "end": 710
+        },
+        {
+          "text": ")",
+          "tokenType": "punctuation",
+          "start": 711,
+          "end": 712
+        },
+        {
+          "text": "// use getenv_s instead of getenv",
+          "tokenType": "comment",
+          "start": 713,
+          "end": 746
+        },
+        {
+          "text": "# ",
+          "tokenType": "keyword",
+          "start": 747,
+          "end": 749
+        },
+        {
+          "text": "endif",
+          "tokenType": "keyword",
+          "start": 752,
+          "end": 757
+        },
+        {
+          "text": "# ",
+          "tokenType": "keyword",
+          "start": 803,
+          "end": 805
+        },
+        {
+          "text": "if",
+          "tokenType": "keyword",
+          "start": 808,
+          "end": 810
+        },
+        {
+          "text": "#  ",
+          "tokenType": "keyword",
+          "start": 831,
+          "end": 834
+        },
+        {
+          "text": " ",
+          "tokenType": "keyword",
+          "start": 835,
+          "end": 836
+        },
+        {
+          "text": "pragma",
+          "tokenType": "keyword",
+          "start": 840,
+          "end": 846
+        },
+        {
+          "text": "warning",
+          "tokenType": "function",
+          "start": 847,
+          "end": 854
+        },
+        {
+          "text": "(",
+          "tokenType": "punctuation",
+          "start": 854,
+          "end": 855
+        },
+        {
+          "text": "pop",
+          "tokenType": "parameter",
+          "start": 856,
+          "end": 859
+        },
+        {
+          "text": ")",
+          "tokenType": "punctuation",
+          "start": 860,
+          "end": 861
+        }
+      ]
+    },
+    {
+      "path": "src/catch2/generators/catch_generators_random.cpp",
+      "repository": "catch-cpp-v1",
+      "source": "\n//              Copyright Catch2 Authors\n// Distributed under the Boost Software License, Version 1.0.\n//   (See accompanying file LICENSE.txt or copy at\n//        https://www.boost.org/LICENSE_1_0.txt)\n\n// SPDX-License-Identifier: BSL-1.0\n\n#include <catch2/generators/catch_generators_random.hpp>\n#include <catch2/internal/catch_context.hpp>\n\n#include <random>\n\nnamespace Catch {\n    namespace Generators {\n        namespace Detail {\n            std::uint32_t getSeed() { return sharedRng()(); }\n        } // namespace Detail\n\n        struct RandomFloatingGenerator<long double>::PImpl {\n            PImpl( long double a, long double b, uint32_t seed ):\n                rng( seed ), dist( a, b ) {}\n\n            Catch::SimplePcg32 rng;\n            std::uniform_real_distribution<long double> dist;\n        };\n\n        RandomFloatingGenerator<long double>::RandomFloatingGenerator(\n            long double a, long double b, std::uint32_t seed) :\n            m_pimpl(Catch::Detail::make_unique<PImpl>(a, b, seed)) {\n            static_cast<void>( next() );\n        }\n\n        RandomFloatingGenerator<long double>::~RandomFloatingGenerator() =\n            default;\n        bool RandomFloatingGenerator<long double>::next() {\n            m_current_number = m_pimpl->dist( m_pimpl->rng );\n            return true;\n        }\n    } // namespace Generators\n} // namespace Catch\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.907608695652174,
+          "recall": 0.912568306010929,
+          "f1": 0.9100817438692098,
+          "tp": 167,
+          "fp": 17,
+          "fn": 16,
+          "support": 183
+        },
+        "exactSpanMacroF1": 0.6963304226514595,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8858695652173914,
+          "recall": 0.8907103825136612,
+          "f1": 0.888283378746594,
+          "tp": 163,
+          "fp": 21,
+          "fn": 20,
+          "support": 183
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.7878787878787878,
+            "f1": 0.8813559322033898,
+            "tp": 26,
+            "fp": 0,
+            "fn": 7,
+            "support": 33
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 74,
+            "fp": 0,
+            "fn": 0,
+            "support": 74
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 0.8888888888888888,
+            "f1": 0.9411764705882353,
+            "tp": 8,
+            "fp": 0,
+            "fn": 1,
+            "support": 9
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 0.7,
+            "f1": 0.8235294117647058,
+            "tp": 7,
+            "fp": 0,
+            "fn": 3,
+            "support": 10
+          },
+          "class": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "tp": 6,
+            "fp": 2,
+            "fn": 0,
+            "support": 6
+          },
+          "constructor": {
+            "precision": 0.25,
+            "recall": 0.3333333333333333,
+            "f1": 0.2857142857142857,
+            "tp": 1,
+            "fp": 3,
+            "fn": 2,
+            "support": 3
+          },
+          "parameter": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "tp": 12,
+            "fp": 4,
+            "fn": 0,
+            "support": 12
+          },
+          "type-parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.3333333333333333,
+            "recall": 0.3333333333333333,
+            "f1": 0.3333333333333333,
+            "tp": 1,
+            "fp": 2,
+            "fn": 2,
+            "support": 3
+          },
+          "property": {
+            "precision": 0.7142857142857143,
+            "recall": 0.8333333333333334,
+            "f1": 0.7692307692307693,
+            "tp": 5,
+            "fp": 2,
+            "fn": 1,
+            "support": 6
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "Generators",
+          "tokenType": "namespace",
+          "start": 396,
+          "end": 406
+        },
+        {
+          "text": "double",
+          "tokenType": "keyword",
+          "start": 573,
+          "end": 579
+        },
+        {
+          "text": "double",
+          "tokenType": "keyword",
+          "start": 629,
+          "end": 635
+        },
+        {
+          "text": "rng",
+          "tokenType": "property",
+          "start": 733,
+          "end": 736
+        },
+        {
+          "text": "double",
+          "tokenType": "keyword",
+          "start": 786,
+          "end": 792
+        },
+        {
+          "text": "RandomFloatingGenerator",
+          "tokenType": "type",
+          "start": 820,
+          "end": 843
+        },
+        {
+          "text": "double",
+          "tokenType": "keyword",
+          "start": 849,
+          "end": 855
+        },
+        {
+          "text": "RandomFloatingGenerator",
+          "tokenType": "constructor",
+          "start": 858,
+          "end": 881
+        },
+        {
+          "text": "double",
+          "tokenType": "keyword",
+          "start": 900,
+          "end": 906
+        },
+        {
+          "text": "PImpl",
+          "tokenType": "type",
+          "start": 994,
+          "end": 999
+        },
+        {
+          "text": "RandomFloatingGenerator",
+          "tokenType": "type",
+          "start": 1076,
+          "end": 1099
+        },
+        {
+          "text": "double",
+          "tokenType": "keyword",
+          "start": 1105,
+          "end": 1111
+        },
+        {
+          "text": "~RandomFloatingGenerator",
+          "tokenType": "constructor",
+          "start": 1114,
+          "end": 1138
+        },
+        {
+          "text": "double",
+          "tokenType": "keyword",
+          "start": 1206,
+          "end": 1212
+        },
+        {
+          "text": "m_current_number",
+          "tokenType": "variable",
+          "start": 1236,
+          "end": 1252
+        },
+        {
+          "text": "m_pimpl",
+          "tokenType": "variable",
+          "start": 1270,
+          "end": 1277
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "Generators",
+          "tokenType": "class",
+          "start": 396,
+          "end": 406
+        },
+        {
+          "text": "double",
+          "tokenType": "type-parameter",
+          "start": 573,
+          "end": 579
+        },
+        {
+          "text": "double",
+          "tokenType": "parameter",
+          "start": 629,
+          "end": 635
+        },
+        {
+          "text": "rng",
+          "tokenType": "parameter",
+          "start": 733,
+          "end": 736
+        },
+        {
+          "text": "double",
+          "tokenType": "property",
+          "start": 786,
+          "end": 792
+        },
+        {
+          "text": "RandomFloatingGenerator",
+          "tokenType": "constructor",
+          "start": 820,
+          "end": 843
+        },
+        {
+          "text": "double",
+          "tokenType": "type-parameter",
+          "start": 849,
+          "end": 855
+        },
+        {
+          "text": "RandomFloatingGenerator",
+          "tokenType": "function",
+          "start": 858,
+          "end": 881
+        },
+        {
+          "text": "double",
+          "tokenType": "parameter",
+          "start": 900,
+          "end": 906
+        },
+        {
+          "text": "PImpl",
+          "tokenType": "type-parameter",
+          "start": 994,
+          "end": 999
+        },
+        {
+          "text": "RandomFloatingGenerator",
+          "tokenType": "constructor",
+          "start": 1076,
+          "end": 1099
+        },
+        {
+          "text": "double",
+          "tokenType": "variable",
+          "start": 1105,
+          "end": 1111
+        },
+        {
+          "text": "~",
+          "tokenType": "function",
+          "start": 1114,
+          "end": 1115
+        },
+        {
+          "text": "RandomFloatingGenerator",
+          "tokenType": "constructor",
+          "start": 1115,
+          "end": 1138
+        },
+        {
+          "text": "double",
+          "tokenType": "variable",
+          "start": 1206,
+          "end": 1212
+        },
+        {
+          "text": "m_current_number",
+          "tokenType": "property",
+          "start": 1236,
+          "end": 1252
+        },
+        {
+          "text": "m_pimpl",
+          "tokenType": "parameter",
+          "start": 1270,
+          "end": 1277
+        }
+      ]
+    },
+    {
+      "path": "util/logging.h",
+      "repository": "leveldb-cpp-v1",
+      "source": "// Copyright (c) 2011 The LevelDB Authors. All rights reserved.\n// Use of this source code is governed by a BSD-style license that can be\n// found in the LICENSE file. See the AUTHORS file for names of contributors.\n//\n// Must not be included from any .h files to avoid polluting the namespace\n// with macros.\n\n#ifndef STORAGE_LEVELDB_UTIL_LOGGING_H_\n#define STORAGE_LEVELDB_UTIL_LOGGING_H_\n\n#include <cstdint>\n#include <cstdio>\n#include <string>\n\n#include \"port/port.h\"\n\nnamespace leveldb {\n\nclass Slice;\nclass WritableFile;\n\n// Append a human-readable printout of \"num\" to *str\nvoid AppendNumberTo(std::string* str, uint64_t num);\n\n// Append a human-readable printout of \"value\" to *str.\n// Escapes any non-printable characters found in \"value\".\nvoid AppendEscapedStringTo(std::string* str, const Slice& value);\n\n// Return a human-readable printout of \"num\"\nstd::string NumberToString(uint64_t num);\n\n// Return a human-readable version of \"value\".\n// Escapes any non-printable characters found in \"value\".\nstd::string EscapeString(const Slice& value);\n\n// Parse a human-readable number from \"*in\" into *value.  On success,\n// advances \"*in\" past the consumed number and sets \"*val\" to the\n// numeric value.  Otherwise, returns false and leaves *in in an\n// unspecified state.\nbool ConsumeDecimalNumber(Slice* in, uint64_t* val);\n\n}  // namespace leveldb\n\n#endif  // STORAGE_LEVELDB_UTIL_LOGGING_H_\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9801980198019802,
+          "recall": 0.9801980198019802,
+          "f1": 0.9801980198019802,
+          "tp": 99,
+          "fp": 2,
+          "fn": 2,
+          "support": 101
+        },
+        "exactSpanMacroF1": 0.811965811965812,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9603960396039604,
+          "recall": 0.9603960396039604,
+          "f1": 0.9603960396039604,
+          "tp": 97,
+          "fp": 4,
+          "fn": 4,
+          "support": 101
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 18,
+            "fp": 0,
+            "fn": 0,
+            "support": 18
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 18,
+            "fp": 0,
+            "fn": 0,
+            "support": 18
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 22,
+            "fp": 0,
+            "fn": 0,
+            "support": 22
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "tp": 1,
+            "fp": 0,
+            "fn": 1,
+            "support": 2
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.8888888888888888,
+            "tp": 4,
+            "fp": 0,
+            "fn": 1,
+            "support": 5
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "type-parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "WritableFile",
+          "tokenType": "class",
+          "start": 512,
+          "end": 524
+        },
+        {
+          "text": "EscapeString",
+          "tokenType": "function",
+          "start": 1020,
+          "end": 1032
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "WritableFile",
+          "tokenType": "enum-member",
+          "start": 512,
+          "end": 524
+        },
+        {
+          "text": "EscapeString",
+          "tokenType": "constructor",
+          "start": 1020,
+          "end": 1032
+        }
+      ]
+    },
+    {
+      "path": "util/logging.cc",
+      "repository": "leveldb-cpp-v1",
+      "source": "// Copyright (c) 2011 The LevelDB Authors. All rights reserved.\n// Use of this source code is governed by a BSD-style license that can be\n// found in the LICENSE file. See the AUTHORS file for names of contributors.\n\n#include \"util/logging.h\"\n\n#include <cstdarg>\n#include <cstdio>\n#include <cstdlib>\n#include <limits>\n\n#include \"leveldb/env.h\"\n#include \"leveldb/slice.h\"\n\nnamespace leveldb {\n\nvoid AppendNumberTo(std::string* str, uint64_t num) {\n  char buf[30];\n  std::snprintf(buf, sizeof(buf), \"%llu\", static_cast<unsigned long long>(num));\n  str->append(buf);\n}\n\nvoid AppendEscapedStringTo(std::string* str, const Slice& value) {\n  for (size_t i = 0; i < value.size(); i++) {\n    char c = value[i];\n    if (c >= ' ' && c <= '~') {\n      str->push_back(c);\n    } else {\n      char buf[10];\n      std::snprintf(buf, sizeof(buf), \"\\\\x%02x\",\n                    static_cast<unsigned int>(c) & 0xff);\n      str->append(buf);\n    }\n  }\n}\n\nstd::string NumberToString(uint64_t num) {\n  std::string r;\n  AppendNumberTo(&r, num);\n  return r;\n}\n\nstd::string EscapeString(const Slice& value) {\n  std::string r;\n  AppendEscapedStringTo(&r, value);\n  return r;\n}\n\nbool ConsumeDecimalNumber(Slice* in, uint64_t* val) {\n  // Constants that will be optimized away.\n  constexpr const uint64_t kMaxUint64 = std::numeric_limits<uint64_t>::max();\n  constexpr const char kLastDigitOfMaxUint64 =\n      '0' + static_cast<char>(kMaxUint64 % 10);\n\n  uint64_t value = 0;\n\n  // reinterpret_cast-ing from char* to uint8_t* to avoid signedness.\n  const uint8_t* start = reinterpret_cast<const uint8_t*>(in->data());\n\n  const uint8_t* end = start + in->size();\n  const uint8_t* current = start;\n  for (; current != end; ++current) {\n    const uint8_t ch = *current;\n    if (ch < '0' || ch > '9') break;\n\n    // Overflow check.\n    // kMaxUint64 / 10 is also constant and will be optimized away.\n    if (value > kMaxUint64 / 10 ||\n        (value == kMaxUint64 / 10 && ch > kLastDigitOfMaxUint64)) {\n      return false;\n    }\n\n    value = (value * 10) + (ch - '0');\n  }\n\n  *val = value;\n  const size_t digits_consumed = current - start;\n  in->remove_prefix(digits_consumed);\n  return digits_consumed != 0;\n}\n\n}  // namespace leveldb\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9334916864608076,
+          "recall": 0.9357142857142857,
+          "f1": 0.9346016646848989,
+          "tp": 393,
+          "fp": 28,
+          "fn": 27,
+          "support": 420
+        },
+        "exactSpanMacroF1": 0.840165680339196,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9239904988123515,
+          "recall": 0.9261904761904762,
+          "f1": 0.925089179548157,
+          "tp": 389,
+          "fp": 32,
+          "fn": 31,
+          "support": 420
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.96875,
+            "recall": 0.96875,
+            "f1": 0.96875,
+            "tp": 62,
+            "fp": 2,
+            "fn": 2,
+            "support": 64
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "string": {
+            "precision": 0.875,
+            "recall": 0.9333333333333333,
+            "f1": 0.9032258064516129,
+            "tp": 14,
+            "fp": 2,
+            "fn": 1,
+            "support": 15
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 68,
+            "fp": 0,
+            "fn": 0,
+            "support": 68
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 144,
+            "fp": 0,
+            "fn": 0,
+            "support": 144
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "type": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "tp": 10,
+            "fp": 2,
+            "fn": 0,
+            "support": 10
+          },
+          "class": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 0.8823529411764706,
+            "f1": 0.9375,
+            "tp": 15,
+            "fp": 0,
+            "fn": 2,
+            "support": 17
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 0.5185185185185185,
+            "recall": 0.7,
+            "f1": 0.5957446808510638,
+            "tp": 14,
+            "fp": 13,
+            "fn": 6,
+            "support": 20
+          },
+          "type-parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.8444444444444444,
+            "recall": 0.7037037037037037,
+            "f1": 0.7676767676767676,
+            "tp": 38,
+            "fp": 7,
+            "fn": 16,
+            "support": 54
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "buf",
+          "tokenType": "variable",
+          "start": 491,
+          "end": 494
+        },
+        {
+          "text": "str",
+          "tokenType": "parameter",
+          "start": 546,
+          "end": 549
+        },
+        {
+          "text": "value",
+          "tokenType": "parameter",
+          "start": 693,
+          "end": 698
+        },
+        {
+          "text": "' '",
+          "tokenType": "string",
+          "start": 716,
+          "end": 719
+        },
+        {
+          "text": "str",
+          "tokenType": "parameter",
+          "start": 741,
+          "end": 744
+        },
+        {
+          "text": "c",
+          "tokenType": "variable",
+          "start": 888,
+          "end": 889
+        },
+        {
+          "text": "str",
+          "tokenType": "parameter",
+          "start": 906,
+          "end": 909
+        },
+        {
+          "text": "r",
+          "tokenType": "variable",
+          "start": 994,
+          "end": 995
+        },
+        {
+          "text": "AppendNumberTo",
+          "tokenType": "function",
+          "start": 999,
+          "end": 1013
+        },
+        {
+          "text": "r",
+          "tokenType": "variable",
+          "start": 1033,
+          "end": 1034
+        },
+        {
+          "text": "r",
+          "tokenType": "variable",
+          "start": 1100,
+          "end": 1101
+        },
+        {
+          "text": "AppendEscapedStringTo",
+          "tokenType": "function",
+          "start": 1105,
+          "end": 1126
+        },
+        {
+          "text": "r",
+          "tokenType": "variable",
+          "start": 1148,
+          "end": 1149
+        },
+        {
+          "text": "kMaxUint64",
+          "tokenType": "variable",
+          "start": 1279,
+          "end": 1289
+        },
+        {
+          "text": "uint8_t",
+          "tokenType": "keyword",
+          "start": 1527,
+          "end": 1534
+        },
+        {
+          "text": "in",
+          "tokenType": "parameter",
+          "start": 1622,
+          "end": 1624
+        },
+        {
+          "text": "start",
+          "tokenType": "variable",
+          "start": 1661,
+          "end": 1666
+        },
+        {
+          "text": "ch",
+          "tokenType": "variable",
+          "start": 1747,
+          "end": 1749
+        },
+        {
+          "text": "ch",
+          "tokenType": "variable",
+          "start": 1759,
+          "end": 1761
+        },
+        {
+          "text": "value",
+          "tokenType": "variable",
+          "start": 1876,
+          "end": 1881
+        },
+        {
+          "text": "ch",
+          "tokenType": "variable",
+          "start": 1940,
+          "end": 1942
+        },
+        {
+          "text": "false",
+          "tokenType": "keyword",
+          "start": 1984,
+          "end": 1989
+        },
+        {
+          "text": "value",
+          "tokenType": "variable",
+          "start": 2011,
+          "end": 2016
+        },
+        {
+          "text": "ch",
+          "tokenType": "variable",
+          "start": 2026,
+          "end": 2028
+        },
+        {
+          "text": "val",
+          "tokenType": "parameter",
+          "start": 2045,
+          "end": 2048
+        },
+        {
+          "text": "current",
+          "tokenType": "variable",
+          "start": 2091,
+          "end": 2098
+        },
+        {
+          "text": "digits_consumed",
+          "tokenType": "variable",
+          "start": 2128,
+          "end": 2143
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "buf",
+          "tokenType": "parameter",
+          "start": 491,
+          "end": 494
+        },
+        {
+          "text": "str",
+          "tokenType": "variable",
+          "start": 546,
+          "end": 549
+        },
+        {
+          "text": "value",
+          "tokenType": "variable",
+          "start": 693,
+          "end": 698
+        },
+        {
+          "text": "'",
+          "tokenType": "string",
+          "start": 716,
+          "end": 717
+        },
+        {
+          "text": "'",
+          "tokenType": "string",
+          "start": 718,
+          "end": 719
+        },
+        {
+          "text": "str",
+          "tokenType": "variable",
+          "start": 741,
+          "end": 744
+        },
+        {
+          "text": "c",
+          "tokenType": "parameter",
+          "start": 888,
+          "end": 889
+        },
+        {
+          "text": "str",
+          "tokenType": "variable",
+          "start": 906,
+          "end": 909
+        },
+        {
+          "text": "r",
+          "tokenType": "parameter",
+          "start": 994,
+          "end": 995
+        },
+        {
+          "text": "AppendNumberTo",
+          "tokenType": "constructor",
+          "start": 999,
+          "end": 1013
+        },
+        {
+          "text": "r",
+          "tokenType": "parameter",
+          "start": 1033,
+          "end": 1034
+        },
+        {
+          "text": "r",
+          "tokenType": "parameter",
+          "start": 1100,
+          "end": 1101
+        },
+        {
+          "text": "AppendEscapedStringTo",
+          "tokenType": "constructor",
+          "start": 1105,
+          "end": 1126
+        },
+        {
+          "text": "r",
+          "tokenType": "parameter",
+          "start": 1148,
+          "end": 1149
+        },
+        {
+          "text": "kMaxUint64",
+          "tokenType": "type",
+          "start": 1279,
+          "end": 1289
+        },
+        {
+          "text": "uint8_t",
+          "tokenType": "type",
+          "start": 1527,
+          "end": 1534
+        },
+        {
+          "text": "in",
+          "tokenType": "variable",
+          "start": 1622,
+          "end": 1624
+        },
+        {
+          "text": "start",
+          "tokenType": "keyword",
+          "start": 1661,
+          "end": 1666
+        },
+        {
+          "text": "ch",
+          "tokenType": "parameter",
+          "start": 1747,
+          "end": 1749
+        },
+        {
+          "text": "ch",
+          "tokenType": "parameter",
+          "start": 1759,
+          "end": 1761
+        },
+        {
+          "text": "value",
+          "tokenType": "parameter",
+          "start": 1876,
+          "end": 1881
+        },
+        {
+          "text": "ch",
+          "tokenType": "parameter",
+          "start": 1940,
+          "end": 1942
+        },
+        {
+          "text": "false",
+          "tokenType": "variable",
+          "start": 1984,
+          "end": 1989
+        },
+        {
+          "text": "value",
+          "tokenType": "parameter",
+          "start": 2011,
+          "end": 2016
+        },
+        {
+          "text": "ch",
+          "tokenType": "parameter",
+          "start": 2026,
+          "end": 2028
+        },
+        {
+          "text": "val",
+          "tokenType": "variable",
+          "start": 2045,
+          "end": 2048
+        },
+        {
+          "text": "current",
+          "tokenType": "keyword",
+          "start": 2091,
+          "end": 2098
+        },
+        {
+          "text": "digits_consumed",
+          "tokenType": "parameter",
+          "start": 2128,
+          "end": 2143
+        }
+      ]
+    },
+    {
+      "path": "src/catch2/reporters/catch_reporter_registrars.hpp",
+      "repository": "catch-cpp-v1",
+      "source": "\n//              Copyright Catch2 Authors\n// Distributed under the Boost Software License, Version 1.0.\n//   (See accompanying file LICENSE.txt or copy at\n//        https://www.boost.org/LICENSE_1_0.txt)\n\n// SPDX-License-Identifier: BSL-1.0\n#ifndef CATCH_REPORTER_REGISTRARS_HPP_INCLUDED\n#define CATCH_REPORTER_REGISTRARS_HPP_INCLUDED\n\n#include <catch2/interfaces/catch_interfaces_reporter_factory.hpp>\n#include <catch2/internal/catch_compiler_capabilities.hpp>\n#include <catch2/internal/catch_unique_name.hpp>\n#include <catch2/internal/catch_unique_ptr.hpp>\n#include <catch2/internal/catch_move_and_forward.hpp>\n#include <catch2/internal/catch_void_type.hpp>\n\n#include <type_traits>\n\nnamespace Catch {\n\n    namespace Detail {\n\n        template <typename T, typename = void>\n        struct has_description : std::false_type {};\n\n        template <typename T>\n        struct has_description<\n            T,\n            void_t<decltype( T::getDescription() )>>\n            : std::true_type {};\n\n        //! Indirection for reporter registration, so that the error handling is\n        //! independent on the reporter's concrete type\n        void registerReporterImpl( std::string const& name,\n                                   IReporterFactoryPtr reporterPtr );\n        //! Actually registers the factory, independent on listener's concrete type\n        void registerListenerImpl( Detail::unique_ptr<EventListenerFactory> listenerFactory );\n    } // namespace Detail\n\n    class IEventListener;\n    using IEventListenerPtr = Detail::unique_ptr<IEventListener>;\n\n    template <typename T>\n    class ReporterFactory : public IReporterFactory {\n\n        IEventListenerPtr create( ReporterConfig&& config ) const override {\n            return Detail::make_unique<T>( CATCH_MOVE(config) );\n        }\n\n        std::string getDescription() const override {\n            return T::getDescription();\n        }\n    };\n\n\n    template<typename T>\n    class ReporterRegistrar {\n    public:\n        explicit ReporterRegistrar( std::string const& name ) {\n            registerReporterImpl( name,\n                                  Detail::make_unique<ReporterFactory<T>>() );\n        }\n    };\n\n    template<typename T>\n    class ListenerRegistrar {\n\n        class TypedListenerFactory : public EventListenerFactory {\n            StringRef m_listenerName;\n\n            std::string getDescriptionImpl( std::true_type ) const {\n                return T::getDescription();\n            }\n\n            std::string getDescriptionImpl( std::false_type ) const {\n                return \"(No description provided)\";\n            }\n\n        public:\n            TypedListenerFactory( StringRef listenerName ):\n                m_listenerName( listenerName ) {}\n\n            IEventListenerPtr create( IConfig const* config ) const override {\n                return Detail::make_unique<T>( config );\n            }\n\n            StringRef getName() const override {\n                return m_listenerName;\n            }\n\n            std::string getDescription() const override {\n                return getDescriptionImpl( Detail::has_description<T>{} );\n            }\n        };\n\n    public:\n        ListenerRegistrar(StringRef listenerName) {\n            registerListenerImpl( Detail::make_unique<TypedListenerFactory>(listenerName) );\n        }\n    };\n}\n\n#if !defined(CATCH_CONFIG_DISABLE)\n\n#    define CATCH_REGISTER_REPORTER( name, reporterType )                      \\\n        CATCH_INTERNAL_START_WARNINGS_SUPPRESSION                              \\\n        CATCH_INTERNAL_SUPPRESS_GLOBALS_WARNINGS                               \\\n        namespace {                                                            \\\n            Catch::ReporterRegistrar<reporterType> INTERNAL_CATCH_UNIQUE_NAME( \\\n                catch_internal_RegistrarFor )( name );                         \\\n        }                                                                      \\\n        CATCH_INTERNAL_STOP_WARNINGS_SUPPRESSION\n\n#    define CATCH_REGISTER_LISTENER( listenerType )                            \\\n        CATCH_INTERNAL_START_WARNINGS_SUPPRESSION                              \\\n        CATCH_INTERNAL_SUPPRESS_GLOBALS_WARNINGS                               \\\n        namespace {                                                            \\\n            Catch::ListenerRegistrar<listenerType> INTERNAL_CATCH_UNIQUE_NAME( \\\n                catch_internal_RegistrarFor )( #listenerType##_catch_sr );     \\\n        }                                                                      \\\n        CATCH_INTERNAL_STOP_WARNINGS_SUPPRESSION\n\n#else // CATCH_CONFIG_DISABLE\n\n#define CATCH_REGISTER_REPORTER(name, reporterType)\n#define CATCH_REGISTER_LISTENER(listenerType)\n\n#endif // CATCH_CONFIG_DISABLE\n\n#endif // CATCH_REPORTER_REGISTRARS_HPP_INCLUDED\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9235807860262009,
+          "recall": 0.9195652173913044,
+          "f1": 0.9215686274509803,
+          "tp": 423,
+          "fp": 35,
+          "fn": 37,
+          "support": 460
+        },
+        "exactSpanMacroF1": 0.8262442175274268,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8820960698689956,
+          "recall": 0.8782608695652174,
+          "f1": 0.8801742919389978,
+          "tp": 404,
+          "fp": 54,
+          "fn": 56,
+          "support": 460
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9315068493150684,
+            "recall": 0.9315068493150684,
+            "f1": 0.9315068493150684,
+            "tp": 68,
+            "fp": 5,
+            "fn": 5,
+            "support": 73
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "string": {
+            "precision": 0.6363636363636364,
+            "recall": 0.875,
+            "f1": 0.7368421052631579,
+            "tp": 7,
+            "fp": 4,
+            "fn": 1,
+            "support": 8
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.8717948717948718,
+            "recall": 0.7555555555555555,
+            "f1": 0.8095238095238095,
+            "tp": 34,
+            "fp": 5,
+            "fn": 11,
+            "support": 45
+          },
+          "punctuation": {
+            "precision": 0.978021978021978,
+            "recall": 0.978021978021978,
+            "f1": 0.978021978021978,
+            "tp": 178,
+            "fp": 4,
+            "fn": 4,
+            "support": 182
+          },
+          "namespace": {
+            "precision": 0.875,
+            "recall": 1.0,
+            "f1": 0.9333333333333333,
+            "tp": 21,
+            "fp": 3,
+            "fn": 0,
+            "support": 21
+          },
+          "type": {
+            "precision": 0.8709677419354839,
+            "recall": 0.84375,
+            "f1": 0.8571428571428571,
+            "tp": 27,
+            "fp": 4,
+            "fn": 5,
+            "support": 32
+          },
+          "class": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "tp": 5,
+            "fp": 1,
+            "fn": 0,
+            "support": 5
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.9259259259259259,
+            "recall": 0.9615384615384616,
+            "f1": 0.9433962264150944,
+            "tp": 25,
+            "fp": 2,
+            "fn": 1,
+            "support": 26
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "parameter": {
+            "precision": 0.9523809523809523,
+            "recall": 0.8695652173913043,
+            "f1": 0.9090909090909091,
+            "tp": 20,
+            "fp": 1,
+            "fn": 3,
+            "support": 23
+          },
+          "type-parameter": {
+            "precision": 0.8333333333333334,
+            "recall": 0.7692307692307693,
+            "f1": 0.8,
+            "tp": 10,
+            "fp": 2,
+            "fn": 3,
+            "support": 13
+          },
+          "variable": {
+            "precision": 0.7857142857142857,
+            "recall": 0.7857142857142857,
+            "f1": 0.7857142857142857,
+            "tp": 11,
+            "fp": 3,
+            "fn": 3,
+            "support": 14
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8,
+            "tp": 2,
+            "fp": 0,
+            "fn": 1,
+            "support": 3
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "<type_traits>",
+          "tokenType": "string",
+          "start": 670,
+          "end": 683
+        },
+        {
+          "text": "<",
+          "tokenType": "punctuation",
+          "start": 745,
+          "end": 746
+        },
+        {
+          "text": "typename",
+          "tokenType": "keyword",
+          "start": 758,
+          "end": 766
+        },
+        {
+          "text": "void_t",
+          "tokenType": "type",
+          "start": 918,
+          "end": 924
+        },
+        {
+          "text": "decltype",
+          "tokenType": "keyword",
+          "start": 925,
+          "end": 933
+        },
+        {
+          "text": "T",
+          "tokenType": "type-parameter",
+          "start": 935,
+          "end": 936
+        },
+        {
+          "text": ">",
+          "tokenType": "punctuation",
+          "start": 956,
+          "end": 957
+        },
+        {
+          "text": ">",
+          "tokenType": "punctuation",
+          "start": 957,
+          "end": 958
+        },
+        {
+          "text": "true_type",
+          "tokenType": "type",
+          "start": 978,
+          "end": 987
+        },
+        {
+          "text": "IReporterFactory",
+          "tokenType": "type",
+          "start": 1620,
+          "end": 1636
+        },
+        {
+          "text": "IEventListenerPtr",
+          "tokenType": "type",
+          "start": 1648,
+          "end": 1665
+        },
+        {
+          "text": "T",
+          "tokenType": "type-parameter",
+          "start": 1866,
+          "end": 1867
+        },
+        {
+          "text": "typename",
+          "tokenType": "keyword",
+          "start": 1919,
+          "end": 1927
+        },
+        {
+          "text": "::",
+          "tokenType": "operator",
+          "start": 2012,
+          "end": 2014
+        },
+        {
+          "text": "T",
+          "tokenType": "type-parameter",
+          "start": 2428,
+          "end": 2429
+        },
+        {
+          "text": "false_type",
+          "tokenType": "type",
+          "start": 2513,
+          "end": 2523
+        },
+        {
+          "text": "make_unique",
+          "tokenType": "function",
+          "start": 2838,
+          "end": 2849
+        },
+        {
+          "text": "override",
+          "tokenType": "keyword",
+          "start": 2917,
+          "end": 2925
+        },
+        {
+          "text": "m_listenerName",
+          "tokenType": "property",
+          "start": 2951,
+          "end": 2965
+        },
+        {
+          "text": "#    define",
+          "tokenType": "keyword",
+          "start": 3354,
+          "end": 3365
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 3695,
+          "end": 3696
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 3696,
+          "end": 3697
+        },
+        {
+          "text": "ReporterRegistrar",
+          "tokenType": "variable",
+          "start": 3697,
+          "end": 3714
+        },
+        {
+          "text": "<",
+          "tokenType": "operator",
+          "start": 3714,
+          "end": 3715
+        },
+        {
+          "text": "reporterType",
+          "tokenType": "parameter",
+          "start": 3715,
+          "end": 3727
+        },
+        {
+          "text": ">",
+          "tokenType": "operator",
+          "start": 3727,
+          "end": 3728
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 4312,
+          "end": 4313
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 4313,
+          "end": 4314
+        },
+        {
+          "text": "ListenerRegistrar",
+          "tokenType": "variable",
+          "start": 4314,
+          "end": 4331
+        },
+        {
+          "text": "<",
+          "tokenType": "operator",
+          "start": 4331,
+          "end": 4332
+        },
+        {
+          "text": "listenerType",
+          "tokenType": "parameter",
+          "start": 4332,
+          "end": 4344
+        },
+        {
+          "text": ">",
+          "tokenType": "operator",
+          "start": 4344,
+          "end": 4345
+        },
+        {
+          "text": "#",
+          "tokenType": "operator",
+          "start": 4423,
+          "end": 4424
+        },
+        {
+          "text": "listenerType",
+          "tokenType": "parameter",
+          "start": 4424,
+          "end": 4436
+        },
+        {
+          "text": "##",
+          "tokenType": "operator",
+          "start": 4436,
+          "end": 4438
+        },
+        {
+          "text": "_catch_sr",
+          "tokenType": "variable",
+          "start": 4438,
+          "end": 4447
+        },
+        {
+          "text": "\\",
+          "tokenType": "punctuation",
+          "start": 4536,
+          "end": 4537
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "<",
+          "tokenType": "string",
+          "start": 670,
+          "end": 671
+        },
+        {
+          "text": "type_traits>",
+          "tokenType": "string",
+          "start": 671,
+          "end": 683
+        },
+        {
+          "text": "<",
+          "tokenType": "string",
+          "start": 745,
+          "end": 746
+        },
+        {
+          "text": "typename",
+          "tokenType": "type-parameter",
+          "start": 758,
+          "end": 766
+        },
+        {
+          "text": "void_t",
+          "tokenType": "keyword",
+          "start": 918,
+          "end": 924
+        },
+        {
+          "text": "decltype",
+          "tokenType": "function",
+          "start": 925,
+          "end": 933
+        },
+        {
+          "text": "T",
+          "tokenType": "namespace",
+          "start": 935,
+          "end": 936
+        },
+        {
+          "text": ">>",
+          "tokenType": "operator",
+          "start": 956,
+          "end": 958
+        },
+        {
+          "text": "true_type",
+          "tokenType": "variable",
+          "start": 978,
+          "end": 987
+        },
+        {
+          "text": "IReporterFactory",
+          "tokenType": "class",
+          "start": 1620,
+          "end": 1636
+        },
+        {
+          "text": "IEventListenerPtr",
+          "tokenType": "enum",
+          "start": 1648,
+          "end": 1665
+        },
+        {
+          "text": "T",
+          "tokenType": "namespace",
+          "start": 1866,
+          "end": 1867
+        },
+        {
+          "text": "typename",
+          "tokenType": "type-parameter",
+          "start": 1919,
+          "end": 1927
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 2012,
+          "end": 2013
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 2013,
+          "end": 2014
+        },
+        {
+          "text": "T",
+          "tokenType": "namespace",
+          "start": 2428,
+          "end": 2429
+        },
+        {
+          "text": "false_type",
+          "tokenType": "parameter",
+          "start": 2513,
+          "end": 2523
+        },
+        {
+          "text": "make_unique",
+          "tokenType": "type",
+          "start": 2838,
+          "end": 2849
+        },
+        {
+          "text": "o",
+          "tokenType": "keyword",
+          "start": 2917,
+          "end": 2918
+        },
+        {
+          "text": "verride",
+          "tokenType": "keyword",
+          "start": 2918,
+          "end": 2925
+        },
+        {
+          "text": "m_listenerName",
+          "tokenType": "variable",
+          "start": 2951,
+          "end": 2965
+        },
+        {
+          "text": "#    ",
+          "tokenType": "keyword",
+          "start": 3354,
+          "end": 3359
+        },
+        {
+          "text": "define",
+          "tokenType": "keyword",
+          "start": 3359,
+          "end": 3365
+        },
+        {
+          "text": "::",
+          "tokenType": "operator",
+          "start": 3695,
+          "end": 3697
+        },
+        {
+          "text": "ReporterRegistrar",
+          "tokenType": "function",
+          "start": 3697,
+          "end": 3714
+        },
+        {
+          "text": "<",
+          "tokenType": "punctuation",
+          "start": 3714,
+          "end": 3715
+        },
+        {
+          "text": "reporterType",
+          "tokenType": "type",
+          "start": 3715,
+          "end": 3727
+        },
+        {
+          "text": ">",
+          "tokenType": "punctuation",
+          "start": 3727,
+          "end": 3728
+        },
+        {
+          "text": "::",
+          "tokenType": "operator",
+          "start": 4312,
+          "end": 4314
+        },
+        {
+          "text": "ListenerRegistrar",
+          "tokenType": "type",
+          "start": 4314,
+          "end": 4331
+        },
+        {
+          "text": "<",
+          "tokenType": "punctuation",
+          "start": 4331,
+          "end": 4332
+        },
+        {
+          "text": "listenerType",
+          "tokenType": "type",
+          "start": 4332,
+          "end": 4344
+        },
+        {
+          "text": ">",
+          "tokenType": "punctuation",
+          "start": 4344,
+          "end": 4345
+        },
+        {
+          "text": "#listenerType##_catch_sr",
+          "tokenType": "variable",
+          "start": 4423,
+          "end": 4447
+        },
+        {
+          "text": "\\",
+          "tokenType": "string",
+          "start": 4536,
+          "end": 4537
+        }
+      ]
+    },
+    {
+      "path": "table/merger.cc",
+      "repository": "leveldb-cpp-v1",
+      "source": "// Copyright (c) 2011 The LevelDB Authors. All rights reserved.\n// Use of this source code is governed by a BSD-style license that can be\n// found in the LICENSE file. See the AUTHORS file for names of contributors.\n\n#include \"table/merger.h\"\n\n#include \"leveldb/comparator.h\"\n#include \"leveldb/iterator.h\"\n#include \"table/iterator_wrapper.h\"\n\nnamespace leveldb {\n\nnamespace {\nclass MergingIterator : public Iterator {\n public:\n  MergingIterator(const Comparator* comparator, Iterator** children, int n)\n      : comparator_(comparator),\n        children_(new IteratorWrapper[n]),\n        n_(n),\n        current_(nullptr),\n        direction_(kForward) {\n    for (int i = 0; i < n; i++) {\n      children_[i].Set(children[i]);\n    }\n  }\n\n  ~MergingIterator() override { delete[] children_; }\n\n  bool Valid() const override { return (current_ != nullptr); }\n\n  void SeekToFirst() override {\n    for (int i = 0; i < n_; i++) {\n      children_[i].SeekToFirst();\n    }\n    FindSmallest();\n    direction_ = kForward;\n  }\n\n  void SeekToLast() override {\n    for (int i = 0; i < n_; i++) {\n      children_[i].SeekToLast();\n    }\n    FindLargest();\n    direction_ = kReverse;\n  }\n\n  void Seek(const Slice& target) override {\n    for (int i = 0; i < n_; i++) {\n      children_[i].Seek(target);\n    }\n    FindSmallest();\n    direction_ = kForward;\n  }\n\n  void Next() override {\n    assert(Valid());\n\n    // Ensure that all children are positioned after key().\n    // If we are moving in the forward direction, it is already\n    // true for all of the non-current_ children since current_ is\n    // the smallest child and key() == current_->key().  Otherwise,\n    // we explicitly position the non-current_ children.\n    if (direction_ != kForward) {\n      for (int i = 0; i < n_; i++) {\n        IteratorWrapper* child = &children_[i];\n        if (child != current_) {\n          child->Seek(key());\n          if (child->Valid() &&\n              comparator_->Compare(key(), child->key()) == 0) {\n            child->Next();\n          }\n        }\n      }\n      direction_ = kForward;\n    }\n\n    current_->Next();\n    FindSmallest();\n  }\n\n  void Prev() override {\n    assert(Valid());\n\n    // Ensure that all children are positioned before key().\n    // If we are moving in the reverse direction, it is already\n    // true for all of the non-current_ children since current_ is\n    // the largest child and key() == current_->key().  Otherwise,\n    // we explicitly position the non-current_ children.\n    if (direction_ != kReverse) {\n      for (int i = 0; i < n_; i++) {\n        IteratorWrapper* child = &children_[i];\n        if (child != current_) {\n          child->Seek(key());\n          if (child->Valid()) {\n            // Child is at first entry >= key().  Step back one to be < key()\n            child->Prev();\n          } else {\n            // Child has no entries >= key().  Position at last entry.\n            child->SeekToLast();\n          }\n        }\n      }\n      direction_ = kReverse;\n    }\n\n    current_->Prev();\n    FindLargest();\n  }\n\n  Slice key() const override {\n    assert(Valid());\n    return current_->key();\n  }\n\n  Slice value() const override {\n    assert(Valid());\n    return current_->value();\n  }\n\n  Status status() const override {\n    Status status;\n    for (int i = 0; i < n_; i++) {\n      status = children_[i].status();\n      if (!status.ok()) {\n        break;\n      }\n    }\n    return status;\n  }\n\n private:\n  // Which direction is the iterator moving?\n  enum Direction { kForward, kReverse };\n\n  void FindSmallest();\n  void FindLargest();\n\n  // We might want to use a heap in case there are lots of children.\n  // For now we use a simple array since we expect a very small number\n  // of children in leveldb.\n  const Comparator* comparator_;\n  IteratorWrapper* children_;\n  int n_;\n  IteratorWrapper* current_;\n  Direction direction_;\n};\n\nvoid MergingIterator::FindSmallest() {\n  IteratorWrapper* smallest = nullptr;\n  for (int i = 0; i < n_; i++) {\n    IteratorWrapper* child = &children_[i];\n    if (child->Valid()) {\n      if (smallest == nullptr) {\n        smallest = child;\n      } else if (comparator_->Compare(child->key(), smallest->key()) < 0) {\n        smallest = child;\n      }\n    }\n  }\n  current_ = smallest;\n}\n\nvoid MergingIterator::FindLargest() {\n  IteratorWrapper* largest = nullptr;\n  for (int i = n_ - 1; i >= 0; i--) {\n    IteratorWrapper* child = &children_[i];\n    if (child->Valid()) {\n      if (largest == nullptr) {\n        largest = child;\n      } else if (comparator_->Compare(child->key(), largest->key()) > 0) {\n        largest = child;\n      }\n    }\n  }\n  current_ = largest;\n}\n}  // namespace\n\nIterator* NewMergingIterator(const Comparator* comparator, Iterator** children,\n                             int n) {\n  assert(n >= 0);\n  if (n == 0) {\n    return NewEmptyIterator();\n  } else if (n == 1) {\n    return children[0];\n  } else {\n    return new MergingIterator(comparator, children, n);\n  }\n}\n\n}  // namespace leveldb\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9627959413754228,
+          "recall": 0.9671574178935447,
+          "f1": 0.9649717514124294,
+          "tp": 854,
+          "fp": 33,
+          "fn": 29,
+          "support": 883
+        },
+        "exactSpanMacroF1": 0.806347653473223,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9582863585118376,
+          "recall": 0.9626274065685164,
+          "f1": 0.96045197740113,
+          "tp": 850,
+          "fp": 37,
+          "fn": 33,
+          "support": 883
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9893617021276596,
+            "recall": 0.9587628865979382,
+            "f1": 0.9738219895287958,
+            "tp": 93,
+            "fp": 1,
+            "fn": 4,
+            "support": 97
+          },
+          "comment": {
+            "precision": 0.8695652173913043,
+            "recall": 0.9523809523809523,
+            "f1": 0.9090909090909091,
+            "tp": 20,
+            "fp": 3,
+            "fn": 1,
+            "support": 21
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 17,
+            "fp": 0,
+            "fn": 0,
+            "support": 17
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 109,
+            "fp": 0,
+            "fn": 0,
+            "support": 109
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 394,
+            "fp": 0,
+            "fn": 0,
+            "support": 394
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "type": {
+            "precision": 0.9130434782608695,
+            "recall": 0.9545454545454546,
+            "f1": 0.9333333333333333,
+            "tp": 21,
+            "fp": 2,
+            "fn": 1,
+            "support": 22
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "support": 2
+          },
+          "enum-member": {
+            "precision": 0.5,
+            "recall": 0.5,
+            "f1": 0.5,
+            "tp": 1,
+            "fp": 1,
+            "fn": 1,
+            "support": 2
+          },
+          "function": {
+            "precision": 0.9491525423728814,
+            "recall": 0.9491525423728814,
+            "f1": 0.9491525423728814,
+            "tp": 56,
+            "fp": 3,
+            "fn": 3,
+            "support": 59
+          },
+          "constructor": {
+            "precision": 0.16666666666666666,
+            "recall": 0.5,
+            "f1": 0.25,
+            "tp": 1,
+            "fp": 5,
+            "fn": 1,
+            "support": 2
+          },
+          "parameter": {
+            "precision": 0.6470588235294118,
+            "recall": 0.55,
+            "f1": 0.5945945945945946,
+            "tp": 11,
+            "fp": 6,
+            "fn": 9,
+            "support": 20
+          },
+          "type-parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.9193548387096774,
+            "recall": 0.95,
+            "f1": 0.9344262295081968,
+            "tp": 114,
+            "fp": 10,
+            "fn": 6,
+            "support": 120
+          },
+          "property": {
+            "precision": 0.8181818181818182,
+            "recall": 0.9,
+            "f1": 0.8571428571428571,
+            "tp": 9,
+            "fp": 2,
+            "fn": 1,
+            "support": 10
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 496,
+          "end": 499
+        },
+        {
+          "text": "comparator_",
+          "tokenType": "property",
+          "start": 511,
+          "end": 522
+        },
+        {
+          "text": "n",
+          "tokenType": "parameter",
+          "start": 574,
+          "end": 575
+        },
+        {
+          "text": "nullptr",
+          "tokenType": "keyword",
+          "start": 611,
+          "end": 618
+        },
+        {
+          "text": "n",
+          "tokenType": "parameter",
+          "start": 676,
+          "end": 677
+        },
+        {
+          "text": "children",
+          "tokenType": "parameter",
+          "start": 709,
+          "end": 717
+        },
+        {
+          "text": "~MergingIterator",
+          "tokenType": "constructor",
+          "start": 736,
+          "end": 752
+        },
+        {
+          "text": "delete",
+          "tokenType": "keyword",
+          "start": 766,
+          "end": 772
+        },
+        {
+          "text": "children_",
+          "tokenType": "variable",
+          "start": 775,
+          "end": 784
+        },
+        {
+          "text": "FindSmallest",
+          "tokenType": "function",
+          "start": 965,
+          "end": 977
+        },
+        {
+          "text": "FindLargest",
+          "tokenType": "function",
+          "start": 1122,
+          "end": 1133
+        },
+        {
+          "text": "target",
+          "tokenType": "parameter",
+          "start": 1272,
+          "end": 1278
+        },
+        {
+          "text": "kForward",
+          "tokenType": "variable",
+          "start": 2056,
+          "end": 2064
+        },
+        {
+          "text": "FindSmallest",
+          "tokenType": "function",
+          "start": 2099,
+          "end": 2111
+        },
+        {
+          "text": "// Child is at first entry >= key().  Step back one to be < key()",
+          "tokenType": "comment",
+          "start": 2709,
+          "end": 2774
+        },
+        {
+          "text": "Direction",
+          "tokenType": "enum",
+          "start": 3479,
+          "end": 3488
+        },
+        {
+          "text": "kReverse",
+          "tokenType": "enum-member",
+          "start": 3501,
+          "end": 3509
+        },
+        {
+          "text": "Direction",
+          "tokenType": "enum",
+          "start": 3833,
+          "end": 3842
+        },
+        {
+          "text": "nullptr",
+          "tokenType": "keyword",
+          "start": 4062,
+          "end": 4069
+        },
+        {
+          "text": "child",
+          "tokenType": "variable",
+          "start": 4479,
+          "end": 4484
+        },
+        {
+          "text": "largest",
+          "tokenType": "variable",
+          "start": 4569,
+          "end": 4576
+        },
+        {
+          "text": "child",
+          "tokenType": "variable",
+          "start": 4579,
+          "end": 4584
+        },
+        {
+          "text": "largest",
+          "tokenType": "variable",
+          "start": 4617,
+          "end": 4624
+        },
+        {
+          "text": "n",
+          "tokenType": "parameter",
+          "start": 4772,
+          "end": 4773
+        },
+        {
+          "text": "n",
+          "tokenType": "parameter",
+          "start": 4787,
+          "end": 4788
+        },
+        {
+          "text": "n",
+          "tokenType": "parameter",
+          "start": 4841,
+          "end": 4842
+        },
+        {
+          "text": "children",
+          "tokenType": "parameter",
+          "start": 4862,
+          "end": 4870
+        },
+        {
+          "text": "MergingIterator",
+          "tokenType": "type",
+          "start": 4901,
+          "end": 4916
+        },
+        {
+          "text": "comparator",
+          "tokenType": "parameter",
+          "start": 4917,
+          "end": 4927
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "int",
+          "tokenType": "parameter",
+          "start": 496,
+          "end": 499
+        },
+        {
+          "text": "comparator_",
+          "tokenType": "function",
+          "start": 511,
+          "end": 522
+        },
+        {
+          "text": "n",
+          "tokenType": "variable",
+          "start": 574,
+          "end": 575
+        },
+        {
+          "text": "nullptr",
+          "tokenType": "parameter",
+          "start": 611,
+          "end": 618
+        },
+        {
+          "text": "n",
+          "tokenType": "variable",
+          "start": 676,
+          "end": 677
+        },
+        {
+          "text": "children",
+          "tokenType": "variable",
+          "start": 709,
+          "end": 717
+        },
+        {
+          "text": "~",
+          "tokenType": "constructor",
+          "start": 736,
+          "end": 737
+        },
+        {
+          "text": "MergingIterator",
+          "tokenType": "constructor",
+          "start": 737,
+          "end": 752
+        },
+        {
+          "text": "delete",
+          "tokenType": "property",
+          "start": 766,
+          "end": 772
+        },
+        {
+          "text": "children_",
+          "tokenType": "parameter",
+          "start": 775,
+          "end": 784
+        },
+        {
+          "text": "FindSmallest",
+          "tokenType": "constructor",
+          "start": 965,
+          "end": 977
+        },
+        {
+          "text": "FindLargest",
+          "tokenType": "constructor",
+          "start": 1122,
+          "end": 1133
+        },
+        {
+          "text": "target",
+          "tokenType": "variable",
+          "start": 1272,
+          "end": 1278
+        },
+        {
+          "text": "kForward",
+          "tokenType": "enum-member",
+          "start": 2056,
+          "end": 2064
+        },
+        {
+          "text": "FindSmallest",
+          "tokenType": "constructor",
+          "start": 2099,
+          "end": 2111
+        },
+        {
+          "text": "// Child is at first entry >= key().  Step back one",
+          "tokenType": "comment",
+          "start": 2709,
+          "end": 2760
+        },
+        {
+          "text": "to be <",
+          "tokenType": "comment",
+          "start": 2761,
+          "end": 2768
+        },
+        {
+          "text": "key",
+          "tokenType": "function",
+          "start": 2769,
+          "end": 2772
+        },
+        {
+          "text": "()",
+          "tokenType": "comment",
+          "start": 2772,
+          "end": 2774
+        },
+        {
+          "text": "Direction",
+          "tokenType": "type",
+          "start": 3479,
+          "end": 3488
+        },
+        {
+          "text": "kReverse",
+          "tokenType": "variable",
+          "start": 3501,
+          "end": 3509
+        },
+        {
+          "text": "Direction",
+          "tokenType": "type",
+          "start": 3833,
+          "end": 3842
+        },
+        {
+          "text": "nullptr",
+          "tokenType": "parameter",
+          "start": 4062,
+          "end": 4069
+        },
+        {
+          "text": "child",
+          "tokenType": "keyword",
+          "start": 4479,
+          "end": 4484
+        },
+        {
+          "text": "largest",
+          "tokenType": "property",
+          "start": 4569,
+          "end": 4576
+        },
+        {
+          "text": "child",
+          "tokenType": "parameter",
+          "start": 4579,
+          "end": 4584
+        },
+        {
+          "text": "largest",
+          "tokenType": "parameter",
+          "start": 4617,
+          "end": 4624
+        },
+        {
+          "text": "n",
+          "tokenType": "variable",
+          "start": 4772,
+          "end": 4773
+        },
+        {
+          "text": "n",
+          "tokenType": "variable",
+          "start": 4787,
+          "end": 4788
+        },
+        {
+          "text": "n",
+          "tokenType": "variable",
+          "start": 4841,
+          "end": 4842
+        },
+        {
+          "text": "children",
+          "tokenType": "variable",
+          "start": 4862,
+          "end": 4870
+        },
+        {
+          "text": "MergingIterator",
+          "tokenType": "function",
+          "start": 4901,
+          "end": 4916
+        },
+        {
+          "text": "comparator",
+          "tokenType": "variable",
+          "start": 4917,
+          "end": 4927
+        }
+      ]
+    },
+    {
+      "path": "src/catch2/reporters/catch_reporter_json.cpp",
+      "repository": "catch-cpp-v1",
+      "source": "\n//              Copyright Catch2 Authors\n// Distributed under the Boost Software License, Version 1.0.\n//   (See accompanying file LICENSE.txt or copy at\n//        https://www.boost.org/LICENSE_1_0.txt)\n\n// SPDX-License-Identifier: BSL-1.0\n//\n#include <catch2/catch_test_case_info.hpp>\n#include <catch2/catch_test_spec.hpp>\n#include <catch2/catch_version.hpp>\n#include <catch2/interfaces/catch_interfaces_config.hpp>\n#include <catch2/internal/catch_list.hpp>\n#include <catch2/internal/catch_string_manip.hpp>\n#include <catch2/reporters/catch_reporter_json.hpp>\n\nnamespace Catch {\n    namespace {\n        void writeSourceInfo( JsonObjectWriter& writer,\n                              SourceLineInfo const& sourceInfo ) {\n            auto source_location_writer =\n                writer.write( \"source-location\"_sr ).writeObject();\n            source_location_writer.write( \"filename\"_sr )\n                .write( sourceInfo.file );\n            source_location_writer.write( \"line\"_sr ).write( sourceInfo.line );\n        }\n\n        void writeTags( JsonArrayWriter writer, std::vector<Tag> const& tags ) {\n            for ( auto const& tag : tags ) {\n                writer.write( tag.original );\n            }\n        }\n\n        void writeProperties( JsonArrayWriter writer,\n                              TestCaseInfo const& info ) {\n            if ( info.isHidden() ) { writer.write( \"is-hidden\"_sr ); }\n            if ( info.okToFail() ) { writer.write( \"ok-to-fail\"_sr ); }\n            if ( info.expectedToFail() ) {\n                writer.write( \"expected-to-fail\"_sr );\n            }\n            if ( info.throws() ) { writer.write( \"throws\"_sr ); }\n        }\n\n    } // namespace\n\n    JsonReporter::JsonReporter( ReporterConfig&& config ):\n        StreamingReporterBase{ CATCH_MOVE( config ) } {\n\n        m_preferences.shouldRedirectStdOut = true;\n        // TBD: Do we want to report all assertions? XML reporter does\n        //      not, but for machine-parseable reporters I think the answer\n        //      should be yes.\n        m_preferences.shouldReportAllAssertions = true;\n\n        m_objectWriters.emplace( m_stream );\n        m_writers.emplace( Writer::Object );\n        auto& writer = m_objectWriters.top();\n\n        writer.write( \"version\"_sr ).write( 1 );\n\n        {\n            auto metadata_writer = writer.write( \"metadata\"_sr ).writeObject();\n            metadata_writer.write( \"name\"_sr ).write( m_config->name() );\n            metadata_writer.write( \"rng-seed\"_sr ).write( m_config->rngSeed() );\n            metadata_writer.write( \"catch2-version\"_sr )\n                .write( libraryVersion() );\n            if ( m_config->testSpec().hasFilters() ) {\n                metadata_writer.write( \"filters\"_sr )\n                    .write( m_config->testSpec() );\n            }\n        }\n    }\n\n    JsonReporter::~JsonReporter() {\n        endListing();\n        // TODO: Ensure this closes the top level object, add asserts\n        assert( m_writers.size() == 1 && \"Only the top level object should be open\" );\n        assert( m_writers.top() == Writer::Object );\n        endObject();\n        m_stream << '\\n' << std::flush;\n        assert( m_writers.empty() );\n    }\n\n    JsonArrayWriter& JsonReporter::startArray() {\n        m_arrayWriters.emplace( m_arrayWriters.top().writeArray() );\n        m_writers.emplace( Writer::Array );\n        return m_arrayWriters.top();\n    }\n    JsonArrayWriter& JsonReporter::startArray( StringRef key ) {\n        m_arrayWriters.emplace(\n            m_objectWriters.top().write( key ).writeArray() );\n        m_writers.emplace( Writer::Array );\n        return m_arrayWriters.top();\n    }\n\n    JsonObjectWriter& JsonReporter::startObject() {\n        m_objectWriters.emplace( m_arrayWriters.top().writeObject() );\n        m_writers.emplace( Writer::Object );\n        return m_objectWriters.top();\n    }\n    JsonObjectWriter& JsonReporter::startObject( StringRef key ) {\n        m_objectWriters.emplace(\n            m_objectWriters.top().write( key ).writeObject() );\n        m_writers.emplace( Writer::Object );\n        return m_objectWriters.top();\n    }\n\n    void JsonReporter::endObject() {\n        assert( isInside( Writer::Object ) );\n        m_objectWriters.pop();\n        m_writers.pop();\n    }\n    void JsonReporter::endArray() {\n        assert( isInside( Writer::Array ) );\n        m_arrayWriters.pop();\n        m_writers.pop();\n    }\n\n    bool JsonReporter::isInside( Writer writer ) {\n        return !m_writers.empty() && m_writers.top() == writer;\n    }\n\n    void JsonReporter::startListing() {\n        if ( !m_startedListing ) { startObject( \"listings\"_sr ); }\n        m_startedListing = true;\n    }\n    void JsonReporter::endListing() {\n        if ( m_startedListing ) { endObject(); }\n        m_startedListing = false;\n    }\n\n    std::string JsonReporter::getDescription() {\n        return \"Outputs listings as JSON. Test listing is Work-in-Progress!\";\n    }\n\n    void JsonReporter::testRunStarting( TestRunInfo const& runInfo ) {\n        StreamingReporterBase::testRunStarting( runInfo );\n        endListing();\n\n        assert( isInside( Writer::Object ) );\n        startObject( \"test-run\"_sr );\n        startArray( \"test-cases\"_sr );\n    }\n\n     static void writeCounts( JsonObjectWriter&& writer, Counts const& counts ) {\n        writer.write( \"passed\"_sr ).write( counts.passed );\n        writer.write( \"failed\"_sr ).write( counts.failed );\n        writer.write( \"fail-but-ok\"_sr ).write( counts.failedButOk );\n        writer.write( \"skipped\"_sr ).write( counts.skipped );\n    }\n\n    void JsonReporter::testRunEnded(TestRunStats const& runStats) {\n        assert( isInside( Writer::Array ) );\n        // End \"test-cases\"\n        endArray();\n\n        {\n            auto totals =\n                m_objectWriters.top().write( \"totals\"_sr ).writeObject();\n            writeCounts( totals.write( \"assertions\"_sr ).writeObject(),\n                         runStats.totals.assertions );\n            writeCounts( totals.write( \"test-cases\"_sr ).writeObject(),\n                         runStats.totals.testCases );\n        }\n\n        // End the \"test-run\" object\n        endObject();\n    }\n\n    void JsonReporter::testCaseStarting( TestCaseInfo const& tcInfo ) {\n        StreamingReporterBase::testCaseStarting( tcInfo );\n\n        assert( isInside( Writer::Array ) &&\n                \"We should be in the 'test-cases' array\" );\n        startObject();\n        // \"test-info\" prelude\n        {\n            auto testInfo =\n                m_objectWriters.top().write( \"test-info\"_sr ).writeObject();\n            // TODO: handle testName vs className!!\n            testInfo.write( \"name\"_sr ).write( tcInfo.name );\n            writeSourceInfo(testInfo, tcInfo.lineInfo);\n            writeTags( testInfo.write( \"tags\"_sr ).writeArray(), tcInfo.tags );\n            writeProperties( testInfo.write( \"properties\"_sr ).writeArray(),\n                             tcInfo );\n        }\n\n\n        // Start the array for individual test runs (testCasePartial pairs)\n        startArray( \"runs\"_sr );\n    }\n\n    void JsonReporter::testCaseEnded( TestCaseStats const& tcStats ) {\n        StreamingReporterBase::testCaseEnded( tcStats );\n\n        // We need to close the 'runs' array before finishing the test case\n        assert( isInside( Writer::Array ) );\n        endArray();\n\n        {\n            auto totals =\n                m_objectWriters.top().write( \"totals\"_sr ).writeObject();\n            writeCounts( totals.write( \"assertions\"_sr ).writeObject(),\n                         tcStats.totals.assertions );\n            // We do not write the test case totals, because there will always be just one test case here.\n            // TODO: overall \"result\" -> success, skip, fail here? Or in partial result?\n        }\n        // We do not write out stderr/stdout, because we instead wrote those out in partial runs\n\n        // TODO: aborting?\n\n        // And we also close this test case's object\n        assert( isInside( Writer::Object ) );\n        endObject();\n    }\n\n    void JsonReporter::testCasePartialStarting( TestCaseInfo const& /*tcInfo*/,\n                                                uint64_t index ) {\n        startObject();\n        m_objectWriters.top().write( \"run-idx\"_sr ).write( index );\n        startArray( \"path\"_sr );\n        // TODO: we want to delay most of the printing to the 'root' section\n        // TODO: childSection key name?\n    }\n\n    void JsonReporter::testCasePartialEnded( TestCaseStats const& tcStats,\n                                             uint64_t /*index*/ ) {\n        // Fixme: the top level section handles this.\n        //// path object\n        endArray();\n        if ( !tcStats.stdOut.empty() ) {\n            m_objectWriters.top()\n                .write( \"captured-stdout\"_sr )\n                .write( tcStats.stdOut );\n        }\n        if ( !tcStats.stdErr.empty() ) {\n            m_objectWriters.top()\n                .write( \"captured-stderr\"_sr )\n                .write( tcStats.stdErr );\n        }\n        {\n            auto totals =\n                m_objectWriters.top().write( \"totals\"_sr ).writeObject();\n            writeCounts( totals.write( \"assertions\"_sr ).writeObject(),\n                         tcStats.totals.assertions );\n            // We do not write the test case totals, because there will\n            // always be just one test case here.\n            // TODO: overall \"result\" -> success, skip, fail here? Or in\n            // partial result?\n        }\n        // TODO: aborting?\n        // run object\n        endObject();\n    }\n\n    void JsonReporter::sectionStarting( SectionInfo const& sectionInfo ) {\n        assert( isInside( Writer::Array ) &&\n                \"Section should always start inside an object\" );\n        // We want to nest top level sections, even though it shares name\n        // and source loc with the TEST_CASE\n        auto& sectionObject = startObject();\n        sectionObject.write( \"kind\"_sr ).write( \"section\"_sr );\n        sectionObject.write( \"name\"_sr ).write( sectionInfo.name );\n        writeSourceInfo( m_objectWriters.top(), sectionInfo.lineInfo );\n\n\n        // TBD: Do we want to create this event lazily? It would become\n        //      rather complex, but we could do it, and it would look\n        //      better for empty sections. OTOH, empty sections should\n        //      be rare.\n        startArray( \"path\"_sr );\n    }\n    void JsonReporter::sectionEnded( SectionStats const& /*sectionStats */) {\n        // End the subpath array\n        endArray();\n        // TODO: metadata\n        // TODO: what info do we have here?\n\n        // End the section object\n        endObject();\n    }\n\n    void JsonReporter::assertionStarting( AssertionInfo const& /*assertionInfo*/ ) {}\n    void JsonReporter::assertionEnded( AssertionStats const& assertionStats ) {\n        // TODO: There is lot of different things to handle here, but\n        //       we can fill it in later, after we show that the basic\n        //       outline and streaming reporter impl works well enough.\n        //if ( !m_config->includeSuccessfulResults()\n        //    && assertionStats.assertionResult.isOk() ) {\n        //    return;\n        //}\n        assert( isInside( Writer::Array ) );\n        auto assertionObject = m_arrayWriters.top().writeObject();\n\n        assertionObject.write( \"kind\"_sr ).write( \"assertion\"_sr );\n        writeSourceInfo( assertionObject,\n                         assertionStats.assertionResult.getSourceInfo() );\n        assertionObject.write( \"status\"_sr )\n            .write( assertionStats.assertionResult.isOk() );\n        // TODO: handling of result.\n        // TODO: messages\n        // TODO: totals?\n    }\n\n\n    void JsonReporter::benchmarkPreparing( StringRef name ) { (void)name; }\n    void JsonReporter::benchmarkStarting( BenchmarkInfo const& ) {}\n    void JsonReporter::benchmarkEnded( BenchmarkStats<> const& ) {}\n    void JsonReporter::benchmarkFailed( StringRef error ) { (void)error; }\n\n    void JsonReporter::listReporters(\n        std::vector<ReporterDescription> const& descriptions ) {\n        startListing();\n\n        auto writer =\n            m_objectWriters.top().write( \"reporters\"_sr ).writeArray();\n        for ( auto const& desc : descriptions ) {\n            auto desc_writer = writer.writeObject();\n            desc_writer.write( \"name\"_sr ).write( desc.name );\n            desc_writer.write( \"description\"_sr ).write( desc.description );\n        }\n    }\n    void JsonReporter::listListeners(\n        std::vector<ListenerDescription> const& descriptions ) {\n        startListing();\n\n        auto writer =\n            m_objectWriters.top().write( \"listeners\"_sr ).writeArray();\n\n        for ( auto const& desc : descriptions ) {\n            auto desc_writer = writer.writeObject();\n            desc_writer.write( \"name\"_sr ).write( desc.name );\n            desc_writer.write( \"description\"_sr ).write( desc.description );\n        }\n    }\n    void JsonReporter::listTests( std::vector<TestCaseHandle> const& tests ) {\n        startListing();\n\n        auto writer = m_objectWriters.top().write( \"tests\"_sr ).writeArray();\n\n        for ( auto const& test : tests ) {\n            auto desc_writer = writer.writeObject();\n            auto const& info = test.getTestCaseInfo();\n\n            desc_writer.write( \"name\"_sr ).write( info.name );\n            desc_writer.write( \"class-name\"_sr ).write( info.className );\n            {\n                auto tag_writer = desc_writer.write( \"tags\"_sr ).writeArray();\n                for ( auto const& tag : info.tags ) {\n                    tag_writer.write( tag.original );\n                }\n            }\n            writeSourceInfo( desc_writer, info.lineInfo );\n        }\n    }\n    void JsonReporter::listTags( std::vector<TagInfo> const& tags ) {\n        startListing();\n\n        auto writer = m_objectWriters.top().write( \"tags\"_sr ).writeArray();\n        for ( auto const& tag : tags ) {\n            auto tag_writer = writer.writeObject();\n            {\n                auto aliases_writer =\n                    tag_writer.write( \"aliases\"_sr ).writeArray();\n                for ( auto alias : tag.spellings ) {\n                    aliases_writer.write( alias );\n                }\n            }\n            tag_writer.write( \"count\"_sr ).write( tag.count );\n        }\n    }\n} // namespace Catch\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9639942390782525,
+          "recall": 0.9649207111965401,
+          "f1": 0.9644572526416907,
+          "tp": 2008,
+          "fp": 75,
+          "fn": 73,
+          "support": 2081
+        },
+        "exactSpanMacroF1": 0.8536130439754549,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9596735477676428,
+          "recall": 0.9605958673714561,
+          "f1": 0.9601344860710855,
+          "tp": 1999,
+          "fp": 84,
+          "fn": 82,
+          "support": 2081
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9833333333333333,
+            "recall": 0.9752066115702479,
+            "f1": 0.979253112033195,
+            "tp": 118,
+            "fp": 2,
+            "fn": 3,
+            "support": 121
+          },
+          "comment": {
+            "precision": 0.9482758620689655,
+            "recall": 0.9649122807017544,
+            "f1": 0.9565217391304348,
+            "tp": 55,
+            "fp": 3,
+            "fn": 2,
+            "support": 57
+          },
+          "string": {
+            "precision": 0.8589743589743589,
+            "recall": 0.9852941176470589,
+            "f1": 0.9178082191780822,
+            "tp": 67,
+            "fp": 11,
+            "fn": 1,
+            "support": 68
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 140,
+            "fp": 0,
+            "fn": 0,
+            "support": 140
+          },
+          "punctuation": {
+            "precision": 0.99706457925636,
+            "recall": 0.9980411361410382,
+            "f1": 0.9975526186979932,
+            "tp": 1019,
+            "fp": 3,
+            "fn": 2,
+            "support": 1021
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 56,
+            "fp": 0,
+            "fn": 0,
+            "support": 56
+          },
+          "type": {
+            "precision": 0.9736842105263158,
+            "recall": 0.925,
+            "f1": 0.9487179487179487,
+            "tp": 37,
+            "fp": 1,
+            "fn": 3,
+            "support": 40
+          },
+          "class": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.9965397923875432,
+            "recall": 0.9290322580645162,
+            "f1": 0.9616026711185309,
+            "tp": 288,
+            "fp": 1,
+            "fn": 22,
+            "support": 310
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "tp": 1,
+            "fp": 0,
+            "fn": 1,
+            "support": 2
+          },
+          "parameter": {
+            "precision": 0.7333333333333333,
+            "recall": 0.7142857142857143,
+            "f1": 0.7236842105263158,
+            "tp": 55,
+            "fp": 20,
+            "fn": 22,
+            "support": 77
+          },
+          "type-parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.8291139240506329,
+            "recall": 0.891156462585034,
+            "f1": 0.8590163934426229,
+            "tp": 131,
+            "fp": 27,
+            "fn": 16,
+            "support": 147
+          },
+          "property": {
+            "precision": 0.9069767441860465,
+            "recall": 0.975,
+            "f1": 0.9397590361445783,
+            "tp": 39,
+            "fp": 4,
+            "fn": 1,
+            "support": 40
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "writer",
+          "tokenType": "parameter",
+          "start": 778,
+          "end": 784
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 882,
+          "end": 885
+        },
+        {
+          "text": "sourceInfo",
+          "tokenType": "parameter",
+          "start": 912,
+          "end": 922
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 979,
+          "end": 982
+        },
+        {
+          "text": "tag",
+          "tokenType": "variable",
+          "start": 1178,
+          "end": 1181
+        },
+        {
+          "text": "writer",
+          "tokenType": "parameter",
+          "start": 1369,
+          "end": 1375
+        },
+        {
+          "text": "writer",
+          "tokenType": "parameter",
+          "start": 1440,
+          "end": 1446
+        },
+        {
+          "text": "writer",
+          "tokenType": "parameter",
+          "start": 1534,
+          "end": 1540
+        },
+        {
+          "text": "writer",
+          "tokenType": "parameter",
+          "start": 1622,
+          "end": 1628
+        },
+        {
+          "text": "JsonReporter",
+          "tokenType": "constructor",
+          "start": 1702,
+          "end": 1714
+        },
+        {
+          "text": "ReporterConfig",
+          "tokenType": "type",
+          "start": 1716,
+          "end": 1730
+        },
+        {
+          "text": "StreamingReporterBase",
+          "tokenType": "property",
+          "start": 1751,
+          "end": 1772
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 2254,
+          "end": 2257
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 2569,
+          "end": 2572
+        },
+        {
+          "text": "emplace",
+          "tokenType": "function",
+          "start": 3568,
+          "end": 3575
+        },
+        {
+          "text": "JsonObjectWriter",
+          "tokenType": "type",
+          "start": 3642,
+          "end": 3658
+        },
+        {
+          "text": "writer",
+          "tokenType": "parameter",
+          "start": 4499,
+          "end": 4505
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 4612,
+          "end": 4615
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 5191,
+          "end": 5194
+        },
+        {
+          "text": "JsonObjectWriter",
+          "tokenType": "type",
+          "start": 5235,
+          "end": 5251
+        },
+        {
+          "text": "writer",
+          "tokenType": "parameter",
+          "start": 5295,
+          "end": 5301
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 5317,
+          "end": 5320
+        },
+        {
+          "text": "writer",
+          "tokenType": "parameter",
+          "start": 5355,
+          "end": 5361
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 5377,
+          "end": 5380
+        },
+        {
+          "text": "writer",
+          "tokenType": "parameter",
+          "start": 5415,
+          "end": 5421
+        },
+        {
+          "text": "writer",
+          "tokenType": "parameter",
+          "start": 5485,
+          "end": 5491
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 5797,
+          "end": 5800
+        },
+        {
+          "text": "runStats",
+          "tokenType": "parameter",
+          "start": 5915,
+          "end": 5923
+        },
+        {
+          "text": "totals",
+          "tokenType": "variable",
+          "start": 5970,
+          "end": 5976
+        },
+        {
+          "text": "tcInfo",
+          "tokenType": "parameter",
+          "start": 6268,
+          "end": 6274
+        },
+        {
+          "text": "tcInfo",
+          "tokenType": "parameter",
+          "start": 6705,
+          "end": 6711
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 6768,
+          "end": 6771
+        },
+        {
+          "text": "tcInfo",
+          "tokenType": "parameter",
+          "start": 6909,
+          "end": 6915
+        },
+        {
+          "text": "// Start the array for individual test runs (testCasePartial pairs)",
+          "tokenType": "comment",
+          "start": 6939,
+          "end": 7006
+        },
+        {
+          "text": "tcStats",
+          "tokenType": "parameter",
+          "start": 7164,
+          "end": 7171
+        },
+        {
+          "text": "totals",
+          "tokenType": "variable",
+          "start": 7453,
+          "end": 7459
+        },
+        {
+          "text": "tcStats",
+          "tokenType": "parameter",
+          "start": 7525,
+          "end": 7532
+        },
+        {
+          "text": "assert",
+          "tokenType": "function",
+          "start": 7947,
+          "end": 7953
+        },
+        {
+          "text": "endObject",
+          "tokenType": "function",
+          "start": 7993,
+          "end": 8002
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 8229,
+          "end": 8232
+        },
+        {
+          "text": "tcStats",
+          "tokenType": "parameter",
+          "start": 8664,
+          "end": 8671
+        },
+        {
+          "text": "tcStats",
+          "tokenType": "parameter",
+          "start": 8838,
+          "end": 8845
+        },
+        {
+          "text": "tcStats",
+          "tokenType": "parameter",
+          "start": 8970,
+          "end": 8977
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 9087,
+          "end": 9090
+        },
+        {
+          "text": "totals",
+          "tokenType": "variable",
+          "start": 9133,
+          "end": 9139
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 9159,
+          "end": 9162
+        },
+        {
+          "text": "assert",
+          "tokenType": "function",
+          "start": 9630,
+          "end": 9636
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 10367,
+          "end": 10370
+        },
+        {
+          "text": "const",
+          "tokenType": "keyword",
+          "start": 10430,
+          "end": 10435
+        },
+        {
+          "text": "//    && assertionStats.assertionResult.isOk() ) {",
+          "tokenType": "comment",
+          "start": 11084,
+          "end": 11134
+        },
+        {
+          "text": "void",
+          "tokenType": "keyword",
+          "start": 11732,
+          "end": 11736
+        },
+        {
+          "text": "name",
+          "tokenType": "parameter",
+          "start": 11737,
+          "end": 11741
+        },
+        {
+          "text": "<",
+          "tokenType": "punctuation",
+          "start": 11866,
+          "end": 11867
+        },
+        {
+          "text": ">",
+          "tokenType": "punctuation",
+          "start": 11867,
+          "end": 11868
+        },
+        {
+          "text": "void",
+          "tokenType": "keyword",
+          "start": 11942,
+          "end": 11946
+        },
+        {
+          "text": "error",
+          "tokenType": "parameter",
+          "start": 11947,
+          "end": 11952
+        },
+        {
+          "text": "writer",
+          "tokenType": "variable",
+          "start": 12260,
+          "end": 12266
+        },
+        {
+          "text": "desc",
+          "tokenType": "variable",
+          "start": 12332,
+          "end": 12336
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 12801,
+          "end": 12804
+        },
+        {
+          "text": "desc",
+          "tokenType": "variable",
+          "start": 12814,
+          "end": 12818
+        },
+        {
+          "text": "desc",
+          "tokenType": "variable",
+          "start": 12884,
+          "end": 12888
+        },
+        {
+          "text": "\"name\"",
+          "tokenType": "string",
+          "start": 13286,
+          "end": 13292
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 13292,
+          "end": 13295
+        },
+        {
+          "text": "info",
+          "tokenType": "variable",
+          "start": 13305,
+          "end": 13309
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 13361,
+          "end": 13364
+        },
+        {
+          "text": "info",
+          "tokenType": "variable",
+          "start": 13374,
+          "end": 13378
+        },
+        {
+          "text": "info",
+          "tokenType": "variable",
+          "start": 13525,
+          "end": 13529
+        },
+        {
+          "text": "tag",
+          "tokenType": "variable",
+          "start": 13577,
+          "end": 13580
+        },
+        {
+          "text": "desc_writer",
+          "tokenType": "variable",
+          "start": 13654,
+          "end": 13665
+        },
+        {
+          "text": "info",
+          "tokenType": "variable",
+          "start": 13667,
+          "end": 13671
+        },
+        {
+          "text": "alias",
+          "tokenType": "variable",
+          "start": 14179,
+          "end": 14184
+        },
+        {
+          "text": "_sr",
+          "tokenType": "function",
+          "start": 14257,
+          "end": 14260
+        },
+        {
+          "text": "tag",
+          "tokenType": "variable",
+          "start": 14270,
+          "end": 14273
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "writer",
+          "tokenType": "variable",
+          "start": 778,
+          "end": 784
+        },
+        {
+          "text": "_sr",
+          "tokenType": "variable",
+          "start": 882,
+          "end": 885
+        },
+        {
+          "text": "sourceInfo",
+          "tokenType": "variable",
+          "start": 912,
+          "end": 922
+        },
+        {
+          "text": "_sr",
+          "tokenType": "parameter",
+          "start": 979,
+          "end": 982
+        },
+        {
+          "text": "tag",
+          "tokenType": "parameter",
+          "start": 1178,
+          "end": 1181
+        },
+        {
+          "text": "writer",
+          "tokenType": "variable",
+          "start": 1369,
+          "end": 1375
+        },
+        {
+          "text": "writer",
+          "tokenType": "variable",
+          "start": 1440,
+          "end": 1446
+        },
+        {
+          "text": "writer",
+          "tokenType": "variable",
+          "start": 1534,
+          "end": 1540
+        },
+        {
+          "text": "writer",
+          "tokenType": "variable",
+          "start": 1622,
+          "end": 1628
+        },
+        {
+          "text": "JsonReporter",
+          "tokenType": "function",
+          "start": 1702,
+          "end": 1714
+        },
+        {
+          "text": "ReporterConfig",
+          "tokenType": "class",
+          "start": 1716,
+          "end": 1730
+        },
+        {
+          "text": "StreamingReporterBase",
+          "tokenType": "type",
+          "start": 1751,
+          "end": 1772
+        },
+        {
+          "text": "_sr",
+          "tokenType": "string",
+          "start": 2254,
+          "end": 2257
+        },
+        {
+          "text": "_sr",
+          "tokenType": "variable",
+          "start": 2569,
+          "end": 2572
+        },
+        {
+          "text": "emplace",
+          "tokenType": "property",
+          "start": 3568,
+          "end": 3575
+        },
+        {
+          "text": "JsonObjectWriter",
+          "tokenType": "class",
+          "start": 3642,
+          "end": 3658
+        },
+        {
+          "text": "writer",
+          "tokenType": "variable",
+          "start": 4499,
+          "end": 4505
+        },
+        {
+          "text": "_sr",
+          "tokenType": "variable",
+          "start": 4612,
+          "end": 4615
+        },
+        {
+          "text": "_sr",
+          "tokenType": "variable",
+          "start": 5191,
+          "end": 5194
+        },
+        {
+          "text": "JsonObjectWriter",
+          "tokenType": "class",
+          "start": 5235,
+          "end": 5251
+        },
+        {
+          "text": "writer",
+          "tokenType": "variable",
+          "start": 5295,
+          "end": 5301
+        },
+        {
+          "text": "_sr",
+          "tokenType": "string",
+          "start": 5317,
+          "end": 5320
+        },
+        {
+          "text": "writer",
+          "tokenType": "variable",
+          "start": 5355,
+          "end": 5361
+        },
+        {
+          "text": "_sr",
+          "tokenType": "string",
+          "start": 5377,
+          "end": 5380
+        },
+        {
+          "text": "writer",
+          "tokenType": "variable",
+          "start": 5415,
+          "end": 5421
+        },
+        {
+          "text": "writer",
+          "tokenType": "variable",
+          "start": 5485,
+          "end": 5491
+        },
+        {
+          "text": "_sr",
+          "tokenType": "string",
+          "start": 5797,
+          "end": 5800
+        },
+        {
+          "text": "runStats",
+          "tokenType": "variable",
+          "start": 5915,
+          "end": 5923
+        },
+        {
+          "text": "totals",
+          "tokenType": "parameter",
+          "start": 5970,
+          "end": 5976
+        },
+        {
+          "text": "tcInfo",
+          "tokenType": "variable",
+          "start": 6268,
+          "end": 6274
+        },
+        {
+          "text": "tcInfo",
+          "tokenType": "variable",
+          "start": 6705,
+          "end": 6711
+        },
+        {
+          "text": "_sr",
+          "tokenType": "string",
+          "start": 6768,
+          "end": 6771
+        },
+        {
+          "text": "tcInfo",
+          "tokenType": "variable",
+          "start": 6909,
+          "end": 6915
+        },
+        {
+          "text": "// Start the array for individual test runs (testCasePartial ",
+          "tokenType": "comment",
+          "start": 6939,
+          "end": 7000
+        },
+        {
+          "text": "pairs)",
+          "tokenType": "parameter",
+          "start": 7000,
+          "end": 7006
+        },
+        {
+          "text": "tcStats",
+          "tokenType": "variable",
+          "start": 7164,
+          "end": 7171
+        },
+        {
+          "text": "totals",
+          "tokenType": "parameter",
+          "start": 7453,
+          "end": 7459
+        },
+        {
+          "text": "tcStats",
+          "tokenType": "variable",
+          "start": 7525,
+          "end": 7532
+        },
+        {
+          "text": "assert",
+          "tokenType": "property",
+          "start": 7947,
+          "end": 7953
+        },
+        {
+          "text": "endObject",
+          "tokenType": "property",
+          "start": 7993,
+          "end": 8002
+        },
+        {
+          "text": "_sr",
+          "tokenType": "string",
+          "start": 8229,
+          "end": 8232
+        },
+        {
+          "text": "tcStats",
+          "tokenType": "variable",
+          "start": 8664,
+          "end": 8671
+        },
+        {
+          "text": "tcStats",
+          "tokenType": "variable",
+          "start": 8838,
+          "end": 8845
+        },
+        {
+          "text": "tcStats",
+          "tokenType": "variable",
+          "start": 8970,
+          "end": 8977
+        },
+        {
+          "text": "_sr",
+          "tokenType": "string",
+          "start": 9087,
+          "end": 9090
+        },
+        {
+          "text": "totals",
+          "tokenType": "parameter",
+          "start": 9133,
+          "end": 9139
+        },
+        {
+          "text": "_sr",
+          "tokenType": "variable",
+          "start": 9159,
+          "end": 9162
+        },
+        {
+          "text": "assert",
+          "tokenType": "property",
+          "start": 9630,
+          "end": 9636
+        },
+        {
+          "text": "_sr",
+          "tokenType": "variable",
+          "start": 10367,
+          "end": 10370
+        },
+        {
+          "text": "const",
+          "tokenType": "variable",
+          "start": 10430,
+          "end": 10435
+        },
+        {
+          "text": "//    && assertionStats.assertionResult.isOk(",
+          "tokenType": "comment",
+          "start": 11084,
+          "end": 11129
+        },
+        {
+          "text": ")",
+          "tokenType": "comment",
+          "start": 11129,
+          "end": 11130
+        },
+        {
+          "text": ")",
+          "tokenType": "punctuation",
+          "start": 11131,
+          "end": 11132
+        },
+        {
+          "text": "{",
+          "tokenType": "punctuation",
+          "start": 11133,
+          "end": 11134
+        },
+        {
+          "text": "void",
+          "tokenType": "parameter",
+          "start": 11732,
+          "end": 11736
+        },
+        {
+          "text": "name",
+          "tokenType": "keyword",
+          "start": 11737,
+          "end": 11741
+        },
+        {
+          "text": "<>",
+          "tokenType": "punctuation",
+          "start": 11866,
+          "end": 11868
+        },
+        {
+          "text": "void",
+          "tokenType": "parameter",
+          "start": 11942,
+          "end": 11946
+        },
+        {
+          "text": "error",
+          "tokenType": "keyword",
+          "start": 11947,
+          "end": 11952
+        },
+        {
+          "text": "writer",
+          "tokenType": "parameter",
+          "start": 12260,
+          "end": 12266
+        },
+        {
+          "text": "desc",
+          "tokenType": "parameter",
+          "start": 12332,
+          "end": 12336
+        },
+        {
+          "text": "_sr",
+          "tokenType": "string",
+          "start": 12801,
+          "end": 12804
+        },
+        {
+          "text": "desc",
+          "tokenType": "parameter",
+          "start": 12814,
+          "end": 12818
+        },
+        {
+          "text": "desc",
+          "tokenType": "parameter",
+          "start": 12884,
+          "end": 12888
+        },
+        {
+          "text": "\"name\"_sr",
+          "tokenType": "string",
+          "start": 13286,
+          "end": 13295
+        },
+        {
+          "text": "info",
+          "tokenType": "parameter",
+          "start": 13305,
+          "end": 13309
+        },
+        {
+          "text": "_sr",
+          "tokenType": "string",
+          "start": 13361,
+          "end": 13364
+        },
+        {
+          "text": "info",
+          "tokenType": "parameter",
+          "start": 13374,
+          "end": 13378
+        },
+        {
+          "text": "info",
+          "tokenType": "parameter",
+          "start": 13525,
+          "end": 13529
+        },
+        {
+          "text": "tag",
+          "tokenType": "parameter",
+          "start": 13577,
+          "end": 13580
+        },
+        {
+          "text": "desc_writer",
+          "tokenType": "parameter",
+          "start": 13654,
+          "end": 13665
+        },
+        {
+          "text": "info",
+          "tokenType": "parameter",
+          "start": 13667,
+          "end": 13671
+        },
+        {
+          "text": "alias",
+          "tokenType": "parameter",
+          "start": 14179,
+          "end": 14184
+        },
+        {
+          "text": "_sr",
+          "tokenType": "string",
+          "start": 14257,
+          "end": 14260
+        },
+        {
+          "text": "tag",
+          "tokenType": "parameter",
+          "start": 14270,
+          "end": 14273
+        }
+      ]
+    }
+  ],
+  "checkpointHash": "2a130edcb8d264652aea1f864adb406c69a26d50a4f0a4997735ea594d97e117",
+  "checkpointEpoch": 2,
+  "device": "mps"
+}
