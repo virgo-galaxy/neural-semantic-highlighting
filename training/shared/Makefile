@@ -571,3 +571,70 @@ challenge-java:
 export-java-model:
 	@test -n "$(JAVA_CHECKPOINT)" -a -n "$(JAVA_TEST_REPORT)" || (echo 'Set JAVA_CHECKPOINT and JAVA_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.java.export_model --checkpoint "$(JAVA_CHECKPOINT)" --test-report "$(JAVA_TEST_REPORT)"
+
+CSHARP_DEVICE ?= auto
+CSHARP_EPOCHS ?= 3
+CSHARP_BATCH_SIZE ?= 32
+CSHARP_LEARNING_RATE ?=
+CSHARP_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-csharp dataset-csharp-tools dataset-csharp-sources dataset-csharp-curriculum dataset-csharp-collect dataset-csharp-label dataset-csharp-validate dataset-csharp-prepare test-labeling-csharp train-csharp-smoke train-csharp continue-csharp predict-csharp evaluate-csharp challenge-csharp export-csharp-model
+
+dataset-csharp-tools:
+	$(PYTHON) -m packs.csharp.labeling.tools
+
+dataset-csharp-sources:
+	$(PYTHON) -m packs.csharp.dataset.fetch_sources
+
+dataset-csharp:
+	$(MAKE) dataset-csharp-tools
+	$(MAKE) dataset-csharp-sources
+	$(MAKE) dataset-csharp-curriculum
+	$(MAKE) dataset-csharp-collect
+	$(MAKE) dataset-csharp-label
+	$(MAKE) dataset-csharp-validate
+	$(MAKE) dataset-csharp-prepare
+
+dataset-csharp-curriculum:
+	$(PYTHON) -m packs.csharp.dataset.generate_curriculum
+
+dataset-csharp-collect:
+	$(PYTHON) -m packs.csharp.dataset.pipeline collect
+
+dataset-csharp-label:
+	$(PYTHON) -m packs.csharp.dataset.pipeline label
+
+dataset-csharp-validate:
+	$(PYTHON) -m packs.csharp.dataset.pipeline validate
+
+dataset-csharp-prepare:
+	$(PYTHON) -m training.csharp.prepare
+
+test-labeling-csharp:
+	$(PYTHON) -m unittest discover -s packs/csharp/tests -v
+
+train-csharp-smoke:
+	$(PYTHON) -m training.csharp.train --smoke --epochs 1 --device $(CSHARP_DEVICE) $(if $(CSHARP_RUN),--output-dir "$(CSHARP_RUN)") $(if $(CSHARP_INIT_FROM),--init-from "$(CSHARP_INIT_FROM)")
+
+train-csharp:
+	$(PYTHON) -m training.csharp.train --epochs $(CSHARP_EPOCHS) --device $(CSHARP_DEVICE) --batch-size $(CSHARP_BATCH_SIZE) $(if $(CSHARP_LEARNING_RATE),--learning-rate $(CSHARP_LEARNING_RATE)) $(if $(CSHARP_RUN),--output-dir "$(CSHARP_RUN)") $(if $(CSHARP_INIT_FROM),--init-from "$(CSHARP_INIT_FROM)")
+
+continue-csharp:
+	@test -n "$(CSHARP_CHECKPOINT)" || (echo 'Set CSHARP_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.csharp.train --resume "$(CSHARP_CHECKPOINT)" --epochs $(CSHARP_EPOCHS) --device $(CSHARP_DEVICE)
+
+predict-csharp:
+	@test -n "$(CSHARP_SOURCE)" || (echo 'Set CSHARP_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.csharp.predict --device $(CSHARP_DEVICE) --file "$(CSHARP_SOURCE)" $(if $(CSHARP_CHECKPOINT),--checkpoint "$(CSHARP_CHECKPOINT)")
+
+evaluate-csharp:
+	@test -n "$(CSHARP_CHECKPOINT)" || (echo 'Set CSHARP_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.csharp.evaluate --checkpoint "$(CSHARP_CHECKPOINT)" --device $(CSHARP_DEVICE) --split $(CSHARP_EVAL_SPLIT)
+
+challenge-csharp:
+	@test -n "$(CSHARP_CHECKPOINT)" || (echo 'Set CSHARP_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.csharp.challenge --checkpoint "$(CSHARP_CHECKPOINT)" --device $(CSHARP_DEVICE)
+
+export-csharp-model:
+	@test -n "$(CSHARP_CHECKPOINT)" -a -n "$(CSHARP_TEST_REPORT)" || (echo 'Set CSHARP_CHECKPOINT and CSHARP_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.csharp.export_model --checkpoint "$(CSHARP_CHECKPOINT)" --test-report "$(CSHARP_TEST_REPORT)"

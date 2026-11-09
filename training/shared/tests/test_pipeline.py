@@ -48,6 +48,15 @@ class PipelineTests(unittest.TestCase):
                     return encode(self.record(name, [{'start': 0, 'end': len(name), 'tokenType': role}]), schema)
                 self.assertEqual(sample('Cedar').shape_hash, sample('Harbor').shape_hash)
 
+    def test_utf8_bom_cannot_hide_a_source_copy(self):
+        schema = Schema(('punctuation', 'variable'), ())
+        ordinary = encode(self.record('name', [{'start': 0, 'end': 4, 'tokenType': 'variable'}]), schema)
+        marked = encode(self.record('\ufeffname', [{'start': 0, 'end': 1, 'tokenType': 'punctuation'},
+            {'start': 1, 'end': 5, 'tokenType': 'variable'}]), schema)
+        self.assertEqual(ordinary.normalized_hash, marked.normalized_hash)
+        self.assertEqual(ordinary.shape_hash, marked.shape_hash)
+        self.assertEqual(list(marked.columns['input_ids']), list('\ufeffname'.encode()))
+
     def test_grouped_split_coverage(self):
         weights={f'g{i}':Counter({'python:natural':i+1}) for i in range(12)}
         result=assign_groups(weights,1729)

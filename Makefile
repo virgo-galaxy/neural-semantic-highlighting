@@ -152,6 +152,9 @@ check:
 	$(MAKE) test-labeling-bat
 	$(MAKE) test-labeling-assembly
 	$(MAKE) test-labeling-java
+	$(MAKE) test-labeling-csharp
+	$(PYTHON) -m compileall -q training/csharp packs/csharp/runtime
+	$(PYTHON) -c 'import packs.csharp.runtime.local'
 	$(PYTHON) -m compileall -q training/java packs/java/runtime
 	$(PYTHON) -c 'import packs.java.runtime.local'
 	$(PYTHON) -m compileall -q training/sql packs/sql/runtime

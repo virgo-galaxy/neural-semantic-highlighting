@@ -108,6 +108,8 @@ def encode(record: dict[str, Any], schema: Schema) -> Encoded:
         if role == "comment":
             continue
         text = raw[start:end].decode("utf-8")
+        if role == "punctuation" and start == 0 and text == "\ufeff":
+            continue  # Original BOM stays supervised; it must not conceal a source copy.
         lexical.append(text)
         if role in identifier_roles and "default-library" not in modifiers:
             text = role + ":identifier:" + str(names.setdefault(text, len(names)))
