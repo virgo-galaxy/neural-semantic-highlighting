@@ -1,0 +1,714 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "19c7432c68ae35f82f3f2bb0a0877c4de272e960717fdbec9644c101f9a44950",
+  "cases": [
+    {
+      "id": "function",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "int add(int left, int right) { return left + right; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "prototype",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "void visit(const char *text);",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "variables",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "int count = 4, limit = 8;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "struct",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "struct Point { int x, y; };",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 19,
+          "end": 20,
+          "text": "x",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 22,
+          "end": 23,
+          "text": "y",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 19,
+          "end": 20,
+          "text": "x",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 22,
+          "end": 23,
+          "text": "y",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "union",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "union Value { int number; char *text; };",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 11,
+          "text": "Value",
+          "tokenType": "type",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 11,
+          "text": "Value",
+          "tokenType": "enum",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "enum",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "enum State { READY, DONE = 3 };",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "include",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "#include <stdio.h>\n#include \"missing.h\"\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "macro",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "#define DOUBLE(x) ((x) * 2)\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 20,
+          "end": 21,
+          "text": "x",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 20,
+          "end": 21,
+          "text": "x",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "object-macro",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "#define NAME \"ready\"\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "guards",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "#ifndef BUFFER_H\n#define BUFFER_H\nint read(void);\n#endif\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "function-pointer",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "typedef int (*Visit)(int value);",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "local-pointer",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "int read(int *input) { return *input; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 31,
+          "end": 36,
+          "text": "input",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 31,
+          "end": 36,
+          "text": "input",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "fields",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "int read(struct Point *point) { return point->x; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "labels",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "void run(void) { goto done; done: return; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 22,
+          "end": 26,
+          "text": "done",
+          "tokenType": "label",
+          "modifiers": []
+        },
+        {
+          "start": 28,
+          "end": 32,
+          "text": "done",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 34,
+          "end": 40,
+          "text": "return",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 22,
+          "end": 26,
+          "text": "done",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 28,
+          "end": 32,
+          "text": "done",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 34,
+          "end": 40,
+          "text": "return",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "strings",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "const char *text = \"hello \" \"world\";",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 19,
+          "end": 27,
+          "text": "\"hello \"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 28,
+          "end": 35,
+          "text": "\"world\"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 36,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 19,
+          "end": 36,
+          "text": "\"hello \" \"world\";",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "comments",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "/* original */ int value; // tail",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 14,
+          "text": "/* original */",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 18,
+          "text": "int",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 19,
+          "end": 24,
+          "text": "value",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 24,
+          "end": 25,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 33,
+          "text": "// tail",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 33,
+          "text": "/* original */ int value; // tail",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "// 中文 🌙\r\nconst char *text = \"你好 🌿\";\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "hex-literal",
+      "profile": "c",
+      "documentKind": "c",
+      "source": "double ratio = 0x1.8p2;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    }
+  ],
+  "profiles": {
+    "c": {
+      "documents": 18,
+      "exactDocumentsIncludingModifiers": 11,
+      "exactSpan": {
+        "precision": 0.9467455621301775,
+        "recall": 0.9142857142857143,
+        "f1": 0.9302325581395349,
+        "tp": 160,
+        "fp": 9,
+        "fn": 15,
+        "support": 175
+      },
+      "exactSpanMacroF1": 0.7802710044437786,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9408284023668639,
+        "recall": 0.9085714285714286,
+        "f1": 0.9244186046511628,
+        "tp": 159,
+        "fp": 10,
+        "fn": 16,
+        "support": 175
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 0.9523809523809523,
+          "f1": 0.975609756097561,
+          "tp": 40,
+          "fp": 0,
+          "fn": 2,
+          "support": 42
+        },
+        "comment": {
+          "precision": 0.5,
+          "recall": 0.3333333333333333,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 1,
+          "fn": 2,
+          "support": 3
+        },
+        "string": {
+          "precision": 0.8,
+          "recall": 0.6666666666666666,
+          "f1": 0.7272727272727273,
+          "tp": 4,
+          "fp": 1,
+          "fn": 2,
+          "support": 6
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9661016949152542,
+          "f1": 0.9827586206896551,
+          "tp": 57,
+          "fp": 0,
+          "fn": 2,
+          "support": 59
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 0,
+          "fn": 1,
+          "support": 4
+        },
+        "enum": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7
+        },
+        "parameter": {
+          "precision": 0.8461538461538461,
+          "recall": 0.9166666666666666,
+          "f1": 0.88,
+          "tp": 11,
+          "fp": 2,
+          "fn": 1,
+          "support": 12
+        },
+        "variable": {
+          "precision": 0.8888888888888888,
+          "recall": 0.8888888888888888,
+          "f1": 0.8888888888888888,
+          "tp": 8,
+          "fp": 1,
+          "fn": 1,
+          "support": 9
+        },
+        "property": {
+          "precision": 0.5,
+          "recall": 0.6,
+          "f1": 0.5454545454545454,
+          "tp": 3,
+          "fp": 3,
+          "fn": 2,
+          "support": 5
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "c": {
+      "documents": 18,
+      "exactDocumentsIncludingModifiers": 11,
+      "exactSpan": {
+        "precision": 0.9467455621301775,
+        "recall": 0.9142857142857143,
+        "f1": 0.9302325581395349,
+        "tp": 160,
+        "fp": 9,
+        "fn": 15,
+        "support": 175
+      },
+      "exactSpanMacroF1": 0.7802710044437786,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9408284023668639,
+        "recall": 0.9085714285714286,
+        "f1": 0.9244186046511628,
+        "tp": 159,
+        "fp": 10,
+        "fn": 16,
+        "support": 175
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 0.9523809523809523,
+          "f1": 0.975609756097561,
+          "tp": 40,
+          "fp": 0,
+          "fn": 2,
+          "support": 42
+        },
+        "comment": {
+          "precision": 0.5,
+          "recall": 0.3333333333333333,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 1,
+          "fn": 2,
+          "support": 3
+        },
+        "string": {
+          "precision": 0.8,
+          "recall": 0.6666666666666666,
+          "f1": 0.7272727272727273,
+          "tp": 4,
+          "fp": 1,
+          "fn": 2,
+          "support": 6
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9661016949152542,
+          "f1": 0.9827586206896551,
+          "tp": 57,
+          "fp": 0,
+          "fn": 2,
+          "support": 59
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 0,
+          "fn": 1,
+          "support": 4
+        },
+        "enum": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7
+        },
+        "parameter": {
+          "precision": 0.8461538461538461,
+          "recall": 0.9166666666666666,
+          "f1": 0.88,
+          "tp": 11,
+          "fp": 2,
+          "fn": 1,
+          "support": 12
+        },
+        "variable": {
+          "precision": 0.8888888888888888,
+          "recall": 0.8888888888888888,
+          "f1": 0.8888888888888888,
+          "tp": 8,
+          "fp": 1,
+          "fn": 1,
+          "support": 9
+        },
+        "property": {
+          "precision": 0.5,
+          "recall": 0.6,
+          "f1": 0.5454545454545454,
+          "tp": 3,
+          "fp": 3,
+          "fn": 2,
+          "support": 5
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "checkpointHash": "b2c63931b2b3c1531b2455299e352e0ca7b6a291566c0b1129130fbe05c05e5f",
+  "checkpointEpoch": 2,
+  "device": "mps"
+}

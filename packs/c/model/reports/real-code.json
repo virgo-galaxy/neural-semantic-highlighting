@@ -1,0 +1,4226 @@
+{
+  "split": "validation",
+  "cases": [
+    {
+      "path": "fmt-merge-msg.h",
+      "repository": "git-c-v1",
+      "source": "#ifndef FMT_MERGE_MSG_H\n#define FMT_MERGE_MSG_H\n\n#include \"strbuf.h\"\n\n#define DEFAULT_MERGE_LOG_LEN 20\n\nstruct fmt_merge_msg_opts {\n\tunsigned add_title:1,\n\t\tcredit_people:1;\n\tint shortlog_len;\n\tconst char *into_name;\n};\n\nextern int merge_log_config;\nint fmt_merge_msg_config(const char *key, const char *value,\n\t\t\t const struct config_context *ctx, void *cb);\nint fmt_merge_msg(struct strbuf *in, struct strbuf *out,\n\t\t  struct fmt_merge_msg_opts *);\n\n\n#endif /* FMT_MERGE_MSG_H */\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9873417721518988,
+          "recall": 0.9873417721518988,
+          "f1": 0.9873417721518988,
+          "tp": 78,
+          "fp": 1,
+          "fn": 1,
+          "support": 79
+        },
+        "exactSpanMacroF1": 0.9769119769119768,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9873417721518988,
+          "recall": 0.9873417721518988,
+          "f1": 0.9873417721518988,
+          "tp": 78,
+          "fp": 1,
+          "fn": 1,
+          "support": 79
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 24,
+            "fp": 0,
+            "fn": 0,
+            "support": 24
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 19,
+            "fp": 0,
+            "fn": 0,
+            "support": 19
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571,
+            "tp": 3,
+            "fp": 0,
+            "fn": 1,
+            "support": 4
+          },
+          "property": {
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.8888888888888888,
+            "tp": 4,
+            "fp": 1,
+            "fn": 0,
+            "support": 4
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "merge_log_config",
+          "tokenType": "variable",
+          "start": 232,
+          "end": 248
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "merge_log_config",
+          "tokenType": "property",
+          "start": 232,
+          "end": 248
+        }
+      ]
+    },
+    {
+      "path": "trace2/tr2_cfg.h",
+      "repository": "git-c-v1",
+      "source": "#ifndef TR2_CFG_H\n#define TR2_CFG_H\n\n/*\n * Iterate over all config settings and emit 'def_param' events for the\n * \"interesting\" ones to TRACE2.\n */\nvoid tr2_cfg_list_config_fl(const char *file, int line);\n\n/*\n * Iterate over all \"interesting\" environment variables and emit 'def_param'\n * events for them to TRACE2.\n */\nvoid tr2_list_env_vars_fl(const char *file, int line);\n\n/*\n * Emit a \"def_param\" event for the given key/value pair IF we consider\n * the key to be \"interesting\".\n */\nvoid tr2_cfg_set_fl(const char *file, int line, const char *key,\n\t\t    const char *value);\n\nvoid tr2_cfg_free_patterns(void);\n\nvoid tr2_cfg_free_env_vars(void);\n\n#endif /* TR2_CFG_H */\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 67,
+          "fp": 0,
+          "fn": 0,
+          "support": 67
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 67,
+          "fp": 0,
+          "fn": 0,
+          "support": 67
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 23,
+            "fp": 0,
+            "fn": 0,
+            "support": 23
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 20,
+            "fp": 0,
+            "fn": 0,
+            "support": 20
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "path": "trace2/tr2_tbuf.c",
+      "repository": "git-c-v1",
+      "source": "#include \"git-compat-util.h\"\n#include \"tr2_tbuf.h\"\n\nvoid tr2_tbuf_local_time(struct tr2_tbuf *tb)\n{\n\tstruct timeval tv;\n\tstruct tm tm;\n\ttime_t secs;\n\n\tgettimeofday(&tv, NULL);\n\tsecs = tv.tv_sec;\n\tlocaltime_r(&secs, &tm);\n\n\txsnprintf(tb->buf, sizeof(tb->buf), \"%02d:%02d:%02d.%06ld\", tm.tm_hour,\n\t\t  tm.tm_min, tm.tm_sec, (long)tv.tv_usec);\n}\n\nvoid tr2_tbuf_utc_datetime_extended(struct tr2_tbuf *tb)\n{\n\tstruct timeval tv;\n\tstruct tm tm;\n\ttime_t secs;\n\n\tgettimeofday(&tv, NULL);\n\tsecs = tv.tv_sec;\n\tgmtime_r(&secs, &tm);\n\n\txsnprintf(tb->buf, sizeof(tb->buf),\n\t\t  \"%4d-%02d-%02dT%02d:%02d:%02d.%06ldZ\", tm.tm_year + 1900,\n\t\t  tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec,\n\t\t  (long)tv.tv_usec);\n}\n\nvoid tr2_tbuf_utc_datetime(struct tr2_tbuf *tb)\n{\n\tstruct timeval tv;\n\tstruct tm tm;\n\ttime_t secs;\n\n\tgettimeofday(&tv, NULL);\n\tsecs = tv.tv_sec;\n\tgmtime_r(&secs, &tm);\n\n\txsnprintf(tb->buf, sizeof(tb->buf), \"%4d%02d%02dT%02d%02d%02d.%06ldZ\",\n\t\t  tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour,\n\t\t  tm.tm_min, tm.tm_sec, (long)tv.tv_usec);\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9010989010989011,
+          "recall": 0.9010989010989011,
+          "f1": 0.9010989010989011,
+          "tp": 246,
+          "fp": 27,
+          "fn": 27,
+          "support": 273
+        },
+        "exactSpanMacroF1": 0.8668686868686869,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8901098901098901,
+          "recall": 0.8901098901098901,
+          "f1": 0.8901098901098901,
+          "tp": 243,
+          "fp": 30,
+          "fn": 30,
+          "support": 273
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9047619047619048,
+            "recall": 0.8260869565217391,
+            "f1": 0.8636363636363636,
+            "tp": 19,
+            "fp": 2,
+            "fn": 4,
+            "support": 23
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 25,
+            "fp": 0,
+            "fn": 0,
+            "support": 25
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 114,
+            "fp": 0,
+            "fn": 0,
+            "support": 114
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 0.3333333333333333,
+            "f1": 0.5,
+            "tp": 10,
+            "fp": 0,
+            "fn": 20,
+            "support": 30
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "parameter": {
+            "precision": 0.375,
+            "recall": 1.0,
+            "f1": 0.5454545454545454,
+            "tp": 9,
+            "fp": 15,
+            "fn": 0,
+            "support": 9
+          },
+          "variable": {
+            "precision": 0.7,
+            "recall": 0.875,
+            "f1": 0.7777777777777778,
+            "tp": 21,
+            "fp": 9,
+            "fn": 3,
+            "support": 24
+          },
+          "property": {
+            "precision": 0.9642857142857143,
+            "recall": 1.0,
+            "f1": 0.9818181818181818,
+            "tp": 27,
+            "fp": 1,
+            "fn": 0,
+            "support": 27
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "time_t",
+          "tokenType": "type",
+          "start": 136,
+          "end": 142
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 216,
+          "end": 218
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 283,
+          "end": 285
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 299,
+          "end": 301
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 310,
+          "end": 312
+        },
+        {
+          "text": "long",
+          "tokenType": "keyword",
+          "start": 322,
+          "end": 326
+        },
+        {
+          "text": "tv",
+          "tokenType": "variable",
+          "start": 327,
+          "end": 329
+        },
+        {
+          "text": "time_t",
+          "tokenType": "type",
+          "start": 438,
+          "end": 444
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 515,
+          "end": 517
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 601,
+          "end": 603
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 624,
+          "end": 626
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 639,
+          "end": 641
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 651,
+          "end": 653
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 663,
+          "end": 665
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 674,
+          "end": 676
+        },
+        {
+          "text": "long",
+          "tokenType": "keyword",
+          "start": 690,
+          "end": 694
+        },
+        {
+          "text": "tv",
+          "tokenType": "variable",
+          "start": 695,
+          "end": 697
+        },
+        {
+          "text": "NULL",
+          "tokenType": "keyword",
+          "start": 830,
+          "end": 834
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 874,
+          "end": 876
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 956,
+          "end": 958
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 975,
+          "end": 977
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 990,
+          "end": 992
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 1002,
+          "end": 1004
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 1018,
+          "end": 1020
+        },
+        {
+          "text": "tm",
+          "tokenType": "type",
+          "start": 1029,
+          "end": 1031
+        },
+        {
+          "text": "long",
+          "tokenType": "keyword",
+          "start": 1041,
+          "end": 1045
+        },
+        {
+          "text": "tv",
+          "tokenType": "variable",
+          "start": 1046,
+          "end": 1048
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "time_t",
+          "tokenType": "keyword",
+          "start": 136,
+          "end": 142
+        },
+        {
+          "text": "tm",
+          "tokenType": "variable",
+          "start": 216,
+          "end": 218
+        },
+        {
+          "text": "tm",
+          "tokenType": "parameter",
+          "start": 283,
+          "end": 285
+        },
+        {
+          "text": "tm",
+          "tokenType": "variable",
+          "start": 299,
+          "end": 301
+        },
+        {
+          "text": "tm",
+          "tokenType": "parameter",
+          "start": 310,
+          "end": 312
+        },
+        {
+          "text": "long",
+          "tokenType": "parameter",
+          "start": 322,
+          "end": 326
+        },
+        {
+          "text": "tv",
+          "tokenType": "parameter",
+          "start": 327,
+          "end": 329
+        },
+        {
+          "text": "time_t",
+          "tokenType": "keyword",
+          "start": 438,
+          "end": 444
+        },
+        {
+          "text": "tm",
+          "tokenType": "variable",
+          "start": 515,
+          "end": 517
+        },
+        {
+          "text": "tm",
+          "tokenType": "variable",
+          "start": 601,
+          "end": 603
+        },
+        {
+          "text": "tm",
+          "tokenType": "parameter",
+          "start": 624,
+          "end": 626
+        },
+        {
+          "text": "tm",
+          "tokenType": "parameter",
+          "start": 639,
+          "end": 641
+        },
+        {
+          "text": "tm",
+          "tokenType": "variable",
+          "start": 651,
+          "end": 653
+        },
+        {
+          "text": "tm",
+          "tokenType": "parameter",
+          "start": 663,
+          "end": 665
+        },
+        {
+          "text": "tm",
+          "tokenType": "parameter",
+          "start": 674,
+          "end": 676
+        },
+        {
+          "text": "long",
+          "tokenType": "parameter",
+          "start": 690,
+          "end": 694
+        },
+        {
+          "text": "tv",
+          "tokenType": "parameter",
+          "start": 695,
+          "end": 697
+        },
+        {
+          "text": "NULL",
+          "tokenType": "variable",
+          "start": 830,
+          "end": 834
+        },
+        {
+          "text": "tm",
+          "tokenType": "variable",
+          "start": 874,
+          "end": 876
+        },
+        {
+          "text": "tm",
+          "tokenType": "parameter",
+          "start": 956,
+          "end": 958
+        },
+        {
+          "text": "tm",
+          "tokenType": "variable",
+          "start": 975,
+          "end": 977
+        },
+        {
+          "text": "tm",
+          "tokenType": "parameter",
+          "start": 990,
+          "end": 992
+        },
+        {
+          "text": "tm",
+          "tokenType": "parameter",
+          "start": 1002,
+          "end": 1004
+        },
+        {
+          "text": "tm",
+          "tokenType": "property",
+          "start": 1018,
+          "end": 1020
+        },
+        {
+          "text": "tm",
+          "tokenType": "variable",
+          "start": 1029,
+          "end": 1031
+        },
+        {
+          "text": "long",
+          "tokenType": "parameter",
+          "start": 1041,
+          "end": 1045
+        },
+        {
+          "text": "tv",
+          "tokenType": "parameter",
+          "start": 1046,
+          "end": 1048
+        }
+      ]
+    },
+    {
+      "path": "lib/inet_ntop.h",
+      "repository": "curl-c-v1",
+      "source": "#ifndef HEADER_CURL_INET_NTOP_H\n#define HEADER_CURL_INET_NTOP_H\n/***************************************************************************\n *                                  _   _ ____  _\n *  Project                     ___| | | |  _ \\| |\n *                             / __| | | | |_) | |\n *                            | (__| |_| |  _ <| |___\n *                             \\___|\\___/|_| \\_\\_____|\n *\n * Copyright (C) Daniel Stenberg, <daniel@haxx.se>, et al.\n *\n * This software is licensed as described in the file COPYING, which\n * you should have received as part of this distribution. The terms\n * are also available at https://curl.se/docs/copyright.html.\n *\n * You may opt to use, copy, modify, merge, publish, distribute and/or sell\n * copies of the Software, and permit persons to whom the Software is\n * furnished to do so, under the terms of the COPYING file.\n *\n * This software is distributed on an \"AS IS\" basis, WITHOUT WARRANTY OF ANY\n * KIND, either express or implied.\n *\n * SPDX-License-Identifier: curl\n *\n ***************************************************************************/\n\n#include \"curl_setup.h\"\n\nchar *curlx_inet_ntop(int af, const void *addr, char *buf, size_t size);\n\n#ifdef HAVE_INET_NTOP\n#ifdef HAVE_NETINET_IN_H\n#include <netinet/in.h>\n#endif\n#ifdef HAVE_SYS_SOCKET_H\n#include <sys/socket.h>\n#endif\n#ifdef HAVE_ARPA_INET_H\n#include <arpa/inet.h>\n#endif\n#ifdef __AMIGA__\n#define curlx_inet_ntop(af,addr,buf,size) \\\n        (char *)inet_ntop(af, CURL_UNCONST(addr), (unsigned char *)buf, \\\n                          (curl_socklen_t)(size))\n#else\n#define curlx_inet_ntop(af,addr,buf,size) \\\n        inet_ntop(af, addr, buf, (curl_socklen_t)(size))\n#endif\n#endif\n\n#endif /* HEADER_CURL_INET_NTOP_H */\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9915254237288136,
+          "recall": 0.9915254237288136,
+          "f1": 0.9915254237288136,
+          "tp": 117,
+          "fp": 1,
+          "fn": 1,
+          "support": 118
+        },
+        "exactSpanMacroF1": 0.9895982783357246,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.923728813559322,
+          "recall": 0.923728813559322,
+          "f1": 0.923728813559322,
+          "tp": 109,
+          "fp": 9,
+          "fn": 9,
+          "support": 118
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 29,
+            "fp": 0,
+            "fn": 0,
+            "support": 29
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 43,
+            "fp": 0,
+            "fn": 0,
+            "support": 43
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "parameter": {
+            "precision": 0.9523809523809523,
+            "recall": 1.0,
+            "f1": 0.975609756097561,
+            "tp": 20,
+            "fp": 1,
+            "fn": 0,
+            "support": 20
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 0.8888888888888888,
+            "f1": 0.9411764705882353,
+            "tp": 8,
+            "fp": 0,
+            "fn": 1,
+            "support": 9
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "curl_socklen_t",
+          "tokenType": "variable",
+          "start": 1665,
+          "end": 1679
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "curl_socklen_t",
+          "tokenType": "parameter",
+          "start": 1665,
+          "end": 1679
+        }
+      ]
+    },
+    {
+      "path": "promisor-remote.h",
+      "repository": "git-c-v1",
+      "source": "#ifndef PROMISOR_REMOTE_H\n#define PROMISOR_REMOTE_H\n\n#include \"repository.h\"\n\nstruct object_id;\n\n/*\n * Promisor remote linked list\n *\n * Information in its fields come from remote.XXX config entries or\n * from extensions.partialclone, except for 'accepted' which comes\n * from protocol v2 capabilities exchange.\n */\nstruct promisor_remote {\n\tstruct promisor_remote *next;\n\tchar *partial_clone_filter;\n\tunsigned int accepted : 1;\n\tconst char name[FLEX_ARRAY];\n};\n\nvoid repo_promisor_remote_reinit(struct repository *r);\nvoid promisor_remote_clear(struct promisor_remote_config *config);\nstruct promisor_remote *repo_promisor_remote_find(struct repository *r, const char *remote_name);\nint repo_has_promisor_remote(struct repository *r);\n\n/*\n * Fetches all requested objects from all promisor remotes, trying them one at\n * a time until all objects are fetched.\n *\n * If oid_nr is 0, this function returns immediately.\n */\nvoid promisor_remote_get_direct(struct repository *repo,\n\t\t\t\tconst struct object_id *oids,\n\t\t\t\tint oid_nr);\n\n/*\n * Prepare a \"promisor-remote\" advertisement by a server.\n * Check the value of \"promisor.advertise\" and maybe the configured\n * promisor remotes, if any, to prepare information to send in an\n * advertisement.\n * Return value is NULL if no promisor remote advertisement should be\n * made. Otherwise it contains the names and urls of the advertised\n * promisor remotes separated by ';'. See gitprotocol-v2(5).\n */\nchar *promisor_remote_info(struct repository *repo);\n\n/*\n * Prepare a reply to a \"promisor-remote\" advertisement from a server.\n * Check the value of \"promisor.acceptfromserver\" and maybe the\n * configured promisor remotes, if any, to prepare the reply.\n * Return value is NULL if no promisor remote from the server\n * is accepted. Otherwise it contains the names of the accepted promisor\n * remotes separated by ';'. See gitprotocol-v2(5).\n */\nchar *promisor_remote_reply(const char *info);\n\n/*\n * Set the 'accepted' flag for some promisor remotes. Useful on the\n * server side when some promisor remotes have been accepted by the\n * client.\n */\nvoid mark_promisor_remotes_as_accepted(struct repository *repo, const char *remotes);\n\n/*\n * Has any promisor remote been accepted by the client?\n */\nint repo_has_accepted_promisor_remote(struct repository *r);\n\n#endif /* PROMISOR_REMOTE_H */\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 148,
+          "fp": 0,
+          "fn": 0,
+          "support": 148
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 148,
+          "fp": 0,
+          "fn": 0,
+          "support": 148
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 38,
+            "fp": 0,
+            "fn": 0,
+            "support": 38
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 18,
+            "fp": 0,
+            "fn": 0,
+            "support": 18
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 41,
+            "fp": 0,
+            "fn": 0,
+            "support": 41
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 13,
+            "fp": 0,
+            "fn": 0,
+            "support": 13
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 13,
+            "fp": 0,
+            "fn": 0,
+            "support": 13
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "path": "lib/http_proxy.h",
+      "repository": "curl-c-v1",
+      "source": "#ifndef HEADER_CURL_HTTP_PROXY_H\n#define HEADER_CURL_HTTP_PROXY_H\n/***************************************************************************\n *                                  _   _ ____  _\n *  Project                     ___| | | |  _ \\| |\n *                             / __| | | | |_) | |\n *                            | (__| |_| |  _ <| |___\n *                             \\___|\\___/|_| \\_\\_____|\n *\n * Copyright (C) Daniel Stenberg, <daniel@haxx.se>, et al.\n *\n * This software is licensed as described in the file COPYING, which\n * you should have received as part of this distribution. The terms\n * are also available at https://curl.se/docs/copyright.html.\n *\n * You may opt to use, copy, modify, merge, publish, distribute and/or sell\n * copies of the Software, and permit persons to whom the Software is\n * furnished to do so, under the terms of the COPYING file.\n *\n * This software is distributed on an \"AS IS\" basis, WITHOUT WARRANTY OF ANY\n * KIND, either express or implied.\n *\n * SPDX-License-Identifier: curl\n *\n ***************************************************************************/\n\n#include \"curl_setup.h\"\n\n#if !defined(CURL_DISABLE_PROXY) && !defined(CURL_DISABLE_HTTP)\n\n#include \"urldata.h\"\n\nenum Curl_proxy_use {\n  HEADER_SERVER,  /* direct to server */\n  HEADER_PROXY,   /* regular request to proxy */\n  HEADER_CONNECT  /* sending CONNECT to a proxy */\n};\n\nCURLcode Curl_http_proxy_get_destination(struct Curl_cfilter *cf,\n                                         const char **phostname,\n                                         int *pport, bool *pipv6_ip);\n\nCURLcode Curl_http_proxy_create_CONNECT(struct httpreq **preq,\n                                        struct Curl_cfilter *cf,\n                                        struct Curl_easy *data,\n                                        int http_version_major);\n\n/* Default proxy timeout in milliseconds */\n#define PROXY_TIMEOUT (3600*1000)\n\nvoid Curl_cf_http_proxy_get_host(struct Curl_cfilter *cf,\n                                 struct Curl_easy *data,\n                                 const char **phost,\n                                 const char **pdisplay_host,\n                                 int *pport);\n\nCURLcode Curl_cf_http_proxy_insert_after(struct Curl_cfilter *cf_at,\n                                         struct Curl_easy *data);\n\nextern struct Curl_cftype Curl_cft_http_proxy;\n\n#endif /* !CURL_DISABLE_PROXY  && !CURL_DISABLE_HTTP */\n\n#define IS_HTTPS_PROXY(t) (((t) == CURLPROXY_HTTPS) ||  \\\n                           ((t) == CURLPROXY_HTTPS2))\n\n#endif /* HEADER_CURL_HTTP_PROXY_H */\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9878048780487805,
+          "recall": 0.9878048780487805,
+          "f1": 0.9878048780487805,
+          "tp": 162,
+          "fp": 2,
+          "fn": 2,
+          "support": 164
+        },
+        "exactSpanMacroF1": 0.979100529100529,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.975609756097561,
+          "recall": 0.975609756097561,
+          "f1": 0.975609756097561,
+          "tp": 160,
+          "fp": 4,
+          "fn": 4,
+          "support": 164
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 33,
+            "fp": 0,
+            "fn": 0,
+            "support": 33
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 25,
+            "fp": 0,
+            "fn": 0,
+            "support": 25
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 48,
+            "fp": 0,
+            "fn": 0,
+            "support": 48
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "enum": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "enum-member": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.8888888888888888,
+            "tp": 4,
+            "fp": 0,
+            "fn": 1,
+            "support": 5
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 0.9444444444444444,
+            "f1": 0.9714285714285714,
+            "tp": 17,
+            "fp": 0,
+            "fn": 1,
+            "support": 18
+          },
+          "variable": {
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.8888888888888888,
+            "tp": 8,
+            "fp": 2,
+            "fn": 0,
+            "support": 8
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "IS_HTTPS_PROXY",
+          "tokenType": "function",
+          "start": 2454,
+          "end": 2468
+        },
+        {
+          "text": "t",
+          "tokenType": "parameter",
+          "start": 2469,
+          "end": 2470
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "IS_HTTPS_PROXY",
+          "tokenType": "variable",
+          "start": 2454,
+          "end": 2468
+        },
+        {
+          "text": "t",
+          "tokenType": "variable",
+          "start": 2469,
+          "end": 2470
+        }
+      ]
+    },
+    {
+      "path": "lib/config-plan9.h",
+      "repository": "curl-c-v1",
+      "source": "#ifndef HEADER_CURL_CONFIG_PLAN9_H\n#define HEADER_CURL_CONFIG_PLAN9_H\n/***************************************************************************\n *                                  _   _ ____  _\n *  Project                     ___| | | |  _ \\| |\n *                             / __| | | | |_) | |\n *                            | (__| |_| |  _ <| |___\n *                             \\___|\\___/|_| \\_\\_____|\n *\n * Copyright (C) Daniel Stenberg, <daniel@haxx.se>, et al.\n *\n * This software is licensed as described in the file COPYING, which\n * you should have received as part of this distribution. The terms\n * are also available at https://curl.se/docs/copyright.html.\n *\n * You may opt to use, copy, modify, merge, publish, distribute and/or sell\n * copies of the Software, and permit persons to whom the Software is\n * furnished to do so, under the terms of the COPYING file.\n *\n * This software is distributed on an \"AS IS\" basis, WITHOUT WARRANTY OF ANY\n * KIND, either express or implied.\n *\n * SPDX-License-Identifier: curl\n *\n ***************************************************************************/\n\n#define BUILDING_LIBCURL 1\n#define CURL_CA_BUNDLE \"/sys/lib/tls/ca.pem\"\n#define CURL_CA_PATH \"/sys/lib/tls\"\n#define CURL_STATICLIB 1\n#define USE_IPV6 1\n#define CURL_DISABLE_LDAP 1\n\n#define NEED_REENTRANT 1\n#ifndef CURL_OS\n#define CURL_OS \"plan9\"\n#endif\n\n#define STDC_HEADERS 1\n\n#ifdef _BITS64\n#error not implement\n#else\n#define SIZEOF_INT 4\n#define SIZEOF_LONG 4\n#define SIZEOF_OFF_T 8\n#define SIZEOF_CURL_OFF_T 4 /* curl_off_t = timediff_t = int */\n#define SIZEOF_SIZE_T 4\n#define SIZEOF_TIME_T 4\n#endif\n\n#define HAVE_RECV 1\n#define RECV_TYPE_ARG1 int\n#define RECV_TYPE_ARG2 void *\n#define RECV_TYPE_ARG3 int\n#define RECV_TYPE_ARG4 int\n#define RECV_TYPE_RETV int\n\n#define HAVE_SELECT 1\n\n#define HAVE_SEND 1\n#define SEND_TYPE_ARG1 int\n#define SEND_TYPE_ARG2 void *\n#define SEND_QUAL_ARG2\n#define SEND_TYPE_ARG3 int\n#define SEND_TYPE_ARG4 int\n#define SEND_TYPE_RETV int\n\n#define HAVE_ALARM 1\n#define HAVE_ARPA_INET_H 1\n#define HAVE_BASENAME 1\n#define HAVE_BOOL_T 1\n#define HAVE_FCNTL 1\n#define HAVE_FCNTL_H 1\n#define HAVE_FREEADDRINFO 1\n#define HAVE_FTRUNCATE 1\n#define HAVE_GETADDRINFO 1\n#define HAVE_GETEUID 1\n#define HAVE_GETHOSTNAME 1\n#define HAVE_GETPPID 1\n#define HAVE_GETPWUID 1\n#define HAVE_GETTIMEOFDAY 1\n#define HAVE_GMTIME_R 1\n#define HAVE_INET_NTOP 1\n#define HAVE_INET_PTON 1\n#define HAVE_LIBGEN_H 1\n#define HAVE_LIBZ 1\n#define HAVE_LOCALE_H 1\n#define HAVE_LONGLONG 1\n#define HAVE_NETDB_H 1\n#define HAVE_NETINET_IN_H 1\n#define HAVE_NETINET_TCP_H 1\n#define HAVE_PWD_H 1\n#define HAVE_SYS_SELECT_H 1\n\n#define USE_OPENSSL 1\n\n#define HAVE_PIPE 1\n#define HAVE_POLL 1\n#define HAVE_POLL_H 1\n#define HAVE_PTHREAD_H 1\n#define HAVE_SETLOCALE 1\n\n#define HAVE_SIGACTION 1\n#define HAVE_SIGNAL 1\n#define HAVE_SIGSETJMP 1\n#define HAVE_SOCKADDR_IN6_SIN6_SCOPE_ID 1\n#define HAVE_SOCKET 1\n#define HAVE_STDBOOL_H 1\n#define HAVE_STRCASECMP 1\n#define HAVE_STRDUP 1\n#define HAVE_STRUCT_TIMEVAL 1\n#define HAVE_SYS_IOCTL_H 1\n#define HAVE_SYS_PARAM_H 1\n#define HAVE_SYS_RESOURCE_H 1\n#define HAVE_SYS_SOCKET_H 1\n#define HAVE_SYS_STAT_H 1\n#define HAVE_SYS_TIME_H 1\n#define HAVE_SYS_TYPES_H 1\n#define HAVE_SYS_UN_H 1\n#define HAVE_TERMIOS_H 1\n#define HAVE_UNISTD_H 1\n#define HAVE_UTIME 1\n#define HAVE_UTIME_H 1\n\n#define HAVE_POSIX_STRERROR_R 1\n#define HAVE_STRERROR_R 1\n#define USE_MANUAL 1\n\n#define __attribute__(x)\n\n#ifndef __cplusplus\n#undef inline\n#endif\n\n#endif /* HEADER_CURL_CONFIG_PLAN9_H */\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9575971731448764,
+          "recall": 0.9575971731448764,
+          "f1": 0.9575971731448764,
+          "tp": 271,
+          "fp": 12,
+          "fn": 12,
+          "support": 283
+        },
+        "exactSpanMacroF1": 0.8042941600469079,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.950530035335689,
+          "recall": 0.950530035335689,
+          "f1": 0.950530035335689,
+          "tp": 269,
+          "fp": 14,
+          "fn": 14,
+          "support": 283
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9900990099009901,
+            "recall": 0.9090909090909091,
+            "f1": 0.9478672985781991,
+            "tp": 100,
+            "fp": 1,
+            "fn": 10,
+            "support": 110
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "string": {
+            "precision": 0.6,
+            "recall": 0.75,
+            "f1": 0.6666666666666666,
+            "tp": 3,
+            "fp": 2,
+            "fn": 1,
+            "support": 4
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 71,
+            "fp": 0,
+            "fn": 0,
+            "support": 71
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "tp": 1,
+            "fp": 0,
+            "fn": 1,
+            "support": 2
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "variable": {
+            "precision": 0.9183673469387755,
+            "recall": 1.0,
+            "f1": 0.9574468085106383,
+            "tp": 90,
+            "fp": 8,
+            "fn": 0,
+            "support": 90
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "not implement",
+          "tokenType": "string",
+          "start": 1415,
+          "end": 1428
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 1664,
+          "end": 1667
+        },
+        {
+          "text": "void",
+          "tokenType": "keyword",
+          "start": 1691,
+          "end": 1695
+        },
+        {
+          "text": "*",
+          "tokenType": "operator",
+          "start": 1696,
+          "end": 1697
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 1721,
+          "end": 1724
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 1748,
+          "end": 1751
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 1775,
+          "end": 1778
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 1846,
+          "end": 1849
+        },
+        {
+          "text": "void",
+          "tokenType": "keyword",
+          "start": 1873,
+          "end": 1877
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 1953,
+          "end": 1956
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 1980,
+          "end": 1983
+        },
+        {
+          "text": "__attribute__",
+          "tokenType": "keyword",
+          "start": 3396,
+          "end": 3409
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "not",
+          "tokenType": "keyword",
+          "start": 1415,
+          "end": 1418
+        },
+        {
+          "text": "implement",
+          "tokenType": "variable",
+          "start": 1419,
+          "end": 1428
+        },
+        {
+          "text": "int",
+          "tokenType": "variable",
+          "start": 1664,
+          "end": 1667
+        },
+        {
+          "text": "void *",
+          "tokenType": "string",
+          "start": 1691,
+          "end": 1697
+        },
+        {
+          "text": "int",
+          "tokenType": "variable",
+          "start": 1721,
+          "end": 1724
+        },
+        {
+          "text": "int",
+          "tokenType": "variable",
+          "start": 1748,
+          "end": 1751
+        },
+        {
+          "text": "int",
+          "tokenType": "variable",
+          "start": 1775,
+          "end": 1778
+        },
+        {
+          "text": "int",
+          "tokenType": "variable",
+          "start": 1846,
+          "end": 1849
+        },
+        {
+          "text": "void",
+          "tokenType": "string",
+          "start": 1873,
+          "end": 1877
+        },
+        {
+          "text": "int",
+          "tokenType": "variable",
+          "start": 1953,
+          "end": 1956
+        },
+        {
+          "text": "int",
+          "tokenType": "variable",
+          "start": 1980,
+          "end": 1983
+        },
+        {
+          "text": "__attribute__",
+          "tokenType": "function",
+          "start": 3396,
+          "end": 3409
+        }
+      ]
+    },
+    {
+      "path": "lib/inet_ntop.c",
+      "repository": "curl-c-v1",
+      "source": "/*\n * Copyright (C) 1996-2022  Internet Software Consortium.\n *\n * Permission to use, copy, modify, and distribute this software for any\n * purpose with or without fee is hereby granted, provided that the above\n * copyright notice and this permission notice appear in all copies.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\" AND INTERNET SOFTWARE CONSORTIUM\n * DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL\n * INTERNET SOFTWARE CONSORTIUM BE LIABLE FOR ANY SPECIAL, DIRECT,\n * INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING\n * FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,\n * NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION\n * WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n *\n * SPDX-License-Identifier: ISC\n */\n/*\n * Original code by Paul Vixie. \"curlified\" by Gisle Vanem.\n */\n\n#include \"curl_setup.h\"\n\n#ifndef HAVE_INET_NTOP\n\n#ifdef HAVE_SYS_PARAM_H\n#include <sys/param.h>\n#endif\n#ifdef HAVE_NETINET_IN_H\n#include <netinet/in.h>\n#endif\n#ifdef HAVE_ARPA_INET_H\n#include <arpa/inet.h>\n#endif\n\n#include \"inet_ntop.h\"\n#include \"curl_printf.h\"\n\n#define IN6ADDRSZ       16\n/* #define INADDRSZ         4 */\n#define INT16SZ          2\n\n/*\n * If USE_IPV6 is disabled, we still want to parse IPv6 addresses, so make\n * sure we have _some_ value for AF_INET6 without polluting our fake value\n * everywhere.\n */\n#if !defined(USE_IPV6) && !defined(AF_INET6)\n#define AF_INET6 (AF_INET + 1)\n#endif\n\n/*\n * Format an IPv4 address, more or less like inet_ntop().\n *\n * Returns `dst' (as a const)\n * Note:\n *  - uses no statics\n *  - takes a unsigned char* not an in_addr as input\n */\nstatic char *inet_ntop4(const unsigned char *src, char *dst, size_t size)\n{\n  char tmp[sizeof(\"255.255.255.255\")];\n  size_t len;\n\n  DEBUGASSERT(size >= 16);\n\n  tmp[0] = '\\0';\n  (void)msnprintf(tmp, sizeof(tmp), \"%d.%d.%d.%d\",\n                  ((int)((unsigned char)src[0])) & 0xff,\n                  ((int)((unsigned char)src[1])) & 0xff,\n                  ((int)((unsigned char)src[2])) & 0xff,\n                  ((int)((unsigned char)src[3])) & 0xff);\n\n  len = strlen(tmp);\n  if(len == 0 || len >= size) {\n#ifdef USE_WINSOCK\n    CURL_SETERRNO(WSAEINVAL);\n#else\n    CURL_SETERRNO(ENOSPC);\n#endif\n    return NULL;\n  }\n  strcpy(dst, tmp);\n  return dst;\n}\n\n/*\n * Convert IPv6 binary address into presentation (printable) format.\n */\nstatic char *inet_ntop6(const unsigned char *src, char *dst, size_t size)\n{\n  /*\n   * Note that int32_t and int16_t need only be \"at least\" large enough\n   * to contain a value of the specified size. On some systems, like\n   * Crays, there is no such thing as an integer variable with 16 bits.\n   * Keep this in mind if you think this function should have been coded\n   * to use pointer overlays. All the world's not a VAX.\n   */\n  char tmp[sizeof(\"ffff:ffff:ffff:ffff:ffff:ffff:255.255.255.255\")];\n  char *tp;\n  struct {\n    int base;\n    int len;\n  } best, cur;\n  unsigned int words[IN6ADDRSZ / INT16SZ];\n  int i;\n\n  /* Preprocess:\n   *  Copy the input (bytewise) array into a wordwise array.\n   *  Find the longest run of 0x00's in src[] for :: shorthanding.\n   */\n  memset(words, '\\0', sizeof(words));\n  for(i = 0; i < IN6ADDRSZ; i++)\n    words[i/2] |= ((unsigned int)src[i] << ((1 - (i % 2)) << 3));\n\n  best.base = -1;\n  cur.base  = -1;\n  best.len = 0;\n  cur.len = 0;\n\n  for(i = 0; i < (IN6ADDRSZ / INT16SZ); i++) {\n    if(words[i] == 0) {\n      if(cur.base == -1) {\n        cur.base = i; cur.len = 1;\n      }\n      else\n        cur.len++;\n    }\n    else if(cur.base != -1) {\n      if(best.base == -1 || cur.len > best.len)\n        best = cur;\n      cur.base = -1;\n    }\n  }\n  if((cur.base != -1) && (best.base == -1 || cur.len > best.len))\n    best = cur;\n  if(best.base != -1 && best.len < 2)\n    best.base = -1;\n  /* Format the result. */\n  tp = tmp;\n  for(i = 0; i < (IN6ADDRSZ / INT16SZ); i++) {\n    /* Are we inside the best run of 0x00's? */\n    if(best.base != -1 && i >= best.base && i < (best.base + best.len)) {\n      if(i == best.base)\n        *tp++ = ':';\n      continue;\n    }\n\n    /* Are we following an initial run of 0x00s or any real hex?\n     */\n    if(i)\n      *tp++ = ':';\n\n    /* Is this address an encapsulated IPv4?\n     */\n    if(i == 6 && best.base == 0 &&\n        (best.len == 6 || (best.len == 5 && words[5] == 0xffff))) {\n      if(!inet_ntop4(src + 12, tp, sizeof(tmp) - (tp - tmp))) {\n        return NULL;\n      }\n      tp += strlen(tp);\n      break;\n    }\n    tp += msnprintf(tp, 5, \"%x\", words[i]);\n  }\n\n  /* Was it a trailing run of 0x00's?\n   */\n  if(best.base != -1 && (best.base + best.len) == (IN6ADDRSZ / INT16SZ))\n    *tp++ = ':';\n  *tp++ = '\\0';\n\n  /* Check for overflow, copy, and we are done.\n   */\n  if((size_t)(tp - tmp) > size) {\n#ifdef USE_WINSOCK\n    CURL_SETERRNO(WSAEINVAL);\n#else\n    CURL_SETERRNO(ENOSPC);\n#endif\n    return NULL;\n  }\n  strcpy(dst, tmp);\n  return dst;\n}\n\n/*\n * Convert a network format address to presentation format.\n *\n * Returns pointer to presentation format address (`buf').\n * Returns NULL on error and errno set with the specific\n * error, EAFNOSUPPORT or ENOSPC.\n *\n * On Windows we store the error in the thread errno, not in the Winsock error\n * code. This is to avoid losing the actual last Winsock error. When this\n * function returns NULL, check errno not SOCKERRNO.\n */\nchar *curlx_inet_ntop(int af, const void *src, char *buf, size_t size)\n{\n  switch(af) {\n  case AF_INET:\n    return inet_ntop4((const unsigned char *)src, buf, size);\n  case AF_INET6:\n    return inet_ntop6((const unsigned char *)src, buf, size);\n  default:\n    CURL_SETERRNO(SOCKEAFNOSUPPORT);\n    return NULL;\n  }\n}\n#endif  /* HAVE_INET_NTOP */\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9565217391304348,
+          "recall": 0.9587750294464076,
+          "f1": 0.9576470588235294,
+          "tp": 814,
+          "fp": 37,
+          "fn": 35,
+          "support": 849
+        },
+        "exactSpanMacroF1": 0.7138973010942041,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9447708578143361,
+          "recall": 0.9469964664310954,
+          "f1": 0.9458823529411765,
+          "tp": 804,
+          "fp": 47,
+          "fn": 45,
+          "support": 849
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9739130434782609,
+            "recall": 0.9256198347107438,
+            "f1": 0.9491525423728814,
+            "tp": 112,
+            "fp": 3,
+            "fn": 9,
+            "support": 121
+          },
+          "comment": {
+            "precision": 0.8235294117647058,
+            "recall": 0.875,
+            "f1": 0.8484848484848485,
+            "tp": 14,
+            "fp": 3,
+            "fn": 2,
+            "support": 16
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "number": {
+            "precision": 0.9375,
+            "recall": 0.9782608695652174,
+            "f1": 0.9574468085106383,
+            "tp": 45,
+            "fp": 3,
+            "fn": 1,
+            "support": 46
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 0.9912280701754386,
+            "f1": 0.9955947136563876,
+            "tp": 113,
+            "fp": 0,
+            "fn": 1,
+            "support": 114
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 332,
+            "fp": 0,
+            "fn": 0,
+            "support": 332
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.9047619047619048,
+            "recall": 1.0,
+            "f1": 0.95,
+            "tp": 19,
+            "fp": 2,
+            "fn": 0,
+            "support": 19
+          },
+          "parameter": {
+            "precision": 0.6097560975609756,
+            "recall": 0.8333333333333334,
+            "f1": 0.704225352112676,
+            "tp": 25,
+            "fp": 16,
+            "fn": 5,
+            "support": 30
+          },
+          "variable": {
+            "precision": 0.9545454545454546,
+            "recall": 0.860655737704918,
+            "f1": 0.9051724137931034,
+            "tp": 105,
+            "fp": 5,
+            "fn": 17,
+            "support": 122
+          },
+          "property": {
+            "precision": 0.9428571428571428,
+            "recall": 1.0,
+            "f1": 0.9705882352941176,
+            "tp": 33,
+            "fp": 2,
+            "fn": 0,
+            "support": 33
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "/*\n * Copyright (C) 1996-2022  Internet Software Consortium.\n *\n * Permission to use, copy, modify, and distribute this software for any\n * purpose with or without fee is hereby granted, provided that the above\n * copyright notice and this permission notice appear in all copies.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\" AND INTERNET SOFTWARE CONSORTIUM\n * DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL\n * INTERNET SOFTWARE CONSORTIUM BE LIABLE FOR ANY SPECIAL, DIRECT,\n * INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING\n * FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,\n * NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION\n * WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n *\n * SPDX-License-Identifier: ISC\n */",
+          "tokenType": "comment",
+          "start": 0,
+          "end": 867
+        },
+        {
+          "text": "/* #define INADDRSZ         4 */",
+          "tokenType": "comment",
+          "start": 1226,
+          "end": 1258
+        },
+        {
+          "text": "!",
+          "tokenType": "operator",
+          "start": 1463,
+          "end": 1464
+        },
+        {
+          "text": "defined",
+          "tokenType": "keyword",
+          "start": 1464,
+          "end": 1471
+        },
+        {
+          "text": "tmp",
+          "tokenType": "variable",
+          "start": 1918,
+          "end": 1921
+        },
+        {
+          "text": "tmp",
+          "tokenType": "variable",
+          "start": 1930,
+          "end": 1933
+        },
+        {
+          "text": "char",
+          "tokenType": "keyword",
+          "start": 2043,
+          "end": 2047
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 2085,
+          "end": 2088
+        },
+        {
+          "text": "char",
+          "tokenType": "keyword",
+          "start": 2100,
+          "end": 2104
+        },
+        {
+          "text": "char",
+          "tokenType": "keyword",
+          "start": 2157,
+          "end": 2161
+        },
+        {
+          "text": "len",
+          "tokenType": "variable",
+          "start": 2207,
+          "end": 2210
+        },
+        {
+          "text": "len",
+          "tokenType": "variable",
+          "start": 2219,
+          "end": 2222
+        },
+        {
+          "text": "size",
+          "tokenType": "parameter",
+          "start": 2226,
+          "end": 2230
+        },
+        {
+          "text": "tmp",
+          "tokenType": "variable",
+          "start": 2358,
+          "end": 2361
+        },
+        {
+          "text": "dst",
+          "tokenType": "parameter",
+          "start": 2373,
+          "end": 2376
+        },
+        {
+          "text": "tmp",
+          "tokenType": "variable",
+          "start": 2894,
+          "end": 2897
+        },
+        {
+          "text": "tp",
+          "tokenType": "variable",
+          "start": 2964,
+          "end": 2966
+        },
+        {
+          "text": "best",
+          "tokenType": "variable",
+          "start": 3010,
+          "end": 3014
+        },
+        {
+          "text": "cur",
+          "tokenType": "variable",
+          "start": 3016,
+          "end": 3019
+        },
+        {
+          "text": "src",
+          "tokenType": "parameter",
+          "start": 3329,
+          "end": 3332
+        },
+        {
+          "text": "for",
+          "tokenType": "keyword",
+          "start": 3433,
+          "end": 3436
+        },
+        {
+          "text": "-1",
+          "tokenType": "number",
+          "start": 3632,
+          "end": 3634
+        },
+        {
+          "text": "for",
+          "tokenType": "keyword",
+          "start": 3918,
+          "end": 3921
+        },
+        {
+          "text": "i",
+          "tokenType": "variable",
+          "start": 4234,
+          "end": 4235
+        },
+        {
+          "text": "src",
+          "tokenType": "parameter",
+          "start": 4434,
+          "end": 4437
+        },
+        {
+          "text": "tp",
+          "tokenType": "variable",
+          "start": 4525,
+          "end": 4527
+        },
+        {
+          "text": "tp",
+          "tokenType": "variable",
+          "start": 4569,
+          "end": 4571
+        },
+        {
+          "text": "best",
+          "tokenType": "variable",
+          "start": 4667,
+          "end": 4671
+        },
+        {
+          "text": "size_t",
+          "tokenType": "keyword",
+          "start": 4809,
+          "end": 4815
+        },
+        {
+          "text": "tp",
+          "tokenType": "variable",
+          "start": 4817,
+          "end": 4819
+        },
+        {
+          "text": "tmp",
+          "tokenType": "variable",
+          "start": 4822,
+          "end": 4825
+        },
+        {
+          "text": "tmp",
+          "tokenType": "variable",
+          "start": 4961,
+          "end": 4964
+        },
+        {
+          "text": "dst",
+          "tokenType": "parameter",
+          "start": 4976,
+          "end": 4979
+        },
+        {
+          "text": "AF_INET",
+          "tokenType": "variable",
+          "start": 5508,
+          "end": 5515
+        },
+        {
+          "text": "default",
+          "tokenType": "keyword",
+          "start": 5660,
+          "end": 5667
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "/*\n * Copyright (C) 1996-2022  Internet Software Consortium.\n *\n * Permission to use, copy, modify, and distribute this software for any\n * purpose with or without fee is hereby granted, provided that the above\n * copyright notice and this permission notice appear in all copies.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\" AND INTERNET SOFTWARE CONSORTIUM\n * DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL\n * INTERNET SOFTWARE CONSORTIUM BE LIABLE FOR ANY SPECIAL, DIRECT,\n * INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING\n * FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,\n * NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION\n * WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n *\n * SPDX-License-Identifier: ISC\n */\n",
+          "tokenType": "comment",
+          "start": 0,
+          "end": 868
+        },
+        {
+          "text": "/* #define INADDRSZ        ",
+          "tokenType": "comment",
+          "start": 1226,
+          "end": 1253
+        },
+        {
+          "text": "4",
+          "tokenType": "number",
+          "start": 1254,
+          "end": 1255
+        },
+        {
+          "text": "*/",
+          "tokenType": "comment",
+          "start": 1256,
+          "end": 1258
+        },
+        {
+          "text": "!defined",
+          "tokenType": "keyword",
+          "start": 1463,
+          "end": 1471
+        },
+        {
+          "text": "tmp",
+          "tokenType": "parameter",
+          "start": 1918,
+          "end": 1921
+        },
+        {
+          "text": "tmp",
+          "tokenType": "parameter",
+          "start": 1930,
+          "end": 1933
+        },
+        {
+          "text": "char",
+          "tokenType": "parameter",
+          "start": 2043,
+          "end": 2047
+        },
+        {
+          "text": "int",
+          "tokenType": "parameter",
+          "start": 2085,
+          "end": 2088
+        },
+        {
+          "text": "char",
+          "tokenType": "parameter",
+          "start": 2100,
+          "end": 2104
+        },
+        {
+          "text": "char",
+          "tokenType": "parameter",
+          "start": 2157,
+          "end": 2161
+        },
+        {
+          "text": "len",
+          "tokenType": "parameter",
+          "start": 2207,
+          "end": 2210
+        },
+        {
+          "text": "len",
+          "tokenType": "parameter",
+          "start": 2219,
+          "end": 2222
+        },
+        {
+          "text": "size",
+          "tokenType": "variable",
+          "start": 2226,
+          "end": 2230
+        },
+        {
+          "text": "tmp",
+          "tokenType": "parameter",
+          "start": 2358,
+          "end": 2361
+        },
+        {
+          "text": "dst",
+          "tokenType": "variable",
+          "start": 2373,
+          "end": 2376
+        },
+        {
+          "text": "tmp",
+          "tokenType": "property",
+          "start": 2894,
+          "end": 2897
+        },
+        {
+          "text": "tp",
+          "tokenType": "property",
+          "start": 2964,
+          "end": 2966
+        },
+        {
+          "text": "best",
+          "tokenType": "keyword",
+          "start": 3010,
+          "end": 3014
+        },
+        {
+          "text": "cur",
+          "tokenType": "keyword",
+          "start": 3016,
+          "end": 3019
+        },
+        {
+          "text": "src",
+          "tokenType": "variable",
+          "start": 3329,
+          "end": 3332
+        },
+        {
+          "text": "for",
+          "tokenType": "function",
+          "start": 3433,
+          "end": 3436
+        },
+        {
+          "text": "-",
+          "tokenType": "number",
+          "start": 3632,
+          "end": 3633
+        },
+        {
+          "text": "1",
+          "tokenType": "number",
+          "start": 3633,
+          "end": 3634
+        },
+        {
+          "text": "for",
+          "tokenType": "function",
+          "start": 3918,
+          "end": 3921
+        },
+        {
+          "text": "i",
+          "tokenType": "parameter",
+          "start": 4234,
+          "end": 4235
+        },
+        {
+          "text": "src",
+          "tokenType": "variable",
+          "start": 4434,
+          "end": 4437
+        },
+        {
+          "text": "tp",
+          "tokenType": "parameter",
+          "start": 4525,
+          "end": 4527
+        },
+        {
+          "text": "tp",
+          "tokenType": "parameter",
+          "start": 4569,
+          "end": 4571
+        },
+        {
+          "text": "best",
+          "tokenType": "parameter",
+          "start": 4667,
+          "end": 4671
+        },
+        {
+          "text": "size_t",
+          "tokenType": "decorator",
+          "start": 4809,
+          "end": 4815
+        },
+        {
+          "text": "tp",
+          "tokenType": "parameter",
+          "start": 4817,
+          "end": 4819
+        },
+        {
+          "text": "tmp",
+          "tokenType": "parameter",
+          "start": 4822,
+          "end": 4825
+        },
+        {
+          "text": "tmp",
+          "tokenType": "parameter",
+          "start": 4961,
+          "end": 4964
+        },
+        {
+          "text": "dst",
+          "tokenType": "variable",
+          "start": 4976,
+          "end": 4979
+        },
+        {
+          "text": "AF_INET",
+          "tokenType": "enum-member",
+          "start": 5508,
+          "end": 5515
+        },
+        {
+          "text": "default",
+          "tokenType": "label",
+          "start": 5660,
+          "end": 5667
+        }
+      ]
+    },
+    {
+      "path": "lib/config-riscos.h",
+      "repository": "curl-c-v1",
+      "source": "#ifndef HEADER_CURL_CONFIG_RISCOS_H\n#define HEADER_CURL_CONFIG_RISCOS_H\n/***************************************************************************\n *                                  _   _ ____  _\n *  Project                     ___| | | |  _ \\| |\n *                             / __| | | | |_) | |\n *                            | (__| |_| |  _ <| |___\n *                             \\___|\\___/|_| \\_\\_____|\n *\n * Copyright (C) Daniel Stenberg, <daniel@haxx.se>, et al.\n *\n * This software is licensed as described in the file COPYING, which\n * you should have received as part of this distribution. The terms\n * are also available at https://curl.se/docs/copyright.html.\n *\n * You may opt to use, copy, modify, merge, publish, distribute and/or sell\n * copies of the Software, and permit persons to whom the Software is\n * furnished to do so, under the terms of the COPYING file.\n *\n * This software is distributed on an \"AS IS\" basis, WITHOUT WARRANTY OF ANY\n * KIND, either express or implied.\n *\n * SPDX-License-Identifier: curl\n *\n ***************************************************************************/\n\n/* ================================================================ */\n/*               Hand crafted config file for RISC OS               */\n/* ================================================================ */\n\n/* Define cpu-machine-OS */\n#ifndef CURL_OS\n#define CURL_OS \"ARM-RISC OS\"\n#endif\n\n/* Define if you want the built-in manual */\n#define USE_MANUAL\n\n/* Define if you have the gethostbyname_r() function with 3 arguments */\n#undef HAVE_GETHOSTBYNAME_R_3\n\n/* Define if you have the gethostbyname_r() function with 5 arguments */\n#undef HAVE_GETHOSTBYNAME_R_5\n\n/* Define if you have the gethostbyname_r() function with 6 arguments */\n#undef HAVE_GETHOSTBYNAME_R_6\n\n/* Define if you need the _REENTRANT define for some functions */\n#undef NEED_REENTRANT\n\n/* Define if you want to enable IPv6 support */\n#undef USE_IPV6\n\n/* Define if struct sockaddr_in6 has the sin6_scope_id member */\n#define HAVE_SOCKADDR_IN6_SIN6_SCOPE_ID 1\n\n/* Define this to 'int' if ssize_t is not an available typedefed type */\n#undef ssize_t\n\n/* Define if you have the alarm function. */\n#define HAVE_ALARM\n\n/* Define if you have the <arpa/inet.h> header file. */\n#define HAVE_ARPA_INET_H\n\n/* Define if you have the `closesocket' function. */\n#undef HAVE_CLOSESOCKET\n\n/* Define if you have the <fcntl.h> header file. */\n#define HAVE_FCNTL_H\n\n/* Define if you have the `ftruncate' function. */\n#define HAVE_FTRUNCATE\n\n/* Define if getaddrinfo exists and works */\n#define HAVE_GETADDRINFO\n\n/* Define if you have the `geteuid' function. */\n#undef HAVE_GETEUID\n\n/* Define if you have the `gethostbyname_r' function. */\n#undef HAVE_GETHOSTBYNAME_R\n\n/* Define if you have the `gethostname' function. */\n#define HAVE_GETHOSTNAME\n\n/* Define if you have the `getpass_r' function. */\n#undef HAVE_GETPASS_R\n\n/* Define if you have the `getpwuid' function. */\n#undef HAVE_GETPWUID\n\n/* Define if you have the `gettimeofday' function. */\n#define HAVE_GETTIMEOFDAY\n\n/* Define if you have the `timeval' struct. */\n#define HAVE_STRUCT_TIMEVAL\n\n/* Define if you have the <io.h> header file. */\n#undef HAVE_IO_H\n\n/* Define if you have the <netdb.h> header file. */\n#define HAVE_NETDB_H\n\n/* Define if you have the <netinet/in.h> header file. */\n#define HAVE_NETINET_IN_H\n\n/* Define if you have the <net/if.h> header file. */\n#define HAVE_NET_IF_H\n\n/* Define if you have the <pwd.h> header file. */\n#undef HAVE_PWD_H\n\n/* Define if you have the `select' function. */\n#define HAVE_SELECT\n\n/* Define if you have the `sigaction' function. */\n#undef HAVE_SIGACTION\n\n/* Define if you have the `signal' function. */\n#define HAVE_SIGNAL\n\n/* Define if you have the `socket' function. */\n#define HAVE_SOCKET\n\n/* Define if you have the `strcasecmp' function. */\n#undef HAVE_STRCASECMP\n\n/* Define if you have the `strcmpi' function. */\n#undef HAVE_STRCMPI\n\n/* Define if you have the `strdup' function. */\n#define HAVE_STRDUP\n\n/* Define if you have the `stricmp' function. */\n#define HAVE_STRICMP\n\n/* Define if you have the <strings.h> header file. */\n#undef HAVE_STRINGS_H\n\n/* Define if you have the <sys/param.h> header file. */\n#undef HAVE_SYS_PARAM_H\n\n/* Define if you have the <sys/select.h> header file. */\n#undef HAVE_SYS_SELECT_H\n\n/* Define if you have the <sys/socket.h> header file. */\n#define HAVE_SYS_SOCKET_H\n\n/* Define if you have the <sys/sockio.h> header file. */\n#undef HAVE_SYS_SOCKIO_H\n\n/* Define if you have the <sys/stat.h> header file. */\n#undef HAVE_SYS_STAT_H\n\n/* Define if you have the <sys/time.h> header file. */\n#define HAVE_SYS_TIME_H\n\n/* Define if you have the <sys/types.h> header file. */\n#define HAVE_SYS_TYPES_H\n\n/* Define if you have the <termios.h> header file. */\n#define HAVE_TERMIOS_H\n\n/* Define if you have the <termio.h> header file. */\n#undef HAVE_TERMIO_H\n\n/* Define if you have the <unistd.h> header file. */\n#define HAVE_UNISTD_H\n\n/* The size of `int', as computed by sizeof. */\n#define SIZEOF_INT 4\n\n/* The size of `long long', as computed by sizeof. */\n#undef SIZEOF_LONG_LONG\n\n/* The size of `size_t', as computed by sizeof. */\n#define SIZEOF_SIZE_T 4\n\n/* Define if you have the ANSI C header files. */\n#undef STDC_HEADERS\n\n/* Version number of package */\n#undef VERSION\n\n/* Number of bits in a file offset, on hosts where this is settable. */\n#undef _FILE_OFFSET_BITS\n\n/* Define for large files, on AIX-style hosts. */\n#undef _LARGE_FILES\n\n/* Define to empty if `const' does not conform to ANSI C. */\n#undef const\n\n/* Define to `unsigned' if <sys/types.h> does not define. */\n#undef size_t\n\n/* Define to `int' if <sys/types.h> does not define. */\n#undef ssize_t\n\n/* Define if you have a working ioctl FIONBIO function. */\n#define HAVE_IOCTL_FIONBIO\n\n/* to disable LDAP */\n#define CURL_DISABLE_LDAP\n\n/* Define if you have the recv function. */\n#define HAVE_RECV 1\n\n/* Define to the type of arg 1 for recv. */\n#define RECV_TYPE_ARG1 int\n\n/* Define to the type of arg 2 for recv. */\n#define RECV_TYPE_ARG2 void *\n\n/* Define to the type of arg 3 for recv. */\n#define RECV_TYPE_ARG3 size_t\n\n/* Define to the type of arg 4 for recv. */\n#define RECV_TYPE_ARG4 int\n\n/* Define to the function return type for recv. */\n#define RECV_TYPE_RETV ssize_t\n\n/* Define if you have the send function. */\n#define HAVE_SEND 1\n\n/* Define to the type of arg 1 for send. */\n#define SEND_TYPE_ARG1 int\n\n/* Define to the type qualifier of arg 2 for send. */\n#define SEND_QUAL_ARG2 const\n\n/* Define to the type of arg 2 for send. */\n#define SEND_TYPE_ARG2 void *\n\n/* Define to the type of arg 3 for send. */\n#define SEND_TYPE_ARG3 size_t\n\n/* Define to the type of arg 4 for send. */\n#define SEND_TYPE_ARG4 int\n\n/* Define to the function return type for send. */\n#define SEND_TYPE_RETV ssize_t\n\n#endif /* HEADER_CURL_CONFIG_RISCOS_H */\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8653061224489796,
+          "recall": 0.8653061224489796,
+          "f1": 0.8653061224489796,
+          "tp": 212,
+          "fp": 33,
+          "fn": 33,
+          "support": 245
+        },
+        "exactSpanMacroF1": 0.5572500605180344,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8489795918367347,
+          "recall": 0.8489795918367347,
+          "f1": 0.8489795918367347,
+          "tp": 208,
+          "fp": 37,
+          "fn": 37,
+          "support": 245
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.9285714285714286,
+            "f1": 0.9629629629629629,
+            "tp": 78,
+            "fp": 0,
+            "fn": 6,
+            "support": 84
+          },
+          "comment": {
+            "precision": 0.987012987012987,
+            "recall": 1.0,
+            "f1": 0.9934640522875817,
+            "tp": 76,
+            "fp": 1,
+            "fn": 0,
+            "support": 76
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 0.16666666666666666,
+            "f1": 0.2857142857142857,
+            "tp": 5,
+            "fp": 0,
+            "fn": 25,
+            "support": 30
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.647887323943662,
+            "recall": 0.9583333333333334,
+            "f1": 0.773109243697479,
+            "tp": 46,
+            "fp": 25,
+            "fn": 2,
+            "support": 48
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "HAVE_GETHOSTBYNAME_R_3",
+          "tokenType": "string",
+          "start": 1558,
+          "end": 1580
+        },
+        {
+          "text": "HAVE_GETHOSTBYNAME_R_5",
+          "tokenType": "string",
+          "start": 1662,
+          "end": 1684
+        },
+        {
+          "text": "HAVE_GETHOSTBYNAME_R_6",
+          "tokenType": "string",
+          "start": 1766,
+          "end": 1788
+        },
+        {
+          "text": "NEED_REENTRANT",
+          "tokenType": "string",
+          "start": 1863,
+          "end": 1877
+        },
+        {
+          "text": "USE_IPV6",
+          "tokenType": "string",
+          "start": 1934,
+          "end": 1942
+        },
+        {
+          "text": "HAVE_CLOSESOCKET",
+          "tokenType": "string",
+          "start": 2348,
+          "end": 2364
+        },
+        {
+          "text": "HAVE_GETEUID",
+          "tokenType": "string",
+          "start": 2642,
+          "end": 2654
+        },
+        {
+          "text": "HAVE_GETHOSTBYNAME_R",
+          "tokenType": "string",
+          "start": 2720,
+          "end": 2740
+        },
+        {
+          "text": "HAVE_GETPASS_R",
+          "tokenType": "string",
+          "start": 2879,
+          "end": 2893
+        },
+        {
+          "text": "HAVE_GETPWUID",
+          "tokenType": "string",
+          "start": 2952,
+          "end": 2965
+        },
+        {
+          "text": "HAVE_IO_H",
+          "tokenType": "string",
+          "start": 3180,
+          "end": 3189
+        },
+        {
+          "text": "HAVE_SIGACTION",
+          "tokenType": "string",
+          "start": 3621,
+          "end": 3635
+        },
+        {
+          "text": "HAVE_STRCASECMP",
+          "tokenType": "string",
+          "start": 3834,
+          "end": 3849
+        },
+        {
+          "text": "HAVE_STRCMPI",
+          "tokenType": "string",
+          "start": 3907,
+          "end": 3919
+        },
+        {
+          "text": "HAVE_STRINGS_H",
+          "tokenType": "string",
+          "start": 4122,
+          "end": 4136
+        },
+        {
+          "text": "HAVE_SYS_PARAM_H",
+          "tokenType": "string",
+          "start": 4201,
+          "end": 4217
+        },
+        {
+          "text": "HAVE_SYS_SELECT_H",
+          "tokenType": "string",
+          "start": 4283,
+          "end": 4300
+        },
+        {
+          "text": "HAVE_SYS_SOCKIO_H",
+          "tokenType": "string",
+          "start": 4450,
+          "end": 4467
+        },
+        {
+          "text": "HAVE_SYS_STAT_H",
+          "tokenType": "string",
+          "start": 4531,
+          "end": 4546
+        },
+        {
+          "text": "HAVE_TERMIO_H",
+          "tokenType": "string",
+          "start": 4848,
+          "end": 4861
+        },
+        {
+          "text": "SIZEOF_LONG_LONG",
+          "tokenType": "string",
+          "start": 5070,
+          "end": 5086
+        },
+        {
+          "text": "STDC_HEADERS",
+          "tokenType": "string",
+          "start": 5221,
+          "end": 5233
+        },
+        {
+          "text": "VERSION",
+          "tokenType": "string",
+          "start": 5274,
+          "end": 5281
+        },
+        {
+          "text": "_FILE_OFFSET_BITS",
+          "tokenType": "string",
+          "start": 5362,
+          "end": 5379
+        },
+        {
+          "text": "_LARGE_FILES",
+          "tokenType": "string",
+          "start": 5438,
+          "end": 5450
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 5943,
+          "end": 5946
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 6165,
+          "end": 6168
+        },
+        {
+          "text": "ssize_t",
+          "tokenType": "variable",
+          "start": 6244,
+          "end": 6251
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 6385,
+          "end": 6388
+        },
+        {
+          "text": "const",
+          "tokenType": "keyword",
+          "start": 6467,
+          "end": 6472
+        },
+        {
+          "text": "SEND_TYPE_ARG2",
+          "tokenType": "variable",
+          "start": 6526,
+          "end": 6540
+        },
+        {
+          "text": "void",
+          "tokenType": "keyword",
+          "start": 6541,
+          "end": 6545
+        },
+        {
+          "text": "int",
+          "tokenType": "keyword",
+          "start": 6691,
+          "end": 6694
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "HAVE_GETHOSTBYNAME_R_3",
+          "tokenType": "variable",
+          "start": 1558,
+          "end": 1580
+        },
+        {
+          "text": "HAVE_GETHOSTBYNAME_R_5",
+          "tokenType": "variable",
+          "start": 1662,
+          "end": 1684
+        },
+        {
+          "text": "HAVE_GETHOSTBYNAME_R_6",
+          "tokenType": "variable",
+          "start": 1766,
+          "end": 1788
+        },
+        {
+          "text": "NEED_REENTRANT",
+          "tokenType": "variable",
+          "start": 1863,
+          "end": 1877
+        },
+        {
+          "text": "USE_IPV6",
+          "tokenType": "variable",
+          "start": 1934,
+          "end": 1942
+        },
+        {
+          "text": "HAVE_CLOSESOCKET",
+          "tokenType": "variable",
+          "start": 2348,
+          "end": 2364
+        },
+        {
+          "text": "HAVE_GETEUID",
+          "tokenType": "variable",
+          "start": 2642,
+          "end": 2654
+        },
+        {
+          "text": "HAVE_GETHOSTBYNAME_R",
+          "tokenType": "variable",
+          "start": 2720,
+          "end": 2740
+        },
+        {
+          "text": "HAVE_GETPASS_R",
+          "tokenType": "variable",
+          "start": 2879,
+          "end": 2893
+        },
+        {
+          "text": "HAVE_GETPWUID",
+          "tokenType": "variable",
+          "start": 2952,
+          "end": 2965
+        },
+        {
+          "text": "HAVE_IO_H",
+          "tokenType": "variable",
+          "start": 3180,
+          "end": 3189
+        },
+        {
+          "text": "HAVE_SIGACTION",
+          "tokenType": "variable",
+          "start": 3621,
+          "end": 3635
+        },
+        {
+          "text": "HAVE_STRCASECMP",
+          "tokenType": "variable",
+          "start": 3834,
+          "end": 3849
+        },
+        {
+          "text": "HAVE_STRCMPI",
+          "tokenType": "variable",
+          "start": 3907,
+          "end": 3919
+        },
+        {
+          "text": "HAVE_STRINGS_H",
+          "tokenType": "variable",
+          "start": 4122,
+          "end": 4136
+        },
+        {
+          "text": "HAVE_SYS_PARAM_H",
+          "tokenType": "variable",
+          "start": 4201,
+          "end": 4217
+        },
+        {
+          "text": "HAVE_SYS_SELECT_H",
+          "tokenType": "variable",
+          "start": 4283,
+          "end": 4300
+        },
+        {
+          "text": "HAVE_SYS_SOCKIO_H",
+          "tokenType": "variable",
+          "start": 4450,
+          "end": 4467
+        },
+        {
+          "text": "HAVE_SYS_STAT_H",
+          "tokenType": "variable",
+          "start": 4531,
+          "end": 4546
+        },
+        {
+          "text": "HAVE_TERMIO_H",
+          "tokenType": "variable",
+          "start": 4848,
+          "end": 4861
+        },
+        {
+          "text": "SIZEOF_LONG_LONG",
+          "tokenType": "variable",
+          "start": 5070,
+          "end": 5086
+        },
+        {
+          "text": "STDC_HEADERS",
+          "tokenType": "variable",
+          "start": 5221,
+          "end": 5233
+        },
+        {
+          "text": "VERSION",
+          "tokenType": "enum-member",
+          "start": 5274,
+          "end": 5281
+        },
+        {
+          "text": "_FILE_OFFSET_BITS",
+          "tokenType": "variable",
+          "start": 5362,
+          "end": 5379
+        },
+        {
+          "text": "_LARGE_FILES",
+          "tokenType": "variable",
+          "start": 5438,
+          "end": 5450
+        },
+        {
+          "text": "int",
+          "tokenType": "variable",
+          "start": 5943,
+          "end": 5946
+        },
+        {
+          "text": "int",
+          "tokenType": "property",
+          "start": 6165,
+          "end": 6168
+        },
+        {
+          "text": "ssize_t",
+          "tokenType": "property",
+          "start": 6244,
+          "end": 6251
+        },
+        {
+          "text": "int",
+          "tokenType": "enum-member",
+          "start": 6385,
+          "end": 6388
+        },
+        {
+          "text": "const",
+          "tokenType": "property",
+          "start": 6467,
+          "end": 6472
+        },
+        {
+          "text": "SEND_TYPE_ARG2",
+          "tokenType": "type",
+          "start": 6526,
+          "end": 6540
+        },
+        {
+          "text": "void",
+          "tokenType": "comment",
+          "start": 6541,
+          "end": 6545
+        },
+        {
+          "text": "int",
+          "tokenType": "enum-member",
+          "start": 6691,
+          "end": 6694
+        }
+      ]
+    },
+    {
+      "path": "src/modules/hellotype.c",
+      "repository": "redis-c-v1",
+      "source": "/* This file implements a new module native data type called \"HELLOTYPE\".\n * The data structure implemented is a very simple ordered linked list of\n * 64 bit integers, in order to have something that is real world enough, but\n * at the same time, extremely simple to understand, to show how the API\n * works, how a new data type is created, and how to write basic methods\n * for RDB loading, saving and AOF rewriting.\n *\n * -----------------------------------------------------------------------------\n *\n * Copyright (c) 2016-Present, Redis Ltd.\n * All rights reserved.\n *\n * Licensed under your choice of the Redis Source Available License 2.0\n * (RSALv2) or the Server Side Public License v1 (SSPLv1).\n */\n\n#include \"../redismodule.h\"\n#include <stdio.h>\n#include <stdlib.h>\n#include <ctype.h>\n#include <string.h>\n#include <stdint.h>\n\nstatic RedisModuleType *HelloType;\n\n/* ========================== Internal data structure  =======================\n * This is just a linked list of 64 bit integers where elements are inserted\n * in-place, so it's ordered. There is no pop/push operation but just insert\n * because it is enough to show the implementation of new data types without\n * making things complex. */\n\nstruct HelloTypeNode {\n    int64_t value;\n    struct HelloTypeNode *next;\n};\n\nstruct HelloTypeObject {\n    struct HelloTypeNode *head;\n    size_t len; /* Number of elements added. */\n};\n\nstruct HelloTypeObject *createHelloTypeObject(void) {\n    struct HelloTypeObject *o;\n    o = RedisModule_Alloc(sizeof(*o));\n    o->head = NULL;\n    o->len = 0;\n    return o;\n}\n\nvoid HelloTypeInsert(struct HelloTypeObject *o, int64_t ele) {\n    struct HelloTypeNode *next = o->head, *newnode, *prev = NULL;\n\n    while(next && next->value < ele) {\n        prev = next;\n        next = next->next;\n    }\n    newnode = RedisModule_Alloc(sizeof(*newnode));\n    newnode->value = ele;\n    newnode->next = next;\n    if (prev) {\n        prev->next = newnode;\n    } else {\n        o->head = newnode;\n    }\n    o->len++;\n}\n\nvoid HelloTypeReleaseObject(struct HelloTypeObject *o) {\n    struct HelloTypeNode *cur, *next;\n    cur = o->head;\n    while(cur) {\n        next = cur->next;\n        RedisModule_Free(cur);\n        cur = next;\n    }\n    RedisModule_Free(o);\n}\n\n/* ========================= \"hellotype\" type commands ======================= */\n\n/* HELLOTYPE.INSERT key value */\nint HelloTypeInsert_RedisCommand(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {\n    RedisModule_AutoMemory(ctx); /* Use automatic memory management. */\n\n    if (argc != 3) return RedisModule_WrongArity(ctx);\n    RedisModuleKey *key = RedisModule_OpenKey(ctx,argv[1],\n        REDISMODULE_READ|REDISMODULE_WRITE);\n    int type = RedisModule_KeyType(key);\n    if (type != REDISMODULE_KEYTYPE_EMPTY &&\n        RedisModule_ModuleTypeGetType(key) != HelloType)\n    {\n        return RedisModule_ReplyWithError(ctx,REDISMODULE_ERRORMSG_WRONGTYPE);\n    }\n\n    long long value;\n    if ((RedisModule_StringToLongLong(argv[2],&value) != REDISMODULE_OK)) {\n        return RedisModule_ReplyWithError(ctx,\"ERR invalid value: must be a signed 64 bit integer\");\n    }\n\n    /* Create an empty value object if the key is currently empty. */\n    struct HelloTypeObject *hto;\n    if (type == REDISMODULE_KEYTYPE_EMPTY) {\n        hto = createHelloTypeObject();\n        RedisModule_ModuleTypeSetValue(key,HelloType,hto);\n    } else {\n        hto = RedisModule_ModuleTypeGetValue(key);\n    }\n\n    /* Insert the new element. */\n    HelloTypeInsert(hto,value);\n    RedisModule_SignalKeyAsReady(ctx,argv[1]);\n\n    RedisModule_ReplyWithLongLong(ctx,hto->len);\n    RedisModule_ReplicateVerbatim(ctx);\n    return REDISMODULE_OK;\n}\n\n/* HELLOTYPE.RANGE key first count */\nint HelloTypeRange_RedisCommand(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {\n    RedisModule_AutoMemory(ctx); /* Use automatic memory management. */\n\n    if (argc != 4) return RedisModule_WrongArity(ctx);\n    RedisModuleKey *key = RedisModule_OpenKey(ctx,argv[1],\n        REDISMODULE_READ|REDISMODULE_WRITE);\n    int type = RedisModule_KeyType(key);\n    if (type != REDISMODULE_KEYTYPE_EMPTY &&\n        RedisModule_ModuleTypeGetType(key) != HelloType)\n    {\n        return RedisModule_ReplyWithError(ctx,REDISMODULE_ERRORMSG_WRONGTYPE);\n    }\n\n    long long first, count;\n    if (RedisModule_StringToLongLong(argv[2],&first) != REDISMODULE_OK ||\n        RedisModule_StringToLongLong(argv[3],&count) != REDISMODULE_OK ||\n        first < 0 || count < 0)\n    {\n        return RedisModule_ReplyWithError(ctx,\n            \"ERR invalid first or count parameters\");\n    }\n\n    struct HelloTypeObject *hto = RedisModule_ModuleTypeGetValue(key);\n    struct HelloTypeNode *node = hto ? hto->head : NULL;\n    RedisModule_ReplyWithArray(ctx,REDISMODULE_POSTPONED_LEN);\n    long long arraylen = 0;\n    while(node && count--) {\n        RedisModule_ReplyWithLongLong(ctx,node->value);\n        arraylen++;\n        node = node->next;\n    }\n    RedisModule_ReplySetArrayLength(ctx,arraylen);\n    return REDISMODULE_OK;\n}\n\n/* HELLOTYPE.LEN key */\nint HelloTypeLen_RedisCommand(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {\n    RedisModule_AutoMemory(ctx); /* Use automatic memory management. */\n\n    if (argc != 2) return RedisModule_WrongArity(ctx);\n    RedisModuleKey *key = RedisModule_OpenKey(ctx,argv[1],\n        REDISMODULE_READ|REDISMODULE_WRITE);\n    int type = RedisModule_KeyType(key);\n    if (type != REDISMODULE_KEYTYPE_EMPTY &&\n        RedisModule_ModuleTypeGetType(key) != HelloType)\n    {\n        return RedisModule_ReplyWithError(ctx,REDISMODULE_ERRORMSG_WRONGTYPE);\n    }\n\n    struct HelloTypeObject *hto = RedisModule_ModuleTypeGetValue(key);\n    RedisModule_ReplyWithLongLong(ctx,hto ? hto->len : 0);\n    return REDISMODULE_OK;\n}\n\n/* ====================== Example of a blocking command ==================== */\n\n/* Reply callback for blocking command HELLOTYPE.BRANGE, this will get\n * called when the key we blocked for is ready: we need to check if we\n * can really serve the client, and reply OK or ERR accordingly. */\nint HelloBlock_Reply(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {\n    REDISMODULE_NOT_USED(argv);\n    REDISMODULE_NOT_USED(argc);\n\n    RedisModuleString *keyname = RedisModule_GetBlockedClientReadyKey(ctx);\n    RedisModuleKey *key = RedisModule_OpenKey(ctx,keyname,REDISMODULE_READ);\n    int type = RedisModule_KeyType(key);\n    if (type != REDISMODULE_KEYTYPE_MODULE ||\n        RedisModule_ModuleTypeGetType(key) != HelloType)\n    {\n        RedisModule_CloseKey(key);\n        return REDISMODULE_ERR;\n    }\n\n    /* In case the key is able to serve our blocked client, let's directly\n     * use our original command implementation to make this example simpler. */\n    RedisModule_CloseKey(key);\n    return HelloTypeRange_RedisCommand(ctx,argv,argc-1);\n}\n\n/* Timeout callback for blocking command HELLOTYPE.BRANGE */\nint HelloBlock_Timeout(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {\n    REDISMODULE_NOT_USED(argv);\n    REDISMODULE_NOT_USED(argc);\n    return RedisModule_ReplyWithSimpleString(ctx,\"Request timedout\");\n}\n\n/* Private data freeing callback for HELLOTYPE.BRANGE command. */\nvoid HelloBlock_FreeData(RedisModuleCtx *ctx, void *privdata) {\n    REDISMODULE_NOT_USED(ctx);\n    RedisModule_Free(privdata);\n}\n\n/* HELLOTYPE.BRANGE key first count timeout -- This is a blocking version of\n * the RANGE operation, in order to show how to use the API\n * RedisModule_BlockClientOnKeys(). */\nint HelloTypeBRange_RedisCommand(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {\n    if (argc != 5) return RedisModule_WrongArity(ctx);\n    RedisModule_AutoMemory(ctx); /* Use automatic memory management. */\n    RedisModuleKey *key = RedisModule_OpenKey(ctx,argv[1],\n        REDISMODULE_READ|REDISMODULE_WRITE);\n    int type = RedisModule_KeyType(key);\n    if (type != REDISMODULE_KEYTYPE_EMPTY &&\n        RedisModule_ModuleTypeGetType(key) != HelloType)\n    {\n        return RedisModule_ReplyWithError(ctx,REDISMODULE_ERRORMSG_WRONGTYPE);\n    }\n\n    /* Parse the timeout before even trying to serve the client synchronously,\n     * so that we always fail ASAP on syntax errors. */\n    long long timeout;\n    if (RedisModule_StringToLongLong(argv[4],&timeout) != REDISMODULE_OK) {\n        return RedisModule_ReplyWithError(ctx,\n            \"ERR invalid timeout parameter\");\n    }\n\n    /* Can we serve the reply synchronously? */\n    if (type != REDISMODULE_KEYTYPE_EMPTY) {\n        return HelloTypeRange_RedisCommand(ctx,argv,argc-1);\n    }\n\n    /* Otherwise let's block on the key. */\n    void *privdata = RedisModule_Alloc(100);\n    RedisModule_BlockClientOnKeys(ctx,HelloBlock_Reply,HelloBlock_Timeout,HelloBlock_FreeData,timeout,argv+1,1,privdata);\n    return REDISMODULE_OK;\n}\n\n/* ========================== \"hellotype\" type methods ======================= */\n\nvoid *HelloTypeRdbLoad(RedisModuleIO *rdb, int encver) {\n    if (encver != 0) {\n        /* RedisModule_Log(\"warning\",\"Can't load data with version %d\", encver);*/\n        return NULL;\n    }\n    uint64_t elements = RedisModule_LoadUnsigned(rdb);\n    struct HelloTypeObject *hto = createHelloTypeObject();\n    while(elements--) {\n        int64_t ele = RedisModule_LoadSigned(rdb);\n        HelloTypeInsert(hto,ele);\n    }\n    return hto;\n}\n\nvoid HelloTypeRdbSave(RedisModuleIO *rdb, void *value) {\n    struct HelloTypeObject *hto = value;\n    struct HelloTypeNode *node = hto->head;\n    RedisModule_SaveUnsigned(rdb,hto->len);\n    while(node) {\n        RedisModule_SaveSigned(rdb,node->value);\n        node = node->next;\n    }\n}\n\nvoid HelloTypeAofRewrite(RedisModuleIO *aof, RedisModuleString *key, void *value) {\n    struct HelloTypeObject *hto = value;\n    struct HelloTypeNode *node = hto->head;\n    while(node) {\n        RedisModule_EmitAOF(aof,\"HELLOTYPE.INSERT\",\"sl\",key,node->value);\n        node = node->next;\n    }\n}\n\n/* The goal of this function is to return the amount of memory used by\n * the HelloType value. */\nsize_t HelloTypeMemUsage(const void *value) {\n    const struct HelloTypeObject *hto = value;\n    struct HelloTypeNode *node = hto->head;\n    return sizeof(*hto) + sizeof(*node)*hto->len;\n}\n\nvoid HelloTypeFree(void *value) {\n    HelloTypeReleaseObject(value);\n}\n\nvoid HelloTypeDigest(RedisModuleDigest *md, void *value) {\n    struct HelloTypeObject *hto = value;\n    struct HelloTypeNode *node = hto->head;\n    while(node) {\n        RedisModule_DigestAddLongLong(md,node->value);\n        node = node->next;\n    }\n    RedisModule_DigestEndSequence(md);\n}\n\n/* This function must be present on each Redis module. It is used in order to\n * register the commands into the Redis server. */\nint RedisModule_OnLoad(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {\n    REDISMODULE_NOT_USED(argv);\n    REDISMODULE_NOT_USED(argc);\n\n    if (RedisModule_Init(ctx,\"hellotype\",1,REDISMODULE_APIVER_1)\n        == REDISMODULE_ERR) return REDISMODULE_ERR;\n\n    RedisModuleTypeMethods tm = {\n        .version = REDISMODULE_TYPE_METHOD_VERSION,\n        .rdb_load = HelloTypeRdbLoad,\n        .rdb_save = HelloTypeRdbSave,\n        .aof_rewrite = HelloTypeAofRewrite,\n        .mem_usage = HelloTypeMemUsage,\n        .free = HelloTypeFree,\n        .digest = HelloTypeDigest\n    };\n\n    HelloType = RedisModule_CreateDataType(ctx,\"hellotype\",0,&tm);\n    if (HelloType == NULL) return REDISMODULE_ERR;\n\n    if (RedisModule_CreateCommand(ctx,\"hellotype.insert\",\n        HelloTypeInsert_RedisCommand,\"write deny-oom\",1,1,1) == REDISMODULE_ERR)\n        return REDISMODULE_ERR;\n\n    if (RedisModule_CreateCommand(ctx,\"hellotype.range\",\n        HelloTypeRange_RedisCommand,\"readonly\",1,1,1) == REDISMODULE_ERR)\n        return REDISMODULE_ERR;\n\n    if (RedisModule_CreateCommand(ctx,\"hellotype.len\",\n        HelloTypeLen_RedisCommand,\"readonly\",1,1,1) == REDISMODULE_ERR)\n        return REDISMODULE_ERR;\n\n    if (RedisModule_CreateCommand(ctx,\"hellotype.brange\",\n        HelloTypeBRange_RedisCommand,\"readonly\",1,1,1) == REDISMODULE_ERR)\n        return REDISMODULE_ERR;\n\n    return REDISMODULE_OK;\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9360100376411543,
+          "recall": 0.9395465994962217,
+          "f1": 0.9377749842866122,
+          "tp": 1492,
+          "fp": 102,
+          "fn": 96,
+          "support": 1588
+        },
+        "exactSpanMacroF1": 0.9253669896254998,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9347553324968633,
+          "recall": 0.9382871536523929,
+          "f1": 0.9365179132620993,
+          "tp": 1490,
+          "fp": 104,
+          "fn": 98,
+          "support": 1588
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9867549668874173,
+            "recall": 0.9802631578947368,
+            "f1": 0.9834983498349835,
+            "tp": 149,
+            "fp": 2,
+            "fn": 3,
+            "support": 152
+          },
+          "comment": {
+            "precision": 0.8,
+            "recall": 0.9230769230769231,
+            "f1": 0.8571428571428571,
+            "tp": 24,
+            "fp": 6,
+            "fn": 2,
+            "support": 26
+          },
+          "string": {
+            "precision": 0.9565217391304348,
+            "recall": 1.0,
+            "f1": 0.9777777777777777,
+            "tp": 22,
+            "fp": 1,
+            "fn": 0,
+            "support": 22
+          },
+          "number": {
+            "precision": 0.9736842105263158,
+            "recall": 0.9736842105263158,
+            "f1": 0.9736842105263158,
+            "tp": 37,
+            "fp": 1,
+            "fn": 1,
+            "support": 38
+          },
+          "operator": {
+            "precision": 0.9953917050691244,
+            "recall": 0.9908256880733946,
+            "f1": 0.993103448275862,
+            "tp": 216,
+            "fp": 1,
+            "fn": 2,
+            "support": 218
+          },
+          "punctuation": {
+            "precision": 0.996742671009772,
+            "recall": 0.99836867862969,
+            "f1": 0.9975550122249389,
+            "tp": 612,
+            "fp": 2,
+            "fn": 1,
+            "support": 613
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 51,
+            "fp": 0,
+            "fn": 0,
+            "support": 51
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.972972972972973,
+            "recall": 0.9557522123893806,
+            "f1": 0.9642857142857143,
+            "tp": 108,
+            "fp": 3,
+            "fn": 5,
+            "support": 113
+          },
+          "parameter": {
+            "precision": 0.625,
+            "recall": 0.9016393442622951,
+            "f1": 0.738255033557047,
+            "tp": 110,
+            "fp": 66,
+            "fn": 12,
+            "support": 122
+          },
+          "variable": {
+            "precision": 0.8794326241134752,
+            "recall": 0.6424870466321243,
+            "f1": 0.7425149700598802,
+            "tp": 124,
+            "fp": 17,
+            "fn": 69,
+            "support": 193
+          },
+          "property": {
+            "precision": 0.9285714285714286,
+            "recall": 0.975,
+            "f1": 0.9512195121951219,
+            "tp": 39,
+            "fp": 3,
+            "fn": 1,
+            "support": 40
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "/* This file implements a new module native data type called \"HELLOTYPE\".\n * The data structure implemented is a very simple ordered linked list of\n * 64 bit integers, in order to have something that is real world enough, but\n * at the same time, extremely simple to understand, to show how the API\n * works, how a new data type is created, and how to write basic methods\n * for RDB loading, saving and AOF rewriting.\n *\n * -----------------------------------------------------------------------------\n *\n * Copyright (c) 2016-Present, Redis Ltd.\n * All rights reserved.\n *\n * Licensed under your choice of the Redis Source Available License 2.0\n * (RSALv2) or the Server Side Public License v1 (SSPLv1).\n */",
+          "tokenType": "comment",
+          "start": 0,
+          "end": 708
+        },
+        {
+          "text": "o",
+          "tokenType": "variable",
+          "start": 1528,
+          "end": 1529
+        },
+        {
+          "text": "o",
+          "tokenType": "variable",
+          "start": 1548,
+          "end": 1549
+        },
+        {
+          "text": "newnode",
+          "tokenType": "variable",
+          "start": 1683,
+          "end": 1690
+        },
+        {
+          "text": "next",
+          "tokenType": "variable",
+          "start": 1717,
+          "end": 1721
+        },
+        {
+          "text": "next",
+          "tokenType": "variable",
+          "start": 1725,
+          "end": 1729
+        },
+        {
+          "text": "prev",
+          "tokenType": "variable",
+          "start": 1754,
+          "end": 1758
+        },
+        {
+          "text": "next",
+          "tokenType": "variable",
+          "start": 1761,
+          "end": 1765
+        },
+        {
+          "text": "next",
+          "tokenType": "variable",
+          "start": 1782,
+          "end": 1786
+        },
+        {
+          "text": "newnode",
+          "tokenType": "variable",
+          "start": 1855,
+          "end": 1862
+        },
+        {
+          "text": "ele",
+          "tokenType": "parameter",
+          "start": 1872,
+          "end": 1875
+        },
+        {
+          "text": "newnode",
+          "tokenType": "variable",
+          "start": 1881,
+          "end": 1888
+        },
+        {
+          "text": "prev",
+          "tokenType": "variable",
+          "start": 1927,
+          "end": 1931
+        },
+        {
+          "text": "newnode",
+          "tokenType": "variable",
+          "start": 1980,
+          "end": 1987
+        },
+        {
+          "text": "cur",
+          "tokenType": "variable",
+          "start": 2095,
+          "end": 2098
+        },
+        {
+          "text": "next",
+          "tokenType": "variable",
+          "start": 2101,
+          "end": 2105
+        },
+        {
+          "text": "while",
+          "tokenType": "keyword",
+          "start": 2130,
+          "end": 2135
+        },
+        {
+          "text": "o",
+          "tokenType": "parameter",
+          "start": 2247,
+          "end": 2248
+        },
+        {
+          "text": "argc",
+          "tokenType": "parameter",
+          "start": 2543,
+          "end": 2547
+        },
+        {
+          "text": "argv",
+          "tokenType": "parameter",
+          "start": 2640,
+          "end": 2644
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 2729,
+          "end": 2732
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 2818,
+          "end": 2821
+        },
+        {
+          "text": "ctx",
+          "tokenType": "parameter",
+          "start": 2885,
+          "end": 2888
+        },
+        {
+          "text": "value",
+          "tokenType": "variable",
+          "start": 2943,
+          "end": 2948
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 3232,
+          "end": 3235
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 3360,
+          "end": 3363
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 3374,
+          "end": 3377
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 3401,
+          "end": 3404
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 3438,
+          "end": 3441
+        },
+        {
+          "text": "value",
+          "tokenType": "variable",
+          "start": 3509,
+          "end": 3514
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 3603,
+          "end": 3606
+        },
+        {
+          "text": "argv",
+          "tokenType": "parameter",
+          "start": 3991,
+          "end": 3995
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 4080,
+          "end": 4083
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 4169,
+          "end": 4172
+        },
+        {
+          "text": "argv",
+          "tokenType": "parameter",
+          "start": 4419,
+          "end": 4423
+        },
+        {
+          "text": "first",
+          "tokenType": "variable",
+          "start": 4464,
+          "end": 4469
+        },
+        {
+          "text": "count",
+          "tokenType": "variable",
+          "start": 4477,
+          "end": 4482
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 4667,
+          "end": 4670
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 4706,
+          "end": 4709
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 4712,
+          "end": 4715
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 4831,
+          "end": 4835
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 4892,
+          "end": 4896
+        },
+        {
+          "text": "value",
+          "tokenType": "property",
+          "start": 4898,
+          "end": 4903
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 4941,
+          "end": 4945
+        },
+        {
+          "text": "ctx",
+          "tokenType": "parameter",
+          "start": 4995,
+          "end": 4998
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 5420,
+          "end": 5423
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 5685,
+          "end": 5688
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 5729,
+          "end": 5732
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 5735,
+          "end": 5738
+        },
+        {
+          "text": "keyname",
+          "tokenType": "variable",
+          "start": 6342,
+          "end": 6349
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 6404,
+          "end": 6407
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 6494,
+          "end": 6497
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 6548,
+          "end": 6551
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 6773,
+          "end": 6776
+        },
+        {
+          "text": "argc",
+          "tokenType": "parameter",
+          "start": 6827,
+          "end": 6831
+        },
+        {
+          "text": "argc",
+          "tokenType": "parameter",
+          "start": 7591,
+          "end": 7595
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 7849,
+          "end": 7852
+        },
+        {
+          "text": "type",
+          "tokenType": "variable",
+          "start": 7863,
+          "end": 7867
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 7938,
+          "end": 7941
+        },
+        {
+          "text": "timeout",
+          "tokenType": "variable",
+          "start": 8198,
+          "end": 8205
+        },
+        {
+          "text": ",",
+          "tokenType": "punctuation",
+          "start": 8251,
+          "end": 8252
+        },
+        {
+          "text": "&",
+          "tokenType": "operator",
+          "start": 8252,
+          "end": 8253
+        },
+        {
+          "text": "-",
+          "tokenType": "operator",
+          "start": 8532,
+          "end": 8533
+        },
+        {
+          "text": "1",
+          "tokenType": "number",
+          "start": 8533,
+          "end": 8534
+        },
+        {
+          "text": "timeout",
+          "tokenType": "variable",
+          "start": 8727,
+          "end": 8734
+        },
+        {
+          "text": "privdata",
+          "tokenType": "variable",
+          "start": 8744,
+          "end": 8752
+        },
+        {
+          "text": "encver",
+          "tokenType": "parameter",
+          "start": 8933,
+          "end": 8939
+        },
+        {
+          "text": "/* RedisModule_Log(\"warning\",\"Can't load data with version %d\", encver);*/",
+          "tokenType": "comment",
+          "start": 8956,
+          "end": 9030
+        },
+        {
+          "text": "rdb",
+          "tokenType": "parameter",
+          "start": 9241,
+          "end": 9244
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 9271,
+          "end": 9274
+        },
+        {
+          "text": "ele",
+          "tokenType": "variable",
+          "start": 9275,
+          "end": 9278
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 9437,
+          "end": 9440
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 9481,
+          "end": 9484
+        },
+        {
+          "text": "while",
+          "tokenType": "keyword",
+          "start": 9496,
+          "end": 9501
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 9545,
+          "end": 9549
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 9567,
+          "end": 9571
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 9574,
+          "end": 9578
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 9753,
+          "end": 9756
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 9774,
+          "end": 9778
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 9842,
+          "end": 9846
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 9871,
+          "end": 9875
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 10116,
+          "end": 10119
+        },
+        {
+          "text": "sizeof",
+          "tokenType": "keyword",
+          "start": 10138,
+          "end": 10144
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 10146,
+          "end": 10149
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 10161,
+          "end": 10165
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 10167,
+          "end": 10170
+        },
+        {
+          "text": "hto",
+          "tokenType": "variable",
+          "start": 10385,
+          "end": 10388
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 10455,
+          "end": 10459
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 10477,
+          "end": 10481
+        },
+        {
+          "text": "node",
+          "tokenType": "variable",
+          "start": 10484,
+          "end": 10488
+        },
+        {
+          "text": "HelloTypeRdbSave",
+          "tokenType": "function",
+          "start": 11082,
+          "end": 11098
+        },
+        {
+          "text": "HelloTypeAofRewrite",
+          "tokenType": "function",
+          "start": 11123,
+          "end": 11142
+        },
+        {
+          "text": "HelloTypeMemUsage",
+          "tokenType": "function",
+          "start": 11165,
+          "end": 11182
+        },
+        {
+          "text": "HelloTypeFree",
+          "tokenType": "function",
+          "start": 11200,
+          "end": 11213
+        },
+        {
+          "text": "HelloTypeDigest",
+          "tokenType": "function",
+          "start": 11233,
+          "end": 11248
+        },
+        {
+          "text": "tm",
+          "tokenType": "variable",
+          "start": 11319,
+          "end": 11321
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "/* This file implements a new module native data type called \"HELLOTYPE\".\n * The data structure implemented is a very simple ordered linked list of\n * 64 bit integers, in order to have something that is real world enough, but\n * at the same time, extremely simple to understand, to show how the API\n * works, how a new data type is created, and how to write basic methods\n * for RDB loading, saving and AOF rewriting.\n *\n * -----------------------------------------------------------------------------\n *\n * Cop",
+          "tokenType": "comment",
+          "start": 0,
+          "end": 511
+        },
+        {
+          "text": "yright",
+          "tokenType": "keyword",
+          "start": 511,
+          "end": 517
+        },
+        {
+          "text": "(",
+          "tokenType": "punctuation",
+          "start": 518,
+          "end": 519
+        },
+        {
+          "text": "c) ",
+          "tokenType": "comment",
+          "start": 519,
+          "end": 522
+        },
+        {
+          "text": "2016-Present, Redis Ltd.\n * All rights reserved.\n *\n * Licensed under your choice of the Redis Source Available License 2.0\n * (RSALv2) or the Server Side Public License v1 (SSPLv1).\n */",
+          "tokenType": "comment",
+          "start": 522,
+          "end": 708
+        },
+        {
+          "text": "o",
+          "tokenType": "parameter",
+          "start": 1528,
+          "end": 1529
+        },
+        {
+          "text": "o",
+          "tokenType": "parameter",
+          "start": 1548,
+          "end": 1549
+        },
+        {
+          "text": "newnode",
+          "tokenType": "parameter",
+          "start": 1683,
+          "end": 1690
+        },
+        {
+          "text": "next",
+          "tokenType": "parameter",
+          "start": 1717,
+          "end": 1721
+        },
+        {
+          "text": "next",
+          "tokenType": "parameter",
+          "start": 1725,
+          "end": 1729
+        },
+        {
+          "text": "prev",
+          "tokenType": "parameter",
+          "start": 1754,
+          "end": 1758
+        },
+        {
+          "text": "next",
+          "tokenType": "parameter",
+          "start": 1761,
+          "end": 1765
+        },
+        {
+          "text": "next",
+          "tokenType": "parameter",
+          "start": 1782,
+          "end": 1786
+        },
+        {
+          "text": "newnode",
+          "tokenType": "parameter",
+          "start": 1855,
+          "end": 1862
+        },
+        {
+          "text": "ele",
+          "tokenType": "variable",
+          "start": 1872,
+          "end": 1875
+        },
+        {
+          "text": "newnode",
+          "tokenType": "parameter",
+          "start": 1881,
+          "end": 1888
+        },
+        {
+          "text": "prev",
+          "tokenType": "parameter",
+          "start": 1927,
+          "end": 1931
+        },
+        {
+          "text": "newnode",
+          "tokenType": "parameter",
+          "start": 1980,
+          "end": 1987
+        },
+        {
+          "text": "cur",
+          "tokenType": "parameter",
+          "start": 2095,
+          "end": 2098
+        },
+        {
+          "text": "next",
+          "tokenType": "parameter",
+          "start": 2101,
+          "end": 2105
+        },
+        {
+          "text": "while",
+          "tokenType": "function",
+          "start": 2130,
+          "end": 2135
+        },
+        {
+          "text": "o",
+          "tokenType": "variable",
+          "start": 2247,
+          "end": 2248
+        },
+        {
+          "text": "argc",
+          "tokenType": "variable",
+          "start": 2543,
+          "end": 2547
+        },
+        {
+          "text": "argv",
+          "tokenType": "variable",
+          "start": 2640,
+          "end": 2644
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 2729,
+          "end": 2732
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 2818,
+          "end": 2821
+        },
+        {
+          "text": "ctx",
+          "tokenType": "variable",
+          "start": 2885,
+          "end": 2888
+        },
+        {
+          "text": "value",
+          "tokenType": "property",
+          "start": 2943,
+          "end": 2948
+        },
+        {
+          "text": "hto",
+          "tokenType": "property",
+          "start": 3232,
+          "end": 3235
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 3360,
+          "end": 3363
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 3374,
+          "end": 3377
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 3401,
+          "end": 3404
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 3438,
+          "end": 3441
+        },
+        {
+          "text": "value",
+          "tokenType": "parameter",
+          "start": 3509,
+          "end": 3514
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 3603,
+          "end": 3606
+        },
+        {
+          "text": "argv",
+          "tokenType": "variable",
+          "start": 3991,
+          "end": 3995
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 4080,
+          "end": 4083
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 4169,
+          "end": 4172
+        },
+        {
+          "text": "argv",
+          "tokenType": "variable",
+          "start": 4419,
+          "end": 4423
+        },
+        {
+          "text": "first",
+          "tokenType": "parameter",
+          "start": 4464,
+          "end": 4469
+        },
+        {
+          "text": "count",
+          "tokenType": "parameter",
+          "start": 4477,
+          "end": 4482
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 4667,
+          "end": 4670
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 4706,
+          "end": 4709
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 4712,
+          "end": 4715
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 4831,
+          "end": 4835
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 4892,
+          "end": 4896
+        },
+        {
+          "text": "value",
+          "tokenType": "parameter",
+          "start": 4898,
+          "end": 4903
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 4941,
+          "end": 4945
+        },
+        {
+          "text": "ctx",
+          "tokenType": "variable",
+          "start": 4995,
+          "end": 4998
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 5420,
+          "end": 5423
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 5685,
+          "end": 5688
+        },
+        {
+          "text": "hto",
+          "tokenType": "keyword",
+          "start": 5729,
+          "end": 5732
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 5735,
+          "end": 5738
+        },
+        {
+          "text": "keyname",
+          "tokenType": "parameter",
+          "start": 6342,
+          "end": 6349
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 6404,
+          "end": 6407
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 6494,
+          "end": 6497
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 6548,
+          "end": 6551
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 6773,
+          "end": 6776
+        },
+        {
+          "text": "argc",
+          "tokenType": "variable",
+          "start": 6827,
+          "end": 6831
+        },
+        {
+          "text": "argc",
+          "tokenType": "variable",
+          "start": 7591,
+          "end": 7595
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 7849,
+          "end": 7852
+        },
+        {
+          "text": "type",
+          "tokenType": "parameter",
+          "start": 7863,
+          "end": 7867
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 7938,
+          "end": 7941
+        },
+        {
+          "text": "timeout",
+          "tokenType": "property",
+          "start": 8198,
+          "end": 8205
+        },
+        {
+          "text": ",&",
+          "tokenType": "operator",
+          "start": 8251,
+          "end": 8253
+        },
+        {
+          "text": " ",
+          "tokenType": "string",
+          "start": 8339,
+          "end": 8340
+        },
+        {
+          "text": "-1",
+          "tokenType": "number",
+          "start": 8532,
+          "end": 8534
+        },
+        {
+          "text": "timeout",
+          "tokenType": "parameter",
+          "start": 8727,
+          "end": 8734
+        },
+        {
+          "text": "privdata",
+          "tokenType": "parameter",
+          "start": 8744,
+          "end": 8752
+        },
+        {
+          "text": "encver",
+          "tokenType": "variable",
+          "start": 8933,
+          "end": 8939
+        },
+        {
+          "text": "/* RedisModule_Log(",
+          "tokenType": "comment",
+          "start": 8956,
+          "end": 8975
+        },
+        {
+          "text": "\"warning\",\"Can't load data with version %d\"",
+          "tokenType": "comment",
+          "start": 8975,
+          "end": 9018
+        },
+        {
+          "text": ",",
+          "tokenType": "punctuation",
+          "start": 9018,
+          "end": 9019
+        },
+        {
+          "text": "encver);*/",
+          "tokenType": "comment",
+          "start": 9020,
+          "end": 9030
+        },
+        {
+          "text": "rdb",
+          "tokenType": "variable",
+          "start": 9241,
+          "end": 9244
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 9271,
+          "end": 9274
+        },
+        {
+          "text": "ele",
+          "tokenType": "parameter",
+          "start": 9275,
+          "end": 9278
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 9437,
+          "end": 9440
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 9481,
+          "end": 9484
+        },
+        {
+          "text": "while",
+          "tokenType": "function",
+          "start": 9496,
+          "end": 9501
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 9545,
+          "end": 9549
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 9567,
+          "end": 9571
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 9574,
+          "end": 9578
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 9753,
+          "end": 9756
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 9774,
+          "end": 9778
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 9842,
+          "end": 9846
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 9871,
+          "end": 9875
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 10116,
+          "end": 10119
+        },
+        {
+          "text": "sizeof",
+          "tokenType": "function",
+          "start": 10138,
+          "end": 10144
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 10146,
+          "end": 10149
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 10161,
+          "end": 10165
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 10167,
+          "end": 10170
+        },
+        {
+          "text": "hto",
+          "tokenType": "parameter",
+          "start": 10385,
+          "end": 10388
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 10455,
+          "end": 10459
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 10477,
+          "end": 10481
+        },
+        {
+          "text": "node",
+          "tokenType": "parameter",
+          "start": 10484,
+          "end": 10488
+        },
+        {
+          "text": "HelloTypeRdbSave",
+          "tokenType": "variable",
+          "start": 11082,
+          "end": 11098
+        },
+        {
+          "text": "HelloTypeAofRewrite",
+          "tokenType": "variable",
+          "start": 11123,
+          "end": 11142
+        },
+        {
+          "text": "HelloTypeMemUsage",
+          "tokenType": "variable",
+          "start": 11165,
+          "end": 11182
+        },
+        {
+          "text": "HelloTypeFree",
+          "tokenType": "variable",
+          "start": 11200,
+          "end": 11213
+        },
+        {
+          "text": "HelloTypeDigest",
+          "tokenType": "variable",
+          "start": 11233,
+          "end": 11248
+        },
+        {
+          "text": "tm",
+          "tokenType": "parameter",
+          "start": 11319,
+          "end": 11321
+        }
+      ]
+    }
+  ],
+  "checkpointHash": "b2c63931b2b3c1531b2455299e352e0ca7b6a291566c0b1129130fbe05c05e5f",
+  "checkpointEpoch": 2,
+  "device": "mps"
+}
