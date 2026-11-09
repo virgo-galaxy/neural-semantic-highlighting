@@ -2,6 +2,7 @@ import assemblyIcon from "@/assets/document-kinds/assembly.svg";
 import awkIcon from "@/assets/document-kinds/awk.svg";
 import bashIcon from "@/assets/document-kinds/bash.svg";
 import batIcon from "@/assets/document-kinds/bat.svg";
+import csharpIcon from "@/assets/document-kinds/csharp.svg";
 import cssIcon from "@/assets/document-kinds/css.svg";
 import goIcon from "@/assets/document-kinds/go.svg";
 import htmlIcon from "@/assets/document-kinds/html.svg";
@@ -77,6 +78,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   bat: { label: "BAT / CMD", icon: batIcon },
   assembly: { label: "Assembly", icon: assemblyIcon },
   java: { label: "Java", icon: javaIcon },
+  csharp: { label: "C#", icon: csharpIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -128,6 +130,7 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".S", "assembly"],
   [".inc", "assembly"],
   [".java", "java"],
+  [".cs", "csharp"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

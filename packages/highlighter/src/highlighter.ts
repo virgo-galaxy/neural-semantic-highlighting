@@ -47,6 +47,8 @@ const aliases: Readonly<Record<string, string>> = {
   masm: "assembly",
   gas: "assembly",
   py: "python",
+  cs: "csharp",
+  "c#": "csharp",
 };
 
 /** Configure selected models explicitly; no Node/Python imports or source uploads. */

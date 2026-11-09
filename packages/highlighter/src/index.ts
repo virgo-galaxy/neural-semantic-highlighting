@@ -6,6 +6,7 @@ import assembly from "./languages/assembly.js";
 import awk from "./languages/awk.js";
 import bash from "./languages/bash.js";
 import bat from "./languages/bat.js";
+import csharp from "./languages/csharp.js";
 import css from "./languages/css.js";
 import go from "./languages/go.js";
 import html from "./languages/html.js";
@@ -36,6 +37,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       bat,
       assembly,
       java,
+      csharp,
     ],
   });
 }

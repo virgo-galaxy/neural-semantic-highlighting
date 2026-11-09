@@ -57,3 +57,7 @@ Java source is available with `{ language: "java" }`, including package/module
 descriptors. To ship only Java, import the descriptor from
 `@nsh/highlighter/languages/java` and pass it to the configurable `./core` entry.
 All three built-in theme presets cover its roles. No JDK is required by consumers.
+
+C# source uses `{ language: "csharp" }`, with `cs` and `c#` aliases. Import
+`@nsh/highlighter/languages/csharp` with the configurable `./core` entry to include
+only that model. Browser consumers need no .NET SDK, Mono or source parser.

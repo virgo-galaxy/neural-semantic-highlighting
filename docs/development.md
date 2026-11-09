@@ -119,3 +119,12 @@ when it is not the macOS Java home. This is a development dependency; browser
 consumers and Playground inference do not invoke it. See
 [Java training](../training/java/README.md) and the
 [semantic contract](../packs/java/SEMANTICS.md) for scope and reproducible commands.
+
+## C# development
+
+C# keeps the shared standalone workflow and data/checkpoint locations.
+`make dataset-csharp-tools` builds fixed official parser sources into project cache
+using the existing native compiler. No .NET SDK, Mono or global dependency is
+installed. This parser is used only for offline Gold, not by local neural inference
+or the browser. See [training](../training/csharp/README.md) and the
+[semantic contract](../packs/csharp/SEMANTICS.md) for scope and pinned provenance.

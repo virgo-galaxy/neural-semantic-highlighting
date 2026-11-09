@@ -61,6 +61,29 @@ Java quality and remaining source-display errors are in its
 [known limits](../packs/java/model/KNOWN_ISSUES.md). Packages and repository remain
 private; no npm publication took place.
 
+## C# addition
+
+C# is the fifteenth model. Its [verification record](csharp-browser-verification.json)
+keeps the export hashes, numerical comparisons and additive browser checks.
+
+- All **91/91** existing/example/edge cases, including eight C# examples, matched
+  native CPU semantic spans, offsets and modifiers exactly in Chromium.
+- A fresh external Vite 8.2.2 project installed the four private local tarballs
+  from cache, built, and passed **12/12** C# checks through public package paths.
+  This covers `csharp`/`cs`/`c#`, BOM, CRLF, Unicode, empty input and long source.
+  Original rendered text was preserved; six theme/mode combinations were observed.
+- The selective C# build emitted **one ONNX model**. No .NET SDK, Mono, Python
+  process or offline grammar is used by browser inference. The Mac environment
+  received no .NET/Mono or global parser package installation.
+- Final `make check` passed 141 frontend tests, the seven C# teacher tests and
+  existing native Gold/data checks. All 29 earlier native/browser models remain
+  byte-identical. The 22 marked Golden cases validate the teacher, not a claim of
+  perfect neural output; measured model limits remain explicit.
+
+Model quality is separate in the [C# report](../packs/csharp/model/BENCHMARKS.md)
+and [known issues](../packs/csharp/model/KNOWN_ISSUES.md). Original verification
+records, datasets and runs remain preserved. No package was published.
+
 ## Scope and limits
 
 This is conversion and integration evidence, **not a new model quality score**.

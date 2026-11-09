@@ -1,0 +1,236 @@
+{
+  "date": "2026-11-09",
+  "scope": "C# addition; no .NET/Mono installation and no existing model replacement",
+  "modelsAvailable": 15,
+  "selectedModel": {
+    "file": "model.pt",
+    "format": "nsh-csharp-model-v1",
+    "sha256": "81d8e72034f079072a179b4902cfc39561137f838d0cd5fdd8f56ae6907a6795",
+    "bytes": 3640373,
+    "parameterCount": 894743,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "browserModel": {
+    "file": "model.onnx",
+    "sha256": "fdd087f40f06d26c4a9612bcebef7b5711cb48f29c9e111cbcac0ccb75e4cff1",
+    "bytes": 3707603
+  },
+  "nativeSource": {
+    "file": "packs/csharp/model/model.pt",
+    "sha256": "81d8e72034f079072a179b4902cfc39561137f838d0cd5fdd8f56ae6907a6795"
+  },
+  "conversion": {
+    "reference": "selected PyTorch CPU inference",
+    "torch": "2.14.0",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "sourceSha256": "81d8e72034f079072a179b4902cfc39561137f838d0cd5fdd8f56ae6907a6795",
+    "modelSha256": "fdd087f40f06d26c4a9612bcebef7b5711cb48f29c9e111cbcac0ccb75e4cff1",
+    "comparisons": [
+      {
+        "bytes": 1,
+        "maxAbsoluteErrors": [2.384185791015625e-6, 2.86102294921875e-6, 0.0]
+      },
+      {
+        "bytes": 2,
+        "maxAbsoluteErrors": [8.344650268554688e-6, 1.1444091796875e-5, 1.049041748046875e-5]
+      },
+      {
+        "bytes": 7,
+        "maxAbsoluteErrors": [5.4836273193359375e-6, 2.47955322265625e-5, 7.62939453125e-6]
+      },
+      {
+        "bytes": 31,
+        "maxAbsoluteErrors": [1.3828277587890625e-5, 1.9788742065429688e-5, 2.09808349609375e-5]
+      },
+      {
+        "bytes": 64,
+        "maxAbsoluteErrors": [1.0266900062561035e-5, 1.1444091796875e-5, 1.2159347534179688e-5]
+      },
+      {
+        "bytes": 127,
+        "maxAbsoluteErrors": [9.59634780883789e-6, 2.1338462829589844e-5, 1.71661376953125e-5]
+      },
+      {
+        "bytes": 511,
+        "maxAbsoluteErrors": [1.811981201171875e-5, 3.0279159545898438e-5, 2.86102294921875e-5]
+      },
+      {
+        "bytes": 512,
+        "maxAbsoluteErrors": [3.337860107421875e-5, 2.6702880859375e-5, 2.09808349609375e-5]
+      }
+    ]
+  },
+  "browserParity": {
+    "total": 91,
+    "passed": 91,
+    "failures": [],
+    "csharpExamples": [
+      {
+        "filename": "csharp/AsyncStream.cs",
+        "ms": 46.30000001192093
+      },
+      {
+        "filename": "csharp/Collections.cs",
+        "ms": 29.799999952316284
+      },
+      {
+        "filename": "csharp/GenericStore.cs",
+        "ms": 27.600000023841858
+      },
+      {
+        "filename": "csharp/Hello.cs",
+        "ms": 27.599999964237213
+      },
+      {
+        "filename": "csharp/Options.cs",
+        "ms": 26.900000035762787
+      },
+      {
+        "filename": "csharp/Queries.cs",
+        "ms": 36.09999996423721
+      },
+      {
+        "filename": "csharp/Records.cs",
+        "ms": 30.399999976158142
+      },
+      {
+        "filename": "csharp/StringTemplates.cs",
+        "ms": 29.600000023841858
+      }
+    ]
+  },
+  "independentPackage": {
+    "build": "Vite 8.2.2 production build; four private local tarballs installed offline in a fresh external project",
+    "emittedOnnxModels": 1,
+    "cases": [
+      {
+        "filename": "csharp/AsyncStream.cs",
+        "spans": 62,
+        "equal": true,
+        "alias": "csharp"
+      },
+      {
+        "filename": "csharp/Collections.cs",
+        "spans": 84,
+        "equal": true,
+        "alias": "cs"
+      },
+      {
+        "filename": "csharp/GenericStore.cs",
+        "spans": 89,
+        "equal": true,
+        "alias": "c#"
+      },
+      {
+        "filename": "csharp/Hello.cs",
+        "spans": 63,
+        "equal": true,
+        "alias": "csharp"
+      },
+      {
+        "filename": "csharp/Options.cs",
+        "spans": 80,
+        "equal": true,
+        "alias": "cs"
+      },
+      {
+        "filename": "csharp/Queries.cs",
+        "spans": 77,
+        "equal": true,
+        "alias": "c#"
+      },
+      {
+        "filename": "csharp/Records.cs",
+        "spans": 75,
+        "equal": true,
+        "alias": "csharp"
+      },
+      {
+        "filename": "csharp/StringTemplates.cs",
+        "spans": 31,
+        "equal": true,
+        "alias": "cs"
+      },
+      {
+        "filename": "edge-0.cs",
+        "spans": 0,
+        "equal": true,
+        "alias": "c#"
+      },
+      {
+        "filename": "edge-1.cs",
+        "spans": 0,
+        "equal": true,
+        "alias": "csharp"
+      },
+      {
+        "filename": "edge-2.cs",
+        "spans": 10,
+        "equal": true,
+        "alias": "cs"
+      },
+      {
+        "filename": "edge-3.cs",
+        "spans": 325,
+        "equal": true,
+        "alias": "c#"
+      }
+    ],
+    "aliases": ["csharp", "cs", "c#"],
+    "originalTextPreserved": true,
+    "covers": [
+      "eight display probes",
+      "empty input",
+      "CRLF",
+      "BOM and Unicode/astral characters",
+      "long multi-window source"
+    ],
+    "palettes": [
+      {
+        "preset": "default",
+        "mode": "light",
+        "background": "rgb(251, 252, 255)"
+      },
+      {
+        "preset": "default",
+        "mode": "dark",
+        "background": "rgb(21, 27, 41)"
+      },
+      {
+        "preset": "muted",
+        "mode": "light",
+        "background": "rgb(246, 245, 241)"
+      },
+      {
+        "preset": "muted",
+        "mode": "dark",
+        "background": "rgb(38, 40, 35)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "light",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "dark",
+        "background": "rgb(0, 0, 0)"
+      }
+    ],
+    "consoleWarningsOrErrors": []
+  },
+  "checks": {
+    "makeCheck": "passed",
+    "typescriptTests": 141,
+    "csharpTeacherTests": 7,
+    "independentCsharpGoldenCases": 22,
+    "priorNativeAndOnnxArtifactsPreserved": 29
+  },
+  "dotnetSdkInstalled": false,
+  "monoInstalled": false,
+  "globalPackagesInstalled": false,
+  "npmPublished": false,
+  "repositoryVisibilityChanged": false
+}
