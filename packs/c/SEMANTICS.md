@@ -14,22 +14,22 @@ compiler extension, build configuration, system header or ABI. Later/unsupported
 syntax is quarantined offline. Headers are treated explicitly as C, not guessed
 from filename or preprocessor symbols at runtime.
 
-| Source | Role |
-| --- | --- |
-| Reserved/grammar keywords, primitive aliases, storage/qualifier words | `keyword` |
-| Original line/block comments | `comment`, complete delimiters |
-| Character/string literals and include paths | `string`, complete original spelling; adjacent literals stay separate |
-| Numeric literals | `number` |
-| Arithmetic/assignment/comparison, pointer, ternary and token-pasting symbols | `operator` |
-| Braces, parentheses, brackets, dots, commas, semicolons, ellipsis, line-continuation backslash and initial BOM | `punctuation` |
-| Struct/union tags, typedef names and explicit type positions | `type`; definitions carry `declaration` |
-| Enum tag definition / enum constants | `enum` / `enum-member`; definitions carry `declaration` |
-| Function/prototype and function-like macro names | `function`; definitions carry `declaration` |
-| Formal/function-pointer/macro parameters and visible references | `parameter`; original declarations carry `declaration` |
-| Ordinary local/global names and object-like macros | `variable`; definitions carry `declaration` |
-| Struct/union fields and selected members | `property`; definitions carry `declaration` |
-| Label definitions and goto targets | `label`; definitions carry `declaration` |
-| Accepted attribute names | `decorator` |
+| Source                                                                                                         | Role                                                                  |
+| -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Reserved/grammar keywords, primitive aliases, storage/qualifier words                                          | `keyword`                                                             |
+| Original line/block comments                                                                                   | `comment`, complete delimiters                                        |
+| Character/string literals and include paths                                                                    | `string`, complete original spelling; adjacent literals stay separate |
+| Numeric literals                                                                                               | `number`                                                              |
+| Arithmetic/assignment/comparison, pointer, ternary and token-pasting symbols                                   | `operator`                                                            |
+| Braces, parentheses, brackets, dots, commas, semicolons, ellipsis, line-continuation backslash and initial BOM | `punctuation`                                                         |
+| Struct/union tags, typedef names and explicit type positions                                                   | `type`; definitions carry `declaration`                               |
+| Enum tag definition / enum constants                                                                           | `enum` / `enum-member`; definitions carry `declaration`               |
+| Function/prototype and function-like macro names                                                               | `function`; definitions carry `declaration`                           |
+| Formal/function-pointer/macro parameters and visible references                                                | `parameter`; original declarations carry `declaration`                |
+| Ordinary local/global names and object-like macros                                                             | `variable`; definitions carry `declaration`                           |
+| Struct/union fields and selected members                                                                       | `property`; definitions carry `declaration`                           |
+| Label definitions and goto targets                                                                             | `label`; definitions carry `declaration`                              |
+| Accepted attribute names                                                                                       | `decorator`                                                           |
 
 Source-local scopes distinguish visible declarations/references, callback names
 and ordinary callables without following headers, expanding macros or checking

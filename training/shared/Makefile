@@ -665,6 +665,7 @@ dataset-c:
 
 dataset-c-curriculum:
 	$(PYTHON) -m packs.c.dataset.generate_curriculum
+	$(PYTHON) -m packs.c.dataset.generate_mixed
 
 dataset-c-collect:
 	$(PYTHON) -m packs.c.dataset.pipeline collect
