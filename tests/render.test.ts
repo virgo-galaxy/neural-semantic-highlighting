@@ -1,4 +1,5 @@
 import { renderCodeToHtml, renderToHtml } from "@nsh/html";
+import { SAXParser } from "parse5-sax-parser";
 import { describe, expect, it } from "vitest";
 
 describe("renderToHtml", () => {
@@ -62,6 +63,28 @@ describe("renderToHtml", () => {
     });
 
     expect(html).toContain("&lt;T &amp; U&gt;");
+  });
+
+  it("preserves original CR and CRLF in parsed highlighted text and gaps", () => {
+    const source = "\r\nA&<\rB\r\n";
+    for (const spans of [
+      [],
+      [{ start: 0, end: source.length, tokenType: "comment" }],
+      [{ start: 2, end: 6, tokenType: "string" }],
+    ]) {
+      const html = renderToHtml({
+        source,
+        documentKind: "java",
+        result: { offsetEncoding: "utf-16", spans },
+      });
+      const parser = new SAXParser();
+      let parsed = "";
+      parser.on("text", ({ text }) => {
+        parsed += text;
+      });
+      parser.end(html);
+      expect(parsed).toBe(source);
+    }
   });
 
   it("supports UTF-8 span offsets", () => {

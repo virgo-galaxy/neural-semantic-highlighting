@@ -101,7 +101,13 @@ function createUtf16OffsetResolver(
 }
 
 function escapeHtml(value: string): string {
-  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+  // Literal CR/CRLF is normalized by the HTML parser before text nodes exist.
+  // A character reference preserves the caller's original code and UTF-16 text.
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\r", "&#13;");
 }
 
 function escapeAttribute(value: string): string {
