@@ -52,3 +52,8 @@ Switching styles or mode reuses the existing highlighted markup. Public
 can be customized with ordinary application CSS.
 Models retain their measured limitations; this package does not claim perfect
 classification or full highlight.js API compatibility.
+
+Java source is available with `{ language: "java" }`, including package/module
+descriptors. To ship only Java, import the descriptor from
+`@nsh/highlighter/languages/java` and pass it to the configurable `./core` entry.
+All three built-in theme presets cover its roles. No JDK is required by consumers.

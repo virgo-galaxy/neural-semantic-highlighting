@@ -16,6 +16,7 @@ for (const id of [
   "powershell",
   "bat",
   "assembly",
+  "java",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

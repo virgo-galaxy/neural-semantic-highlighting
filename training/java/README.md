@@ -42,3 +42,9 @@ make export-java-model JAVA_CHECKPOINT=artifacts/java/new-run/frozen.pt JAVA_TES
 
 Browser export uses the same float32 weights through the existing
 [ONNX workflow](../browser/README.md), with head-level and rendered-span parity.
+
+The selected mixed-syntax revision uses `JAVA_LEARNING_RATE=0.0001` in a fresh
+run initialized from the original Java experiment’s complete checkpoint. The
+original nine-epoch experiment, its first dataset and all frozen candidates remain
+preserved. The mixed revision extends frozen source-family assignments without
+changing any of the original 323 assignments; all 341 are frozen before training.

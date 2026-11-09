@@ -163,6 +163,7 @@ describe("shipped browser artifacts", () => {
       "powershell",
       "bat",
       "assembly",
+      "java",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

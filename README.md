@@ -472,7 +472,7 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`bat`, `assembly`, `java`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm` and `gas`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
@@ -701,10 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **13 model packs**, with browser inference and Playground examples.
+There are **14 model packs**, with browser inference and Playground examples.
 The browser conversion preserves the selected weights without retraining or
 quantization. [Browser verification](docs/browser-runtime.md) records conversion
-checks and the exact-output comparison across 76 examples/edge cases. This is
+checks and the exact-output comparison across 83 examples/edge cases, including
+Java. Independent local-package verification also covers its public imports. This is
 runtime parity evidence, not a new accuracy evaluation.
 
 The table reports **exact-span F1**: token start, end and semantic type must match.
@@ -726,6 +727,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [PowerShell](packs/powershell/model/README.md)              | Common Windows/modern PowerShell scripts, modules and data; `.ps1`, `.psm1`, `.psd1`                                                                                | [90.67%](packs/powershell/model/BENCHMARKS.md) — natural test                                               | Usable baseline; [string boundaries, long bodies and name flags](packs/powershell/model/KNOWN_ISSUES.md) remain limited           |
 | [BAT / CMD](packs/bat/model/README.md)                      | Common Windows cmd.exe batch scripts; `.bat`, `.cmd`                                                                                                                | [74.29%](packs/bat/model/BENCHMARKS.md) — natural test, 3 scripts                                           | Initial baseline; [conditional tails, quoted variables and argument roles](packs/bat/model/KNOWN_ISSUES.md) remain weaker         |
 | [Assembly](packs/assembly/model/README.md)                  | Common NASM/Intel, GNU/AT&T, MASM, AArch64; `.asm`, `.ASM`, `.nasm`, `.masm`, `.s`, `.S`, assembly `.inc`                                                           | [98.63%](packs/assembly/model/BENCHMARKS.md) — natural test, 5 files; per-profile results in report         | Browser + local; [macro parameters, names, modifiers and comment boundaries](packs/assembly/model/KNOWN_ISSUES.md) remain limited |
+| [Java](packs/java/model/README.md)                          | Java source and package/module descriptors; `.java`; common Java 8–22 and non-preview modern syntax through JDK 22                                                  | [92.60%](packs/java/model/BENCHMARKS.md) — natural test, 29 files                                           | Browser + local; [local name roles, guarded patterns and module paths](packs/java/model/KNOWN_ISSUES.md) remain limited           |
 
 ## Development and training
 

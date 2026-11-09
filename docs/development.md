@@ -109,3 +109,13 @@ wrapper from applying its own accents to an embedded CSS/JS/TS region.
 
 See [the theme package guide](../packages/themes/web/README.md) for merge rules,
 compatibility entries and custom CSS precedence.
+
+## Java development
+
+Java follows the shared standalone-pack commands and external dataset/run
+locations. The offline Gold teacher uses the available OpenJDK 22.0.1 scanner and
+parse-only AST with annotation processing disabled. Set `NSH_JAVA_HOME` to that JDK
+when it is not the macOS Java home. This is a development dependency; browser
+consumers and Playground inference do not invoke it. See
+[Java training](../training/java/README.md) and the
+[semantic contract](../packs/java/SEMANTICS.md) for scope and reproducible commands.

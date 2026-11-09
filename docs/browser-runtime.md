@@ -1,11 +1,11 @@
 # Browser runtime verification
 
-On 2026-11-09, all **13 selected models** were exported without retraining or
+The original rollout on 2026-11-09 exported **13 selected models** without retraining or
 quantization, then exercised in a real Chromium browser on macOS arm64. The
 [verification record](browser-verification.json) lists hashes, per-pack numerical
 errors, source byte lengths and individual smoke timings.
 
-## What was checked
+## Original rollout checks
 
 1. Every ONNX graph passed the ONNX checker and CPU ORT comparisons against the
    selected original PyTorch model at 1, 2, 7, 31, 64, 127, 511 and 512 bytes.
@@ -31,6 +31,35 @@ errors, source byte lengths and individual smoke timings.
    training-data and Python checks. Artifact integrity tests compare all original
    selected model hashes, ONNX hashes, shipped copies and descriptor metadata.
    The preserved earlier Bash artifact was also checked unchanged.
+
+## Java addition
+
+Java is the fourteenth selected model. Its own
+[verification record](java-browser-verification.json) preserves the native/ONNX
+hashes and additive checks; the original record above remains unchanged.
+
+- The float32 Java export passed ONNX checking and eight CPU PyTorch/ORT head
+  comparisons, with maximum absolute error `3.0517578125e-5`.
+- A real Chromium browser produced **83/83 exact span/role/modifier matches**
+  against native CPU references: all prior cases plus seven Java examples.
+- A fresh external vanilla-JS project installed four local private tarballs from
+  the npm cache, imported only public package paths, and built with Vite 8.2.2.
+  Its emitted static build passed **11/11 Java comparisons**, including empty
+  input, CRLF, Unicode/astral characters and source beyond the 512-byte window.
+  Rendered text matched the original input exactly. A renderer regression fix
+  preserves carriage returns through HTML parsing, with highlighted/gap tests.
+- The Java-only consumer emitted **one ONNX model** and exercised all three
+  theme presets in light/dark mode. No Python process or JDK participates in
+  browser inference. No additional highlighting server or port was introduced.
+- Final `make check` passed **141 TypeScript/JavaScript tests**, all existing
+  native Gold/data checks, six Java teacher tests and 17 independent Java Golden
+  cases. All 27 prior native/browser model artifacts remain byte-identical.
+
+This adds runtime/packaging evidence, not another model-accuracy evaluation.
+Java quality and remaining source-display errors are in its
+[model reports](../packs/java/model/BENCHMARKS.md) and
+[known limits](../packs/java/model/KNOWN_ISSUES.md). Packages and repository remain
+private; no npm publication took place.
 
 ## Scope and limits
 

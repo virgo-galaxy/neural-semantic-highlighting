@@ -9,6 +9,7 @@ import bat from "./languages/bat.js";
 import css from "./languages/css.js";
 import go from "./languages/go.js";
 import html from "./languages/html.js";
+import java from "./languages/java.js";
 import perl from "./languages/perl.js";
 import powershell from "./languages/powershell.js";
 import python from "./languages/python.js";
@@ -34,6 +35,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       powershell,
       bat,
       assembly,
+      java,
     ],
   });
 }

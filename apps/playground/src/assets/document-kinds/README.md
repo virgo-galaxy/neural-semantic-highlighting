@@ -38,3 +38,6 @@ at that same pinned Devicon revision and under the preserved license.
 The Assembly entry uses `assembly.svg`, from `icons/nasm/nasm-original.svg`
 at that same pinned Devicon revision and under the preserved license. The icon
 comes from NASM; the entry also covers GNU/AT&T, MASM and AArch64 source.
+
+The Java entry uses `java.svg`, from `icons/java/java-original.svg` at that same
+pinned Devicon revision and under the preserved MIT license.

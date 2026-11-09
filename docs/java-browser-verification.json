@@ -1,0 +1,216 @@
+{
+  "date": "2026-11-09",
+  "timezone": "Asia/Shanghai",
+  "scope": "Java addition to existing browser highlighter; no other model weights changed",
+  "selectedModel": {
+    "file": "model.pt",
+    "format": "nsh-java-model-v1",
+    "sha256": "60ded3abfa9f6058ef8c377ad9c21021988a2e6eeb97508a0052a706db9d3f3c",
+    "bytes": 3632757,
+    "parameterCount": 894614,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "browserModel": {
+    "file": "model.onnx",
+    "sha256": "2956a7876814e709ee93a3bae26544bb5c853828d40b0df382af0e4b2e9d50a8",
+    "bytes": 3707087
+  },
+  "nativeSource": {
+    "file": "packs/java/model/model.pt",
+    "sha256": "60ded3abfa9f6058ef8c377ad9c21021988a2e6eeb97508a0052a706db9d3f3c"
+  },
+  "conversion": {
+    "quantized": false,
+    "comparisons": [
+      {
+        "bytes": 1,
+        "maxAbsoluteErrors": [1.430511474609375e-6, 8.58306884765625e-6, 9.5367431640625e-7]
+      },
+      {
+        "bytes": 2,
+        "maxAbsoluteErrors": [5.9604644775390625e-6, 1.049041748046875e-5, 1.9073486328125e-6]
+      },
+      {
+        "bytes": 7,
+        "maxAbsoluteErrors": [8.344650268554688e-6, 1.1444091796875e-5, 1.811981201171875e-5]
+      },
+      {
+        "bytes": 31,
+        "maxAbsoluteErrors": [9.715557098388672e-6, 1.4781951904296875e-5, 1.239776611328125e-5]
+      },
+      {
+        "bytes": 64,
+        "maxAbsoluteErrors": [1.5974044799804688e-5, 2.6702880859375e-5, 1.5497207641601562e-5]
+      },
+      {
+        "bytes": 127,
+        "maxAbsoluteErrors": [1.9550323486328125e-5, 2.1696090698242188e-5, 1.4781951904296875e-5]
+      },
+      {
+        "bytes": 511,
+        "maxAbsoluteErrors": [1.52587890625e-5, 1.811981201171875e-5, 2.384185791015625e-5]
+      },
+      {
+        "bytes": 512,
+        "maxAbsoluteErrors": [1.990795135498047e-5, 3.0517578125e-5, 2.193450927734375e-5]
+      }
+    ],
+    "maximumAbsoluteHeadError": 3.0517578125e-5
+  },
+  "browserParity": {
+    "reference": "selected PyTorch CPU models + existing composition",
+    "total": 83,
+    "passed": 83,
+    "failures": [],
+    "javaExamples": [
+      {
+        "filename": "java/Annotations.java",
+        "ms": 65.89999997615814
+      },
+      {
+        "filename": "java/AsyncTasks.java",
+        "ms": 28
+      },
+      {
+        "filename": "java/Hello.java",
+        "ms": 41.5
+      },
+      {
+        "filename": "java/PatternRouting.java",
+        "ms": 39.39999997615814
+      },
+      {
+        "filename": "java/Result.java",
+        "ms": 24.19999998807907
+      },
+      {
+        "filename": "java/TextTemplates.java",
+        "ms": 23.600000023841858
+      },
+      {
+        "filename": "java/module-info.java",
+        "ms": 21.19999998807907
+      }
+    ]
+  },
+  "independentPackage": {
+    "install": "fresh external project; four local private tarballs; npm offline cache",
+    "build": "Vite 8.2.2 production build, relative base; emitted static files served using the existing localhost server",
+    "consumerImports": [
+      "@nsh/highlighter/core",
+      "@nsh/highlighter/languages/java",
+      "@nsh/highlighter/themes.css",
+      "@nsh/highlighter/themes"
+    ],
+    "emittedOnnxModels": 1,
+    "cases": [
+      {
+        "filename": "java/Annotations.java",
+        "spans": 75,
+        "equal": true
+      },
+      {
+        "filename": "java/AsyncTasks.java",
+        "spans": 79,
+        "equal": true
+      },
+      {
+        "filename": "java/Hello.java",
+        "spans": 106,
+        "equal": true
+      },
+      {
+        "filename": "java/PatternRouting.java",
+        "spans": 93,
+        "equal": true
+      },
+      {
+        "filename": "java/Result.java",
+        "spans": 84,
+        "equal": true
+      },
+      {
+        "filename": "java/TextTemplates.java",
+        "spans": 26,
+        "equal": true
+      },
+      {
+        "filename": "java/module-info.java",
+        "spans": 57,
+        "equal": true
+      },
+      {
+        "filename": "edge-0.java",
+        "spans": 0,
+        "equal": true
+      },
+      {
+        "filename": "edge-1.java",
+        "spans": 1,
+        "equal": true
+      },
+      {
+        "filename": "edge-2.java",
+        "spans": 9,
+        "equal": true
+      },
+      {
+        "filename": "edge-3.java",
+        "spans": 310,
+        "equal": true
+      }
+    ],
+    "originalTextPreserved": true,
+    "covers": [
+      "seven Java display examples",
+      "empty input",
+      "CRLF",
+      "Unicode and astral characters",
+      "long multi-window source"
+    ],
+    "palettes": [
+      {
+        "preset": "default",
+        "mode": "light",
+        "background": "rgb(251, 252, 255)"
+      },
+      {
+        "preset": "default",
+        "mode": "dark",
+        "background": "rgb(21, 27, 41)"
+      },
+      {
+        "preset": "muted",
+        "mode": "light",
+        "background": "rgb(246, 245, 241)"
+      },
+      {
+        "preset": "muted",
+        "mode": "dark",
+        "background": "rgb(38, 40, 35)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "light",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "dark",
+        "background": "rgb(0, 0, 0)"
+      }
+    ],
+    "consoleWarningsOrErrors": []
+  },
+  "checks": {
+    "makeCheck": "passed",
+    "typescriptTests": 141,
+    "javaTeacherTests": 6,
+    "independentJavaGoldenCases": 17,
+    "previousNativeAndOnnxArtifactsPreserved": 27
+  },
+  "modelsAvailable": 14,
+  "repositoryVisibilityChanged": false,
+  "npmPublished": false
+}

@@ -19,7 +19,9 @@ function defaultLanguageId(): string {
 }
 
 function defaultExampleIndex(examples: readonly HighlighterExample[]): number {
-  const helloIndex = examples.findIndex((example) => example.filename.startsWith("hello."));
+  const helloIndex = examples.findIndex((example) =>
+    example.filename.toLowerCase().startsWith("hello."),
+  );
 
   return helloIndex >= 0 ? helloIndex : 0;
 }
