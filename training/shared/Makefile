@@ -510,6 +510,7 @@ export-assembly-model:
 JAVA_DEVICE ?= auto
 JAVA_EPOCHS ?= 3
 JAVA_BATCH_SIZE ?= 32
+JAVA_LEARNING_RATE ?=
 JAVA_EVAL_SPLIT ?= validation
 
 .PHONY: dataset-java dataset-java-sources dataset-java-curriculum dataset-java-collect dataset-java-label dataset-java-validate dataset-java-prepare test-labeling-java train-java-smoke train-java continue-java predict-java evaluate-java challenge-java export-java-model
@@ -528,6 +529,7 @@ dataset-java:
 
 dataset-java-curriculum:
 	$(PYTHON) -m packs.java.dataset.generate_curriculum
+	$(PYTHON) -m packs.java.dataset.generate_mixed
 
 dataset-java-collect:
 	$(PYTHON) -m packs.java.dataset.pipeline collect
@@ -548,7 +550,7 @@ train-java-smoke:
 	$(PYTHON) -m training.java.train --smoke --epochs 1 --device $(JAVA_DEVICE) $(if $(JAVA_RUN),--output-dir "$(JAVA_RUN)") $(if $(JAVA_INIT_FROM),--init-from "$(JAVA_INIT_FROM)")
 
 train-java:
-	$(PYTHON) -m training.java.train --epochs $(JAVA_EPOCHS) --device $(JAVA_DEVICE) --batch-size $(JAVA_BATCH_SIZE) $(if $(JAVA_RUN),--output-dir "$(JAVA_RUN)") $(if $(JAVA_INIT_FROM),--init-from "$(JAVA_INIT_FROM)")
+	$(PYTHON) -m training.java.train --epochs $(JAVA_EPOCHS) --device $(JAVA_DEVICE) --batch-size $(JAVA_BATCH_SIZE) $(if $(JAVA_LEARNING_RATE),--learning-rate $(JAVA_LEARNING_RATE)) $(if $(JAVA_RUN),--output-dir "$(JAVA_RUN)") $(if $(JAVA_INIT_FROM),--init-from "$(JAVA_INIT_FROM)")
 
 continue-java:
 	@test -n "$(JAVA_CHECKPOINT)" || (echo 'Set JAVA_CHECKPOINT to the run last.pt'; exit 1)
