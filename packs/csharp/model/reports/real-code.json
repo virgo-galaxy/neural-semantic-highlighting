@@ -1,0 +1,4776 @@
+{
+  "split": "validation",
+  "cases": [
+    {
+      "path": "src/libraries/Microsoft.Extensions.Http/src/DependencyInjection/DefaultHttpClientConfigurationTracker.cs",
+      "repository": "runtime-csharp-v1",
+      "source": "﻿// Licensed to the .NET Foundation under one or more agreements.\n// The .NET Foundation licenses this file to you under the MIT license.\n\nnamespace Microsoft.Extensions.DependencyInjection\n{\n    internal sealed class DefaultHttpClientConfigurationTracker\n    {\n        public ServiceDescriptor? InsertDefaultsAfterDescriptor { get; set; }\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 27,
+          "fp": 0,
+          "fn": 0,
+          "support": 27
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 27,
+          "fp": 0,
+          "fn": 0,
+          "support": 27
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "method": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "path": "Src/Newtonsoft.Json/Linq/JsonPath/ArrayMultipleIndexFilter.cs",
+      "repository": "json-csharp-v1",
+      "source": "using System.Collections.Generic;\n\nnamespace Newtonsoft.Json.Linq.JsonPath\n{\n    internal class ArrayMultipleIndexFilter : PathFilter\n    {\n        internal List<int> Indexes;\n\n        public ArrayMultipleIndexFilter(List<int> indexes)\n        {\n            Indexes = indexes;\n        }\n\n        public override IEnumerable<JToken> ExecuteFilter(JToken root, IEnumerable<JToken> current, JsonSelectSettings? settings)\n        {\n            foreach (JToken t in current)\n            {\n                foreach (int i in Indexes)\n                {\n                    JToken? v = GetTokenIndex(t, settings, i);\n\n                    if (v != null)\n                    {\n                        yield return v;\n                    }\n                }\n            }\n        }\n    }\n}",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9732142857142857,
+          "recall": 0.9732142857142857,
+          "f1": 0.9732142857142857,
+          "tp": 109,
+          "fp": 3,
+          "fn": 3,
+          "support": 112
+        },
+        "exactSpanMacroF1": 0.952972027972028,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9642857142857143,
+          "recall": 0.9642857142857143,
+          "f1": 0.9642857142857143,
+          "tp": 108,
+          "fp": 4,
+          "fn": 4,
+          "support": 112
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.95,
+            "recall": 1.0,
+            "f1": 0.9743589743589743,
+            "tp": 19,
+            "fp": 1,
+            "fn": 0,
+            "support": 19
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 14,
+            "fp": 0,
+            "fn": 0,
+            "support": 14
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 40,
+            "fp": 0,
+            "fn": 0,
+            "support": 40
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "method": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "parameter": {
+            "precision": 0.7777777777777778,
+            "recall": 1.0,
+            "f1": 0.875,
+            "tp": 7,
+            "fp": 2,
+            "fn": 0,
+            "support": 7
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 0.7142857142857143,
+            "f1": 0.8333333333333334,
+            "tp": 5,
+            "fp": 0,
+            "fn": 2,
+            "support": 7
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8,
+            "tp": 2,
+            "fp": 0,
+            "fn": 1,
+            "support": 3
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "i",
+          "tokenType": "variable",
+          "start": 513,
+          "end": 514
+        },
+        {
+          "text": "Indexes",
+          "tokenType": "property",
+          "start": 518,
+          "end": 525
+        },
+        {
+          "text": "t",
+          "tokenType": "variable",
+          "start": 591,
+          "end": 592
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "i",
+          "tokenType": "keyword",
+          "start": 513,
+          "end": 514
+        },
+        {
+          "text": "Indexes",
+          "tokenType": "parameter",
+          "start": 518,
+          "end": 525
+        },
+        {
+          "text": "t",
+          "tokenType": "parameter",
+          "start": 591,
+          "end": 592
+        }
+      ]
+    },
+    {
+      "path": "src/libraries/System.Transactions.Local/src/System/Transactions/DtcProxyShim/DtcInterfaces/ITransaction.cs",
+      "repository": "runtime-csharp-v1",
+      "source": "﻿// Licensed to the .NET Foundation under one or more agreements.\n// The .NET Foundation licenses this file to you under the MIT license.\n\nusing System.Runtime.InteropServices;\nusing System.Runtime.InteropServices.Marshalling;\n\nnamespace System.Transactions.DtcProxyShim.DtcInterfaces;\n\n// https://learn.microsoft.com/previous-versions/windows/desktop/ms686531(v=vs.85)\n[GeneratedComInterface, Guid(Guids.IID_ITransaction), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]\ninternal partial interface ITransaction\n{\n    void Commit(\n        [MarshalAs(UnmanagedType.Bool)] bool fRetaining,\n        OletxXacttc grfTC,\n        uint grfRM);\n\n    void Abort(\n        IntPtr reason,\n        [MarshalAs(UnmanagedType.Bool)] bool retaining,\n        [MarshalAs(UnmanagedType.Bool)] bool async);\n\n    void GetTransactionInfo(out OletxXactTransInfo xactInfo);\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.990909090909091,
+          "recall": 0.990909090909091,
+          "f1": 0.990909090909091,
+          "tp": 109,
+          "fp": 1,
+          "fn": 1,
+          "support": 110
+        },
+        "exactSpanMacroF1": 0.8961038961038962,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.990909090909091,
+          "recall": 0.990909090909091,
+          "f1": 0.990909090909091,
+          "tp": 109,
+          "fp": 1,
+          "fn": 1,
+          "support": 110
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 14,
+            "fp": 0,
+            "fn": 0,
+            "support": 14
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 52,
+            "fp": 0,
+            "fn": 0,
+            "support": 52
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "type": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "tp": 3,
+            "fp": 1,
+            "fn": 0,
+            "support": 3
+          },
+          "class": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "support": 1
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "method": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "decorator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "ITransaction",
+          "tokenType": "interface",
+          "start": 504,
+          "end": 516
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "ITransaction",
+          "tokenType": "type",
+          "start": 504,
+          "end": 516
+        }
+      ]
+    },
+    {
+      "path": "src/libraries/System.Security.Cryptography/src/System/Security/Cryptography/AesCcm.NotSupported.cs",
+      "repository": "runtime-csharp-v1",
+      "source": "// Licensed to the .NET Foundation under one or more agreements.\n// The .NET Foundation licenses this file to you under the MIT license.\n\nusing System.Diagnostics;\n\nnamespace System.Security.Cryptography\n{\n    public partial class AesCcm\n    {\n        public static bool IsSupported => false;\n\n#pragma warning disable CA1822, IDE0060\n        private void ImportKey(ReadOnlySpan<byte> key)\n        {\n            Debug.Fail(\"Instance ctor should fail before we reach this point.\");\n            throw new NotImplementedException();\n        }\n\n        private void EncryptCore(\n            ReadOnlySpan<byte> nonce,\n            ReadOnlySpan<byte> plaintext,\n            Span<byte> ciphertext,\n            Span<byte> tag,\n            ReadOnlySpan<byte> associatedData = default)\n        {\n            Debug.Fail(\"Instance ctor should fail before we reach this point.\");\n            throw new NotImplementedException();\n        }\n\n        private void DecryptCore(\n            ReadOnlySpan<byte> nonce,\n            ReadOnlySpan<byte> ciphertext,\n            ReadOnlySpan<byte> tag,\n            Span<byte> plaintext,\n            ReadOnlySpan<byte> associatedData = default)\n        {\n            Debug.Fail(\"Instance ctor should fail before we reach this point.\");\n            throw new NotImplementedException();\n        }\n\n        public void Dispose()\n        {\n            Debug.Fail(\"Instance ctor should fail before we reach this point.\");\n            // no-op\n        }\n#pragma warning restore CA1822, IDE0060\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9835164835164835,
+          "recall": 0.9835164835164835,
+          "f1": 0.9835164835164835,
+          "tp": 179,
+          "fp": 3,
+          "fn": 3,
+          "support": 182
+        },
+        "exactSpanMacroF1": 0.9676458198074074,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9725274725274725,
+          "recall": 0.9725274725274725,
+          "f1": 0.9725274725274725,
+          "tp": 177,
+          "fp": 5,
+          "fn": 5,
+          "support": 182
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.9761904761904762,
+            "f1": 0.9879518072289156,
+            "tp": 41,
+            "fp": 0,
+            "fn": 1,
+            "support": 42
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 25,
+            "fp": 0,
+            "fn": 0,
+            "support": 25
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 60,
+            "fp": 0,
+            "fn": 0,
+            "support": 60
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8,
+            "tp": 2,
+            "fp": 0,
+            "fn": 1,
+            "support": 3
+          },
+          "method": {
+            "precision": 0.8888888888888888,
+            "recall": 1.0,
+            "f1": 0.9411764705882353,
+            "tp": 8,
+            "fp": 1,
+            "fn": 0,
+            "support": 8
+          },
+          "parameter": {
+            "precision": 0.9090909090909091,
+            "recall": 0.9090909090909091,
+            "f1": 0.9090909090909091,
+            "tp": 10,
+            "fp": 1,
+            "fn": 1,
+            "support": 11
+          },
+          "variable": {
+            "precision": 0.8888888888888888,
+            "recall": 1.0,
+            "f1": 0.9411764705882353,
+            "tp": 8,
+            "fp": 1,
+            "fn": 0,
+            "support": 8
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "NotImplementedException",
+          "tokenType": "constructor",
+          "start": 502,
+          "end": 525
+        },
+        {
+          "text": "associatedData",
+          "tokenType": "parameter",
+          "start": 1141,
+          "end": 1155
+        },
+        {
+          "text": "default",
+          "tokenType": "keyword",
+          "start": 1158,
+          "end": 1165
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "NotImplementedException",
+          "tokenType": "method",
+          "start": 502,
+          "end": 525
+        },
+        {
+          "text": "associatedData",
+          "tokenType": "variable",
+          "start": 1141,
+          "end": 1155
+        },
+        {
+          "text": "default",
+          "tokenType": "parameter",
+          "start": 1158,
+          "end": 1165
+        }
+      ]
+    },
+    {
+      "path": "Src/Newtonsoft.Json/MissingMemberHandling.cs",
+      "repository": "json-csharp-v1",
+      "source": "﻿#region License\n// Copyright (c) 2007 James Newton-King\n//\n// Permission is hereby granted, free of charge, to any person\n// obtaining a copy of this software and associated documentation\n// files (the \"Software\"), to deal in the Software without\n// restriction, including without limitation the rights to use,\n// copy, modify, merge, publish, distribute, sublicense, and/or sell\n// copies of the Software, and to permit persons to whom the\n// Software is furnished to do so, subject to the following\n// conditions:\n//\n// The above copyright notice and this permission notice shall be\n// included in all copies or substantial portions of the Software.\n//\n// THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\n// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES\n// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\n// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT\n// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\n// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\n// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\n// OTHER DEALINGS IN THE SOFTWARE.\n#endregion\n\nusing System;\nusing System.Collections.Generic;\nusing System.Text;\n\nnamespace Newtonsoft.Json\n{\n    /// <summary>\n    /// Specifies missing member handling options for the <see cref=\"JsonSerializer\"/>.\n    /// </summary>\n    public enum MissingMemberHandling\n    {\n        /// <summary>\n        /// Ignore a missing member and do not attempt to deserialize it.\n        /// </summary>\n        Ignore = 0,\n\n        /// <summary>\n        /// Throw a <see cref=\"JsonSerializationException\"/> when a missing member is encountered during deserialization.\n        /// </summary>\n        Error = 1\n    }\n}",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 68,
+          "fp": 0,
+          "fn": 0,
+          "support": 68
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 68,
+          "fp": 0,
+          "fn": 0,
+          "support": 68
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 31,
+            "fp": 0,
+            "fn": 0,
+            "support": 31
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 13,
+            "fp": 0,
+            "fn": 0,
+            "support": 13
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "enum-member": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "method": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "path": "Src/Newtonsoft.Json/Serialization/ErrorContext.cs",
+      "repository": "json-csharp-v1",
+      "source": "﻿#region License\n// Copyright (c) 2007 James Newton-King\n//\n// Permission is hereby granted, free of charge, to any person\n// obtaining a copy of this software and associated documentation\n// files (the \"Software\"), to deal in the Software without\n// restriction, including without limitation the rights to use,\n// copy, modify, merge, publish, distribute, sublicense, and/or sell\n// copies of the Software, and to permit persons to whom the\n// Software is furnished to do so, subject to the following\n// conditions:\n//\n// The above copyright notice and this permission notice shall be\n// included in all copies or substantial portions of the Software.\n//\n// THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\n// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES\n// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\n// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT\n// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\n// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\n// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\n// OTHER DEALINGS IN THE SOFTWARE.\n#endregion\n\nusing System;\n\nnamespace Newtonsoft.Json.Serialization\n{\n    /// <summary>\n    /// Provides information surrounding an error.\n    /// </summary>\n    public class ErrorContext\n    {\n        internal ErrorContext(object? originalObject, object? member, string path, Exception error)\n        {\n            OriginalObject = originalObject;\n            Member = member;\n            Error = error;\n            Path = path;\n        }\n\n        internal bool Traced { get; set; }\n\n        /// <summary>\n        /// Gets the error.\n        /// </summary>\n        /// <value>The error.</value>\n        public Exception Error { get; }\n\n        /// <summary>\n        /// Gets the original object that caused the error.\n        /// </summary>\n        /// <value>The original object that caused the error.</value>\n        public object? OriginalObject { get; }\n\n        /// <summary>\n        /// Gets the member that caused the error.\n        /// </summary>\n        /// <value>The member that caused the error.</value>\n        public object? Member { get; }\n\n        /// <summary>\n        /// Gets the path of the JSON location where the error occurred.\n        /// </summary>\n        /// <value>The path of the JSON location where the error occurred.</value>\n        public string Path { get; }\n\n        /// <summary>\n        /// Gets or sets a value indicating whether this <see cref=\"ErrorContext\"/> is handled.\n        /// </summary>\n        /// <value><c>true</c> if handled; otherwise, <c>false</c>.</value>\n        public bool Handled { get; set; }\n    }\n}",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 148,
+          "fp": 0,
+          "fn": 0,
+          "support": 148
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 148,
+          "fp": 0,
+          "fn": 0,
+          "support": 148
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 29,
+            "fp": 0,
+            "fn": 0,
+            "support": 29
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 45,
+            "fp": 0,
+            "fn": 0,
+            "support": 45
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 39,
+            "fp": 0,
+            "fn": 0,
+            "support": 39
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "method": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "path": "src/libraries/System.Reflection.Metadata/src/System/Reflection/PortableExecutable/Machine.cs",
+      "repository": "runtime-csharp-v1",
+      "source": "// Licensed to the .NET Foundation under one or more agreements.\n// The .NET Foundation licenses this file to you under the MIT license.\n\nnamespace System.Reflection.PortableExecutable\n{\n    public enum Machine : ushort\n    {\n        /// <summary>\n        /// The target CPU is unknown or not specified.\n        /// </summary>\n        Unknown = 0x0000,\n\n        /// <summary>\n        /// Intel 386.\n        /// </summary>\n        I386 = 0x014C,\n\n        /// <summary>\n        /// MIPS little-endian WCE v2\n        /// </summary>\n        WceMipsV2 = 0x0169,\n\n        /// <summary>\n        /// Alpha\n        /// </summary>\n        Alpha = 0x0184,\n\n        /// <summary>\n        /// Hitachi SH3 little endian\n        /// </summary>\n        SH3 = 0x01a2,\n\n        /// <summary>\n        /// Hitachi SH3 DSP.\n        /// </summary>\n        SH3Dsp = 0x01a3,\n\n        /// <summary>\n        /// Hitachi SH3 little endian.\n        /// </summary>\n        SH3E = 0x01a4,\n\n        /// <summary>\n        /// Hitachi SH4 little endian.\n        /// </summary>\n        SH4 = 0x01a6,\n\n        /// <summary>\n        /// Hitachi SH5.\n        /// </summary>\n        SH5 = 0x01a8,\n\n        /// <summary>\n        /// ARM little endian\n        /// </summary>\n        Arm = 0x01c0,\n\n        /// <summary>\n        /// Thumb.\n        /// </summary>\n        Thumb = 0x01c2,\n\n        /// <summary>\n        /// ARM Thumb-2 little endian.\n        /// </summary>\n        ArmThumb2 = 0x01c4,\n\n        /// <summary>\n        /// Matsushita AM33.\n        /// </summary>\n        AM33 = 0x01d3,\n\n        /// <summary>\n        /// IBM PowerPC little endian.\n        /// </summary>\n        PowerPC = 0x01F0,\n\n        /// <summary>\n        /// PowerPCFP\n        /// </summary>\n        PowerPCFP = 0x01f1,\n\n        /// <summary>\n        /// Intel 64\n        /// </summary>\n        IA64 = 0x0200,\n\n        /// <summary>\n        /// MIPS\n        /// </summary>\n        MIPS16 = 0x0266,\n\n        /// <summary>\n        /// ALPHA64\n        /// </summary>\n        Alpha64 = 0x0284,\n\n        /// <summary>\n        /// MIPS with FPU.\n        /// </summary>\n        MipsFpu = 0x0366,\n\n        /// <summary>\n        /// MIPS16 with FPU.\n        /// </summary>\n        MipsFpu16 = 0x0466,\n\n        /// <summary>\n        /// Infineon\n        /// </summary>\n        Tricore = 0x0520,\n\n        /// <summary>\n        /// EFI Byte Code\n        /// </summary>\n        Ebc = 0x0EBC,\n\n        /// <summary>\n        /// AMD64 (K8)\n        /// </summary>\n        Amd64 = 0x8664,\n\n        /// <summary>\n        /// M32R little-endian\n        /// </summary>\n        M32R = 0x9041,\n\n        /// <summary>\n        /// ARM64\n        /// </summary>\n        Arm64 = 0xAA64,\n\n        /// <summary>\n        /// LOONGARCH32\n        /// </summary>\n        LoongArch32 = 0x6232,\n\n        /// <summary>\n        /// LOONGARCH64\n        /// </summary>\n        LoongArch64 = 0x6264,\n\n        /// <summary>\n        /// RISCV32\n        /// </summary>\n        RiscV32 = 0x5032,\n\n        /// <summary>\n        /// RISCV64\n        /// </summary>\n        RiscV64 = 0x5064,\n\n        /// <summary>\n        /// RISCV128\n        /// </summary>\n        RiscV128 = 0x5128,\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9955947136563876,
+          "recall": 0.9955947136563876,
+          "f1": 0.9955947136563876,
+          "tp": 226,
+          "fp": 1,
+          "fn": 1,
+          "support": 227
+        },
+        "exactSpanMacroF1": 0.7777777777777778,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9955947136563876,
+          "recall": 0.9955947136563876,
+          "f1": 0.9955947136563876,
+          "tp": 226,
+          "fp": 1,
+          "fn": 1,
+          "support": 227
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 92,
+            "fp": 0,
+            "fn": 0,
+            "support": 92
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 30,
+            "fp": 0,
+            "fn": 0,
+            "support": 30
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 31,
+            "fp": 0,
+            "fn": 0,
+            "support": 31
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 36,
+            "fp": 0,
+            "fn": 0,
+            "support": 36
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "support": 1
+          },
+          "enum-member": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 30,
+            "fp": 0,
+            "fn": 0,
+            "support": 30
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "method": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "Machine",
+          "tokenType": "enum",
+          "start": 203,
+          "end": 210
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "Machine",
+          "tokenType": "class",
+          "start": 203,
+          "end": 210
+        }
+      ]
+    },
+    {
+      "path": "Src/Newtonsoft.Json/Utilities/LateBoundReflectionDelegateFactory.cs",
+      "repository": "json-csharp-v1",
+      "source": "#region License\n// Copyright (c) 2007 James Newton-King\n//\n// Permission is hereby granted, free of charge, to any person\n// obtaining a copy of this software and associated documentation\n// files (the \"Software\"), to deal in the Software without\n// restriction, including without limitation the rights to use,\n// copy, modify, merge, publish, distribute, sublicense, and/or sell\n// copies of the Software, and to permit persons to whom the\n// Software is furnished to do so, subject to the following\n// conditions:\n//\n// The above copyright notice and this permission notice shall be\n// included in all copies or substantial portions of the Software.\n//\n// THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\n// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES\n// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\n// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT\n// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\n// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\n// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\n// OTHER DEALINGS IN THE SOFTWARE.\n#endregion\n\nusing System;\nusing Newtonsoft.Json.Serialization;\nusing System.Reflection;\n\n#if !HAVE_LINQ\nusing Newtonsoft.Json.Utilities.LinqBridge;\n#endif\n\nnamespace Newtonsoft.Json.Utilities\n{\n    internal class LateBoundReflectionDelegateFactory : ReflectionDelegateFactory\n    {\n        private static readonly LateBoundReflectionDelegateFactory _instance = new LateBoundReflectionDelegateFactory();\n\n        internal static ReflectionDelegateFactory Instance => _instance;\n\n        public override ObjectConstructor<object> CreateParameterizedConstructor(MethodBase method)\n        {\n            ValidationUtils.ArgumentNotNull(method, nameof(method));\n\n            if (method is ConstructorInfo c)\n            {\n                // don't convert to method group to avoid medium trust issues\n                // https://github.com/JamesNK/Newtonsoft.Json/issues/476\n                return a => c.Invoke(a);\n            }\n\n            return a => method.Invoke(null, a)!;\n        }\n\n        public override MethodCall<T, object?> CreateMethodCall<T>(MethodBase method)\n        {\n            ValidationUtils.ArgumentNotNull(method, nameof(method));\n\n            if (method is ConstructorInfo c)\n            {\n                return (o, a) => c.Invoke(a);\n            }\n\n            return (o, a) => method.Invoke(o, a);\n        }\n\n        public override Func<T> CreateDefaultConstructor<T>(Type type)\n        {\n            ValidationUtils.ArgumentNotNull(type, nameof(type));\n\n            if (type.IsValueType())\n            {\n                return () => (T)Activator.CreateInstance(type)!;\n            }\n\n            ConstructorInfo? constructorInfo = ReflectionUtils.GetDefaultConstructor(type, true);\n            if (constructorInfo == null)\n            {\n                throw new InvalidOperationException(\"Unable to find default constructor for \" + type.FullName);\n            }\n\n            return () => (T)constructorInfo.Invoke(null);\n        }\n\n        public override Func<T, object?> CreateGet<T>(PropertyInfo propertyInfo)\n        {\n            ValidationUtils.ArgumentNotNull(propertyInfo, nameof(propertyInfo));\n\n            return o => propertyInfo.GetValue(o, null);\n        }\n\n        public override Func<T, object?> CreateGet<T>(FieldInfo fieldInfo)\n        {\n            ValidationUtils.ArgumentNotNull(fieldInfo, nameof(fieldInfo));\n\n            return o => fieldInfo.GetValue(o);\n        }\n\n        public override Action<T, object?> CreateSet<T>(FieldInfo fieldInfo)\n        {\n            ValidationUtils.ArgumentNotNull(fieldInfo, nameof(fieldInfo));\n\n            return (o, v) => fieldInfo.SetValue(o, v);\n        }\n\n        public override Action<T, object?> CreateSet<T>(PropertyInfo propertyInfo)\n        {\n            ValidationUtils.ArgumentNotNull(propertyInfo, nameof(propertyInfo));\n\n            return (o, v) => propertyInfo.SetValue(o, v, null);\n        }\n    }\n}",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.979757085020243,
+          "recall": 0.979757085020243,
+          "f1": 0.979757085020243,
+          "tp": 484,
+          "fp": 10,
+          "fn": 10,
+          "support": 494
+        },
+        "exactSpanMacroF1": 0.971812501224266,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9493927125506073,
+          "recall": 0.9493927125506073,
+          "f1": 0.9493927125506073,
+          "tp": 469,
+          "fp": 25,
+          "fn": 25,
+          "support": 494
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 61,
+            "fp": 0,
+            "fn": 0,
+            "support": 61
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 24,
+            "fp": 0,
+            "fn": 0,
+            "support": 24
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 51,
+            "fp": 0,
+            "fn": 0,
+            "support": 51
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 196,
+            "fp": 0,
+            "fn": 0,
+            "support": 196
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 13,
+            "fp": 0,
+            "fn": 0,
+            "support": 13
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 0.9411764705882353,
+            "f1": 0.9696969696969697,
+            "tp": 32,
+            "fp": 0,
+            "fn": 2,
+            "support": 34
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "method": {
+            "precision": 0.9428571428571428,
+            "recall": 1.0,
+            "f1": 0.9705882352941176,
+            "tp": 33,
+            "fp": 2,
+            "fn": 0,
+            "support": 33
+          },
+          "parameter": {
+            "precision": 0.9285714285714286,
+            "recall": 0.9285714285714286,
+            "f1": 0.9285714285714286,
+            "tp": 52,
+            "fp": 4,
+            "fn": 4,
+            "support": 56
+          },
+          "variable": {
+            "precision": 0.7647058823529411,
+            "recall": 0.7647058823529411,
+            "f1": 0.7647058823529411,
+            "tp": 13,
+            "fp": 4,
+            "fn": 4,
+            "support": 17
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "c",
+          "tokenType": "variable",
+          "start": 1840,
+          "end": 1841
+        },
+        {
+          "text": "a",
+          "tokenType": "parameter",
+          "start": 2031,
+          "end": 2032
+        },
+        {
+          "text": "c",
+          "tokenType": "variable",
+          "start": 2036,
+          "end": 2037
+        },
+        {
+          "text": "a",
+          "tokenType": "parameter",
+          "start": 2083,
+          "end": 2084
+        },
+        {
+          "text": "c",
+          "tokenType": "variable",
+          "start": 2332,
+          "end": 2333
+        },
+        {
+          "text": "c",
+          "tokenType": "variable",
+          "start": 2382,
+          "end": 2383
+        },
+        {
+          "text": "o",
+          "tokenType": "parameter",
+          "start": 3289,
+          "end": 3290
+        },
+        {
+          "text": "Func",
+          "tokenType": "type",
+          "start": 3361,
+          "end": 3365
+        },
+        {
+          "text": "o",
+          "tokenType": "parameter",
+          "start": 3517,
+          "end": 3518
+        },
+        {
+          "text": "Action",
+          "tokenType": "type",
+          "start": 3809,
+          "end": 3815
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "c",
+          "tokenType": "parameter",
+          "start": 1840,
+          "end": 1841
+        },
+        {
+          "text": "a",
+          "tokenType": "variable",
+          "start": 2031,
+          "end": 2032
+        },
+        {
+          "text": "c",
+          "tokenType": "parameter",
+          "start": 2036,
+          "end": 2037
+        },
+        {
+          "text": "a",
+          "tokenType": "variable",
+          "start": 2083,
+          "end": 2084
+        },
+        {
+          "text": "c",
+          "tokenType": "parameter",
+          "start": 2332,
+          "end": 2333
+        },
+        {
+          "text": "c",
+          "tokenType": "parameter",
+          "start": 2382,
+          "end": 2383
+        },
+        {
+          "text": "o",
+          "tokenType": "variable",
+          "start": 3289,
+          "end": 3290
+        },
+        {
+          "text": "Func",
+          "tokenType": "method",
+          "start": 3361,
+          "end": 3365
+        },
+        {
+          "text": "o",
+          "tokenType": "variable",
+          "start": 3517,
+          "end": 3518
+        },
+        {
+          "text": "Action",
+          "tokenType": "method",
+          "start": 3809,
+          "end": 3815
+        }
+      ]
+    },
+    {
+      "path": "Dapper/SqlMapper.TypeDeserializerCache.cs",
+      "repository": "dapper-csharp-v1",
+      "source": "﻿using System;\r\nusing System.Collections;\r\nusing System.Collections.Generic;\r\nusing System.Data.Common;\r\nusing System.Text;\r\n\r\nnamespace Dapper\r\n{\r\n    public static partial class SqlMapper\r\n    {\r\n        private class TypeDeserializerCache\r\n        {\r\n            private TypeDeserializerCache(Type type)\r\n            {\r\n                this.type = type;\r\n            }\r\n\r\n            private static readonly Hashtable byType = new();\r\n            private readonly Type type;\r\n            internal static void Purge(Type type)\r\n            {\r\n                lock (byType)\r\n                {\r\n                    byType.Remove(type);\r\n                }\r\n            }\r\n\r\n            internal static void Purge()\r\n            {\r\n                lock (byType)\r\n                {\r\n                    byType.Clear();\r\n                }\r\n            }\r\n\r\n            internal static Func<DbDataReader, object> GetReader(Type type, DbDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)\r\n            {\r\n                var found = (TypeDeserializerCache?)byType[type];\r\n                if (found is null)\r\n                {\r\n                    lock (byType)\r\n                    {\r\n                        found = (TypeDeserializerCache?)byType[type];\r\n                        if (found is null)\r\n                        {\r\n                            byType[type] = found = new TypeDeserializerCache(type);\r\n                        }\r\n                    }\r\n                }\r\n                return found.GetReader(reader, startBound, length, returnNullIfFirstMissing);\r\n            }\r\n\r\n            private readonly Dictionary<DeserializerKey, Func<DbDataReader, object>> readers = new();\r\n\r\n            private readonly struct DeserializerKey : IEquatable<DeserializerKey>\r\n            {\r\n                private readonly int startBound, length;\r\n                private readonly bool returnNullIfFirstMissing;\r\n                private readonly DbDataReader? reader;\r\n                private readonly string[]? names;\r\n                private readonly Type[]? types;\r\n                private readonly int hashCode;\r\n\r\n                public DeserializerKey(int hashCode, int startBound, int length, bool returnNullIfFirstMissing, DbDataReader reader, bool copyDown)\r\n                {\r\n                    this.hashCode = hashCode;\r\n                    this.startBound = startBound;\r\n                    this.length = length;\r\n                    this.returnNullIfFirstMissing = returnNullIfFirstMissing;\r\n\r\n                    if (copyDown)\r\n                    {\r\n                        this.reader = null;\r\n                        names = new string[length];\r\n                        types = new Type[length];\r\n                        int index = startBound;\r\n                        for (int i = 0; i < length; i++)\r\n                        {\r\n                            names[i] = reader.GetName(index);\r\n                            types[i] = reader.GetFieldType(index++);\r\n                        }\r\n                    }\r\n                    else\r\n                    {\r\n                        this.reader = reader;\r\n                        names = null;\r\n                        types = null;\r\n                    }\r\n                }\r\n\r\n                public override int GetHashCode() => hashCode;\r\n\r\n                public override string ToString()\r\n                { // only used in the debugger\r\n                    if (names is not null)\r\n                    {\r\n                        return string.Join(\", \", names);\r\n                    }\r\n                    if (reader is not null)\r\n                    {\r\n                        var sb = new StringBuilder();\r\n                        int index = startBound;\r\n                        for (int i = 0; i < length; i++)\r\n                        {\r\n                            if (i != 0) sb.Append(\", \");\r\n                            sb.Append(reader.GetName(index++));\r\n                        }\r\n                        return sb.ToString();\r\n                    }\r\n                    return base.ToString() ?? \"\";\r\n                }\r\n\r\n                public override bool Equals(object? obj)\r\n                    => obj is DeserializerKey key && Equals(key);\r\n\r\n                public bool Equals(DeserializerKey other)\r\n                {\r\n                    if (hashCode != other.hashCode\r\n                        || startBound != other.startBound\r\n                        || length != other.length\r\n                        || returnNullIfFirstMissing != other.returnNullIfFirstMissing)\r\n                    {\r\n                        return false; // clearly different\r\n                    }\r\n                    for (int i = 0; i < length; i++)\r\n                    {\r\n                        if ((names?[i] ?? reader?.GetName(startBound + i)) != (other.names?[i] ?? other.reader?.GetName(startBound + i))\r\n                            ||\r\n                            (types?[i] ?? reader?.GetFieldType(startBound + i)) != (other.types?[i] ?? other.reader?.GetFieldType(startBound + i))\r\n                            )\r\n                        {\r\n                            return false; // different column name or type\r\n                        }\r\n                    }\r\n                    return true;\r\n                }\r\n            }\r\n\r\n            private Func<DbDataReader, object> GetReader(DbDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)\r\n            {\r\n                if (length < 0) length = reader.FieldCount - startBound;\r\n                int hash = GetColumnHash(reader, startBound, length);\r\n                if (returnNullIfFirstMissing) hash *= -27;\r\n                // get a cheap key first: false means don't copy the values down\r\n                var key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, false);\r\n                Func<DbDataReader, object>? deser;\r\n                lock (readers)\r\n                {\r\n                    if (readers.TryGetValue(key, out deser)) return deser!;\r\n                }\r\n                deser = GetTypeDeserializerImpl(type, reader, startBound, length, returnNullIfFirstMissing);\r\n                // get a more expensive key: true means copy the values down so it can be used as a key later\r\n                key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, true);\r\n                lock (readers)\r\n                {\r\n                    return readers[key] = deser;\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9019607843137255,
+          "recall": 0.9050925925925926,
+          "f1": 0.903523974581167,
+          "tp": 782,
+          "fp": 85,
+          "fn": 82,
+          "support": 864
+        },
+        "exactSpanMacroF1": 0.8335747540602567,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8985005767012687,
+          "recall": 0.9016203703703703,
+          "f1": 0.9000577700751011,
+          "tp": 779,
+          "fp": 88,
+          "fn": 85,
+          "support": 864
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9615384615384616,
+            "recall": 0.9868421052631579,
+            "f1": 0.974025974025974,
+            "tp": 150,
+            "fp": 6,
+            "fn": 2,
+            "support": 152
+          },
+          "comment": {
+            "precision": 0.8,
+            "recall": 0.8,
+            "f1": 0.8,
+            "tp": 4,
+            "fp": 1,
+            "fn": 1,
+            "support": 5
+          },
+          "string": {
+            "precision": 0.2,
+            "recall": 0.3333333333333333,
+            "f1": 0.25,
+            "tp": 1,
+            "fp": 4,
+            "fn": 2,
+            "support": 3
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "operator": {
+            "precision": 0.9270833333333334,
+            "recall": 0.9368421052631579,
+            "f1": 0.9319371727748691,
+            "tp": 89,
+            "fp": 7,
+            "fn": 6,
+            "support": 95
+          },
+          "punctuation": {
+            "precision": 0.9970845481049563,
+            "recall": 0.9970845481049563,
+            "f1": 0.9970845481049563,
+            "tp": 342,
+            "fp": 1,
+            "fn": 1,
+            "support": 343
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 0.8666666666666667,
+            "f1": 0.9285714285714286,
+            "tp": 26,
+            "fp": 0,
+            "fn": 4,
+            "support": 30
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "constructor": {
+            "precision": 0.8571428571428571,
+            "recall": 1.0,
+            "f1": 0.9230769230769231,
+            "tp": 6,
+            "fp": 1,
+            "fn": 0,
+            "support": 6
+          },
+          "method": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 27,
+            "fp": 0,
+            "fn": 0,
+            "support": 27
+          },
+          "parameter": {
+            "precision": 0.7605633802816901,
+            "recall": 0.7941176470588235,
+            "f1": 0.7769784172661871,
+            "tp": 54,
+            "fp": 17,
+            "fn": 14,
+            "support": 68
+          },
+          "variable": {
+            "precision": 0.4666666666666667,
+            "recall": 0.84,
+            "f1": 0.6,
+            "tp": 42,
+            "fp": 48,
+            "fn": 8,
+            "support": 50
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 0.3230769230769231,
+            "f1": 0.4883720930232558,
+            "tp": 21,
+            "fp": 0,
+            "fn": 44,
+            "support": 65
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "type",
+          "tokenType": "property",
+          "start": 472,
+          "end": 476
+        },
+        {
+          "text": "byType",
+          "tokenType": "property",
+          "start": 567,
+          "end": 573
+        },
+        {
+          "text": "byType",
+          "tokenType": "property",
+          "start": 615,
+          "end": 621
+        },
+        {
+          "text": "byType",
+          "tokenType": "property",
+          "start": 752,
+          "end": 758
+        },
+        {
+          "text": "byType",
+          "tokenType": "property",
+          "start": 800,
+          "end": 806
+        },
+        {
+          "text": "byType",
+          "tokenType": "property",
+          "start": 1077,
+          "end": 1083
+        },
+        {
+          "text": "found",
+          "tokenType": "variable",
+          "start": 1112,
+          "end": 1117
+        },
+        {
+          "text": "byType",
+          "tokenType": "property",
+          "start": 1173,
+          "end": 1179
+        },
+        {
+          "text": "found",
+          "tokenType": "variable",
+          "start": 1304,
+          "end": 1309
+        },
+        {
+          "text": "byType",
+          "tokenType": "property",
+          "start": 1375,
+          "end": 1381
+        },
+        {
+          "text": "type",
+          "tokenType": "parameter",
+          "start": 1382,
+          "end": 1386
+        },
+        {
+          "text": ">",
+          "tokenType": "operator",
+          "start": 1695,
+          "end": 1696
+        },
+        {
+          "text": ">",
+          "tokenType": "operator",
+          "start": 1696,
+          "end": 1697
+        },
+        {
+          "text": "readers",
+          "tokenType": "property",
+          "start": 1698,
+          "end": 1705
+        },
+        {
+          "text": "length",
+          "tokenType": "property",
+          "start": 1865,
+          "end": 1871
+        },
+        {
+          "text": "reader",
+          "tokenType": "property",
+          "start": 1986,
+          "end": 1992
+        },
+        {
+          "text": "names",
+          "tokenType": "property",
+          "start": 2038,
+          "end": 2043
+        },
+        {
+          "text": "types",
+          "tokenType": "property",
+          "start": 2087,
+          "end": 2092
+        },
+        {
+          "text": "copyDown",
+          "tokenType": "parameter",
+          "start": 2559,
+          "end": 2567
+        },
+        {
+          "text": "names",
+          "tokenType": "property",
+          "start": 2662,
+          "end": 2667
+        },
+        {
+          "text": "length",
+          "tokenType": "type",
+          "start": 2681,
+          "end": 2687
+        },
+        {
+          "text": "types",
+          "tokenType": "property",
+          "start": 2715,
+          "end": 2720
+        },
+        {
+          "text": "Type",
+          "tokenType": "type",
+          "start": 2727,
+          "end": 2731
+        },
+        {
+          "text": "length",
+          "tokenType": "type",
+          "start": 2732,
+          "end": 2738
+        },
+        {
+          "text": "startBound",
+          "tokenType": "parameter",
+          "start": 2778,
+          "end": 2788
+        },
+        {
+          "text": "length",
+          "tokenType": "parameter",
+          "start": 2835,
+          "end": 2841
+        },
+        {
+          "text": "names",
+          "tokenType": "property",
+          "start": 2904,
+          "end": 2909
+        },
+        {
+          "text": "reader",
+          "tokenType": "parameter",
+          "start": 2915,
+          "end": 2921
+        },
+        {
+          "text": "types",
+          "tokenType": "property",
+          "start": 2967,
+          "end": 2972
+        },
+        {
+          "text": "reader",
+          "tokenType": "parameter",
+          "start": 2978,
+          "end": 2984
+        },
+        {
+          "text": "names",
+          "tokenType": "property",
+          "start": 3179,
+          "end": 3184
+        },
+        {
+          "text": "types",
+          "tokenType": "property",
+          "start": 3218,
+          "end": 3223
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 3330,
+          "end": 3338
+        },
+        {
+          "text": "// only used in the debugger",
+          "tokenType": "comment",
+          "start": 3412,
+          "end": 3440
+        },
+        {
+          "text": "names",
+          "tokenType": "property",
+          "start": 3466,
+          "end": 3471
+        },
+        {
+          "text": "string",
+          "tokenType": "keyword",
+          "start": 3540,
+          "end": 3546
+        },
+        {
+          "text": "\", \"",
+          "tokenType": "string",
+          "start": 3552,
+          "end": 3556
+        },
+        {
+          "text": "names",
+          "tokenType": "property",
+          "start": 3558,
+          "end": 3563
+        },
+        {
+          "text": "reader",
+          "tokenType": "property",
+          "start": 3614,
+          "end": 3620
+        },
+        {
+          "text": "startBound",
+          "tokenType": "property",
+          "start": 3749,
+          "end": 3759
+        },
+        {
+          "text": "length",
+          "tokenType": "property",
+          "start": 3806,
+          "end": 3812
+        },
+        {
+          "text": "(",
+          "tokenType": "punctuation",
+          "start": 3896,
+          "end": 3897
+        },
+        {
+          "text": "\", \"",
+          "tokenType": "string",
+          "start": 3897,
+          "end": 3901
+        },
+        {
+          "text": "reader",
+          "tokenType": "property",
+          "start": 3943,
+          "end": 3949
+        },
+        {
+          "text": "base",
+          "tokenType": "keyword",
+          "start": 4094,
+          "end": 4098
+        },
+        {
+          "text": "obj",
+          "tokenType": "parameter",
+          "start": 4220,
+          "end": 4223
+        },
+        {
+          "text": "DeserializerKey",
+          "tokenType": "type",
+          "start": 4227,
+          "end": 4242
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 4257,
+          "end": 4260
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 4368,
+          "end": 4376
+        },
+        {
+          "text": "startBound",
+          "tokenType": "property",
+          "start": 4423,
+          "end": 4433
+        },
+        {
+          "text": "length",
+          "tokenType": "property",
+          "start": 4482,
+          "end": 4488
+        },
+        {
+          "text": "returnNullIfFirstMissing",
+          "tokenType": "property",
+          "start": 4533,
+          "end": 4557
+        },
+        {
+          "text": "length",
+          "tokenType": "property",
+          "start": 4740,
+          "end": 4746
+        },
+        {
+          "text": "names",
+          "tokenType": "property",
+          "start": 4806,
+          "end": 4811
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 4811,
+          "end": 4812
+        },
+        {
+          "text": "reader",
+          "tokenType": "property",
+          "start": 4819,
+          "end": 4825
+        },
+        {
+          "text": "startBound",
+          "tokenType": "property",
+          "start": 4835,
+          "end": 4845
+        },
+        {
+          "text": "??",
+          "tokenType": "operator",
+          "start": 4872,
+          "end": 4874
+        },
+        {
+          "text": "startBound",
+          "tokenType": "property",
+          "start": 4897,
+          "end": 4907
+        },
+        {
+          "text": "types",
+          "tokenType": "property",
+          "start": 4976,
+          "end": 4981
+        },
+        {
+          "text": "??",
+          "tokenType": "operator",
+          "start": 4986,
+          "end": 4988
+        },
+        {
+          "text": "reader",
+          "tokenType": "property",
+          "start": 4989,
+          "end": 4995
+        },
+        {
+          "text": "startBound",
+          "tokenType": "property",
+          "start": 5010,
+          "end": 5020
+        },
+        {
+          "text": "i",
+          "tokenType": "variable",
+          "start": 5044,
+          "end": 5045
+        },
+        {
+          "text": "??",
+          "tokenType": "operator",
+          "start": 5047,
+          "end": 5049
+        },
+        {
+          "text": "startBound",
+          "tokenType": "property",
+          "start": 5077,
+          "end": 5087
+        },
+        {
+          "text": "length",
+          "tokenType": "parameter",
+          "start": 5534,
+          "end": 5540
+        },
+        {
+          "text": "startBound",
+          "tokenType": "parameter",
+          "start": 5563,
+          "end": 5573
+        },
+        {
+          "text": "startBound",
+          "tokenType": "parameter",
+          "start": 5625,
+          "end": 5635
+        },
+        {
+          "text": "length",
+          "tokenType": "parameter",
+          "start": 5637,
+          "end": 5643
+        },
+        {
+          "text": "returnNullIfFirstMissing",
+          "tokenType": "parameter",
+          "start": 5667,
+          "end": 5691
+        },
+        {
+          "text": "returnNullIfFirstMissing",
+          "tokenType": "parameter",
+          "start": 5861,
+          "end": 5885
+        },
+        {
+          "text": "readers",
+          "tokenType": "property",
+          "start": 5978,
+          "end": 5985
+        },
+        {
+          "text": "readers",
+          "tokenType": "property",
+          "start": 6031,
+          "end": 6038
+        },
+        {
+          "text": "type",
+          "tokenType": "property",
+          "start": 6151,
+          "end": 6155
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 6340,
+          "end": 6343
+        },
+        {
+          "text": "hash",
+          "tokenType": "variable",
+          "start": 6366,
+          "end": 6370
+        },
+        {
+          "text": "startBound",
+          "tokenType": "parameter",
+          "start": 6372,
+          "end": 6382
+        },
+        {
+          "text": "readers",
+          "tokenType": "property",
+          "start": 6456,
+          "end": 6463
+        },
+        {
+          "text": "readers",
+          "tokenType": "property",
+          "start": 6512,
+          "end": 6519
+        },
+        {
+          "text": "key",
+          "tokenType": "variable",
+          "start": 6520,
+          "end": 6523
+        },
+        {
+          "text": "deser",
+          "tokenType": "variable",
+          "start": 6527,
+          "end": 6532
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "type",
+          "tokenType": "variable",
+          "start": 472,
+          "end": 476
+        },
+        {
+          "text": "byType",
+          "tokenType": "parameter",
+          "start": 567,
+          "end": 573
+        },
+        {
+          "text": "byType",
+          "tokenType": "variable",
+          "start": 615,
+          "end": 621
+        },
+        {
+          "text": "byType",
+          "tokenType": "parameter",
+          "start": 752,
+          "end": 758
+        },
+        {
+          "text": "byType",
+          "tokenType": "parameter",
+          "start": 800,
+          "end": 806
+        },
+        {
+          "text": "byType",
+          "tokenType": "variable",
+          "start": 1077,
+          "end": 1083
+        },
+        {
+          "text": "found",
+          "tokenType": "keyword",
+          "start": 1112,
+          "end": 1117
+        },
+        {
+          "text": "byType",
+          "tokenType": "parameter",
+          "start": 1173,
+          "end": 1179
+        },
+        {
+          "text": "found",
+          "tokenType": "keyword",
+          "start": 1304,
+          "end": 1309
+        },
+        {
+          "text": "byType",
+          "tokenType": "variable",
+          "start": 1375,
+          "end": 1381
+        },
+        {
+          "text": "type",
+          "tokenType": "variable",
+          "start": 1382,
+          "end": 1386
+        },
+        {
+          "text": ">>",
+          "tokenType": "operator",
+          "start": 1695,
+          "end": 1697
+        },
+        {
+          "text": "readers",
+          "tokenType": "parameter",
+          "start": 1698,
+          "end": 1705
+        },
+        {
+          "text": "length",
+          "tokenType": "parameter",
+          "start": 1865,
+          "end": 1871
+        },
+        {
+          "text": "reader",
+          "tokenType": "variable",
+          "start": 1986,
+          "end": 1992
+        },
+        {
+          "text": "names",
+          "tokenType": "parameter",
+          "start": 2038,
+          "end": 2043
+        },
+        {
+          "text": "types",
+          "tokenType": "parameter",
+          "start": 2087,
+          "end": 2092
+        },
+        {
+          "text": "copyDown",
+          "tokenType": "variable",
+          "start": 2559,
+          "end": 2567
+        },
+        {
+          "text": "names",
+          "tokenType": "variable",
+          "start": 2662,
+          "end": 2667
+        },
+        {
+          "text": "length",
+          "tokenType": "keyword",
+          "start": 2681,
+          "end": 2687
+        },
+        {
+          "text": "types",
+          "tokenType": "variable",
+          "start": 2715,
+          "end": 2720
+        },
+        {
+          "text": "Type",
+          "tokenType": "constructor",
+          "start": 2727,
+          "end": 2731
+        },
+        {
+          "text": "length",
+          "tokenType": "variable",
+          "start": 2732,
+          "end": 2738
+        },
+        {
+          "text": "startBound",
+          "tokenType": "variable",
+          "start": 2778,
+          "end": 2788
+        },
+        {
+          "text": "length",
+          "tokenType": "variable",
+          "start": 2835,
+          "end": 2841
+        },
+        {
+          "text": "names",
+          "tokenType": "variable",
+          "start": 2904,
+          "end": 2909
+        },
+        {
+          "text": "reader",
+          "tokenType": "variable",
+          "start": 2915,
+          "end": 2921
+        },
+        {
+          "text": "types",
+          "tokenType": "variable",
+          "start": 2967,
+          "end": 2972
+        },
+        {
+          "text": "reader",
+          "tokenType": "variable",
+          "start": 2978,
+          "end": 2984
+        },
+        {
+          "text": "names",
+          "tokenType": "variable",
+          "start": 3179,
+          "end": 3184
+        },
+        {
+          "text": "types",
+          "tokenType": "variable",
+          "start": 3218,
+          "end": 3223
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 3330,
+          "end": 3338
+        },
+        {
+          "text": "// only used in the debugger\r",
+          "tokenType": "comment",
+          "start": 3412,
+          "end": 3441
+        },
+        {
+          "text": "names",
+          "tokenType": "variable",
+          "start": 3466,
+          "end": 3471
+        },
+        {
+          "text": "string",
+          "tokenType": "variable",
+          "start": 3540,
+          "end": 3546
+        },
+        {
+          "text": "\"",
+          "tokenType": "string",
+          "start": 3552,
+          "end": 3553
+        },
+        {
+          "text": ",",
+          "tokenType": "punctuation",
+          "start": 3553,
+          "end": 3554
+        },
+        {
+          "text": "\"",
+          "tokenType": "string",
+          "start": 3555,
+          "end": 3556
+        },
+        {
+          "text": "names",
+          "tokenType": "variable",
+          "start": 3558,
+          "end": 3563
+        },
+        {
+          "text": "reader",
+          "tokenType": "variable",
+          "start": 3614,
+          "end": 3620
+        },
+        {
+          "text": "startBound",
+          "tokenType": "variable",
+          "start": 3749,
+          "end": 3759
+        },
+        {
+          "text": "length",
+          "tokenType": "variable",
+          "start": 3806,
+          "end": 3812
+        },
+        {
+          "text": "(\",",
+          "tokenType": "string",
+          "start": 3896,
+          "end": 3899
+        },
+        {
+          "text": "\"",
+          "tokenType": "string",
+          "start": 3900,
+          "end": 3901
+        },
+        {
+          "text": "reader",
+          "tokenType": "variable",
+          "start": 3943,
+          "end": 3949
+        },
+        {
+          "text": "base",
+          "tokenType": "variable",
+          "start": 4094,
+          "end": 4098
+        },
+        {
+          "text": "obj",
+          "tokenType": "keyword",
+          "start": 4220,
+          "end": 4223
+        },
+        {
+          "text": "DeserializerKey",
+          "tokenType": "variable",
+          "start": 4227,
+          "end": 4242
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 4257,
+          "end": 4260
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 4368,
+          "end": 4376
+        },
+        {
+          "text": "startBound",
+          "tokenType": "variable",
+          "start": 4423,
+          "end": 4433
+        },
+        {
+          "text": "length",
+          "tokenType": "parameter",
+          "start": 4482,
+          "end": 4488
+        },
+        {
+          "text": "returnNullIfFirstMissing",
+          "tokenType": "variable",
+          "start": 4533,
+          "end": 4557
+        },
+        {
+          "text": "length",
+          "tokenType": "variable",
+          "start": 4740,
+          "end": 4746
+        },
+        {
+          "text": "names?",
+          "tokenType": "variable",
+          "start": 4806,
+          "end": 4812
+        },
+        {
+          "text": "reader",
+          "tokenType": "variable",
+          "start": 4819,
+          "end": 4825
+        },
+        {
+          "text": "startBound",
+          "tokenType": "variable",
+          "start": 4835,
+          "end": 4845
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 4872,
+          "end": 4873
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 4873,
+          "end": 4874
+        },
+        {
+          "text": "startBound",
+          "tokenType": "variable",
+          "start": 4897,
+          "end": 4907
+        },
+        {
+          "text": "types",
+          "tokenType": "parameter",
+          "start": 4976,
+          "end": 4981
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 4986,
+          "end": 4987
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 4987,
+          "end": 4988
+        },
+        {
+          "text": "reader",
+          "tokenType": "variable",
+          "start": 4989,
+          "end": 4995
+        },
+        {
+          "text": "startBound",
+          "tokenType": "variable",
+          "start": 5010,
+          "end": 5020
+        },
+        {
+          "text": "i",
+          "tokenType": "keyword",
+          "start": 5044,
+          "end": 5045
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 5047,
+          "end": 5048
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 5048,
+          "end": 5049
+        },
+        {
+          "text": "startBound",
+          "tokenType": "variable",
+          "start": 5077,
+          "end": 5087
+        },
+        {
+          "text": "length",
+          "tokenType": "variable",
+          "start": 5534,
+          "end": 5540
+        },
+        {
+          "text": "startBound",
+          "tokenType": "variable",
+          "start": 5563,
+          "end": 5573
+        },
+        {
+          "text": "startBound",
+          "tokenType": "variable",
+          "start": 5625,
+          "end": 5635
+        },
+        {
+          "text": "length",
+          "tokenType": "variable",
+          "start": 5637,
+          "end": 5643
+        },
+        {
+          "text": "returnNullIfFirstMissing",
+          "tokenType": "variable",
+          "start": 5667,
+          "end": 5691
+        },
+        {
+          "text": "returnNullIfFirstMissing",
+          "tokenType": "variable",
+          "start": 5861,
+          "end": 5885
+        },
+        {
+          "text": "readers",
+          "tokenType": "parameter",
+          "start": 5978,
+          "end": 5985
+        },
+        {
+          "text": "readers",
+          "tokenType": "variable",
+          "start": 6031,
+          "end": 6038
+        },
+        {
+          "text": "type",
+          "tokenType": "parameter",
+          "start": 6151,
+          "end": 6155
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 6340,
+          "end": 6343
+        },
+        {
+          "text": "hash",
+          "tokenType": "parameter",
+          "start": 6366,
+          "end": 6370
+        },
+        {
+          "text": "startBound",
+          "tokenType": "variable",
+          "start": 6372,
+          "end": 6382
+        },
+        {
+          "text": "readers",
+          "tokenType": "parameter",
+          "start": 6456,
+          "end": 6463
+        },
+        {
+          "text": "readers",
+          "tokenType": "variable",
+          "start": 6512,
+          "end": 6519
+        },
+        {
+          "text": "key",
+          "tokenType": "parameter",
+          "start": 6520,
+          "end": 6523
+        },
+        {
+          "text": "deser",
+          "tokenType": "keyword",
+          "start": 6527,
+          "end": 6532
+        }
+      ]
+    },
+    {
+      "path": "Dapper/SqlMapper.Identity.cs",
+      "repository": "dapper-csharp-v1",
+      "source": "﻿using System;\r\nusing System.ComponentModel;\r\nusing System.Data;\r\nusing System.Runtime.CompilerServices;\r\n\r\nnamespace Dapper\r\n{\r\n    public static partial class SqlMapper\r\n    {\r\n        internal sealed class Identity<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh> : Identity\r\n        {\r\n            private static readonly int s_typeHash;\r\n            private static readonly int s_typeCount = CountNonTrivial(out s_typeHash);\r\n\r\n            internal Identity(string sql, CommandType? commandType, string connectionString, Type type, Type? parametersType, int gridIndex = 0)\r\n                : base(sql, commandType, connectionString, type, parametersType, s_typeHash, gridIndex)\r\n            {}\r\n            internal Identity(string sql, CommandType? commandType, IDbConnection connection, Type type, Type? parametersType, int gridIndex = 0)\r\n                : base(sql, commandType, connection.ConnectionString, type, parametersType, s_typeHash, gridIndex)\r\n            { }\r\n\r\n            static int CountNonTrivial(out int hashCode)\r\n            {\r\n                int hashCodeLocal = 0;\r\n                int count = 0;\r\n                bool Map<T>()\r\n                {\r\n                    if(typeof(T) != typeof(DontMap))\r\n                    {\r\n                        count++;\r\n                        hashCodeLocal = (hashCodeLocal * 23) + (typeof(T).GetHashCode());\r\n                        return true;\r\n                    }\r\n                    return false;\r\n                }\r\n                _ = Map<TFirst>() && Map<TSecond>() && Map<TThird>()\r\n                    && Map<TFourth>() && Map<TFifth>() && Map<TSixth>()\r\n                    && Map<TSeventh>();\r\n                hashCode = hashCodeLocal;\r\n                return count;\r\n            }\r\n            internal override int TypeCount => s_typeCount;\r\n            internal override Type GetType(int index) => index switch {\r\n                0 => typeof(TFirst),\r\n                1 => typeof(TSecond),\r\n                2 => typeof(TThird),\r\n                3 => typeof(TFourth),\r\n                4 => typeof(TFifth),\r\n                5 => typeof(TSixth),\r\n                6 => typeof(TSeventh),\r\n                _ => base.GetType(index),\r\n            };\r\n        }\r\n        internal sealed class IdentityWithTypes : Identity\r\n        {\r\n            private readonly Type[] _types;\r\n\r\n            internal IdentityWithTypes(string sql, CommandType? commandType, string connectionString, Type type, Type? parametersType, Type[] otherTypes, int gridIndex = 0)\r\n                : base(sql, commandType, connectionString, type, parametersType, HashTypes(otherTypes), gridIndex)\r\n            {\r\n                _types = otherTypes ?? Type.EmptyTypes;\r\n            }\r\n            internal IdentityWithTypes(string sql, CommandType? commandType, IDbConnection connection, Type type, Type? parametersType, Type[] otherTypes, int gridIndex = 0)\r\n                : base(sql, commandType, connection.ConnectionString, type, parametersType, HashTypes(otherTypes), gridIndex)\r\n            {\r\n                _types = otherTypes ?? Type.EmptyTypes;\r\n            }\r\n\r\n            internal override int TypeCount => _types.Length;\r\n\r\n            internal override Type GetType(int index) => _types[index];\r\n\r\n            static int HashTypes(Type[] types)\r\n            {\r\n                var hashCode = 0;\r\n                if (types is not null)\r\n                {\r\n                    foreach (var t in types)\r\n                    {\r\n                        hashCode = (hashCode * 23) + (t?.GetHashCode() ?? 0);\r\n                    }\r\n                }\r\n                return hashCode;\r\n            }\r\n        }\r\n\r\n        /// <summary>\r\n        /// Identity of a cached query in Dapper, used for extensibility.\r\n        /// </summary>\r\n        public class Identity : IEquatable<Identity>\r\n        {\r\n            internal virtual int TypeCount => 0;\r\n\r\n            internal virtual Type GetType(int index) => throw new IndexOutOfRangeException(nameof(index));\r\n\r\n#pragma warning disable CS0618 // Type or member is obsolete\r\n            internal Identity ForGrid<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(Type primaryType, int gridIndex) =>\r\n                new Identity<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(sql, commandType, connectionString, primaryType, parametersType, gridIndex);\r\n\r\n            internal Identity ForGrid(Type primaryType, int gridIndex) =>\r\n                new Identity(sql, commandType, connectionString, primaryType, parametersType, 0, gridIndex);\r\n\r\n            internal Identity ForGrid(Type primaryType, Type[] otherTypes, int gridIndex) =>\r\n                (otherTypes is null || otherTypes.Length == 0)\r\n                ? new Identity(sql, commandType, connectionString, primaryType, parametersType, 0, gridIndex)\r\n                : new IdentityWithTypes(sql, commandType, connectionString, primaryType, parametersType, otherTypes, gridIndex);\r\n\r\n            /// <summary>\r\n            /// Create an identity for use with DynamicParameters, internal use only.\r\n            /// </summary>\r\n            /// <param name=\"type\">The parameters type to create an <see cref=\"Identity\"/> for.</param>\r\n            /// <returns></returns>\r\n            public Identity ForDynamicParameters(Type type) =>\r\n                new Identity(sql, commandType, connectionString, this.type, type, 0, -1);\r\n#pragma warning restore CS0618 // Type or member is obsolete\r\n\r\n            internal Identity(string sql, CommandType? commandType, IDbConnection connection, Type? type, Type? parametersType)\r\n                : this(sql, commandType, connection.ConnectionString, type, parametersType, 0, 0) { /* base call */ }\r\n\r\n            private protected Identity(string sql, CommandType? commandType, string connectionString, Type? type, Type? parametersType, int otherTypesHash, int gridIndex)\r\n            {\r\n#pragma warning disable CS0618 // Type or member is obsolete\r\n                this.sql = sql;\r\n                this.commandType = commandType;\r\n                this.connectionString = connectionString;\r\n                this.type = type;\r\n                this.parametersType = parametersType;\r\n                this.gridIndex = gridIndex;\r\n                unchecked\r\n                {\r\n                    hashCode = 17; // we *know* we are using this in a dictionary, so pre-compute this\r\n                    hashCode = (hashCode * 23) + commandType.GetHashCode();\r\n                    hashCode = (hashCode * 23) + gridIndex.GetHashCode();\r\n                    hashCode = (hashCode * 23) + (sql?.GetHashCode() ?? 0);\r\n                    hashCode = (hashCode * 23) + (type?.GetHashCode() ?? 0);\r\n                    hashCode = (hashCode * 23) + otherTypesHash;\r\n                    hashCode = (hashCode * 23) + (connectionString is null ? 0 : connectionStringComparer.GetHashCode(connectionString));\r\n                    hashCode = (hashCode * 23) + (parametersType?.GetHashCode() ?? 0);\r\n                }\r\n#pragma warning restore CS0618 // Type or member is obsolete\r\n            }\r\n\r\n            /// <summary>\r\n            /// Whether this <see cref=\"Identity\"/> equals another.\r\n            /// </summary>\r\n            /// <param name=\"obj\">The other <see cref=\"object\"/> to compare to.</param>\r\n            public override bool Equals(object? obj) => Equals(obj as Identity);\r\n\r\n            /// <summary>\r\n            /// The raw SQL command.\r\n            /// </summary>\r\n            [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]\r\n            [Obsolete(\"Please use \" + nameof(Sql) + \". This API may be removed at a later date.\")]\r\n            public readonly string sql;\r\n\r\n            /// <summary>\r\n            /// The raw SQL command.\r\n            /// </summary>\r\n#pragma warning disable CS0618 // Type or member is obsolete\r\n            public string Sql => sql;\r\n#pragma warning restore CS0618 // Type or member is obsolete\r\n\r\n            /// <summary>\r\n            /// The SQL command type.\r\n            /// </summary>\r\n            [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]\r\n            [Obsolete(\"Please use \" + nameof(CommandType) + \". This API may be removed at a later date.\")]\r\n            public readonly CommandType? commandType;\r\n\r\n            /// <summary>\r\n            /// The SQL command type.\r\n            /// </summary>\r\n#pragma warning disable CS0618 // Type or member is obsolete\r\n            public CommandType? CommandType => commandType;\r\n#pragma warning restore CS0618 // Type or member is obsolete\r\n\r\n            /// <summary>\r\n            /// The hash code of this Identity.\r\n            /// </summary>\r\n            [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]\r\n            [Obsolete(\"Please use \" + nameof(GetHashCode) + \". This API may be removed at a later date.\")]\r\n            public readonly int hashCode;\r\n\r\n            /// <summary>\r\n            /// The grid index (position in the reader) of this Identity.\r\n            /// </summary>\r\n            [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]\r\n            [Obsolete(\"Please use \" + nameof(GridIndex) + \". This API may be removed at a later date.\")]\r\n            public readonly int gridIndex;\r\n\r\n            /// <summary>\r\n            /// The grid index (position in the reader) of this Identity.\r\n            /// </summary>\r\n#pragma warning disable CS0618 // Type or member is obsolete\r\n            public int GridIndex => gridIndex;\r\n#pragma warning restore CS0618 // Type or member is obsolete\r\n\r\n            /// <summary>\r\n            /// The <see cref=\"Type\"/> of this Identity.\r\n            /// </summary>\r\n            [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]\r\n            [Obsolete(\"Please use \" + nameof(Type) + \". This API may be removed at a later date.\")]\r\n            public readonly Type? type;\r\n\r\n            /// <summary>\r\n            /// The <see cref=\"Type\"/> of this Identity.\r\n            /// </summary>\r\n#pragma warning disable CS0618 // Type or member is obsolete\r\n            public Type? Type => type;\r\n#pragma warning restore CS0618 // Type or member is obsolete\r\n\r\n            /// <summary>\r\n            /// The connection string for this Identity.\r\n            /// </summary>\r\n            [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]\r\n            [Obsolete(\"This API may be removed at a later date.\")]\r\n            public readonly string connectionString;\r\n\r\n            /// <summary>\r\n            /// The type of the parameters object for this Identity.\r\n            /// </summary>\r\n            [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]\r\n            [Obsolete(\"Please use \" + nameof(ParametersType) + \". This API may be removed at a later date.\")]\r\n            public readonly Type? parametersType;\r\n\r\n            /// <summary>\r\n            /// The type of the parameters object for this Identity.\r\n            /// </summary>\r\n#pragma warning disable CS0618 // Type or member is obsolete\r\n            public Type? ParametersType => parametersType;\r\n#pragma warning restore CS0618 // Type or member is obsolete\r\n\r\n            /// <summary>\r\n            /// Gets the hash code for this identity.\r\n            /// </summary>\r\n            /// <returns></returns>\r\n#pragma warning disable CS0618 // Type or member is obsolete\r\n            public override int GetHashCode() => hashCode;\r\n#pragma warning restore CS0618 // Type or member is obsolete\r\n\r\n            /// <summary>\r\n            /// See object.ToString()\r\n            /// </summary>\r\n#pragma warning disable CS0618 // Type or member is obsolete\r\n            public override string ToString() => sql;\r\n#pragma warning restore CS0618 // Type or member is obsolete\r\n\r\n            /// <summary>\r\n            /// Compare 2 Identity objects\r\n            /// </summary>\r\n            /// <param name=\"other\">The other <see cref=\"Identity\"/> object to compare.</param>\r\n            /// <returns>Whether the two are equal</returns>\r\n            public bool Equals(Identity? other)\r\n            {\r\n                if (ReferenceEquals(this, other)) return true;\r\n                if (other is null) return false;\r\n\r\n                int typeCount;\r\n#pragma warning disable CS0618 // Type or member is obsolete\r\n                return gridIndex == other.gridIndex\r\n                    && type == other.type\r\n                    && sql == other.sql\r\n                    && commandType == other.commandType\r\n                    && connectionStringComparer.Equals(connectionString, other.connectionString)\r\n                    && parametersType == other.parametersType\r\n                    && (typeCount = TypeCount) == other.TypeCount\r\n                    && (typeCount == 0 || TypesEqual(this, other, typeCount));\r\n#pragma warning restore CS0618 // Type or member is obsolete\r\n            }\r\n\r\n            [MethodImpl(MethodImplOptions.NoInlining)]\r\n            private static bool TypesEqual(Identity x, Identity y, int count)\r\n            {\r\n                if (y.TypeCount != count) return false;\r\n                for(int i = 0; i < count; i++)\r\n                {\r\n                    if (x.GetType(i) != y.GetType(i))\r\n                        return false;\r\n                }\r\n                return true;\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.923262839879154,
+          "recall": 0.9249394673123487,
+          "f1": 0.9241003931055337,
+          "tp": 1528,
+          "fp": 127,
+          "fn": 124,
+          "support": 1652
+        },
+        "exactSpanMacroF1": 0.7941540167538498,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.911178247734139,
+          "recall": 0.9128329297820823,
+          "f1": 0.9120048382219534,
+          "tp": 1508,
+          "fp": 147,
+          "fn": 144,
+          "support": 1652
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9555555555555556,
+            "recall": 0.9662921348314607,
+            "f1": 0.9608938547486033,
+            "tp": 258,
+            "fp": 12,
+            "fn": 9,
+            "support": 267
+          },
+          "comment": {
+            "precision": 0.9411764705882353,
+            "recall": 0.975609756097561,
+            "f1": 0.9580838323353293,
+            "tp": 80,
+            "fp": 5,
+            "fn": 2,
+            "support": 82
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 13,
+            "fp": 0,
+            "fn": 0,
+            "support": 13
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 0.9743589743589743,
+            "f1": 0.987012987012987,
+            "tp": 38,
+            "fp": 0,
+            "fn": 1,
+            "support": 39
+          },
+          "operator": {
+            "precision": 0.9891891891891892,
+            "recall": 0.9945652173913043,
+            "f1": 0.991869918699187,
+            "tp": 183,
+            "fp": 2,
+            "fn": 1,
+            "support": 184
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 580,
+            "fp": 0,
+            "fn": 0,
+            "support": 580
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          },
+          "type": {
+            "precision": 0.9438202247191011,
+            "recall": 0.9333333333333333,
+            "f1": 0.9385474860335196,
+            "tp": 84,
+            "fp": 5,
+            "fn": 6,
+            "support": 90
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "support": 0
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 0.9166666666666666,
+            "f1": 0.9565217391304348,
+            "tp": 11,
+            "fp": 0,
+            "fn": 1,
+            "support": 12
+          },
+          "method": {
+            "precision": 0.7659574468085106,
+            "recall": 0.9,
+            "f1": 0.8275862068965517,
+            "tp": 36,
+            "fp": 11,
+            "fn": 4,
+            "support": 40
+          },
+          "parameter": {
+            "precision": 0.7947019867549668,
+            "recall": 0.8695652173913043,
+            "f1": 0.8304498269896193,
+            "tp": 120,
+            "fp": 31,
+            "fn": 18,
+            "support": 138
+          },
+          "variable": {
+            "precision": 0.46153846153846156,
+            "recall": 0.8727272727272727,
+            "f1": 0.6037735849056604,
+            "tp": 48,
+            "fp": 56,
+            "fn": 7,
+            "support": 55
+          },
+          "property": {
+            "precision": 0.96,
+            "recall": 0.44036697247706424,
+            "f1": 0.6037735849056604,
+            "tp": 48,
+            "fp": 2,
+            "fn": 61,
+            "support": 109
+          },
+          "decorator": {
+            "precision": 1.0,
+            "recall": 0.7272727272727273,
+            "f1": 0.8421052631578947,
+            "tp": 16,
+            "fp": 0,
+            "fn": 6,
+            "support": 22
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 8,
+            "support": 8
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "s_typeHash",
+          "tokenType": "property",
+          "start": 950,
+          "end": 960
+        },
+        {
+          "text": "Map",
+          "tokenType": "function",
+          "start": 1159,
+          "end": 1162
+        },
+        {
+          "text": "typeof",
+          "tokenType": "keyword",
+          "start": 1211,
+          "end": 1217
+        },
+        {
+          "text": "T",
+          "tokenType": "type",
+          "start": 1218,
+          "end": 1219
+        },
+        {
+          "text": "23",
+          "tokenType": "number",
+          "start": 1356,
+          "end": 1358
+        },
+        {
+          "text": "_",
+          "tokenType": "variable",
+          "start": 1521,
+          "end": 1522
+        },
+        {
+          "text": "Map",
+          "tokenType": "function",
+          "start": 1525,
+          "end": 1528
+        },
+        {
+          "text": "Map",
+          "tokenType": "function",
+          "start": 1542,
+          "end": 1545
+        },
+        {
+          "text": "Map",
+          "tokenType": "function",
+          "start": 1560,
+          "end": 1563
+        },
+        {
+          "text": "Map",
+          "tokenType": "function",
+          "start": 1598,
+          "end": 1601
+        },
+        {
+          "text": "Map",
+          "tokenType": "function",
+          "start": 1616,
+          "end": 1619
+        },
+        {
+          "text": "Map",
+          "tokenType": "function",
+          "start": 1633,
+          "end": 1636
+        },
+        {
+          "text": "Map",
+          "tokenType": "function",
+          "start": 1671,
+          "end": 1674
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "parameter",
+          "start": 1705,
+          "end": 1713
+        },
+        {
+          "text": "override",
+          "tokenType": "keyword",
+          "start": 1799,
+          "end": 1807
+        },
+        {
+          "text": "TypeCount",
+          "tokenType": "property",
+          "start": 1812,
+          "end": 1821
+        },
+        {
+          "text": "index",
+          "tokenType": "parameter",
+          "start": 1896,
+          "end": 1901
+        },
+        {
+          "text": "switch",
+          "tokenType": "keyword",
+          "start": 1902,
+          "end": 1908
+        },
+        {
+          "text": "_",
+          "tokenType": "keyword",
+          "start": 2198,
+          "end": 2199
+        },
+        {
+          "text": "base",
+          "tokenType": "keyword",
+          "start": 2203,
+          "end": 2207
+        },
+        {
+          "text": "otherTypes",
+          "tokenType": "parameter",
+          "start": 3089,
+          "end": 3099
+        },
+        {
+          "text": "??",
+          "tokenType": "operator",
+          "start": 3100,
+          "end": 3102
+        },
+        {
+          "text": "types",
+          "tokenType": "parameter",
+          "start": 3396,
+          "end": 3401
+        },
+        {
+          "text": "t",
+          "tokenType": "variable",
+          "start": 3468,
+          "end": 3469
+        },
+        {
+          "text": "types",
+          "tokenType": "parameter",
+          "start": 3473,
+          "end": 3478
+        },
+        {
+          "text": "t",
+          "tokenType": "variable",
+          "start": 3558,
+          "end": 3559
+        },
+        {
+          "text": "TSecond",
+          "tokenType": "type",
+          "start": 4144,
+          "end": 4151
+        },
+        {
+          "text": "TThird",
+          "tokenType": "type",
+          "start": 4153,
+          "end": 4159
+        },
+        {
+          "text": "TFourth",
+          "tokenType": "type",
+          "start": 4161,
+          "end": 4168
+        },
+        {
+          "text": "TFifth",
+          "tokenType": "type",
+          "start": 4170,
+          "end": 4176
+        },
+        {
+          "text": "TSixth",
+          "tokenType": "type",
+          "start": 4178,
+          "end": 4184
+        },
+        {
+          "text": "sql",
+          "tokenType": "property",
+          "start": 4322,
+          "end": 4325
+        },
+        {
+          "text": "commandType",
+          "tokenType": "property",
+          "start": 4327,
+          "end": 4338
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "property",
+          "start": 4340,
+          "end": 4356
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "property",
+          "start": 4371,
+          "end": 4385
+        },
+        {
+          "text": "sql",
+          "tokenType": "property",
+          "start": 4506,
+          "end": 4509
+        },
+        {
+          "text": "commandType",
+          "tokenType": "property",
+          "start": 4511,
+          "end": 4522
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "property",
+          "start": 4524,
+          "end": 4540
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "property",
+          "start": 4555,
+          "end": 4569
+        },
+        {
+          "text": "sql",
+          "tokenType": "property",
+          "start": 4778,
+          "end": 4781
+        },
+        {
+          "text": "commandType",
+          "tokenType": "property",
+          "start": 4783,
+          "end": 4794
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "property",
+          "start": 4796,
+          "end": 4812
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "property",
+          "start": 4827,
+          "end": 4841
+        },
+        {
+          "text": "gridIndex",
+          "tokenType": "parameter",
+          "start": 4846,
+          "end": 4855
+        },
+        {
+          "text": "sql",
+          "tokenType": "property",
+          "start": 4898,
+          "end": 4901
+        },
+        {
+          "text": "commandType",
+          "tokenType": "property",
+          "start": 4903,
+          "end": 4914
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "property",
+          "start": 4916,
+          "end": 4932
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "property",
+          "start": 4947,
+          "end": 4961
+        },
+        {
+          "text": "sql",
+          "tokenType": "property",
+          "start": 5367,
+          "end": 5370
+        },
+        {
+          "text": "commandType",
+          "tokenType": "property",
+          "start": 5372,
+          "end": 5383
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "property",
+          "start": 5385,
+          "end": 5401
+        },
+        {
+          "text": "Identity",
+          "tokenType": "constructor",
+          "start": 5773,
+          "end": 5781
+        },
+        {
+          "text": "sql",
+          "tokenType": "parameter",
+          "start": 6019,
+          "end": 6022
+        },
+        {
+          "text": "commandType",
+          "tokenType": "property",
+          "start": 6046,
+          "end": 6057
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6334,
+          "end": 6342
+        },
+        {
+          "text": "// we *know* we are using this in a dictionary, so pre-compute this",
+          "tokenType": "comment",
+          "start": 6349,
+          "end": 6416
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6438,
+          "end": 6446
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6450,
+          "end": 6458
+        },
+        {
+          "text": "commandType",
+          "tokenType": "parameter",
+          "start": 6467,
+          "end": 6478
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6515,
+          "end": 6523
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6527,
+          "end": 6535
+        },
+        {
+          "text": "gridIndex",
+          "tokenType": "parameter",
+          "start": 6544,
+          "end": 6553
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6590,
+          "end": 6598
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6602,
+          "end": 6610
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6667,
+          "end": 6675
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6679,
+          "end": 6687
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6745,
+          "end": 6753
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6757,
+          "end": 6765
+        },
+        {
+          "text": "otherTypesHash",
+          "tokenType": "parameter",
+          "start": 6774,
+          "end": 6788
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6811,
+          "end": 6819
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6823,
+          "end": 6831
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "parameter",
+          "start": 6841,
+          "end": 6857
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "parameter",
+          "start": 6909,
+          "end": 6925
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6950,
+          "end": 6958
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 6962,
+          "end": 6970
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "parameter",
+          "start": 6980,
+          "end": 6994
+        },
+        {
+          "text": "obj",
+          "tokenType": "parameter",
+          "start": 7392,
+          "end": 7395
+        },
+        {
+          "text": "Sql",
+          "tokenType": "property",
+          "start": 7628,
+          "end": 7631
+        },
+        {
+          "text": "sql",
+          "tokenType": "property",
+          "start": 7718,
+          "end": 7721
+        },
+        {
+          "text": "// Type or member is obsolete",
+          "tokenType": "comment",
+          "start": 7850,
+          "end": 7879
+        },
+        {
+          "text": "sql",
+          "tokenType": "property",
+          "start": 7914,
+          "end": 7917
+        },
+        {
+          "text": "EditorBrowsable",
+          "tokenType": "decorator",
+          "start": 8109,
+          "end": 8124
+        },
+        {
+          "text": "CommandType",
+          "tokenType": "property",
+          "start": 8200,
+          "end": 8211
+        },
+        {
+          "text": "commandType",
+          "tokenType": "property",
+          "start": 8523,
+          "end": 8534
+        },
+        {
+          "text": "EditorBrowsable",
+          "tokenType": "decorator",
+          "start": 8736,
+          "end": 8751
+        },
+        {
+          "text": "nameof",
+          "tokenType": "method",
+          "start": 8820,
+          "end": 8826
+        },
+        {
+          "text": "GetHashCode",
+          "tokenType": "method",
+          "start": 8827,
+          "end": 8838
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 8922,
+          "end": 8930
+        },
+        {
+          "text": "Browsable",
+          "tokenType": "decorator",
+          "start": 9078,
+          "end": 9087
+        },
+        {
+          "text": "EditorBrowsable",
+          "tokenType": "decorator",
+          "start": 9096,
+          "end": 9111
+        },
+        {
+          "text": "nameof",
+          "tokenType": "method",
+          "start": 9180,
+          "end": 9186
+        },
+        {
+          "text": "GridIndex",
+          "tokenType": "property",
+          "start": 9187,
+          "end": 9196
+        },
+        {
+          "text": "gridIndex",
+          "tokenType": "property",
+          "start": 9280,
+          "end": 9289
+        },
+        {
+          "text": "gridIndex",
+          "tokenType": "property",
+          "start": 9522,
+          "end": 9531
+        },
+        {
+          "text": "nameof",
+          "tokenType": "method",
+          "start": 9826,
+          "end": 9832
+        },
+        {
+          "text": "Type",
+          "tokenType": "property",
+          "start": 9833,
+          "end": 9837
+        },
+        {
+          "text": "type",
+          "tokenType": "property",
+          "start": 9923,
+          "end": 9927
+        },
+        {
+          "text": "#pragma",
+          "tokenType": "keyword",
+          "start": 10045,
+          "end": 10052
+        },
+        {
+          "text": "type",
+          "tokenType": "property",
+          "start": 10140,
+          "end": 10144
+        },
+        {
+          "text": "EditorBrowsable",
+          "tokenType": "decorator",
+          "start": 10355,
+          "end": 10370
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "property",
+          "start": 10504,
+          "end": 10520
+        },
+        {
+          "text": "EditorBrowsable",
+          "tokenType": "decorator",
+          "start": 10681,
+          "end": 10696
+        },
+        {
+          "text": "ParametersType",
+          "tokenType": "property",
+          "start": 10772,
+          "end": 10786
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "property",
+          "start": 11121,
+          "end": 11135
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "property",
+          "start": 11460,
+          "end": 11468
+        },
+        {
+          "text": "sql",
+          "tokenType": "property",
+          "start": 11740,
+          "end": 11743
+        },
+        {
+          "text": "this",
+          "tokenType": "keyword",
+          "start": 12168,
+          "end": 12172
+        },
+        {
+          "text": "other",
+          "tokenType": "parameter",
+          "start": 12174,
+          "end": 12179
+        },
+        {
+          "text": "other",
+          "tokenType": "parameter",
+          "start": 12216,
+          "end": 12221
+        },
+        {
+          "text": "gridIndex",
+          "tokenType": "property",
+          "start": 12365,
+          "end": 12374
+        },
+        {
+          "text": "type",
+          "tokenType": "property",
+          "start": 12418,
+          "end": 12422
+        },
+        {
+          "text": "sql",
+          "tokenType": "property",
+          "start": 12461,
+          "end": 12464
+        },
+        {
+          "text": "commandType",
+          "tokenType": "property",
+          "start": 12502,
+          "end": 12513
+        },
+        {
+          "text": "commandType",
+          "tokenType": "property",
+          "start": 12523,
+          "end": 12534
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "property",
+          "start": 12591,
+          "end": 12607
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "property",
+          "start": 12657,
+          "end": 12671
+        },
+        {
+          "text": "typeCount",
+          "tokenType": "variable",
+          "start": 12721,
+          "end": 12730
+        },
+        {
+          "text": "typeCount",
+          "tokenType": "variable",
+          "start": 12788,
+          "end": 12797
+        },
+        {
+          "text": "this",
+          "tokenType": "keyword",
+          "start": 12817,
+          "end": 12821
+        },
+        {
+          "text": "typeCount",
+          "tokenType": "variable",
+          "start": 12830,
+          "end": 12839
+        },
+        {
+          "text": "count",
+          "tokenType": "parameter",
+          "start": 13108,
+          "end": 13113
+        },
+        {
+          "text": "false",
+          "tokenType": "keyword",
+          "start": 13122,
+          "end": 13127
+        },
+        {
+          "text": "count",
+          "tokenType": "parameter",
+          "start": 13165,
+          "end": 13170
+        },
+        {
+          "text": "i",
+          "tokenType": "variable",
+          "start": 13247,
+          "end": 13248
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "s_typeHash",
+          "tokenType": "parameter",
+          "start": 950,
+          "end": 960
+        },
+        {
+          "text": "Map",
+          "tokenType": "method",
+          "start": 1159,
+          "end": 1162
+        },
+        {
+          "text": "typeof",
+          "tokenType": "method",
+          "start": 1211,
+          "end": 1217
+        },
+        {
+          "text": "T",
+          "tokenType": "variable",
+          "start": 1218,
+          "end": 1219
+        },
+        {
+          "text": "23",
+          "tokenType": "variable",
+          "start": 1356,
+          "end": 1358
+        },
+        {
+          "text": "_",
+          "tokenType": "property",
+          "start": 1521,
+          "end": 1522
+        },
+        {
+          "text": "Map",
+          "tokenType": "method",
+          "start": 1525,
+          "end": 1528
+        },
+        {
+          "text": "Map",
+          "tokenType": "type",
+          "start": 1542,
+          "end": 1545
+        },
+        {
+          "text": "Map",
+          "tokenType": "type",
+          "start": 1560,
+          "end": 1563
+        },
+        {
+          "text": "Map",
+          "tokenType": "type",
+          "start": 1598,
+          "end": 1601
+        },
+        {
+          "text": "Map",
+          "tokenType": "type",
+          "start": 1616,
+          "end": 1619
+        },
+        {
+          "text": "Map",
+          "tokenType": "type",
+          "start": 1633,
+          "end": 1636
+        },
+        {
+          "text": "Map",
+          "tokenType": "method",
+          "start": 1671,
+          "end": 1674
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 1705,
+          "end": 1713
+        },
+        {
+          "text": "override",
+          "tokenType": "variable",
+          "start": 1799,
+          "end": 1807
+        },
+        {
+          "text": "TypeCount",
+          "tokenType": "variable",
+          "start": 1812,
+          "end": 1821
+        },
+        {
+          "text": "index",
+          "tokenType": "variable",
+          "start": 1896,
+          "end": 1901
+        },
+        {
+          "text": "switch",
+          "tokenType": "variable",
+          "start": 1902,
+          "end": 1908
+        },
+        {
+          "text": "_",
+          "tokenType": "property",
+          "start": 2198,
+          "end": 2199
+        },
+        {
+          "text": "base",
+          "tokenType": "parameter",
+          "start": 2203,
+          "end": 2207
+        },
+        {
+          "text": "otherTypes",
+          "tokenType": "variable",
+          "start": 3089,
+          "end": 3099
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 3100,
+          "end": 3101
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 3101,
+          "end": 3102
+        },
+        {
+          "text": "types",
+          "tokenType": "variable",
+          "start": 3396,
+          "end": 3401
+        },
+        {
+          "text": "t",
+          "tokenType": "keyword",
+          "start": 3468,
+          "end": 3469
+        },
+        {
+          "text": "types",
+          "tokenType": "variable",
+          "start": 3473,
+          "end": 3478
+        },
+        {
+          "text": "t",
+          "tokenType": "parameter",
+          "start": 3558,
+          "end": 3559
+        },
+        {
+          "text": "TSecond",
+          "tokenType": "enum-member",
+          "start": 4144,
+          "end": 4151
+        },
+        {
+          "text": "TThird",
+          "tokenType": "enum-member",
+          "start": 4153,
+          "end": 4159
+        },
+        {
+          "text": "TFourth",
+          "tokenType": "enum-member",
+          "start": 4161,
+          "end": 4168
+        },
+        {
+          "text": "TFifth",
+          "tokenType": "comment",
+          "start": 4170,
+          "end": 4176
+        },
+        {
+          "text": "TSixth",
+          "tokenType": "comment",
+          "start": 4178,
+          "end": 4184
+        },
+        {
+          "text": "sql",
+          "tokenType": "parameter",
+          "start": 4322,
+          "end": 4325
+        },
+        {
+          "text": "commandType",
+          "tokenType": "parameter",
+          "start": 4327,
+          "end": 4338
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "parameter",
+          "start": 4340,
+          "end": 4356
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "parameter",
+          "start": 4371,
+          "end": 4385
+        },
+        {
+          "text": "sql",
+          "tokenType": "parameter",
+          "start": 4506,
+          "end": 4509
+        },
+        {
+          "text": "commandType",
+          "tokenType": "parameter",
+          "start": 4511,
+          "end": 4522
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "parameter",
+          "start": 4524,
+          "end": 4540
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "parameter",
+          "start": 4555,
+          "end": 4569
+        },
+        {
+          "text": "sql",
+          "tokenType": "variable",
+          "start": 4778,
+          "end": 4781
+        },
+        {
+          "text": "commandType",
+          "tokenType": "variable",
+          "start": 4783,
+          "end": 4794
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "parameter",
+          "start": 4796,
+          "end": 4812
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "variable",
+          "start": 4827,
+          "end": 4841
+        },
+        {
+          "text": "gridIndex",
+          "tokenType": "variable",
+          "start": 4846,
+          "end": 4855
+        },
+        {
+          "text": "sql",
+          "tokenType": "parameter",
+          "start": 4898,
+          "end": 4901
+        },
+        {
+          "text": "commandType",
+          "tokenType": "parameter",
+          "start": 4903,
+          "end": 4914
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "variable",
+          "start": 4916,
+          "end": 4932
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "parameter",
+          "start": 4947,
+          "end": 4961
+        },
+        {
+          "text": "sql",
+          "tokenType": "parameter",
+          "start": 5367,
+          "end": 5370
+        },
+        {
+          "text": "commandType",
+          "tokenType": "parameter",
+          "start": 5372,
+          "end": 5383
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "parameter",
+          "start": 5385,
+          "end": 5401
+        },
+        {
+          "text": "Identity",
+          "tokenType": "method",
+          "start": 5773,
+          "end": 5781
+        },
+        {
+          "text": "sql",
+          "tokenType": "keyword",
+          "start": 6019,
+          "end": 6022
+        },
+        {
+          "text": "commandType",
+          "tokenType": "variable",
+          "start": 6046,
+          "end": 6057
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6334,
+          "end": 6342
+        },
+        {
+          "text": "// we *know* we are using this in a dictionary, so pre-compute this\r",
+          "tokenType": "comment",
+          "start": 6349,
+          "end": 6417
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6438,
+          "end": 6446
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6450,
+          "end": 6458
+        },
+        {
+          "text": "commandType",
+          "tokenType": "variable",
+          "start": 6467,
+          "end": 6478
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6515,
+          "end": 6523
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6527,
+          "end": 6535
+        },
+        {
+          "text": "gridIndex",
+          "tokenType": "variable",
+          "start": 6544,
+          "end": 6553
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6590,
+          "end": 6598
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6602,
+          "end": 6610
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6667,
+          "end": 6675
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6679,
+          "end": 6687
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6745,
+          "end": 6753
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6757,
+          "end": 6765
+        },
+        {
+          "text": "otherTypesHash",
+          "tokenType": "variable",
+          "start": 6774,
+          "end": 6788
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6811,
+          "end": 6819
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6823,
+          "end": 6831
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "variable",
+          "start": 6841,
+          "end": 6857
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "variable",
+          "start": 6909,
+          "end": 6925
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6950,
+          "end": 6958
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 6962,
+          "end": 6970
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "variable",
+          "start": 6980,
+          "end": 6994
+        },
+        {
+          "text": "obj",
+          "tokenType": "keyword",
+          "start": 7392,
+          "end": 7395
+        },
+        {
+          "text": "Sql",
+          "tokenType": "variable",
+          "start": 7628,
+          "end": 7631
+        },
+        {
+          "text": "sql",
+          "tokenType": "variable",
+          "start": 7718,
+          "end": 7721
+        },
+        {
+          "text": "// Type or member ",
+          "tokenType": "comment",
+          "start": 7850,
+          "end": 7868
+        },
+        {
+          "text": "is obsolete",
+          "tokenType": "comment",
+          "start": 7868,
+          "end": 7879
+        },
+        {
+          "text": "sql",
+          "tokenType": "keyword",
+          "start": 7914,
+          "end": 7917
+        },
+        {
+          "text": "EditorBrowsable",
+          "tokenType": "method",
+          "start": 8109,
+          "end": 8124
+        },
+        {
+          "text": "CommandType",
+          "tokenType": "variable",
+          "start": 8200,
+          "end": 8211
+        },
+        {
+          "text": "commandType",
+          "tokenType": "parameter",
+          "start": 8523,
+          "end": 8534
+        },
+        {
+          "text": "EditorBrowsable",
+          "tokenType": "method",
+          "start": 8736,
+          "end": 8751
+        },
+        {
+          "text": "nameof",
+          "tokenType": "keyword",
+          "start": 8820,
+          "end": 8826
+        },
+        {
+          "text": "GetHashCode",
+          "tokenType": "variable",
+          "start": 8827,
+          "end": 8838
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "variable",
+          "start": 8922,
+          "end": 8930
+        },
+        {
+          "text": "Browsable",
+          "tokenType": "method",
+          "start": 9078,
+          "end": 9087
+        },
+        {
+          "text": "EditorBrowsable",
+          "tokenType": "method",
+          "start": 9096,
+          "end": 9111
+        },
+        {
+          "text": "nameof",
+          "tokenType": "keyword",
+          "start": 9180,
+          "end": 9186
+        },
+        {
+          "text": "GridIndex",
+          "tokenType": "variable",
+          "start": 9187,
+          "end": 9196
+        },
+        {
+          "text": "gridIndex",
+          "tokenType": "variable",
+          "start": 9280,
+          "end": 9289
+        },
+        {
+          "text": "gridIndex",
+          "tokenType": "parameter",
+          "start": 9522,
+          "end": 9531
+        },
+        {
+          "text": "nameof",
+          "tokenType": "keyword",
+          "start": 9826,
+          "end": 9832
+        },
+        {
+          "text": "Type",
+          "tokenType": "variable",
+          "start": 9833,
+          "end": 9837
+        },
+        {
+          "text": "type",
+          "tokenType": "parameter",
+          "start": 9923,
+          "end": 9927
+        },
+        {
+          "text": "#",
+          "tokenType": "keyword",
+          "start": 10045,
+          "end": 10046
+        },
+        {
+          "text": "pragma",
+          "tokenType": "keyword",
+          "start": 10046,
+          "end": 10052
+        },
+        {
+          "text": "type",
+          "tokenType": "keyword",
+          "start": 10140,
+          "end": 10144
+        },
+        {
+          "text": "EditorBrowsable",
+          "tokenType": "method",
+          "start": 10355,
+          "end": 10370
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "variable",
+          "start": 10504,
+          "end": 10520
+        },
+        {
+          "text": "EditorBrowsable",
+          "tokenType": "method",
+          "start": 10681,
+          "end": 10696
+        },
+        {
+          "text": "ParametersType",
+          "tokenType": "variable",
+          "start": 10772,
+          "end": 10786
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "parameter",
+          "start": 11121,
+          "end": 11135
+        },
+        {
+          "text": "hashCode",
+          "tokenType": "parameter",
+          "start": 11460,
+          "end": 11468
+        },
+        {
+          "text": "sql",
+          "tokenType": "keyword",
+          "start": 11740,
+          "end": 11743
+        },
+        {
+          "text": "this",
+          "tokenType": "variable",
+          "start": 12168,
+          "end": 12172
+        },
+        {
+          "text": "other",
+          "tokenType": "keyword",
+          "start": 12174,
+          "end": 12179
+        },
+        {
+          "text": "other",
+          "tokenType": "variable",
+          "start": 12216,
+          "end": 12221
+        },
+        {
+          "text": "gridIndex",
+          "tokenType": "variable",
+          "start": 12365,
+          "end": 12374
+        },
+        {
+          "text": "type",
+          "tokenType": "variable",
+          "start": 12418,
+          "end": 12422
+        },
+        {
+          "text": "sql",
+          "tokenType": "variable",
+          "start": 12461,
+          "end": 12464
+        },
+        {
+          "text": "commandType",
+          "tokenType": "variable",
+          "start": 12502,
+          "end": 12513
+        },
+        {
+          "text": "commandType",
+          "tokenType": "parameter",
+          "start": 12523,
+          "end": 12534
+        },
+        {
+          "text": "connectionString",
+          "tokenType": "parameter",
+          "start": 12591,
+          "end": 12607
+        },
+        {
+          "text": "parametersType",
+          "tokenType": "parameter",
+          "start": 12657,
+          "end": 12671
+        },
+        {
+          "text": "typeCount",
+          "tokenType": "parameter",
+          "start": 12721,
+          "end": 12730
+        },
+        {
+          "text": "typeCount",
+          "tokenType": "parameter",
+          "start": 12788,
+          "end": 12797
+        },
+        {
+          "text": "this",
+          "tokenType": "parameter",
+          "start": 12817,
+          "end": 12821
+        },
+        {
+          "text": "typeCount",
+          "tokenType": "parameter",
+          "start": 12830,
+          "end": 12839
+        },
+        {
+          "text": "count",
+          "tokenType": "variable",
+          "start": 13108,
+          "end": 13113
+        },
+        {
+          "text": "false",
+          "tokenType": "variable",
+          "start": 13122,
+          "end": 13127
+        },
+        {
+          "text": "count",
+          "tokenType": "variable",
+          "start": 13165,
+          "end": 13170
+        },
+        {
+          "text": "i",
+          "tokenType": "parameter",
+          "start": 13247,
+          "end": 13248
+        }
+      ]
+    }
+  ],
+  "checkpointHash": "ef3bbf44d6be013f55d910e2f9da7a6c8fd44474e0796a5e498ebe65707a4026",
+  "checkpointEpoch": 3,
+  "device": "mps"
+}

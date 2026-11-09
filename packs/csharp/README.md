@@ -13,3 +13,8 @@ Read [SEMANTICS.md](SEMANTICS.md) for bounded syntax/source-local roles and
 [training](../../training/csharp/README.md) for the established data, checkpoint,
 short-experiment and matching-test export workflow. Final inference uses original
 text and learned weights; no offline parser or SDK is needed by frontend consumers.
+
+The selected baseline is documented in [model/README.md](model/README.md),
+[BENCHMARKS.md](model/BENCHMARKS.md) and [KNOWN_ISSUES.md](model/KNOWN_ISSUES.md).
+The public browser API accepts `csharp`, `cs` and `c#`; Playground uses the same
+selected weights and existing three theme presets.

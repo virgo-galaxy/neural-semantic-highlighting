@@ -1,0 +1,1129 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "f58df8f2f9056641bb373e1b6400c488fdb6cf1850e48a4c33df2153f4a09708",
+  "cases": [
+    {
+      "id": "class-field",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "class Box { int count; void Set(int value) { count = value; } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "count",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 45,
+          "end": 50,
+          "text": "count",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "count",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 45,
+          "end": 50,
+          "text": "count",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "constructor",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "class Entry { Entry() {} Entry Copy() => new Entry(); }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 14,
+          "end": 19,
+          "text": "Entry",
+          "tokenType": "constructor",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 14,
+          "end": 19,
+          "text": "Entry",
+          "tokenType": "class",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "record",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "public record Person(string Name, int Age);",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 14,
+          "end": 20,
+          "text": "Person",
+          "tokenType": "class",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 28,
+          "end": 32,
+          "text": "Name",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 38,
+          "end": 41,
+          "text": "Age",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 14,
+          "end": 20,
+          "text": "Person",
+          "tokenType": "method",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 28,
+          "end": 32,
+          "text": "Name",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 38,
+          "end": 41,
+          "text": "Age",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "record-struct",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "readonly record struct Point(int X, int Y);",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 33,
+          "end": 34,
+          "text": "X",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 40,
+          "end": 41,
+          "text": "Y",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 33,
+          "end": 34,
+          "text": "X",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 40,
+          "end": 41,
+          "text": "Y",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "generic-interface",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "interface IStore<T> { T Get(string key); }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 22,
+          "end": 23,
+          "text": "T",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 22,
+          "end": 23,
+          "text": "T",
+          "tokenType": "type",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "enum",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "enum State { Ready, Done = 4 }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "attribute",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "[Obsolete(\"old\")] class Service {}",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "property",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "class Options { public required string Name { get; init; } }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "namespace-using",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "using System.Text;\nnamespace Demo.Code;\nclass View {}",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "lambda",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "var map = item => item.ToString();",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 10,
+          "end": 14,
+          "text": "item",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 10,
+          "end": 14,
+          "text": "item",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "linq",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "var query = from item in items where item.Ready select item.Name;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 17,
+          "end": 21,
+          "text": "item",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 25,
+          "end": 30,
+          "text": "items",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 17,
+          "end": 21,
+          "text": "item",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 25,
+          "end": 30,
+          "text": "items",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "raw-string",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "var template = \"\"\"<p class=\"note\">raw</p>\"\"\";",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 15,
+          "end": 44,
+          "text": "\"\"\"<p class=\"note\">raw</p>\"\"\"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 44,
+          "end": 45,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 15,
+          "end": 45,
+          "text": "\"\"\"<p class=\"note\">raw</p>\"\"\";",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "raw-interpolation",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "var json = $$\"\"\"{ \"name\": \"{{name}}\" }\"\"\";",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 8,
+          "text": "json",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 11,
+          "end": 41,
+          "text": "$$\"\"\"{ \"name\": \"{{name}}\" }\"\"\"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 41,
+          "end": 42,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 8,
+          "text": "json",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 11,
+          "end": 42,
+          "text": "$$\"\"\"{ \"name\": \"{{name}}\" }\"\"\";",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "verbatim-string",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "var path = @\"C:\\Users\\Code\\\"\"entry\"\"\";",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 11,
+          "end": 37,
+          "text": "@\"C:\\Users\\Code\\\"\"entry\"\"\"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 37,
+          "end": 38,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 11,
+          "end": 38,
+          "text": "@\"C:\\Users\\Code\\\"\"entry\"\"\";",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "utf8-string",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "var bytes = \"ready\"u8;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 9,
+          "text": "bytes",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 12,
+          "end": 21,
+          "text": "\"ready\"u8",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 22,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 9,
+          "text": "bytes",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 12,
+          "end": 22,
+          "text": "\"ready\"u8;",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "interpolation",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "var text = $\"Hello {name.ToUpper()}!\";",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 11,
+          "end": 37,
+          "text": "$\"Hello {name.ToUpper()}!\"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 37,
+          "end": 38,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 11,
+          "end": 20,
+          "text": "$\"Hello {",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 20,
+          "end": 25,
+          "text": "name.",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 25,
+          "end": 38,
+          "text": "ToUpper()}!\";",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "escaped-identifiers",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "class Names { int @class; int Read() => @class; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 18,
+          "end": 24,
+          "text": "@class",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 40,
+          "end": 46,
+          "text": "@class",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 18,
+          "end": 19,
+          "text": "@",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 19,
+          "end": 24,
+          "text": "class",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 40,
+          "end": 46,
+          "text": "@class",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "pattern-binding",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "class Check { bool Test(object item) => item is string text && text.Length > 0; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 63,
+          "end": 67,
+          "text": "text",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 63,
+          "end": 67,
+          "text": "text",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "// 中文 🌙\r\nclass 记录 { string 内容 = \"你好 🌿\"; }\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "// 中文 🌙",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 18,
+          "text": "记录",
+          "tokenType": "class",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 21,
+          "end": 27,
+          "text": "string",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 28,
+          "end": 30,
+          "text": "内容",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "// ",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 3,
+          "end": 8,
+          "text": "中文 🌙",
+          "tokenType": "comment",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": "记",
+          "tokenType": "class",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 21,
+          "end": 28,
+          "text": "string ",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 28,
+          "end": 30,
+          "text": "内容",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "directives",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "#nullable enable\n#if DEBUG\nclass DebugView {}\n#endif\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 21,
+          "end": 26,
+          "text": "DEBUG",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 21,
+          "end": 26,
+          "text": "DEBUG",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "local-function",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "int Twice(int value) => value * 2;\nvar result = Twice(5);",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "primary-constructor",
+      "profile": "csharp",
+      "documentKind": "csharp",
+      "source": "class Counter(int initial) { int value = initial; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    }
+  ],
+  "profiles": {
+    "csharp": {
+      "documents": 22,
+      "exactDocumentsIncludingModifiers": 6,
+      "exactSpan": {
+        "precision": 0.8846153846153846,
+        "recall": 0.8812260536398467,
+        "f1": 0.8829174664107485,
+        "tp": 230,
+        "fp": 30,
+        "fn": 31,
+        "support": 261
+      },
+      "exactSpanMacroF1": 0.8157681228189567,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8807692307692307,
+        "recall": 0.8773946360153256,
+        "f1": 0.8790786948176583,
+        "tp": 229,
+        "fp": 31,
+        "fn": 32,
+        "support": 261
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.921875,
+          "recall": 0.9833333333333333,
+          "f1": 0.9516129032258065,
+          "tp": 59,
+          "fp": 5,
+          "fn": 1,
+          "support": 60
+        },
+        "comment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 4,
+          "fn": 1,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.2,
+          "recall": 0.2857142857142857,
+          "f1": 0.23529411764705882,
+          "tp": 2,
+          "fp": 8,
+          "fn": 5,
+          "support": 7
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 22,
+          "fp": 0,
+          "fn": 0,
+          "support": 22
+        },
+        "punctuation": {
+          "precision": 0.9887640449438202,
+          "recall": 0.946236559139785,
+          "f1": 0.967032967032967,
+          "tp": 88,
+          "fp": 1,
+          "fn": 5,
+          "support": 93
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "class": {
+          "precision": 0.8181818181818182,
+          "recall": 0.8181818181818182,
+          "f1": 0.8181818181818182,
+          "tp": 9,
+          "fp": 2,
+          "fn": 2,
+          "support": 11
+        },
+        "interface": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "constructor": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "support": 2
+        },
+        "method": {
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
+          "support": 6
+        },
+        "parameter": {
+          "precision": 0.6666666666666666,
+          "recall": 0.9090909090909091,
+          "f1": 0.7692307692307693,
+          "tp": 10,
+          "fp": 5,
+          "fn": 1,
+          "support": 11
+        },
+        "variable": {
+          "precision": 0.8181818181818182,
+          "recall": 0.6,
+          "f1": 0.6923076923076923,
+          "tp": 9,
+          "fp": 2,
+          "fn": 6,
+          "support": 15
+        },
+        "property": {
+          "precision": 0.7142857142857143,
+          "recall": 0.35714285714285715,
+          "f1": 0.47619047619047616,
+          "tp": 5,
+          "fp": 2,
+          "fn": 9,
+          "support": 14
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "csharp": {
+      "documents": 22,
+      "exactDocumentsIncludingModifiers": 6,
+      "exactSpan": {
+        "precision": 0.8846153846153846,
+        "recall": 0.8812260536398467,
+        "f1": 0.8829174664107485,
+        "tp": 230,
+        "fp": 30,
+        "fn": 31,
+        "support": 261
+      },
+      "exactSpanMacroF1": 0.8157681228189567,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8807692307692307,
+        "recall": 0.8773946360153256,
+        "f1": 0.8790786948176583,
+        "tp": 229,
+        "fp": 31,
+        "fn": 32,
+        "support": 261
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.921875,
+          "recall": 0.9833333333333333,
+          "f1": 0.9516129032258065,
+          "tp": 59,
+          "fp": 5,
+          "fn": 1,
+          "support": 60
+        },
+        "comment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 4,
+          "fn": 1,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.2,
+          "recall": 0.2857142857142857,
+          "f1": 0.23529411764705882,
+          "tp": 2,
+          "fp": 8,
+          "fn": 5,
+          "support": 7
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 22,
+          "fp": 0,
+          "fn": 0,
+          "support": 22
+        },
+        "punctuation": {
+          "precision": 0.9887640449438202,
+          "recall": 0.946236559139785,
+          "f1": 0.967032967032967,
+          "tp": 88,
+          "fp": 1,
+          "fn": 5,
+          "support": 93
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "class": {
+          "precision": 0.8181818181818182,
+          "recall": 0.8181818181818182,
+          "f1": 0.8181818181818182,
+          "tp": 9,
+          "fp": 2,
+          "fn": 2,
+          "support": 11
+        },
+        "interface": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "constructor": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "support": 2
+        },
+        "method": {
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
+          "support": 6
+        },
+        "parameter": {
+          "precision": 0.6666666666666666,
+          "recall": 0.9090909090909091,
+          "f1": 0.7692307692307693,
+          "tp": 10,
+          "fp": 5,
+          "fn": 1,
+          "support": 11
+        },
+        "variable": {
+          "precision": 0.8181818181818182,
+          "recall": 0.6,
+          "f1": 0.6923076923076923,
+          "tp": 9,
+          "fp": 2,
+          "fn": 6,
+          "support": 15
+        },
+        "property": {
+          "precision": 0.7142857142857143,
+          "recall": 0.35714285714285715,
+          "f1": 0.47619047619047616,
+          "tp": 5,
+          "fp": 2,
+          "fn": 9,
+          "support": 14
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        }
+      }
+    }
+  },
+  "checkpointHash": "ef3bbf44d6be013f55d910e2f9da7a6c8fd44474e0796a5e498ebe65707a4026",
+  "checkpointEpoch": 3,
+  "device": "mps"
+}
