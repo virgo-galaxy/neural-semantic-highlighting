@@ -155,6 +155,9 @@ check:
 	$(MAKE) test-labeling-csharp
 	$(PYTHON) -m compileall -q training/csharp packs/csharp/runtime
 	$(PYTHON) -c 'import packs.csharp.runtime.local'
+	$(MAKE) test-labeling-c
+	$(PYTHON) -m compileall -q training/c packs/c/runtime
+	$(PYTHON) -c 'import packs.c.runtime.local'
 	$(PYTHON) -m compileall -q training/java packs/java/runtime
 	$(PYTHON) -c 'import packs.java.runtime.local'
 	$(PYTHON) -m compileall -q training/sql packs/sql/runtime

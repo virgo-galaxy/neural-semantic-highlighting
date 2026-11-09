@@ -639,3 +639,70 @@ challenge-csharp:
 export-csharp-model:
 	@test -n "$(CSHARP_CHECKPOINT)" -a -n "$(CSHARP_TEST_REPORT)" || (echo 'Set CSHARP_CHECKPOINT and CSHARP_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.csharp.export_model --checkpoint "$(CSHARP_CHECKPOINT)" --test-report "$(CSHARP_TEST_REPORT)"
+
+C_DEVICE ?= auto
+C_EPOCHS ?= 3
+C_BATCH_SIZE ?= 32
+C_LEARNING_RATE ?=
+C_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-c dataset-c-tools dataset-c-sources dataset-c-curriculum dataset-c-collect dataset-c-label dataset-c-validate dataset-c-prepare test-labeling-c train-c-smoke train-c continue-c predict-c evaluate-c challenge-c export-c-model
+
+dataset-c-tools:
+	$(PYTHON) -m packs.c.labeling.tools
+
+dataset-c-sources:
+	$(PYTHON) -m packs.c.dataset.fetch_sources
+
+dataset-c:
+	$(MAKE) dataset-c-tools
+	$(MAKE) dataset-c-sources
+	$(MAKE) dataset-c-curriculum
+	$(MAKE) dataset-c-collect
+	$(MAKE) dataset-c-label
+	$(MAKE) dataset-c-validate
+	$(MAKE) dataset-c-prepare
+
+dataset-c-curriculum:
+	$(PYTHON) -m packs.c.dataset.generate_curriculum
+
+dataset-c-collect:
+	$(PYTHON) -m packs.c.dataset.pipeline collect
+
+dataset-c-label:
+	$(PYTHON) -m packs.c.dataset.pipeline label
+
+dataset-c-validate:
+	$(PYTHON) -m packs.c.dataset.pipeline validate
+
+dataset-c-prepare:
+	$(PYTHON) -m training.c.prepare
+
+test-labeling-c:
+	$(PYTHON) -m unittest discover -s packs/c/tests -v
+
+train-c-smoke:
+	$(PYTHON) -m training.c.train --smoke --epochs 1 --device $(C_DEVICE) $(if $(C_RUN),--output-dir "$(C_RUN)") $(if $(C_INIT_FROM),--init-from "$(C_INIT_FROM)")
+
+train-c:
+	$(PYTHON) -m training.c.train --epochs $(C_EPOCHS) --device $(C_DEVICE) --batch-size $(C_BATCH_SIZE) $(if $(C_LEARNING_RATE),--learning-rate $(C_LEARNING_RATE)) $(if $(C_RUN),--output-dir "$(C_RUN)") $(if $(C_INIT_FROM),--init-from "$(C_INIT_FROM)")
+
+continue-c:
+	@test -n "$(C_CHECKPOINT)" || (echo 'Set C_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.c.train --resume "$(C_CHECKPOINT)" --epochs $(C_EPOCHS) --device $(C_DEVICE)
+
+predict-c:
+	@test -n "$(C_SOURCE)" || (echo 'Set C_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.c.predict --device $(C_DEVICE) --file "$(C_SOURCE)" $(if $(C_CHECKPOINT),--checkpoint "$(C_CHECKPOINT)")
+
+evaluate-c:
+	@test -n "$(C_CHECKPOINT)" || (echo 'Set C_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.c.evaluate --checkpoint "$(C_CHECKPOINT)" --device $(C_DEVICE) --split $(C_EVAL_SPLIT)
+
+challenge-c:
+	@test -n "$(C_CHECKPOINT)" || (echo 'Set C_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.c.challenge --checkpoint "$(C_CHECKPOINT)" --device $(C_DEVICE)
+
+export-c-model:
+	@test -n "$(C_CHECKPOINT)" -a -n "$(C_TEST_REPORT)" || (echo 'Set C_CHECKPOINT and C_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.c.export_model --checkpoint "$(C_CHECKPOINT)" --test-report "$(C_TEST_REPORT)"
