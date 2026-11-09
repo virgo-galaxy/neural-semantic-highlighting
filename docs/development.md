@@ -128,3 +128,18 @@ using the existing native compiler. No .NET SDK, Mono or global dependency is
 installed. This parser is used only for offline Gold, not by local neural inference
 or the browser. See [training](../training/csharp/README.md) and the
 [semantic contract](../packs/csharp/SEMANTICS.md) for scope and pinned provenance.
+
+## C offline workflow
+
+The C pack uses the existing Apple Clang/system C SDK; no compiler or global
+package is installed. `make dataset-c-tools` builds a pinned offline grammar in
+project cache. `make dataset-c` preserves captured `.c`/C `.h` bytes, complete
+licenses, source hashes and quarantines, then prepares frozen source-family splits.
+It never executes collected source, follows headers or expands macros.
+
+Use [the C training commands](../training/c/README.md), initialize only from full
+training checkpoints under `artifacts`, and inspect natural validation and Golden
+before freezing the first adaptive test. [Scope](../packs/c/SEMANTICS.md) and
+[measured limits](../packs/c/model/KNOWN_ISSUES.md) remain explicit. Frontend
+consumers use `language: "c"` or `@nsh/highlighter/languages/c`; browser inference
+requires no compiler, SDK, Python process or grammar.

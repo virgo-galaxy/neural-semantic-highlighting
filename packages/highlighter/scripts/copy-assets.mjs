@@ -18,6 +18,7 @@ for (const id of [
   "assembly",
   "java",
   "csharp",
+  "c",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

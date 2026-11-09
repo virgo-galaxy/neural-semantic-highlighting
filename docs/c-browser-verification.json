@@ -1,0 +1,239 @@
+{
+  "date": "2026-11-09",
+  "scope": "C addition using existing Apple Clang/SDK, no installation or prior model replacement",
+  "modelsAvailable": 16,
+  "selectedModel": {
+    "file": "model.pt",
+    "format": "nsh-c-model-v1",
+    "sha256": "6418250639758349b43f8182f958d838b277abdfd7575220d9ba104226219c8c",
+    "bytes": 3625013,
+    "parameterCount": 894227,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "browserModel": {
+    "file": "model.onnx",
+    "sha256": "07834638820dcb384d816104f547cb400a09234e7c795c94db7cbf299a7209bb",
+    "bytes": 3705539
+  },
+  "nativeSource": {
+    "file": "packs/c/model/model.pt",
+    "sha256": "6418250639758349b43f8182f958d838b277abdfd7575220d9ba104226219c8c"
+  },
+  "conversion": {
+    "reference": "selected PyTorch CPU inference",
+    "torch": "2.14.0",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "sourceSha256": "6418250639758349b43f8182f958d838b277abdfd7575220d9ba104226219c8c",
+    "modelSha256": "07834638820dcb384d816104f547cb400a09234e7c795c94db7cbf299a7209bb",
+    "comparisons": [
+      {
+        "bytes": 1,
+        "maxAbsoluteErrors": [1.9073486328125e-6, 6.67572021484375e-6, 4.76837158203125e-7]
+      },
+      {
+        "bytes": 2,
+        "maxAbsoluteErrors": [5.453824996948242e-6, 7.867813110351562e-6, 1.3113021850585938e-6]
+      },
+      {
+        "bytes": 7,
+        "maxAbsoluteErrors": [2.592802047729492e-6, 8.58306884765625e-6, 7.62939453125e-6]
+      },
+      {
+        "bytes": 31,
+        "maxAbsoluteErrors": [9.059906005859375e-6, 1.1444091796875e-5, 1.3828277587890625e-5]
+      },
+      {
+        "bytes": 64,
+        "maxAbsoluteErrors": [1.5735626220703125e-5, 2.8133392333984375e-5, 2.765655517578125e-5]
+      },
+      {
+        "bytes": 127,
+        "maxAbsoluteErrors": [1.7404556274414062e-5, 2.8371810913085938e-5, 2.8133392333984375e-5]
+      },
+      {
+        "bytes": 511,
+        "maxAbsoluteErrors": [2.193450927734375e-5, 2.384185791015625e-5, 3.0875205993652344e-5]
+      },
+      {
+        "bytes": 512,
+        "maxAbsoluteErrors": [2.002716064453125e-5, 2.288818359375e-5, 2.1457672119140625e-5]
+      }
+    ]
+  },
+  "browserParity": {
+    "total": 99,
+    "passed": 99,
+    "failures": [],
+    "cExamples": [
+      {
+        "filename": "c/callbacks.c",
+        "ms": 63.69999998807907
+      },
+      {
+        "filename": "c/file-reader.c",
+        "ms": 18.30000001192093
+      },
+      {
+        "filename": "c/hello.c",
+        "ms": 10.899999976158142
+      },
+      {
+        "filename": "c/linked-list.c",
+        "ms": 16.899999976158142
+      },
+      {
+        "filename": "c/literals.c",
+        "ms": 21.80000001192093
+      },
+      {
+        "filename": "c/macros.h",
+        "ms": 21.399999976158142
+      },
+      {
+        "filename": "c/modern-c.c",
+        "ms": 33.60000002384186
+      },
+      {
+        "filename": "c/points.c",
+        "ms": 21.299999952316284
+      }
+    ]
+  },
+  "independentPackage": {
+    "build": "Vite 8.2.2 production build; four private local tarballs installed offline in a fresh external project",
+    "emittedOnnxModels": 1,
+    "cases": [
+      {
+        "filename": "c/callbacks.c",
+        "spans": 76,
+        "equal": true,
+        "alias": "c"
+      },
+      {
+        "filename": "c/file-reader.c",
+        "spans": 58,
+        "equal": true,
+        "alias": "c"
+      },
+      {
+        "filename": "c/hello.c",
+        "spans": 37,
+        "equal": true,
+        "alias": "c"
+      },
+      {
+        "filename": "c/linked-list.c",
+        "spans": 51,
+        "equal": true,
+        "alias": "c"
+      },
+      {
+        "filename": "c/literals.c",
+        "spans": 49,
+        "equal": true,
+        "alias": "c"
+      },
+      {
+        "filename": "c/macros.h",
+        "spans": 84,
+        "equal": true,
+        "alias": "c"
+      },
+      {
+        "filename": "c/modern-c.c",
+        "spans": 73,
+        "equal": true,
+        "alias": "c"
+      },
+      {
+        "filename": "c/points.c",
+        "spans": 79,
+        "equal": true,
+        "alias": "c"
+      },
+      {
+        "filename": "edge-0.c",
+        "spans": 0,
+        "equal": true,
+        "alias": "c"
+      },
+      {
+        "filename": "edge-1.c",
+        "spans": 0,
+        "equal": true,
+        "alias": "c"
+      },
+      {
+        "filename": "edge-2.c",
+        "spans": 8,
+        "equal": true,
+        "alias": "c"
+      },
+      {
+        "filename": "edge-3.c",
+        "spans": 445,
+        "equal": true,
+        "alias": "c"
+      }
+    ],
+    "languageIds": ["c"],
+    "originalTextPreserved": true,
+    "covers": [
+      "eight display probes including a C header",
+      "empty source",
+      "CRLF",
+      "BOM and Unicode/astral characters",
+      "long multi-window source"
+    ],
+    "palettes": [
+      {
+        "preset": "default",
+        "mode": "light",
+        "background": "rgb(251, 252, 255)"
+      },
+      {
+        "preset": "default",
+        "mode": "dark",
+        "background": "rgb(21, 27, 41)"
+      },
+      {
+        "preset": "muted",
+        "mode": "light",
+        "background": "rgb(246, 245, 241)"
+      },
+      {
+        "preset": "muted",
+        "mode": "dark",
+        "background": "rgb(38, 40, 35)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "light",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "dark",
+        "background": "rgb(0, 0, 0)"
+      }
+    ],
+    "consoleWarningsOrErrors": {
+      "playground": [],
+      "independentPackage": [],
+      "parity": []
+    }
+  },
+  "checks": {
+    "makeCheck": "passed",
+    "typescriptTests": 141,
+    "cTeacherTests": 6,
+    "independentCGoldenCases": 18,
+    "priorNativeAndOnnxArtifactsPreserved": 31
+  },
+  "compilerOrSdkInstalled": false,
+  "globalPackagesInstalled": false,
+  "npmPublished": false,
+  "repositoryVisibilityChanged": false
+}

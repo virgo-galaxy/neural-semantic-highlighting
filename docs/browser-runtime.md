@@ -84,6 +84,30 @@ Model quality is separate in the [C# report](../packs/csharp/model/BENCHMARKS.md
 and [known issues](../packs/csharp/model/KNOWN_ISSUES.md). Original verification
 records, datasets and runs remain preserved. No package was published.
 
+## C addition
+
+C is the sixteenth model. Its [verification record](c-browser-verification.json)
+retains export hashes, numerical comparisons and additive end-to-end checks.
+
+- **99/99** example/edge cases across all models matched native CPU spans,
+  offsets and modifiers exactly in Chromium, including eight new C/C-header probes.
+- A fresh external Vite 8.2.2 project installed four private local tarballs from
+  cache, built through public package imports and passed **12/12** C cases.
+  Empty input, BOM, CRLF, Unicode and long source retained exact rendered text.
+  All six theme/mode combinations were observed; selective C emitted one ONNX.
+- Full `make check` passed 141 frontend tests, six C teacher tests and all existing
+  Gold/data/runtime checks. All 31 prior native/browser artifacts remain
+  byte-identical, including the historical Bash model.
+- The existing Apple Clang/SDK compiled authored C11/C17/C23 probes and built the
+  offline grammar. No compiler, SDK or global package was installed. The frontend
+  uses no compiler, SDK, parser, preprocessor or Python provider. No console
+  warnings/errors were observed in the Playground, parity or independent fixture.
+
+[Model quality](../packs/c/model/BENCHMARKS.md) and
+[known limits](../packs/c/model/KNOWN_ISSUES.md) are separate from runtime parity.
+Original records, datasets and experiments remain preserved. No package was
+published and repository visibility was not changed.
+
 ## Scope and limits
 
 This is conversion and integration evidence, **not a new model quality score**.

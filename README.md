@@ -701,11 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **15 model packs**, with browser inference and Playground examples.
+There are **16 model packs**, with browser inference and Playground examples.
 The browser conversion preserves the selected weights without retraining or
 quantization. [Browser verification](docs/browser-runtime.md) records conversion
-checks and the exact-output comparison across 91 examples/edge cases, including
-Java and C#. Independent local-package verification also covers its public imports. This is
+checks and the exact-output comparison across 99 examples/edge cases, including
+Java, C# and C. Independent local-package verification also covers its public imports. This is
 runtime parity evidence, not a new accuracy evaluation.
 
 The table reports **exact-span F1**: token start, end and semantic type must match.
@@ -729,6 +729,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [Assembly](packs/assembly/model/README.md)                  | Common NASM/Intel, GNU/AT&T, MASM, AArch64; `.asm`, `.ASM`, `.nasm`, `.masm`, `.s`, `.S`, assembly `.inc`                                                           | [98.63%](packs/assembly/model/BENCHMARKS.md) — natural test, 5 files; per-profile results in report         | Browser + local; [macro parameters, names, modifiers and comment boundaries](packs/assembly/model/KNOWN_ISSUES.md) remain limited     |
 | [Java](packs/java/model/README.md)                          | Java source and package/module descriptors; `.java`; common Java 8–22 and non-preview modern syntax through JDK 22                                                  | [92.60%](packs/java/model/BENCHMARKS.md) — natural test, 29 files                                           | Browser + local; [local name roles, guarded patterns and module paths](packs/java/model/KNOWN_ISSUES.md) remain limited               |
 | [C#](packs/csharp/model/README.md)                          | C# source; `.cs`; classes, structs, records, attributes, LINQ, async and modern strings accepted by the pinned grammar                                              | [94.64%](packs/csharp/model/BENCHMARKS.md) — natural test, 24 files                                         | Browser + local; [complex property patterns, record names and distant local roles](packs/csharp/model/KNOWN_ISSUES.md) remain limited |
+| [C](packs/c/model/README.md)                                | C source and explicitly C headers; `.c`, `.h`; common C11/C17 and accepted modern/GNU forms, including pointers, structs, macros and callbacks                      | [93.90%](packs/c/model/BENCHMARKS.md) — natural test, 18 files                                              | Browser + local; [macro parameters, local roles and string/literal boundaries](packs/c/model/KNOWN_ISSUES.md) remain limited          |
 
 ## Development and training
 

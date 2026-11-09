@@ -23,6 +23,7 @@ const ids = [
   "assembly",
   "java",
   "csharp",
+  "c",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,

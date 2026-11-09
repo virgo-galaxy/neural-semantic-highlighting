@@ -44,3 +44,6 @@ pinned Devicon revision and under the preserved MIT license.
 
 The C# entry uses `csharp.svg`, from `icons/csharp/csharp-original.svg` at the same
 pinned Devicon revision and under the preserved MIT license.
+
+The C entry uses `c.svg`, from `icons/c/c-original.svg` at the same pinned
+Devicon revision and under the preserved MIT license.
