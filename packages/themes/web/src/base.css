@@ -1,0 +1,10 @@
+/* Shared renderer contract. Public --nsh-* variables are consumer overrides. */
+:where(.nsh) {
+  background: var(--nsh-background, var(--_nsh-background));
+  color: var(--nsh-foreground, var(--_nsh-foreground));
+}
+:where(.nsh)::selection,
+:where(.nsh) ::selection {
+  background: var(--nsh-selection-background, var(--_nsh-selection-background));
+  color: var(--nsh-selection-foreground, var(--_nsh-selection-foreground));
+}

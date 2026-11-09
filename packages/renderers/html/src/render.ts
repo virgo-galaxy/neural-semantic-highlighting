@@ -37,10 +37,14 @@ export function renderCodeToHtml({ source, result }: RenderToHtmlOptions): strin
         ? ` data-modifiers="${escapeAttribute(span.modifiers.join(" "))}"`
         : "";
 
+    const language = span.documentKind
+      ? ` data-nsh-language="${escapeAttribute(span.documentKind)}"`
+      : "";
+
     parts.push(
       `<span class="nsh-token" data-token-type="${escapeAttribute(
         span.tokenType,
-      )}"${modifiers}>${escapeHtml(source.slice(start, end))}</span>`,
+      )}"${modifiers}${language}>${escapeHtml(source.slice(start, end))}</span>`,
     );
 
     cursor = end;

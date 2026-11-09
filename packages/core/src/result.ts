@@ -22,6 +22,9 @@ export interface SemanticSpan {
    * Semantic modifiers defined by the active pack.
    */
   modifiers?: readonly string[];
+
+  /** Embedded source language for rendering; omitted for the document's own spans. */
+  documentKind?: string;
 }
 
 export interface HighlightResult {

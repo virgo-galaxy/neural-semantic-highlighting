@@ -50,7 +50,12 @@ describe("Vue neural region composition", () => {
     const result = await pack.highlight({ source, documentKind: "vue" });
     expect(requests.map((r) => r.documentKind)).toEqual([...roles, "typescript"]);
     expect(requests.at(-1)?.source).toBe(EXPRESSION_PREFIX + "data" + "\n);");
-    expect(result.spans.at(-1)).toEqual({ start: 31, end: 35, tokenType: "variable" });
+    expect(result.spans.at(-1)).toEqual({
+      start: 31,
+      end: 35,
+      tokenType: "variable",
+      documentKind: "typescript",
+    });
   });
   it("does not use source tags to override a neural decision or fetch external sources", async () => {
     let calls = 0;

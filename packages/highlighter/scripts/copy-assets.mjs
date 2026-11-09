@@ -1,4 +1,4 @@
-import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, cpSync, mkdirSync } from "node:fs";
 const root = new URL("../../../", import.meta.url);
 const dist = new URL("../dist/", import.meta.url);
 mkdirSync(new URL("models/", dist), { recursive: true });
@@ -19,9 +19,5 @@ for (const id of [
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }
-writeFileSync(
-  new URL("theme.css", dist),
-  readFileSync(new URL("packages/themes/web/base.css", root), "utf8") +
-    "\n" +
-    readFileSync(new URL("packages/themes/web/languages/typescript.css", root), "utf8"),
-);
+cpSync(new URL("packages/themes/web/dist/", root), new URL("themes/", dist), { recursive: true });
+copyFileSync(new URL("packages/themes/web/dist/default.css", root), new URL("theme.css", dist));

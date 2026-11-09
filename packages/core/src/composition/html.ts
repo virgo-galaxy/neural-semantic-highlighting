@@ -62,7 +62,12 @@ export function createCompositeHtmlPack({
         const child = await highlightEmbedded({ source, documentKind });
         validate(source, child);
         for (const item of child.spans) {
-          spans.push({ ...item, start: span.start + item.start, end: span.start + item.end });
+          spans.push({
+            ...item,
+            start: span.start + item.start,
+            end: span.start + item.end,
+            documentKind: item.documentKind ?? documentKind,
+          });
         }
       }
       return { offsetEncoding: "utf-16", spans };

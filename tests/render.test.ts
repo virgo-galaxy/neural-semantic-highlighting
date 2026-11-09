@@ -143,3 +143,19 @@ describe("renderCodeToHtml", () => {
     );
   });
 });
+
+describe("embedded language styling", () => {
+  it("renders escaped child-language metadata while preserving semantic spans", () => {
+    const html = renderToHtml({
+      source: ".card",
+      documentKind: "vue",
+      result: {
+        offsetEncoding: "utf-16",
+        spans: [{ start: 0, end: 5, tokenType: "class", documentKind: 'css" onload="x' }],
+      },
+    });
+    expect(html).toContain('data-language="vue"');
+    expect(html).toContain('data-nsh-language="css&quot; onload=&quot;x"');
+    expect(html).toContain(">.card</span>");
+  });
+});

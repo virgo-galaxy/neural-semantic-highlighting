@@ -69,6 +69,7 @@ export function createCompositeVuePack(options: {
           if (start < end)
             spans.push({
               ...item,
+              documentKind: item.documentKind ?? documentKind,
               start: span.start + start - prefix.length,
               end: span.start + end - prefix.length,
             });

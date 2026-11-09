@@ -33,6 +33,22 @@ weights are fetched lazily. Models are about 3.7 MB each, with a shared 14.8 MB
 uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
 
-The bundled theme supports `data-theme="dark"` and `--nsh-*` CSS overrides.
+`theme.css` provides the Default preset. For all presets:
+
+```ts
+import "@nsh/highlighter/themes.css";
+import { themes } from "@nsh/highlighter/themes";
+```
+
+Set `data-nsh-preset="default"`, `"muted"` or `"contrast"` on a code block or its
+ancestor. Independently set `data-nsh-theme="light"` / `"dark"` on an ancestor,
+or `data-theme` on an individual `.nsh` block. Missing a preset selects Default.
+For a single preset, import `@nsh/highlighter/themes/muted.css` and set its ID.
+The catalog contains IDs/names/descriptions; it does not load CSS by itself.
+
+Every preset has complete paired palettes plus optional language accents.
+Switching styles or mode reuses the existing highlighted markup. Public
+`--nsh-*` variables override both base and language colors; font/layout rules
+can be customized with ordinary application CSS.
 Models retain their measured limitations; this package does not claim perfect
 classification or full highlight.js API compatibility.

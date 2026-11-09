@@ -67,8 +67,20 @@ describe("HTML neural region composition", () => {
       "javascript",
     ]);
     expect(result.spans).toEqual([
-      { start: css + 3, end: css + 8, tokenType: "property", modifiers: ["declaration"] },
-      { start: js + 4, end: js + 5, tokenType: "variable", modifiers: ["declaration"] },
+      {
+        start: css + 3,
+        end: css + 8,
+        tokenType: "property",
+        modifiers: ["declaration"],
+        documentKind: "css",
+      },
+      {
+        start: js + 4,
+        end: js + 5,
+        tokenType: "variable",
+        modifiers: ["declaration"],
+        documentKind: "javascript",
+      },
     ]);
     expect(source.slice(result.spans[0]!.start, result.spans[0]!.end)).toBe("color");
   });

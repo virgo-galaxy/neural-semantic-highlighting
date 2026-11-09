@@ -17,7 +17,13 @@
       "types": "./dist/languages/*.d.ts",
       "import": "./dist/languages/*.js"
     },
-    "./theme.css": "./dist/theme.css"
+    "./theme.css": "./dist/theme.css",
+    "./themes.css": "./dist/themes/all.css",
+    "./themes": {
+      "types": "./dist/themes/index.d.ts",
+      "import": "./dist/themes/index.js"
+    },
+    "./themes/*.css": "./dist/themes/*.css"
   },
   "files": [
     "dist"
@@ -33,5 +39,8 @@
     "@nsh/core": "workspace:*",
     "@nsh/html": "workspace:*",
     "@nsh/browser": "workspace:*"
+  },
+  "devDependencies": {
+    "@nsh/themes": "workspace:*"
   }
 }
