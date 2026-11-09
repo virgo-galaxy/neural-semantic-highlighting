@@ -12,7 +12,8 @@ std::string {fn}(int {arg}) {{
         "enabled": true,
         "message": "Quoted text stays inside the raw string."
     }})json";
-    return std::string(payload) + std::to_string({arg});
+    if ({arg} < {n}) return std::string(payload);
+    return std::string(payload) + " / ready";
 }}
 }}
 ''',
@@ -128,7 +129,7 @@ public:
 ''',
 }
 def main():
- root=PackSpec.open('cpp').dataset_root/'sources/mixed-v1';hashes={}
+ root=PackSpec.open('cpp').dataset_root/'sources/mixed-v2';hashes={}
  for index,(family,template) in enumerate(PROGRAMS.items()):
   for variant in range(24):
    rng=random.Random(62839+107*index+variant);w=rng.sample(WORDS,6);source=template.format(fn=w[0]+'_render',arg=w[1],word=w[2],item=w[3].title()+'Item',cls=w[4].title()+'Buffer',ns=w[5],n=rng.randrange(2,30));source=source.replace('    ',['    ','  ','\t'][variant%3])
@@ -139,7 +140,7 @@ def main():
    hashes[target.relative_to(root).as_posix()]=hashlib.sha256(raw).hexdigest()
  license=root/'LICENSE'
  if not license.exists():license.write_text('Original multiline C++ syntax tasks for Neural Semantic Highlighting.\nPrivate development dataset; no Golden, Playground or upstream source copied.\n')
- lock={'format':'nsh-cpp-mixed-v1','generatorSha256':file_hash(Path(__file__)),'files':hashes};p=root/'source.lock.json'
+ lock={'format':'nsh-cpp-mixed-v2','generatorSha256':file_hash(Path(__file__)),'files':hashes};p=root/'source.lock.json'
  if p.exists() and json.loads(p.read_text())!=lock:raise ValueError('Preserve existing mixed lock')
  p.write_text(json.dumps(lock,indent=2)+'\n');print(len(hashes),'C++ mixed tasks across',len(PROGRAMS),'families')
 if __name__=='__main__':main()
