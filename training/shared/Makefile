@@ -597,6 +597,7 @@ dataset-csharp:
 
 dataset-csharp-curriculum:
 	$(PYTHON) -m packs.csharp.dataset.generate_curriculum
+	$(PYTHON) -m packs.csharp.dataset.generate_mixed
 
 dataset-csharp-collect:
 	$(PYTHON) -m packs.csharp.dataset.pipeline collect
