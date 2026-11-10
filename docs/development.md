@@ -273,3 +273,24 @@ Initialize/resume only full checkpoints, never inference `.pt`/ONNX. See
 and [evaluation](../packs/dart/model/BENCHMARKS.md). Frontends use `dart` or
 `@nsh/highlighter/languages/dart` through the existing browser worker. Flutter
 source shares that model without an installed framework or widget resolution.
+
+## Flutter coverage within Dart
+
+Flutter is a public alias and dedicated Playground group sharing the unchanged
+Dart descriptor, weights, schema and `.dart` file mapping. The Flutter selective
+entry re-exports Dart; it adds no separate model pack or model asset. There is no
+Dart/Flutter SDK, analyzer, pub environment, generator or source execution.
+
+`make dataset-flutter-examples` captures 48 pinned application sources/licenses
+under the existing external Dart dataset root. `make evaluate-flutter` reviews
+those files and audits exact/lexical/shape matches against prior Gold;
+`make challenge-flutter` reviews eight hand-marked probes and eight displayed
+examples. Both use `DART_DEVICE`, with output paths configurable through
+`FLUTTER_REPORT` and `FLUTTER_CHALLENGE_REPORT`. These review files are excluded
+from training and do not replace the historical Dart held-out test. Existing
+source-family assignments, checkpoints, models and reports remain preserved.
+
+The [Flutter report](../packs/dart/model/FLUTTER.md) records the measured decision
+to reuse the current weights, including strict Golden and source-local limits.
+The public alias canonicalizes to Dart; the Playground keeps its own Flutter
+label/icon while `.dart` sources are routed to Dart inference.

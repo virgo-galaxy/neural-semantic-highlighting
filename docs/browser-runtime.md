@@ -341,3 +341,39 @@ retain raw/triple/interpolated literal boundaries, inferred/local/constructor
 roles, complex patterns and context limits. Independent grammar acceptance does
 not certify complete SDK-version compatibility or resolve imported widgets.
 All packages and the repository remain private; nothing is published or pushed.
+
+## Flutter entry using Dart
+
+Flutter adds a dedicated UI/public entry and eight examples while retaining the
+22 existing models. Its [verification record](flutter-browser-verification.json)
+records the shared-model behavior:
+
+- **155/155** browser cases match native CPU spans, original UTF-16 offsets and
+  modifiers, including eight new Flutter examples; all prior 147 results remain
+  unchanged. All 45 previous model artifact hashes remain identical.
+- A fresh offline consumer builds the four private local tarballs with public
+  imports and passes **12/12** cases across `flutter`, `dart` and `Flutter` names.
+  `highlightTokens` and `highlightElement` on `language-flutter` also match native
+  results. Text, BOM/CRLF/Unicode and long input are preserved.
+- Selective `@nsh/highlighter/languages/flutter` re-exports Dart and emits **one
+  Dart ONNX asset**. Importing Dart and Flutter together deduplicates that model.
+  Results/HTML use canonical `dart`; six light/dark palette combinations work.
+- Full `make check` passes 155 frontend tests and twelve Dart/Flutter teacher
+  tests, including 35 unchanged Dart marked cases and eight new Flutter probes.
+  Strict neural exactness is 0/8 new probes, recorded separately from span F1.
+- New application review covers 48 pinned official Flutter sample files from
+  twelve projects, with 93.95% exact-span F1 and no exact/lexical/shape matches in
+  prior Gold. Eight independent display examples aggregate 95.73%. This additional
+  review does not replace the historical Dart held-out test.
+- These measurements support reusing the frozen Dart weights. No training,
+  new model export, SDK, pub environment, analyzer, source project execution or
+  parser dependency is added to inference. Review sources remain outside training
+  under the existing external Dart dataset root, with licenses and source locks.
+- Playground selection, shuffle, editing/blur and light/dark themes preserve
+  source and canonical Dart routing without console warnings/errors.
+
+[Flutter usage/evaluation](../packs/dart/model/FLUTTER.md) explains shared CSS,
+source-local roles, strict Golden diagnostics and existing model limits. Imported
+widget types, versions and generated code are not resolved. Existing data,
+checkpoints, models and reports remain preserved. Packages/repository stay private;
+nothing is published or pushed as part of this addition.

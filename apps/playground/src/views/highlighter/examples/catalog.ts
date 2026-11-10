@@ -7,6 +7,7 @@ import cppIcon from "@/assets/document-kinds/cpp.svg";
 import csharpIcon from "@/assets/document-kinds/csharp.svg";
 import cssIcon from "@/assets/document-kinds/css.svg";
 import dartIcon from "@/assets/document-kinds/dart.svg";
+import flutterIcon from "@/assets/document-kinds/flutter.svg";
 import goIcon from "@/assets/document-kinds/go.svg";
 import htmlIcon from "@/assets/document-kinds/html.svg";
 import javaIcon from "@/assets/document-kinds/java.svg";
@@ -93,6 +94,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   rust: { label: "Rust", icon: rustIcon },
   zig: { label: "Zig", icon: zigIcon },
   dart: { label: "Dart", icon: dartIcon },
+  flutter: { label: "Flutter", icon: flutterIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [

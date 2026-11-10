@@ -105,3 +105,11 @@ asset. Consumers require no Dart/Flutter SDK, analyzer, language parser or Pytho
 provider. See [Dart evaluation](../../packs/dart/model/BENCHMARKS.md) and
 [known issues](../../packs/dart/model/KNOWN_ISSUES.md), including literal boundaries
 and approximate local/constructor roles.
+
+Flutter supports `{ language: "flutter" }` and
+`@nsh/highlighter/languages/flutter`. The descriptor re-exports Dart; importing
+both emits one Dart model asset. Return values and HTML normalize to canonical
+`dart`, so Dart theme/CSS overrides apply. `highlightElement` accepts
+`language-flutter`, and `highlightTokens` accepts the same alias. The Playground
+has a separate Flutter entry; files remain `.dart`. See
+[Flutter coverage and limits](../../packs/dart/model/FLUTTER.md).

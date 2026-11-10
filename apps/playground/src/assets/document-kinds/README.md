@@ -65,3 +65,6 @@ same pinned Devicon revision and under the preserved MIT license.
 
 The Dart entry uses `dart.svg`, from `icons/dart/dart-original.svg` at the
 same pinned Devicon revision and under the preserved MIT license.
+
+The Flutter entry uses `flutter.svg`, from `icons/flutter/flutter-original.svg`
+at the same pinned Devicon revision and under the preserved MIT license.
