@@ -94,3 +94,34 @@ describe("PHP composition", () => {
     await expect(pack.highlight({ source: "", documentKind: "html" })).rejects.toThrow();
   });
 });
+
+it("offline composed PHP template Gold retains HTML and CSS roles", async () => {
+  const { composePhpGold } = await import("../packs/php/labeling/compose-gold.js");
+  const source = "<style>.card{color:red;}</style><p><?= $title ?></p>";
+  const open = source.indexOf("<?="),
+    close = source.indexOf("?>");
+  const result = await composePhpGold(source, {
+    offsetEncoding: "utf-16",
+    spans: [
+      { start: 0, end: open, tokenType: "embedded-html" },
+      { start: open, end: open + 3, tokenType: "keyword" },
+      { start: open + 4, end: close - 1, tokenType: "variable" },
+      { start: close, end: close + 2, tokenType: "keyword" },
+      { start: close + 2, end: source.length, tokenType: "embedded-html" },
+    ],
+  });
+  expect(
+    result.spans.some(
+      (span) =>
+        source.slice(span.start, span.end) === "color" &&
+        span.tokenType === "property" &&
+        span.documentKind === "css",
+    ),
+  ).toBe(true);
+  expect(
+    result.spans.some(
+      (span) => span.tokenType === "tag" && source.slice(span.start, span.end) === "p",
+    ),
+  ).toBe(true);
+  expect(result.spans.some((span) => span.tokenType.startsWith("embedded-"))).toBe(false);
+});
