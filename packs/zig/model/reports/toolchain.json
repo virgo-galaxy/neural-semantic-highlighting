@@ -1,0 +1,839 @@
+{
+  "before": "0.14.1",
+  "version": "0.17.1",
+  "executable": "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+  "sha256": "59fc9a6973d151a65a7f523ac25abdb93ac9dd5088975c782098d0dd91fe7f9b",
+  "library": "/opt/homebrew/Cellar/zig/0.17.1/lib/zig",
+  "homebrewVersion": "Homebrew 7.0.13",
+  "source": "https://ziglang.org/download/index.json",
+  "compilerProbe": {
+    "source": "const std = @import(\"std\");\n\ntest \"current stable compiler and standard library\" {\n    var values: std.ArrayList(u32) = .empty;\n    defer values.deinit(std.testing.allocator);\n    try values.append(std.testing.allocator, 17);\n    try std.testing.expectEqual(@as(u32, 17), values.items[0]);\n\n    const Status = enum { pending, ready };\n    const status: Status = .ready;\n    try std.testing.expectEqual(@as(usize, 1), @intFromEnum(status));\n}\n",
+    "sourceSha256": "e2290c337a009b37d8c082d913e2cf9f0c15d2adf23beb84264979f8bbc4c61f",
+    "result": "1/1 upgrade-probe.test.current stable compiler and standard library...OK\nAll 1 tests passed.\n"
+  },
+  "llvmPostinstall": "completed after Homebrew update",
+  "oldZigPreserved": true,
+  "displayChecks": [
+    {
+      "filename": "captures.zig",
+      "sourceSha256": "97256eba8ccd5a971de28474d4d49224272d4cb14f42b00dee4ac84d168b8f6b",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "build-exe",
+        "artifacts/zig/display/captures.zig",
+        "-fno-emit-bin",
+        "--cache-dir",
+        "artifacts/zig/display-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "comptime.zig",
+      "sourceSha256": "167874df86a8770880004371fcac475e0c97c96f7bf891d7024a48f941622e10",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "build-exe",
+        "artifacts/zig/display/comptime.zig",
+        "-fno-emit-bin",
+        "--cache-dir",
+        "artifacts/zig/display-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "containers.zig",
+      "sourceSha256": "31ba6ccc641ff6671721d883eb65130b69a7ef7925555694987611cbe87d0026",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "build-exe",
+        "artifacts/zig/display/containers.zig",
+        "-fno-emit-bin",
+        "--cache-dir",
+        "artifacts/zig/display-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "errors-optionals.zig",
+      "sourceSha256": "939efcfbff548af5378254724c888664bcaff08a86a8e4cd478bb4366060bf20",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "build-exe",
+        "artifacts/zig/display/errors-optionals.zig",
+        "-fno-emit-bin",
+        "--cache-dir",
+        "artifacts/zig/display-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "hello.zig",
+      "sourceSha256": "6a878b40ca07390d10181d38d930d77644d87f9ae75525ae7b947b7a1f9a06cf",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "build-exe",
+        "artifacts/zig/display/hello.zig",
+        "-fno-emit-bin",
+        "--cache-dir",
+        "artifacts/zig/display-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "memory.zig",
+      "sourceSha256": "97d4cea39c76d2daa19d23191f414d7938820b8724e6da736bb4688e4307a027",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "build-exe",
+        "artifacts/zig/display/memory.zig",
+        "-fno-emit-bin",
+        "--cache-dir",
+        "artifacts/zig/display-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "reflection.zig",
+      "sourceSha256": "40b7be8d787f38c000bf9667a593b5c9ed126ab2c2ddbd3b3159185768cec520",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "build-exe",
+        "artifacts/zig/display/reflection.zig",
+        "-fno-emit-bin",
+        "--cache-dir",
+        "artifacts/zig/display-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "strings.zig",
+      "sourceSha256": "d6a115cd2c997c89275e93d048ea1f5539e49b3b6030eeafc68c0c054cf6fe5d",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "build-exe",
+        "artifacts/zig/display/strings.zig",
+        "-fno-emit-bin",
+        "--cache-dir",
+        "artifacts/zig/display-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    }
+  ],
+  "curriculumChecks": [
+    {
+      "family": "functions",
+      "sha256": "300032171ea8eb3bf5c41780b523e3d720eaacf974fb49ba92f557761c1db6a0",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/functions.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 functions.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "mutable",
+      "sha256": "baf809ea737cf695a0b5964f769035c634f57b645027c3847566dce8204a0807",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/mutable.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 mutable.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "constant",
+      "sha256": "1da6eb7408166457684cee7bae6a82c0583a8cb658fbf9221473ed010d3e0c81",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/constant.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 constant.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "struct",
+      "sha256": "c4e150c6e9546461d0a7d82fd5106accfc50c639cd5fa531bf32a0513d13081a",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/struct.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 struct.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "method-pointer",
+      "sha256": "1c227de4b44cba5fcb8b512a29fa6b3158e600f3e05ae01684379d8eb836233f",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/method-pointer.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 method-pointer.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "enum",
+      "sha256": "fa965f688c3d9813787e0b7f9788b61a2cd6443162dacb07153ef31c3c4a8312",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/enum.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 enum.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "enum-explicit",
+      "sha256": "dcb3f9857462b3158b9fa570a42cb055940df074916c5ad3d49e0d356ea5a07d",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/enum-explicit.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 enum-explicit.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "union",
+      "sha256": "7781c2e0b00b8f7c4bb7bcd99e0e974bd93013f21df542402a7fbd64396e2a44",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/union.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 union.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "packed",
+      "sha256": "d019bba72ba0773ee0c220b8188573ec4f410cc3a687bcb1cee36dc9e86daa2b",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/packed.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 packed.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "extern-layout",
+      "sha256": "8dda4355c2e358e711ee369ecc64773d0a959fe1f5ab6f06a0db0f5ed50f0fad",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/extern-layout.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 extern-layout.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "opaque",
+      "sha256": "a9ce1659e68445118bb6f079c3bdf627de7d85494974cd46d878bfc1e3d1c6ee",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/opaque.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 opaque.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "error-set",
+      "sha256": "bc256a885bccedb9728255a89cf746a0a429d185025b0cc6404f6a609b717de7",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/error-set.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 error-set.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "error-try",
+      "sha256": "14c653ecd86e76a2209cf72c6dd1045240cf8f792c78a957b085b3a75682a357",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/error-try.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 error-try.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "error-catch",
+      "sha256": "7147fac0fbfabb56ace5e707398dd264203b18ef4ac4a0ca897c68cbb0a93b66",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/error-catch.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 error-catch.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "error-capture",
+      "sha256": "7f0be6132a5b5de7c3a5c96262e3e869e5de72ca80100eef948c06eded09fb46",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/error-capture.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 error-capture.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "optional",
+      "sha256": "6f08ada71bb88d6c93cfdc270732907cf18652ddef4f643e91558150bf3d4a40",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/optional.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 optional.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "optional-capture",
+      "sha256": "4a25b8791f01cde55cb75c1b6d8b7df53106bcc953384c27333db4356c675ce6",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/optional-capture.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 optional-capture.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "while-capture",
+      "sha256": "841acf498982550850dedea76506db9a79bfeac3c99dbf842a3a58a2a1ce473d",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes-v2/while-capture.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 while-capture.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "for-index",
+      "sha256": "168723cac369a4b26003c22f075b2bc15424d70b279a81e060c7a88d58a6c3fd",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/for-index.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 for-index.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "pointer-capture",
+      "sha256": "0cc8abdd21b75e18049aa0a3253dfe55ad54075a2e18479e2a659798f82375d4",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/pointer-capture.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 pointer-capture.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "loop-label",
+      "sha256": "a8d7c8912e91955e61094d0b500dd517a603c76c6bf689ef31925c935887fe21",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/loop-label.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 loop-label.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "block-label",
+      "sha256": "94c07c7f2b7c731542cb56ef4dd4fc91419b003bd8142f97050e6e937ed8711f",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/block-label.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 block-label.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "generic-type",
+      "sha256": "045738ce9f677d94574483d92d362e7dd36b855269f6a3debe50ceab225c06ba",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/generic-type.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 generic-type.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "generic-count",
+      "sha256": "41112d7fcf1862d0b601091d5b210981e7a5401f4dceade5fe0cfe95b1d5947b",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/generic-count.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 generic-count.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "comptime",
+      "sha256": "348b1cd2abdb3d25ea88eac99709f089f634dc9696ead0b7f85419f25f6b3a25",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/comptime.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 comptime.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "inline-for",
+      "sha256": "21a631a7bbaab097b4c19d75d6943fd1530dcbf35fbd604507a7ad1f04a4d299",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/inline-for.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 inline-for.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "cast",
+      "sha256": "bbdb22161fc218583fe1762fefd10c02bc3d5cff17c84d37e9a30072eba1c75a",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/cast.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 cast.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "bitcast",
+      "sha256": "28427d171f996741cdf256026d6148f4ba4d1e7d42a7deed9645d402db7cdafb",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/bitcast.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 bitcast.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "reflection",
+      "sha256": "f8046c1ace40ba6b513b5030b8a494939d4c02eb643ee9c4274b14c710933eaf",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes-v2/reflection.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 reflection.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "array",
+      "sha256": "dc92a8657f2a8223f485c25d5691b41cc3891420fc0d0efc37ee7ee27b00a787",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/array.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 array.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "sentinel",
+      "sha256": "cb1b5f41598ce1e2303f1182d21f404b2339f791acc37d515cb1b3bfc272f34b",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/sentinel.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 sentinel.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "pointer",
+      "sha256": "e7f63aa0f7e3af076696a3192235f02ebd2172b5f885afe9dfd10b02b90e0198",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/pointer.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 pointer.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "array-list",
+      "sha256": "3ee0f9a6f58b6788a68202d7410406478576d5d94f3f49d14998545666188aaf",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/array-list.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 array-list.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "hash-map",
+      "sha256": "032c492d5f06cb4da85d1369ab784f73d287fbde06c254e9bc607ff2a87ee11b",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/hash-map.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 hash-map.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "dupe-sentinel",
+      "sha256": "a61ee44200b47dfdc1fddf376f5065cba7c693e3601db33568b8acb5e97db819",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/dupe-sentinel.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 dupe-sentinel.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "json",
+      "sha256": "2c8a371bbc44614dba9b63accff8c36f42fbf14dbbbad89f3e89ad5b9f68a9a2",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/json.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 json.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "callconv",
+      "sha256": "5f1acb31956b0682f8f1745726ad9403610c55e2befdd9f07caa8423224e6258",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/callconv.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 callconv.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "quoted-ident",
+      "sha256": "a1fd44688b6212cb09694749df7afa7b5a7a48303936c4b570166aa45074cc47",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/quoted-ident.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 quoted-ident.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "multiline",
+      "sha256": "2e9e6348ea9f0851c624043ac2b116a2a8143d444befc7a9abd54f10f293f28e",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/multiline.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 multiline.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "literals",
+      "sha256": "82d2947e3b6ecab9dfda1b76f72f5fd83fa5ba0c77a39dea9db4426dbc65f021",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes/literals.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 literals.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "comments",
+      "sha256": "d29a3455caf428a63b183b15ebd9a4662c50a0af617cb56ae97d56a0610e4ffe",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes-v2/comments.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 comments.test.aurora...OK\nAll 1 tests passed.\n"
+    },
+    {
+      "family": "error-defer",
+      "sha256": "19b637b34f9f6a7fc454bb204eecced829496e9fe5199128fd4a43155438c3fc",
+      "command": [
+        "/opt/homebrew/Cellar/zig/0.17.1/bin/zig",
+        "test",
+        "artifacts/zig/curriculum-probes-v2/error-defer.zig",
+        "--cache-dir",
+        "artifacts/zig/check-cache",
+        "--global-cache-dir",
+        "artifacts/zig/global-cache"
+      ],
+      "exitCode": 0,
+      "stderr": "1/1 error-defer.test.aurora...OK\nAll 1 tests passed.\n"
+    }
+  ],
+  "displaySources": {
+    "captures.zig": "const std = @import(\"std\");\n\nconst Result = union(enum) { count: u32, name: []const u8 };\n\npub fn main() void {\n    var values = [_]u32{2, 4, 8};\n    for (&values, 0..) |*value, index| {\n        value.* += @intCast(index);\n    }\n\n    const maybe: ?u32 = values[0];\n    if (maybe) |value| std.debug.print(\"First: {d}\\n\", .{value});\n\n    const result: Result = .{.name = \"Aurora\"};\n    switch (result) {\n        .count => |count| std.debug.print(\"{d}\\n\", .{count}),\n        .name => |name| std.debug.print(\"{s}\\n\", .{name}),\n    }\n}\n",
+    "comptime.zig": "const std = @import(\"std\");\n\nfn Vector(comptime T: type, comptime size: usize) type {\n    return struct {\n        values: [size]T,\n\n        fn sum(self: @This()) T {\n            var total: T = 0;\n            inline for (self.values) |value| total += value;\n            return total;\n        }\n    };\n}\n\npub fn main() void {\n    const Vec = Vector(u32, 3);\n    const vector: Vec = .{.values = .{1, 2, 3}};\n    std.debug.print(\"Sum: {d}\\n\", .{vector.sum()});\n}\n",
+    "containers.zig": "const std = @import(\"std\");\n\nconst Counter = struct {\n    value: u32 = 0,\n\n    fn increment(self: *Counter) void {\n        self.value += 1;\n    }\n};\n\nconst State = enum { idle, ready };\n\npub fn main() void {\n    var counter: Counter = .{};\n    counter.increment();\n    const state: State = .ready;\n    std.debug.print(\"Count: {d}, state: {s}\\n\", .{counter.value, @tagName(state)});\n}\n",
+    "errors-optionals.zig": "const std = @import(\"std\");\n\nfn parse(text: []const u8) !u32 {\n    if (text.len == 0) return error.Empty;\n    return try std.fmt.parseInt(u32, text, 10);\n}\n\nfn defaultValue(value: ?u32) u32 {\n    return value orelse 42;\n}\n\npub fn main() void {\n    const number = parse(\"17\") catch |err| {\n        std.debug.print(\"Could not parse: {s}\\n\", .{@errorName(err)});\n        return;\n    };\n    std.debug.print(\"{d} / {d}\\n\", .{number, defaultValue(null)});\n}\n",
+    "hello.zig": "const std = @import(\"std\");\n\npub fn main(init: std.process.Init) !void {\n    var buffer: [1024]u8 = undefined;\n    var output: std.Io.File.Writer = .init(.stdout(), init.io, &buffer);\n    const writer = &output.interface;\n\n    try greet(writer, \"Zig 0.17.1\");\n    try writer.flush();\n}\n\nfn greet(writer: *std.Io.Writer, name: []const u8) !void {\n    try writer.print(\"Hello, {s}!\\n\", .{name});\n}\n",
+    "memory.zig": "const std = @import(\"std\");\n\npub fn main() !void {\n    const gpa = std.heap.page_allocator;\n    var values: std.ArrayList(u32) = .empty;\n    defer values.deinit(gpa);\n\n    try values.append(gpa, 17);\n    try values.appendSlice(gpa, &.{21, 42});\n\n    const text = try gpa.dupeSentinel(u8, \"Current Zig\", 0);\n    defer gpa.free(text);\n\n    std.debug.print(\"{s}: {any}\\n\", .{text, values.items});\n}\n",
+    "reflection.zig": "const std = @import(\"std\");\n\nconst User = struct {\n    name: []const u8,\n    active: bool = true,\n};\n\npub fn main() void {\n    const info = @typeInfo(User).@\"struct\";\n    inline for (info.field_names, info.field_types) |name, T| {\n        std.debug.print(\"{s}: {s}\\n\", .{name, @typeName(T)});\n    }\n    std.debug.print(\"Has name: {}\\n\", .{@hasField(User, \"name\")});\n}\n",
+    "strings.zig": "const std = @import(\"std\");\n\nconst document =\n    \\\\{\n    \\\\  \"title\": \"星空 🌌\",\n    \\\\  \"version\": \"0.17.1\"\n    \\\\}\n;\n\nfn @\"print document\"(text: []const u8) void {\n    // Quoted identifiers and multiline strings retain their original bytes.\n    std.debug.print(\"{s}\\n\", .{text});\n}\n\npub fn main() void {\n    @\"print document\"(document);\n}\n"
+  },
+  "curriculumSources": {
+    "functions": "const std=@import(\"std\");\nfn add(a:u32,b:u32) u32 { return a+b; } test \"aurora\" { try std.testing.expectEqual(@as(u32,3+2),add(3,2)); }\n",
+    "mutable": "const std=@import(\"std\");\ntest \"aurora\" { var n:u32=3; n+=1; try std.testing.expectEqual(@as(u32,3+1),n); }\n",
+    "constant": "const std=@import(\"std\");\nconst limit:u32=3; test \"aurora\" { try std.testing.expect(limit>0); }\n",
+    "struct": "const std=@import(\"std\");\nconst Point=struct { x:i32,y:i32, fn total(self:@This()) i32 { return self.x+self.y; } }; test \"aurora\" { const p=Point{.x=3,.y=2}; try std.testing.expectEqual(@as(i32,3+2),p.total()); }\n",
+    "method-pointer": "const std=@import(\"std\");\nconst Counter=struct { value:u32=0, fn next(self:*@This()) u32 { self.value+=1; return self.value; } }; test \"aurora\" { var c:Counter=.{}; try std.testing.expectEqual(@as(u32,1),c.next()); }\n",
+    "enum": "const std=@import(\"std\");\nconst Status=enum{idle,ready}; test \"aurora\" { const status:Status=.ready; try std.testing.expectEqual(@as(u8,1),@as(u8,@backingInt(status))); }\n",
+    "enum-explicit": "const std=@import(\"std\");\nconst Code=enum(u8){one=1,other=3}; test \"aurora\" { const c:Code=@fromBackingInt(@as(u8,3)); try std.testing.expect(c==.other); }\n",
+    "union": "const std=@import(\"std\");\nconst Value=union(enum){number:u32,text:[]const u8}; fn read(v:Value) usize { return switch(v){.number=>|n|n,.text=>|s|s.len}; } test \"aurora\" { try std.testing.expectEqual(@as(usize,3),read(.{.number=3})); }\n",
+    "packed": "const std=@import(\"std\");\nconst Flags=packed struct { active:bool, count:u7 }; test \"aurora\" { const f=Flags{.active=true,.count=3}; try std.testing.expect(f.active); }\n",
+    "extern-layout": "const std=@import(\"std\");\nconst Pair=extern struct { left:u32,right:u32 }; test \"aurora\" { try std.testing.expectEqual(@as(usize,8),@sizeOf(Pair)); }\n",
+    "opaque": "const std=@import(\"std\");\nconst Handle=opaque{}; test \"aurora\" { try std.testing.expectEqual(@sizeOf(usize),@sizeOf(*Handle)); }\n",
+    "error-set": "const std=@import(\"std\");\nconst Failure=error{Missing,Busy}; fn load(n:u8) Failure!u8 { if(n==0)return error.Missing; return n; } test \"aurora\" { try std.testing.expectError(Failure.Missing,load(0)); }\n",
+    "error-try": "const std=@import(\"std\");\nfn inc(n:u8) !u8 { if(n==0)return error.Empty; return n+1; } fn run() !u8 { return try inc(3); } test \"aurora\" { try std.testing.expectEqual(@as(u8,3+1),try run()); }\n",
+    "error-catch": "const std=@import(\"std\");\nfn read(ok:bool) !u8 { if(!ok)return error.NotReady; return 3; } test \"aurora\" { const n=read(false) catch |err| switch(err){error.NotReady=>0}; try std.testing.expectEqual(@as(u8,0),n); }\n",
+    "error-capture": "const std=@import(\"std\");\nfn read() !u8 { return error.Missing; } test \"aurora\" { if(read()) |value| { _=value; return error.Unexpected; } else |err| { try std.testing.expect(err==error.Missing); } }\n",
+    "optional": "const std=@import(\"std\");\nfn get(v:?u32) u32 { return v orelse 3; } test \"aurora\" { try std.testing.expectEqual(@as(u32,3),get(null)); }\n",
+    "optional-capture": "const std=@import(\"std\");\nfn get(v:?u32) u32 { if(v) |n| return n+1; return 0; } test \"aurora\" { try std.testing.expectEqual(@as(u32,3+1),get(3)); }\n",
+    "while-capture": "const std=@import(\"std\");\nfn next(n:*u8) ?u8 { if(n.*==0)return null; n.*-=1; return n.*; } test \"aurora\" { var n:u8=3; var count:u32=0; while(next(&n)) |v| { count+=v; } try std.testing.expectEqual(@as(u8,0),n); try std.testing.expectEqual(@as(u32,3*(3-1)/2),count); }\n",
+    "for-index": "const std=@import(\"std\");\ntest \"aurora\" { const items=[_]u32{2,3,4}; var sum:u32=0; for(items,0..) |item,index| { sum+=item+@as(u32,@intCast(index)); } try std.testing.expectEqual(@as(u32,12),sum); }\n",
+    "pointer-capture": "const std=@import(\"std\");\ntest \"aurora\" { var values=[_]u8{1,2}; for(&values) |*v| v.*+=3; try std.testing.expectEqual(@as(u8,3+1),values[0]); }\n",
+    "loop-label": "const std=@import(\"std\");\ntest \"aurora\" { var result:u32=0; outer: for(0..10) |i| { if(i==3)break :outer; result+=@intCast(i); } try std.testing.expectEqual(@as(u32,3),result); }\n",
+    "block-label": "const std=@import(\"std\");\ntest \"aurora\" { const value=blk:{ const n:u32=3; break :blk n*2; }; try std.testing.expectEqual(@as(u32,3*2),value); }\n",
+    "generic-type": "const std=@import(\"std\");\nfn Box(comptime T:type) type { return struct{value:T}; } test \"aurora\" { const value=Box(u32){.value=3}; try std.testing.expectEqual(@as(u32,3),value.value); }\n",
+    "generic-count": "const std=@import(\"std\");\nfn fill(comptime N:usize) [N]u8 { return @splat(3); } test \"aurora\" { const a=fill(4); try std.testing.expectEqual(@as(u8,3),a[0]); }\n",
+    "comptime": "const std=@import(\"std\");\nfn square(comptime n:u32) u32 { return n*n; } test \"aurora\" { const n=comptime square(3); try std.testing.expectEqual(@as(u32,3*3),n); }\n",
+    "inline-for": "const std=@import(\"std\");\ntest \"aurora\" { const types=.{u8,u16,u32}; inline for(types) |T| { const n:T=3; try std.testing.expect(n>0); } }\n",
+    "cast": "const std=@import(\"std\");\nfn convert(n:u32) u8 { return @intCast(n); } test \"aurora\" { try std.testing.expectEqual(@as(u8,3),convert(3)); }\n",
+    "bitcast": "const std=@import(\"std\");\ntest \"aurora\" { const bits:u32=@bitCast(@as(f32,1.0)); try std.testing.expectEqual(@as(u32,0x3f800000),bits); }\n",
+    "reflection": "const std=@import(\"std\");\nconst Item=struct{value:u32}; test \"aurora\" { const info=@typeInfo(Item); try std.testing.expectEqual(@as(usize,1),info.@\"struct\".field_names.len); try std.testing.expect(@hasField(Item,\"value\")); }\n",
+    "array": "const std=@import(\"std\");\ntest \"aurora\" { const items=[_]u8{1,2,3,3}; const view=items[1..3]; try std.testing.expectEqual(@as(usize,2),view.len); }\n",
+    "sentinel": "const std=@import(\"std\");\ntest \"aurora\" { const text:[:0]const u8=\"aurora\"; try std.testing.expect(text.len>0); try std.testing.expectEqual(@as(u8,0),text[text.len]); }\n",
+    "pointer": "const std=@import(\"std\");\nfn inc(n:*u32) void { n.*+=1; } test \"aurora\" { var n:u32=3; inc(&n); try std.testing.expectEqual(@as(u32,3+1),n); }\n",
+    "array-list": "const std=@import(\"std\");\ntest \"aurora\" { const gpa=std.testing.allocator; var list:std.ArrayList(u32)=.empty; defer list.deinit(gpa); try list.append(gpa,3); try std.testing.expectEqual(@as(u32,3),list.items[0]); }\n",
+    "hash-map": "const std=@import(\"std\");\ntest \"aurora\" { const gpa=std.testing.allocator; var map:std.AutoHashMapUnmanaged(u8,u32)=.empty; defer map.deinit(gpa); try map.put(gpa,1,3); try std.testing.expectEqual(@as(u32,3),map.get(1).?); }\n",
+    "dupe-sentinel": "const std=@import(\"std\");\ntest \"aurora\" { const gpa=std.testing.allocator; const text=try gpa.dupeSentinel(u8,\"aurora\",0); defer gpa.free(text); try std.testing.expectEqualStrings(\"aurora\",text); }\n",
+    "json": "const std=@import(\"std\");\ntest \"aurora\" { const gpa=std.testing.allocator; const text=try std.json.Stringify.valueAlloc(gpa,.{.value=@as(u32,3)},.{}); defer gpa.free(text); try std.testing.expect(text.len>0); }\n",
+    "callconv": "const std=@import(\"std\");\nfn echo(n:u32) callconv(.c) u32 { return n; } test \"aurora\" { try std.testing.expectEqual(@as(u32,3),echo(3)); }\n",
+    "quoted-ident": "const std=@import(\"std\");\nfn @\"return value\"(n:u32) u32 { return n; } test \"aurora\" { try std.testing.expectEqual(@as(u32,3),@\"return value\"(3)); }\n",
+    "multiline": "const std=@import(\"std\");\nconst text=\n\\\\first \"quoted\" aurora\n\\\\second 🌌\n; test \"aurora\" { try std.testing.expect(std.mem.indexOf(u8,text,\"first\")!=null); }\n",
+    "literals": "const std=@import(\"std\");\ntest \"aurora\" { const char='星'; const text=\"🌌 \\n\"; const number:u32=0xff; try std.testing.expect(char>0); try std.testing.expect(text.len>0); try std.testing.expectEqual(@as(u32,255),number); }\n",
+    "comments": "//! Current 0.17.1 container documentation.\nconst std=@import(\"std\");\n/// Increment a value.\nfn inc(n:u32) u32 { // 星空 🌌\n return n+1; }\ntest \"aurora\" { try std.testing.expectEqual(@as(u32,3+1),inc(3)); }\n",
+    "error-defer": "const std=@import(\"std\");\nfn fail(ok:bool) !void { errdefer std.debug.print(\"\",.{}); if(!ok)return error.Failure; } test \"aurora\" { try std.testing.expectError(error.Failure,fail(false)); }\n"
+  },
+  "upgradeDependencies": [
+    "llvm@22 22.1.8",
+    "lld@22 22.1.8",
+    "xz 5.8.4",
+    "zstd 1.5.7_1",
+    "Homebrew portable Ruby 4.0.9"
+  ]
+}

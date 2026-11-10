@@ -1,0 +1,188 @@
+{
+  "id": "zig",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-zig-model-v1",
+    "sha256": "d6d1fa6391b0ca1fd1fdfe08d980504a94b5e65938b8d8510321fb88e9697c24",
+    "bytes": 3625845,
+    "parameterCount": 894485,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 6,
+    "metric": "mean per-profile natural real-source validation exact-span macro F1",
+    "score": 0.7795761739847589
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1,
+    "local_kernel": 1
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "namespace",
+      "type",
+      "enum",
+      "enum-member",
+      "function",
+      "parameter",
+      "type-parameter",
+      "variable",
+      "property",
+      "constant",
+      "label"
+    ],
+    "modifiers": [
+      "declaration"
+    ]
+  },
+  "documentKinds": [
+    "zig"
+  ],
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy-mean-logit",
+    "packPolicy": {
+      "coalesce_types": [],
+      "modifier_roles": null
+    },
+    "modifierThreshold": 0.6,
+    "parserRequired": false
+  },
+  "scope": "zig-0.17.1-local-semantic-spans",
+  "modelSchema": {
+    "file": "../schema.json",
+    "sha256": "caf1ddaabcfd4fcedb00211d51c6b8200dee21400796ea9aedef3820c8141a9f"
+  },
+  "publicSchema": {
+    "file": "../schema.json",
+    "sha256": "caf1ddaabcfd4fcedb00211d51c6b8200dee21400796ea9aedef3820c8141a9f"
+  },
+  "dataset": {
+    "snapshot": "d1fbf4ea68adfec484342a7ad51e1697d5dabf288056c52ecb8de182710e596a",
+    "manifestHash": "6d7a8bbe60679025069e0b590707120275ddd50ef8f1fe04c3bd29fa358c2b8d"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/zig/context512-contextual-20261110-01/candidates/epoch-0006.pt",
+    "sourceCheckpointSha256": "a4a5dc389598cc1d9d4ed29ee0d21e5a7234671ad475696510bed82751f8b1f6",
+    "training": {
+      "codeHashes": {
+        "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+        "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+        "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+        "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+        "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+        "training/shared/encoding.py": "56c8ecba2b66d518eb031167647e5deb366cd53f642657170faae97601ed991c",
+        "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
+        "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+        "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+        "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+        "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+        "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+        "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+        "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+        "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+        "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+        "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+        "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+        "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+        "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+        "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+        "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+        "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+        "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc",
+        "training/zig/challenge.py": "5c7663d27478fd0da89190844009447b5d88e6543c8e0c23aad46959a9e62c8d",
+        "training/zig/evaluate.py": "547d0f01b3103abc25eefbf20739ae5fe40cf12de86282f1562823104650eb92",
+        "training/zig/export_model.py": "74867d8d06bfbf0ad70a4fd37cd6f8cb6be6c6445669db03d75685f76fcfd40c",
+        "training/zig/predict.py": "dc2b846926ae5b128beeda3aaf6134e4da1dc10745846b43940e694d28cd5189",
+        "training/zig/prepare.py": "bfe4531c88b61e73f062ca18cb63b2266ad2041765737cb00c5255d798890045",
+        "training/zig/train.py": "251a090b80a38e6faaf46665b12e9ef5377dd805ca08c7d793c844922aa5300e"
+      },
+      "semanticsHash": "27bf9ede061b7467191ef805f892b1cd6b0e8b84eba724917c2db471fca19791",
+      "packConfigHash": "9265c61af80f7b45eff4cb5dc004fce1b8399f4f4ca59a0a300fecfb63d3cbc0",
+      "decoderPolicy": {
+        "coalesce_types": [],
+        "modifier_roles": null
+      },
+      "pythonTorch": "2.14.0",
+      "repositoryDirty": true,
+      "repositoryCommit": "1a5993eaaaed7e5294d875e244bc8bdebc7da263"
+    },
+    "initialization": {
+      "mode": "zig-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/zig/context512-20261110-01/candidates/epoch-0003.pt",
+      "checkpointHash": "dc12b96b733a35231efefde1b41281900714f1e56c241b2321780335dc6e359b",
+      "sourceEpoch": 3,
+      "sourceDataset": {
+        "snapshot": "5ba2892f603ce4db0f93a5193aff3d6f264f6d8e602a500642ba27e49def88dd",
+        "manifestHash": "99443479097f556f0cce9091bfc6e32827df36d754df67501091755d38af0efa",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/zig/prepared/5ba2892f603ce4db0f93a5193aff3d6f264f6d8e602a500642ba27e49def88dd"
+      },
+      "copiedTokenTypes": [
+        "keyword",
+        "comment",
+        "string",
+        "number",
+        "operator",
+        "punctuation",
+        "namespace",
+        "type",
+        "enum",
+        "enum-member",
+        "function",
+        "parameter",
+        "type-parameter",
+        "variable",
+        "property",
+        "constant",
+        "label"
+      ],
+      "newTokenTypes": [],
+      "newTensors": [],
+      "copiedModifiers": [
+        "declaration"
+      ],
+      "optimizerAndTrainingState": "fresh pack run"
+    },
+    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "e8c3ff490d7868d865680a9c6f0b35c47629e28c3ba23f564d986e47257f5529",
+      "checkpointHash": "a4a5dc389598cc1d9d4ed29ee0d21e5a7234671ad475696510bed82751f8b1f6",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    }
+  }
+}

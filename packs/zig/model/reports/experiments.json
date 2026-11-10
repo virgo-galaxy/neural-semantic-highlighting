@@ -1,0 +1,103 @@
+{
+  "phases": [
+    {
+      "run": "artifacts/zig/context512-20261110-01",
+      "completedEpochs": 3,
+      "timings": [
+        {
+          "epoch": 1,
+          "epochSeconds": 24.017383541970048,
+          "checkpointSeconds": 0.12168875004863366
+        },
+        {
+          "epoch": 2,
+          "epochSeconds": 20.905416291963775,
+          "checkpointSeconds": 0.11539966601412743
+        },
+        {
+          "epoch": 3,
+          "epochSeconds": 19.787328292033635,
+          "checkpointSeconds": 0.12281445797998458
+        }
+      ]
+    },
+    {
+      "run": "artifacts/zig/context512-contextual-20261110-01",
+      "completedEpochs": 6,
+      "timings": [
+        {
+          "epoch": 1,
+          "epochSeconds": 22.304314417007845,
+          "checkpointSeconds": 0.12756370898569003
+        },
+        {
+          "epoch": 2,
+          "epochSeconds": 20.75856870796997,
+          "checkpointSeconds": 0.11535874998662621
+        },
+        {
+          "epoch": 3,
+          "epochSeconds": 19.888239625026472,
+          "checkpointSeconds": 0.10869641602039337
+        },
+        {
+          "epoch": 4,
+          "epochSeconds": 22.04762887500692,
+          "checkpointSeconds": 0.05747687502298504
+        },
+        {
+          "epoch": 5,
+          "epochSeconds": 20.656769833003636,
+          "checkpointSeconds": 0.05793145904317498
+        },
+        {
+          "epoch": 6,
+          "epochSeconds": 19.719139125023503,
+          "checkpointSeconds": 0.12095366703579202
+        }
+      ]
+    }
+  ],
+  "selected": {
+    "checkpointHash": "a4a5dc389598cc1d9d4ed29ee0d21e5a7234671ad475696510bed82751f8b1f6",
+    "checkpointEpoch": 6,
+    "device": "mps"
+  },
+  "initialization": {
+    "mode": "zig-weights-only-transfer",
+    "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/zig/context512-20261110-01/candidates/epoch-0003.pt",
+    "checkpointHash": "dc12b96b733a35231efefde1b41281900714f1e56c241b2321780335dc6e359b",
+    "sourceEpoch": 3,
+    "sourceDataset": {
+      "snapshot": "5ba2892f603ce4db0f93a5193aff3d6f264f6d8e602a500642ba27e49def88dd",
+      "manifestHash": "99443479097f556f0cce9091bfc6e32827df36d754df67501091755d38af0efa",
+      "path": "/Users/mystic/Datasets/neural-semantic-highlighting/zig/prepared/5ba2892f603ce4db0f93a5193aff3d6f264f6d8e602a500642ba27e49def88dd"
+    },
+    "copiedTokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "namespace",
+      "type",
+      "enum",
+      "enum-member",
+      "function",
+      "parameter",
+      "type-parameter",
+      "variable",
+      "property",
+      "constant",
+      "label"
+    ],
+    "newTokenTypes": [],
+    "newTensors": [],
+    "copiedModifiers": [
+      "declaration"
+    ],
+    "optimizerAndTrainingState": "fresh pack run"
+  },
+  "trainingAfterFirstTest": false
+}

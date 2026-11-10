@@ -1,0 +1,927 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "07d72fbfa20e7247b3734c4787cbdb9544f4e9c25dd3aec76079b7f831227044",
+  "cases": [
+    {
+      "id": "function",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "fn sum(a: u32, b: u32) u32 { return a+b; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 38,
+          "end": 39,
+          "text": "b",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 38,
+          "end": 39,
+          "text": "b",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "import",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "const std = @import(\"std\");",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "constant",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "const limit: usize = 16;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "local",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "fn f() void { var n: u8=0; n+=1; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "struct",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "const Point=struct{ x:f32, y:f32, };",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "enum",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "const State=enum{ idle, ready };",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 24,
+          "end": 29,
+          "text": "ready",
+          "tokenType": "enum-member",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 24,
+          "end": 29,
+          "text": "ready",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "enum-literal",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "const state=.ready;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 11,
+          "text": "state",
+          "tokenType": "constant",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 11,
+          "text": "state",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "error-set",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "const Failure=error{Missing,Busy};",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 13,
+          "text": "Failure",
+          "tokenType": "type",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 28,
+          "end": 32,
+          "text": "Busy",
+          "tokenType": "enum-member",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 13,
+          "text": "Failure",
+          "tokenType": "enum",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 28,
+          "end": 32,
+          "text": "Busy",
+          "tokenType": "enum-member",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "error-value",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "fn f() !u8 { return error.Missing; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "generic",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "fn Box(comptime T: type) type { return struct { value: T }; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "optional",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "fn f(v:?u8) u8 { return v orelse 0; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 24,
+          "end": 25,
+          "text": "v",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 32,
+          "text": "orelse",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 24,
+          "end": 25,
+          "text": "v",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 32,
+          "text": "orelse",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "capture",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "fn f(v:?u8) u8 { if(v) |value| { return value; } return 0; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 20,
+          "end": 21,
+          "text": "v",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 20,
+          "end": 21,
+          "text": "v",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "builtin",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "fn f(x:u32) u8 { return @intCast(x); }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "backing-int",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "const value=@backingInt(.ready);",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 11,
+          "text": "value",
+          "tokenType": "constant",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 11,
+          "text": "value",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quoted-name",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "fn @\"hello world\"() void {}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 25,
+          "end": 26,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 27,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 25,
+          "end": 27,
+          "text": "{}",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "string",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "const text=\"星空 🌌\";",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 10,
+          "text": "text",
+          "tokenType": "constant",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 10,
+          "text": "text",
+          "tokenType": "namespace",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "character",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "const c='星';",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "multiline",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "const text =\n\\\\first 🌌\n\\\\second\n;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 10,
+          "text": "text",
+          "tokenType": "constant",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 13,
+          "end": 23,
+          "text": "\\\\first 🌌",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 10,
+          "text": "text",
+          "tokenType": "namespace",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 13,
+          "end": 24,
+          "text": "\\\\first 🌌\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "line-comment",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "// ordinary 星空 🌌\r\nconst x=1;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 17,
+          "text": "// ordinary 星空 🌌",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 27,
+          "text": "=",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 28,
+          "text": "1",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 18,
+          "text": "// ordinary 星空 🌌\r",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 28,
+          "text": "=1",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "doc-comment",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "/// Documentation.\nconst x=1;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "bom",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "﻿const x:u8=1;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "﻿",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 6,
+          "text": "const",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 7,
+          "end": 8,
+          "text": "x",
+          "tokenType": "constant",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 6,
+          "text": "﻿const",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 7,
+          "end": 8,
+          "text": "x",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "array",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "const values=[_]u8{1,2};",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "contextual-call",
+      "profile": "zig",
+      "documentKind": "zig",
+      "source": "fn f(comptime Thing:type) void { const value:Thing = .init(); _=value; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 3,
+          "end": 4,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 45,
+          "end": 50,
+          "text": "Thing",
+          "tokenType": "type-parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 3,
+          "end": 4,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 45,
+          "end": 50,
+          "text": "Thing",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "zig": {
+      "documents": 23,
+      "exactDocumentsIncludingModifiers": 10,
+      "exactSpan": {
+        "precision": 0.9407407407407408,
+        "recall": 0.9304029304029304,
+        "f1": 0.9355432780847146,
+        "tp": 254,
+        "fp": 16,
+        "fn": 19,
+        "support": 273
+      },
+      "exactSpanMacroF1": 0.7923475620542625,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9296296296296296,
+        "recall": 0.9194139194139194,
+        "f1": 0.9244935543278084,
+        "tp": 251,
+        "fp": 19,
+        "fn": 22,
+        "support": 273
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9552238805970149,
+          "recall": 0.9846153846153847,
+          "f1": 0.9696969696969697,
+          "tp": 64,
+          "fp": 3,
+          "fn": 1,
+          "support": 65
+        },
+        "comment": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.6666666666666666,
+          "recall": 0.8,
+          "f1": 0.7272727272727273,
+          "tp": 4,
+          "fp": 2,
+          "fn": 1,
+          "support": 5
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526315,
+          "tp": 9,
+          "fp": 0,
+          "fn": 1,
+          "support": 10
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.9583333333333334,
+          "f1": 0.9787234042553191,
+          "tp": 23,
+          "fp": 0,
+          "fn": 1,
+          "support": 24
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9727272727272728,
+          "f1": 0.9861751152073732,
+          "tp": 107,
+          "fp": 0,
+          "fn": 3,
+          "support": 110
+        },
+        "namespace": {
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "tp": 1,
+          "fp": 2,
+          "fn": 0,
+          "support": 1
+        },
+        "type": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5,
+          "tp": 1,
+          "fp": 1,
+          "fn": 1,
+          "support": 2
+        },
+        "enum": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 0.8571428571428571,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 0,
+          "fn": 1,
+          "support": 7
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 0.9230769230769231,
+          "f1": 0.96,
+          "tp": 12,
+          "fp": 0,
+          "fn": 1,
+          "support": 13
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8888888888888888,
+          "tp": 8,
+          "fp": 0,
+          "fn": 2,
+          "support": 10
+        },
+        "type-parameter": {
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 0,
+          "fn": 1,
+          "support": 4
+        },
+        "variable": {
+          "precision": 0.5454545454545454,
+          "recall": 1.0,
+          "f1": 0.7058823529411765,
+          "tp": 6,
+          "fp": 5,
+          "fn": 0,
+          "support": 6
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "constant": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 5,
+          "fp": 0,
+          "fn": 5,
+          "support": 10
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "zig": {
+      "documents": 23,
+      "exactDocumentsIncludingModifiers": 10,
+      "exactSpan": {
+        "precision": 0.9407407407407408,
+        "recall": 0.9304029304029304,
+        "f1": 0.9355432780847146,
+        "tp": 254,
+        "fp": 16,
+        "fn": 19,
+        "support": 273
+      },
+      "exactSpanMacroF1": 0.7923475620542625,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9296296296296296,
+        "recall": 0.9194139194139194,
+        "f1": 0.9244935543278084,
+        "tp": 251,
+        "fp": 19,
+        "fn": 22,
+        "support": 273
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9552238805970149,
+          "recall": 0.9846153846153847,
+          "f1": 0.9696969696969697,
+          "tp": 64,
+          "fp": 3,
+          "fn": 1,
+          "support": 65
+        },
+        "comment": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.6666666666666666,
+          "recall": 0.8,
+          "f1": 0.7272727272727273,
+          "tp": 4,
+          "fp": 2,
+          "fn": 1,
+          "support": 5
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526315,
+          "tp": 9,
+          "fp": 0,
+          "fn": 1,
+          "support": 10
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.9583333333333334,
+          "f1": 0.9787234042553191,
+          "tp": 23,
+          "fp": 0,
+          "fn": 1,
+          "support": 24
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9727272727272728,
+          "f1": 0.9861751152073732,
+          "tp": 107,
+          "fp": 0,
+          "fn": 3,
+          "support": 110
+        },
+        "namespace": {
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "tp": 1,
+          "fp": 2,
+          "fn": 0,
+          "support": 1
+        },
+        "type": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5,
+          "tp": 1,
+          "fp": 1,
+          "fn": 1,
+          "support": 2
+        },
+        "enum": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 0.8571428571428571,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 0,
+          "fn": 1,
+          "support": 7
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 0.9230769230769231,
+          "f1": 0.96,
+          "tp": 12,
+          "fp": 0,
+          "fn": 1,
+          "support": 13
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8888888888888888,
+          "tp": 8,
+          "fp": 0,
+          "fn": 2,
+          "support": 10
+        },
+        "type-parameter": {
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 0,
+          "fn": 1,
+          "support": 4
+        },
+        "variable": {
+          "precision": 0.5454545454545454,
+          "recall": 1.0,
+          "f1": 0.7058823529411765,
+          "tp": 6,
+          "fp": 5,
+          "fn": 0,
+          "support": 6
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "constant": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 5,
+          "fp": 0,
+          "fn": 5,
+          "support": 10
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "checkpointHash": "a4a5dc389598cc1d9d4ed29ee0d21e5a7234671ad475696510bed82751f8b1f6",
+  "checkpointEpoch": 6,
+  "device": "cpu",
+  "fixtureCorrection": "After first test, contextual-call fixture declares its generic Thing type, resolving an ast-check undeclared-name error. No training, data or model changed."
+}
