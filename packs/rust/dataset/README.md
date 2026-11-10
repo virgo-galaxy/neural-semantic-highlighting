@@ -19,3 +19,9 @@ Gold and prepares 512-byte snapshots. Exact/lexical/normalized cross-family copi
 are excluded before windows. `split-groups.json` freezes intact source/task-family
 assignments before training. Unknown grammar/coverage is quarantined with identity,
 never fabricated into a valid label. Natural and focus scores remain separate.
+
+The literal revision adds 512 original raw/byte/C-string and format-string context
+tasks across 16 intact families. It is motivated by visible validation failures,
+not held-out test scores. The original 192 frozen assignments are preserved and
+extended before this revision trains. Previous snapshots and runs are retained;
+copy-exclusion rules remain unchanged.

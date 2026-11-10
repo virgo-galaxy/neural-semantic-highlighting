@@ -937,6 +937,7 @@ dataset-rust:
 
 dataset-rust-curriculum:
 	$(PYTHON) -m packs.rust.dataset.generate_curriculum
+	$(PYTHON) -m packs.rust.dataset.generate_literals
 
 dataset-rust-collect:
 	$(PYTHON) -m packs.rust.dataset.pipeline collect
@@ -978,4 +979,3 @@ challenge-rust:
 export-rust-model:
 	@test -n "$(RUST_CHECKPOINT)" -a -n "$(RUST_TEST_REPORT)" || (echo 'Set RUST_CHECKPOINT and RUST_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.rust.export_model --checkpoint "$(RUST_CHECKPOINT)" --test-report "$(RUST_TEST_REPORT)"
-
