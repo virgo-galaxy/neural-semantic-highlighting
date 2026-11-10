@@ -1,6 +1,7 @@
 """Current Zig 0.17.1 syntax/local bindings; input never compiles or executes."""
 from __future__ import annotations
 import json,subprocess
+from functools import lru_cache
 from .tools import LIBRARY,provenance
 
 PUNCTUATION={'l_paren','r_paren','l_brace','r_brace','l_bracket','r_bracket','comma','semicolon','colon','period','ellipsis3','ellipsis2','equal_angle_bracket_right'}
@@ -19,6 +20,8 @@ def label(*,source,document_kind='zig',profile='zig'):
         kind='container' if n['container'] is not None else 'local' if n['tag'].startswith('block') else 'function' if n['params'] is not None else None
         if kind:scopes.append(dict(first=n['first'] if kind!='function' else (n['name'] if n['name'] is not None else n['main'])+1,last=n['last'],kind=kind,container=n.get('container'),bindings={}))
         for capture in n.get('captures') or []:scopes.append(dict(first=capture['first'],last=capture['last'],kind='capture',container=None,bindings={}))
+    # Membership is fixed; bindings remain mutable during role collection.
+    @lru_cache(maxsize=None)
     def chain(ti):return sorted((s for s in scopes if s['first']<=ti<=s['last']),key=lambda s:(s['last']-s['first'],s['first']))
     def owner(ti):return chain(ti)[0]
     def text(ti):return tokens[ti]['text']
@@ -80,6 +83,7 @@ def label(*,source,document_kind='zig',profile='zig'):
         if n['callee'] is None:continue
         target=nodes[n['callee']]
         if target['tag']=='field_access':mark(target['name'],'function')
+        elif target['tag']=='enum_literal':mark(target['main'] if tokens[target['main']]['tag']=='identifier' else target['main']+1,'function')
         elif target['tag']=='identifier':
             ti=target['main'];r=resolve(ti);known=any(text(ti) in s['bindings'] for s in chain(ti));mark(ti,r if r in {'type','enum','type-parameter','parameter'} or known and r in {'variable','constant'} else 'function')
     units={0:0};b=u=0

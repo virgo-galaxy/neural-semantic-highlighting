@@ -32,6 +32,11 @@ Only authored stand-alone examples/probes are compiled/tested with this SDK.
 | Other container-level `const` bindings                               | `constant`             |
 | Loop/block labels and break/continue targets                         | `label`                |
 
+Called contextual-dot names such as `.init()` and `.stdout()` are `function`,
+using official call/enum-literal AST nodes; uncalled `.ready` remains the literal
+role. Contextual values such as `.empty` share that syntax without inferred
+whole-project type resolution.
+
 Declarations carry `declaration`. AST ranges scope parameters, block locals,
 container declarations and payloads. Quoted `@"name"` identifiers keep their full
 original spelling. Type expressions and directly visible container/import forms
