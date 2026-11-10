@@ -183,3 +183,42 @@ Reproduce export and parity with [training/browser](../training/browser/README.m
 Use `pnpm pack:browser` and the [React component](../examples/react/CodeBlock.tsx)
 to check a consumer against local packages. Nothing was published and repository
 visibility was not changed.
+
+## Svelte addition
+
+Svelte is the nineteenth model. Its [verification record](svelte-browser-verification.json)
+records the conversion, package build, UI checks and preservation evidence.
+
+- **123/123** examples/edges across all models matched native CPU spans, offsets,
+  modifiers and child document kinds exactly, including eight Svelte components.
+  All 115 previous native reference results remain unchanged.
+- A separate temporary consumer installed four private tarballs using only the
+  existing offline cache and public imports, then passed **12/12** Svelte cases.
+  These cover scripts, control blocks, snippets, directives, CSS/SCSS/Less, empty
+  input, BOM/CRLF/Unicode and long components; source text is preserved exactly.
+- Selective Svelte emits **three ONNX assets**: Svelte and existing JS/TS/CSS
+  models. Regions are selected by the Svelte neural model; expressions use a fixed
+  TS wrapper. No runtime compiler, regex region scanner, Python/server provider or
+  source execution is used. Attribute values remain opaque by contract.
+- Full `make check` passed **154 frontend tests**, six Svelte teacher tests and
+  all existing checks. Seven composition tests cover routing, original UTF-16,
+  clipping, child errors and invalid offsets. The teacher separately passes all
+  20 independent marked Golden cases.
+- ONNX numerical checks pass at all eight lengths, with maximum absolute head
+  error below `2.70e-5`. The selected model has **894,614 parameters** and the same
+  512-byte context. No quantization or retraining occurs during conversion.
+- The Playground selects/shuffles/edits Svelte through its existing workspace
+  highlighter. Light/dark switching, original source, child document kinds and six
+  preset/mode combinations were verified with no browser warnings/errors.
+- All 37 previous native/browser/retired model artifacts have identical hashes.
+  Earlier corpora, Gold snapshots, experiments and 140 original frozen source
+  families remain preserved; the boundary revision extends the map to 160.
+- No Svelte npm dependency, SDK, global tool or preprocessor was installed; the
+  offline official compiler bundle uses existing Node and stays in ignored cache.
+  Repository/packages remain private and unpublished.
+
+[Svelte evaluation](../packs/svelte/model/BENCHMARKS.md) keeps the small natural
+base holdout (**88.47%, nine files**) separate from visible composed development
+examples (**97.53%, eight files**). These scopes must not be presented as one
+accuracy figure. [Known issues](../packs/svelte/model/KNOWN_ISSUES.md) retain the
+remaining snippet, entity, binding and mixed-region boundary limits.

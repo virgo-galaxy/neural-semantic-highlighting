@@ -28,7 +28,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 ```
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML and Vue descriptors include
-their JS/TS/CSS dependencies automatically. Default registration covers 18 packs;
+their JS/TS/CSS dependencies automatically. Default registration covers 19 packs;
 weights are fetched lazily. Models are about 3.7 MB each, with a shared 14.8 MB
 uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -74,3 +74,13 @@ HTML/JS/CSS dependencies for predicted-region composition. The selective Vite
 build emits four model assets, fetched lazily when needed. No PHP interpreter,
 SDK, Composer or Python/server provider is required. Base PHP/region accuracy
 and visible composed template accuracy are separate in the repository report.
+
+Svelte uses `{ language: "svelte" }` for `.svelte` source. Selective
+`@nsh/highlighter/languages/svelte` registers existing JS/TS and CSS/SCSS/Less
+dependencies; a Vite build emits three model assets, fetched on demand. Legacy
+component syntax and common Svelte 5 runes/snippets share this entry. Consumers
+need no Svelte SDK/runtime, preprocessor or Python/server provider. Whole attribute
+values are opaque; template expressions and script/style bodies use only predicted
+regions. See [Svelte evidence](../../packs/svelte/model/BENCHMARKS.md) and
+[known issues](../../packs/svelte/model/KNOWN_ISSUES.md) before treating base or
+visible composed scores as general accuracy.

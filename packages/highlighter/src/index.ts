@@ -18,6 +18,7 @@ import php from "./languages/php.js";
 import powershell from "./languages/powershell.js";
 import python from "./languages/python.js";
 import sql from "./languages/sql.js";
+import svelte from "./languages/svelte.js";
 import typescript from "./languages/typescript.js";
 import vue from "./languages/vue.js";
 
@@ -44,6 +45,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       c,
       cpp,
       php,
+      svelte,
     ],
   });
 }

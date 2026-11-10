@@ -53,3 +53,6 @@ same pinned Devicon revision and under the preserved MIT license.
 
 The PHP entry uses `php.svg`, from `icons/php/php-original.svg` at the same pinned
 Devicon revision and under the preserved MIT license.
+
+The Svelte entry uses `svelte.svg`, from `icons/svelte/svelte-original.svg` at the
+same pinned Devicon revision and under the preserved MIT license.

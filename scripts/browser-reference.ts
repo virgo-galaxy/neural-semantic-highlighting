@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import type { HighlightRequest, PackManifest, SemanticPack } from "@nsh/core";
 import { createCompositeHtmlPack } from "@nsh/core/composition/html";
 import { createCompositePhpPack } from "@nsh/core/composition/php";
+import { createCompositeSveltePack } from "@nsh/core/composition/svelte";
 import { createCompositeVuePack } from "@nsh/core/composition/vue";
 import { createLocalProcessPack, type LocalProcessPack } from "@nsh/local";
 
@@ -27,6 +28,7 @@ const ids = [
   "c",
   "cpp",
   "php",
+  "svelte",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -55,7 +57,9 @@ function getPack(kind: string): SemanticPack {
         ? createCompositeHtmlPack({ base, highlightEmbedded })
         : manifest.id === "vue"
           ? createCompositeVuePack({ base, highlightEmbedded })
-          : base;
+          : manifest.id === "svelte"
+            ? createCompositeSveltePack({ base, highlightEmbedded })
+            : base;
   packs.set(manifest.id, pack);
   return pack;
 }

@@ -1,0 +1,774 @@
+{
+  "date": "2026-11-10",
+  "scope": "Svelte templates + neural JS/TS/CSS/SCSS/Less composition; no Svelte dependency/SDK/preprocessor installation",
+  "modelsAvailable": 19,
+  "selectedModel": {
+    "file": "model.pt",
+    "format": "nsh-svelte-model-v1",
+    "sha256": "d1332a46f2af4f44a0281573c606508b0ff05c10f290de08f45f253763f8e034",
+    "bytes": 3634741,
+    "parameterCount": 894614,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "browserModel": {
+    "file": "model.onnx",
+    "sha256": "089f82810da21659fc1f1fa89531105983b5bad8ab413d90288cdb75e2feaf93",
+    "bytes": 3707087
+  },
+  "conversion": {
+    "reference": "selected PyTorch CPU inference",
+    "torch": "2.14.0",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "sourceSha256": "d1332a46f2af4f44a0281573c606508b0ff05c10f290de08f45f253763f8e034",
+    "modelSha256": "089f82810da21659fc1f1fa89531105983b5bad8ab413d90288cdb75e2feaf93",
+    "comparisons": [
+      {
+        "bytes": 1,
+        "maxAbsoluteErrors": [1.430511474609375e-6, 2.86102294921875e-6, 4.76837158203125e-7]
+      },
+      {
+        "bytes": 2,
+        "maxAbsoluteErrors": [1.9073486328125e-6, 4.76837158203125e-6, 7.152557373046875e-7]
+      },
+      {
+        "bytes": 7,
+        "maxAbsoluteErrors": [6.67572021484375e-6, 8.106231689453125e-6, 2.384185791015625e-6]
+      },
+      {
+        "bytes": 31,
+        "maxAbsoluteErrors": [6.9141387939453125e-6, 1.5735626220703125e-5, 5.9604644775390625e-6]
+      },
+      {
+        "bytes": 64,
+        "maxAbsoluteErrors": [1.773238182067871e-5, 1.6450881958007812e-5, 6.9141387939453125e-6]
+      },
+      {
+        "bytes": 127,
+        "maxAbsoluteErrors": [1.7404556274414062e-5, 1.621246337890625e-5, 1.0967254638671875e-5]
+      },
+      {
+        "bytes": 511,
+        "maxAbsoluteErrors": [1.3589859008789062e-5, 2.205371856689453e-5, 1.4543533325195312e-5]
+      },
+      {
+        "bytes": 512,
+        "maxAbsoluteErrors": [1.6689300537109375e-5, 2.6941299438476562e-5, 7.748603820800781e-6]
+      }
+    ]
+  },
+  "parity": {
+    "total": 123,
+    "passed": 123,
+    "failures": [],
+    "timings": [
+      {
+        "filename": "assembly/aarch64.S",
+        "ms": 212.80000001192093
+      },
+      {
+        "filename": "assembly/att.s",
+        "ms": 17.5
+      },
+      {
+        "filename": "assembly/intel.s",
+        "ms": 13
+      },
+      {
+        "filename": "assembly/macros.asm",
+        "ms": 12.099999964237213
+      },
+      {
+        "filename": "assembly/masm.asm",
+        "ms": 14.199999988079071
+      },
+      {
+        "filename": "assembly/nasm.asm",
+        "ms": 18.600000023841858
+      },
+      {
+        "filename": "awk/counts.awk",
+        "ms": 59.19999998807907
+      },
+      {
+        "filename": "awk/files.awk",
+        "ms": 9.800000011920929
+      },
+      {
+        "filename": "awk/normalize.awk",
+        "ms": 12.800000011920929
+      },
+      {
+        "filename": "awk/report.awk",
+        "ms": 16.19999998807907
+      },
+      {
+        "filename": "bash/build.sh",
+        "ms": 45.09999996423721
+      },
+      {
+        "filename": "bash/files.csh",
+        "ms": 8.5
+      },
+      {
+        "filename": "bash/files.zsh",
+        "ms": 8.800000011920929
+      },
+      {
+        "filename": "bash/functions.sh",
+        "ms": 11.800000011920929
+      },
+      {
+        "filename": "bash/heredoc.sh",
+        "ms": 15.699999988079071
+      },
+      {
+        "filename": "bash/portable.sh",
+        "ms": 12
+      },
+      {
+        "filename": "bat/arguments.bat",
+        "ms": 45.59999996423721
+      },
+      {
+        "filename": "bat/build.bat",
+        "ms": 13
+      },
+      {
+        "filename": "bat/functions.cmd",
+        "ms": 5.800000011920929
+      },
+      {
+        "filename": "bat/records.cmd",
+        "ms": 16.400000035762787
+      },
+      {
+        "filename": "c/callbacks.c",
+        "ms": 56.39999997615814
+      },
+      {
+        "filename": "c/file-reader.c",
+        "ms": 18.099999964237213
+      },
+      {
+        "filename": "c/hello.c",
+        "ms": 10.300000011920929
+      },
+      {
+        "filename": "c/linked-list.c",
+        "ms": 15.900000035762787
+      },
+      {
+        "filename": "c/literals.c",
+        "ms": 21.19999998807907
+      },
+      {
+        "filename": "c/macros.h",
+        "ms": 21.19999998807907
+      },
+      {
+        "filename": "c/modern-c.c",
+        "ms": 31.80000001192093
+      },
+      {
+        "filename": "c/points.c",
+        "ms": 20.69999998807907
+      },
+      {
+        "filename": "cpp/algorithms.cpp",
+        "ms": 61.19999998807907
+      },
+      {
+        "filename": "cpp/bindings.cpp",
+        "ms": 24.100000023841858
+      },
+      {
+        "filename": "cpp/classes.cpp",
+        "ms": 26.69999998807907
+      },
+      {
+        "filename": "cpp/concepts.cpp",
+        "ms": 17.600000023841858
+      },
+      {
+        "filename": "cpp/hello.cpp",
+        "ms": 20
+      },
+      {
+        "filename": "cpp/raw-strings.cpp",
+        "ms": 21.900000035762787
+      },
+      {
+        "filename": "cpp/smart-pointers.cpp",
+        "ms": 21.5
+      },
+      {
+        "filename": "cpp/templates.hpp",
+        "ms": 23
+      },
+      {
+        "filename": "csharp/AsyncStream.cs",
+        "ms": 57.5
+      },
+      {
+        "filename": "csharp/Collections.cs",
+        "ms": 27.599999964237213
+      },
+      {
+        "filename": "csharp/GenericStore.cs",
+        "ms": 26.399999976158142
+      },
+      {
+        "filename": "csharp/Hello.cs",
+        "ms": 26.399999976158142
+      },
+      {
+        "filename": "csharp/Options.cs",
+        "ms": 26.100000023841858
+      },
+      {
+        "filename": "csharp/Queries.cs",
+        "ms": 35.09999996423721
+      },
+      {
+        "filename": "csharp/Records.cs",
+        "ms": 29
+      },
+      {
+        "filename": "csharp/StringTemplates.cs",
+        "ms": 29.400000035762787
+      },
+      {
+        "filename": "css/hello.css",
+        "ms": 59.19999998807907
+      },
+      {
+        "filename": "css/responsive-grid.css",
+        "ms": 14.100000023841858
+      },
+      {
+        "filename": "go/generics.go",
+        "ms": 78.30000001192093
+      },
+      {
+        "filename": "go/hello.go",
+        "ms": 10.199999988079071
+      },
+      {
+        "filename": "go/long-raw-string.go",
+        "ms": 83.39999997615814
+      },
+      {
+        "filename": "go/selectors.go",
+        "ms": 21.5
+      },
+      {
+        "filename": "go/struct-methods.go",
+        "ms": 25.19999998807907
+      },
+      {
+        "filename": "html/embedded.html",
+        "ms": 127.90000003576279
+      },
+      {
+        "filename": "html/forms-and-dialog.html",
+        "ms": 46.700000047683716
+      },
+      {
+        "filename": "html/hello.html",
+        "ms": 36.59999996423721
+      },
+      {
+        "filename": "html/raw-text.html",
+        "ms": 36.30000001192093
+      },
+      {
+        "filename": "html/tailwind-card.html",
+        "ms": 49
+      },
+      {
+        "filename": "html/web-components.html",
+        "ms": 33.09999996423721
+      },
+      {
+        "filename": "java/Annotations.java",
+        "ms": 68.19999998807907
+      },
+      {
+        "filename": "java/AsyncTasks.java",
+        "ms": 26.600000023841858
+      },
+      {
+        "filename": "java/Hello.java",
+        "ms": 39.39999997615814
+      },
+      {
+        "filename": "java/PatternRouting.java",
+        "ms": 37.39999997615814
+      },
+      {
+        "filename": "java/Result.java",
+        "ms": 23.5
+      },
+      {
+        "filename": "java/TextTemplates.java",
+        "ms": 22.5
+      },
+      {
+        "filename": "java/module-info.java",
+        "ms": 20.19999998807907
+      },
+      {
+        "filename": "javascript/async-cache.js",
+        "ms": 57.69999998807907
+      },
+      {
+        "filename": "javascript/data-pipeline.js",
+        "ms": 57.10000002384186
+      },
+      {
+        "filename": "javascript/event-bus.js",
+        "ms": 59.5
+      },
+      {
+        "filename": "javascript/hello.js",
+        "ms": 14.399999976158142
+      },
+      {
+        "filename": "javascript/react-hooks.jsx",
+        "ms": 127.80000001192093
+      },
+      {
+        "filename": "javascript/tailwind-profile-card.jsx",
+        "ms": 173.19999998807907
+      },
+      {
+        "filename": "less/hello.less",
+        "ms": 12.599999964237213
+      },
+      {
+        "filename": "less/responsive.less",
+        "ms": 10.400000035762787
+      },
+      {
+        "filename": "perl/counter.pm",
+        "ms": 49.5
+      },
+      {
+        "filename": "perl/heredoc.pl",
+        "ms": 9
+      },
+      {
+        "filename": "perl/indented-heredoc.pl",
+        "ms": 6.300000011920929
+      },
+      {
+        "filename": "perl/normalize.pl",
+        "ms": 18.30000001192093
+      },
+      {
+        "filename": "perl/records.pl",
+        "ms": 18.30000001192093
+      },
+      {
+        "filename": "php/closures.php",
+        "ms": 50.59999996423721
+      },
+      {
+        "filename": "php/collections.php",
+        "ms": 18.80000001192093
+      },
+      {
+        "filename": "php/embedded.phtml",
+        "ms": 36.69999998807907
+      },
+      {
+        "filename": "php/enums.php",
+        "ms": 17.30000001192093
+      },
+      {
+        "filename": "php/hello.php",
+        "ms": 10.600000023841858
+      },
+      {
+        "filename": "php/heredoc.php",
+        "ms": 12.699999988079071
+      },
+      {
+        "filename": "php/records.php",
+        "ms": 19.099999964237213
+      },
+      {
+        "filename": "php/template.phtml",
+        "ms": 21.19999998807907
+      },
+      {
+        "filename": "powershell/functions.ps1",
+        "ms": 45.90000003576279
+      },
+      {
+        "filename": "powershell/here-strings.ps1",
+        "ms": 14.900000035762787
+      },
+      {
+        "filename": "powershell/pipeline.ps1",
+        "ms": 12.899999976158142
+      },
+      {
+        "filename": "powershell/records.ps1",
+        "ms": 15.399999976158142
+      },
+      {
+        "filename": "python/async-stream.py",
+        "ms": 55.40000003576279
+      },
+      {
+        "filename": "python/generics.py",
+        "ms": 30.399999976158142
+      },
+      {
+        "filename": "python/records.py",
+        "ms": 24.599999964237213
+      },
+      {
+        "filename": "python/strings.py",
+        "ms": 17.100000023841858
+      },
+      {
+        "filename": "scss/hello.scss",
+        "ms": 13.399999976158142
+      },
+      {
+        "filename": "scss/surface-layout.scss",
+        "ms": 12.300000011920929
+      },
+      {
+        "filename": "sql/mysql.sql",
+        "ms": 58.09999996423721
+      },
+      {
+        "filename": "sql/oracle.sql",
+        "ms": 18.80000001192093
+      },
+      {
+        "filename": "sql/postgres.sql",
+        "ms": 17.399999976158142
+      },
+      {
+        "filename": "sql/queries.sql",
+        "ms": 21.69999998807907
+      },
+      {
+        "filename": "svelte/async-content.svelte",
+        "ms": 70.30000001192093
+      },
+      {
+        "filename": "svelte/control-flow.svelte",
+        "ms": 41.5
+      },
+      {
+        "filename": "svelte/counter.svelte",
+        "ms": 43.19999998807907
+      },
+      {
+        "filename": "svelte/directives.svelte",
+        "ms": 45.40000003576279
+      },
+      {
+        "filename": "svelte/legacy-component.svelte",
+        "ms": 33.69999998807907
+      },
+      {
+        "filename": "svelte/module-less.svelte",
+        "ms": 40.80000001192093
+      },
+      {
+        "filename": "svelte/snippets.svelte",
+        "ms": 53.5
+      },
+      {
+        "filename": "svelte/typed-scss.svelte",
+        "ms": 49.80000001192093
+      },
+      {
+        "filename": "typescript/async-api-client.ts",
+        "ms": 116.60000002384186
+      },
+      {
+        "filename": "typescript/event-pipeline.ts",
+        "ms": 114.30000001192093
+      },
+      {
+        "filename": "typescript/hello.ts",
+        "ms": 20.30000001192093
+      },
+      {
+        "filename": "typescript/react-hooks.tsx",
+        "ms": 171.19999998807907
+      },
+      {
+        "filename": "typescript/tailwind-profile-card.tsx",
+        "ms": 195.5
+      },
+      {
+        "filename": "typescript/typed-cache.ts",
+        "ms": 53.39999997615814
+      },
+      {
+        "filename": "vue/hello.vue",
+        "ms": 856.8000000119209
+      },
+      {
+        "filename": "vue/scoped-styles.vue",
+        "ms": 47.30000001192093
+      },
+      {
+        "filename": "vue/tsx-render.vue",
+        "ms": 44.5
+      },
+      {
+        "filename": "vue/vue2-options.vue",
+        "ms": 102.60000002384186
+      },
+      {
+        "filename": "vue/vue3-composition.vue",
+        "ms": 75.5
+      },
+      {
+        "filename": "vue/vue32-typed-setup.vue",
+        "ms": 84.20000004768372
+      },
+      {
+        "filename": "edge/119.ts",
+        "ms": 0.09999996423721313
+      },
+      {
+        "filename": "edge/120.ts",
+        "ms": 0.30000001192092896
+      },
+      {
+        "filename": "edge/121.ts",
+        "ms": 3.5
+      },
+      {
+        "filename": "edge/122.ts",
+        "ms": 183.69999998807907
+      }
+    ]
+  },
+  "independentPackage": {
+    "status": "passed",
+    "language": [
+      "svelte",
+      "javascript",
+      "javascript-esm",
+      "javascript-commonjs",
+      "jsx",
+      "typescript",
+      "typescript-esm",
+      "typescript-commonjs",
+      "tsx",
+      "typescript-declaration",
+      "typescript-esm-declaration",
+      "typescript-commonjs-declaration",
+      "css",
+      "scss",
+      "less"
+    ],
+    "aliases": ["svelte"],
+    "cases": [
+      {
+        "filename": "svelte/async-content.svelte",
+        "spans": 67,
+        "equal": true,
+        "alias": "svelte"
+      },
+      {
+        "filename": "svelte/control-flow.svelte",
+        "spans": 105,
+        "equal": true,
+        "alias": "svelte"
+      },
+      {
+        "filename": "svelte/counter.svelte",
+        "spans": 86,
+        "equal": true,
+        "alias": "svelte"
+      },
+      {
+        "filename": "svelte/directives.svelte",
+        "spans": 80,
+        "equal": true,
+        "alias": "svelte"
+      },
+      {
+        "filename": "svelte/legacy-component.svelte",
+        "spans": 67,
+        "equal": true,
+        "alias": "svelte"
+      },
+      {
+        "filename": "svelte/module-less.svelte",
+        "spans": 95,
+        "equal": true,
+        "alias": "svelte"
+      },
+      {
+        "filename": "svelte/snippets.svelte",
+        "spans": 114,
+        "equal": true,
+        "alias": "svelte"
+      },
+      {
+        "filename": "svelte/typed-scss.svelte",
+        "spans": 93,
+        "equal": true,
+        "alias": "svelte"
+      },
+      {
+        "filename": "edge-0.svelte",
+        "spans": 0,
+        "equal": true,
+        "alias": "svelte"
+      },
+      {
+        "filename": "edge-1.svelte",
+        "spans": 0,
+        "equal": true,
+        "alias": "svelte"
+      },
+      {
+        "filename": "edge-2.svelte",
+        "spans": 26,
+        "equal": true,
+        "alias": "svelte"
+      },
+      {
+        "filename": "edge-3.svelte",
+        "spans": 173,
+        "equal": true,
+        "alias": "svelte"
+      }
+    ],
+    "palettes": [
+      {
+        "preset": "default",
+        "mode": "light",
+        "background": "rgb(251, 252, 255)"
+      },
+      {
+        "preset": "default",
+        "mode": "dark",
+        "background": "rgb(21, 27, 41)"
+      },
+      {
+        "preset": "muted",
+        "mode": "light",
+        "background": "rgb(246, 245, 241)"
+      },
+      {
+        "preset": "muted",
+        "mode": "dark",
+        "background": "rgb(38, 40, 35)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "light",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "dark",
+        "background": "rgb(0, 0, 0)"
+      }
+    ]
+  },
+  "consumerBuild": {
+    "directory": "artifacts/svelte/consumer-dist",
+    "offlineCacheOnly": true,
+    "publicImports": true,
+    "modelAssets": ["css-C-rcooU1.onnx", "svelte-D-d5a-rb.onnx", "typescript-DMFQaYaV.onnx"],
+    "noRepositoryAliases": true
+  },
+  "playground": {
+    "language": "svelte",
+    "filename": "snippets.svelte",
+    "sourcePreserved": true,
+    "editedSourcePreserved": true,
+    "shuffleVerified": true,
+    "lightAndDarkVerified": true,
+    "childDocumentKinds": ["typescript"],
+    "screenshot": "artifacts/svelte/playground.png",
+    "logs": {
+      "playground": [],
+      "parity": [],
+      "consumer": []
+    }
+  },
+  "checks": {
+    "makeCheck": "passed",
+    "frontendTests": 154,
+    "svelteTeacherTests": 6,
+    "svelteCompositionTests": 7,
+    "independentMarkedGolden": 20,
+    "neuralGoldenExact": 8
+  },
+  "quality": {
+    "naturalBaseTestFiles": 9,
+    "naturalBaseTestF1": 0.8846701471286189,
+    "visibleComposedFiles": 8,
+    "visibleComposedF1": 0.9752650176678446,
+    "trainingAfterFirstTest": false
+  },
+  "preservation": {
+    "previousModelArtifactHashes": {
+      "packs/assembly/browser/model.onnx": "366d770f40ec20bcb97ed83d78c1a11f8a001a182efa0a5f31c69e03d04f6ad6",
+      "packs/assembly/model/model.pt": "a1c669891bc4386312dc445bd9be07b17abcbef6aabb41585e052a7838b4f3b1",
+      "packs/awk/browser/model.onnx": "ca36f5bcd4485bb1a78b81d0e4c08d27201a86ad6f5e797833d9fba2bc66dff8",
+      "packs/awk/model/model.pt": "cf230cd59618824f0f4834ef1ad4158cf8c04e5e684c5b4b8fc7cfb3c412ba68",
+      "packs/bash/browser/model.onnx": "69e515b768fb399bda1d6716d3466838c8e858d1025d08992a49698a964d454e",
+      "packs/bash/model/model.pt": "04187850e1b0683d9c4550ad864df6150628ebde0aeb4390acc23f3894f1398a",
+      "packs/bash/model-20261108-e16/model.pt": "e65e77ae5328d4142fb385bf57e7d58183d4502c8495ccc3d4dc2c4cb99cde43",
+      "packs/bat/browser/model.onnx": "c5c527c4d6501035d8c32077279d1ba4e50f2840dea2bef794f03c3cb105fff3",
+      "packs/bat/model/model.pt": "a9c4ef3d90d2a6b32074c411035b9640b08282b92c16e47a897bd506ee17c27e",
+      "packs/c/browser/model.onnx": "07834638820dcb384d816104f547cb400a09234e7c795c94db7cbf299a7209bb",
+      "packs/c/model/model.pt": "6418250639758349b43f8182f958d838b277abdfd7575220d9ba104226219c8c",
+      "packs/cpp/browser/model.onnx": "c4bf80ec01700967279423c72315977d829841903481f712870317bf5dbdb890",
+      "packs/cpp/model/model.pt": "c10725d39082379d545cafd493a6df9d3473099d9f570c3c8b3c473b0f4f348f",
+      "packs/csharp/browser/model.onnx": "fdd087f40f06d26c4a9612bcebef7b5711cb48f29c9e111cbcac0ccb75e4cff1",
+      "packs/csharp/model/model.pt": "81d8e72034f079072a179b4902cfc39561137f838d0cd5fdd8f56ae6907a6795",
+      "packs/css/browser/model.onnx": "a8289f9e82a09fb7e54cd96e8d572f380dd5b600eb84f0562513d2c8034525f3",
+      "packs/css/model/model.pt": "a6c271903b5b65f0cc1f82a4406cb1fc831c1a4ad21c54ddd1fd0f2de324645a",
+      "packs/go/browser/model.onnx": "714398ae0df38766ced84a4dd0866585ad233a7474100906ecf4d6ff115ce8d1",
+      "packs/go/model/model.pt": "993eb9a436faf18806b02ea9a99a65fa3c625367ac249af1038880231fdd9f50",
+      "packs/html/browser/model.onnx": "93b924619a25dd853ad28b6f142587fc6f6bb5319cfc6464d9261bb808710cf9",
+      "packs/html/model/model.pt": "7006144cd38d18c563f6548ffac1f8c51cf2916e5656b97ff3e83b97b5dccc95",
+      "packs/java/browser/model.onnx": "2956a7876814e709ee93a3bae26544bb5c853828d40b0df382af0e4b2e9d50a8",
+      "packs/java/model/model.pt": "60ded3abfa9f6058ef8c377ad9c21021988a2e6eeb97508a0052a706db9d3f3c",
+      "packs/perl/browser/model.onnx": "cbad629b7dee9e58d815a29ef59be1ef2ca9b3288f52082330e66a95a7dea2dd",
+      "packs/perl/model/model.pt": "7f2a77e4f3d7e767ea0cf0fdab9802bd0c68d370cb1590cb5c243c3cd4b463a1",
+      "packs/php/browser/model.onnx": "3c551599315bb5a931c69746290daf2562e591885167eb368898455910b80760",
+      "packs/php/model/model.pt": "4c267a864f19d5e4935eef0e9782d03527adbf536f90e19ae03a2a1a43f9bf39",
+      "packs/powershell/browser/model.onnx": "d0b3bdc10bd2c1feb446d104f4253c25183aed49261f9962e81cd5f314f38cba",
+      "packs/powershell/model/model.pt": "a45cec6dbe18161c4faaf99cf35fca11854dd301e773c3d2e8d76ebb8a20a0fe",
+      "packs/python/browser/model.onnx": "306c22ab5df354527293267abe6443489b0d249635fdaba05cd24bfe130905be",
+      "packs/python/model/model.pt": "10a61e246f261d5cea904b01ff544831e35e39024bad19930e0ca8684586ee02",
+      "packs/sql/browser/model.onnx": "2c14ab1ed319eaf23e05af5708a306795afd10e4252e879e12eb6a780729dde7",
+      "packs/sql/model/model.pt": "864244dfcfb3a22bdd0dc894d7a1c107d82a7311552d313853517c96c42c923e",
+      "packs/typescript/browser/model.onnx": "45b10c1ac1808545b6e0b9999f03c83f6a3a66b15a9d80cd4e0c8eadb36fadbe",
+      "packs/typescript/model/model.pt": "a63c132df376d956f8feb19c60620a3a922a5299ad012224d58a4ff3a09597a0",
+      "packs/vue/browser/model.onnx": "dee5e28cbce42351c5c098a0665cc374e410c0d16c9fa555e37582843a6edcce",
+      "packs/vue/model/model.pt": "8733409079fcead598dc2405b82abc9f59537e3284afcd841a36a061eccaecaa"
+    },
+    "unchangedPreviousReferenceCases": 115,
+    "previousFrozenFamilies": 140,
+    "extendedFrozenFamilies": 160
+  },
+  "distribution": {
+    "repositoryPrivate": true,
+    "packagesPrivate": true,
+    "published": false,
+    "pushed": false
+  }
+}

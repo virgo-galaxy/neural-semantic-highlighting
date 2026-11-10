@@ -7,6 +7,7 @@ import {
 } from "@nsh/core";
 import { createCompositeHtmlPack } from "@nsh/core/composition/html";
 import { createCompositePhpPack } from "@nsh/core/composition/php";
+import { createCompositeSveltePack } from "@nsh/core/composition/svelte";
 import { createCompositeVuePack } from "@nsh/core/composition/vue";
 import { renderCodeToHtml, renderToHtml } from "@nsh/html";
 
@@ -86,7 +87,12 @@ export function createHighlighter(options: HighlighterOptions): BrowserHighlight
               base: pack,
               highlightEmbedded: (request) => core.highlight(request),
             })
-          : pack,
+          : id === "svelte"
+            ? createCompositeSveltePack({
+                base: pack,
+                highlightEmbedded: (request) => core.highlight(request),
+              })
+            : pack,
   );
   const core = createCoreHighlighter({ packs });
   const kindFor = (language: string) => aliases[language.toLowerCase()] ?? language.toLowerCase();

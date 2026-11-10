@@ -17,6 +17,7 @@ import powershellIcon from "@/assets/document-kinds/powershell.svg";
 import pythonIcon from "@/assets/document-kinds/python.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
 import sqlIcon from "@/assets/document-kinds/sql.svg";
+import svelteIcon from "@/assets/document-kinds/svelte.svg";
 import typescriptIcon from "@/assets/document-kinds/typescript.svg";
 import vueIcon from "@/assets/document-kinds/vue.svg";
 import type { HighlighterExample, HighlighterLanguage } from "@/views/highlighter/examples/types";
@@ -85,6 +86,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   c: { label: "C", icon: cIcon },
   cpp: { label: "C++", icon: cppIcon },
   php: { label: "PHP", icon: phpIcon },
+  svelte: { label: "Svelte", icon: svelteIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -152,6 +154,7 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".tpp", "cpp"],
   [".php", "php"],
   [".phtml", "php"],
+  [".svelte", "svelte"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

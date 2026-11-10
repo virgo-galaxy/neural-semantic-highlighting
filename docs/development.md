@@ -177,3 +177,24 @@ HTML/JS/CSS models; offline `composePhpGold` is a diagnostic, never a runtime
 region selector. Frontends use `php` or `@nsh/highlighter/languages/php` without
 any local Python/PHP environment. Fragmented attributes and framework template
 languages remain explicit scope limits.
+
+## Svelte offline workflow
+
+The existing Node runtime loads one pinned official Svelte compiler bundle from
+ignored project cache. No Svelte npm dependency, global tool, SDK or preprocessor
+is installed. `make dataset-svelte-tools` verifies the official archive and
+original license; `make dataset-svelte` captures bounded component sources,
+generates original tasks and prepares immutable audited Gold/split snapshots.
+The compiler only parses. Its style callback preserves UTF-16 length/newlines
+while masking style bodies, so SCSS/Less require no installed preprocessor.
+
+Use [Svelte training](../training/svelte/README.md), full `artifacts` checkpoints
+and short measured stages. The [evaluation](../packs/svelte/model/BENCHMARKS.md)
+records the initial and boundary revisions, all preserved source-family splits,
+first held-out test and separate composed evidence. The natural holdout is small;
+its score must not be replaced with the higher combined score.
+
+`createCompositeSveltePack` delegates only predicted JS/TS/style/expression regions;
+`composeSvelteGold` builds independent offline references and never chooses runtime
+cuts. Frontends use `svelte` / `@nsh/highlighter/languages/svelte` through the existing
+worker. Playground examples are raw source, not an installed or executed Svelte app.

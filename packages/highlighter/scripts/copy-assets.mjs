@@ -21,6 +21,7 @@ for (const id of [
   "c",
   "cpp",
   "php",
+  "svelte",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }
