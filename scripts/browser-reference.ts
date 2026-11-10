@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 
 import type { HighlightRequest, PackManifest, SemanticPack } from "@nsh/core";
 import { createCompositeHtmlPack } from "@nsh/core/composition/html";
+import { createCompositePhpPack } from "@nsh/core/composition/php";
 import { createCompositeVuePack } from "@nsh/core/composition/vue";
 import { createLocalProcessPack, type LocalProcessPack } from "@nsh/local";
 
@@ -25,6 +26,7 @@ const ids = [
   "csharp",
   "c",
   "cpp",
+  "php",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -47,11 +49,13 @@ function getPack(kind: string): SemanticPack {
   const highlightEmbedded = (request: HighlightRequest) =>
     getPack(request.documentKind).highlight(request);
   const pack =
-    manifest.id === "html"
-      ? createCompositeHtmlPack({ base, highlightEmbedded })
-      : manifest.id === "vue"
-        ? createCompositeVuePack({ base, highlightEmbedded })
-        : base;
+    manifest.id === "php"
+      ? createCompositePhpPack({ base, highlightEmbedded })
+      : manifest.id === "html"
+        ? createCompositeHtmlPack({ base, highlightEmbedded })
+        : manifest.id === "vue"
+          ? createCompositeVuePack({ base, highlightEmbedded })
+          : base;
   packs.set(manifest.id, pack);
   return pack;
 }

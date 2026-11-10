@@ -28,7 +28,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 ```
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML and Vue descriptors include
-their JS/TS/CSS dependencies automatically. Default registration covers 17 packs;
+their JS/TS/CSS dependencies automatically. Default registration covers 18 packs;
 weights are fetched lazily. Models are about 3.7 MB each, with a shared 14.8 MB
 uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -67,3 +67,10 @@ C source uses `{ language: "c" }`, or the selective descriptor
 `cxx` aliases, or `@nsh/highlighter/languages/cpp`. They are separate models;
 existing `.h` extension mapping remains C. Pass `cpp` explicitly for C++ header
 contents. Consumers need no C/C++ compiler, SDK, parser or preprocessor.
+
+PHP uses `{ language: "php" }`, including tagged source, tagless snippets and
+`.phtml` templates. Selective `@nsh/highlighter/languages/php` registers existing
+HTML/JS/CSS dependencies for predicted-region composition. The selective Vite
+build emits four model assets, fetched lazily when needed. No PHP interpreter,
+SDK, Composer or Python/server provider is required. Base PHP/region accuracy
+and visible composed template accuracy are separate in the repository report.

@@ -20,6 +20,7 @@ for (const id of [
   "csharp",
   "c",
   "cpp",
+  "php",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

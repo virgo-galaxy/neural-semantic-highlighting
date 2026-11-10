@@ -159,3 +159,21 @@ records all short experiments, the family/copy audit, natural/focus evidence and
 known limits. Frontends use `cpp` / `c++` / `cxx`, or selectively import
 `@nsh/highlighter/languages/cpp`; no Python provider or compiler is involved.
 C++ header text uses explicit `cpp`; existing `.h` mapping remains C.
+
+## PHP offline workflow
+
+The host has no `php` on PATH. No PHP interpreter, SDK, Composer, server or global
+package is installed for this pack. `make dataset-php-tools` builds fixed official
+parser sources into ignored cache using the existing native compiler; the two
+entry points accept tagged PHP and tagless code without executing either.
+`make dataset-php` captures pinned bytes/licenses, quarantines unsupported Blade
+files and prepares copy-audited frozen source/task families.
+
+Follow [PHP training](../training/php/README.md), use only complete `artifacts`
+checkpoints and inspect real code before first test. The [report](../packs/php/model/BENCHMARKS.md)
+keeps natural/focus/base/composed evidence and full experiment provenance.
+`createCompositePhpPack` delegates only PHP-predicted HTML regions to existing
+HTML/JS/CSS models; offline `composePhpGold` is a diagnostic, never a runtime
+region selector. Frontends use `php` or `@nsh/highlighter/languages/php` without
+any local Python/PHP environment. Fragmented attributes and framework template
+languages remain explicit scope limits.

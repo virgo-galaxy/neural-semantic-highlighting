@@ -14,6 +14,7 @@ import go from "./languages/go.js";
 import html from "./languages/html.js";
 import java from "./languages/java.js";
 import perl from "./languages/perl.js";
+import php from "./languages/php.js";
 import powershell from "./languages/powershell.js";
 import python from "./languages/python.js";
 import sql from "./languages/sql.js";
@@ -42,6 +43,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       csharp,
       c,
       cpp,
+      php,
     ],
   });
 }

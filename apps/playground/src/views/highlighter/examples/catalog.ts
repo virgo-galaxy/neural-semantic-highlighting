@@ -12,6 +12,7 @@ import javaIcon from "@/assets/document-kinds/java.svg";
 import javascriptIcon from "@/assets/document-kinds/javascript.svg";
 import lessIcon from "@/assets/document-kinds/less.svg";
 import perlIcon from "@/assets/document-kinds/perl.svg";
+import phpIcon from "@/assets/document-kinds/php.svg";
 import powershellIcon from "@/assets/document-kinds/powershell.svg";
 import pythonIcon from "@/assets/document-kinds/python.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
@@ -83,6 +84,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   csharp: { label: "C#", icon: csharpIcon },
   c: { label: "C", icon: cIcon },
   cpp: { label: "C++", icon: cppIcon },
+  php: { label: "PHP", icon: phpIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -148,6 +150,8 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".h++", "cpp"],
   [".ipp", "cpp"],
   [".tpp", "cpp"],
+  [".php", "php"],
+  [".phtml", "php"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

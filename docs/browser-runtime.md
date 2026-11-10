@@ -133,6 +133,34 @@ and [known limits](../packs/cpp/model/KNOWN_ISSUES.md), including raw strings an
 local/template roles. Original data and every experiment remain preserved.
 No package was published and repository visibility did not change.
 
+## PHP addition
+
+PHP is the eighteenth model. Its [verification record](php-browser-verification.json)
+retains hashes, numerical export and additive browser/package checks.
+
+- **115/115** examples/edges across all models matched native CPU spans, offsets,
+  modifiers and child document kinds exactly, including eight PHP/template sources.
+- A fresh external Vite 8.2.2 project installed four private local tarballs from
+  cache, built through public imports and passed **12/12** PHP checks. This covers
+  tagged/tagless PHP, heredoc/nowdoc, PHP/HTML/JS/CSS composition, empty input,
+  BOM, CRLF, Unicode and long source, with exact rendered original text.
+- Selective PHP emitted **four ONNX assets**: PHP and the existing HTML/JS/CSS
+  models. Only predicted PHP HTML regions trigger child inference. The browser
+  uses no PHP/Python process, server, runtime parser or source tag scanning.
+- Full `make check` passed 147 frontend tests, six PHP teacher tests, six PHP
+  composition tests, theme distribution/contrast checks and existing native tests.
+  All 35 prior native/browser artifacts remain byte-identical. Theme palettes gain
+  `trait`/`constant` roles using existing type/enum-member colors in all six modes;
+  earlier role colors and previous verification records are preserved.
+- No PHP interpreter, SDK, Composer, web server or global package was installed.
+  No console warnings/errors were observed in Playground, parity or the independent
+  fixture. Six preset/mode combinations were observed without rerunning inference.
+
+[PHP quality](../packs/php/model/BENCHMARKS.md) separates base PHP/region scores
+from visible composed template scores. [Known limits](../packs/php/model/KNOWN_ISSUES.md)
+include interpolation, heredoc and region/fragment boundaries. Browser parity does
+not remove those limits. All data/experiments remain; nothing was published.
+
 ## Scope and limits
 
 This is conversion and integration evidence, **not a new model quality score**.

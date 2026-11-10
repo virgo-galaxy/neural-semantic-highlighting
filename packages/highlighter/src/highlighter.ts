@@ -6,6 +6,7 @@ import {
   type SemanticPack,
 } from "@nsh/core";
 import { createCompositeHtmlPack } from "@nsh/core/composition/html";
+import { createCompositePhpPack } from "@nsh/core/composition/php";
 import { createCompositeVuePack } from "@nsh/core/composition/vue";
 import { renderCodeToHtml, renderToHtml } from "@nsh/html";
 
@@ -70,17 +71,22 @@ export function createHighlighter(options: HighlighterOptions): BrowserHighlight
   const base = new Map<string, SemanticPack>();
   for (const model of models.values()) base.set(model.id, runtime.createPack(model));
   const packs = [...base].map(([id, pack]) =>
-    id === "html"
-      ? createCompositeHtmlPack({
+    id === "php"
+      ? createCompositePhpPack({
           base: pack,
           highlightEmbedded: (request) => core.highlight(request),
         })
-      : id === "vue"
-        ? createCompositeVuePack({
+      : id === "html"
+        ? createCompositeHtmlPack({
             base: pack,
             highlightEmbedded: (request) => core.highlight(request),
           })
-        : pack,
+        : id === "vue"
+          ? createCompositeVuePack({
+              base: pack,
+              highlightEmbedded: (request) => core.highlight(request),
+            })
+          : pack,
   );
   const core = createCoreHighlighter({ packs });
   const kindFor = (language: string) => aliases[language.toLowerCase()] ?? language.toLowerCase();

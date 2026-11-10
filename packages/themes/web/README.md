@@ -83,3 +83,7 @@ Embedded spans carry optional `documentKind` metadata, rendered as
 `data-nsh-language`, so CSS inside Vue/HTML can use a selector palette while their
 JS/TS spans use type colors. This context is added by composition and does not
 change model weights, token types, offsets or modifiers.
+
+The common palette also covers PHP's `trait` and `constant` roles, using type and
+enum-member color families across all light/dark presets. Consumer overrides use
+`--nsh-trait` and `--nsh-constant` with the usual optional style suffixes.

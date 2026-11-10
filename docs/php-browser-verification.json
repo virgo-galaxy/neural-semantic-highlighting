@@ -1,0 +1,262 @@
+{
+  "date": "2026-11-10",
+  "scope": "PHP base model plus predicted HTML/JS/CSS composition; no PHP/Composer/SDK/server installation",
+  "modelsAvailable": 18,
+  "selectedModel": {
+    "file": "model.pt",
+    "format": "nsh-php-model-v1",
+    "sha256": "4c267a864f19d5e4935eef0e9782d03527adbf536f90e19ae03a2a1a43f9bf39",
+    "bytes": 3638901,
+    "parameterCount": 895130,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "browserModel": {
+    "file": "model.onnx",
+    "sha256": "3c551599315bb5a931c69746290daf2562e591885167eb368898455910b80760",
+    "bytes": 3709151
+  },
+  "nativeSource": {
+    "file": "packs/php/model/model.pt",
+    "sha256": "4c267a864f19d5e4935eef0e9782d03527adbf536f90e19ae03a2a1a43f9bf39"
+  },
+  "conversion": {
+    "reference": "selected PyTorch CPU inference",
+    "torch": "2.14.0",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "sourceSha256": "4c267a864f19d5e4935eef0e9782d03527adbf536f90e19ae03a2a1a43f9bf39",
+    "modelSha256": "3c551599315bb5a931c69746290daf2562e591885167eb368898455910b80760",
+    "comparisons": [
+      {
+        "bytes": 1,
+        "maxAbsoluteErrors": [1.9073486328125e-6, 5.662441253662109e-6, 4.76837158203125e-7]
+      },
+      {
+        "bytes": 2,
+        "maxAbsoluteErrors": [2.7418136596679688e-6, 5.245208740234375e-6, 3.814697265625e-6]
+      },
+      {
+        "bytes": 7,
+        "maxAbsoluteErrors": [6.794929504394531e-6, 1.3589859008789062e-5, 1.430511474609375e-5]
+      },
+      {
+        "bytes": 31,
+        "maxAbsoluteErrors": [1.239776611328125e-5, 1.5020370483398438e-5, 2.193450927734375e-5]
+      },
+      {
+        "bytes": 64,
+        "maxAbsoluteErrors": [1.33514404296875e-5, 2.193450927734375e-5, 2.765655517578125e-5]
+      },
+      {
+        "bytes": 127,
+        "maxAbsoluteErrors": [1.430511474609375e-5, 4.673004150390625e-5, 3.4332275390625e-5]
+      },
+      {
+        "bytes": 511,
+        "maxAbsoluteErrors": [1.4901161193847656e-5, 2.956390380859375e-5, 3.62396240234375e-5]
+      },
+      {
+        "bytes": 512,
+        "maxAbsoluteErrors": [1.4066696166992188e-5, 2.288818359375e-5, 2.765655517578125e-5]
+      }
+    ]
+  },
+  "browserParity": {
+    "total": 115,
+    "passed": 115,
+    "failures": [],
+    "phpExamples": [
+      {
+        "filename": "php/closures.php",
+        "ms": 39.80000001192093
+      },
+      {
+        "filename": "php/collections.php",
+        "ms": 19.19999998807907
+      },
+      {
+        "filename": "php/embedded.phtml",
+        "ms": 38.09999996423721
+      },
+      {
+        "filename": "php/enums.php",
+        "ms": 18.19999998807907
+      },
+      {
+        "filename": "php/hello.php",
+        "ms": 10.900000035762787
+      },
+      {
+        "filename": "php/heredoc.php",
+        "ms": 13.300000011920929
+      },
+      {
+        "filename": "php/records.php",
+        "ms": 19.299999952316284
+      },
+      {
+        "filename": "php/template.phtml",
+        "ms": 21.899999976158142
+      }
+    ]
+  },
+  "independentPackage": {
+    "build": "Vite 8.2.2 production build; four private local tarballs installed offline in a fresh external project",
+    "emittedOnnxModels": 4,
+    "modelIds": ["php", "html", "typescript", "css"],
+    "cases": [
+      {
+        "filename": "php/closures.php",
+        "spans": 61,
+        "equal": true,
+        "alias": "php"
+      },
+      {
+        "filename": "php/collections.php",
+        "spans": 60,
+        "equal": true,
+        "alias": "php"
+      },
+      {
+        "filename": "php/embedded.phtml",
+        "spans": 63,
+        "equal": true,
+        "alias": "php"
+      },
+      {
+        "filename": "php/enums.php",
+        "spans": 47,
+        "equal": true,
+        "alias": "php"
+      },
+      {
+        "filename": "php/hello.php",
+        "spans": 38,
+        "equal": true,
+        "alias": "php"
+      },
+      {
+        "filename": "php/heredoc.php",
+        "spans": 28,
+        "equal": true,
+        "alias": "php"
+      },
+      {
+        "filename": "php/records.php",
+        "spans": 57,
+        "equal": true,
+        "alias": "php"
+      },
+      {
+        "filename": "php/template.phtml",
+        "spans": 56,
+        "equal": true,
+        "alias": "php"
+      },
+      {
+        "filename": "edge-0.php",
+        "spans": 0,
+        "equal": true,
+        "alias": "php"
+      },
+      {
+        "filename": "edge-1.php",
+        "spans": 0,
+        "equal": true,
+        "alias": "php"
+      },
+      {
+        "filename": "edge-2.php",
+        "spans": 7,
+        "equal": true,
+        "alias": "php"
+      },
+      {
+        "filename": "edge-3.php",
+        "spans": 243,
+        "equal": true,
+        "alias": "php"
+      }
+    ],
+    "registeredLanguages": [
+      "php",
+      "html",
+      "javascript",
+      "javascript-esm",
+      "javascript-commonjs",
+      "jsx",
+      "typescript",
+      "typescript-esm",
+      "typescript-commonjs",
+      "tsx",
+      "typescript-declaration",
+      "typescript-esm-declaration",
+      "typescript-commonjs-declaration",
+      "css",
+      "scss",
+      "less"
+    ],
+    "originalTextPreserved": true,
+    "covers": [
+      "six PHP syntax/Here Document/tagless display sources",
+      "two PHP/HTML templates including JS and CSS",
+      "empty source",
+      "CRLF",
+      "BOM and Unicode/astral characters",
+      "long multi-window source"
+    ],
+    "palettes": [
+      {
+        "preset": "default",
+        "mode": "light",
+        "background": "rgb(251, 252, 255)"
+      },
+      {
+        "preset": "default",
+        "mode": "dark",
+        "background": "rgb(21, 27, 41)"
+      },
+      {
+        "preset": "muted",
+        "mode": "light",
+        "background": "rgb(246, 245, 241)"
+      },
+      {
+        "preset": "muted",
+        "mode": "dark",
+        "background": "rgb(38, 40, 35)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "light",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "dark",
+        "background": "rgb(0, 0, 0)"
+      }
+    ],
+    "consoleWarningsOrErrors": {
+      "playground": [],
+      "independentPackage": [],
+      "parity": []
+    }
+  },
+  "checks": {
+    "makeCheck": "passed",
+    "typescriptTests": 147,
+    "phpTeacherTests": 6,
+    "independentPhpGoldenCases": 23,
+    "phpCompositionTests": 6,
+    "themeTests": 10,
+    "priorNativeAndOnnxArtifactsPreserved": 35
+  },
+  "phpInterpreterInstalled": false,
+  "composerInstalled": false,
+  "sdkOrServerInstalled": false,
+  "globalPackagesInstalled": false,
+  "npmPublished": false,
+  "repositoryVisibilityChanged": false
+}
