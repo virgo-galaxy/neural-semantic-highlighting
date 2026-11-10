@@ -13,3 +13,4 @@ for id in ids:
  text+='};\nexport default model;\n';(Path('packages/highlighter/src/languages')/(id+'.ts')).write_text(text)
 imports=''.join(f'import {id} from "./languages/{id}.js";\n' for id in ids)
 Path('packages/highlighter/src/index.ts').write_text(imports+'import { createHighlighter as createConfiguredHighlighter, type HighlighterOptions } from "./highlighter.js";\n\nexport type { BrowserHighlighter, HighlightedCode, HighlighterOptions } from "./highlighter.js";\nexport function createHighlighter(options: HighlighterOptions = {}) {\n  return createConfiguredHighlighter({ ...options, languages: options.languages ?? ['+', '.join(ids)+'] });\n}\n')
+Path('packages/highlighter/src/languages/flutter.ts').write_text('/** Flutter source shares the selected Dart model and its single model asset. */\nexport { default } from "./dart.js";\n')

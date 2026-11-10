@@ -33,3 +33,7 @@ Offline labeling never executes source, annotations, imports, generators or
 project scripts. Frontends require no Dart, Flutter, Python process or parser.
 Previous source snapshots, full training runs and all earlier selected models
 remain preserved. Further changes can use these measured limits as known evidence.
+
+[Flutter coverage](FLUTTER.md) adds application/display evidence with these same
+weights. Flutter is a public alias and Playground entry, with the canonical Dart
+schema and limits; imported widgets are not resolved by a framework analyzer.

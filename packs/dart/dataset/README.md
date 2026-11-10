@@ -20,3 +20,12 @@ A bounded literal/context revision adds 192 authored records in eight families.
 The original 94 family assignments are retained and extended to 102. The initial
 corpus/Gold/prepared snapshots remain intact; closure/local-function and callback
 scope fixes create a new Gold identity. No upstream recollection or SDK is needed.
+
+`flutter-examples.json` pins 48 application files from twelve official Flutter
+sample projects for an additional source-quality review. Run
+`make dataset-flutter-examples`, then `make evaluate-flutter` and
+`make challenge-flutter` with `DART_DEVICE=mps` when available. These files live
+under this same Dart dataset root, retain original licenses/blobs and are not
+listed in the training `sources.json`. Exact/lexical/shape fingerprints are
+compared against existing Gold; all 48 are nonmatching in this capture. The
+review supplements the historical Dart test and does not replace its score.

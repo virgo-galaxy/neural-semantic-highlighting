@@ -50,6 +50,7 @@ const aliases: Readonly<Record<string, string>> = {
   gas: "assembly",
   py: "python",
   rs: "rust",
+  flutter: "dart",
   cs: "csharp",
   "c#": "csharp",
   "c++": "cpp",

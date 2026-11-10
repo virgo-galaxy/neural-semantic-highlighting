@@ -1115,3 +1115,17 @@ challenge-dart:
 export-dart-model:
 	@test -n "$(DART_CHECKPOINT)" -a -n "$(DART_TEST_REPORT)" || (echo 'Set DART_CHECKPOINT and DART_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.dart.export_model --checkpoint "$(DART_CHECKPOINT)" --test-report "$(DART_TEST_REPORT)"
+
+# Flutter application review reuses Dart weights; no new language model or SDK.
+FLUTTER_REPORT ?= artifacts/flutter/real-apps-review.json
+FLUTTER_CHALLENGE_REPORT ?= artifacts/flutter/challenges-review.json
+.PHONY: dataset-flutter-examples evaluate-flutter challenge-flutter
+
+dataset-flutter-examples:
+	$(PYTHON) -m packs.dart.dataset.fetch_flutter_examples
+
+evaluate-flutter:
+	$(PYTHON) -m training.dart.evaluate_flutter --device $(DART_DEVICE) --output "$(FLUTTER_REPORT)"
+
+challenge-flutter:
+	$(PYTHON) -m training.dart.challenge_flutter --device $(DART_DEVICE) --output "$(FLUTTER_CHALLENGE_REPORT)"

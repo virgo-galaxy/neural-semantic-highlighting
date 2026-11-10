@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 
 import { type BrowserModel, BrowserRuntime } from "@nsh/browser";
 import { createHighlighter } from "@nsh/highlighter/core";
+import dart from "@nsh/highlighter/languages/dart";
+import flutter from "@nsh/highlighter/languages/flutter";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { characterMap, SpanDecoder } from "../packages/runtimes/browser/src/decode.js";
@@ -130,6 +132,26 @@ describe("browser runtime lifecycle", () => {
 });
 
 describe("consumer API", () => {
+  it("routes Flutter and Dart through the same descriptor, model and canonical offsets", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    expect(flutter).toBe(dart);
+    const highlighter = createHighlighter({ languages: [flutter, dart] });
+    expect(highlighter.languages()).toEqual(["dart"]);
+    expect(highlighter.supports("Flutter")).toBe(true);
+    const pending = highlighter.highlight("Widget f() => Text('<🌌>');", { language: "flutter" });
+    const worker = FakeWorker.instances[0];
+    expect(worker.messages[0].model).toMatchObject({ id: "dart", sha256: dart.sha256 });
+    worker.reply(worker.messages[0].id);
+    const result = await pending;
+    expect(result.language).toBe("dart");
+    expect(result.html).toContain('data-language="dart"');
+    expect(result.value).toContain("&lt;🌌&gt;");
+    const tokens = highlighter.highlightTokens({ source: "const x = 1;", documentKind: "flutter" });
+    expect(FakeWorker.instances).toHaveLength(1);
+    worker.reply(worker.messages[1].id);
+    await expect(tokens).resolves.toEqual(empty);
+    highlighter.close();
+  });
   it("resolves aliases and escapes rendered source", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [model] });

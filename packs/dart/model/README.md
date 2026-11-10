@@ -16,3 +16,7 @@ Local reference: .venv/bin/python -m packs.dart.runtime.local --file example.dar
 [known issues](KNOWN_ISSUES.md) retain measured limitations. Selected .pt is
 inference-only; resumable full checkpoints remain under artifacts/dart.
 Previous models, data snapshots, experiments and licenses are preserved.
+
+[Flutter](FLUTTER.md) also has a dedicated Playground entry and public
+`language: "flutter"` alias. Selective `@nsh/highlighter/languages/flutter`
+re-exports this same descriptor and emits one Dart model asset.

@@ -17,3 +17,7 @@ and `@nsh/highlighter/languages/dart`. [Evaluation](model/BENCHMARKS.md) records
 94.22% natural test exact-span F1 over 20 files and separates the visible probes.
 [Known issues](model/KNOWN_ISSUES.md) retain literal, constructor and local-role
 limitations. Resumable full checkpoints stay under `artifacts/dart`.
+
+[Dedicated Flutter coverage](model/FLUTTER.md) adds a public `flutter` alias,
+Flutter Playground examples and separate application-source evaluation, while
+sharing the unchanged Dart model. Both kinds of source keep the `.dart` extension.
