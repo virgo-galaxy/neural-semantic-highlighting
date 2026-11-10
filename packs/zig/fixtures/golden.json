@@ -1,0 +1,134 @@
+[
+  {
+    "id": "function",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|fn⟧ ⟦function+declaration|sum⟧⟦punctuation|(⟧⟦parameter+declaration|a⟧⟦punctuation|:⟧ ⟦keyword|u32⟧⟦punctuation|,⟧ ⟦parameter+declaration|b⟧⟦punctuation|:⟧ ⟦keyword|u32⟧⟦punctuation|)⟧ ⟦keyword|u32⟧ ⟦punctuation|{⟧ ⟦keyword|return⟧ ⟦parameter|a⟧⟦operator|+⟧⟦parameter|b⟧⟦punctuation|;⟧ ⟦punctuation|}⟧"
+  },
+  {
+    "id": "import",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|const⟧ ⟦namespace+declaration|std⟧ ⟦operator|=⟧ ⟦function|@import⟧⟦punctuation|(⟧⟦string|\"std\"⟧⟦punctuation|)⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "constant",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|const⟧ ⟦constant+declaration|limit⟧⟦punctuation|:⟧ ⟦keyword|usize⟧ ⟦operator|=⟧ ⟦number|16⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "local",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|fn⟧ ⟦function+declaration|f⟧⟦punctuation|(⟧⟦punctuation|)⟧ ⟦keyword|void⟧ ⟦punctuation|{⟧ ⟦keyword|var⟧ ⟦variable+declaration|n⟧⟦punctuation|:⟧ ⟦keyword|u8⟧⟦operator|=⟧⟦number|0⟧⟦punctuation|;⟧ ⟦variable|n⟧⟦operator|+=⟧⟦number|1⟧⟦punctuation|;⟧ ⟦punctuation|}⟧"
+  },
+  {
+    "id": "struct",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|const⟧ ⟦type+declaration|Point⟧⟦operator|=⟧⟦keyword|struct⟧⟦punctuation|{⟧ ⟦property+declaration|x⟧⟦punctuation|:⟧⟦keyword|f32⟧⟦punctuation|,⟧ ⟦property+declaration|y⟧⟦punctuation|:⟧⟦keyword|f32⟧⟦punctuation|,⟧ ⟦punctuation|}⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "enum",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|const⟧ ⟦enum+declaration|State⟧⟦operator|=⟧⟦keyword|enum⟧⟦punctuation|{⟧ ⟦enum-member+declaration|idle⟧⟦punctuation|,⟧ ⟦enum-member+declaration|ready⟧ ⟦punctuation|}⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "enum-literal",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|const⟧ ⟦constant+declaration|state⟧⟦operator|=⟧⟦punctuation|.⟧⟦enum-member|ready⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "error-set",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|const⟧ ⟦type+declaration|Failure⟧⟦operator|=⟧⟦keyword|error⟧⟦punctuation|{⟧⟦enum-member+declaration|Missing⟧⟦punctuation|,⟧⟦enum-member+declaration|Busy⟧⟦punctuation|}⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "error-value",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|fn⟧ ⟦function+declaration|f⟧⟦punctuation|(⟧⟦punctuation|)⟧ ⟦operator|!⟧⟦keyword|u8⟧ ⟦punctuation|{⟧ ⟦keyword|return⟧ ⟦keyword|error⟧⟦punctuation|.⟧⟦enum-member|Missing⟧⟦punctuation|;⟧ ⟦punctuation|}⟧"
+  },
+  {
+    "id": "generic",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|fn⟧ ⟦function+declaration|Box⟧⟦punctuation|(⟧⟦keyword|comptime⟧ ⟦type-parameter+declaration|T⟧⟦punctuation|:⟧ ⟦keyword|type⟧⟦punctuation|)⟧ ⟦keyword|type⟧ ⟦punctuation|{⟧ ⟦keyword|return⟧ ⟦keyword|struct⟧ ⟦punctuation|{⟧ ⟦property+declaration|value⟧⟦punctuation|:⟧ ⟦type-parameter|T⟧ ⟦punctuation|}⟧⟦punctuation|;⟧ ⟦punctuation|}⟧"
+  },
+  {
+    "id": "optional",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|fn⟧ ⟦function+declaration|f⟧⟦punctuation|(⟧⟦parameter+declaration|v⟧⟦punctuation|:⟧⟦operator|?⟧⟦keyword|u8⟧⟦punctuation|)⟧ ⟦keyword|u8⟧ ⟦punctuation|{⟧ ⟦keyword|return⟧ ⟦parameter|v⟧ ⟦keyword|orelse⟧ ⟦number|0⟧⟦punctuation|;⟧ ⟦punctuation|}⟧"
+  },
+  {
+    "id": "capture",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|fn⟧ ⟦function+declaration|f⟧⟦punctuation|(⟧⟦parameter+declaration|v⟧⟦punctuation|:⟧⟦operator|?⟧⟦keyword|u8⟧⟦punctuation|)⟧ ⟦keyword|u8⟧ ⟦punctuation|{⟧ ⟦keyword|if⟧⟦punctuation|(⟧⟦parameter|v⟧⟦punctuation|)⟧ ⟦operator||⟧⟦variable+declaration|value⟧⟦operator||⟧ ⟦punctuation|{⟧ ⟦keyword|return⟧ ⟦variable|value⟧⟦punctuation|;⟧ ⟦punctuation|}⟧ ⟦keyword|return⟧ ⟦number|0⟧⟦punctuation|;⟧ ⟦punctuation|}⟧"
+  },
+  {
+    "id": "builtin",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|fn⟧ ⟦function+declaration|f⟧⟦punctuation|(⟧⟦parameter+declaration|x⟧⟦punctuation|:⟧⟦keyword|u32⟧⟦punctuation|)⟧ ⟦keyword|u8⟧ ⟦punctuation|{⟧ ⟦keyword|return⟧ ⟦function|@intCast⟧⟦punctuation|(⟧⟦parameter|x⟧⟦punctuation|)⟧⟦punctuation|;⟧ ⟦punctuation|}⟧"
+  },
+  {
+    "id": "backing-int",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|const⟧ ⟦constant+declaration|value⟧⟦operator|=⟧⟦function|@backingInt⟧⟦punctuation|(⟧⟦punctuation|.⟧⟦enum-member|ready⟧⟦punctuation|)⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "quoted-name",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|fn⟧ ⟦function+declaration|@\"hello world\"⟧⟦punctuation|(⟧⟦punctuation|)⟧ ⟦keyword|void⟧ ⟦punctuation|{⟧⟦punctuation|}⟧"
+  },
+  {
+    "id": "string",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|const⟧ ⟦constant+declaration|text⟧⟦operator|=⟧⟦string|\"星空 🌌\"⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "character",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|const⟧ ⟦constant+declaration|c⟧⟦operator|=⟧⟦string|'星'⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "multiline",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|const⟧ ⟦constant+declaration|text⟧ ⟦operator|=⟧\n⟦string|\\\\first 🌌⟧\n⟦string|\\\\second⟧\n⟦punctuation|;⟧"
+  },
+  {
+    "id": "line-comment",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦comment|// ordinary 星空 🌌⟧\r\n⟦keyword|const⟧ ⟦constant+declaration|x⟧⟦operator|=⟧⟦number|1⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "doc-comment",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦comment|/// Documentation.⟧\n⟦keyword|const⟧ ⟦constant+declaration|x⟧⟦operator|=⟧⟦number|1⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "bom",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦punctuation|﻿⟧⟦keyword|const⟧ ⟦constant+declaration|x⟧⟦punctuation|:⟧⟦keyword|u8⟧⟦operator|=⟧⟦number|1⟧⟦punctuation|;⟧"
+  },
+  {
+    "id": "array",
+    "documentKind": "zig",
+    "profile": "zig",
+    "markedSource": "⟦keyword|const⟧ ⟦constant+declaration|values⟧⟦operator|=⟧⟦punctuation|[⟧⟦keyword|_⟧⟦punctuation|]⟧⟦keyword|u8⟧⟦punctuation|{⟧⟦number|1⟧⟦punctuation|,⟧⟦number|2⟧⟦punctuation|}⟧⟦punctuation|;⟧"
+  }
+]

@@ -979,3 +979,70 @@ challenge-rust:
 export-rust-model:
 	@test -n "$(RUST_CHECKPOINT)" -a -n "$(RUST_TEST_REPORT)" || (echo 'Set RUST_CHECKPOINT and RUST_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.rust.export_model --checkpoint "$(RUST_CHECKPOINT)" --test-report "$(RUST_TEST_REPORT)"
+
+ZIG_DEVICE ?= auto
+ZIG_EPOCHS ?= 3
+ZIG_BATCH_SIZE ?= 32
+ZIG_LEARNING_RATE ?=
+ZIG_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-zig dataset-zig-tools dataset-zig-sources dataset-zig-curriculum dataset-zig-collect dataset-zig-label dataset-zig-validate dataset-zig-prepare test-labeling-zig train-zig-smoke train-zig continue-zig predict-zig evaluate-zig challenge-zig export-zig-model
+
+dataset-zig-tools:
+	$(PYTHON) -m packs.zig.labeling.tools
+
+dataset-zig-sources:
+	$(PYTHON) -m packs.zig.dataset.fetch_sources
+
+dataset-zig:
+	$(MAKE) dataset-zig-tools
+	$(MAKE) dataset-zig-sources
+	$(MAKE) dataset-zig-curriculum
+	$(MAKE) dataset-zig-collect
+	$(MAKE) dataset-zig-label
+	$(MAKE) dataset-zig-validate
+	$(MAKE) dataset-zig-prepare
+
+dataset-zig-curriculum:
+	$(PYTHON) -m packs.zig.dataset.generate_curriculum
+
+dataset-zig-collect:
+	$(PYTHON) -m packs.zig.dataset.pipeline collect
+
+dataset-zig-label:
+	$(PYTHON) -m packs.zig.dataset.pipeline label
+
+dataset-zig-validate:
+	$(PYTHON) -m packs.zig.dataset.pipeline validate
+
+dataset-zig-prepare:
+	$(PYTHON) -m training.zig.prepare
+
+test-labeling-zig:
+	$(PYTHON) -m unittest discover -s packs/zig/tests -v
+
+train-zig-smoke:
+	$(PYTHON) -m training.zig.train --smoke --epochs 1 --device $(ZIG_DEVICE) $(if $(ZIG_RUN),--output-dir "$(ZIG_RUN)") $(if $(ZIG_INIT_FROM),--init-from "$(ZIG_INIT_FROM)")
+
+train-zig:
+	$(PYTHON) -m training.zig.train --epochs $(ZIG_EPOCHS) --device $(ZIG_DEVICE) --batch-size $(ZIG_BATCH_SIZE) $(if $(ZIG_LEARNING_RATE),--learning-rate $(ZIG_LEARNING_RATE)) $(if $(ZIG_RUN),--output-dir "$(ZIG_RUN)") $(if $(ZIG_INIT_FROM),--init-from "$(ZIG_INIT_FROM)")
+
+continue-zig:
+	@test -n "$(ZIG_CHECKPOINT)" || (echo 'Set ZIG_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.zig.train --resume "$(ZIG_CHECKPOINT)" --epochs $(ZIG_EPOCHS) --device $(ZIG_DEVICE)
+
+predict-zig:
+	@test -n "$(ZIG_SOURCE)" || (echo 'Set ZIG_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.zig.predict --device $(ZIG_DEVICE) --file "$(ZIG_SOURCE)" $(if $(ZIG_CHECKPOINT),--checkpoint "$(ZIG_CHECKPOINT)")
+
+evaluate-zig:
+	@test -n "$(ZIG_CHECKPOINT)" || (echo 'Set ZIG_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.zig.evaluate --checkpoint "$(ZIG_CHECKPOINT)" --device $(ZIG_DEVICE) --split $(ZIG_EVAL_SPLIT)
+
+challenge-zig:
+	@test -n "$(ZIG_CHECKPOINT)" || (echo 'Set ZIG_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.zig.challenge --checkpoint "$(ZIG_CHECKPOINT)" --device $(ZIG_DEVICE)
+
+export-zig-model:
+	@test -n "$(ZIG_CHECKPOINT)" -a -n "$(ZIG_TEST_REPORT)" || (echo 'Set ZIG_CHECKPOINT and ZIG_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.zig.export_model --checkpoint "$(ZIG_CHECKPOINT)" --test-report "$(ZIG_TEST_REPORT)"
