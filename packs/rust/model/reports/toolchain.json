@@ -1,0 +1,189 @@
+{
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: aarch64-apple-darwin\nrelease: 1.99.1\nLLVM version: 23.1.1",
+  "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+  "rustup": "rustup 1.29.3 (edbc831ce 2026-11-02)",
+  "compilerSha256": "1ba7bb8e273bd64125f4048d2ecce530e0a6470e565ab1b3aecf0b82b532f7b1",
+  "components": [
+    "cargo-aarch64-apple-darwin",
+    "clippy-aarch64-apple-darwin",
+    "rust-docs-aarch64-apple-darwin",
+    "rust-src",
+    "rust-std-aarch64-apple-darwin",
+    "rustc-aarch64-apple-darwin",
+    "rustfmt-aarch64-apple-darwin"
+  ],
+  "probes": [
+    {
+      "source": "artifacts/rust/compiler-probe-common.rs",
+      "sourceSha256": "5a007ef96b499d757f9e23afb99ba1f0be4315a5521b02c4fb41c7fec2224e59",
+      "edition": "2018",
+      "command": [
+        "rustc",
+        "--edition=2018",
+        "--emit=metadata",
+        "--crate-name",
+        "nsh_probe",
+        "artifacts/rust/compiler-probe-common.rs",
+        "-o",
+        "artifacts/rust/compiler-probe-common-2018.rmeta"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "source": "artifacts/rust/compiler-probe-common.rs",
+      "sourceSha256": "5a007ef96b499d757f9e23afb99ba1f0be4315a5521b02c4fb41c7fec2224e59",
+      "edition": "2021",
+      "command": [
+        "rustc",
+        "--edition=2021",
+        "--emit=metadata",
+        "--crate-name",
+        "nsh_probe",
+        "artifacts/rust/compiler-probe-common.rs",
+        "-o",
+        "artifacts/rust/compiler-probe-common-2021.rmeta"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "source": "artifacts/rust/compiler-probe-common.rs",
+      "sourceSha256": "5a007ef96b499d757f9e23afb99ba1f0be4315a5521b02c4fb41c7fec2224e59",
+      "edition": "2024",
+      "command": [
+        "rustc",
+        "--edition=2024",
+        "--emit=metadata",
+        "--crate-name",
+        "nsh_probe",
+        "artifacts/rust/compiler-probe-common.rs",
+        "-o",
+        "artifacts/rust/compiler-probe-common-2024.rmeta"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "source": "artifacts/rust/compiler-probe.rs",
+      "sourceSha256": "5c3319fcbd2b716970e2a7c652b6a2702ef0cdec7b64bcc80bf3821bb708bf3e",
+      "edition": "2021",
+      "command": [
+        "rustc",
+        "--edition=2021",
+        "--emit=metadata",
+        "--crate-name",
+        "nsh_probe",
+        "artifacts/rust/compiler-probe.rs",
+        "-o",
+        "artifacts/rust/compiler-probe-2021.rmeta"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "source": "artifacts/rust/compiler-probe.rs",
+      "sourceSha256": "5c3319fcbd2b716970e2a7c652b6a2702ef0cdec7b64bcc80bf3821bb708bf3e",
+      "edition": "2024",
+      "command": [
+        "rustc",
+        "--edition=2024",
+        "--emit=metadata",
+        "--crate-name",
+        "nsh_probe",
+        "artifacts/rust/compiler-probe.rs",
+        "-o",
+        "artifacts/rust/compiler-probe-2024.rmeta"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "source": "artifacts/rust/edition2024-probe.rs",
+      "sourceSha256": "f7b39a373e5cf6165a82dfd6063ee224c9546768c4cce5555ea17210e22a29a0",
+      "edition": "2024",
+      "command": [
+        "rustc",
+        "--edition=2024",
+        "--emit=metadata",
+        "--crate-name",
+        "nsh_probe",
+        "artifacts/rust/edition2024-probe.rs",
+        "-o",
+        "artifacts/rust/edition2024-probe-2024.rmeta"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    }
+  ],
+  "upstreamProjectsBuilt": false,
+  "cargoDependenciesInstalled": false,
+  "cStringEditionRequirement": "2021 or later; checked in separate probes",
+  "before": "Default host: aarch64-apple-darwin\nrustup home:  /Users/mystic/.rustup\n\ninstalled toolchains\n--------------------\nstable-aarch64-apple-darwin (active, default)\n\nactive toolchain\n----------------\nname: stable-aarch64-apple-darwin\nactive because: it's the default toolchain\ninstalled targets:\n  aarch64-apple-darwin\n",
+  "updateLog": "info: syncing channel updates for stable-aarch64-apple-darwin\ninfo: latest update on 2026-10-15 for version 1.99.1 (58cf8f9c3 2026-10-13)\ninfo: removing previous version of component rust-src\ninfo: removing previous version of component cargo\ninfo: removing previous version of component clippy\ninfo: removing previous version of component rust-docs\ninfo: removing previous version of component rust-std\ninfo: removing previous version of component rustc\ninfo: removing previous version of component rustfmt\ninfo: downloading 7 components\n\n  stable-aarch64-apple-darwin updated - rustc 1.99.1 (58cf8f9c3 2026-10-13) (from rustc 1.97.1 (8bab26f4f 2026-07-14))\n\ninfo: checking for self-update (current version: 1.29.0)\ninfo: downloading self-update (new version: 1.29.3)\n",
+  "authoredSources": {
+    "artifacts/rust/compiler-probe-common.rs": "#![allow(dead_code)]\ntrait Describe { fn describe(&self) -> String; }\nstruct Record<'a, const N: usize> { title: &'a str, values: [u32; N] }\nimpl<'a, const N: usize> Describe for Record<'a, N> {\n    fn describe(&self) -> String { format!(\"{}: {}\", self.title, self.values.len()) }\n}\nfn first<'a, T>(items: &'a [T]) -> Option<&'a T> { items.first() }\nasync fn load(value: u32) -> u32 { async { value + 1 }.await }\nmacro_rules! total { ($($value:expr),*) => { 0 $(+ $value)* }; }\nfn main() {\n    let record = Record { title: \"星空 🌌\", values: [2, 4, 8] };\n    let result = record.describe();\n    let raw = r##\"{ \"value\": \"raw\" }\"##;\n    let byte = b'x';\n    let Some(head) = first(&record.values) else { return; };\n    assert_eq!(*head, 2);\n    assert_eq!(total!(1, 2, 3), 6);\n    assert!(result.contains(\"星空\"));\n    let _ = (raw, byte);\n}\n",
+    "artifacts/rust/compiler-probe.rs": "#![allow(dead_code)]\ntrait Describe { fn describe(&self) -> String; }\nstruct Record<'a, const N: usize> { title: &'a str, values: [u32; N] }\nimpl<'a, const N: usize> Describe for Record<'a, N> {\n    fn describe(&self) -> String { format!(\"{}: {}\", self.title, self.values.len()) }\n}\nfn first<'a, T>(items: &'a [T]) -> Option<&'a T> { items.first() }\nasync fn load(value: u32) -> u32 { async { value + 1 }.await }\nmacro_rules! total { ($($value:expr),*) => { 0 $(+ $value)* }; }\nfn main() {\n    let record = Record { title: \"星空 🌌\", values: [2, 4, 8] };\n    let result = record.describe();\n    let raw = r##\"{ \"value\": \"raw\" }\"##;\n    let byte = b'x';\n    let c_text = c\"hello\";\n    let Some(head) = first(&record.values) else { return; };\n    assert_eq!(*head, 2);\n    assert_eq!(total!(1, 2, 3), 6);\n    assert!(result.contains(\"星空\"));\n    let _ = (raw, byte, c_text);\n}\n",
+    "artifacts/rust/edition2024-probe.rs": "#![allow(dead_code)]\n#[unsafe(no_mangle)]\npub extern \"C\" fn nsh_add(value: u32) -> u32 { value + 1 }\nunsafe extern \"C\" { fn abs(value: i32) -> i32; }\nfn accepts(value: Option<u32>) -> bool {\n    if let Some(found) = value && found > 2 { true } else { false }\n}\nfn main() { assert!(accepts(Some(4))); }\n"
+  },
+  "displayChecks": [
+    {
+      "filename": "async.rs",
+      "sourceSha256": "436b2f97a2f845ab26ae69e135c8e4908e73af96b244f211eb4b11444e4e27d8",
+      "edition": "2024",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "edition2024.rs",
+      "sourceSha256": "a649aa003c8055b4552ec121db3290dbc19f18c336be8a145466dc43ccb939b2",
+      "edition": "2024",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "hello.rs",
+      "sourceSha256": "6dfa74bffd1ff96eb118f353e2252e4a0cd84a6d4be9f971dede1a0e1299a4e2",
+      "edition": "2024",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "macros.rs",
+      "sourceSha256": "398c789c29428e298bfc7fdfe169ed5061bbf149fad72f3839b9c47bb90fbb65",
+      "edition": "2024",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "ownership.rs",
+      "sourceSha256": "bcbff62351cac47fbc4d844eb44c52bb33446aa21eb93ded03bca090022773e3",
+      "edition": "2024",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "patterns.rs",
+      "sourceSha256": "630038b5a39e7678f960d624ef740a797fc4b4fd6c02eda9e2464f95e83be636",
+      "edition": "2024",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "raw-strings.rs",
+      "sourceSha256": "269c0c1bcf2921fc298ca814d19de8c4dcd0a59ae52b0cba96ee4e9082e57346",
+      "edition": "2024",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "filename": "traits-generics.rs",
+      "sourceSha256": "b42f4d678787a584108187af2b1adbb65f4062d29c12a14f831966270b8c48f5",
+      "edition": "2024",
+      "exitCode": 0,
+      "stderr": ""
+    }
+  ],
+  "setupCleanupResolved": true,
+  "setupCleanupNote": "Official rustup setup cleanup completed during elevated post-update verification; final versions/components are recorded above."
+}

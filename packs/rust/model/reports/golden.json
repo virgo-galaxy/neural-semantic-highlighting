@@ -1,0 +1,1125 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "1988e6b2b8461b58bd67e0f6c4ce04973d0f34c55bb75e37ee0dcce2a1171b4d",
+  "cases": [
+    {
+      "id": "function",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "fn sum(a: i32, b: i32) -> i32 { a + b }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 32,
+          "end": 33,
+          "text": "a",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 37,
+          "text": "b",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 32,
+          "end": 33,
+          "text": "a",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 37,
+          "text": "b",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "binding",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "fn f() { let mut count = 7u32; count += 1; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 31,
+          "end": 36,
+          "text": "count",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 31,
+          "end": 36,
+          "text": "count",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "struct",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "struct Point { x: f64 }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "enum",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "enum State { Ready, Wait(u32) }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "enum-reference",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "enum E { A } fn f() { let e=E::A; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "E",
+          "tokenType": "enum",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 9,
+          "end": 10,
+          "text": "A",
+          "tokenType": "enum-member",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 22,
+          "end": 25,
+          "text": "let",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 27,
+          "text": "e",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 27,
+          "end": 28,
+          "text": "=",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 28,
+          "end": 29,
+          "text": "E",
+          "tokenType": "enum",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "E",
+          "tokenType": "type-parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 9,
+          "end": 10,
+          "text": "A",
+          "tokenType": "type-parameter",
+          "modifiers": []
+        },
+        {
+          "start": 22,
+          "end": 25,
+          "text": "let",
+          "tokenType": "function",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 27,
+          "text": "e",
+          "tokenType": "namespace",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 27,
+          "end": 28,
+          "text": "=",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 28,
+          "end": 29,
+          "text": "E",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "constant",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "const LIMIT: usize = 16;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "generic",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "fn identity<T>(x: T) -> T { x }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 28,
+          "end": 29,
+          "text": "x",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 28,
+          "end": 29,
+          "text": "x",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "lifetime",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "fn borrow<'a>(s: &'a str) -> &'a str { s }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 39,
+          "end": 40,
+          "text": "s",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 39,
+          "end": 40,
+          "text": "s",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "trait",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "trait Read { fn read(&self) -> u8; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "attribute",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "#[derive(Debug, Clone)]\nstruct Token;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 31,
+          "end": 36,
+          "text": "Token",
+          "tokenType": "type",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 31,
+          "end": 36,
+          "text": "Token",
+          "tokenType": "namespace",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "imports",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "use std::fmt::Debug;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "macro",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "fn main() { println!(\"Hello 🌌\"); }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 21,
+          "end": 31,
+          "text": "\"Hello 🌌\"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 31,
+          "end": 32,
+          "text": ")",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 32,
+          "end": 33,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 34,
+          "end": 35,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 21,
+          "end": 33,
+          "text": "\"Hello 🌌\");",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 34,
+          "end": 35,
+          "text": "}",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "macro-definition",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "macro_rules! twice { ($x:expr) => { $x + $x }; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 13,
+          "end": 18,
+          "text": "twice",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 25,
+          "end": 29,
+          "text": "expr",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 38,
+          "text": "$x",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 18,
+          "text": "twice",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 25,
+          "end": 29,
+          "text": "expr",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 36,
+          "end": 38,
+          "text": "$x",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "raw-string",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "const TEXT: &str = r##\"{ \\\"name\\\": \\\"星 🌌\\\" }\"##;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 19,
+          "end": 48,
+          "text": "r##\"{ \\\"name\\\": \\\"星 🌌\\\" }\"##",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 48,
+          "end": 49,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 19,
+          "end": 49,
+          "text": "r##\"{ \\\"name\\\": \\\"星 🌌\\\" }\"##;",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "byte-char",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "const BYTE: u8 = b'A';",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 17,
+          "end": 21,
+          "text": "b'A'",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 22,
+          "text": ";",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 17,
+          "end": 22,
+          "text": "b'A';",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "c-string",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "fn f(){ let c=c\"hello\"; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 11,
+          "text": "let",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 24,
+          "end": 25,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 11,
+          "text": "let",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 24,
+          "end": 25,
+          "text": "}",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "closure",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "fn f() { let double=|n| n*2; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 21,
+          "end": 22,
+          "text": "n",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 24,
+          "end": 25,
+          "text": "n",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 21,
+          "end": 22,
+          "text": "n",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 24,
+          "end": 25,
+          "text": "n",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "loop-label",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "fn f() { 'scan: loop { break 'scan; } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 29,
+          "end": 34,
+          "text": "'scan",
+          "tokenType": "label",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 29,
+          "end": 34,
+          "text": "'scan",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "raw-identifier",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "fn r#type(){}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 13,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 13,
+          "text": "}",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "nested-comment",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "/* outer /* inner 🌌 */ end */",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "doc-comment",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "/// A borrowed value.\r\nstruct Doc;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "bom",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "﻿const X:u8=1;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "﻿",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 6,
+          "text": "const",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 7,
+          "end": 8,
+          "text": "X",
+          "tokenType": "constant",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 8,
+          "end": 9,
+          "text": ":",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 9,
+          "end": 11,
+          "text": "u8",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 6,
+          "text": "﻿const",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 7,
+          "end": 8,
+          "text": "X",
+          "tokenType": "namespace",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 8,
+          "end": 11,
+          "text": ":u8",
+          "tokenType": "constant",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "async",
+      "profile": "rust",
+      "documentKind": "rust",
+      "source": "async fn load() { fetch().await; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 26,
+          "end": 31,
+          "text": "await",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 26,
+          "end": 31,
+          "text": "await",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "rust": {
+      "documents": 23,
+      "exactDocumentsIncludingModifiers": 7,
+      "exactSpan": {
+        "precision": 0.8928571428571429,
+        "recall": 0.872093023255814,
+        "f1": 0.8823529411764706,
+        "tp": 225,
+        "fp": 27,
+        "fn": 33,
+        "support": 258
+      },
+      "exactSpanMacroF1": 0.8006758458401223,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8849206349206349,
+        "recall": 0.8643410852713178,
+        "f1": 0.8745098039215686,
+        "tp": 223,
+        "fp": 29,
+        "fn": 35,
+        "support": 258
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.851063829787234,
+          "recall": 0.8695652173913043,
+          "f1": 0.8602150537634409,
+          "tp": 40,
+          "fp": 7,
+          "fn": 6,
+          "support": 46
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.14285714285714285,
+          "recall": 0.25,
+          "f1": 0.18181818181818182,
+          "tp": 1,
+          "fp": 6,
+          "fn": 3,
+          "support": 4
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.9411764705882353,
+          "f1": 0.9696969696969697,
+          "tp": 32,
+          "fp": 0,
+          "fn": 2,
+          "support": 34
+        },
+        "punctuation": {
+          "precision": 0.9895833333333334,
+          "recall": 0.9223300970873787,
+          "f1": 0.9547738693467337,
+          "tp": 95,
+          "fp": 1,
+          "fn": 8,
+          "support": 103
+        },
+        "namespace": {
+          "precision": 0.42857142857142855,
+          "recall": 1.0,
+          "f1": 0.6,
+          "tp": 3,
+          "fp": 4,
+          "fn": 0,
+          "support": 3
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 0,
+          "fn": 1,
+          "support": 3
+        },
+        "trait": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "f1": 0.5,
+          "tp": 1,
+          "fp": 0,
+          "fn": 2,
+          "support": 3
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 0,
+          "fn": 1,
+          "support": 4
+        },
+        "function": {
+          "precision": 0.9333333333333333,
+          "recall": 0.9333333333333333,
+          "f1": 0.9333333333333333,
+          "tp": 14,
+          "fp": 1,
+          "fn": 1,
+          "support": 15
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 7,
+          "fp": 0,
+          "fn": 7,
+          "support": 14
+        },
+        "variable": {
+          "precision": 0.5,
+          "recall": 0.8,
+          "f1": 0.6153846153846154,
+          "tp": 4,
+          "fp": 4,
+          "fn": 1,
+          "support": 5
+        },
+        "property": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "type-parameter": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 6,
+          "fp": 2,
+          "fn": 0,
+          "support": 6
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "label": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "constant": {
+          "precision": 0.75,
+          "recall": 0.75,
+          "f1": 0.75,
+          "tp": 3,
+          "fp": 1,
+          "fn": 1,
+          "support": 4
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "rust": {
+      "documents": 23,
+      "exactDocumentsIncludingModifiers": 7,
+      "exactSpan": {
+        "precision": 0.8928571428571429,
+        "recall": 0.872093023255814,
+        "f1": 0.8823529411764706,
+        "tp": 225,
+        "fp": 27,
+        "fn": 33,
+        "support": 258
+      },
+      "exactSpanMacroF1": 0.8006758458401223,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8849206349206349,
+        "recall": 0.8643410852713178,
+        "f1": 0.8745098039215686,
+        "tp": 223,
+        "fp": 29,
+        "fn": 35,
+        "support": 258
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.851063829787234,
+          "recall": 0.8695652173913043,
+          "f1": 0.8602150537634409,
+          "tp": 40,
+          "fp": 7,
+          "fn": 6,
+          "support": 46
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.14285714285714285,
+          "recall": 0.25,
+          "f1": 0.18181818181818182,
+          "tp": 1,
+          "fp": 6,
+          "fn": 3,
+          "support": 4
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.9411764705882353,
+          "f1": 0.9696969696969697,
+          "tp": 32,
+          "fp": 0,
+          "fn": 2,
+          "support": 34
+        },
+        "punctuation": {
+          "precision": 0.9895833333333334,
+          "recall": 0.9223300970873787,
+          "f1": 0.9547738693467337,
+          "tp": 95,
+          "fp": 1,
+          "fn": 8,
+          "support": 103
+        },
+        "namespace": {
+          "precision": 0.42857142857142855,
+          "recall": 1.0,
+          "f1": 0.6,
+          "tp": 3,
+          "fp": 4,
+          "fn": 0,
+          "support": 3
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 0,
+          "fn": 1,
+          "support": 3
+        },
+        "trait": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "f1": 0.5,
+          "tp": 1,
+          "fp": 0,
+          "fn": 2,
+          "support": 3
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 0,
+          "fn": 1,
+          "support": 4
+        },
+        "function": {
+          "precision": 0.9333333333333333,
+          "recall": 0.9333333333333333,
+          "f1": 0.9333333333333333,
+          "tp": 14,
+          "fp": 1,
+          "fn": 1,
+          "support": 15
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 7,
+          "fp": 0,
+          "fn": 7,
+          "support": 14
+        },
+        "variable": {
+          "precision": 0.5,
+          "recall": 0.8,
+          "f1": 0.6153846153846154,
+          "tp": 4,
+          "fp": 4,
+          "fn": 1,
+          "support": 5
+        },
+        "property": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "type-parameter": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 6,
+          "fp": 2,
+          "fn": 0,
+          "support": 6
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "label": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "constant": {
+          "precision": 0.75,
+          "recall": 0.75,
+          "f1": 0.75,
+          "tp": 3,
+          "fp": 1,
+          "fn": 1,
+          "support": 4
+        }
+      }
+    }
+  },
+  "checkpointHash": "00c6d0119ff6d4a0d01339f1eb56a3ecd714b91f9ae01508ca854d6f92ff8598",
+  "checkpointEpoch": 4,
+  "device": "mps"
+}

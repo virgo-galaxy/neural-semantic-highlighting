@@ -7,3 +7,6 @@ source; editions are coverage targets, not separate models or version validators
 See [semantic contract](SEMANTICS.md), [dataset](dataset/README.md),
 [independent Golden](fixtures/README.md) and [training](../../training/rust/README.md).
 Inference requires no Rust compiler, Cargo, parser or project environment.
+
+[Selected model](model/README.md), [evaluation](model/BENCHMARKS.md) and
+[known issues](model/KNOWN_ISSUES.md) record the measured baseline.
