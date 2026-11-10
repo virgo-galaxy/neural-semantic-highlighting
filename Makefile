@@ -161,6 +161,9 @@ check:
 	$(MAKE) test-labeling-cpp
 	$(PYTHON) -m compileall -q training/cpp packs/cpp/runtime
 	$(PYTHON) -c 'import packs.cpp.runtime.local'
+	$(MAKE) test-labeling-rust
+	$(PYTHON) -m compileall -q training/rust packs/rust/runtime
+	$(PYTHON) -c 'import packs.rust.runtime.local'
 	$(MAKE) test-labeling-svelte
 	$(PYTHON) -m compileall -q training/svelte packs/svelte/runtime
 	$(PYTHON) -c 'import packs.svelte.runtime.local'

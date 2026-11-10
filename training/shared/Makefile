@@ -911,3 +911,71 @@ challenge-svelte:
 export-svelte-model:
 	@test -n "$(SVELTE_CHECKPOINT)" -a -n "$(SVELTE_TEST_REPORT)" || (echo 'Set SVELTE_CHECKPOINT and SVELTE_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.svelte.export_model --checkpoint "$(SVELTE_CHECKPOINT)" --test-report "$(SVELTE_TEST_REPORT)"
+
+RUST_DEVICE ?= auto
+RUST_EPOCHS ?= 3
+RUST_BATCH_SIZE ?= 32
+RUST_LEARNING_RATE ?=
+RUST_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-rust dataset-rust-tools dataset-rust-sources dataset-rust-curriculum dataset-rust-collect dataset-rust-label dataset-rust-validate dataset-rust-prepare test-labeling-rust train-rust-smoke train-rust continue-rust predict-rust evaluate-rust challenge-rust export-rust-model
+
+dataset-rust-tools:
+	$(PYTHON) -m packs.rust.labeling.tools
+
+dataset-rust-sources:
+	$(PYTHON) -m packs.rust.dataset.fetch_sources
+
+dataset-rust:
+	$(MAKE) dataset-rust-tools
+	$(MAKE) dataset-rust-sources
+	$(MAKE) dataset-rust-curriculum
+	$(MAKE) dataset-rust-collect
+	$(MAKE) dataset-rust-label
+	$(MAKE) dataset-rust-validate
+	$(MAKE) dataset-rust-prepare
+
+dataset-rust-curriculum:
+	$(PYTHON) -m packs.rust.dataset.generate_curriculum
+
+dataset-rust-collect:
+	$(PYTHON) -m packs.rust.dataset.pipeline collect
+
+dataset-rust-label:
+	$(PYTHON) -m packs.rust.dataset.pipeline label
+
+dataset-rust-validate:
+	$(PYTHON) -m packs.rust.dataset.pipeline validate
+
+dataset-rust-prepare:
+	$(PYTHON) -m training.rust.prepare
+
+test-labeling-rust:
+	$(PYTHON) -m unittest discover -s packs/rust/tests -v
+
+train-rust-smoke:
+	$(PYTHON) -m training.rust.train --smoke --epochs 1 --device $(RUST_DEVICE) $(if $(RUST_RUN),--output-dir "$(RUST_RUN)") $(if $(RUST_INIT_FROM),--init-from "$(RUST_INIT_FROM)")
+
+train-rust:
+	$(PYTHON) -m training.rust.train --epochs $(RUST_EPOCHS) --device $(RUST_DEVICE) --batch-size $(RUST_BATCH_SIZE) $(if $(RUST_LEARNING_RATE),--learning-rate $(RUST_LEARNING_RATE)) $(if $(RUST_RUN),--output-dir "$(RUST_RUN)") $(if $(RUST_INIT_FROM),--init-from "$(RUST_INIT_FROM)")
+
+continue-rust:
+	@test -n "$(RUST_CHECKPOINT)" || (echo 'Set RUST_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.rust.train --resume "$(RUST_CHECKPOINT)" --epochs $(RUST_EPOCHS) --device $(RUST_DEVICE)
+
+predict-rust:
+	@test -n "$(RUST_SOURCE)" || (echo 'Set RUST_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.rust.predict --device $(RUST_DEVICE) --file "$(RUST_SOURCE)" $(if $(RUST_CHECKPOINT),--checkpoint "$(RUST_CHECKPOINT)")
+
+evaluate-rust:
+	@test -n "$(RUST_CHECKPOINT)" || (echo 'Set RUST_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.rust.evaluate --checkpoint "$(RUST_CHECKPOINT)" --device $(RUST_DEVICE) --split $(RUST_EVAL_SPLIT)
+
+challenge-rust:
+	@test -n "$(RUST_CHECKPOINT)" || (echo 'Set RUST_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.rust.challenge --checkpoint "$(RUST_CHECKPOINT)" --device $(RUST_DEVICE)
+
+export-rust-model:
+	@test -n "$(RUST_CHECKPOINT)" -a -n "$(RUST_TEST_REPORT)" || (echo 'Set RUST_CHECKPOINT and RUST_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.rust.export_model --checkpoint "$(RUST_CHECKPOINT)" --test-report "$(RUST_TEST_REPORT)"
+
