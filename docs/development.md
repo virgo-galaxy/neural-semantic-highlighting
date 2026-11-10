@@ -218,3 +218,30 @@ separate. The [evaluation](../packs/rust/model/BENCHMARKS.md) retains the initia
 and literal revisions, compiler evidence and controlled raw/format-string limits.
 Frontends use `rust` / `rs` or `@nsh/highlighter/languages/rust` through the existing
 browser worker, without Rust/Cargo/Python or runtime syntax repair.
+
+## Zig offline workflow
+
+The existing host Zig was upgraded from 0.14.1 to **0.17.1** at the user's request.
+This pack targets only that current release. The update includes required
+LLVM/LLD dependencies and a Homebrew update; LLVM postinstall completes, and the
+old Zig keg is preserved. See the [toolchain evidence](../packs/zig/model/reports/toolchain.json).
+No historical-release or master corpus is mixed in.
+
+`make dataset-zig-tools` builds a parse-only helper from that exact SDK's official
+`std.zig.Ast`, `Tokenizer` and primitive metadata. SDK/compiler/helper/binary hashes
+are locked in ignored project cache. `zig ast-check` performs source-only checks;
+labeling never follows imports, embeds files, evaluates comptime or builds input
+projects. Only authored probes, 42 task family representatives and eight display
+examples are compiler-checked. No third-party parser installation is needed.
+
+`make dataset-zig` captures original source/license hashes, freezes intact module
+and task families before windows, labels and validates original UTF-16 coverage,
+audits copies and prepares immutable external snapshots. Data stays under
+`~/Datasets/neural-semantic-highlighting/zig`; full optimizer/RNG checkpoints and
+logs under `artifacts/zig`. Review actual validation source and independent
+Golden/display cases, then freeze before the first adaptive test. Resume only
+full run checkpoints, never `packs/zig/model/model.pt` or ONNX. Preserve all prior
+source snapshots, experiments and models. See [Zig training](../training/zig/README.md),
+[contract](../packs/zig/SEMANTICS.md) and [evaluation](../packs/zig/model/BENCHMARKS.md).
+Frontends use `zig` / `@nsh/highlighter/languages/zig` through the existing browser
+worker and need no SDK, Python provider or runtime syntax repair.

@@ -1,0 +1,1199 @@
+{
+  "date": "2026-11-10",
+  "scope": "Zig 0.17.1-only source-local model after the user-authorized existing toolchain update; frontend needs no SDK",
+  "modelsAvailable": 21,
+  "selectedModel": {
+    "file": "model.pt",
+    "format": "nsh-zig-model-v1",
+    "sha256": "d6d1fa6391b0ca1fd1fdfe08d980504a94b5e65938b8d8510321fb88e9697c24",
+    "bytes": 3625845,
+    "parameterCount": 894485,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "browserModel": {
+    "file": "model.onnx",
+    "sha256": "acdfb92204bd0fe725aa27391eeabb6358be38bf3f7d8d57e76120eb6e4bdd62",
+    "bytes": 3706571
+  },
+  "conversion": {
+    "reference": "selected PyTorch CPU inference",
+    "torch": "2.14.0",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "sourceSha256": "d6d1fa6391b0ca1fd1fdfe08d980504a94b5e65938b8d8510321fb88e9697c24",
+    "modelSha256": "acdfb92204bd0fe725aa27391eeabb6358be38bf3f7d8d57e76120eb6e4bdd62",
+    "comparisons": [
+      {
+        "bytes": 1,
+        "maxAbsoluteErrors": [1.0728836059570312e-6, 3.814697265625e-6, 2.205371856689453e-6]
+      },
+      {
+        "bytes": 2,
+        "maxAbsoluteErrors": [2.2649765014648438e-6, 5.7220458984375e-6, 6.67572021484375e-6]
+      },
+      {
+        "bytes": 7,
+        "maxAbsoluteErrors": [7.152557373046875e-6, 1.5974044799804688e-5, 1.1444091796875e-5]
+      },
+      {
+        "bytes": 31,
+        "maxAbsoluteErrors": [1.239776611328125e-5, 1.33514404296875e-5, 9.775161743164062e-6]
+      },
+      {
+        "bytes": 64,
+        "maxAbsoluteErrors": [2.002716064453125e-5, 2.9087066650390625e-5, 2.5272369384765625e-5]
+      },
+      {
+        "bytes": 127,
+        "maxAbsoluteErrors": [2.956390380859375e-5, 2.6226043701171875e-5, 2.86102294921875e-5]
+      },
+      {
+        "bytes": 511,
+        "maxAbsoluteErrors": [2.8133392333984375e-5, 2.9265880584716797e-5, 2.47955322265625e-5]
+      },
+      {
+        "bytes": 512,
+        "maxAbsoluteErrors": [2.1457672119140625e-5, 3.24249267578125e-5, 2.193450927734375e-5]
+      }
+    ]
+  },
+  "parity": {
+    "total": 139,
+    "passed": 139,
+    "failures": [],
+    "timings": [
+      {
+        "filename": "assembly/aarch64.S",
+        "ms": 213.60000002384186
+      },
+      {
+        "filename": "assembly/att.s",
+        "ms": 17.80000001192093
+      },
+      {
+        "filename": "assembly/intel.s",
+        "ms": 12.700000047683716
+      },
+      {
+        "filename": "assembly/macros.asm",
+        "ms": 12.100000023841858
+      },
+      {
+        "filename": "assembly/masm.asm",
+        "ms": 14.5
+      },
+      {
+        "filename": "assembly/nasm.asm",
+        "ms": 18.5
+      },
+      {
+        "filename": "awk/counts.awk",
+        "ms": 48
+      },
+      {
+        "filename": "awk/files.awk",
+        "ms": 10
+      },
+      {
+        "filename": "awk/normalize.awk",
+        "ms": 13.100000023841858
+      },
+      {
+        "filename": "awk/report.awk",
+        "ms": 16.5
+      },
+      {
+        "filename": "bash/build.sh",
+        "ms": 44.10000002384186
+      },
+      {
+        "filename": "bash/files.csh",
+        "ms": 8.400000035762787
+      },
+      {
+        "filename": "bash/files.zsh",
+        "ms": 8.699999988079071
+      },
+      {
+        "filename": "bash/functions.sh",
+        "ms": 12.300000011920929
+      },
+      {
+        "filename": "bash/heredoc.sh",
+        "ms": 15.699999988079071
+      },
+      {
+        "filename": "bash/portable.sh",
+        "ms": 12.100000023841858
+      },
+      {
+        "filename": "bat/arguments.bat",
+        "ms": 45.5
+      },
+      {
+        "filename": "bat/build.bat",
+        "ms": 13
+      },
+      {
+        "filename": "bat/functions.cmd",
+        "ms": 6.200000047683716
+      },
+      {
+        "filename": "bat/records.cmd",
+        "ms": 16.30000001192093
+      },
+      {
+        "filename": "c/callbacks.c",
+        "ms": 58.5
+      },
+      {
+        "filename": "c/file-reader.c",
+        "ms": 18.19999998807907
+      },
+      {
+        "filename": "c/hello.c",
+        "ms": 9.899999976158142
+      },
+      {
+        "filename": "c/linked-list.c",
+        "ms": 16.100000023841858
+      },
+      {
+        "filename": "c/literals.c",
+        "ms": 21.599999964237213
+      },
+      {
+        "filename": "c/macros.h",
+        "ms": 21.399999976158142
+      },
+      {
+        "filename": "c/modern-c.c",
+        "ms": 32.5
+      },
+      {
+        "filename": "c/points.c",
+        "ms": 20.600000023841858
+      },
+      {
+        "filename": "cpp/algorithms.cpp",
+        "ms": 57.09999996423721
+      },
+      {
+        "filename": "cpp/bindings.cpp",
+        "ms": 24.19999998807907
+      },
+      {
+        "filename": "cpp/classes.cpp",
+        "ms": 26.80000001192093
+      },
+      {
+        "filename": "cpp/concepts.cpp",
+        "ms": 17.600000023841858
+      },
+      {
+        "filename": "cpp/hello.cpp",
+        "ms": 21
+      },
+      {
+        "filename": "cpp/raw-strings.cpp",
+        "ms": 22.299999952316284
+      },
+      {
+        "filename": "cpp/smart-pointers.cpp",
+        "ms": 21.80000001192093
+      },
+      {
+        "filename": "cpp/templates.hpp",
+        "ms": 23.19999998807907
+      },
+      {
+        "filename": "csharp/AsyncStream.cs",
+        "ms": 52
+      },
+      {
+        "filename": "csharp/Collections.cs",
+        "ms": 28.399999976158142
+      },
+      {
+        "filename": "csharp/GenericStore.cs",
+        "ms": 27.100000023841858
+      },
+      {
+        "filename": "csharp/Hello.cs",
+        "ms": 27
+      },
+      {
+        "filename": "csharp/Options.cs",
+        "ms": 26.400000035762787
+      },
+      {
+        "filename": "csharp/Queries.cs",
+        "ms": 36.5
+      },
+      {
+        "filename": "csharp/Records.cs",
+        "ms": 30.099999964237213
+      },
+      {
+        "filename": "csharp/StringTemplates.cs",
+        "ms": 30.200000047683716
+      },
+      {
+        "filename": "css/hello.css",
+        "ms": 53.59999996423721
+      },
+      {
+        "filename": "css/responsive-grid.css",
+        "ms": 14.199999988079071
+      },
+      {
+        "filename": "go/generics.go",
+        "ms": 84.89999997615814
+      },
+      {
+        "filename": "go/hello.go",
+        "ms": 10.299999952316284
+      },
+      {
+        "filename": "go/long-raw-string.go",
+        "ms": 85
+      },
+      {
+        "filename": "go/selectors.go",
+        "ms": 22
+      },
+      {
+        "filename": "go/struct-methods.go",
+        "ms": 26.099999964237213
+      },
+      {
+        "filename": "html/embedded.html",
+        "ms": 129.19999998807907
+      },
+      {
+        "filename": "html/forms-and-dialog.html",
+        "ms": 48.5
+      },
+      {
+        "filename": "html/hello.html",
+        "ms": 37.299999952316284
+      },
+      {
+        "filename": "html/raw-text.html",
+        "ms": 37.80000001192093
+      },
+      {
+        "filename": "html/tailwind-card.html",
+        "ms": 51.200000047683716
+      },
+      {
+        "filename": "html/web-components.html",
+        "ms": 34.39999997615814
+      },
+      {
+        "filename": "java/Annotations.java",
+        "ms": 106.30000001192093
+      },
+      {
+        "filename": "java/AsyncTasks.java",
+        "ms": 27.80000001192093
+      },
+      {
+        "filename": "java/Hello.java",
+        "ms": 41.19999998807907
+      },
+      {
+        "filename": "java/PatternRouting.java",
+        "ms": 38.69999998807907
+      },
+      {
+        "filename": "java/Result.java",
+        "ms": 24.19999998807907
+      },
+      {
+        "filename": "java/TextTemplates.java",
+        "ms": 23
+      },
+      {
+        "filename": "java/module-info.java",
+        "ms": 20.600000023841858
+      },
+      {
+        "filename": "javascript/async-cache.js",
+        "ms": 59.59999996423721
+      },
+      {
+        "filename": "javascript/data-pipeline.js",
+        "ms": 59.19999998807907
+      },
+      {
+        "filename": "javascript/event-bus.js",
+        "ms": 62
+      },
+      {
+        "filename": "javascript/hello.js",
+        "ms": 15
+      },
+      {
+        "filename": "javascript/react-hooks.jsx",
+        "ms": 133.19999998807907
+      },
+      {
+        "filename": "javascript/tailwind-profile-card.jsx",
+        "ms": 179.5
+      },
+      {
+        "filename": "less/hello.less",
+        "ms": 12.899999976158142
+      },
+      {
+        "filename": "less/responsive.less",
+        "ms": 10.899999976158142
+      },
+      {
+        "filename": "perl/counter.pm",
+        "ms": 81.89999997615814
+      },
+      {
+        "filename": "perl/heredoc.pl",
+        "ms": 9.100000023841858
+      },
+      {
+        "filename": "perl/indented-heredoc.pl",
+        "ms": 6.300000011920929
+      },
+      {
+        "filename": "perl/normalize.pl",
+        "ms": 18.599999964237213
+      },
+      {
+        "filename": "perl/records.pl",
+        "ms": 19.099999964237213
+      },
+      {
+        "filename": "php/closures.php",
+        "ms": 58.5
+      },
+      {
+        "filename": "php/collections.php",
+        "ms": 19.200000047683716
+      },
+      {
+        "filename": "php/embedded.phtml",
+        "ms": 38.59999996423721
+      },
+      {
+        "filename": "php/enums.php",
+        "ms": 17.80000001192093
+      },
+      {
+        "filename": "php/hello.php",
+        "ms": 11.600000023841858
+      },
+      {
+        "filename": "php/heredoc.php",
+        "ms": 13.399999976158142
+      },
+      {
+        "filename": "php/records.php",
+        "ms": 20.100000023841858
+      },
+      {
+        "filename": "php/template.phtml",
+        "ms": 23.200000047683716
+      },
+      {
+        "filename": "powershell/functions.ps1",
+        "ms": 155.5
+      },
+      {
+        "filename": "powershell/here-strings.ps1",
+        "ms": 16.899999976158142
+      },
+      {
+        "filename": "powershell/pipeline.ps1",
+        "ms": 15.900000035762787
+      },
+      {
+        "filename": "powershell/records.ps1",
+        "ms": 17.399999976158142
+      },
+      {
+        "filename": "python/async-stream.py",
+        "ms": 101.79999995231628
+      },
+      {
+        "filename": "python/generics.py",
+        "ms": 31.69999998807907
+      },
+      {
+        "filename": "python/records.py",
+        "ms": 28
+      },
+      {
+        "filename": "python/strings.py",
+        "ms": 18.399999976158142
+      },
+      {
+        "filename": "rust/async.rs",
+        "ms": 151.30000001192093
+      },
+      {
+        "filename": "rust/edition2024.rs",
+        "ms": 38.19999998807907
+      },
+      {
+        "filename": "rust/hello.rs",
+        "ms": 32.59999996423721
+      },
+      {
+        "filename": "rust/macros.rs",
+        "ms": 32.30000001192093
+      },
+      {
+        "filename": "rust/ownership.rs",
+        "ms": 33.299999952316284
+      },
+      {
+        "filename": "rust/patterns.rs",
+        "ms": 49.5
+      },
+      {
+        "filename": "rust/raw-strings.rs",
+        "ms": 36.89999997615814
+      },
+      {
+        "filename": "rust/traits-generics.rs",
+        "ms": 38.10000002384186
+      },
+      {
+        "filename": "scss/hello.scss",
+        "ms": 14
+      },
+      {
+        "filename": "scss/surface-layout.scss",
+        "ms": 12.5
+      },
+      {
+        "filename": "sql/mysql.sql",
+        "ms": 64.5
+      },
+      {
+        "filename": "sql/oracle.sql",
+        "ms": 19
+      },
+      {
+        "filename": "sql/postgres.sql",
+        "ms": 17.80000001192093
+      },
+      {
+        "filename": "sql/queries.sql",
+        "ms": 22.19999998807907
+      },
+      {
+        "filename": "svelte/async-content.svelte",
+        "ms": 72.69999998807907
+      },
+      {
+        "filename": "svelte/control-flow.svelte",
+        "ms": 42.89999997615814
+      },
+      {
+        "filename": "svelte/counter.svelte",
+        "ms": 45.200000047683716
+      },
+      {
+        "filename": "svelte/directives.svelte",
+        "ms": 48
+      },
+      {
+        "filename": "svelte/legacy-component.svelte",
+        "ms": 35.69999998807907
+      },
+      {
+        "filename": "svelte/module-less.svelte",
+        "ms": 41.09999996423721
+      },
+      {
+        "filename": "svelte/snippets.svelte",
+        "ms": 53.40000003576279
+      },
+      {
+        "filename": "svelte/typed-scss.svelte",
+        "ms": 47.30000001192093
+      },
+      {
+        "filename": "typescript/async-api-client.ts",
+        "ms": 113.39999997615814
+      },
+      {
+        "filename": "typescript/event-pipeline.ts",
+        "ms": 116.80000001192093
+      },
+      {
+        "filename": "typescript/hello.ts",
+        "ms": 21.100000023841858
+      },
+      {
+        "filename": "typescript/react-hooks.tsx",
+        "ms": 169.19999998807907
+      },
+      {
+        "filename": "typescript/tailwind-profile-card.tsx",
+        "ms": 201.89999997615814
+      },
+      {
+        "filename": "typescript/typed-cache.ts",
+        "ms": 55.30000001192093
+      },
+      {
+        "filename": "vue/hello.vue",
+        "ms": 93.30000001192093
+      },
+      {
+        "filename": "vue/scoped-styles.vue",
+        "ms": 47.30000001192093
+      },
+      {
+        "filename": "vue/tsx-render.vue",
+        "ms": 45.799999952316284
+      },
+      {
+        "filename": "vue/vue2-options.vue",
+        "ms": 103.30000001192093
+      },
+      {
+        "filename": "vue/vue3-composition.vue",
+        "ms": 77
+      },
+      {
+        "filename": "vue/vue32-typed-setup.vue",
+        "ms": 86
+      },
+      {
+        "filename": "zig/captures.zig",
+        "ms": 88.30000001192093
+      },
+      {
+        "filename": "zig/comptime.zig",
+        "ms": 38.5
+      },
+      {
+        "filename": "zig/containers.zig",
+        "ms": 30.400000035762787
+      },
+      {
+        "filename": "zig/errors-optionals.zig",
+        "ms": 37.89999997615814
+      },
+      {
+        "filename": "zig/hello.zig",
+        "ms": 31.69999998807907
+      },
+      {
+        "filename": "zig/memory.zig",
+        "ms": 31.69999998807907
+      },
+      {
+        "filename": "zig/reflection.zig",
+        "ms": 29.30000001192093
+      },
+      {
+        "filename": "zig/strings.zig",
+        "ms": 26.5
+      },
+      {
+        "filename": "edge/135.ts",
+        "ms": 0
+      },
+      {
+        "filename": "edge/136.ts",
+        "ms": 0.5999999642372131
+      },
+      {
+        "filename": "edge/137.ts",
+        "ms": 3.5
+      },
+      {
+        "filename": "edge/138.ts",
+        "ms": 187.60000002384186
+      }
+    ]
+  },
+  "independentPackage": {
+    "status": "passed",
+    "language": ["zig"],
+    "aliases": ["zig"],
+    "cases": [
+      {
+        "filename": "zig/captures.zig",
+        "spans": 166,
+        "equal": true,
+        "alias": "zig"
+      },
+      {
+        "filename": "zig/comptime.zig",
+        "spans": 128,
+        "equal": true,
+        "alias": "zig"
+      },
+      {
+        "filename": "zig/containers.zig",
+        "spans": 100,
+        "equal": true,
+        "alias": "zig"
+      },
+      {
+        "filename": "zig/errors-optionals.zig",
+        "spans": 126,
+        "equal": true,
+        "alias": "zig"
+      },
+      {
+        "filename": "zig/hello.zig",
+        "spans": 120,
+        "equal": true,
+        "alias": "zig"
+      },
+      {
+        "filename": "zig/memory.zig",
+        "spans": 114,
+        "equal": true,
+        "alias": "zig"
+      },
+      {
+        "filename": "zig/reflection.zig",
+        "spans": 102,
+        "equal": true,
+        "alias": "zig"
+      },
+      {
+        "filename": "zig/strings.zig",
+        "spans": 59,
+        "equal": true,
+        "alias": "zig"
+      },
+      {
+        "filename": "edge-0.zig",
+        "spans": 0,
+        "equal": true,
+        "alias": "zig"
+      },
+      {
+        "filename": "edge-1.zig",
+        "spans": 0,
+        "equal": true,
+        "alias": "zig"
+      },
+      {
+        "filename": "edge-2.zig",
+        "spans": 37,
+        "equal": true,
+        "alias": "zig"
+      },
+      {
+        "filename": "edge-3.zig",
+        "spans": 778,
+        "equal": true,
+        "alias": "zig"
+      }
+    ],
+    "palettes": [
+      {
+        "preset": "default",
+        "mode": "light",
+        "background": "rgb(251, 252, 255)"
+      },
+      {
+        "preset": "default",
+        "mode": "dark",
+        "background": "rgb(21, 27, 41)"
+      },
+      {
+        "preset": "muted",
+        "mode": "light",
+        "background": "rgb(246, 245, 241)"
+      },
+      {
+        "preset": "muted",
+        "mode": "dark",
+        "background": "rgb(38, 40, 35)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "light",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "dark",
+        "background": "rgb(0, 0, 0)"
+      }
+    ]
+  },
+  "consumerBuild": {
+    "directory": "artifacts/zig/consumer-dist",
+    "offlineCacheOnly": true,
+    "publicImports": true,
+    "modelAssets": ["zig-DckCfMGd.onnx"],
+    "noRepositoryAliases": true
+  },
+  "playground": {
+    "url": "http://127.0.0.1:3000/",
+    "language": "zig",
+    "initialFilename": "hello.zig",
+    "shuffledFilename": "strings.zig",
+    "sourcePreserved": true,
+    "editedSourcePreserved": true,
+    "restoredSourcePreserved": true,
+    "lightIconFilter": "none",
+    "darkIconFilter": "none",
+    "lightBackground": "rgb(251, 252, 255)",
+    "darkBackground": "rgb(21, 27, 41)",
+    "screenshot": "artifacts/zig/playground.png",
+    "logs": {
+      "playground": [],
+      "parity": [],
+      "consumer": []
+    }
+  },
+  "checks": {
+    "makeCheck": "passed",
+    "frontendTests": 154,
+    "zigTeacherTests": 9,
+    "independentMarkedGolden": 23,
+    "neuralGoldenExact": 10
+  },
+  "quality": {
+    "naturalTest": {
+      "documents": 21,
+      "exactDocumentsIncludingModifiers": 0,
+      "exactSpan": {
+        "precision": 0.9213495335213713,
+        "recall": 0.9288057742782152,
+        "f1": 0.9250626293432088,
+        "tp": 16986,
+        "fp": 1450,
+        "fn": 1302,
+        "support": 18288
+      },
+      "exactSpanMacroF1": 0.7374763933817434,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9196137990887394,
+        "recall": 0.9270559930008749,
+        "f1": 0.9233198997930508,
+        "tp": 16954,
+        "fp": 1482,
+        "fn": 1334,
+        "support": 18288
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9427326486150016,
+          "recall": 0.9736419157827065,
+          "f1": 0.9579380139152435,
+          "tp": 3029,
+          "fp": 184,
+          "fn": 82,
+          "support": 3111
+        },
+        "comment": {
+          "precision": 0.8538011695906432,
+          "recall": 0.9449838187702265,
+          "f1": 0.8970814132104454,
+          "tp": 292,
+          "fp": 50,
+          "fn": 17,
+          "support": 309
+        },
+        "string": {
+          "precision": 0.8498556304138595,
+          "recall": 0.9265477439664218,
+          "f1": 0.8865461847389559,
+          "tp": 883,
+          "fp": 156,
+          "fn": 70,
+          "support": 953
+        },
+        "number": {
+          "precision": 0.997920997920998,
+          "recall": 1.0,
+          "f1": 0.9989594172736732,
+          "tp": 480,
+          "fp": 1,
+          "fn": 0,
+          "support": 480
+        },
+        "operator": {
+          "precision": 0.9854862119013063,
+          "recall": 0.9776817854571634,
+          "f1": 0.9815684857246115,
+          "tp": 1358,
+          "fp": 20,
+          "fn": 31,
+          "support": 1389
+        },
+        "punctuation": {
+          "precision": 0.9957742977877206,
+          "recall": 0.9996257018091079,
+          "f1": 0.9976962829213623,
+          "tp": 8012,
+          "fp": 34,
+          "fn": 3,
+          "support": 8015
+        },
+        "namespace": {
+          "precision": 0.5641025641025641,
+          "recall": 0.7764705882352941,
+          "f1": 0.6534653465346535,
+          "tp": 66,
+          "fp": 51,
+          "fn": 19,
+          "support": 85
+        },
+        "type": {
+          "precision": 0.870020964360587,
+          "recall": 0.7874762808349146,
+          "f1": 0.8266932270916335,
+          "tp": 415,
+          "fp": 62,
+          "fn": 112,
+          "support": 527
+        },
+        "enum": {
+          "precision": 0.10666666666666667,
+          "recall": 0.5333333333333333,
+          "f1": 0.17777777777777778,
+          "tp": 8,
+          "fp": 67,
+          "fn": 7,
+          "support": 15
+        },
+        "enum-member": {
+          "precision": 0.9531568228105907,
+          "recall": 0.9649484536082474,
+          "f1": 0.9590163934426229,
+          "tp": 468,
+          "fp": 23,
+          "fn": 17,
+          "support": 485
+        },
+        "function": {
+          "precision": 0.8804878048780488,
+          "recall": 0.989041095890411,
+          "f1": 0.9316129032258065,
+          "tp": 361,
+          "fp": 49,
+          "fn": 4,
+          "support": 365
+        },
+        "parameter": {
+          "precision": 0.7545271629778671,
+          "recall": 0.38501026694045176,
+          "f1": 0.5098572399728076,
+          "tp": 375,
+          "fp": 122,
+          "fn": 599,
+          "support": 974
+        },
+        "type-parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 0.34012219959266804,
+          "recall": 0.605072463768116,
+          "f1": 0.43546284224250326,
+          "tp": 167,
+          "fp": 324,
+          "fn": 109,
+          "support": 276
+        },
+        "property": {
+          "precision": 0.7570303712035995,
+          "recall": 0.9244505494505495,
+          "f1": 0.8324056895485467,
+          "tp": 673,
+          "fp": 216,
+          "fn": 55,
+          "support": 728
+        },
+        "constant": {
+          "precision": 0.8260869565217391,
+          "recall": 0.6927083333333334,
+          "f1": 0.7535410764872521,
+          "tp": 399,
+          "fp": 84,
+          "fn": 177,
+          "support": 576
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "visibleAggregate": {
+      "documents": 8,
+      "exactDocumentsIncludingModifiers": 1,
+      "exactSpan": {
+        "precision": 0.9715846994535519,
+        "recall": 0.9737130339539978,
+        "f1": 0.9726477024070022,
+        "tp": 889,
+        "fp": 26,
+        "fn": 24,
+        "support": 913
+      },
+      "exactSpanMacroF1": 0.844353317128346,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9715846994535519,
+        "recall": 0.9737130339539978,
+        "f1": 0.9726477024070022,
+        "tp": 889,
+        "fp": 26,
+        "fn": 24,
+        "support": 913
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9767441860465116,
+          "recall": 0.9921259842519685,
+          "f1": 0.984375,
+          "tp": 126,
+          "fp": 3,
+          "fn": 1,
+          "support": 127
+        },
+        "comment": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.9333333333333333,
+          "recall": 0.9655172413793104,
+          "f1": 0.9491525423728814,
+          "tp": 28,
+          "fp": 2,
+          "fn": 1,
+          "support": 29
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "support": 20
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 65,
+          "fp": 0,
+          "fn": 0,
+          "support": 65
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9977426636568849,
+          "f1": 0.9988700564971752,
+          "tp": 442,
+          "fp": 0,
+          "fn": 1,
+          "support": 443
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 25,
+          "fp": 0,
+          "fn": 0,
+          "support": 25
+        },
+        "type": {
+          "precision": 0.8333333333333334,
+          "recall": 0.8333333333333334,
+          "f1": 0.8333333333333334,
+          "tp": 10,
+          "fp": 2,
+          "fn": 2,
+          "support": 12
+        },
+        "enum": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 2,
+          "support": 2
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7
+        },
+        "function": {
+          "precision": 0.9655172413793104,
+          "recall": 0.9491525423728814,
+          "f1": 0.9572649572649573,
+          "tp": 56,
+          "fp": 2,
+          "fn": 3,
+          "support": 59
+        },
+        "parameter": {
+          "precision": 0.6842105263157895,
+          "recall": 0.6842105263157895,
+          "f1": 0.6842105263157895,
+          "tp": 13,
+          "fp": 6,
+          "fn": 6,
+          "support": 19
+        },
+        "type-parameter": {
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.8888888888888888,
+          "tp": 4,
+          "fp": 1,
+          "fn": 0,
+          "support": 4
+        },
+        "variable": {
+          "precision": 0.9016393442622951,
+          "recall": 0.8870967741935484,
+          "f1": 0.8943089430894309,
+          "tp": 55,
+          "fp": 6,
+          "fn": 7,
+          "support": 62
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 0.9722222222222222,
+          "f1": 0.9859154929577465,
+          "tp": 35,
+          "fp": 0,
+          "fn": 1,
+          "support": 36
+        },
+        "constant": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 2,
+          "fp": 2,
+          "fn": 0,
+          "support": 2
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "goldenExact": 10,
+    "goldenCases": 23,
+    "stringDisplayF1": 0.9310344827586207
+  },
+  "toolchain": {
+    "before": "Zig 0.14.1",
+    "after": "Zig 0.17.1; Homebrew 7.0.13",
+    "authoredUpgradeTests": 1,
+    "curriculumCompilerChecks": 42,
+    "displayCompilerChecks": 8,
+    "requiredUpgradeDependencies": [
+      "LLVM/LLD 22.1.8",
+      "xz 5.8.4",
+      "zstd 1.5.7_1",
+      "portable Ruby 4.0.9"
+    ],
+    "llvmPostinstallCompleted": true,
+    "oldZigPreserved": true,
+    "upstreamProjectsBuilt": false
+  },
+  "preservation": {
+    "previousModelArtifactHashes": {
+      "packs/assembly/browser/model.onnx": "366d770f40ec20bcb97ed83d78c1a11f8a001a182efa0a5f31c69e03d04f6ad6",
+      "packs/assembly/model/model.pt": "a1c669891bc4386312dc445bd9be07b17abcbef6aabb41585e052a7838b4f3b1",
+      "packs/awk/browser/model.onnx": "ca36f5bcd4485bb1a78b81d0e4c08d27201a86ad6f5e797833d9fba2bc66dff8",
+      "packs/awk/model/model.pt": "cf230cd59618824f0f4834ef1ad4158cf8c04e5e684c5b4b8fc7cfb3c412ba68",
+      "packs/bash/browser/model.onnx": "69e515b768fb399bda1d6716d3466838c8e858d1025d08992a49698a964d454e",
+      "packs/bash/model-20261108-e16/model.pt": "e65e77ae5328d4142fb385bf57e7d58183d4502c8495ccc3d4dc2c4cb99cde43",
+      "packs/bash/model/model.pt": "04187850e1b0683d9c4550ad864df6150628ebde0aeb4390acc23f3894f1398a",
+      "packs/bat/browser/model.onnx": "c5c527c4d6501035d8c32077279d1ba4e50f2840dea2bef794f03c3cb105fff3",
+      "packs/bat/model/model.pt": "a9c4ef3d90d2a6b32074c411035b9640b08282b92c16e47a897bd506ee17c27e",
+      "packs/c/browser/model.onnx": "07834638820dcb384d816104f547cb400a09234e7c795c94db7cbf299a7209bb",
+      "packs/c/model/model.pt": "6418250639758349b43f8182f958d838b277abdfd7575220d9ba104226219c8c",
+      "packs/cpp/browser/model.onnx": "c4bf80ec01700967279423c72315977d829841903481f712870317bf5dbdb890",
+      "packs/cpp/model/model.pt": "c10725d39082379d545cafd493a6df9d3473099d9f570c3c8b3c473b0f4f348f",
+      "packs/csharp/browser/model.onnx": "fdd087f40f06d26c4a9612bcebef7b5711cb48f29c9e111cbcac0ccb75e4cff1",
+      "packs/csharp/model/model.pt": "81d8e72034f079072a179b4902cfc39561137f838d0cd5fdd8f56ae6907a6795",
+      "packs/css/browser/model.onnx": "a8289f9e82a09fb7e54cd96e8d572f380dd5b600eb84f0562513d2c8034525f3",
+      "packs/css/model/model.pt": "a6c271903b5b65f0cc1f82a4406cb1fc831c1a4ad21c54ddd1fd0f2de324645a",
+      "packs/go/browser/model.onnx": "714398ae0df38766ced84a4dd0866585ad233a7474100906ecf4d6ff115ce8d1",
+      "packs/go/model/model.pt": "993eb9a436faf18806b02ea9a99a65fa3c625367ac249af1038880231fdd9f50",
+      "packs/html/browser/model.onnx": "93b924619a25dd853ad28b6f142587fc6f6bb5319cfc6464d9261bb808710cf9",
+      "packs/html/model/model.pt": "7006144cd38d18c563f6548ffac1f8c51cf2916e5656b97ff3e83b97b5dccc95",
+      "packs/java/browser/model.onnx": "2956a7876814e709ee93a3bae26544bb5c853828d40b0df382af0e4b2e9d50a8",
+      "packs/java/model/model.pt": "60ded3abfa9f6058ef8c377ad9c21021988a2e6eeb97508a0052a706db9d3f3c",
+      "packs/perl/browser/model.onnx": "cbad629b7dee9e58d815a29ef59be1ef2ca9b3288f52082330e66a95a7dea2dd",
+      "packs/perl/model/model.pt": "7f2a77e4f3d7e767ea0cf0fdab9802bd0c68d370cb1590cb5c243c3cd4b463a1",
+      "packs/php/browser/model.onnx": "3c551599315bb5a931c69746290daf2562e591885167eb368898455910b80760",
+      "packs/php/model/model.pt": "4c267a864f19d5e4935eef0e9782d03527adbf536f90e19ae03a2a1a43f9bf39",
+      "packs/powershell/browser/model.onnx": "d0b3bdc10bd2c1feb446d104f4253c25183aed49261f9962e81cd5f314f38cba",
+      "packs/powershell/model/model.pt": "a45cec6dbe18161c4faaf99cf35fca11854dd301e773c3d2e8d76ebb8a20a0fe",
+      "packs/python/browser/model.onnx": "306c22ab5df354527293267abe6443489b0d249635fdaba05cd24bfe130905be",
+      "packs/python/model/model.pt": "10a61e246f261d5cea904b01ff544831e35e39024bad19930e0ca8684586ee02",
+      "packs/rust/browser/model.onnx": "c2bae69bbf78449b5f53f1a45489d9295fa15d35005ed2b8bebee2a2678240cc",
+      "packs/rust/model/model.pt": "2bed2cf3dc495274d8c4fc0a0cfadd6ed6d7f39f49efa1515084ba9e625fa44d",
+      "packs/sql/browser/model.onnx": "2c14ab1ed319eaf23e05af5708a306795afd10e4252e879e12eb6a780729dde7",
+      "packs/sql/model/model.pt": "864244dfcfb3a22bdd0dc894d7a1c107d82a7311552d313853517c96c42c923e",
+      "packs/svelte/browser/model.onnx": "089f82810da21659fc1f1fa89531105983b5bad8ab413d90288cdb75e2feaf93",
+      "packs/svelte/model/model.pt": "d1332a46f2af4f44a0281573c606508b0ff05c10f290de08f45f253763f8e034",
+      "packs/typescript/browser/model.onnx": "45b10c1ac1808545b6e0b9999f03c83f6a3a66b15a9d80cd4e0c8eadb36fadbe",
+      "packs/typescript/model/model.pt": "a63c132df376d956f8feb19c60620a3a922a5299ad012224d58a4ff3a09597a0",
+      "packs/vue/browser/model.onnx": "dee5e28cbce42351c5c098a0665cc374e410c0d16c9fa555e37582843a6edcce",
+      "packs/vue/model/model.pt": "8733409079fcead598dc2405b82abc9f59537e3284afcd841a36a061eccaecaa"
+    },
+    "unchangedPreviousReferenceCases": 131,
+    "frozenFamilies": 77,
+    "unchangedFromInitialTraining": true
+  },
+  "distribution": {
+    "repositoryPrivate": true,
+    "packagesPrivate": true,
+    "published": false,
+    "pushed": false
+  }
+}

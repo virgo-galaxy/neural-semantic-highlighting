@@ -59,3 +59,6 @@ same pinned Devicon revision and under the preserved MIT license.
 
 The Rust entry uses `rust.svg`, from `icons/rust/rust-original.svg` at the
 same pinned Devicon revision and under the preserved MIT license.
+
+The Zig entry uses `zig.svg`, from `icons/zig/zig-original.svg` at the
+same pinned Devicon revision and under the preserved MIT license.

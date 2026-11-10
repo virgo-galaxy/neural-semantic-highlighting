@@ -260,3 +260,43 @@ retains the update, conversion, package and Playground evidence.
 raw/format-string probe remains weaker; [known issues](../packs/rust/model/KNOWN_ISSUES.md)
 record literal boundaries, macros and local symbol-role approximations. Runtime
 parity is consistency evidence, not a claim of perfect language semantics.
+
+## Zig addition
+
+Zig is the twenty-first model, targeting **0.17.1 only**. Its
+[verification record](zig-browser-verification.json) retains the evidence:
+
+- **139/139** examples/edges across all models match native CPU spans, original
+  UTF-16 offsets and modifiers exactly, including eight current Zig examples.
+  The previous 131 reference results remain unchanged.
+- A fresh temporary Vite consumer installs the four private local tarballs from
+  the existing offline cache and passes **12/12** Zig cases using only public
+  imports. Empty input, BOM/CRLF/Unicode and long source preserve original text.
+  All six preset/mode combinations render; selective Zig emits **one ONNX asset**.
+- Eight numerical export lengths pass with maximum head error below `1e-4`,
+  without quantization or training. Existing native/browser model files are
+  unchanged; 41 previous artifact hashes are checked.
+- Full `make check` passes 154 frontend tests, nine Zig teacher tests, all 23
+  independent marked Golden cases and existing data/runtime checks. The neural
+  model itself is exact in 10/23 Golden cases; teacher tests are separate evidence.
+  A missing generic declaration in the contextual-call fixture was corrected
+  after first test without changing training data or frozen model weights.
+- The user-authorized host upgrade changed Zig 0.14.1 to 0.17.1. Homebrew 7.0.13,
+  required LLVM/LLD 22.1.8 and associated dependencies are recorded; LLVM
+  postinstall completes and the old Zig keg remains. An upgrade probe, 42 task
+  family representatives and all eight displayed sources pass the current SDK.
+  Collected projects never compile or run during supervision.
+- Offline labels use this exact official SDK's AST/tokenizer/primitive metadata
+  and source-only `zig ast-check`. No historical release or master source is
+  mixed in. All 77 original source-family assignments and both Gold/prepared
+  revisions remain preserved.
+- Playground selection, shuffle, editing and light/dark rendering are verified
+  with original source preserved and no console warnings/errors. Browser
+  inference requires no Zig SDK, compiler, Python provider or language parser.
+
+[Zig quality](../packs/zig/model/BENCHMARKS.md) separates natural test
+(92.51%, 21 files), focus tasks and visible development examples (97.26% aggregate).
+[Known issues](../packs/zig/model/KNOWN_ISSUES.md) retain quoted-identifier,
+literal-boundary, inferred/local-role and 512-byte-context limits. This single
+release's source is bounded evidence, not universal application compatibility.
+All packages and the repository remain private; nothing is published or pushed.

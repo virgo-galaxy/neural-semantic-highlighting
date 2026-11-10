@@ -28,7 +28,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 ```
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML and Vue descriptors include
-their JS/TS/CSS dependencies automatically. Default registration covers 20 packs;
+their JS/TS/CSS dependencies automatically. Default registration covers 21 packs;
 weights are fetched lazily. Models are about 3.7 MB each, with a shared 14.8 MB
 uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -92,3 +92,9 @@ Rust compiler, Cargo, Python provider or language parser. Common stable
 See [Rust evaluation](../../packs/rust/model/BENCHMARKS.md) and
 [known issues](../../packs/rust/model/KNOWN_ISSUES.md), including raw/format-string
 boundaries, macro DSLs and source-local role approximations.
+
+Zig uses `{ language: "zig" }` for original `.zig` source, targeting **0.17.1 only**.
+Selective `@nsh/highlighter/languages/zig` emits one model asset; no Zig compiler,
+SDK, Python provider or parser is needed by the frontend. Historical releases,
+master and ZON are outside this pack. See [Zig evaluation](../../packs/zig/model/BENCHMARKS.md)
+and [known issues](../../packs/zig/model/KNOWN_ISSUES.md).

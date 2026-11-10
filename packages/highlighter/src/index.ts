@@ -22,6 +22,7 @@ import sql from "./languages/sql.js";
 import svelte from "./languages/svelte.js";
 import typescript from "./languages/typescript.js";
 import vue from "./languages/vue.js";
+import zig from "./languages/zig.js";
 
 export type { BrowserHighlighter, HighlightedCode, HighlighterOptions } from "./highlighter.js";
 export function createHighlighter(options: HighlighterOptions = {}) {
@@ -48,6 +49,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       php,
       svelte,
       rust,
+      zig,
     ],
   });
 }

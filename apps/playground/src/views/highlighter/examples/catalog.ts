@@ -21,6 +21,7 @@ import sqlIcon from "@/assets/document-kinds/sql.svg";
 import svelteIcon from "@/assets/document-kinds/svelte.svg";
 import typescriptIcon from "@/assets/document-kinds/typescript.svg";
 import vueIcon from "@/assets/document-kinds/vue.svg";
+import zigIcon from "@/assets/document-kinds/zig.svg";
 import type { HighlighterExample, HighlighterLanguage } from "@/views/highlighter/examples/types";
 
 const sources = import.meta.glob("./*/*", {
@@ -89,6 +90,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   php: { label: "PHP", icon: phpIcon },
   svelte: { label: "Svelte", icon: svelteIcon },
   rust: { label: "Rust", icon: rustIcon },
+  zig: { label: "Zig", icon: zigIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -158,6 +160,7 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".phtml", "php"],
   [".svelte", "svelte"],
   [".rs", "rust"],
+  [".zig", "zig"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {
