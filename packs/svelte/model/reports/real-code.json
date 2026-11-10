@@ -1,0 +1,2754 @@
+{
+  "split": "validation",
+  "cases": [
+    {
+      "path": "src/lib/sidebar/SidebarWrapper.svelte",
+      "repository": "flowbite-svelte-v1",
+      "source": "<script lang=\"ts\">\n  import type { HTMLAttributes } from \"svelte/elements\";\n  let { children, ...restProps }: HTMLAttributes<HTMLDivElement> = $props();\n</script>\n\n<div {...restProps}>\n  {@render children?.()}\n</div>\n\n<!--\n@component\n[Go to docs](https://flowbite-svelte.com/)\n## Props\n@props: children: any;\n-->\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 22,
+          "fp": 0,
+          "fn": 0,
+          "support": 22
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 22,
+          "fp": 0,
+          "fn": 0,
+          "support": 22
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "path": "src/lib/bits/avatar/components/avatar-image.svelte",
+      "repository": "bits-legacy-svelte-v1",
+      "source": "<script lang=\"ts\">\n\timport { melt } from \"@melt-ui/svelte\";\n\timport { getImage } from \"../ctx.js\";\n\timport type { ImageProps } from \"../types.js\";\n\n\ttype $$Props = ImageProps;\n\n\texport let src: $$Props[\"src\"] = undefined;\n\texport let alt: $$Props[\"alt\"] = undefined;\n\texport let asChild: $$Props[\"asChild\"] = false;\n\texport let el: $$Props[\"el\"] = undefined;\n\n\tconst attrs = {\n\t\t\"data-bits-avatar-image\": \"\",\n\t};\n\n\t$: image = getImage(src).elements.image;\n\n\t$: builder = $image;\n\t$: Object.assign(builder, attrs);\n</script>\n\n{#if asChild}\n\t<slot {builder} />\n{:else}\n\t<img bind:this={el} use:melt={builder} {alt} {...$$restProps} />\n{/if}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 35,
+          "fp": 0,
+          "fn": 0,
+          "support": 35
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 35,
+          "fp": 0,
+          "fn": 0,
+          "support": 35
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 17,
+            "fp": 0,
+            "fn": 0,
+            "support": 17
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "path": "src/lib/device-mockups/DeviceMockup.svelte",
+      "repository": "flowbite-svelte-v1",
+      "source": "<script lang=\"ts\">\n  import type { Component } from \"svelte\";\n  import Android from \"./Android.svelte\";\n  import DefaultMockup from \"./DefaultMockup.svelte\";\n  import Desktop from \"./Desktop.svelte\";\n  import Ios from \"./Ios.svelte\";\n  import Laptop from \"./Laptop.svelte\";\n  import Smartwatch from \"./Smartwatch.svelte\";\n  import Tablet from \"./Tablet.svelte\";\n  import type { DeviceMockupProps } from \"$lib/types\";\n\n  let { children, device = \"default\" }: DeviceMockupProps = $props();\n\n  const componets = {\n    android: Android,\n    ios: Ios,\n    tablet: Tablet,\n    default: DefaultMockup,\n    smartwatch: Smartwatch,\n    laptop: Laptop,\n    desktop: Desktop\n  };\n\n  let DeviceComponent: Component = $derived(componets[device]);\n</script>\n\n<DeviceComponent>\n  {@render children()}\n</DeviceComponent>\n\n<!--\n@component\n[Go to docs](https://flowbite-svelte.com/)\n## Type\n[DeviceMockupProps](https://github.com/themesberg/flowbite-svelte/blob/main/src/lib/types.ts#L588)\n## Props\n@prop children\n@prop device = \"default\"\n-->\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9090909090909091,
+          "recall": 0.9523809523809523,
+          "f1": 0.9302325581395349,
+          "tp": 20,
+          "fp": 2,
+          "fn": 1,
+          "support": 21
+        },
+        "exactSpanMacroF1": 0.875,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9090909090909091,
+          "recall": 0.9523809523809523,
+          "f1": 0.9302325581395349,
+          "tp": 20,
+          "fp": 2,
+          "fn": 1,
+          "support": 21
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 1,
+            "support": 1
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "<!--\n@component\n[Go to docs](https://flowbite-svelte.com/)\n## Type\n[DeviceMockupProps](https://github.com/themesberg/flowbite-svelte/blob/main/src/lib/types.ts#L588)\n## Props\n@prop children\n@prop device = \"default\"\n-->",
+          "tokenType": "comment",
+          "start": 806,
+          "end": 1024
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "<!--\n@component\n[Go to docs](https://flowbite-svelte.com/)\n## Type\n[DeviceMockupProps](https://github.com/themesberg/flowbite-svelte/blob/main/src/lib/types.ts#L588)\n## Props\n@prop children\n@prop device = \"default\"",
+          "tokenType": "comment",
+          "start": 806,
+          "end": 1020
+        },
+        {
+          "text": "-->",
+          "tokenType": "comment",
+          "start": 1021,
+          "end": 1024
+        }
+      ]
+    },
+    {
+      "path": "src/lib/bits/date-picker/components/date-picker-day.svelte",
+      "repository": "bits-legacy-svelte-v1",
+      "source": "<script lang=\"ts\">\n\timport { melt } from \"@melt-ui/svelte\";\n\timport { getCtx } from \"../ctx.js\";\n\timport type { DayEvents, DayProps } from \"../types.js\";\n\timport { createDispatcher } from \"$lib/internal/events.js\";\n\n\ttype $$Props = DayProps;\n\ttype $$Events = DayEvents;\n\n\texport let date: $$Props[\"date\"];\n\texport let month: $$Props[\"month\"];\n\texport let asChild: $$Props[\"asChild\"] = false;\n\texport let el: $$Props[\"el\"] = undefined;\n\n\tconst {\n\t\telements: { cell },\n\t\thelpers: { isDateDisabled, isDateUnavailable, isDateSelected },\n\t\tgetCalendarAttrs,\n\t} = getCtx();\n\n\tconst attrs = getCalendarAttrs(\"day\");\n\tconst dispatch = createDispatcher();\n\n\t$: builder = $cell(date, month);\n\t$: Object.assign(builder, attrs);\n\n\t$: disabled = $isDateDisabled(date);\n\t$: unavailable = $isDateUnavailable(date);\n\t$: selected = $isDateSelected(date);\n</script>\n\n{#if asChild}\n\t<slot {builder} {disabled} {unavailable} {selected} />\n{:else}\n\t<div bind:this={el} use:melt={builder} {...$$restProps} on:m-click={dispatch}>\n\t\t<slot {builder} {disabled} {unavailable} {selected}>\n\t\t\t{date.day}\n\t\t</slot>\n\t</div>\n{/if}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8666666666666667,
+          "recall": 0.9285714285714286,
+          "f1": 0.896551724137931,
+          "tp": 52,
+          "fp": 8,
+          "fn": 4,
+          "support": 56
+        },
+        "exactSpanMacroF1": 0.9299397920087575,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8666666666666667,
+          "recall": 0.9285714285714286,
+          "f1": 0.896551724137931,
+          "tp": 52,
+          "fp": 8,
+          "fn": 4,
+          "support": 56
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.8888888888888888,
+            "tp": 4,
+            "fp": 1,
+            "fn": 0,
+            "support": 4
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 26,
+            "fp": 0,
+            "fn": 0,
+            "support": 26
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "attribute": {
+            "precision": 0.5625,
+            "recall": 0.6923076923076923,
+            "f1": 0.6206896551724138,
+            "tp": 9,
+            "fp": 7,
+            "fn": 4,
+            "support": 13
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "{disabled}",
+          "tokenType": "attribute",
+          "start": 880,
+          "end": 890
+        },
+        {
+          "text": "{disabled}",
+          "tokenType": "attribute",
+          "start": 1025,
+          "end": 1035
+        },
+        {
+          "text": "{unavailable}",
+          "tokenType": "attribute",
+          "start": 1036,
+          "end": 1049
+        },
+        {
+          "text": "{selected}",
+          "tokenType": "attribute",
+          "start": 1050,
+          "end": 1060
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "{",
+          "tokenType": "attribute",
+          "start": 880,
+          "end": 881
+        },
+        {
+          "text": "disabled}",
+          "tokenType": "attribute",
+          "start": 881,
+          "end": 890
+        },
+        {
+          "text": "{",
+          "tokenType": "attribute",
+          "start": 1025,
+          "end": 1026
+        },
+        {
+          "text": "disabled",
+          "tokenType": "attribute",
+          "start": 1026,
+          "end": 1034
+        },
+        {
+          "text": "}",
+          "tokenType": "attribute",
+          "start": 1034,
+          "end": 1035
+        },
+        {
+          "text": "{unavailable}",
+          "tokenType": "string",
+          "start": 1036,
+          "end": 1049
+        },
+        {
+          "text": "{",
+          "tokenType": "attribute",
+          "start": 1050,
+          "end": 1051
+        },
+        {
+          "text": "selected}",
+          "tokenType": "attribute",
+          "start": 1051,
+          "end": 1060
+        }
+      ]
+    },
+    {
+      "path": "packages/layerchart/src/lib/components/charts/ChartAnnotations.svelte",
+      "repository": "layerchart-svelte-v1",
+      "source": "<script lang=\"ts\">\n  import type { ChartAnnotations } from './types.js';\n  import { getChartContext } from '$lib/contexts/chart.js';\n  import AnnotationLine from '../AnnotationLine/AnnotationLine.svelte';\n  import AnnotationPoint from '../AnnotationPoint/AnnotationPoint.svelte';\n  import AnnotationRange from '../AnnotationRange/AnnotationRange.svelte';\n\n  let {\n    annotations,\n    layer,\n  }: {\n    annotations: ChartAnnotations;\n    layer: 'below' | 'above';\n  } = $props();\n\n  const ctx = getChartContext();\n\n  let visibleAnnotations = $derived(\n    annotations.filter(\n      (a) =>\n        (a.layer === layer || (a.layer == null && layer === 'above')) &&\n        (ctx.series.highlightKey == null ||\n          a.seriesKey == null ||\n          a.seriesKey === ctx.series.highlightKey) &&\n        ctx.series.visibleSeries.some((s) => a.seriesKey == null || a.seriesKey === s.key)\n    )\n  );\n</script>\n\n{#each visibleAnnotations as annotation}\n  {#if annotation.type === 'point'}\n    <AnnotationPoint {...annotation} />\n  {:else if annotation.type === 'line'}\n    <AnnotationLine {...annotation} />\n  {:else if annotation.type === 'range'}\n    <AnnotationRange {...annotation} />\n  {/if}\n{/each}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8627450980392157,
+          "recall": 0.9166666666666666,
+          "f1": 0.8888888888888888,
+          "tp": 44,
+          "fp": 7,
+          "fn": 4,
+          "support": 48
+        },
+        "exactSpanMacroF1": 0.6287878787878788,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8627450980392157,
+          "recall": 0.9166666666666666,
+          "f1": 0.8888888888888888,
+          "tp": 44,
+          "fp": 7,
+          "fn": 4,
+          "support": 48
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666,
+            "tp": 1,
+            "fp": 1,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 23,
+            "fp": 0,
+            "fn": 0,
+            "support": 23
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "support": 1
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 1,
+            "support": 1
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0.2857142857142857,
+            "recall": 0.5,
+            "f1": 0.36363636363636365,
+            "tp": 2,
+            "fp": 5,
+            "fn": 2,
+            "support": 4
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "\n  import type { ChartAnnotations } from './types.js';\n  import { getChartContext } from '$lib/contexts/chart.js';\n  import AnnotationLine from '../AnnotationLine/AnnotationLine.svelte';\n  import AnnotationPoint from '../AnnotationPoint/AnnotationPoint.svelte';\n  import AnnotationRange from '../AnnotationRange/AnnotationRange.svelte';\n\n  let {\n    annotations,\n    layer,\n  }: {\n    annotations: ChartAnnotations;\n    layer: 'below' | 'above';\n  } = $props();\n\n  const ctx = getChartContext();\n\n  let visibleAnnotations = $derived(\n    annotations.filter(\n      (a) =>\n        (a.layer === layer || (a.layer == null && layer === 'above')) &&\n        (ctx.series.highlightKey == null ||\n          a.seriesKey == null ||\n          a.seriesKey === ctx.series.highlightKey) &&\n        ctx.series.visibleSeries.some((s) => a.seriesKey == null || a.seriesKey === s.key)\n    )\n  );\n",
+          "tokenType": "embedded-typescript",
+          "start": 18,
+          "end": 895
+        },
+        {
+          "text": "annotation",
+          "tokenType": "variable",
+          "start": 935,
+          "end": 945
+        },
+        {
+          "text": "annotation.type === 'point'",
+          "tokenType": "embedded-expression",
+          "start": 954,
+          "end": 981
+        },
+        {
+          "text": "annotation.type === 'range'",
+          "tokenType": "embedded-expression",
+          "start": 1114,
+          "end": 1141
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "\n  import type { ChartAnnotations } from './types.js';\n  import { getChartContext } from '$lib/contexts/chart.js';\n  import AnnotationLine from '../AnnotationLine/AnnotationLine.svelte';\n  import AnnotationPoint from '../AnnotationPoint/AnnotationPoint.svelte';\n  import AnnotationRange from '../AnnotationRange/AnnotationRange.svelte';\n\n  let {\n    annotations,\n    layer,\n  }: {\n    annotations: ChartAnnotations;\n    layer: 'below' | 'above';\n  } = $props();\n\n  const ctx = getChartContext();\n\n  let visibleA",
+          "tokenType": "embedded-typescript",
+          "start": 18,
+          "end": 529
+        },
+        {
+          "text": "nnotations = $derived(\n    annotations.filter(\n      (a) =>\n        (a.layer === layer || (a.layer == null && layer === 'above')) &&\n        (ctx.series.highlightKey == null ||\n          a.seriesKey == null ||\n          a.seriesKey === ctx.series.highlightKey) &&\n        ctx.series.visibleSeries.some((s) => a.seriesKey == null || a.seriesKey === s.key)\n    )\n  );\n",
+          "tokenType": "string",
+          "start": 529,
+          "end": 895
+        },
+        {
+          "text": "annotation",
+          "tokenType": "embedded-expression",
+          "start": 935,
+          "end": 945
+        },
+        {
+          "text": "annotation.type",
+          "tokenType": "embedded-expression",
+          "start": 954,
+          "end": 969
+        },
+        {
+          "text": "=== 'point'",
+          "tokenType": "embedded-expression",
+          "start": 970,
+          "end": 981
+        },
+        {
+          "text": "annotation.type",
+          "tokenType": "embedded-expression",
+          "start": 1114,
+          "end": 1129
+        },
+        {
+          "text": "=== 'range'",
+          "tokenType": "embedded-expression",
+          "start": 1130,
+          "end": 1141
+        }
+      ]
+    },
+    {
+      "path": "packages/layerchart/src/lib/components/LinearGradient/LinearGradient.svg.svelte",
+      "repository": "layerchart-svelte-v1",
+      "source": "<script lang=\"ts\" module>\n  export type {\n    LinearGradientProps,\n    LinearGradientPropsWithoutHTML,\n  } from './LinearGradient.shared.svelte.js';\n</script>\n\n<script lang=\"ts\">\n  import { cls } from '@layerstack/tailwind';\n  import { createId } from '$lib/utils/createId.js';\n  import { extractLayerProps } from '$lib/utils/attributes.js';\n  import type { LinearGradientProps } from './LinearGradient.shared.svelte.js';\n\n  const uid = $props.id();\n\n  let {\n    id = createId('linearGradient-', uid),\n    stops = ['var(--tw-gradient-from)', 'var(--tw-gradient-to)'],\n    vertical = false,\n    x1 = '0%',\n    y1 = '0%',\n    x2 = vertical ? '0%' : '100%',\n    y2 = vertical ? '100%' : '0%',\n    rotate,\n    units = 'objectBoundingBox',\n    ref: refProp = $bindable(),\n    class: className,\n    stopsContent,\n    children,\n    ...rest\n  }: LinearGradientProps = $props();\n\n  let ref = $state<SVGLinearGradientElement>();\n  $effect.pre(() => {\n    refProp = ref;\n  });\n</script>\n\n<defs>\n  <linearGradient\n    bind:this={ref}\n    {id}\n    {x1}\n    {y1}\n    {x2}\n    {y2}\n    gradientTransform={rotate ? `rotate(${rotate})` : ''}\n    gradientUnits={units}\n    {...extractLayerProps(rest, 'lc-linear-gradient')}\n  >\n    {#if stopsContent}\n      {@render stopsContent?.()}\n    {:else if stops}\n      {#each stops as stop, i}\n        {#if Array.isArray(stop)}\n          <stop\n            offset={stop[0]}\n            stop-color={stop[1]}\n            class={cls('lc-linear-gradient-stop', className)}\n          />\n        {:else}\n          <stop\n            offset=\"{i * (100 / (stops.length - 1))}%\"\n            stop-color={stop}\n            class={cls('lc-linear-gradient-stop', className)}\n          />\n        {/if}\n      {/each}\n    {/if}\n  </linearGradient>\n</defs>\n\n{@render children?.({ id, gradient: `url(#${id})` })}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9122807017543859,
+          "recall": 0.9203539823008849,
+          "f1": 0.9162995594713657,
+          "tp": 104,
+          "fp": 10,
+          "fn": 9,
+          "support": 113
+        },
+        "exactSpanMacroF1": 0.8390779723260542,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9122807017543859,
+          "recall": 0.9203539823008849,
+          "f1": 0.9162995594713657,
+          "tp": 104,
+          "fp": 10,
+          "fn": 9,
+          "support": 113
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.75,
+            "recall": 0.8181818181818182,
+            "f1": 0.782608695652174,
+            "tp": 9,
+            "fp": 3,
+            "fn": 2,
+            "support": 11
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 0.98,
+            "recall": 0.9423076923076923,
+            "f1": 0.9607843137254902,
+            "tp": 49,
+            "fp": 1,
+            "fn": 3,
+            "support": 52
+          },
+          "tag": {
+            "precision": 0.8,
+            "recall": 0.8,
+            "f1": 0.8,
+            "tp": 8,
+            "fp": 2,
+            "fn": 2,
+            "support": 10
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 18,
+            "fp": 0,
+            "fn": 0,
+            "support": 18
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 0.3333333333333333,
+            "recall": 0.5,
+            "f1": 0.4,
+            "tp": 1,
+            "fp": 2,
+            "fn": 1,
+            "support": 2
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0.7142857142857143,
+            "recall": 0.8333333333333334,
+            "f1": 0.7692307692307693,
+            "tp": 5,
+            "fp": 2,
+            "fn": 1,
+            "support": 6
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "script",
+          "tokenType": "tag",
+          "start": 161,
+          "end": 167
+        },
+        {
+          "text": "\"ts\"",
+          "tokenType": "string",
+          "start": 173,
+          "end": 177
+        },
+        {
+          "text": ">",
+          "tokenType": "punctuation",
+          "start": 177,
+          "end": 178
+        },
+        {
+          "text": "\n  import { cls } from '@layerstack/tailwind';\n  import { createId } from '$lib/utils/createId.js';\n  import { extractLayerProps } from '$lib/utils/attributes.js';\n  import type { LinearGradientProps } from './LinearGradient.shared.svelte.js';\n\n  const uid = $props.id();\n\n  let {\n    id = createId('linearGradient-', uid),\n    stops = ['var(--tw-gradient-from)', 'var(--tw-gradient-to)'],\n    vertical = false,\n    x1 = '0%',\n    y1 = '0%',\n    x2 = vertical ? '0%' : '100%',\n    y2 = vertical ? '100%' : '0%',\n    rotate,\n    units = 'objectBoundingBox',\n    ref: refProp = $bindable(),\n    class: className,\n    stopsContent,\n    children,\n    ...rest\n  }: LinearGradientProps = $props();\n\n  let ref = $state<SVGLinearGradientElement>();\n  $effect.pre(() => {\n    refProp = ref;\n  });\n",
+          "tokenType": "embedded-typescript",
+          "start": 178,
+          "end": 966
+        },
+        {
+          "text": "</",
+          "tokenType": "punctuation",
+          "start": 966,
+          "end": 968
+        },
+        {
+          "text": "script",
+          "tokenType": "tag",
+          "start": 968,
+          "end": 974
+        },
+        {
+          "text": ">",
+          "tokenType": "punctuation",
+          "start": 974,
+          "end": 975
+        },
+        {
+          "text": "{rotate ? `rotate(${rotate})` : ''}",
+          "tokenType": "string",
+          "start": 1089,
+          "end": 1124
+        },
+        {
+          "text": "children?.({ id, gradient: `url(#${id})` })",
+          "tokenType": "embedded-expression",
+          "start": 1773,
+          "end": 1816
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "script ",
+          "tokenType": "tag",
+          "start": 161,
+          "end": 168
+        },
+        {
+          "text": "\"ts\">\n  import { cls } from '@layerstack/tailwind';\n  import { createId } from '$lib/utils/createId.js';\n  import { extractLayerProps } from '$lib/utils/attributes.js';\n  import type { LinearGradientProps } from './LinearGradient.shared.svelte.js';\n\n  const uid = $props.id();\n\n  let {\n    id = createId('linearGradient-', uid),\n    stops = ['var(--tw-gradient-from)', 'var(--tw-gradient-to)'],\n    vertical = false,\n    x1 = '0%',\n    y1 = '0%',\n    x2 = vertical ? '0%' : '100%',\n    y2 = vertical ? '100%' : '0%',\n    rotate,\n    units = 'objectBoundingBox',\n    ref: refProp = $bindable(),\n    class: className,\n    stopsContent,\n    children,\n    ...rest\n  }: LinearGradientProps = $props();\n\n  let ref = $state<SVGLinearGradientElement>();\n  $effect.pre(() => {\n    refProp = ref;\n  });\n</",
+          "tokenType": "embedded-typescript",
+          "start": 173,
+          "end": 968
+        },
+        {
+          "text": "script>",
+          "tokenType": "tag",
+          "start": 968,
+          "end": 975
+        },
+        {
+          "text": "\n",
+          "tokenType": "embedded-typescript",
+          "start": 976,
+          "end": 977
+        },
+        {
+          "text": "{rotate ? `rotate(${rotate})`",
+          "tokenType": "string",
+          "start": 1089,
+          "end": 1118
+        },
+        {
+          "text": ":",
+          "tokenType": "string",
+          "start": 1119,
+          "end": 1120
+        },
+        {
+          "text": "''}",
+          "tokenType": "string",
+          "start": 1121,
+          "end": 1124
+        },
+        {
+          "text": "children?.({ id, gradient: `url(#${id})`",
+          "tokenType": "embedded-expression",
+          "start": 1773,
+          "end": 1813
+        },
+        {
+          "text": "}",
+          "tokenType": "punctuation",
+          "start": 1814,
+          "end": 1815
+        },
+        {
+          "text": ")",
+          "tokenType": "embedded-expression",
+          "start": 1815,
+          "end": 1816
+        }
+      ]
+    },
+    {
+      "path": "packages/layerchart/src/lib/components/MonthPath.svelte",
+      "repository": "layerchart-svelte-v1",
+      "source": "<script lang=\"ts\" module>\n  import type { Without } from '$lib/utils/types.js';\n  import type { SVGAttributes } from 'svelte/elements';\n\n  export type MonthPathPropsWithoutHTML = {\n    /**\n     * The date to use for the month path.\n     */\n    date: Date;\n\n    /**\n     * Size of cell.\n     * - `number` - sets width/height as same.\n     * - array - sets [width, height].\n     */\n    cellSize: number | [number, number];\n\n    /**\n     * The start date of the calendar (used to calculate week offsets).\n     */\n    startOfRange: Date;\n\n    /**\n     * A bindable reference to the underlying `<path>` element.\n     *\n     * @bindable\n     */\n    pathRef?: SVGPathElement;\n  };\n\n  export type MonthPathProps = MonthPathPropsWithoutHTML &\n    // we omit the path props to avoid conflicts with attribute names since we are\n    // passing them through to `<Path />`\n    Without<SVGAttributes<SVGPathElement>, MonthPathPropsWithoutHTML & PathPropsWithoutHTML>;\n</script>\n\n<script lang=\"ts\">\n  import { timeWeek } from 'd3-time';\n  import { cls } from '@layerstack/tailwind';\n  import { endOfInterval } from '@layerstack/utils';\n  import Path, { type PathPropsWithoutHTML } from './Path/Path.svelte';\n\n  let {\n    date,\n    cellSize: cellSizeProp,\n    startOfRange,\n    pathRef: pathRefProp = $bindable(),\n    class: className,\n    ...restProps\n  }: MonthPathProps = $props();\n\n  let pathRef = $state<SVGPathElement>();\n  $effect.pre(() => {\n    pathRefProp = pathRef;\n  });\n\n  const cellSize = $derived(\n    Array.isArray(cellSizeProp) ? cellSizeProp : [cellSizeProp, cellSizeProp]\n  );\n\n  // start of month\n  const startDayOfWeek = $derived(date.getDay());\n  const startWeek = $derived(timeWeek.count(startOfRange, date));\n\n  // end of month\n  const monthEnd = $derived(endOfInterval('month', date));\n  const endDayOfWeek = $derived(monthEnd.getDay());\n  const endWeek = $derived(timeWeek.count(startOfRange, monthEnd));\n\n  const pathData = $derived(`\n    M${(startWeek + 1) * cellSize[0]},${startDayOfWeek * cellSize[1]}\n    H${startWeek * cellSize[0]} V${cellSize[1] * 7}\n    H${endWeek * cellSize[0]} V${(endDayOfWeek + 1) * cellSize[1]}\n    H${(endWeek + 1) * cellSize[0]} V0\n    H${(startWeek + 1) * cellSize[0]}Z\n  `);\n</script>\n\n<Path bind:pathRef {pathData} fill=\"none\" class={cls('lc-month-path', className)} {...restProps} />\n\n<style>\n  @layer components {\n    :global(:where(.lc-month-path)) {\n      --stroke-color: color-mix(\n        in oklab,\n        var(--color-surface-content, currentColor) 20%,\n        transparent\n      );\n    }\n  }\n</style>\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.7551020408163265,
+          "recall": 0.925,
+          "f1": 0.8314606741573034,
+          "tp": 37,
+          "fp": 12,
+          "fn": 3,
+          "support": 40
+        },
+        "exactSpanMacroF1": 0.5543859649122808,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.7551020408163265,
+          "recall": 0.925,
+          "f1": 0.8314606741573034,
+          "tp": 37,
+          "fp": 12,
+          "fn": 3,
+          "support": 40
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 0.9,
+            "recall": 1.0,
+            "f1": 0.9473684210526315,
+            "tp": 18,
+            "fp": 2,
+            "fn": 0,
+            "support": 18
+          },
+          "tag": {
+            "precision": 0.875,
+            "recall": 1.0,
+            "f1": 0.9333333333333333,
+            "tp": 7,
+            "fp": 1,
+            "fn": 0,
+            "support": 7
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 6,
+            "fn": 2,
+            "support": 2
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "support": 1
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "\n  import type { Without } from '$lib/utils/types.js';\n  import type { SVGAttributes } from 'svelte/elements';\n\n  export type MonthPathPropsWithoutHTML = {\n    /**\n     * The date to use for the month path.\n     */\n    date: Date;\n\n    /**\n     * Size of cell.\n     * - `number` - sets width/height as same.\n     * - array - sets [width, height].\n     */\n    cellSize: number | [number, number];\n\n    /**\n     * The start date of the calendar (used to calculate week offsets).\n     */\n    startOfRange: Date;\n\n    /**\n     * A bindable reference to the underlying `<path>` element.\n     *\n     * @bindable\n     */\n    pathRef?: SVGPathElement;\n  };\n\n  export type MonthPathProps = MonthPathPropsWithoutHTML &\n    // we omit the path props to avoid conflicts with attribute names since we are\n    // passing them through to `<Path />`\n    Without<SVGAttributes<SVGPathElement>, MonthPathPropsWithoutHTML & PathPropsWithoutHTML>;\n",
+          "tokenType": "embedded-typescript",
+          "start": 25,
+          "end": 953
+        },
+        {
+          "text": "\n  import { timeWeek } from 'd3-time';\n  import { cls } from '@layerstack/tailwind';\n  import { endOfInterval } from '@layerstack/utils';\n  import Path, { type PathPropsWithoutHTML } from './Path/Path.svelte';\n\n  let {\n    date,\n    cellSize: cellSizeProp,\n    startOfRange,\n    pathRef: pathRefProp = $bindable(),\n    class: className,\n    ...restProps\n  }: MonthPathProps = $props();\n\n  let pathRef = $state<SVGPathElement>();\n  $effect.pre(() => {\n    pathRefProp = pathRef;\n  });\n\n  const cellSize = $derived(\n    Array.isArray(cellSizeProp) ? cellSizeProp : [cellSizeProp, cellSizeProp]\n  );\n\n  // start of month\n  const startDayOfWeek = $derived(date.getDay());\n  const startWeek = $derived(timeWeek.count(startOfRange, date));\n\n  // end of month\n  const monthEnd = $derived(endOfInterval('month', date));\n  const endDayOfWeek = $derived(monthEnd.getDay());\n  const endWeek = $derived(timeWeek.count(startOfRange, monthEnd));\n\n  const pathData = $derived(`\n    M${(startWeek + 1) * cellSize[0]},${startDayOfWeek * cellSize[1]}\n    H${startWeek * cellSize[0]} V${cellSize[1] * 7}\n    H${endWeek * cellSize[0]} V${(endDayOfWeek + 1) * cellSize[1]}\n    H${(endWeek + 1) * cellSize[0]} V0\n    H${(startWeek + 1) * cellSize[0]}Z\n  `);\n",
+          "tokenType": "embedded-typescript",
+          "start": 982,
+          "end": 2218
+        },
+        {
+          "text": "\n  @layer components {\n    :global(:where(.lc-month-path)) {\n      --stroke-color: color-mix(\n        in oklab,\n        var(--color-surface-content, currentColor) 20%,\n        transparent\n      );\n    }\n  }\n",
+          "tokenType": "embedded-css",
+          "start": 2337,
+          "end": 2544
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "\n  import type { Without } from '$lib/utils/types.js';\n  import type { SVGAttributes } from 'svelte/elements';\n\n  export type MonthPathPropsWithoutHTML = {\n    /**\n     * The date to use for the month path.\n     */\n    date: Date;\n\n    /**\n     * Size of cell.\n     * - `number` - sets width/height as same.\n     * - array - sets [width, height].\n     */\n    cellSize: number | [number, number];\n\n    /**\n     * The start date of the calendar (used to calculate week offsets).\n     */\n    startOfRange: Date;\n\n    /**\n     * A bindable reference to the underlying `<path>` element.\n     *\n     * @bindable\n     */\n    pathRef?: SVGPathElement;\n  };\n\n  export type MonthPathProps = MonthPathPropsWithoutHTML &\n    // we omit the path props to avoid conflicts with attribute names since we are\n    // passing them through to `<Path />`\n    Without",
+          "tokenType": "embedded-typescript",
+          "start": 25,
+          "end": 870
+        },
+        {
+          "text": "<",
+          "tokenType": "punctuation",
+          "start": 870,
+          "end": 871
+        },
+        {
+          "text": "SVGAttributes",
+          "tokenType": "tag",
+          "start": 871,
+          "end": 884
+        },
+        {
+          "text": "<",
+          "tokenType": "punctuation",
+          "start": 884,
+          "end": 885
+        },
+        {
+          "text": "SVGPathElement>, MonthPathPropsWithoutHTML & PathPropsWithoutHTML>;\n",
+          "tokenType": "embedded-typescript",
+          "start": 885,
+          "end": 953
+        },
+        {
+          "text": "\n  import { timeWeek } from 'd3-time';\n  import { cls } from '@layerstack/tailwind';\n  import { endOfInterval } from '@layerstack/utils';\n  import Path, { type PathPropsWithoutHTML } from './Path/Path.svelte';\n\n  let {\n    date,\n    cellSize: cellSizeProp,\n    startOfRange,\n    pathRef: pathRefProp = $bindable(),\n    class: className,\n    ...restProps\n  }: MonthPathProps = $props();\n\n  let pathRef = $state<SVGPathElement>();\n  $effect.pre(() => {\n    pathRefProp = pathRef;\n  });\n\n  const cellSize = $derived(\n    Array.isArray(cellSizeProp) ? cellSizeProp : [cellSizeProp, cellSizeProp]\n  );\n\n  // start of month\n  const startDayOfWeek = $derived(date.getDay());\n  const startWeek = $derived(timeWeek.count(startOfRange, date));\n\n  // end of month\n  const monthEnd = $derived(endOfInterval('month', date));\n  const endDayOfWeek = $derived(monthEnd.getDay());\n  const endWeek = $derived(timeWeek.count(startOfRange, monthEnd));\n\n  const pathData = $derived(`\n    M${(startWeek + 1) * cellSize[0]},${startDayOfWeek * cellSize[1]}",
+          "tokenType": "embedded-typescript",
+          "start": 982,
+          "end": 2014
+        },
+        {
+          "text": "   H${startWeek * cellSize[0]} V${cellSize[1] * 7}\n    H${endWeek * cellSize[0]} V${(endDayOfWeek + 1) * cellSize[1]}\n    H${(endWeek + 1) * cellSize[0]} V0\n    H${(startWeek + 1) * cellSize[0]}Z\n  `);\n",
+          "tokenType": "embedded-typescript",
+          "start": 2016,
+          "end": 2218
+        },
+        {
+          "text": "@layer",
+          "tokenType": "comment",
+          "start": 2340,
+          "end": 2346
+        },
+        {
+          "text": "components",
+          "tokenType": "comment",
+          "start": 2347,
+          "end": 2357
+        },
+        {
+          "text": "{\n ",
+          "tokenType": "comment",
+          "start": 2358,
+          "end": 2361
+        },
+        {
+          "text": ":global(:where(.lc-month-path)) {\n      --stroke-color: color-mix(\n        in oklab,\n        var(--color-surface-content, currentColor) 20%,\n ",
+          "tokenType": "embedded-typescript",
+          "start": 2364,
+          "end": 2506
+        },
+        {
+          "text": "transparent\n      );\n    }\n  }\n",
+          "tokenType": "embedded-typescript",
+          "start": 2513,
+          "end": 2544
+        }
+      ]
+    },
+    {
+      "path": "src/lib/utils/responsive.svelte",
+      "repository": "flowbite-svelte-v1",
+      "source": "<script module lang=\"ts\">\n  /**\n   * A Svelte 5 rune-based media query hook\n   * @param query - CSS media query string (e.g., '(min-width: 768px)')\n   * @returns A function that returns the current match state\n   */\n  export function useMediaQuery(query: string): () => boolean {\n    let matches = $state<boolean>(false);\n\n    $effect(() => {\n      if (typeof window === \"undefined\") return;\n\n      const mediaQuery: MediaQueryList = window.matchMedia(query);\n      matches = mediaQuery.matches;\n\n      const handler = (e: MediaQueryListEvent): void => {\n        matches = e.matches;\n      };\n\n      mediaQuery.addEventListener(\"change\", handler);\n\n      return (): void => {\n        mediaQuery.removeEventListener(\"change\", handler);\n      };\n    });\n\n    return (): boolean => matches;\n  }\n\n  /**\n   * Hook for common Tailwind CSS breakpoints\n   * @returns Object with boolean values for each breakpoint\n   */\n  export function useBreakpoints() {\n    const sm = useMediaQuery(\"(min-width: 640px)\");\n    const md = useMediaQuery(\"(min-width: 768px)\");\n    const lg = useMediaQuery(\"(min-width: 1024px)\");\n    const xl = useMediaQuery(\"(min-width: 1280px)\");\n    const xxl = useMediaQuery(\"(min-width: 1536px)\");\n\n    return {\n      get sm() {\n        return sm();\n      },\n      get md() {\n        return md();\n      },\n      get lg() {\n        return lg();\n      },\n      get xl() {\n        return xl();\n      },\n      get \"2xl\"() {\n        return xxl();\n      },\n      get isMobile() {\n        return !sm();\n      },\n      get isTablet() {\n        return sm() && !lg();\n      },\n      get isDesktop() {\n        return lg();\n      }\n    };\n  }\n\n  /**\n   * Get current breakpoint name\n   * @returns Current breakpoint as string\n   */\n  export function useCurrentBreakpoint(): () => \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" {\n    let currentBreakpoint = $state<\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\">(\"xs\");\n\n    $effect(() => {\n      if (typeof window === \"undefined\") return;\n\n      const updateBreakpoint = (): void => {\n        const width = window.innerWidth;\n        if (width >= 1536) currentBreakpoint = \"2xl\";\n        else if (width >= 1280) currentBreakpoint = \"xl\";\n        else if (width >= 1024) currentBreakpoint = \"lg\";\n        else if (width >= 768) currentBreakpoint = \"md\";\n        else if (width >= 640) currentBreakpoint = \"sm\";\n        else currentBreakpoint = \"xs\";\n      };\n\n      updateBreakpoint();\n      window.addEventListener(\"resize\", updateBreakpoint);\n\n      return (): void => {\n        window.removeEventListener(\"resize\", updateBreakpoint);\n      };\n    });\n\n    return (): \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" => currentBreakpoint;\n  }\n\n  // Type definitions for common breakpoint values\n  export type BreakpointKey = \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\";\n\n  export const BREAKPOINTS: Record<BreakpointKey, number> = {\n    xs: 0,\n    sm: 640,\n    md: 768,\n    lg: 1024,\n    xl: 1280,\n    \"2xl\": 1536\n  } as const;\n</script>\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 11,
+          "fp": 0,
+          "fn": 0,
+          "support": 11
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 11,
+          "fp": 0,
+          "fn": 0,
+          "support": 11
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "path": "packages/layerchart/src/lib/components/Rect/Rect.html.svelte",
+      "repository": "layerchart-svelte-v1",
+      "source": "<script lang=\"ts\" module>\n  export type { RectProps, RectPropsWithoutHTML } from './Rect.shared.svelte.js';\n</script>\n\n<script lang=\"ts\">\n  import type { HTMLAttributes } from 'svelte/elements';\n  import { cls } from '@layerstack/tailwind';\n  import { resolveColorProp, resolveStyleProp } from '$lib/utils/dataProp.js';\n  import { RectState, rectMarkInfo, type RectProps } from './Rect.shared.svelte.js';\n\n  let { children, ref: refProp = $bindable(), ...rest }: RectProps = $props();\n\n  let ref = $state<HTMLDivElement>();\n  $effect.pre(() => {\n    refProp = ref as any;\n  });\n\n  const c = new RectState(() => rest as RectProps, 'html');\n\n  // `z` and `shade` are read by `RectState`, not HTML attributes\n  const htmlRest = $derived.by(() => {\n    const { z: _z, shade: _shade, ...attrs } = rest;\n    return attrs as unknown as HTMLAttributes<HTMLDivElement>;\n  });\n\n  c.chartCtx.registerComponent({\n    name: 'Rect',\n    kind: 'mark',\n    markInfo: () => rectMarkInfo(rest as RectProps, c.dataMode),\n  });\n</script>\n\n{#if c.dataMode}\n  {#each c.resolvedItems as item (item.key)}\n    {@const resolvedFill = resolveColorProp(rest.fill, item.d, c.chartCtx.cScale)}\n    {@const resolvedStroke = resolveColorProp(rest.stroke, item.d, c.chartCtx.cScale)}\n    {@const resolvedStrokeWidth = resolveStyleProp(rest.strokeWidth, item.d)}\n    {@const resolvedOpacity = resolveStyleProp(rest.opacity, item.d)}\n    {@const resolvedClass = resolveStyleProp(rest.class, item.d)}\n    {@const resolvedBorderWidth =\n      resolvedStrokeWidth != null\n        ? `${resolvedStrokeWidth}px`\n        : resolvedStroke != null\n          ? '1px'\n          : undefined}\n    {#if item.faces}\n      <!-- Only when the `isometric` view draws boxes in this layer (see `RectState`) -->\n      {@const RectBox = c.chartCtx.isometric!.RectBoxHtml!}\n      <RectBox\n        faces={item.faces}\n        fill={resolvedFill}\n        opacity={resolvedOpacity}\n        class={resolvedClass}\n        attrs={htmlRest}\n      />\n    {:else}\n      <!-- svelte-ignore a11y_click_events_have_key_events -->\n      <!-- svelte-ignore a11y_no_static_element_interactions -->\n      <div\n        {...htmlRest}\n        style:position=\"absolute\"\n        style:left=\"{item.x}px\"\n        style:top=\"{item.y}px\"\n        style:width=\"{item.width}px\"\n        style:height=\"{item.height}px\"\n        style:background={resolvedFill}\n        style:background-origin=\"border-box\"\n        style:opacity={resolvedOpacity}\n        style:border-width={resolvedBorderWidth}\n        style:border-style={c.dashArrayResolved ? 'dashed' : 'solid'}\n        style:border-color={resolvedStroke}\n        style:border-radius={c.borderRadius(item.width, item.height) ?? `${c.rx}px`}\n        class={cls('lc-rect', resolvedClass)}\n      ></div>\n    {/if}\n  {/each}\n{:else if c.pixelFaces}\n  {@const RectBox = c.chartCtx.isometric!.RectBoxHtml!}\n  <RectBox\n    faces={c.pixelFaces}\n    fill={c.staticFill}\n    opacity={c.staticOpacity}\n    class={c.staticClassName}\n    attrs={htmlRest}\n  />\n{:else}\n  <!-- svelte-ignore a11y_click_events_have_key_events -->\n  <!-- svelte-ignore a11y_no_static_element_interactions -->\n  <div\n    {...htmlRest}\n    style:position=\"absolute\"\n    style:left=\"{c.motionX}px\"\n    style:top=\"{c.motionY}px\"\n    style:width=\"{c.motionWidth}px\"\n    style:height=\"{c.motionHeight}px\"\n    style:background={c.staticFill}\n    style:background-origin=\"border-box\"\n    style:opacity={c.staticOpacity}\n    style:border-width={c.staticBorderWidth}\n    style:border-style={c.dashArrayResolved ? 'dashed' : 'solid'}\n    style:border-color={c.staticStroke}\n    style:border-radius={c.borderRadiusStyle ?? `${c.rx}px`}\n    class={cls('lc-rect', c.staticClassName)}\n    bind:this={ref}\n  >\n    {@render children?.()}\n  </div>\n{/if}\n\n<style>\n  @layer base {\n    :global(:where(.lc-rect)) {\n      --fill-color: var(--color-surface-content, currentColor);\n      --stroke-color: initial;\n    }\n\n    /* Html layers */\n    :global(:where(.lc-layout-html .lc-rect)) {\n      box-sizing: border-box;\n    }\n    :global(:where(.lc-layout-html .lc-rect):not([background])) {\n      background: var(--fill-color);\n    }\n    :global(:where(.lc-layout-html .lc-rect):not([border-color])) {\n      border-color: var(--stroke-color);\n    }\n  }\n</style>\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9369747899159664,
+          "recall": 0.8814229249011858,
+          "f1": 0.9083503054989817,
+          "tp": 223,
+          "fp": 15,
+          "fn": 30,
+          "support": 253
+        },
+        "exactSpanMacroF1": 0.7532985644568518,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9369747899159664,
+          "recall": 0.8814229249011858,
+          "f1": 0.9083503054989817,
+          "tp": 223,
+          "fp": 15,
+          "fn": 30,
+          "support": 253
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.8888888888888888,
+            "tp": 16,
+            "fp": 0,
+            "fn": 4,
+            "support": 20
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "string": {
+            "precision": 0.975,
+            "recall": 1.0,
+            "f1": 0.9873417721518988,
+            "tp": 39,
+            "fp": 1,
+            "fn": 0,
+            "support": 39
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 0.125,
+            "f1": 0.2222222222222222,
+            "tp": 1,
+            "fp": 0,
+            "fn": 7,
+            "support": 8
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.9603960396039604,
+            "f1": 0.9797979797979798,
+            "tp": 97,
+            "fp": 0,
+            "fn": 4,
+            "support": 101
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 42,
+            "fp": 0,
+            "fn": 0,
+            "support": 42
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.25,
+            "recall": 0.1111111111111111,
+            "f1": 0.15384615384615385,
+            "tp": 1,
+            "fp": 3,
+            "fn": 8,
+            "support": 9
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 0.4,
+            "recall": 1.0,
+            "f1": 0.5714285714285714,
+            "tp": 2,
+            "fp": 3,
+            "fn": 0,
+            "support": 2
+          },
+          "embedded-css": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0.4666666666666667,
+            "recall": 0.5,
+            "f1": 0.4827586206896552,
+            "tp": 7,
+            "fp": 8,
+            "fn": 7,
+            "support": 14
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "as",
+          "tokenType": "keyword",
+          "start": 1061,
+          "end": 1063
+        },
+        {
+          "text": "item",
+          "tokenType": "variable",
+          "start": 1064,
+          "end": 1068
+        },
+        {
+          "text": "(",
+          "tokenType": "punctuation",
+          "start": 1069,
+          "end": 1070
+        },
+        {
+          "text": "item.key",
+          "tokenType": "embedded-expression",
+          "start": 1070,
+          "end": 1078
+        },
+        {
+          "text": ")",
+          "tokenType": "punctuation",
+          "start": 1078,
+          "end": 1079
+        },
+        {
+          "text": "@const",
+          "tokenType": "keyword",
+          "start": 1086,
+          "end": 1092
+        },
+        {
+          "text": "resolvedFill",
+          "tokenType": "variable",
+          "start": 1093,
+          "end": 1105
+        },
+        {
+          "text": "=",
+          "tokenType": "operator",
+          "start": 1106,
+          "end": 1107
+        },
+        {
+          "text": "resolveColorProp(rest.fill, item.d, c.chartCtx.cScale)",
+          "tokenType": "embedded-expression",
+          "start": 1108,
+          "end": 1162
+        },
+        {
+          "text": "}",
+          "tokenType": "punctuation",
+          "start": 1162,
+          "end": 1163
+        },
+        {
+          "text": "{",
+          "tokenType": "punctuation",
+          "start": 1168,
+          "end": 1169
+        },
+        {
+          "text": "@const",
+          "tokenType": "keyword",
+          "start": 1169,
+          "end": 1175
+        },
+        {
+          "text": "resolvedStroke",
+          "tokenType": "variable",
+          "start": 1176,
+          "end": 1190
+        },
+        {
+          "text": "=",
+          "tokenType": "operator",
+          "start": 1191,
+          "end": 1192
+        },
+        {
+          "text": "resolveColorProp(rest.stroke, item.d, c.chartCtx.cScale)",
+          "tokenType": "embedded-expression",
+          "start": 1193,
+          "end": 1249
+        },
+        {
+          "text": "@const",
+          "tokenType": "keyword",
+          "start": 1256,
+          "end": 1262
+        },
+        {
+          "text": "resolvedStrokeWidth",
+          "tokenType": "variable",
+          "start": 1263,
+          "end": 1282
+        },
+        {
+          "text": "=",
+          "tokenType": "operator",
+          "start": 1283,
+          "end": 1284
+        },
+        {
+          "text": "resolveStyleProp(rest.strokeWidth, item.d)",
+          "tokenType": "embedded-expression",
+          "start": 1285,
+          "end": 1327
+        },
+        {
+          "text": "resolvedOpacity",
+          "tokenType": "variable",
+          "start": 1341,
+          "end": 1356
+        },
+        {
+          "text": "=",
+          "tokenType": "operator",
+          "start": 1357,
+          "end": 1358
+        },
+        {
+          "text": "resolvedClass",
+          "tokenType": "variable",
+          "start": 1411,
+          "end": 1424
+        },
+        {
+          "text": "=",
+          "tokenType": "operator",
+          "start": 1425,
+          "end": 1426
+        },
+        {
+          "text": "resolveStyleProp(rest.class, item.d)",
+          "tokenType": "embedded-expression",
+          "start": 1427,
+          "end": 1463
+        },
+        {
+          "text": "resolvedBorderWidth",
+          "tokenType": "variable",
+          "start": 1477,
+          "end": 1496
+        },
+        {
+          "text": "=",
+          "tokenType": "operator",
+          "start": 1497,
+          "end": 1498
+        },
+        {
+          "text": "resolvedStrokeWidth != null\n        ? `${resolvedStrokeWidth}px`\n        : resolvedStroke != null\n          ? '1px'\n          : undefined",
+          "tokenType": "embedded-expression",
+          "start": 1505,
+          "end": 1642
+        },
+        {
+          "text": "RectBox",
+          "tokenType": "variable",
+          "start": 1769,
+          "end": 1776
+        },
+        {
+          "text": "=",
+          "tokenType": "operator",
+          "start": 1777,
+          "end": 1778
+        },
+        {
+          "text": "c.chartCtx.isometric!.RectBoxHtml!",
+          "tokenType": "embedded-expression",
+          "start": 1779,
+          "end": 1813
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "as",
+          "tokenType": "embedded-expression",
+          "start": 1061,
+          "end": 1063
+        },
+        {
+          "text": "item",
+          "tokenType": "embedded-expression",
+          "start": 1064,
+          "end": 1068
+        },
+        {
+          "text": "(item.key)",
+          "tokenType": "embedded-expression",
+          "start": 1069,
+          "end": 1079
+        },
+        {
+          "text": "@const ",
+          "tokenType": "variable",
+          "start": 1086,
+          "end": 1093
+        },
+        {
+          "text": "resolvedFill = resolveColorProp(rest.fill,",
+          "tokenType": "variable",
+          "start": 1093,
+          "end": 1135
+        },
+        {
+          "text": "item.d, c.chartCtx.cScale)}\n",
+          "tokenType": "embedded-typescript",
+          "start": 1136,
+          "end": 1164
+        },
+        {
+          "text": "   {@const resolvedStroke = resolveColorProp(rest.stroke, item.d, c.chartCtx.cScale)",
+          "tokenType": "embedded-typescript",
+          "start": 1165,
+          "end": 1249
+        },
+        {
+          "text": "@const resolvedStrokeWidth = resolveStyleProp(rest.strokeWidth, item.d)",
+          "tokenType": "embedded-expression",
+          "start": 1256,
+          "end": 1327
+        },
+        {
+          "text": "resolvedOpacity = ",
+          "tokenType": "variable",
+          "start": 1341,
+          "end": 1359
+        },
+        {
+          "text": "resolvedClass = resolveStyleProp(rest.class, item.d)",
+          "tokenType": "embedded-expression",
+          "start": 1411,
+          "end": 1463
+        },
+        {
+          "text": "resolvedBorderWidth =",
+          "tokenType": "embedded-expression",
+          "start": 1477,
+          "end": 1498
+        },
+        {
+          "text": "resolvedStrokeWidth != null\n",
+          "tokenType": "embedded-expression",
+          "start": 1505,
+          "end": 1533
+        },
+        {
+          "text": "       ? `${resolvedStrokeWidth}px`",
+          "tokenType": "string",
+          "start": 1534,
+          "end": 1569
+        },
+        {
+          "text": "   : resolvedStroke != null\n          ? '1px'\n          : undefined",
+          "tokenType": "embedded-typescript",
+          "start": 1575,
+          "end": 1642
+        },
+        {
+          "text": "RectBox = c.chartCtx.isometric!.RectBoxHtml!",
+          "tokenType": "embedded-expression",
+          "start": 1769,
+          "end": 1813
+        }
+      ]
+    },
+    {
+      "path": "src/lib/forms/input-field/Input.svelte",
+      "repository": "flowbite-svelte-v1",
+      "source": "<script lang=\"ts\">\n  import { getContext } from \"svelte\";\n  import clsx from \"clsx\";\n  import type { InputProps, InputValue } from \"$lib\";\n  import { getButtonGroupContext } from \"$lib/context\";\n  import CloseButton from \"$lib/utils/CloseButton.svelte\";\n  import { input } from \"./theme\";\n  import { clampSize } from \"./index\";\n  import { getTheme, warnThemeDeprecation } from \"$lib/theme/themeUtils\";\n  import { createDismissableContext } from \"$lib/utils/dismissable\";\n  import { untrack } from \"svelte\";\n\n  let {\n    children,\n    left,\n    right,\n    value = $bindable(),\n    elementRef = $bindable(),\n    clearable = false,\n    size,\n    color = \"default\",\n    class: className,\n    classes,\n    wrapperClass,\n    leftClass,\n    rightClass,\n    divClass,\n    clearableSvgClass,\n    clearableColor = \"none\",\n    clearableClass,\n    clearableOnClick,\n    data = [],\n    maxSuggestions = 5,\n    onSelect,\n    comboClass,\n    comboItemClass,\n    onInput,\n    onFocus,\n    onBlur,\n    onKeydown,\n    oninput,\n    onfocus,\n    onblur,\n    onkeydown,\n    ...restProps\n  }: InputProps<InputValue> = $props();\n\n  warnThemeDeprecation(\n    \"Input\",\n    untrack(() => ({ wrapperClass, leftClass, rightClass, divClass, clearableSvgClass, clearableClass, comboClass })),\n    { wrapperClass: \"wrapper\", leftClass: \"left\", rightClass: \"right\", divClass: \"div\", clearableSvgClass: \"svg\", clearableClass: \"close\", comboClass: \"comboItem\" }\n  );\n\n  const styling = $derived(classes ?? { left: leftClass, right: rightClass, div: divClass, svg: clearableSvgClass, close: clearableClass, combo: comboClass, comboItem: comboItemClass });\n\n  const theme = $derived(getTheme(\"input\"));\n\n  // onSelect is a custom combobox selection handler that takes a string\n  // standard DOM events, onInput, onFocus, onBlur, onKeydown will be deprecated in the next minor version\n  const resolvedOnInput = $derived(oninput || onInput);\n  const resolvedOnFocus = $derived(onfocus || onFocus);\n  const resolvedOnBlur = $derived(onblur || onBlur);\n  const resolvedOnKeydown = $derived(onkeydown || onKeydown);\n\n  // Automatically enable combobox when data is provided\n  const isCombobox = $derived(Array.isArray(data) && data.length > 0);\n\n  // tinted if put in component having its own background\n  let background: boolean = getContext(\"background\");\n\n  // svelte-ignore non_reactive_update\n  let dummyFocusDiv: HTMLDivElement;\n\n  let group = $derived(getButtonGroupContext());\n  let isGroup = $derived(!!group);\n  let _size = $derived(size || (group?.size ? clampSize(group.size) : undefined) || \"md\");\n  const _color = $derived(color === \"default\" && background ? \"tinted\" : color);\n  const { base, input: inputCls, left: leftCls, right: rightCls, close, combo, comboItem } = $derived(input({ size: _size, color: _color, grouped: isGroup }));\n\n  const clearAll = () => {\n    if (elementRef) {\n      // in order to avoid type error in setTimeout()\n      const input = elementRef;\n      input.value = \"\";\n      value = \"\";\n\n      backspaceUsed = false;\n      updateSuggestions();\n      // hack to focus outside\n      dummyFocusDiv?.focus();\n      setTimeout(() => {\n        input.focus();\n      }, 100);\n    }\n\n    if (clearableOnClick) clearableOnClick();\n  };\n\n  createDismissableContext(clearAll);\n\n  // Combobox functionality\n  let isFocused = $state(false);\n  let filteredSuggestions: string[] = $state([]);\n  let selectedIndex = $state(-1);\n  let backspaceUsed = $state(false); // Track if backspace was used to clear\n\n  function updateSuggestions() {\n    if (!isCombobox || !isFocused) {\n      filteredSuggestions = [];\n      return;\n    }\n\n    const fullSearchTerm = ((value as string) || \"\").toLowerCase();\n    const lastSpaceIndex = fullSearchTerm.lastIndexOf(\" \");\n    const searchTerm = lastSpaceIndex === -1 ? fullSearchTerm : fullSearchTerm.substring(lastSpaceIndex + 1);\n\n    // Show suggestions if:\n    // 1. There's actual input text, OR\n    // 2. The input is empty but backspace was just used to clear it\n    if (searchTerm === \"\" && !backspaceUsed) {\n      filteredSuggestions = [];\n    } else {\n      // If there's text, filter suggestions\n      if (searchTerm) {\n        filteredSuggestions = data.filter((item) => item.toLowerCase().includes(searchTerm)).slice(0, maxSuggestions);\n      }\n      // If empty but backspace was used, show all suggestions\n      else if (backspaceUsed) {\n        filteredSuggestions = [...data].slice(0, maxSuggestions);\n      }\n    }\n\n    selectedIndex = -1;\n  }\n\n  // Watch for value changes\n  $effect(() => {\n    if (isCombobox) {\n      updateSuggestions();\n    }\n  });\n\n  function defaultHandleInput(_event: Event) {\n    // Ensure value is treated as a string to safely check its length\n    const currentValueAsString = String(value || \"\");\n    if (currentValueAsString.length > 0) {\n      backspaceUsed = false;\n    }\n    updateSuggestions();\n  }\n\n  function defaultHandleFocus() {\n    isFocused = true;\n    updateSuggestions();\n  }\n\n  function defaultHandleBlur() {\n    // Small delay to allow click on suggestion to fire first\n    setTimeout(() => {\n      isFocused = false;\n      backspaceUsed = false; // Reset flag when focus is lost\n      filteredSuggestions = [];\n    }, 200);\n  }\n\n  function defaultHandleKeydown(event: KeyboardEvent) {\n    if (!isCombobox) return;\n\n    // Special handling for backspace/delete - track when it's used to clear the input\n    if (event.key === \"Backspace\" || event.key === \"Delete\") {\n      const currentValue = value as string;\n      // If this keypress will make the input empty\n      if (currentValue.length <= 1) {\n        backspaceUsed = true;\n      }\n    }\n\n    if (!filteredSuggestions.length) return;\n\n    switch (event.key) {\n      case \"ArrowDown\":\n        event.preventDefault();\n        selectedIndex = (selectedIndex + 1) % filteredSuggestions.length;\n        break;\n      case \"ArrowUp\":\n        event.preventDefault();\n        selectedIndex = selectedIndex <= 0 ? filteredSuggestions.length - 1 : selectedIndex - 1;\n        break;\n      case \"Enter\":\n        if (selectedIndex >= 0) {\n          event.preventDefault();\n          selectItem(filteredSuggestions[selectedIndex]);\n        }\n        break;\n      case \"Escape\":\n        event.preventDefault();\n        filteredSuggestions = [];\n        break;\n    }\n  }\n\n  // Combined event handlers that call custom handlers first, then default behavior\n  function handleInput(event: Event) {\n    if (resolvedOnInput) {\n      resolvedOnInput(event);\n    }\n    defaultHandleInput(event);\n  }\n\n  function handleFocus(event: FocusEvent) {\n    if (resolvedOnFocus) {\n      resolvedOnFocus(event);\n    }\n    defaultHandleFocus();\n  }\n\n  function handleBlur(event: FocusEvent) {\n    if (resolvedOnBlur) {\n      resolvedOnBlur(event);\n    }\n    defaultHandleBlur();\n  }\n\n  function handleKeydown(event: KeyboardEvent) {\n    if (resolvedOnKeydown) {\n      resolvedOnKeydown(event);\n    }\n    defaultHandleKeydown(event);\n  }\n\n  function selectItem(item: string) {\n    const currentValue = (value as string) || \"\";\n    const lastSpaceIndex = currentValue.lastIndexOf(\" \");\n\n    if (lastSpaceIndex === -1) {\n      value = item + \" \"; // Replace the whole value if no space, add trailing space\n    } else {\n      value = currentValue.substring(0, lastSpaceIndex + 1) + item + \" \"; // Replace last word, add trailing space\n    }\n\n    if (onSelect) {\n      onSelect(item);\n    }\n\n    filteredSuggestions = [];\n    selectedIndex = -1;\n\n    if (elementRef) {\n      elementRef.focus();\n    }\n  }\n</script>\n\n{#if clearable}\n  <div tabindex=\"-1\" bind:this={dummyFocusDiv} class=\"sr-only\"></div>\n{/if}\n\n{#if isCombobox || right || left || clearable}\n  <div class={base({ class: clsx(theme?.base, styling.div) })}>\n    {#if left}\n      <div class={leftCls({ class: clsx(theme?.left, styling.left) })}>\n        {@render left()}\n      </div>\n    {/if}\n    {@render inputContent(true)}\n    {#if right}\n      <div class={rightCls({ class: clsx(theme?.right, styling.right) })}>\n        {@render right()}\n      </div>\n    {/if}\n\n    {#if isCombobox && isFocused && filteredSuggestions.length > 0}\n      <div class={combo({ class: clsx(theme?.combo, styling.combo) })}>\n        {#each filteredSuggestions as item, i (item)}\n          <button\n            type=\"button\"\n            class=\"w-full px-3 py-2 text-left {i === selectedIndex ? 'bg-gray-100 dark:bg-gray-700' : 'hover:bg-gray-50 dark:hover:bg-gray-700'} focus:outline-none\"\n            onclick={() => selectItem(item)}\n            onmouseenter={() => (selectedIndex = i)}\n          >\n            <p class={comboItem({ class: clsx(theme?.comboItem, styling.comboItem) })}>{item}</p>\n          </button>\n        {/each}\n      </div>\n    {/if}\n  </div>\n{:else}\n  {@render inputContent(false)}\n{/if}\n\n{#snippet inputContent(wrapped: boolean)}\n  {#if children}\n    {@render children({ ...restProps, class: inputCls() })}\n  {:else}\n    <input\n      {...restProps}\n      bind:value\n      bind:this={elementRef}\n      oninput={handleInput}\n      onfocus={handleFocus}\n      onblur={handleBlur}\n      onkeydown={handleKeydown}\n      class={[wrapped || base(), inputCls({ class: clsx(theme?.input, className) })]}\n    />\n    {#if value !== undefined && value !== \"\" && clearable}\n      <CloseButton class={close({ class: clsx(theme?.close, styling.close) })} color={clearableColor} aria-label=\"Clear search value\" svgClass={clsx(styling.svg)} />\n    {/if}\n  {/if}\n{/snippet}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9393939393939394,
+          "recall": 0.9434782608695652,
+          "f1": 0.9414316702819957,
+          "tp": 217,
+          "fp": 14,
+          "fn": 13,
+          "support": 230
+        },
+        "exactSpanMacroF1": 0.781283444671481,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9393939393939394,
+          "recall": 0.9434782608695652,
+          "f1": 0.9414316702819957,
+          "tp": 217,
+          "fp": 14,
+          "fn": 13,
+          "support": 230
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.8928571428571429,
+            "recall": 0.9615384615384616,
+            "f1": 0.9259259259259259,
+            "tp": 25,
+            "fp": 3,
+            "fn": 1,
+            "support": 26
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.84,
+            "recall": 0.9130434782608695,
+            "f1": 0.875,
+            "tp": 21,
+            "fp": 4,
+            "fn": 2,
+            "support": 23
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "support": 1
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.9827586206896551,
+            "f1": 0.991304347826087,
+            "tp": 114,
+            "fp": 0,
+            "fn": 2,
+            "support": 116
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 18,
+            "fp": 0,
+            "fn": 0,
+            "support": 18
+          },
+          "attribute": {
+            "precision": 0.9615384615384616,
+            "recall": 1.0,
+            "f1": 0.9803921568627451,
+            "tp": 25,
+            "fp": 1,
+            "fn": 0,
+            "support": 25
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 0.4,
+            "f1": 0.5714285714285714,
+            "tp": 2,
+            "fp": 0,
+            "fn": 3,
+            "support": 5
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0.6470588235294118,
+            "recall": 0.7333333333333333,
+            "f1": 0.6875,
+            "tp": 11,
+            "fp": 6,
+            "fn": 4,
+            "support": 15
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "isCombobox || right || left || clearable",
+          "tokenType": "embedded-expression",
+          "start": 7612,
+          "end": 7652
+        },
+        {
+          "text": "left",
+          "tokenType": "embedded-expression",
+          "start": 7727,
+          "end": 7731
+        },
+        {
+          "text": "\"w-full px-3 py-2 text-left {i === selectedIndex ? 'bg-gray-100 dark:bg-gray-700' : 'hover:bg-gray-50 dark:hover:bg-gray-700'} focus:outline-none\"",
+          "tokenType": "string",
+          "start": 8283,
+          "end": 8429
+        },
+        {
+          "text": "{() => selectItem(item)}",
+          "tokenType": "string",
+          "start": 8450,
+          "end": 8474
+        },
+        {
+          "text": "inputContent",
+          "tokenType": "variable",
+          "start": 8763,
+          "end": 8775
+        },
+        {
+          "text": "(",
+          "tokenType": "punctuation",
+          "start": 8775,
+          "end": 8776
+        },
+        {
+          "text": "wrapped",
+          "tokenType": "variable",
+          "start": 8776,
+          "end": 8783
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 8783,
+          "end": 8784
+        },
+        {
+          "text": "boolean",
+          "tokenType": "variable",
+          "start": 8785,
+          "end": 8792
+        },
+        {
+          "text": ")",
+          "tokenType": "punctuation",
+          "start": 8792,
+          "end": 8793
+        },
+        {
+          "text": "children({ ...restProps, class: inputCls() })",
+          "tokenType": "embedded-expression",
+          "start": 8825,
+          "end": 8870
+        },
+        {
+          "text": "value !== undefined && value !== \"\" && clearable",
+          "tokenType": "embedded-expression",
+          "start": 9176,
+          "end": 9224
+        },
+        {
+          "text": "/snippet",
+          "tokenType": "keyword",
+          "start": 9411,
+          "end": 9419
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "isCombobox ||",
+          "tokenType": "embedded-expression",
+          "start": 7612,
+          "end": 7625
+        },
+        {
+          "text": "right || left || clearable",
+          "tokenType": "embedded-expression",
+          "start": 7626,
+          "end": 7652
+        },
+        {
+          "text": "left",
+          "tokenType": "keyword",
+          "start": 7727,
+          "end": 7731
+        },
+        {
+          "text": "\"w-full px-3 py-2 text-left {i === selectedIndex ? 'bg-gray-100 dark:bg-gray-700' : 'hover:bg-gray-50 dark:hover:bg-gray-700'}",
+          "tokenType": "string",
+          "start": 8283,
+          "end": 8409
+        },
+        {
+          "text": "focus:outline-none\"",
+          "tokenType": "string",
+          "start": 8410,
+          "end": 8429
+        },
+        {
+          "text": "{()",
+          "tokenType": "string",
+          "start": 8450,
+          "end": 8453
+        },
+        {
+          "text": "=> selectItem(item)}",
+          "tokenType": "string",
+          "start": 8454,
+          "end": 8474
+        },
+        {
+          "text": "inputContent(wrapped: boolean)",
+          "tokenType": "attribute",
+          "start": 8763,
+          "end": 8793
+        },
+        {
+          "text": "children({ ...restProps, class:",
+          "tokenType": "embedded-expression",
+          "start": 8825,
+          "end": 8856
+        },
+        {
+          "text": "inputCls() })",
+          "tokenType": "embedded-expression",
+          "start": 8857,
+          "end": 8870
+        },
+        {
+          "text": "value",
+          "tokenType": "embedded-expression",
+          "start": 9176,
+          "end": 9181
+        },
+        {
+          "text": "!== undefined && value !== \"\" && clearable",
+          "tokenType": "embedded-expression",
+          "start": 9182,
+          "end": 9224
+        },
+        {
+          "text": "/",
+          "tokenType": "keyword",
+          "start": 9411,
+          "end": 9412
+        },
+        {
+          "text": "snippet",
+          "tokenType": "keyword",
+          "start": 9412,
+          "end": 9419
+        }
+      ]
+    }
+  ],
+  "checkpointHash": "7e68dd44cac16de8afe8b5d48e871a36efbe537ea1a2241463a3afdae8557556",
+  "checkpointEpoch": 7,
+  "device": "mps"
+}

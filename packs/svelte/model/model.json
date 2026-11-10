@@ -1,0 +1,212 @@
+{
+  "id": "svelte",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-svelte-model-v1",
+    "sha256": "d1332a46f2af4f44a0281573c606508b0ff05c10f290de08f45f253763f8e034",
+    "bytes": 3634741,
+    "parameterCount": 894614,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 7,
+    "metric": "mean per-profile natural real-source validation exact-span macro F1",
+    "score": 0.7409551696390242
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1,
+    "local_kernel": 1
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "tag",
+      "attribute",
+      "text",
+      "entity",
+      "variable",
+      "embedded-javascript",
+      "embedded-typescript",
+      "embedded-css",
+      "embedded-scss",
+      "embedded-less",
+      "embedded-expression",
+      "embedded-data"
+    ],
+    "modifiers": [
+      "closing"
+    ]
+  },
+  "documentKinds": [
+    "svelte"
+  ],
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy-mean-logit",
+    "packPolicy": {
+      "coalesce_types": [
+        "embedded-javascript",
+        "embedded-typescript",
+        "embedded-css",
+        "embedded-scss",
+        "embedded-less",
+        "embedded-expression",
+        "embedded-data",
+        "comment",
+        "string",
+        "text"
+      ],
+      "modifier_roles": null
+    },
+    "modifierThreshold": 0.6,
+    "parserRequired": false
+  },
+  "scope": "svelte-template-with-code-regions",
+  "modelSchema": {
+    "file": "../schema.json",
+    "sha256": "8f9b9cb5d32a2d3becbaf5fc5f6d6a7dbb70a31835e5b928ac06279f9b332f3f"
+  },
+  "publicSchema": {
+    "file": "../schema.json",
+    "sha256": "8f9b9cb5d32a2d3becbaf5fc5f6d6a7dbb70a31835e5b928ac06279f9b332f3f"
+  },
+  "dataset": {
+    "snapshot": "15b208c34781c4ef96959a4f9e3b44d0874c0efc1b24e14914f5f835b1a7223e",
+    "manifestHash": "7bc1affb51e50589728942bbe6da43ac99619b24f5144300ccad369f996fe200"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/svelte/context512-boundaries-20261110-01/candidates/epoch-0007.pt",
+    "sourceCheckpointSha256": "7e68dd44cac16de8afe8b5d48e871a36efbe537ea1a2241463a3afdae8557556",
+    "training": {
+      "codeHashes": {
+        "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+        "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+        "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+        "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+        "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+        "training/shared/encoding.py": "56c8ecba2b66d518eb031167647e5deb366cd53f642657170faae97601ed991c",
+        "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
+        "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+        "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+        "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+        "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+        "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+        "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+        "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+        "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+        "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+        "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+        "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+        "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+        "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+        "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+        "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+        "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+        "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc",
+        "training/svelte/challenge.py": "6d938214a37e20e93154b5ee53196fff82f5e4b2ebb6b943f3925cc648bbd34c",
+        "training/svelte/evaluate.py": "aebdedec3992db728b279724db6421700a59b06fa84c6eaaefa650a7b28784d4",
+        "training/svelte/export_model.py": "ec9867e56629d327a1ca171cf2d7fdf33b96473c897f0b7c9f36e910a044b715",
+        "training/svelte/predict.py": "54689fc568dcad32082f737175d51928ac3c85b9218bfb17b762d421a47e40ef",
+        "training/svelte/prepare.py": "cbc29a69c58ad8e537692af1c6cd9b4ae15758c02680f2a886c00c671c789070",
+        "training/svelte/train.py": "88f7386f104dd32a087098fe3f86eef8a8a572e8501f3cb22f88ebdb6c3e42d3"
+      },
+      "semanticsHash": "e69aa5876ba0399e48cd9298053d936e74c1aec9bff34bdd550de3a4cb5d3228",
+      "packConfigHash": "c69d62298b44585479ef0ddff3afa4faea3448e2ec9208d49817f848fc38d8d3",
+      "decoderPolicy": {
+        "coalesce_types": [
+          "embedded-javascript",
+          "embedded-typescript",
+          "embedded-css",
+          "embedded-scss",
+          "embedded-less",
+          "embedded-expression",
+          "embedded-data",
+          "comment",
+          "string",
+          "text"
+        ],
+        "modifier_roles": null
+      },
+      "pythonTorch": "2.14.0",
+      "repositoryDirty": true,
+      "repositoryCommit": "a1fea38255a5c0ccd7203e716ef4af26c89380f7"
+    },
+    "initialization": {
+      "mode": "svelte-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/svelte/context512-20261110-01/candidates/epoch-0015.pt",
+      "checkpointHash": "f3641022d77167fd7d243118daf192ea7f16dda4e2d4eec8f815e970a530c46c",
+      "sourceEpoch": 15,
+      "sourceDataset": {
+        "snapshot": "825bd6ffdb6ef2ba78c40858151a6592ff26d264ff5dc7c5a9bcf7325a0550e8",
+        "manifestHash": "30061cd1fff0d24068414d04898990d7890849234f26f68211645b56ddbb2e73",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/svelte/prepared/825bd6ffdb6ef2ba78c40858151a6592ff26d264ff5dc7c5a9bcf7325a0550e8"
+      },
+      "copiedTokenTypes": [
+        "keyword",
+        "comment",
+        "string",
+        "number",
+        "operator",
+        "punctuation",
+        "tag",
+        "attribute",
+        "text",
+        "entity",
+        "variable",
+        "embedded-javascript",
+        "embedded-typescript",
+        "embedded-css",
+        "embedded-scss",
+        "embedded-less",
+        "embedded-expression",
+        "embedded-data"
+      ],
+      "newTokenTypes": [],
+      "newTensors": [],
+      "copiedModifiers": [
+        "closing"
+      ],
+      "optimizerAndTrainingState": "fresh pack run"
+    },
+    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "a25248a42ab7e68a9343874f31d91d75480ae33ced2ddac6d802ffc79483d62d",
+      "checkpointHash": "7e68dd44cac16de8afe8b5d48e871a36efbe537ea1a2241463a3afdae8557556",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    }
+  }
+}

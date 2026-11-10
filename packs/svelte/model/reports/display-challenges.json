@@ -1,0 +1,4181 @@
+{
+  "purpose": "Visible independent base/template probes; not unseen test",
+  "cases": [
+    {
+      "filename": "async-content.svelte",
+      "source": "<script>\n  let request = Promise.resolve({ message: \"Hello, Svelte!\" });\n</script>\n\n{#await request}\n  <p>Loading…</p>\n{:then result}\n  <article>{result.message}</article>\n{:catch error}\n  <p class=\"error\">{error.message}</p>\n{/await}\n",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 1,
+            "end": 7,
+            "tokenType": "tag"
+          },
+          {
+            "start": 7,
+            "end": 8,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 8,
+            "end": 73,
+            "tokenType": "embedded-typescript"
+          },
+          {
+            "start": 73,
+            "end": 75,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 75,
+            "end": 81,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 81,
+            "end": 82,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 84,
+            "end": 85,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 85,
+            "end": 91,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 92,
+            "end": 99,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 99,
+            "end": 100,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 103,
+            "end": 104,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 104,
+            "end": 105,
+            "tokenType": "tag"
+          },
+          {
+            "start": 105,
+            "end": 106,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 106,
+            "end": 114,
+            "tokenType": "text"
+          },
+          {
+            "start": 114,
+            "end": 116,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 116,
+            "end": 117,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 117,
+            "end": 118,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 119,
+            "end": 120,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 120,
+            "end": 125,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 126,
+            "end": 132,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 132,
+            "end": 133,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 136,
+            "end": 137,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 137,
+            "end": 144,
+            "tokenType": "tag"
+          },
+          {
+            "start": 144,
+            "end": 145,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 145,
+            "end": 146,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 146,
+            "end": 160,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 160,
+            "end": 161,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 161,
+            "end": 163,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 163,
+            "end": 170,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 170,
+            "end": 171,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 172,
+            "end": 173,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 173,
+            "end": 179,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 180,
+            "end": 185,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 185,
+            "end": 186,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 189,
+            "end": 190,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 190,
+            "end": 191,
+            "tokenType": "tag"
+          },
+          {
+            "start": 192,
+            "end": 197,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 197,
+            "end": 198,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 198,
+            "end": 205,
+            "tokenType": "string"
+          },
+          {
+            "start": 205,
+            "end": 206,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 206,
+            "end": 207,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 207,
+            "end": 220,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 220,
+            "end": 221,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 221,
+            "end": 223,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 223,
+            "end": 224,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 224,
+            "end": 225,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 226,
+            "end": 227,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 227,
+            "end": 233,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 233,
+            "end": 234,
+            "tokenType": "punctuation"
+          }
+        ]
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.94,
+          "recall": 0.94,
+          "f1": 0.94,
+          "tp": 47,
+          "fp": 3,
+          "fn": 3,
+          "support": 50
+        },
+        "exactSpanMacroF1": 0.675,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.94,
+          "recall": 0.94,
+          "f1": 0.94,
+          "tp": 47,
+          "fp": 3,
+          "fn": 3,
+          "support": 50
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 29,
+            "fp": 0,
+            "fn": 0,
+            "support": 29
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "support": 2
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "support": 1
+          },
+          "embedded-typescript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0.6,
+            "recall": 1.0,
+            "f1": 0.75,
+            "tp": 3,
+            "fp": 2,
+            "fn": 0,
+            "support": 3
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 8,
+          "end": 73,
+          "text": "\n  let request = Promise.resolve({ message: \"Hello, Svelte!\" });\n",
+          "tokenType": "embedded-javascript"
+        },
+        {
+          "start": 126,
+          "end": 132,
+          "text": "result",
+          "tokenType": "variable"
+        },
+        {
+          "start": 180,
+          "end": 185,
+          "text": "error",
+          "tokenType": "variable"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 73,
+          "text": "\n  let request = Promise.resolve({ message: \"Hello, Svelte!\" });\n",
+          "tokenType": "embedded-typescript"
+        },
+        {
+          "start": 126,
+          "end": 132,
+          "text": "result",
+          "tokenType": "embedded-expression"
+        },
+        {
+          "start": 180,
+          "end": 185,
+          "text": "error",
+          "tokenType": "embedded-expression"
+        }
+      ]
+    },
+    {
+      "filename": "control-flow.svelte",
+      "source": "<script lang=\"ts\">\n  let people = [{ id: 1, name: \"Ada\" }, { id: 2, name: \"Lin\" }];\n  let ready = true;\n</script>\n\n{#if ready}\n  <ul>\n    {#each people as person, index (person.id)}\n      <li>{index + 1}. {person.name}</li>\n    {:else}\n      <li>No people yet</li>\n    {/each}\n  </ul>\n{:else}\n  <p>Please wait…</p>\n{/if}\n",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 1,
+            "end": 7,
+            "tokenType": "tag"
+          },
+          {
+            "start": 8,
+            "end": 12,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 12,
+            "end": 13,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 13,
+            "end": 17,
+            "tokenType": "string"
+          },
+          {
+            "start": 17,
+            "end": 18,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 18,
+            "end": 104,
+            "tokenType": "embedded-typescript"
+          },
+          {
+            "start": 104,
+            "end": 106,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 106,
+            "end": 112,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 112,
+            "end": 113,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 115,
+            "end": 116,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 116,
+            "end": 119,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 120,
+            "end": 125,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 125,
+            "end": 126,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 129,
+            "end": 130,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 130,
+            "end": 132,
+            "tokenType": "tag"
+          },
+          {
+            "start": 132,
+            "end": 133,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 138,
+            "end": 139,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 139,
+            "end": 144,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 145,
+            "end": 151,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 152,
+            "end": 154,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 155,
+            "end": 161,
+            "tokenType": "variable"
+          },
+          {
+            "start": 161,
+            "end": 162,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 163,
+            "end": 168,
+            "tokenType": "variable"
+          },
+          {
+            "start": 169,
+            "end": 170,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 170,
+            "end": 180,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 180,
+            "end": 181,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 188,
+            "end": 189,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 189,
+            "end": 191,
+            "tokenType": "tag"
+          },
+          {
+            "start": 191,
+            "end": 192,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 192,
+            "end": 193,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 193,
+            "end": 202,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 202,
+            "end": 203,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 203,
+            "end": 204,
+            "tokenType": "text"
+          },
+          {
+            "start": 205,
+            "end": 206,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 206,
+            "end": 217,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 217,
+            "end": 218,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 218,
+            "end": 220,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 220,
+            "end": 222,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 222,
+            "end": 223,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 228,
+            "end": 229,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 229,
+            "end": 234,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 234,
+            "end": 235,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 242,
+            "end": 243,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 243,
+            "end": 245,
+            "tokenType": "tag"
+          },
+          {
+            "start": 245,
+            "end": 246,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 246,
+            "end": 259,
+            "tokenType": "text"
+          },
+          {
+            "start": 259,
+            "end": 261,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 261,
+            "end": 263,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 263,
+            "end": 264,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 269,
+            "end": 270,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 270,
+            "end": 275,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 275,
+            "end": 276,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 279,
+            "end": 281,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 281,
+            "end": 283,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 283,
+            "end": 284,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 285,
+            "end": 286,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 286,
+            "end": 291,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 291,
+            "end": 292,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 295,
+            "end": 296,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 296,
+            "end": 297,
+            "tokenType": "tag"
+          },
+          {
+            "start": 297,
+            "end": 298,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 298,
+            "end": 310,
+            "tokenType": "text"
+          },
+          {
+            "start": 310,
+            "end": 312,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 312,
+            "end": 313,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 313,
+            "end": 314,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 315,
+            "end": 316,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 316,
+            "end": 319,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 319,
+            "end": 320,
+            "tokenType": "punctuation"
+          }
+        ]
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9710144927536232,
+          "recall": 0.9571428571428572,
+          "f1": 0.9640287769784173,
+          "tp": 67,
+          "fp": 2,
+          "fn": 3,
+          "support": 70
+        },
+        "exactSpanMacroF1": 0.9393342709798406,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9710144927536232,
+          "recall": 0.9571428571428572,
+          "f1": 0.9640287769784173,
+          "tp": 67,
+          "fp": 2,
+          "fn": 3,
+          "support": 70
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.975,
+            "f1": 0.9873417721518988,
+            "tp": 39,
+            "fp": 0,
+            "fn": 1,
+            "support": 40
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "text": {
+            "precision": 0.6666666666666666,
+            "recall": 0.6666666666666666,
+            "f1": 0.6666666666666666,
+            "tp": 2,
+            "fp": 1,
+            "fn": 1,
+            "support": 3
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0.8,
+            "recall": 0.8,
+            "f1": 0.8,
+            "tp": 4,
+            "fp": 1,
+            "fn": 1,
+            "support": 5
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 170,
+          "end": 179,
+          "text": "person.id",
+          "tokenType": "embedded-expression"
+        },
+        {
+          "start": 179,
+          "end": 180,
+          "text": ")",
+          "tokenType": "punctuation"
+        },
+        {
+          "start": 203,
+          "end": 205,
+          "text": ". ",
+          "tokenType": "text"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 170,
+          "end": 180,
+          "text": "person.id)",
+          "tokenType": "embedded-expression"
+        },
+        {
+          "start": 203,
+          "end": 204,
+          "text": ".",
+          "tokenType": "text"
+        }
+      ]
+    },
+    {
+      "filename": "counter.svelte",
+      "source": "<script lang=\"ts\">\n  let count = $state(0);\n  const doubled = $derived(count * 2);\n\n  function increment() {\n    count += 1;\n  }\n</script>\n\n<button onclick={increment}>Count: {count}</button>\n<p>Doubled: {doubled}</p>\n\n<style>\n  button {\n    color: white;\n    background: #6754db;\n    padding: 8px 16px;\n    border-radius: 8px;\n  }\n</style>\n",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 1,
+            "end": 7,
+            "tokenType": "tag"
+          },
+          {
+            "start": 8,
+            "end": 12,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 12,
+            "end": 13,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 13,
+            "end": 17,
+            "tokenType": "string"
+          },
+          {
+            "start": 17,
+            "end": 18,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 18,
+            "end": 129,
+            "tokenType": "embedded-typescript"
+          },
+          {
+            "start": 129,
+            "end": 131,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 131,
+            "end": 137,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 137,
+            "end": 138,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 140,
+            "end": 141,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 141,
+            "end": 147,
+            "tokenType": "tag"
+          },
+          {
+            "start": 148,
+            "end": 155,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 155,
+            "end": 156,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 156,
+            "end": 167,
+            "tokenType": "string"
+          },
+          {
+            "start": 167,
+            "end": 168,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 168,
+            "end": 175,
+            "tokenType": "text"
+          },
+          {
+            "start": 175,
+            "end": 176,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 176,
+            "end": 181,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 181,
+            "end": 182,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 182,
+            "end": 184,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 184,
+            "end": 190,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 190,
+            "end": 191,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 192,
+            "end": 193,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 193,
+            "end": 194,
+            "tokenType": "tag"
+          },
+          {
+            "start": 194,
+            "end": 195,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 195,
+            "end": 205,
+            "tokenType": "text"
+          },
+          {
+            "start": 205,
+            "end": 212,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 212,
+            "end": 213,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 213,
+            "end": 215,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 215,
+            "end": 216,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 216,
+            "end": 217,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 219,
+            "end": 220,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 220,
+            "end": 225,
+            "tokenType": "tag"
+          },
+          {
+            "start": 225,
+            "end": 226,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 226,
+            "end": 332,
+            "tokenType": "embedded-css"
+          },
+          {
+            "start": 332,
+            "end": 334,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 334,
+            "end": 339,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 339,
+            "end": 340,
+            "tokenType": "punctuation"
+          }
+        ]
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9743589743589743,
+          "recall": 0.95,
+          "f1": 0.9620253164556962,
+          "tp": 38,
+          "fp": 1,
+          "fn": 2,
+          "support": 40
+        },
+        "exactSpanMacroF1": 0.934593023255814,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9743589743589743,
+          "recall": 0.95,
+          "f1": 0.9620253164556962,
+          "tp": 38,
+          "fp": 1,
+          "fn": 2,
+          "support": 40
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.9545454545454546,
+            "f1": 0.9767441860465116,
+            "tp": 21,
+            "fp": 0,
+            "fn": 1,
+            "support": 22
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "text": {
+            "precision": 0.5,
+            "recall": 0.5,
+            "f1": 0.5,
+            "tp": 1,
+            "fp": 1,
+            "fn": 1,
+            "support": 2
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-css": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 195,
+          "end": 204,
+          "text": "Doubled: ",
+          "tokenType": "text"
+        },
+        {
+          "start": 204,
+          "end": 205,
+          "text": "{",
+          "tokenType": "punctuation"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 195,
+          "end": 205,
+          "text": "Doubled: {",
+          "tokenType": "text"
+        }
+      ]
+    },
+    {
+      "filename": "directives.svelte",
+      "source": "<script>\n  let email = \"\";\n  let accepted = false;\n  let disabled = false;\n  let options = { autocomplete: \"email\" };\n</script>\n\n<form on:submit|preventDefault={() => console.log(email)}>\n  <input type=\"email\" bind:value={email} {...options} {disabled} />\n  <label class:checked={accepted}>\n    <input type=\"checkbox\" bind:checked={accepted} />\n    Accept terms &amp; conditions\n  </label>\n  <button disabled={!accepted}>Continue</button>\n</form>\n",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 1,
+            "end": 7,
+            "tokenType": "tag"
+          },
+          {
+            "start": 7,
+            "end": 8,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 8,
+            "end": 118,
+            "tokenType": "embedded-javascript"
+          },
+          {
+            "start": 118,
+            "end": 120,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 120,
+            "end": 126,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 126,
+            "end": 127,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 129,
+            "end": 130,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 130,
+            "end": 134,
+            "tokenType": "tag"
+          },
+          {
+            "start": 135,
+            "end": 159,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 159,
+            "end": 160,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 160,
+            "end": 186,
+            "tokenType": "string"
+          },
+          {
+            "start": 186,
+            "end": 187,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 190,
+            "end": 191,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 191,
+            "end": 196,
+            "tokenType": "tag"
+          },
+          {
+            "start": 197,
+            "end": 201,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 201,
+            "end": 202,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 202,
+            "end": 209,
+            "tokenType": "string"
+          },
+          {
+            "start": 210,
+            "end": 220,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 220,
+            "end": 221,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 221,
+            "end": 228,
+            "tokenType": "string"
+          },
+          {
+            "start": 229,
+            "end": 241,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 242,
+            "end": 252,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 253,
+            "end": 255,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 258,
+            "end": 259,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 259,
+            "end": 264,
+            "tokenType": "tag"
+          },
+          {
+            "start": 265,
+            "end": 278,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 278,
+            "end": 279,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 279,
+            "end": 289,
+            "tokenType": "string"
+          },
+          {
+            "start": 289,
+            "end": 290,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 295,
+            "end": 296,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 296,
+            "end": 301,
+            "tokenType": "tag"
+          },
+          {
+            "start": 302,
+            "end": 306,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 306,
+            "end": 307,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 307,
+            "end": 317,
+            "tokenType": "string"
+          },
+          {
+            "start": 318,
+            "end": 330,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 330,
+            "end": 331,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 331,
+            "end": 341,
+            "tokenType": "string"
+          },
+          {
+            "start": 342,
+            "end": 344,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 349,
+            "end": 367,
+            "tokenType": "text"
+          },
+          {
+            "start": 367,
+            "end": 380,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 381,
+            "end": 383,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 383,
+            "end": 388,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 388,
+            "end": 389,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 392,
+            "end": 393,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 393,
+            "end": 399,
+            "tokenType": "tag"
+          },
+          {
+            "start": 400,
+            "end": 408,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 408,
+            "end": 409,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 409,
+            "end": 420,
+            "tokenType": "string"
+          },
+          {
+            "start": 420,
+            "end": 421,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 421,
+            "end": 429,
+            "tokenType": "text"
+          },
+          {
+            "start": 429,
+            "end": 431,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 431,
+            "end": 437,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 437,
+            "end": 438,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 439,
+            "end": 441,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 441,
+            "end": 445,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 445,
+            "end": 446,
+            "tokenType": "punctuation"
+          }
+        ]
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9649122807017544,
+          "recall": 0.9482758620689655,
+          "f1": 0.9565217391304348,
+          "tp": 55,
+          "fp": 2,
+          "fn": 3,
+          "support": 58
+        },
+        "exactSpanMacroF1": 0.675,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9649122807017544,
+          "recall": 0.9482758620689655,
+          "f1": 0.9565217391304348,
+          "tp": 55,
+          "fp": 2,
+          "fn": 3,
+          "support": 58
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 27,
+            "fp": 0,
+            "fn": 0,
+            "support": 27
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          },
+          "text": {
+            "precision": 0.5,
+            "recall": 0.3333333333333333,
+            "f1": 0.4,
+            "tp": 1,
+            "fp": 1,
+            "fn": 2,
+            "support": 3
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "support": 1
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-typescript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 344,
+          "end": 362,
+          "text": "\n    Accept terms ",
+          "tokenType": "text"
+        },
+        {
+          "start": 362,
+          "end": 367,
+          "text": "&amp;",
+          "tokenType": "entity"
+        },
+        {
+          "start": 367,
+          "end": 381,
+          "text": " conditions\n  ",
+          "tokenType": "text"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 349,
+          "end": 367,
+          "text": "Accept terms &amp;",
+          "tokenType": "text"
+        },
+        {
+          "start": 367,
+          "end": 380,
+          "text": " conditions\n ",
+          "tokenType": "embedded-expression"
+        }
+      ]
+    },
+    {
+      "filename": "legacy-component.svelte",
+      "source": "<script>\n  export let title = \"Welcome\";\n  let selected = false;\n  $: label = selected ? \"Selected\" : \"Choose\";\n</script>\n\n<section class:active={selected}>\n  <h2>{title}</h2>\n  <button on:click={() => selected = !selected}>{label}</button>\n  <slot name=\"description\">Choose an item to continue.</slot>\n</section>\n",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 1,
+            "end": 7,
+            "tokenType": "tag"
+          },
+          {
+            "start": 7,
+            "end": 8,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 8,
+            "end": 112,
+            "tokenType": "embedded-typescript"
+          },
+          {
+            "start": 112,
+            "end": 114,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 114,
+            "end": 120,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 120,
+            "end": 121,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 123,
+            "end": 124,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 124,
+            "end": 131,
+            "tokenType": "tag"
+          },
+          {
+            "start": 132,
+            "end": 144,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 144,
+            "end": 145,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 145,
+            "end": 155,
+            "tokenType": "string"
+          },
+          {
+            "start": 155,
+            "end": 156,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 159,
+            "end": 160,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 160,
+            "end": 162,
+            "tokenType": "tag"
+          },
+          {
+            "start": 162,
+            "end": 163,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 163,
+            "end": 164,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 164,
+            "end": 169,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 169,
+            "end": 170,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 170,
+            "end": 172,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 172,
+            "end": 174,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 174,
+            "end": 175,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 178,
+            "end": 179,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 179,
+            "end": 185,
+            "tokenType": "tag"
+          },
+          {
+            "start": 186,
+            "end": 194,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 194,
+            "end": 195,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 195,
+            "end": 223,
+            "tokenType": "string"
+          },
+          {
+            "start": 223,
+            "end": 224,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 224,
+            "end": 225,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 225,
+            "end": 230,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 230,
+            "end": 231,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 231,
+            "end": 233,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 233,
+            "end": 239,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 239,
+            "end": 240,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 243,
+            "end": 244,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 244,
+            "end": 248,
+            "tokenType": "tag"
+          },
+          {
+            "start": 249,
+            "end": 253,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 253,
+            "end": 254,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 254,
+            "end": 267,
+            "tokenType": "string"
+          },
+          {
+            "start": 267,
+            "end": 268,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 268,
+            "end": 295,
+            "tokenType": "text"
+          },
+          {
+            "start": 295,
+            "end": 297,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 297,
+            "end": 301,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 301,
+            "end": 302,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 303,
+            "end": 305,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 305,
+            "end": 312,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 312,
+            "end": 313,
+            "tokenType": "punctuation"
+          }
+        ]
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9787234042553191,
+          "recall": 0.9787234042553191,
+          "f1": 0.9787234042553191,
+          "tp": 46,
+          "fp": 1,
+          "fn": 1,
+          "support": 47
+        },
+        "exactSpanMacroF1": 0.75,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9787234042553191,
+          "recall": 0.9787234042553191,
+          "f1": 0.9787234042553191,
+          "tp": 46,
+          "fp": 1,
+          "fn": 1,
+          "support": 47
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 27,
+            "fp": 0,
+            "fn": 0,
+            "support": 27
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "support": 1
+          },
+          "embedded-typescript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 8,
+          "end": 112,
+          "text": "\n  export let title = \"Welcome\";\n  let selected = false;\n  $: label = selected ? \"Selected\" : \"Choose\";\n",
+          "tokenType": "embedded-javascript"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 112,
+          "text": "\n  export let title = \"Welcome\";\n  let selected = false;\n  $: label = selected ? \"Selected\" : \"Choose\";\n",
+          "tokenType": "embedded-typescript"
+        }
+      ]
+    },
+    {
+      "filename": "module-less.svelte",
+      "source": "<script module lang=\"ts\">\n  export const version: string = \"1.0\";\n</script>\n<script lang=\"ts\">\n  let name: string = \"Orbit\";\n</script>\n\n<div class=\"panel\">\n  <label>Name <input bind:value={name} /></label>\n  <p>{name} — {version}</p>\n</div>\n\n<style lang=\"less\">\n  @space: 12px;\n  .panel { padding: @space; border: 1px solid #ddd; }\n</style>\n",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 1,
+            "end": 7,
+            "tokenType": "tag"
+          },
+          {
+            "start": 8,
+            "end": 14,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 15,
+            "end": 19,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 19,
+            "end": 20,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 20,
+            "end": 24,
+            "tokenType": "string"
+          },
+          {
+            "start": 24,
+            "end": 25,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 25,
+            "end": 66,
+            "tokenType": "embedded-typescript"
+          },
+          {
+            "start": 66,
+            "end": 68,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 68,
+            "end": 74,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 74,
+            "end": 75,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 76,
+            "end": 77,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 77,
+            "end": 83,
+            "tokenType": "tag"
+          },
+          {
+            "start": 84,
+            "end": 88,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 88,
+            "end": 89,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 89,
+            "end": 93,
+            "tokenType": "string"
+          },
+          {
+            "start": 93,
+            "end": 94,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 94,
+            "end": 125,
+            "tokenType": "embedded-typescript"
+          },
+          {
+            "start": 125,
+            "end": 127,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 127,
+            "end": 133,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 133,
+            "end": 134,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 136,
+            "end": 137,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 137,
+            "end": 140,
+            "tokenType": "tag"
+          },
+          {
+            "start": 141,
+            "end": 146,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 146,
+            "end": 147,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 147,
+            "end": 154,
+            "tokenType": "string"
+          },
+          {
+            "start": 154,
+            "end": 155,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 158,
+            "end": 159,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 159,
+            "end": 164,
+            "tokenType": "tag"
+          },
+          {
+            "start": 164,
+            "end": 165,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 165,
+            "end": 169,
+            "tokenType": "text"
+          },
+          {
+            "start": 170,
+            "end": 171,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 171,
+            "end": 176,
+            "tokenType": "tag"
+          },
+          {
+            "start": 177,
+            "end": 187,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 187,
+            "end": 188,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 188,
+            "end": 194,
+            "tokenType": "string"
+          },
+          {
+            "start": 195,
+            "end": 197,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 197,
+            "end": 199,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 199,
+            "end": 204,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 204,
+            "end": 205,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 208,
+            "end": 209,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 209,
+            "end": 210,
+            "tokenType": "tag"
+          },
+          {
+            "start": 210,
+            "end": 211,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 211,
+            "end": 212,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 212,
+            "end": 216,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 216,
+            "end": 217,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 217,
+            "end": 219,
+            "tokenType": "text"
+          },
+          {
+            "start": 220,
+            "end": 221,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 221,
+            "end": 228,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 228,
+            "end": 229,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 229,
+            "end": 231,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 231,
+            "end": 232,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 232,
+            "end": 233,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 234,
+            "end": 236,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 236,
+            "end": 239,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 239,
+            "end": 240,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 242,
+            "end": 243,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 243,
+            "end": 248,
+            "tokenType": "tag"
+          },
+          {
+            "start": 249,
+            "end": 253,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 253,
+            "end": 254,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 254,
+            "end": 260,
+            "tokenType": "string"
+          },
+          {
+            "start": 260,
+            "end": 261,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 261,
+            "end": 332,
+            "tokenType": "embedded-less"
+          },
+          {
+            "start": 332,
+            "end": 334,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 334,
+            "end": 339,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 339,
+            "end": 340,
+            "tokenType": "punctuation"
+          }
+        ]
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9696969696969697,
+          "recall": 0.9696969696969697,
+          "f1": 0.9696969696969697,
+          "tp": 64,
+          "fp": 2,
+          "fn": 2,
+          "support": 66
+        },
+        "exactSpanMacroF1": 0.875,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9696969696969697,
+          "recall": 0.9696969696969697,
+          "f1": 0.9696969696969697,
+          "tp": 64,
+          "fp": 2,
+          "fn": 2,
+          "support": 66
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 35,
+            "fp": 0,
+            "fn": 0,
+            "support": 35
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 13,
+            "fp": 0,
+            "fn": 0,
+            "support": 13
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 2,
+            "support": 2
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-expression": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 165,
+          "end": 170,
+          "text": "Name ",
+          "tokenType": "text"
+        },
+        {
+          "start": 217,
+          "end": 220,
+          "text": " — ",
+          "tokenType": "text"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 165,
+          "end": 169,
+          "text": "Name",
+          "tokenType": "text"
+        },
+        {
+          "start": 217,
+          "end": 219,
+          "text": " —",
+          "tokenType": "text"
+        }
+      ]
+    },
+    {
+      "filename": "snippets.svelte",
+      "source": "<script lang=\"ts\">\n  let { heading = \"Inventory\" } = $props();\n  let rows = [{ name: \"Keyboard\", stock: 12 }];\n</script>\n\n{#snippet product(name, stock)}\n  <tr><td>{name}</td><td>{stock}</td></tr>\n{/snippet}\n\n<h2>{heading}</h2>\n<table>\n  <tbody>\n    {#each rows as row}\n      {@render product(row.name, row.stock)}\n    {/each}\n  </tbody>\n</table>\n",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 1,
+            "end": 7,
+            "tokenType": "tag"
+          },
+          {
+            "start": 8,
+            "end": 12,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 12,
+            "end": 13,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 13,
+            "end": 17,
+            "tokenType": "string"
+          },
+          {
+            "start": 17,
+            "end": 18,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 18,
+            "end": 111,
+            "tokenType": "embedded-typescript"
+          },
+          {
+            "start": 111,
+            "end": 113,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 113,
+            "end": 119,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 119,
+            "end": 120,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 122,
+            "end": 123,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 123,
+            "end": 131,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 132,
+            "end": 145,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 146,
+            "end": 151,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 151,
+            "end": 152,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 152,
+            "end": 153,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 156,
+            "end": 157,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 157,
+            "end": 159,
+            "tokenType": "tag"
+          },
+          {
+            "start": 159,
+            "end": 160,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 160,
+            "end": 161,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 161,
+            "end": 163,
+            "tokenType": "tag"
+          },
+          {
+            "start": 163,
+            "end": 164,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 164,
+            "end": 165,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 165,
+            "end": 169,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 169,
+            "end": 170,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 170,
+            "end": 172,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 172,
+            "end": 174,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 174,
+            "end": 175,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 175,
+            "end": 176,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 176,
+            "end": 178,
+            "tokenType": "tag"
+          },
+          {
+            "start": 178,
+            "end": 179,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 179,
+            "end": 180,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 180,
+            "end": 185,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 185,
+            "end": 186,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 186,
+            "end": 188,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 188,
+            "end": 190,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 190,
+            "end": 191,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 191,
+            "end": 193,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 193,
+            "end": 195,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 195,
+            "end": 196,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 197,
+            "end": 198,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 198,
+            "end": 206,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 206,
+            "end": 207,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 209,
+            "end": 210,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 210,
+            "end": 212,
+            "tokenType": "tag"
+          },
+          {
+            "start": 212,
+            "end": 213,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 213,
+            "end": 214,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 214,
+            "end": 221,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 221,
+            "end": 222,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 222,
+            "end": 224,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 224,
+            "end": 226,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 226,
+            "end": 227,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 228,
+            "end": 229,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 229,
+            "end": 234,
+            "tokenType": "tag"
+          },
+          {
+            "start": 234,
+            "end": 235,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 238,
+            "end": 239,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 239,
+            "end": 244,
+            "tokenType": "tag"
+          },
+          {
+            "start": 244,
+            "end": 245,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 250,
+            "end": 251,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 251,
+            "end": 256,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 257,
+            "end": 264,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 265,
+            "end": 268,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 268,
+            "end": 269,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 276,
+            "end": 277,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 277,
+            "end": 284,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 285,
+            "end": 313,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 313,
+            "end": 314,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 319,
+            "end": 320,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 320,
+            "end": 325,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 325,
+            "end": 326,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 329,
+            "end": 331,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 331,
+            "end": 336,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 336,
+            "end": 337,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 338,
+            "end": 340,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 340,
+            "end": 345,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 345,
+            "end": 346,
+            "tokenType": "punctuation"
+          }
+        ]
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9473684210526315,
+          "recall": 0.9,
+          "f1": 0.9230769230769231,
+          "tp": 72,
+          "fp": 4,
+          "fn": 8,
+          "support": 80
+        },
+        "exactSpanMacroF1": 0.8128998660913554,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9473684210526315,
+          "recall": 0.9,
+          "f1": 0.9230769230769231,
+          "tp": 72,
+          "fp": 4,
+          "fn": 8,
+          "support": 80
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "support": 6
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.9583333333333334,
+            "f1": 0.9787234042553191,
+            "tp": 46,
+            "fp": 0,
+            "fn": 2,
+            "support": 48
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 14,
+            "fp": 0,
+            "fn": 0,
+            "support": 14
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 4,
+            "support": 4
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0.5,
+            "recall": 0.8,
+            "f1": 0.6153846153846154,
+            "tp": 4,
+            "fp": 4,
+            "fn": 1,
+            "support": 5
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 132,
+          "end": 139,
+          "text": "product",
+          "tokenType": "variable"
+        },
+        {
+          "start": 139,
+          "end": 140,
+          "text": "(",
+          "tokenType": "punctuation"
+        },
+        {
+          "start": 140,
+          "end": 144,
+          "text": "name",
+          "tokenType": "variable"
+        },
+        {
+          "start": 144,
+          "end": 145,
+          "text": ",",
+          "tokenType": "punctuation"
+        },
+        {
+          "start": 146,
+          "end": 151,
+          "text": "stock",
+          "tokenType": "variable"
+        },
+        {
+          "start": 257,
+          "end": 261,
+          "text": "rows",
+          "tokenType": "embedded-expression"
+        },
+        {
+          "start": 262,
+          "end": 264,
+          "text": "as",
+          "tokenType": "keyword"
+        },
+        {
+          "start": 265,
+          "end": 268,
+          "text": "row",
+          "tokenType": "variable"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 132,
+          "end": 145,
+          "text": "product(name,",
+          "tokenType": "embedded-expression"
+        },
+        {
+          "start": 146,
+          "end": 151,
+          "text": "stock",
+          "tokenType": "embedded-expression"
+        },
+        {
+          "start": 257,
+          "end": 264,
+          "text": "rows as",
+          "tokenType": "embedded-expression"
+        },
+        {
+          "start": 265,
+          "end": 268,
+          "text": "row",
+          "tokenType": "embedded-expression"
+        }
+      ]
+    },
+    {
+      "filename": "typed-scss.svelte",
+      "source": "<script lang=\"ts\">\n  type Item = { title: string; visible: boolean };\n  let item: Item = $state({ title: \"星空 🌌\", visible: true });\n</script>\n\n{#if item.visible}\n  <aside class=\"notice\">{item.title} &amp; beyond</aside>\n{/if}\n\n<style lang=\"scss\">\n  $accent: #a855f7;\n  .notice {\n    color: $accent;\n    &:hover { opacity: 0.8; }\n  }\n</style>\n",
+      "result": {
+        "offsetEncoding": "utf-16",
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 1,
+            "end": 7,
+            "tokenType": "tag"
+          },
+          {
+            "start": 8,
+            "end": 12,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 12,
+            "end": 13,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 13,
+            "end": 17,
+            "tokenType": "string"
+          },
+          {
+            "start": 17,
+            "end": 18,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 18,
+            "end": 132,
+            "tokenType": "embedded-typescript"
+          },
+          {
+            "start": 132,
+            "end": 134,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 134,
+            "end": 140,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 140,
+            "end": 141,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 143,
+            "end": 144,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 144,
+            "end": 147,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 148,
+            "end": 160,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 160,
+            "end": 161,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 164,
+            "end": 165,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 165,
+            "end": 170,
+            "tokenType": "tag"
+          },
+          {
+            "start": 171,
+            "end": 176,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 176,
+            "end": 177,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 177,
+            "end": 185,
+            "tokenType": "string"
+          },
+          {
+            "start": 185,
+            "end": 186,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 186,
+            "end": 187,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 187,
+            "end": 197,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 197,
+            "end": 198,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 199,
+            "end": 204,
+            "tokenType": "entity"
+          },
+          {
+            "start": 204,
+            "end": 211,
+            "tokenType": "embedded-expression"
+          },
+          {
+            "start": 211,
+            "end": 213,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 213,
+            "end": 218,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 218,
+            "end": 219,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 220,
+            "end": 221,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 221,
+            "end": 224,
+            "tokenType": "keyword"
+          },
+          {
+            "start": 224,
+            "end": 225,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 227,
+            "end": 228,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 228,
+            "end": 233,
+            "tokenType": "tag"
+          },
+          {
+            "start": 234,
+            "end": 238,
+            "tokenType": "attribute"
+          },
+          {
+            "start": 238,
+            "end": 239,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 239,
+            "end": 245,
+            "tokenType": "string"
+          },
+          {
+            "start": 245,
+            "end": 246,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 246,
+            "end": 333,
+            "tokenType": "embedded-scss"
+          },
+          {
+            "start": 333,
+            "end": 335,
+            "tokenType": "punctuation"
+          },
+          {
+            "start": 335,
+            "end": 340,
+            "tokenType": "tag",
+            "modifiers": [
+              "closing"
+            ]
+          },
+          {
+            "start": 340,
+            "end": 341,
+            "tokenType": "punctuation"
+          }
+        ]
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.975609756097561,
+          "recall": 0.975609756097561,
+          "f1": 0.975609756097561,
+          "tp": 40,
+          "fp": 1,
+          "fn": 1,
+          "support": 41
+        },
+        "exactSpanMacroF1": 0.8800000000000001,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.975609756097561,
+          "recall": 0.975609756097561,
+          "f1": 0.975609756097561,
+          "tp": 40,
+          "fp": 1,
+          "fn": 1,
+          "support": 41
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 21,
+            "fp": 0,
+            "fn": 0,
+            "support": 21
+          },
+          "tag": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "attribute": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "support": 1
+          },
+          "entity": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-javascript": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-typescript": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-css": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-scss": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-less": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-expression": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "tp": 2,
+            "fp": 1,
+            "fn": 0,
+            "support": 2
+          },
+          "embedded-data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 204,
+          "end": 211,
+          "text": " beyond",
+          "tokenType": "text"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 204,
+          "end": 211,
+          "text": " beyond",
+          "tokenType": "embedded-expression"
+        }
+      ]
+    }
+  ],
+  "checkpointHash": "7e68dd44cac16de8afe8b5d48e871a36efbe537ea1a2241463a3afdae8557556",
+  "checkpointEpoch": 7,
+  "device": "mps"
+}
