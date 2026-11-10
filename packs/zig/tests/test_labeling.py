@@ -23,7 +23,7 @@ class ZigTeacherTests(unittest.TestCase):
     def test_quoted_unicode_bom_crlf_original_bytes(self):
         s='\ufeffconst @"星 🌌":u8=1;\r\n';r=label(source=s);self.assertEqual(r['spans'][0],dict(start=0,end=1,tokenType='punctuation'));encode(dict(source=s,documentKind='zig',result=r,contentHash=hashlib.sha256(s.encode()).hexdigest()),Schema.load(ROOT/'schema.json'))
     def test_current_contextual_call_is_a_function(self):
-        s='fn f() void { const value:Thing=.init(); _=value; }';r=label(source=s);at=s.index('init');self.assertIn(dict(start=at,end=at+4,tokenType='function'),r['spans'])
+        s='fn f(comptime Thing:type) void { const value:Thing=.init(); _=value; }';r=label(source=s);at=s.index('init');self.assertIn(dict(start=at,end=at+4,tokenType='function'),r['spans'])
     def test_invalid_input_is_quarantined(self):
         for s in ['fn broken( {','const text="unfinished;','/* block comments are not Zig */']:
             with self.assertRaises(ValueError):label(source=s)
