@@ -843,3 +843,70 @@ challenge-php:
 export-php-model:
 	@test -n "$(PHP_CHECKPOINT)" -a -n "$(PHP_TEST_REPORT)" || (echo 'Set PHP_CHECKPOINT and PHP_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.php.export_model --checkpoint "$(PHP_CHECKPOINT)" --test-report "$(PHP_TEST_REPORT)"
+
+SVELTE_DEVICE ?= auto
+SVELTE_EPOCHS ?= 3
+SVELTE_BATCH_SIZE ?= 32
+SVELTE_LEARNING_RATE ?=
+SVELTE_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-svelte dataset-svelte-tools dataset-svelte-sources dataset-svelte-curriculum dataset-svelte-collect dataset-svelte-label dataset-svelte-validate dataset-svelte-prepare test-labeling-svelte train-svelte-smoke train-svelte continue-svelte predict-svelte evaluate-svelte challenge-svelte export-svelte-model
+
+dataset-svelte-tools:
+	$(PYTHON) -m packs.svelte.labeling.tools
+
+dataset-svelte-sources:
+	$(PYTHON) -m packs.svelte.dataset.fetch_sources
+
+dataset-svelte:
+	$(MAKE) dataset-svelte-tools
+	$(MAKE) dataset-svelte-sources
+	$(MAKE) dataset-svelte-curriculum
+	$(MAKE) dataset-svelte-collect
+	$(MAKE) dataset-svelte-label
+	$(MAKE) dataset-svelte-validate
+	$(MAKE) dataset-svelte-prepare
+
+dataset-svelte-curriculum:
+	$(PYTHON) -m packs.svelte.dataset.generate_curriculum
+
+dataset-svelte-collect:
+	$(PYTHON) -m packs.svelte.dataset.pipeline collect
+
+dataset-svelte-label:
+	$(PYTHON) -m packs.svelte.dataset.pipeline label
+
+dataset-svelte-validate:
+	$(PYTHON) -m packs.svelte.dataset.pipeline validate
+
+dataset-svelte-prepare:
+	$(PYTHON) -m training.svelte.prepare
+
+test-labeling-svelte:
+	$(PYTHON) -m unittest discover -s packs/svelte/tests -v
+
+train-svelte-smoke:
+	$(PYTHON) -m training.svelte.train --smoke --epochs 1 --device $(SVELTE_DEVICE) $(if $(SVELTE_RUN),--output-dir "$(SVELTE_RUN)") $(if $(SVELTE_INIT_FROM),--init-from "$(SVELTE_INIT_FROM)")
+
+train-svelte:
+	$(PYTHON) -m training.svelte.train --epochs $(SVELTE_EPOCHS) --device $(SVELTE_DEVICE) --batch-size $(SVELTE_BATCH_SIZE) $(if $(SVELTE_LEARNING_RATE),--learning-rate $(SVELTE_LEARNING_RATE)) $(if $(SVELTE_RUN),--output-dir "$(SVELTE_RUN)") $(if $(SVELTE_INIT_FROM),--init-from "$(SVELTE_INIT_FROM)")
+
+continue-svelte:
+	@test -n "$(SVELTE_CHECKPOINT)" || (echo 'Set SVELTE_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.svelte.train --resume "$(SVELTE_CHECKPOINT)" --epochs $(SVELTE_EPOCHS) --device $(SVELTE_DEVICE)
+
+predict-svelte:
+	@test -n "$(SVELTE_SOURCE)" || (echo 'Set SVELTE_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.svelte.predict --device $(SVELTE_DEVICE) --file "$(SVELTE_SOURCE)" $(if $(SVELTE_CHECKPOINT),--checkpoint "$(SVELTE_CHECKPOINT)")
+
+evaluate-svelte:
+	@test -n "$(SVELTE_CHECKPOINT)" || (echo 'Set SVELTE_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.svelte.evaluate --checkpoint "$(SVELTE_CHECKPOINT)" --device $(SVELTE_DEVICE) --split $(SVELTE_EVAL_SPLIT)
+
+challenge-svelte:
+	@test -n "$(SVELTE_CHECKPOINT)" || (echo 'Set SVELTE_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.svelte.challenge --checkpoint "$(SVELTE_CHECKPOINT)" --device $(SVELTE_DEVICE)
+
+export-svelte-model:
+	@test -n "$(SVELTE_CHECKPOINT)" -a -n "$(SVELTE_TEST_REPORT)" || (echo 'Set SVELTE_CHECKPOINT and SVELTE_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.svelte.export_model --checkpoint "$(SVELTE_CHECKPOINT)" --test-report "$(SVELTE_TEST_REPORT)"
