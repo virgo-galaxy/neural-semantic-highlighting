@@ -8,8 +8,9 @@ Markup uses `tag`, `attribute`, `string`, `text`, `entity`, `comment` and
 `punctuation`. Closing tag names have `closing`. Preserve original spelling,
 Unicode, whitespace, BOM and CRLF; never synthesize implied HTML tags.
 
-Whole directive/shorthand/spread attributes are `attribute`; ordinary attribute
-names are `attribute`, equals signs `punctuation`, complete values `string`.
+Attribute names (including directives) are `attribute`, equals signs
+`punctuation`, complete values `string`. Shorthand/spread attributes are whole
+`attribute` spans.
 This first baseline deliberately keeps event handlers, bind/class/style/use/on
 directives, quoted interpolations, Tailwind classes and spreads opaque inside
 attribute spans, like the existing Vue contract. It does not claim semantic roles

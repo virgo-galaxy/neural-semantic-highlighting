@@ -18,3 +18,10 @@ validates full coverage and prepares immutable byte snapshots. Natural and focus
 streams stay separate. Exact/lexical/normalized cross-family copies are excluded;
 source-family assignments in `split-groups.json` are frozen before training.
 Malformed/unmapped sources are quarantined with their original identities.
+
+The boundary revision adds 480 original mixed-body tasks in 20 intact families.
+It addresses visible directive boundaries, JS/TS versus style confusion and
+markup-like text inside long scripts. Earlier source/Gold snapshots and all 140
+previous family assignments are preserved. The second audit excludes 93 unique
+cross-family copies; exclusion rules are unchanged. Directive keys/equals/values
+now follow one consistent markup convention instead of whole directive spans.

@@ -67,7 +67,8 @@ export async function label(source) {
     for (const a of attributes) {
       if (source.slice(cursor, a.start).trim()) throw Error("Unmapped tag gap");
       const raw = source.slice(a.start, a.end);
-      if (a.type !== "Attribute" || raw.startsWith("{")) {
+      if (a.type !== "Attribute") features.add("directives");
+      if (raw.startsWith("{")) {
         add(a.start, a.end, "attribute");
         features.add("directives");
       } else {

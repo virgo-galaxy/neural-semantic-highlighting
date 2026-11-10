@@ -869,6 +869,7 @@ dataset-svelte:
 
 dataset-svelte-curriculum:
 	$(PYTHON) -m packs.svelte.dataset.generate_curriculum
+	$(PYTHON) -m packs.svelte.dataset.generate_boundaries
 
 dataset-svelte-collect:
 	$(PYTHON) -m packs.svelte.dataset.pipeline collect
