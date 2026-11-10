@@ -1046,3 +1046,71 @@ challenge-zig:
 export-zig-model:
 	@test -n "$(ZIG_CHECKPOINT)" -a -n "$(ZIG_TEST_REPORT)" || (echo 'Set ZIG_CHECKPOINT and ZIG_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.zig.export_model --checkpoint "$(ZIG_CHECKPOINT)" --test-report "$(ZIG_TEST_REPORT)"
+
+DART_DEVICE ?= auto
+DART_EPOCHS ?= 3
+DART_BATCH_SIZE ?= 32
+DART_LEARNING_RATE ?=
+DART_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-dart dataset-dart-tools dataset-dart-sources dataset-dart-curriculum dataset-dart-collect dataset-dart-label dataset-dart-validate dataset-dart-prepare test-labeling-dart train-dart-smoke train-dart continue-dart predict-dart evaluate-dart challenge-dart export-dart-model
+
+dataset-dart-tools:
+	$(PYTHON) -m packs.dart.labeling.tools
+
+dataset-dart-sources:
+	$(PYTHON) -m packs.dart.dataset.fetch_sources
+
+dataset-dart:
+	$(MAKE) dataset-dart-tools
+	$(MAKE) dataset-dart-sources
+	$(MAKE) dataset-dart-curriculum
+	$(MAKE) dataset-dart-collect
+	$(MAKE) dataset-dart-label
+	$(MAKE) dataset-dart-validate
+	$(MAKE) dataset-dart-prepare
+
+dataset-dart-curriculum:
+	$(PYTHON) -m packs.dart.dataset.generate_curriculum
+	$(PYTHON) -m packs.dart.dataset.generate_literals
+
+dataset-dart-collect:
+	$(PYTHON) -m packs.dart.dataset.pipeline collect
+
+dataset-dart-label:
+	$(PYTHON) -m packs.dart.dataset.pipeline label
+
+dataset-dart-validate:
+	$(PYTHON) -m packs.dart.dataset.pipeline validate
+
+dataset-dart-prepare:
+	$(PYTHON) -m training.dart.prepare
+
+test-labeling-dart:
+	$(PYTHON) -m unittest discover -s packs/dart/tests -v
+
+train-dart-smoke:
+	$(PYTHON) -m training.dart.train --smoke --epochs 1 --device $(DART_DEVICE) $(if $(DART_RUN),--output-dir "$(DART_RUN)") $(if $(DART_INIT_FROM),--init-from "$(DART_INIT_FROM)")
+
+train-dart:
+	$(PYTHON) -m training.dart.train --epochs $(DART_EPOCHS) --device $(DART_DEVICE) --batch-size $(DART_BATCH_SIZE) $(if $(DART_LEARNING_RATE),--learning-rate $(DART_LEARNING_RATE)) $(if $(DART_RUN),--output-dir "$(DART_RUN)") $(if $(DART_INIT_FROM),--init-from "$(DART_INIT_FROM)")
+
+continue-dart:
+	@test -n "$(DART_CHECKPOINT)" || (echo 'Set DART_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.dart.train --resume "$(DART_CHECKPOINT)" --epochs $(DART_EPOCHS) --device $(DART_DEVICE)
+
+predict-dart:
+	@test -n "$(DART_SOURCE)" || (echo 'Set DART_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.dart.predict --device $(DART_DEVICE) --file "$(DART_SOURCE)" $(if $(DART_CHECKPOINT),--checkpoint "$(DART_CHECKPOINT)")
+
+evaluate-dart:
+	@test -n "$(DART_CHECKPOINT)" || (echo 'Set DART_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.dart.evaluate --checkpoint "$(DART_CHECKPOINT)" --device $(DART_DEVICE) --split $(DART_EVAL_SPLIT)
+
+challenge-dart:
+	@test -n "$(DART_CHECKPOINT)" || (echo 'Set DART_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.dart.challenge --checkpoint "$(DART_CHECKPOINT)" --device $(DART_DEVICE)
+
+export-dart-model:
+	@test -n "$(DART_CHECKPOINT)" -a -n "$(DART_TEST_REPORT)" || (echo 'Set DART_CHECKPOINT and DART_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.dart.export_model --checkpoint "$(DART_CHECKPOINT)" --test-report "$(DART_TEST_REPORT)"

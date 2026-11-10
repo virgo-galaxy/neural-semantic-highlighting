@@ -161,6 +161,9 @@ check:
 	$(MAKE) test-labeling-cpp
 	$(PYTHON) -m compileall -q training/cpp packs/cpp/runtime
 	$(PYTHON) -c 'import packs.cpp.runtime.local'
+	$(MAKE) test-labeling-dart
+	$(PYTHON) -m compileall -q training/dart packs/dart/runtime
+	$(PYTHON) -c 'import packs.dart.runtime.local'
 	$(MAKE) test-labeling-zig
 	$(PYTHON) -m compileall -q training/zig packs/zig/runtime
 	$(PYTHON) -c 'import packs.zig.runtime.local'
