@@ -1,0 +1,4214 @@
+{
+  "split": "validation",
+  "cases": [
+    {
+      "path": "src/Illuminate/View/Compilers/Concerns/CompilesStyles.php",
+      "repository": "laravel-php-v1",
+      "source": "<?php\n\nnamespace Illuminate\\View\\Compilers\\Concerns;\n\ntrait CompilesStyles\n{\n    /**\n     * Compile the conditional style statement into valid PHP.\n     *\n     * @param  string  $expression\n     * @return string\n     */\n    protected function compileStyle($expression)\n    {\n        $expression = is_null($expression) ? '([])' : $expression;\n\n        return \"style=\\\"<?php echo \\Illuminate\\Support\\Arr::toCssStyles{$expression} ?>\\\"\";\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.7659574468085106,
+          "recall": 0.8780487804878049,
+          "f1": 0.8181818181818182,
+          "tp": 36,
+          "fp": 11,
+          "fn": 5,
+          "support": 41
+        },
+        "exactSpanMacroF1": 0.6901791019438078,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.7659574468085106,
+          "recall": 0.8780487804878049,
+          "f1": 0.8181818181818182,
+          "tp": 36,
+          "fp": 11,
+          "fn": 5,
+          "support": 41
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "string": {
+            "precision": 0.3333333333333333,
+            "recall": 0.3333333333333333,
+            "f1": 0.3333333333333333,
+            "tp": 1,
+            "fp": 2,
+            "fn": 2,
+            "support": 3
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "tp": 3,
+            "fp": 1,
+            "fn": 0,
+            "support": 3
+          },
+          "punctuation": {
+            "precision": 0.8888888888888888,
+            "recall": 1.0,
+            "f1": 0.9411764705882353,
+            "tp": 16,
+            "fp": 2,
+            "fn": 0,
+            "support": 16
+          },
+          "namespace": {
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.8888888888888888,
+            "tp": 4,
+            "fp": 1,
+            "fn": 0,
+            "support": 4
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "support": 0
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "trait": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 0.4,
+            "f1": 0.5714285714285714,
+            "tp": 2,
+            "fp": 0,
+            "fn": 3,
+            "support": 5
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "support": 0
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "constant": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-html": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "$expression",
+          "tokenType": "parameter",
+          "start": 283,
+          "end": 294
+        },
+        {
+          "text": "$expression",
+          "tokenType": "parameter",
+          "start": 329,
+          "end": 340
+        },
+        {
+          "text": "\"style=\\\"<?php echo \\Illuminate\\Support\\Arr::toCssStyles",
+          "tokenType": "string",
+          "start": 358,
+          "end": 414
+        },
+        {
+          "text": "$expression",
+          "tokenType": "parameter",
+          "start": 415,
+          "end": 426
+        },
+        {
+          "text": " ?>\\\"\"",
+          "tokenType": "string",
+          "start": 427,
+          "end": 433
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "$expression",
+          "tokenType": "variable",
+          "start": 283,
+          "end": 294
+        },
+        {
+          "text": "$expression",
+          "tokenType": "variable",
+          "start": 329,
+          "end": 340
+        },
+        {
+          "text": "\"style=\\\"<?php echo \\Illuminate",
+          "tokenType": "string",
+          "start": 358,
+          "end": 389
+        },
+        {
+          "text": "\\",
+          "tokenType": "punctuation",
+          "start": 389,
+          "end": 390
+        },
+        {
+          "text": "Support",
+          "tokenType": "namespace",
+          "start": 390,
+          "end": 397
+        },
+        {
+          "text": "\\",
+          "tokenType": "punctuation",
+          "start": 397,
+          "end": 398
+        },
+        {
+          "text": "Arr",
+          "tokenType": "class",
+          "start": 398,
+          "end": 401
+        },
+        {
+          "text": "::",
+          "tokenType": "operator",
+          "start": 401,
+          "end": 403
+        },
+        {
+          "text": "toCssStyles",
+          "tokenType": "class",
+          "start": 403,
+          "end": 414
+        },
+        {
+          "text": "$expression",
+          "tokenType": "variable",
+          "start": 415,
+          "end": 426
+        },
+        {
+          "text": "?>\\\"\"",
+          "tokenType": "string",
+          "start": 428,
+          "end": 433
+        }
+      ]
+    },
+    {
+      "path": "src/Illuminate/Auth/Passwords/CanResetPassword.php",
+      "repository": "laravel-php-v1",
+      "source": "<?php\n\nnamespace Illuminate\\Auth\\Passwords;\n\nuse Illuminate\\Auth\\Notifications\\ResetPassword as ResetPasswordNotification;\n\ntrait CanResetPassword\n{\n    /**\n     * Get the e-mail address where password reset links are sent.\n     *\n     * @return string\n     */\n    public function getEmailForPasswordReset()\n    {\n        return $this->email;\n    }\n\n    /**\n     * Send the password reset notification.\n     *\n     * @param  string  $token\n     * @return void\n     */\n    public function sendPasswordResetNotification(#[\\SensitiveParameter] $token)\n    {\n        $this->notify(new ResetPasswordNotification($token));\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 60,
+          "fp": 0,
+          "fn": 0,
+          "support": 60
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 60,
+          "fp": 0,
+          "fn": 0,
+          "support": 60
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 26,
+            "fp": 0,
+            "fn": 0,
+            "support": 26
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "trait": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "constant": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-html": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "path": "src/Monolog/Handler/FormattableHandlerInterface.php",
+      "repository": "monolog-php-v1",
+      "source": "<?php declare(strict_types=1);\n\n/*\n * This file is part of the Monolog package.\n *\n * (c) Jordi Boggiano <j.boggiano@seld.be>\n *\n * For the full copyright and license information, please view the LICENSE\n * file that was distributed with this source code.\n */\n\nnamespace Monolog\\Handler;\n\nuse Monolog\\Formatter\\FormatterInterface;\n\n/**\n * Interface to describe loggers that have a formatter\n *\n * @author Jordi Boggiano <j.boggiano@seld.be>\n */\ninterface FormattableHandlerInterface\n{\n    /**\n     * Sets the formatter.\n     *\n     * @return HandlerInterface self\n     */\n    public function setFormatter(FormatterInterface $formatter): HandlerInterface;\n\n    /**\n     * Gets the formatter.\n     */\n    public function getFormatter(): FormatterInterface;\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 46,
+          "fp": 0,
+          "fn": 0,
+          "support": 46
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 46,
+          "fp": 0,
+          "fn": 0,
+          "support": 46
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "interface": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "trait": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "variable": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "property": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "constant": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-html": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "path": "src/Monolog/Handler/NullHandler.php",
+      "repository": "monolog-php-v1",
+      "source": "<?php declare(strict_types=1);\n\n/*\n * This file is part of the Monolog package.\n *\n * (c) Jordi Boggiano <j.boggiano@seld.be>\n *\n * For the full copyright and license information, please view the LICENSE\n * file that was distributed with this source code.\n */\n\nnamespace Monolog\\Handler;\n\nuse Monolog\\Level;\nuse Psr\\Log\\LogLevel;\nuse Monolog\\Logger;\nuse Monolog\\LogRecord;\n\n/**\n * Blackhole\n *\n * Any record it can handle will be thrown away. This can be used\n * to put on top of an existing stack to override it temporarily.\n *\n * @author Jordi Boggiano <j.boggiano@seld.be>\n */\nclass NullHandler extends Handler\n{\n    private Level $level;\n\n    /**\n     * @param string|int|Level $level The minimum logging level at which this handler will be triggered\n     *\n     * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level\n     */\n    public function __construct(string|int|Level $level = Level::Debug)\n    {\n        $this->level = Logger::toMonologLevel($level);\n    }\n\n    /**\n     * @inheritDoc\n     */\n    public function isHandling(LogRecord $record): bool\n    {\n        return $record->level->value >= $this->level->value;\n    }\n\n    /**\n     * @inheritDoc\n     */\n    public function handle(LogRecord $record): bool\n    {\n        return $record->level->value >= $this->level->value;\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9920634920634921,
+          "recall": 0.9920634920634921,
+          "f1": 0.9920634920634921,
+          "tp": 125,
+          "fp": 1,
+          "fn": 1,
+          "support": 126
+        },
+        "exactSpanMacroF1": 0.9833024118738404,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9920634920634921,
+          "recall": 0.9920634920634921,
+          "f1": 0.9920634920634921,
+          "tp": 125,
+          "fp": 1,
+          "fn": 1,
+          "support": 126
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 22,
+            "fp": 0,
+            "fn": 0,
+            "support": 22
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 21,
+            "fp": 0,
+            "fn": 0,
+            "support": 21
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 34,
+            "fp": 0,
+            "fn": 0,
+            "support": 34
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "trait": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "support": 6
+          },
+          "variable": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "tp": 3,
+            "fp": 1,
+            "fn": 0,
+            "support": 3
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "constant": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-html": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 1277,
+          "end": 1284
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 1277,
+          "end": 1284
+        }
+      ]
+    },
+    {
+      "path": "src/Monolog/Handler/FallbackGroupHandler.php",
+      "repository": "monolog-php-v1",
+      "source": "<?php declare(strict_types=1);\n\n/*\n * This file is part of the Monolog package.\n *\n * (c) Jordi Boggiano <j.boggiano@seld.be>\n *\n * For the full copyright and license information, please view the LICENSE\n * file that was distributed with this source code.\n */\n\nnamespace Monolog\\Handler;\n\nuse Throwable;\nuse Monolog\\LogRecord;\n\n/**\n * Forwards records to at most one handler\n *\n * If a handler fails, the exception is suppressed and the record is forwarded to the next handler.\n *\n * As soon as one handler handles a record successfully, the handling stops there.\n */\nclass FallbackGroupHandler extends GroupHandler\n{\n    /**\n     * @inheritDoc\n     */\n    public function handle(LogRecord $record): bool\n    {\n        if (\\count($this->processors) > 0) {\n            $record = $this->processRecord($record);\n        }\n        foreach ($this->handlers as $handler) {\n            try {\n                $handler->handle(clone $record);\n                break;\n            } catch (Throwable $e) {\n                // What throwable?\n            }\n        }\n\n        return false === $this->bubble;\n    }\n\n    /**\n     * @inheritDoc\n     */\n    public function handleBatch(array $records): void\n    {\n        if (\\count($this->processors) > 0) {\n            $processed = [];\n            foreach ($records as $record) {\n                $processed[] = $this->processRecord($record);\n            }\n            $records = $processed;\n        }\n\n        foreach ($this->handlers as $handler) {\n            try {\n                $handler->handleBatch(array_map(fn ($record) => clone $record, $records));\n                break;\n            } catch (Throwable $e) {\n                // What throwable?\n            }\n        }\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.949238578680203,
+          "recall": 0.949238578680203,
+          "f1": 0.949238578680203,
+          "tp": 187,
+          "fp": 10,
+          "fn": 10,
+          "support": 197
+        },
+        "exactSpanMacroF1": 0.9034050637709173,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9441624365482234,
+          "recall": 0.9441624365482234,
+          "f1": 0.9441624365482234,
+          "tp": 186,
+          "fp": 11,
+          "fn": 11,
+          "support": 197
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.9696969696969697,
+            "f1": 0.9846153846153847,
+            "tp": 32,
+            "fp": 0,
+            "fn": 1,
+            "support": 33
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 21,
+            "fp": 0,
+            "fn": 0,
+            "support": 21
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 82,
+            "fp": 0,
+            "fn": 0,
+            "support": 82
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "type": {
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666,
+            "tp": 1,
+            "fp": 1,
+            "fn": 0,
+            "support": 1
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "support": 6
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "trait": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 0.6666666666666666,
+            "recall": 0.4,
+            "f1": 0.5,
+            "tp": 4,
+            "fp": 2,
+            "fn": 6,
+            "support": 10
+          },
+          "variable": {
+            "precision": 0.6956521739130435,
+            "recall": 0.8888888888888888,
+            "f1": 0.7804878048780488,
+            "tp": 16,
+            "fp": 7,
+            "fn": 2,
+            "support": 18
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "constant": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-html": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 768,
+          "end": 775
+        },
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 924,
+          "end": 931
+        },
+        {
+          "text": "Throwable",
+          "tokenType": "class",
+          "start": 978,
+          "end": 987
+        },
+        {
+          "text": "false",
+          "tokenType": "keyword",
+          "start": 1069,
+          "end": 1074
+        },
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 1366,
+          "end": 1373
+        },
+        {
+          "text": "$records",
+          "tokenType": "parameter",
+          "start": 1402,
+          "end": 1410
+        },
+        {
+          "text": "$processed",
+          "tokenType": "variable",
+          "start": 1413,
+          "end": 1423
+        },
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 1554,
+          "end": 1561
+        },
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 1572,
+          "end": 1579
+        },
+        {
+          "text": "$records",
+          "tokenType": "parameter",
+          "start": 1581,
+          "end": 1589
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 768,
+          "end": 775
+        },
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 924,
+          "end": 931
+        },
+        {
+          "text": "Throwable",
+          "tokenType": "type",
+          "start": 978,
+          "end": 987
+        },
+        {
+          "text": "false",
+          "tokenType": "variable",
+          "start": 1069,
+          "end": 1074
+        },
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 1366,
+          "end": 1373
+        },
+        {
+          "text": "$records",
+          "tokenType": "variable",
+          "start": 1402,
+          "end": 1410
+        },
+        {
+          "text": "$processed",
+          "tokenType": "parameter",
+          "start": 1413,
+          "end": 1423
+        },
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 1554,
+          "end": 1561
+        },
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 1572,
+          "end": 1579
+        },
+        {
+          "text": "$records",
+          "tokenType": "variable",
+          "start": 1581,
+          "end": 1589
+        }
+      ]
+    },
+    {
+      "path": "src/Illuminate/Database/Console/WipeCommand.php",
+      "repository": "laravel-php-v1",
+      "source": "<?php\n\nnamespace Illuminate\\Database\\Console;\n\nuse Illuminate\\Console\\Command;\nuse Illuminate\\Console\\ConfirmableTrait;\nuse Illuminate\\Console\\Prohibitable;\nuse Symfony\\Component\\Console\\Attribute\\AsCommand;\nuse Symfony\\Component\\Console\\Input\\InputOption;\n\n#[AsCommand(name: 'db:wipe')]\nclass WipeCommand extends Command\n{\n    use ConfirmableTrait, Prohibitable;\n\n    /**\n     * The console command name.\n     *\n     * @var string\n     */\n    protected $name = 'db:wipe';\n\n    /**\n     * The console command description.\n     *\n     * @var string\n     */\n    protected $description = 'Drop all tables, views, and types';\n\n    /**\n     * Execute the console command.\n     *\n     * @return int\n     */\n    public function handle()\n    {\n        if ($this->isProhibited() ||\n            ! $this->confirmToProceed()) {\n            return Command::FAILURE;\n        }\n\n        $database = $this->input->getOption('database');\n\n        if ($this->option('drop-views')) {\n            $this->dropAllViews($database);\n\n            $this->components->info('Dropped all views successfully.');\n        }\n\n        $this->dropAllTables($database);\n\n        $this->components->info('Dropped all tables successfully.');\n\n        if ($this->option('drop-types')) {\n            $this->dropAllTypes($database);\n\n            $this->components->info('Dropped all types successfully.');\n        }\n\n        return 0;\n    }\n\n    /**\n     * Drop all of the database tables.\n     *\n     * @param  string  $database\n     * @return void\n     */\n    protected function dropAllTables($database)\n    {\n        $this->laravel['db']->connection($database)\n            ->getSchemaBuilder()\n            ->dropAllTables();\n    }\n\n    /**\n     * Drop all of the database views.\n     *\n     * @param  string  $database\n     * @return void\n     */\n    protected function dropAllViews($database)\n    {\n        $this->laravel['db']->connection($database)\n            ->getSchemaBuilder()\n            ->dropAllViews();\n    }\n\n    /**\n     * Drop all of the database types.\n     *\n     * @param  string  $database\n     * @return void\n     */\n    protected function dropAllTypes($database)\n    {\n        $this->laravel['db']->connection($database)\n            ->getSchemaBuilder()\n            ->dropAllTypes();\n    }\n\n    /**\n     * Get the console command options.\n     *\n     * @return array\n     */\n    protected function getOptions()\n    {\n        return [\n            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use'],\n            ['drop-views', null, InputOption::VALUE_NONE, 'Drop all tables and views'],\n            ['drop-types', null, InputOption::VALUE_NONE, 'Drop all tables and types (Postgres only)'],\n            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production'],\n        ];\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9883381924198251,
+          "recall": 0.9883381924198251,
+          "f1": 0.9883381924198251,
+          "tp": 339,
+          "fp": 4,
+          "fn": 4,
+          "support": 343
+        },
+        "exactSpanMacroF1": 0.9780255043628685,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9883381924198251,
+          "recall": 0.9883381924198251,
+          "f1": 0.9883381924198251,
+          "tp": 339,
+          "fp": 4,
+          "fn": 4,
+          "support": 343
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.96875,
+            "f1": 0.9841269841269841,
+            "tp": 31,
+            "fp": 0,
+            "fn": 1,
+            "support": 32
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "string": {
+            "precision": 0.9523809523809523,
+            "recall": 1.0,
+            "f1": 0.975609756097561,
+            "tp": 20,
+            "fp": 1,
+            "fn": 0,
+            "support": 20
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 38,
+            "fp": 0,
+            "fn": 0,
+            "support": 38
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 149,
+            "fp": 0,
+            "fn": 0,
+            "support": 149
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 17,
+            "fp": 0,
+            "fn": 0,
+            "support": 17
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 14,
+            "fp": 0,
+            "fn": 0,
+            "support": 14
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "trait": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 25,
+            "fp": 0,
+            "fn": 0,
+            "support": 25
+          },
+          "constructor": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "parameter": {
+            "precision": 0.7,
+            "recall": 1.0,
+            "f1": 0.8235294117647058,
+            "tp": 7,
+            "fp": 3,
+            "fn": 0,
+            "support": 7
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "tp": 15,
+            "fp": 0,
+            "fn": 3,
+            "support": 18
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          },
+          "constant": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-html": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "$database",
+          "tokenType": "variable",
+          "start": 997,
+          "end": 1006
+        },
+        {
+          "text": "$database",
+          "tokenType": "variable",
+          "start": 1122,
+          "end": 1131
+        },
+        {
+          "text": "$database",
+          "tokenType": "variable",
+          "start": 1280,
+          "end": 1289
+        },
+        {
+          "text": "null",
+          "tokenType": "keyword",
+          "start": 2627,
+          "end": 2631
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "$database",
+          "tokenType": "parameter",
+          "start": 997,
+          "end": 1006
+        },
+        {
+          "text": "$database",
+          "tokenType": "parameter",
+          "start": 1122,
+          "end": 1131
+        },
+        {
+          "text": "$database",
+          "tokenType": "parameter",
+          "start": 1280,
+          "end": 1289
+        },
+        {
+          "text": "null",
+          "tokenType": "string",
+          "start": 2627,
+          "end": 2631
+        }
+      ]
+    },
+    {
+      "path": "src/Monolog/Formatter/LogstashFormatter.php",
+      "repository": "monolog-php-v1",
+      "source": "<?php declare(strict_types=1);\n\n/*\n * This file is part of the Monolog package.\n *\n * (c) Jordi Boggiano <j.boggiano@seld.be>\n *\n * For the full copyright and license information, please view the LICENSE\n * file that was distributed with this source code.\n */\n\nnamespace Monolog\\Formatter;\n\nuse Monolog\\LogRecord;\n\n/**\n * Serializes a log message to Logstash Event Format\n *\n * @see https://www.elastic.co/products/logstash\n * @see https://github.com/elastic/logstash/blob/master/logstash-core/src/main/java/org/logstash/Event.java\n *\n * @author Tim Mower <timothy.mower@gmail.com>\n */\nclass LogstashFormatter extends NormalizerFormatter\n{\n    /**\n     * @var string the name of the system for the Logstash log message, used to fill the @source field\n     */\n    protected string $systemName;\n\n    /**\n     * @var string an application name for the Logstash log message, used to fill the @type field\n     */\n    protected string $applicationName;\n\n    /**\n     * @var string the key for 'extra' fields from the Monolog record\n     */\n    protected string $extraKey;\n\n    /**\n     * @var string the key for 'context' fields from the Monolog record\n     */\n    protected string $contextKey;\n\n    /**\n     * @param string      $applicationName The application that sends the data, used as the \"type\" field of logstash\n     * @param string|null $systemName      The system/machine name, used as the \"source\" field of logstash, defaults to the hostname of the machine\n     * @param string      $extraKey        The key for extra keys inside logstash \"fields\", defaults to extra\n     * @param string      $contextKey      The key for context keys inside logstash \"fields\", defaults to context\n     */\n    public function __construct(string $applicationName, ?string $systemName = null, string $extraKey = 'extra', string $contextKey = 'context')\n    {\n        // logstash requires a ISO 8601 format date with optional millisecond precision.\n        parent::__construct('Y-m-d\\TH:i:s.uP');\n\n        $this->systemName = $systemName === null ? (string) gethostname() : $systemName;\n        $this->applicationName = $applicationName;\n        $this->extraKey = $extraKey;\n        $this->contextKey = $contextKey;\n    }\n\n    /**\n     * @inheritDoc\n     */\n    public function format(LogRecord $record): string\n    {\n        $recordData = parent::format($record);\n\n        $message = [\n            '@timestamp' => $recordData['datetime'],\n            '@version' => 1,\n            'host' => $this->systemName,\n        ];\n        if (isset($recordData['message'])) {\n            $message['message'] = $recordData['message'];\n        }\n        if (isset($recordData['channel'])) {\n            $message['type'] = $recordData['channel'];\n            $message['channel'] = $recordData['channel'];\n        }\n        if (isset($recordData['level_name'])) {\n            $message['level'] = $recordData['level_name'];\n        }\n        if (isset($recordData['level'])) {\n            $message['monolog_level'] = $recordData['level'];\n        }\n        if ('' !== $this->applicationName) {\n            $message['type'] = $this->applicationName;\n        }\n        if (\\count($recordData['extra']) > 0) {\n            $message[$this->extraKey] = $recordData['extra'];\n        }\n        if (\\count($recordData['context']) > 0) {\n            $message[$this->contextKey] = $recordData['context'];\n        }\n\n        return $this->toJson($message) . \"\\n\";\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9941002949852508,
+          "recall": 0.9941002949852508,
+          "f1": 0.9941002949852508,
+          "tp": 337,
+          "fp": 2,
+          "fn": 2,
+          "support": 339
+        },
+        "exactSpanMacroF1": 0.9919467787114845,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9882005899705014,
+          "recall": 0.9882005899705014,
+          "f1": 0.9882005899705014,
+          "tp": 335,
+          "fp": 4,
+          "fn": 4,
+          "support": 339
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 36,
+            "fp": 0,
+            "fn": 0,
+            "support": 36
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 28,
+            "fp": 0,
+            "fn": 0,
+            "support": 28
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 43,
+            "fp": 0,
+            "fn": 0,
+            "support": 43
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 141,
+            "fp": 0,
+            "fn": 0,
+            "support": 141
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "type": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "trait": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "parameter": {
+            "precision": 0.8461538461538461,
+            "recall": 1.0,
+            "f1": 0.9166666666666666,
+            "tp": 11,
+            "fp": 2,
+            "fn": 0,
+            "support": 11
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 0.9428571428571428,
+            "f1": 0.9705882352941176,
+            "tp": 33,
+            "fp": 0,
+            "fn": 2,
+            "support": 35
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 13,
+            "fp": 0,
+            "fn": 0,
+            "support": 13
+          },
+          "constant": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-html": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "$message",
+          "tokenType": "variable",
+          "start": 2732,
+          "end": 2740
+        },
+        {
+          "text": "$recordData",
+          "tokenType": "variable",
+          "start": 2806,
+          "end": 2817
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "$message",
+          "tokenType": "parameter",
+          "start": 2732,
+          "end": 2740
+        },
+        {
+          "text": "$recordData",
+          "tokenType": "parameter",
+          "start": 2806,
+          "end": 2817
+        }
+      ]
+    },
+    {
+      "path": "src/Illuminate/Database/Console/Migrations/FreshCommand.php",
+      "repository": "laravel-php-v1",
+      "source": "<?php\n\nnamespace Illuminate\\Database\\Console\\Migrations;\n\nuse Illuminate\\Console\\Command;\nuse Illuminate\\Console\\ConfirmableTrait;\nuse Illuminate\\Console\\Prohibitable;\nuse Illuminate\\Contracts\\Events\\Dispatcher;\nuse Illuminate\\Database\\Events\\DatabaseRefreshed;\nuse Illuminate\\Database\\Migrations\\Migrator;\nuse Symfony\\Component\\Console\\Attribute\\AsCommand;\nuse Symfony\\Component\\Console\\Input\\InputOption;\n\n#[AsCommand(name: 'migrate:fresh')]\nclass FreshCommand extends Command\n{\n    use ConfirmableTrait, Prohibitable;\n\n    /**\n     * The console command name.\n     *\n     * @var string\n     */\n    protected $name = 'migrate:fresh';\n\n    /**\n     * The console command description.\n     *\n     * @var string\n     */\n    protected $description = 'Drop all tables and re-run all migrations';\n\n    /**\n     * The migrator instance.\n     *\n     * @var \\Illuminate\\Database\\Migrations\\Migrator\n     */\n    protected $migrator;\n\n    /**\n     * Create a new fresh command instance.\n     *\n     * @param  \\Illuminate\\Database\\Migrations\\Migrator  $migrator\n     */\n    public function __construct(Migrator $migrator)\n    {\n        parent::__construct();\n\n        $this->migrator = $migrator;\n    }\n\n    /**\n     * Execute the console command.\n     *\n     * @return int\n     */\n    public function handle()\n    {\n        if ($this->isProhibited() ||\n            ! $this->confirmToProceed()) {\n            return Command::FAILURE;\n        }\n\n        $database = $this->input->getOption('database');\n\n        $this->migrator->usingConnection($database, function () use ($database) {\n            if ($this->migrator->repositoryExists()) {\n                $this->newLine();\n\n                $this->components->task('Dropping all tables', fn () => $this->callSilent('db:wipe', array_filter([\n                    '--database' => $database,\n                    '--drop-views' => $this->option('drop-views'),\n                    '--drop-types' => $this->option('drop-types'),\n                    '--force' => true,\n                ])) == 0);\n            }\n        });\n\n        $this->newLine();\n\n        $this->call('migrate', array_filter([\n            '--database' => $database,\n            '--path' => $this->input->getOption('path'),\n            '--realpath' => $this->input->getOption('realpath'),\n            '--schema-path' => $this->input->getOption('schema-path'),\n            '--force' => true,\n            '--step' => $this->option('step'),\n        ]));\n\n        if ($this->laravel->bound(Dispatcher::class)) {\n            $this->laravel[Dispatcher::class]->dispatch(\n                new DatabaseRefreshed($database, $this->needsSeeding())\n            );\n        }\n\n        if ($this->needsSeeding()) {\n            $this->runSeeder($database);\n        }\n\n        return 0;\n    }\n\n    /**\n     * Determine if the developer has requested database seeding.\n     *\n     * @return bool\n     */\n    protected function needsSeeding()\n    {\n        return $this->option('seed') || $this->option('seeder');\n    }\n\n    /**\n     * Run the database seeder command.\n     *\n     * @param  string  $database\n     * @return void\n     */\n    protected function runSeeder($database)\n    {\n        $this->call('db:seed', array_filter([\n            '--database' => $database,\n            '--class' => $this->option('seeder') ?: 'Database\\\\Seeders\\\\DatabaseSeeder',\n            '--force' => true,\n        ]));\n    }\n\n    /**\n     * Get the console command options.\n     *\n     * @return array\n     */\n    protected function getOptions()\n    {\n        return [\n            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use'],\n            ['drop-views', null, InputOption::VALUE_NONE, 'Drop all tables and views'],\n            ['drop-types', null, InputOption::VALUE_NONE, 'Drop all tables and types (Postgres only)'],\n            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production'],\n            ['path', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The path(s) to the migrations files to be executed'],\n            ['realpath', null, InputOption::VALUE_NONE, 'Indicate any provided migration file paths are pre-resolved absolute paths'],\n            ['schema-path', null, InputOption::VALUE_OPTIONAL, 'The path to a schema dump file'],\n            ['seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run'],\n            ['seeder', null, InputOption::VALUE_OPTIONAL, 'The class name of the root seeder'],\n            ['step', null, InputOption::VALUE_NONE, 'Force the migrations to be run so they can be rolled back individually'],\n        ];\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9632107023411371,
+          "recall": 0.9632107023411371,
+          "f1": 0.9632107023411371,
+          "tp": 576,
+          "fp": 22,
+          "fn": 22,
+          "support": 598
+        },
+        "exactSpanMacroF1": 0.9462813334391418,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.959866220735786,
+          "recall": 0.959866220735786,
+          "f1": 0.959866220735786,
+          "tp": 574,
+          "fp": 24,
+          "fn": 24,
+          "support": 598
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.9615384615384616,
+            "f1": 0.9803921568627451,
+            "tp": 50,
+            "fp": 0,
+            "fn": 2,
+            "support": 52
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "string": {
+            "precision": 0.8392857142857143,
+            "recall": 0.9215686274509803,
+            "f1": 0.8785046728971962,
+            "tp": 47,
+            "fp": 9,
+            "fn": 4,
+            "support": 51
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "operator": {
+            "precision": 0.9333333333333333,
+            "recall": 0.9210526315789473,
+            "f1": 0.9271523178807947,
+            "tp": 70,
+            "fp": 5,
+            "fn": 6,
+            "support": 76
+          },
+          "punctuation": {
+            "precision": 0.9920948616600791,
+            "recall": 0.9881889763779528,
+            "f1": 0.9901380670611439,
+            "tp": 251,
+            "fp": 2,
+            "fn": 3,
+            "support": 254
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 27,
+            "fp": 0,
+            "fn": 0,
+            "support": 27
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 28,
+            "fp": 0,
+            "fn": 0,
+            "support": 28
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "trait": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 33,
+            "fp": 0,
+            "fn": 0,
+            "support": 33
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "parameter": {
+            "precision": 0.4444444444444444,
+            "recall": 0.8,
+            "f1": 0.5714285714285714,
+            "tp": 4,
+            "fp": 5,
+            "fn": 1,
+            "support": 5
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 0.8484848484848485,
+            "f1": 0.9180327868852459,
+            "tp": 28,
+            "fp": 0,
+            "fn": 5,
+            "support": 33
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 13,
+            "fp": 0,
+            "fn": 0,
+            "support": 13
+          },
+          "constant": {
+            "precision": 0.9285714285714286,
+            "recall": 0.9285714285714286,
+            "f1": 0.9285714285714286,
+            "tp": 13,
+            "fp": 1,
+            "fn": 1,
+            "support": 14
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-html": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "(",
+          "tokenType": "punctuation",
+          "start": 419,
+          "end": 420
+        },
+        {
+          "text": "name",
+          "tokenType": "parameter",
+          "start": 420,
+          "end": 424
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 424,
+          "end": 425
+        },
+        {
+          "text": "'Drop all tables and re-run all migrations'",
+          "tokenType": "string",
+          "start": 748,
+          "end": 791
+        },
+        {
+          "text": "::",
+          "tokenType": "operator",
+          "start": 1413,
+          "end": 1415
+        },
+        {
+          "text": "$database",
+          "tokenType": "variable",
+          "start": 1534,
+          "end": 1543
+        },
+        {
+          "text": "$database",
+          "tokenType": "variable",
+          "start": 1562,
+          "end": 1571
+        },
+        {
+          "text": "$database",
+          "tokenType": "variable",
+          "start": 1817,
+          "end": 1826
+        },
+        {
+          "text": "::",
+          "tokenType": "operator",
+          "start": 2545,
+          "end": 2547
+        },
+        {
+          "text": "class",
+          "tokenType": "constant",
+          "start": 2547,
+          "end": 2552
+        },
+        {
+          "text": "$database",
+          "tokenType": "variable",
+          "start": 2603,
+          "end": 2612
+        },
+        {
+          "text": "$database",
+          "tokenType": "variable",
+          "start": 2729,
+          "end": 2738
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 3302,
+          "end": 3303
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 3303,
+          "end": 3304
+        },
+        {
+          "text": "'Database\\\\Seeders\\\\DatabaseSeeder'",
+          "tokenType": "string",
+          "start": 3305,
+          "end": 3340
+        },
+        {
+          "text": "null",
+          "tokenType": "keyword",
+          "start": 3658,
+          "end": 3662
+        },
+        {
+          "text": "::",
+          "tokenType": "operator",
+          "start": 3964,
+          "end": 3966
+        },
+        {
+          "text": "'schema-path'",
+          "tokenType": "string",
+          "start": 4215,
+          "end": 4228
+        },
+        {
+          "text": ",",
+          "tokenType": "punctuation",
+          "start": 4228,
+          "end": 4229
+        },
+        {
+          "text": "null",
+          "tokenType": "keyword",
+          "start": 4230,
+          "end": 4234
+        },
+        {
+          "text": "'The class name of the root seeder'",
+          "tokenType": "string",
+          "start": 4458,
+          "end": 4493
+        },
+        {
+          "text": "]",
+          "tokenType": "punctuation",
+          "start": 4493,
+          "end": 4494
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "(name:",
+          "tokenType": "string",
+          "start": 419,
+          "end": 425
+        },
+        {
+          "text": "'Drop",
+          "tokenType": "string",
+          "start": 748,
+          "end": 753
+        },
+        {
+          "text": "all tables and re-run all migrations'",
+          "tokenType": "string",
+          "start": 754,
+          "end": 791
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 1413,
+          "end": 1414
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 1414,
+          "end": 1415
+        },
+        {
+          "text": "$database",
+          "tokenType": "parameter",
+          "start": 1534,
+          "end": 1543
+        },
+        {
+          "text": "$database",
+          "tokenType": "parameter",
+          "start": 1562,
+          "end": 1571
+        },
+        {
+          "text": "$database",
+          "tokenType": "parameter",
+          "start": 1817,
+          "end": 1826
+        },
+        {
+          "text": "::class",
+          "tokenType": "constant",
+          "start": 2545,
+          "end": 2552
+        },
+        {
+          "text": "$database",
+          "tokenType": "parameter",
+          "start": 2603,
+          "end": 2612
+        },
+        {
+          "text": "$database",
+          "tokenType": "parameter",
+          "start": 2729,
+          "end": 2738
+        },
+        {
+          "text": "?:",
+          "tokenType": "operator",
+          "start": 3302,
+          "end": 3304
+        },
+        {
+          "text": "'Database",
+          "tokenType": "string",
+          "start": 3305,
+          "end": 3314
+        },
+        {
+          "text": "\\",
+          "tokenType": "punctuation",
+          "start": 3314,
+          "end": 3315
+        },
+        {
+          "text": "\\",
+          "tokenType": "punctuation",
+          "start": 3315,
+          "end": 3316
+        },
+        {
+          "text": "Seeders\\\\DatabaseSeeder'",
+          "tokenType": "string",
+          "start": 3316,
+          "end": 3340
+        },
+        {
+          "text": "null",
+          "tokenType": "string",
+          "start": 3658,
+          "end": 3662
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 3964,
+          "end": 3965
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 3965,
+          "end": 3966
+        },
+        {
+          "text": "'schema-path',",
+          "tokenType": "string",
+          "start": 4215,
+          "end": 4229
+        },
+        {
+          "text": "null",
+          "tokenType": "string",
+          "start": 4230,
+          "end": 4234
+        },
+        {
+          "text": "'The class name of the root seeder']",
+          "tokenType": "string",
+          "start": 4458,
+          "end": 4494
+        }
+      ]
+    },
+    {
+      "path": "src/Monolog/Handler/ElasticsearchHandler.php",
+      "repository": "monolog-php-v1",
+      "source": "<?php declare(strict_types=1);\n\n/*\n * This file is part of the Monolog package.\n *\n * (c) Jordi Boggiano <j.boggiano@seld.be>\n *\n * For the full copyright and license information, please view the LICENSE\n * file that was distributed with this source code.\n */\n\nnamespace Monolog\\Handler;\n\nuse Elastic\\Elasticsearch\\Response\\Elasticsearch;\nuse Throwable;\nuse RuntimeException;\nuse Monolog\\Level;\nuse Monolog\\Formatter\\FormatterInterface;\nuse Monolog\\Formatter\\ElasticsearchFormatter;\nuse InvalidArgumentException;\nuse Elasticsearch\\Common\\Exceptions\\RuntimeException as ElasticsearchRuntimeException;\nuse Elasticsearch\\Client;\nuse Monolog\\LogRecord;\nuse Elastic\\Elasticsearch\\Exception\\InvalidArgumentException as ElasticInvalidArgumentException;\nuse Elastic\\Elasticsearch\\Client as Client8;\n\n/**\n * Elasticsearch handler\n *\n * @link https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/index.html\n *\n * Simple usage example:\n *\n *    $client = \\Elasticsearch\\ClientBuilder::create()\n *        ->setHosts($hosts)\n *        ->build();\n *\n *    $options = array(\n *        'index' => 'elastic_index_name',\n *        'type'  => 'elastic_doc_type',\n *    );\n *    $handler = new ElasticsearchHandler($client, $options);\n *    $log = new Logger('application');\n *    $log->pushHandler($handler);\n *\n * @author Avtandil Kikabidze <akalongman@gmail.com>\n * @phpstan-type Options array{\n *     index: string,\n *     type: string,\n *     ignore_error: bool,\n *     op_type: 'index'|'create'\n * }\n * @phpstan-type InputOptions array{\n *     index?: string,\n *     type?: string,\n *     ignore_error?: bool,\n *     op_type?: 'index'|'create'\n * }\n */\nclass ElasticsearchHandler extends AbstractProcessingHandler\n{\n    protected Client|Client8 $client;\n\n    /**\n     * @var mixed[] Handler config options\n     * @phpstan-var Options\n     */\n    protected array $options;\n\n    /**\n     * @var bool\n     */\n    private $needsType;\n\n    /**\n     * @param Client|Client8 $client  Elasticsearch Client object\n     * @param mixed[]        $options Handler configuration\n     *\n     * @phpstan-param InputOptions $options\n     */\n    public function __construct(Client|Client8 $client, array $options = [], int|string|Level $level = Level::Debug, bool $bubble = true)\n    {\n        parent::__construct($level, $bubble);\n        $this->client = $client;\n        $this->options = array_merge(\n            [\n                'index'        => 'monolog', // Elastic index name\n                'type'         => '_doc',    // Elastic document type\n                'ignore_error' => false,     // Suppress Elasticsearch exceptions\n                'op_type'      => 'index',   // Elastic op_type (index or create) (https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html#docs-index-api-op_type)\n            ],\n            $options\n        );\n\n        if ($client instanceof Client8 || $client::VERSION[0] === '7') {\n            $this->needsType = false;\n            // force the type to _doc for ES8/ES7\n            $this->options['type'] = '_doc';\n        } else {\n            $this->needsType = true;\n        }\n    }\n\n    /**\n     * @inheritDoc\n     */\n    protected function write(LogRecord $record): void\n    {\n        $this->bulkSend([$record->formatted]);\n    }\n\n    /**\n     * @inheritDoc\n     */\n    public function setFormatter(FormatterInterface $formatter): HandlerInterface\n    {\n        if ($formatter instanceof ElasticsearchFormatter) {\n            return parent::setFormatter($formatter);\n        }\n\n        throw new InvalidArgumentException('ElasticsearchHandler is only compatible with ElasticsearchFormatter');\n    }\n\n    /**\n     * Getter options\n     *\n     * @return mixed[]\n     *\n     * @phpstan-return Options\n     */\n    public function getOptions(): array\n    {\n        return $this->options;\n    }\n\n    /**\n     * @inheritDoc\n     */\n    protected function getDefaultFormatter(): FormatterInterface\n    {\n        return new ElasticsearchFormatter($this->options['index'], $this->options['type']);\n    }\n\n    /**\n     * @inheritDoc\n     */\n    public function handleBatch(array $records): void\n    {\n        $documents = $this->getFormatter()->formatBatch($records);\n        $this->bulkSend($documents);\n    }\n\n    /**\n     * Use Elasticsearch bulk API to send list of documents\n     *\n     * @param  array<array<mixed>> $records Records + _index/_type keys\n     * @throws \\RuntimeException\n     */\n    protected function bulkSend(array $records): void\n    {\n        try {\n            $params = [\n                'body' => [],\n            ];\n\n            foreach ($records as $record) {\n                $params['body'][] = [\n                    $this->options['op_type'] => $this->needsType ? [\n                        '_index' => $record['_index'],\n                        '_type'  => $record['_type'],\n                    ] : [\n                        '_index' => $record['_index'],\n                    ],\n                ];\n                unset($record['_index'], $record['_type']);\n\n                $params['body'][] = $record;\n            }\n\n            /** @var Elasticsearch */\n            $responses = $this->client->bulk($params);\n\n            if ($responses['errors'] === true) {\n                throw $this->createExceptionFromResponses($responses);\n            }\n        } catch (Throwable $e) {\n            if (! $this->options['ignore_error']) {\n                throw new RuntimeException('Error sending messages to Elasticsearch', 0, $e);\n            }\n        }\n    }\n\n    /**\n     * Creates elasticsearch exception from responses array\n     *\n     * Only the first error is converted into an exception.\n     *\n     * @param mixed[]|Elasticsearch $responses returned by $this->client->bulk()\n     */\n    protected function createExceptionFromResponses($responses): Throwable\n    {\n        foreach ($responses['items'] ?? [] as $item) {\n            if (isset($item['index']['error'])) {\n                return $this->createExceptionFromError($item['index']['error']);\n            }\n        }\n\n        if (class_exists(ElasticInvalidArgumentException::class)) {\n            return new ElasticInvalidArgumentException('Elasticsearch failed to index one or more records.');\n        }\n\n        if (class_exists(ElasticsearchRuntimeException::class)) {\n            return new ElasticsearchRuntimeException('Elasticsearch failed to index one or more records.');\n        }\n\n        throw new \\LogicException('Unsupported elastic search client version');\n    }\n\n    /**\n     * Creates elasticsearch exception from error array\n     *\n     * @param mixed[] $error\n     */\n    protected function createExceptionFromError(array $error): Throwable\n    {\n        $previous = isset($error['caused_by']) ? $this->createExceptionFromError($error['caused_by']) : null;\n\n        if (class_exists(ElasticInvalidArgumentException::class)) {\n            return new ElasticInvalidArgumentException($error['type'] . ': ' . $error['reason'], 0, $previous);\n        }\n\n        if (class_exists(ElasticsearchRuntimeException::class)) {\n            return new ElasticsearchRuntimeException($error['type'].': '.$error['reason'], 0, $previous);\n        }\n\n        throw new \\LogicException('Unsupported elastic search client version');\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9397590361445783,
+          "recall": 0.9499323410013532,
+          "f1": 0.9448183041722745,
+          "tp": 702,
+          "fp": 45,
+          "fn": 37,
+          "support": 739
+        },
+        "exactSpanMacroF1": 0.8737063423672519,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9330655957161981,
+          "recall": 0.9431664411366711,
+          "f1": 0.9380888290713324,
+          "tp": 697,
+          "fp": 50,
+          "fn": 42,
+          "support": 739
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.9705882352941176,
+            "f1": 0.9850746268656716,
+            "tp": 99,
+            "fp": 0,
+            "fn": 3,
+            "support": 102
+          },
+          "comment": {
+            "precision": 0.7272727272727273,
+            "recall": 0.8421052631578947,
+            "f1": 0.7804878048780488,
+            "tp": 16,
+            "fp": 6,
+            "fn": 3,
+            "support": 19
+          },
+          "string": {
+            "precision": 0.875,
+            "recall": 0.9333333333333333,
+            "f1": 0.9032258064516129,
+            "tp": 42,
+            "fp": 6,
+            "fn": 3,
+            "support": 45
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "operator": {
+            "precision": 0.9753086419753086,
+            "recall": 1.0,
+            "f1": 0.9875,
+            "tp": 79,
+            "fp": 2,
+            "fn": 0,
+            "support": 79
+          },
+          "punctuation": {
+            "precision": 0.9967320261437909,
+            "recall": 0.9967320261437909,
+            "f1": 0.9967320261437909,
+            "tp": 305,
+            "fp": 1,
+            "fn": 1,
+            "support": 306
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 20,
+            "fp": 0,
+            "fn": 0,
+            "support": 20
+          },
+          "type": {
+            "precision": 0.14285714285714285,
+            "recall": 0.5,
+            "f1": 0.2222222222222222,
+            "tp": 1,
+            "fp": 6,
+            "fn": 1,
+            "support": 2
+          },
+          "class": {
+            "precision": 0.9473684210526315,
+            "recall": 0.8181818181818182,
+            "f1": 0.8780487804878049,
+            "tp": 36,
+            "fp": 2,
+            "fn": 8,
+            "support": 44
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "trait": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 0.9259259259259259,
+            "recall": 1.0,
+            "f1": 0.9615384615384616,
+            "tp": 25,
+            "fp": 2,
+            "fn": 0,
+            "support": 25
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "parameter": {
+            "precision": 0.5909090909090909,
+            "recall": 0.9629629629629629,
+            "f1": 0.7323943661971831,
+            "tp": 26,
+            "fp": 18,
+            "fn": 1,
+            "support": 27
+          },
+          "variable": {
+            "precision": 0.9615384615384616,
+            "recall": 0.5952380952380952,
+            "f1": 0.7352941176470589,
+            "tp": 25,
+            "fp": 1,
+            "fn": 17,
+            "support": 42
+          },
+          "property": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "constant": {
+            "precision": 0.8571428571428571,
+            "recall": 1.0,
+            "f1": 0.9230769230769231,
+            "tp": 6,
+            "fp": 1,
+            "fn": 0,
+            "support": 6
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-html": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "as",
+          "tokenType": "keyword",
+          "start": 710,
+          "end": 712
+        },
+        {
+          "text": "as",
+          "tokenType": "keyword",
+          "start": 779,
+          "end": 781
+        },
+        {
+          "text": "/**\n * Elasticsearch handler\n *\n * @link https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/index.html\n *\n * Simple usage example:\n *\n *    $client = \\Elasticsearch\\ClientBuilder::create()\n *        ->setHosts($hosts)\n *        ->build();\n *\n *    $options = array(\n *        'index' => 'elastic_index_name',\n *        'type'  => 'elastic_doc_type',\n *    );\n *    $handler = new ElasticsearchHandler($client, $options);\n *    $log = new Logger('application');\n *    $log->pushHandler($handler);\n *\n * @author Avtandil Kikabidze <akalongman@gmail.com>\n * @phpstan-type Options array{\n *     index: string,\n *     type: string,\n *     ignore_error: bool,\n *     op_type: 'index'|'create'\n * }\n * @phpstan-type InputOptions array{\n *     index?: string,\n *     type?: string,\n *     ignore_error?: bool,\n *     op_type?: 'index'|'create'\n * }\n */",
+          "tokenType": "comment",
+          "start": 792,
+          "end": 1654
+        },
+        {
+          "text": "AbstractProcessingHandler",
+          "tokenType": "type",
+          "start": 1690,
+          "end": 1715
+        },
+        {
+          "text": "Client",
+          "tokenType": "class",
+          "start": 1732,
+          "end": 1738
+        },
+        {
+          "text": "Client8",
+          "tokenType": "class",
+          "start": 1739,
+          "end": 1746
+        },
+        {
+          "text": "Client8",
+          "tokenType": "class",
+          "start": 2165,
+          "end": 2172
+        },
+        {
+          "text": "// Elastic index name",
+          "tokenType": "comment",
+          "start": 2446,
+          "end": 2467
+        },
+        {
+          "text": "// Elastic op_type (index or create) (https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html#docs-index-api-op_type)",
+          "tokenType": "comment",
+          "start": 2665,
+          "end": 2807
+        },
+        {
+          "text": "$client",
+          "tokenType": "class",
+          "start": 2898,
+          "end": 2905
+        },
+        {
+          "text": "ElasticsearchFormatter",
+          "tokenType": "class",
+          "start": 3439,
+          "end": 3461
+        },
+        {
+          "text": "FormatterInterface",
+          "tokenType": "class",
+          "start": 3922,
+          "end": 3940
+        },
+        {
+          "text": "ElasticsearchFormatter",
+          "tokenType": "class",
+          "start": 3966,
+          "end": 3988
+        },
+        {
+          "text": "$documents",
+          "tokenType": "variable",
+          "start": 4232,
+          "end": 4242
+        },
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 4617,
+          "end": 4624
+        },
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 4772,
+          "end": 4779
+        },
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 4827,
+          "end": 4834
+        },
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 4907,
+          "end": 4914
+        },
+        {
+          "text": "unset",
+          "tokenType": "keyword",
+          "start": 4984,
+          "end": 4989
+        },
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 4990,
+          "end": 4997
+        },
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 5009,
+          "end": 5016
+        },
+        {
+          "text": "$params",
+          "tokenType": "variable",
+          "start": 5045,
+          "end": 5052
+        },
+        {
+          "text": "$record",
+          "tokenType": "variable",
+          "start": 5065,
+          "end": 5072
+        },
+        {
+          "text": "$params",
+          "tokenType": "variable",
+          "start": 5172,
+          "end": 5179
+        },
+        {
+          "text": "$responses",
+          "tokenType": "variable",
+          "start": 5290,
+          "end": 5300
+        },
+        {
+          "text": "$e",
+          "tokenType": "variable",
+          "start": 5491,
+          "end": 5493
+        },
+        {
+          "text": "$item",
+          "tokenType": "variable",
+          "start": 5885,
+          "end": 5890
+        },
+        {
+          "text": "$item",
+          "tokenType": "variable",
+          "start": 5916,
+          "end": 5921
+        },
+        {
+          "text": "[",
+          "tokenType": "punctuation",
+          "start": 5930,
+          "end": 5931
+        },
+        {
+          "text": "'error'",
+          "tokenType": "string",
+          "start": 5931,
+          "end": 5938
+        },
+        {
+          "text": "$item",
+          "tokenType": "variable",
+          "start": 5999,
+          "end": 6004
+        },
+        {
+          "text": "Throwable",
+          "tokenType": "class",
+          "start": 6682,
+          "end": 6691
+        },
+        {
+          "text": "': '",
+          "tokenType": "string",
+          "start": 6949,
+          "end": 6953
+        },
+        {
+          "text": "$previous",
+          "tokenType": "variable",
+          "start": 6977,
+          "end": 6986
+        },
+        {
+          "text": "': '",
+          "tokenType": "string",
+          "start": 7134,
+          "end": 7138
+        },
+        {
+          "text": "$error",
+          "tokenType": "parameter",
+          "start": 7139,
+          "end": 7145
+        },
+        {
+          "text": "$previous",
+          "tokenType": "variable",
+          "start": 7160,
+          "end": 7169
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "as",
+          "tokenType": "type",
+          "start": 710,
+          "end": 712
+        },
+        {
+          "text": "as ",
+          "tokenType": "comment",
+          "start": 779,
+          "end": 782
+        },
+        {
+          "text": "/**\n * Elasticsearch handler\n *\n * @link https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/index.html\n *\n * Simple usage example:\n *\n *   ",
+          "tokenType": "comment",
+          "start": 792,
+          "end": 949
+        },
+        {
+          "text": "$client = \\Elasticsearch\\ClientBuilder::create()\n *        ->setHosts($hosts)\n *        ->build();\n *\n *    $options = array(\n *        'index' => 'elastic_index_name',\n *        'type'  => 'elastic_doc_type',\n *    );\n *    $handler = new ElasticsearchHandler($client, $options);\n *    $log = new",
+          "tokenType": "comment",
+          "start": 950,
+          "end": 1247
+        },
+        {
+          "text": "Logger('application');\n *    $log->pushHandler($handler);\n *\n * @author Avtandil Kikabidze <akalongman@gmail.com>\n * @phpstan-type Options array{\n *     index: string,\n *     type: string,\n *     ignore_error: bool,\n *     op_type: 'index'|'create'\n * }\n * @phpstan-type InputOptions array{\n *     index?: string,\n *     type?: string,\n *     ignore_error?: bool,\n *     op_type?: 'index'|'create'\n * }\n */",
+          "tokenType": "comment",
+          "start": 1248,
+          "end": 1654
+        },
+        {
+          "text": "AbstractProcessingHandler",
+          "tokenType": "class",
+          "start": 1690,
+          "end": 1715
+        },
+        {
+          "text": "Client",
+          "tokenType": "type",
+          "start": 1732,
+          "end": 1738
+        },
+        {
+          "text": "Client8",
+          "tokenType": "type",
+          "start": 1739,
+          "end": 1746
+        },
+        {
+          "text": "Client8",
+          "tokenType": "type",
+          "start": 2165,
+          "end": 2172
+        },
+        {
+          "text": "//",
+          "tokenType": "string",
+          "start": 2446,
+          "end": 2448
+        },
+        {
+          "text": "Elastic ",
+          "tokenType": "class",
+          "start": 2449,
+          "end": 2457
+        },
+        {
+          "text": "index name",
+          "tokenType": "comment",
+          "start": 2457,
+          "end": 2467
+        },
+        {
+          "text": "// Elastic op_type (index or create) (https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html#docs-index-api-op_type",
+          "tokenType": "comment",
+          "start": 2665,
+          "end": 2806
+        },
+        {
+          "text": ")",
+          "tokenType": "punctuation",
+          "start": 2806,
+          "end": 2807
+        },
+        {
+          "text": "$client",
+          "tokenType": "parameter",
+          "start": 2898,
+          "end": 2905
+        },
+        {
+          "text": "ElasticsearchFormatter",
+          "tokenType": "constant",
+          "start": 3439,
+          "end": 3461
+        },
+        {
+          "text": "FormatterInterface",
+          "tokenType": "type",
+          "start": 3922,
+          "end": 3940
+        },
+        {
+          "text": "ElasticsearchFormatter",
+          "tokenType": "function",
+          "start": 3966,
+          "end": 3988
+        },
+        {
+          "text": "$documents",
+          "tokenType": "parameter",
+          "start": 4232,
+          "end": 4242
+        },
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 4617,
+          "end": 4624
+        },
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 4772,
+          "end": 4779
+        },
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 4827,
+          "end": 4834
+        },
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 4907,
+          "end": 4914
+        },
+        {
+          "text": "unset",
+          "tokenType": "function",
+          "start": 4984,
+          "end": 4989
+        },
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 4990,
+          "end": 4997
+        },
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 5009,
+          "end": 5016
+        },
+        {
+          "text": "$params",
+          "tokenType": "parameter",
+          "start": 5045,
+          "end": 5052
+        },
+        {
+          "text": "$record",
+          "tokenType": "parameter",
+          "start": 5065,
+          "end": 5072
+        },
+        {
+          "text": "$params",
+          "tokenType": "parameter",
+          "start": 5172,
+          "end": 5179
+        },
+        {
+          "text": "$responses",
+          "tokenType": "parameter",
+          "start": 5290,
+          "end": 5300
+        },
+        {
+          "text": "$e",
+          "tokenType": "parameter",
+          "start": 5491,
+          "end": 5493
+        },
+        {
+          "text": "$item",
+          "tokenType": "parameter",
+          "start": 5885,
+          "end": 5890
+        },
+        {
+          "text": "$item",
+          "tokenType": "parameter",
+          "start": 5916,
+          "end": 5921
+        },
+        {
+          "text": "['error'",
+          "tokenType": "string",
+          "start": 5930,
+          "end": 5938
+        },
+        {
+          "text": "$item",
+          "tokenType": "parameter",
+          "start": 5999,
+          "end": 6004
+        },
+        {
+          "text": "Throwable",
+          "tokenType": "type",
+          "start": 6682,
+          "end": 6691
+        },
+        {
+          "text": "'",
+          "tokenType": "string",
+          "start": 6949,
+          "end": 6950
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 6950,
+          "end": 6951
+        },
+        {
+          "text": "'",
+          "tokenType": "string",
+          "start": 6952,
+          "end": 6953
+        },
+        {
+          "text": "$previous",
+          "tokenType": "parameter",
+          "start": 6977,
+          "end": 6986
+        },
+        {
+          "text": "'",
+          "tokenType": "string",
+          "start": 7134,
+          "end": 7135
+        },
+        {
+          "text": ":",
+          "tokenType": "operator",
+          "start": 7135,
+          "end": 7136
+        },
+        {
+          "text": "'",
+          "tokenType": "string",
+          "start": 7137,
+          "end": 7138
+        },
+        {
+          "text": "$error",
+          "tokenType": "variable",
+          "start": 7139,
+          "end": 7145
+        },
+        {
+          "text": "$previous",
+          "tokenType": "parameter",
+          "start": 7160,
+          "end": 7169
+        }
+      ]
+    },
+    {
+      "path": "src/Illuminate/Cache/DatabaseStore.php",
+      "repository": "laravel-php-v1",
+      "source": "<?php\n\nnamespace Illuminate\\Cache;\n\nuse Closure;\nuse Illuminate\\Contracts\\Cache\\LockProvider;\nuse Illuminate\\Contracts\\Cache\\Store;\nuse Illuminate\\Database\\ConnectionInterface;\nuse Illuminate\\Database\\PostgresConnection;\nuse Illuminate\\Database\\QueryException;\nuse Illuminate\\Database\\SQLiteConnection;\nuse Illuminate\\Database\\SqlServerConnection;\nuse Illuminate\\Support\\Arr;\nuse Illuminate\\Support\\Collection;\nuse Illuminate\\Support\\InteractsWithTime;\nuse Illuminate\\Support\\Str;\n\nclass DatabaseStore implements LockProvider, Store\n{\n    use InteractsWithTime;\n\n    /**\n     * The database connection instance.\n     *\n     * @var \\Illuminate\\Database\\ConnectionInterface\n     */\n    protected $connection;\n\n    /**\n     * The database connection instance that should be used to manage locks.\n     *\n     * @var \\Illuminate\\Database\\ConnectionInterface\n     */\n    protected $lockConnection;\n\n    /**\n     * The name of the cache table.\n     *\n     * @var string\n     */\n    protected $table;\n\n    /**\n     * A string that should be prepended to keys.\n     *\n     * @var string\n     */\n    protected $prefix;\n\n    /**\n     * The name of the cache locks table.\n     *\n     * @var string\n     */\n    protected $lockTable;\n\n    /**\n     * An array representation of the lock lottery odds.\n     *\n     * @var array\n     */\n    protected $lockLottery;\n\n    /**\n     * The default number of seconds that a lock should be held.\n     *\n     * @var int\n     */\n    protected $defaultLockTimeoutInSeconds;\n\n    /**\n     * Create a new database store.\n     *\n     * @param  \\Illuminate\\Database\\ConnectionInterface  $connection\n     * @param  string  $table\n     * @param  string  $prefix\n     * @param  string  $lockTable\n     * @param  array  $lockLottery\n     */\n    public function __construct(\n        ConnectionInterface $connection,\n        $table,\n        $prefix = '',\n        $lockTable = 'cache_locks',\n        $lockLottery = [2, 100],\n        $defaultLockTimeoutInSeconds = 86400,\n    ) {\n        $this->table = $table;\n        $this->prefix = $prefix;\n        $this->connection = $connection;\n        $this->lockTable = $lockTable;\n        $this->lockLottery = $lockLottery;\n        $this->defaultLockTimeoutInSeconds = $defaultLockTimeoutInSeconds;\n    }\n\n    /**\n     * Retrieve an item from the cache by key.\n     *\n     * @param  string  $key\n     * @return mixed\n     */\n    public function get($key)\n    {\n        return $this->many([$key])[$key];\n    }\n\n    /**\n     * Retrieve multiple items from the cache by key.\n     *\n     * Items not found in the cache will have a null value.\n     *\n     * @return array\n     */\n    public function many(array $keys)\n    {\n        if (count($keys) === 0) {\n            return [];\n        }\n\n        $results = array_fill_keys($keys, null);\n\n        // First we will retrieve all of the items from the cache using their keys and\n        // the prefix value. Then we will need to iterate through each of the items\n        // and convert them to an object when they are currently in array format.\n        $values = $this->table()\n            ->whereIn('key', array_map(function ($key) {\n                return $this->prefix.$key;\n            }, $keys))\n            ->get()\n            ->map(function ($value) {\n                return is_array($value) ? (object) $value : $value;\n            });\n\n        $currentTime = $this->currentTime();\n\n        // If this cache expiration date is past the current time, we will remove this\n        // item from the cache. Then we will return a null value since the cache is\n        // expired. We will use \"Carbon\" to make this comparison with the column.\n        [$values, $expired] = $values->partition(function ($cache) use ($currentTime) {\n            return $cache->expiration > $currentTime;\n        });\n\n        if ($expired->isNotEmpty()) {\n            $this->forgetManyIfExpired($expired->pluck('key')->all(), prefixed: true);\n        }\n\n        return Arr::map($results, function ($value, $key) use ($values) {\n            if ($cache = $values->firstWhere('key', $this->prefix.$key)) {\n                return $this->unserialize($cache->value);\n            }\n\n            return $value;\n        });\n    }\n\n    /**\n     * Store an item in the cache for a given number of seconds.\n     *\n     * @param  string  $key\n     * @param  mixed  $value\n     * @param  int  $seconds\n     * @return bool\n     */\n    public function put($key, $value, $seconds)\n    {\n        return $this->putMany([$key => $value], $seconds);\n    }\n\n    /**\n     * Store multiple items in the cache for a given number of seconds.\n     *\n     * @param  int  $seconds\n     * @return bool\n     */\n    public function putMany(array $values, $seconds)\n    {\n        $serializedValues = [];\n\n        $expiration = $this->getTime() + $seconds;\n\n        foreach ($values as $key => $value) {\n            $serializedValues[] = [\n                'key' => $this->prefix.$key,\n                'value' => $this->serialize($value),\n                'expiration' => $expiration,\n            ];\n        }\n\n        return $this->table()->upsert($serializedValues, 'key') > 0;\n    }\n\n    /**\n     * Store an item in the cache if the key doesn't exist.\n     *\n     * @param  string  $key\n     * @param  mixed  $value\n     * @param  int  $seconds\n     * @return bool\n     */\n    public function add($key, $value, $seconds)\n    {\n        if (! is_null($this->get($key))) {\n            return false;\n        }\n\n        $key = $this->prefix.$key;\n        $value = $this->serialize($value);\n        $expiration = $this->getTime() + $seconds;\n\n        if (! $this->getConnection() instanceof SqlServerConnection) {\n            return $this->table()->insertOrIgnore(compact('key', 'value', 'expiration')) > 0;\n        }\n\n        try {\n            return $this->table()->insert(compact('key', 'value', 'expiration'));\n        } catch (QueryException) {\n            // ...\n        }\n\n        return false;\n    }\n\n    /**\n     * Increment the value of an item in the cache.\n     *\n     * @param  string  $key\n     * @param  int  $value\n     * @return int|false\n     */\n    public function increment($key, $value = 1)\n    {\n        return $this->incrementOrDecrement($key, $value, function ($current, $value) {\n            return $current + $value;\n        });\n    }\n\n    /**\n     * Decrement the value of an item in the cache.\n     *\n     * @param  string  $key\n     * @param  int  $value\n     * @return int|false\n     */\n    public function decrement($key, $value = 1)\n    {\n        return $this->incrementOrDecrement($key, $value, function ($current, $value) {\n            return $current - $value;\n        });\n    }\n\n    /**\n     * Increment or decrement an item in the cache.\n     *\n     * @param  string  $key\n     * @param  int|float  $value\n     * @param  \\Closure  $callback\n     * @return int|false\n     */\n    protected function incrementOrDecrement($key, $value, Closure $callback)\n    {\n        return $this->connection->transaction(function () use ($key, $value, $callback) {\n            $prefixed = $this->prefix.$key;\n\n            $cache = $this->table()->where('key', $prefixed)\n                ->lockForUpdate()->first();\n\n            // If there is no value in the cache, we will return false here. Otherwise the\n            // value will be decrypted and we will proceed with this function to either\n            // increment or decrement this value based on the given action callbacks.\n            if (is_null($cache)) {\n                return false;\n            }\n\n            $cache = is_array($cache) ? (object) $cache : $cache;\n\n            $current = $this->unserialize($cache->value);\n\n            // Here we'll call this callback function that was given to the function which\n            // is used to either increment or decrement the function. We use a callback\n            // so we do not have to recreate all this logic in each of the functions.\n            $new = $callback((int) $current, $value);\n\n            if (! is_numeric($current)) {\n                return false;\n            }\n\n            // Here we will update the values in the table. We will also encrypt the value\n            // since database cache values are encrypted by default with secure storage\n            // that can't be easily read. We will return the new value after storing.\n            $this->table()->where('key', $prefixed)->update([\n                'value' => $this->serialize($new),\n            ]);\n\n            return $new;\n        });\n    }\n\n    /**\n     * Get the current system time.\n     *\n     * @return int\n     */\n    protected function getTime()\n    {\n        return $this->currentTime();\n    }\n\n    /**\n     * Store an item in the cache indefinitely.\n     *\n     * @param  string  $key\n     * @param  mixed  $value\n     * @return bool\n     */\n    public function forever($key, $value)\n    {\n        return $this->put($key, $value, 315360000);\n    }\n\n    /**\n     * Get a lock instance.\n     *\n     * @param  string  $name\n     * @param  int  $seconds\n     * @param  string|null  $owner\n     * @return \\Illuminate\\Contracts\\Cache\\Lock\n     */\n    public function lock($name, $seconds = 0, $owner = null)\n    {\n        return new DatabaseLock(\n            $this->lockConnection ?? $this->connection,\n            $this->lockTable,\n            $this->prefix.$name,\n            $seconds,\n            $owner,\n            $this->lockLottery,\n            $this->defaultLockTimeoutInSeconds\n        );\n    }\n\n    /**\n     * Restore a lock instance using the owner identifier.\n     *\n     * @param  string  $name\n     * @param  string  $owner\n     * @return \\Illuminate\\Contracts\\Cache\\Lock\n     */\n    public function restoreLock($name, $owner)\n    {\n        return $this->lock($name, 0, $owner);\n    }\n\n    /**\n     * Remove an item from the cache.\n     *\n     * @param  string  $key\n     * @return bool\n     */\n    public function forget($key)\n    {\n        return $this->forgetMany([$key]);\n    }\n\n    /**\n     * Remove an item from the cache if it is expired.\n     *\n     * @param  string  $key\n     * @return bool\n     */\n    public function forgetIfExpired($key)\n    {\n        return $this->forgetManyIfExpired([$key]);\n    }\n\n    /**\n     * Remove all items from the cache.\n     *\n     * @param  array  $keys\n     * @return bool\n     */\n    protected function forgetMany(array $keys)\n    {\n        $this->table()->whereIn('key', (new Collection($keys))->flatMap(fn ($key) => [\n            $this->prefix.$key,\n            \"{$this->prefix}illuminate:cache:flexible:created:{$key}\",\n        ])->all())->delete();\n\n        return true;\n    }\n\n    /**\n     * Remove all expired items from the given set from the cache.\n     *\n     * @param  array  $keys\n     * @param  bool  $prefixed\n     * @return bool\n     */\n    protected function forgetManyIfExpired(array $keys, bool $prefixed = false)\n    {\n        $this->table()\n            ->whereIn('key', (new Collection($keys))->flatMap(fn ($key) => $prefixed ? [\n                $key,\n                $this->prefix.'illuminate:cache:flexible:created:'.Str::chopStart($key, $this->prefix),\n            ] : [\n                \"{$this->prefix}{$key}\",\n                \"{$this->prefix}illuminate:cache:flexible:created:{$key}\",\n            ])->all())\n            ->where('expiration', '<=', $this->getTime())\n            ->delete();\n\n        return true;\n    }\n\n    /**\n     * Remove all items from the cache.\n     *\n     * @return bool\n     */\n    public function flush()\n    {\n        $this->table()->delete();\n\n        return true;\n    }\n\n    /**\n     * Get a query builder for the cache table.\n     *\n     * @return \\Illuminate\\Database\\Query\\Builder\n     */\n    protected function table()\n    {\n        return $this->connection->table($this->table);\n    }\n\n    /**\n     * Get the underlying database connection.\n     *\n     * @return \\Illuminate\\Database\\ConnectionInterface\n     */\n    public function getConnection()\n    {\n        return $this->connection;\n    }\n\n    /**\n     * Specify the name of the connection that should be used to manage locks.\n     *\n     * @param  \\Illuminate\\Database\\ConnectionInterface  $connection\n     * @return $this\n     */\n    public function setLockConnection($connection)\n    {\n        $this->lockConnection = $connection;\n\n        return $this;\n    }\n\n    /**\n     * Get the cache key prefix.\n     *\n     * @return string\n     */\n    public function getPrefix()\n    {\n        return $this->prefix;\n    }\n\n    /**\n     * Set the cache key prefix.\n     *\n     * @param  string  $prefix\n     * @return void\n     */\n    public function setPrefix($prefix)\n    {\n        $this->prefix = $prefix;\n    }\n\n    /**\n     * Serialize the given value.\n     *\n     * @param  mixed  $value\n     * @return string\n     */\n    protected function serialize($value)\n    {\n        $result = serialize($value);\n\n        if (($this->connection instanceof PostgresConnection ||\n             $this->connection instanceof SQLiteConnection) &&\n            str_contains($result, \"\\0\")) {\n            $result = base64_encode($result);\n        }\n\n        return $result;\n    }\n\n    /**\n     * Unserialize the given value.\n     *\n     * @param  string  $value\n     * @return mixed\n     */\n    protected function unserialize($value)\n    {\n        if (($this->connection instanceof PostgresConnection ||\n             $this->connection instanceof SQLiteConnection) &&\n            ! Str::contains($value, [':', ';'])) {\n            $value = base64_decode($value);\n        }\n\n        return unserialize($value);\n    }\n}\n",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.958217270194986,
+          "recall": 0.9457044673539519,
+          "f1": 0.9519197509512279,
+          "tp": 1376,
+          "fp": 60,
+          "fn": 79,
+          "support": 1455
+        },
+        "exactSpanMacroF1": 0.8102972321594694,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9442896935933147,
+          "recall": 0.931958762886598,
+          "f1": 0.938083708059495,
+          "tp": 1356,
+          "fp": 80,
+          "fn": 99,
+          "support": 1455
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.9938650306748467,
+            "f1": 0.9969230769230769,
+            "tp": 162,
+            "fp": 0,
+            "fn": 1,
+            "support": 163
+          },
+          "comment": {
+            "precision": 0.9183673469387755,
+            "recall": 0.9375,
+            "f1": 0.9278350515463918,
+            "tp": 45,
+            "fp": 4,
+            "fn": 3,
+            "support": 48
+          },
+          "string": {
+            "precision": 0.84375,
+            "recall": 0.7941176470588235,
+            "f1": 0.8181818181818182,
+            "tp": 27,
+            "fp": 5,
+            "fn": 7,
+            "support": 34
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "operator": {
+            "precision": 0.9827586206896551,
+            "recall": 0.9771428571428571,
+            "f1": 0.9799426934097422,
+            "tp": 171,
+            "fp": 3,
+            "fn": 4,
+            "support": 175
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.9814502529510961,
+            "f1": 0.9906382978723405,
+            "tp": 582,
+            "fp": 0,
+            "fn": 11,
+            "support": 593
+          },
+          "namespace": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 26,
+            "fp": 0,
+            "fn": 0,
+            "support": 26
+          },
+          "type": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "class": {
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "tp": 25,
+            "fp": 0,
+            "fn": 5,
+            "support": 30
+          },
+          "interface": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "trait": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 100,
+            "fp": 0,
+            "fn": 0,
+            "support": 100
+          },
+          "constructor": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "parameter": {
+            "precision": 0.8099173553719008,
+            "recall": 0.8235294117647058,
+            "f1": 0.8166666666666667,
+            "tp": 98,
+            "fp": 23,
+            "fn": 21,
+            "support": 119
+          },
+          "variable": {
+            "precision": 0.8627450980392157,
+            "recall": 0.7927927927927928,
+            "f1": 0.8262910798122066,
+            "tp": 88,
+            "fp": 14,
+            "fn": 23,
+            "support": 111
+          },
+          "property": {
+            "precision": 0.8695652173913043,
+            "recall": 0.9090909090909091,
+            "f1": 0.8888888888888888,
+            "tp": 40,
+            "fp": 6,
+            "fn": 4,
+            "support": 44
+          },
+          "constant": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 4,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "decorator": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-html": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "text": "Store",
+          "tokenType": "class",
+          "start": 527,
+          "end": 532
+        },
+        {
+          "text": "/**\n     * Create a new database store.\n     *\n     * @param  \\Illuminate\\Database\\ConnectionInterface  $connection\n     * @param  string  $table\n     * @param  string  $prefix\n     * @param  string  $lockTable\n     * @param  array  $lockLottery\n     */",
+          "tokenType": "comment",
+          "start": 1501,
+          "end": 1754
+        },
+        {
+          "text": "$defaultLockTimeoutInSeconds",
+          "tokenType": "parameter",
+          "start": 1944,
+          "end": 1972
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 3170,
+          "end": 3174
+        },
+        {
+          "text": "$keys",
+          "tokenType": "parameter",
+          "start": 3191,
+          "end": 3196
+        },
+        {
+          "text": "$values",
+          "tokenType": "variable",
+          "start": 3671,
+          "end": 3678
+        },
+        {
+          "text": "$currentTime",
+          "tokenType": "variable",
+          "start": 3713,
+          "end": 3725
+        },
+        {
+          "text": "$cache",
+          "tokenType": "parameter",
+          "start": 3748,
+          "end": 3754
+        },
+        {
+          "text": "$expired",
+          "tokenType": "variable",
+          "start": 3873,
+          "end": 3881
+        },
+        {
+          "text": "$results",
+          "tokenType": "variable",
+          "start": 3956,
+          "end": 3964
+        },
+        {
+          "text": "$values",
+          "tokenType": "variable",
+          "start": 3995,
+          "end": 4002
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 4072,
+          "end": 4076
+        },
+        {
+          "text": "$cache",
+          "tokenType": "variable",
+          "start": 4123,
+          "end": 4129
+        },
+        {
+          "text": "$value",
+          "tokenType": "parameter",
+          "start": 4173,
+          "end": 4179
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 4479,
+          "end": 4483
+        },
+        {
+          "text": "$seconds",
+          "tokenType": "parameter",
+          "start": 4496,
+          "end": 4504
+        },
+        {
+          "text": "$key",
+          "tokenType": "variable",
+          "start": 4923,
+          "end": 4927
+        },
+        {
+          "text": "$value",
+          "tokenType": "variable",
+          "start": 4973,
+          "end": 4979
+        },
+        {
+          "text": "$expiration",
+          "tokenType": "variable",
+          "start": 5014,
+          "end": 5025
+        },
+        {
+          "text": "$serializedValues",
+          "tokenType": "variable",
+          "start": 5091,
+          "end": 5108
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 5405,
+          "end": 5409
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 5460,
+          "end": 5464
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 5481,
+          "end": 5485
+        },
+        {
+          "text": "$value",
+          "tokenType": "parameter",
+          "start": 5495,
+          "end": 5501
+        },
+        {
+          "text": "$value",
+          "tokenType": "parameter",
+          "start": 5521,
+          "end": 5527
+        },
+        {
+          "text": "SqlServerConnection",
+          "tokenType": "class",
+          "start": 5630,
+          "end": 5649
+        },
+        {
+          "text": "// ...",
+          "tokenType": "comment",
+          "start": 5901,
+          "end": 5907
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 7061,
+          "end": 7065
+        },
+        {
+          "text": "$prefixed",
+          "tokenType": "variable",
+          "start": 7118,
+          "end": 7127
+        },
+        {
+          "text": "$cache",
+          "tokenType": "variable",
+          "start": 7463,
+          "end": 7469
+        },
+        {
+          "text": "$cache",
+          "tokenType": "variable",
+          "start": 7549,
+          "end": 7555
+        },
+        {
+          "text": "object",
+          "tokenType": "keyword",
+          "start": 7560,
+          "end": 7566
+        },
+        {
+          "text": "$cache",
+          "tokenType": "variable",
+          "start": 7568,
+          "end": 7574
+        },
+        {
+          "text": "$cache",
+          "tokenType": "variable",
+          "start": 7577,
+          "end": 7583
+        },
+        {
+          "text": "$cache",
+          "tokenType": "variable",
+          "start": 7628,
+          "end": 7634
+        },
+        {
+          "text": "$current",
+          "tokenType": "variable",
+          "start": 7945,
+          "end": 7953
+        },
+        {
+          "text": "$current",
+          "tokenType": "variable",
+          "start": 7994,
+          "end": 8002
+        },
+        {
+          "text": "$prefixed",
+          "tokenType": "variable",
+          "start": 8358,
+          "end": 8367
+        },
+        {
+          "text": "$new",
+          "tokenType": "variable",
+          "start": 8423,
+          "end": 8427
+        },
+        {
+          "text": "/**\n     * Get the current system time.\n     *\n     * @return int\n     */",
+          "tokenType": "comment",
+          "start": 8495,
+          "end": 8568
+        },
+        {
+          "text": "??",
+          "tokenType": "operator",
+          "start": 9233,
+          "end": 9235
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 10458,
+          "end": 10462
+        },
+        {
+          "text": "\"",
+          "tokenType": "string",
+          "start": 10476,
+          "end": 10477
+        },
+        {
+          "text": "{",
+          "tokenType": "punctuation",
+          "start": 10477,
+          "end": 10478
+        },
+        {
+          "text": "prefix",
+          "tokenType": "property",
+          "start": 10485,
+          "end": 10491
+        },
+        {
+          "text": "}",
+          "tokenType": "punctuation",
+          "start": 10491,
+          "end": 10492
+        },
+        {
+          "text": "illuminate:cache:flexible:created:",
+          "tokenType": "string",
+          "start": 10492,
+          "end": 10526
+        },
+        {
+          "text": "{",
+          "tokenType": "punctuation",
+          "start": 10526,
+          "end": 10527
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 10527,
+          "end": 10531
+        },
+        {
+          "text": "}",
+          "tokenType": "punctuation",
+          "start": 10531,
+          "end": 10532
+        },
+        {
+          "text": "\"",
+          "tokenType": "string",
+          "start": 10532,
+          "end": 10533
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 10977,
+          "end": 10981
+        },
+        {
+          "text": "prefix",
+          "tokenType": "property",
+          "start": 11006,
+          "end": 11012
+        },
+        {
+          "text": ".",
+          "tokenType": "operator",
+          "start": 11012,
+          "end": 11013
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 11065,
+          "end": 11069
+        },
+        {
+          "text": "\"",
+          "tokenType": "string",
+          "start": 11121,
+          "end": 11122
+        },
+        {
+          "text": "{",
+          "tokenType": "punctuation",
+          "start": 11122,
+          "end": 11123
+        },
+        {
+          "text": "$this",
+          "tokenType": "variable",
+          "start": 11123,
+          "end": 11128
+        },
+        {
+          "text": "->",
+          "tokenType": "operator",
+          "start": 11128,
+          "end": 11130
+        },
+        {
+          "text": "prefix",
+          "tokenType": "property",
+          "start": 11130,
+          "end": 11136
+        },
+        {
+          "text": "}",
+          "tokenType": "punctuation",
+          "start": 11136,
+          "end": 11137
+        },
+        {
+          "text": "{",
+          "tokenType": "punctuation",
+          "start": 11137,
+          "end": 11138
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 11138,
+          "end": 11142
+        },
+        {
+          "text": "}",
+          "tokenType": "punctuation",
+          "start": 11142,
+          "end": 11143
+        },
+        {
+          "text": "\"",
+          "tokenType": "string",
+          "start": 11143,
+          "end": 11144
+        },
+        {
+          "text": "->",
+          "tokenType": "operator",
+          "start": 11169,
+          "end": 11171
+        },
+        {
+          "text": "prefix",
+          "tokenType": "property",
+          "start": 11171,
+          "end": 11177
+        },
+        {
+          "text": "}",
+          "tokenType": "punctuation",
+          "start": 11177,
+          "end": 11178
+        },
+        {
+          "text": "illuminate:cache:flexible:created:",
+          "tokenType": "string",
+          "start": 11178,
+          "end": 11212
+        },
+        {
+          "text": "{",
+          "tokenType": "punctuation",
+          "start": 11212,
+          "end": 11213
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 11213,
+          "end": 11217
+        },
+        {
+          "text": "}",
+          "tokenType": "punctuation",
+          "start": 11217,
+          "end": 11218
+        },
+        {
+          "text": "\"",
+          "tokenType": "string",
+          "start": 11218,
+          "end": 11219
+        },
+        {
+          "text": "PostgresConnection",
+          "tokenType": "class",
+          "start": 12868,
+          "end": 12886
+        },
+        {
+          "text": "SQLiteConnection",
+          "tokenType": "class",
+          "start": 12932,
+          "end": 12948
+        },
+        {
+          "text": "$result",
+          "tokenType": "variable",
+          "start": 12978,
+          "end": 12985
+        },
+        {
+          "text": "$result",
+          "tokenType": "variable",
+          "start": 13032,
+          "end": 13039
+        },
+        {
+          "text": "SQLiteConnection",
+          "tokenType": "class",
+          "start": 13349,
+          "end": 13365
+        },
+        {
+          "text": "$value",
+          "tokenType": "parameter",
+          "start": 13433,
+          "end": 13439
+        }
+      ],
+      "unexpected": [
+        {
+          "text": "Store",
+          "tokenType": "type",
+          "start": 527,
+          "end": 532
+        },
+        {
+          "text": "/**\n",
+          "tokenType": "comment",
+          "start": 1501,
+          "end": 1505
+        },
+        {
+          "text": " * Create a new database store.\n     *\n     * @param  \\Illuminate\\Database\\ConnectionInterface  $connection\n     * @param  string  $table\n     * @param  string  $prefix\n     * @param  string  $lockTable\n     * @param  array  $lockLottery\n     */",
+          "tokenType": "comment",
+          "start": 1509,
+          "end": 1754
+        },
+        {
+          "text": "$defaultLockTimeoutInSeconds",
+          "tokenType": "variable",
+          "start": 1944,
+          "end": 1972
+        },
+        {
+          "text": "$key",
+          "tokenType": "property",
+          "start": 3170,
+          "end": 3174
+        },
+        {
+          "text": "$keys",
+          "tokenType": "variable",
+          "start": 3191,
+          "end": 3196
+        },
+        {
+          "text": "$values",
+          "tokenType": "parameter",
+          "start": 3671,
+          "end": 3678
+        },
+        {
+          "text": "$currentTime",
+          "tokenType": "parameter",
+          "start": 3713,
+          "end": 3725
+        },
+        {
+          "text": "$cache",
+          "tokenType": "variable",
+          "start": 3748,
+          "end": 3754
+        },
+        {
+          "text": "$expired",
+          "tokenType": "parameter",
+          "start": 3873,
+          "end": 3881
+        },
+        {
+          "text": "$results",
+          "tokenType": "parameter",
+          "start": 3956,
+          "end": 3964
+        },
+        {
+          "text": "$values",
+          "tokenType": "parameter",
+          "start": 3995,
+          "end": 4002
+        },
+        {
+          "text": "$key",
+          "tokenType": "property",
+          "start": 4072,
+          "end": 4076
+        },
+        {
+          "text": "$cache",
+          "tokenType": "parameter",
+          "start": 4123,
+          "end": 4129
+        },
+        {
+          "text": "$value",
+          "tokenType": "variable",
+          "start": 4173,
+          "end": 4179
+        },
+        {
+          "text": "$key",
+          "tokenType": "variable",
+          "start": 4479,
+          "end": 4483
+        },
+        {
+          "text": "$seconds",
+          "tokenType": "variable",
+          "start": 4496,
+          "end": 4504
+        },
+        {
+          "text": "$key",
+          "tokenType": "parameter",
+          "start": 4923,
+          "end": 4927
+        },
+        {
+          "text": "$value",
+          "tokenType": "parameter",
+          "start": 4973,
+          "end": 4979
+        },
+        {
+          "text": "$expiration",
+          "tokenType": "parameter",
+          "start": 5014,
+          "end": 5025
+        },
+        {
+          "text": "$serializedValues",
+          "tokenType": "parameter",
+          "start": 5091,
+          "end": 5108
+        },
+        {
+          "text": "$key",
+          "tokenType": "variable",
+          "start": 5405,
+          "end": 5409
+        },
+        {
+          "text": "$key",
+          "tokenType": "variable",
+          "start": 5460,
+          "end": 5464
+        },
+        {
+          "text": "$key",
+          "tokenType": "property",
+          "start": 5481,
+          "end": 5485
+        },
+        {
+          "text": "$value",
+          "tokenType": "variable",
+          "start": 5495,
+          "end": 5501
+        },
+        {
+          "text": "$value",
+          "tokenType": "variable",
+          "start": 5521,
+          "end": 5527
+        },
+        {
+          "text": "SqlServerConnection",
+          "tokenType": "constant",
+          "start": 5630,
+          "end": 5649
+        },
+        {
+          "text": "// ",
+          "tokenType": "comment",
+          "start": 5901,
+          "end": 5904
+        },
+        {
+          "text": "...",
+          "tokenType": "operator",
+          "start": 5904,
+          "end": 5907
+        },
+        {
+          "text": "$key",
+          "tokenType": "property",
+          "start": 7061,
+          "end": 7065
+        },
+        {
+          "text": "$prefixed",
+          "tokenType": "parameter",
+          "start": 7118,
+          "end": 7127
+        },
+        {
+          "text": "$cache",
+          "tokenType": "parameter",
+          "start": 7463,
+          "end": 7469
+        },
+        {
+          "text": "$cache",
+          "tokenType": "parameter",
+          "start": 7549,
+          "end": 7555
+        },
+        {
+          "text": "object",
+          "tokenType": "parameter",
+          "start": 7560,
+          "end": 7566
+        },
+        {
+          "text": "$cache",
+          "tokenType": "parameter",
+          "start": 7568,
+          "end": 7574
+        },
+        {
+          "text": "$cache",
+          "tokenType": "parameter",
+          "start": 7577,
+          "end": 7583
+        },
+        {
+          "text": "$cache",
+          "tokenType": "parameter",
+          "start": 7628,
+          "end": 7634
+        },
+        {
+          "text": "$current",
+          "tokenType": "parameter",
+          "start": 7945,
+          "end": 7953
+        },
+        {
+          "text": "$current",
+          "tokenType": "parameter",
+          "start": 7994,
+          "end": 8002
+        },
+        {
+          "text": "$prefixed",
+          "tokenType": "parameter",
+          "start": 8358,
+          "end": 8367
+        },
+        {
+          "text": "$new",
+          "tokenType": "parameter",
+          "start": 8423,
+          "end": 8427
+        },
+        {
+          "text": " /**\n     * Get the current system time.\n     *\n     * @return int\n     */",
+          "tokenType": "comment",
+          "start": 8494,
+          "end": 8568
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 9233,
+          "end": 9234
+        },
+        {
+          "text": "?",
+          "tokenType": "operator",
+          "start": 9234,
+          "end": 9235
+        },
+        {
+          "text": "$key",
+          "tokenType": "property",
+          "start": 10458,
+          "end": 10462
+        },
+        {
+          "text": "\"{",
+          "tokenType": "string",
+          "start": 10476,
+          "end": 10478
+        },
+        {
+          "text": "prefix}illuminate:cache:flexible:created:{$key}\"",
+          "tokenType": "string",
+          "start": 10485,
+          "end": 10533
+        },
+        {
+          "text": "$key",
+          "tokenType": "variable",
+          "start": 10977,
+          "end": 10981
+        },
+        {
+          "text": "prefix.",
+          "tokenType": "property",
+          "start": 11006,
+          "end": 11013
+        },
+        {
+          "text": "$key",
+          "tokenType": "variable",
+          "start": 11065,
+          "end": 11069
+        },
+        {
+          "text": "\"{",
+          "tokenType": "string",
+          "start": 11121,
+          "end": 11123
+        },
+        {
+          "text": "$this->",
+          "tokenType": "variable",
+          "start": 11123,
+          "end": 11130
+        },
+        {
+          "text": "prefix}{$key}\"",
+          "tokenType": "string",
+          "start": 11130,
+          "end": 11144
+        },
+        {
+          "text": "->prefix}illuminate:cache:flexible:created:{$key}\"",
+          "tokenType": "string",
+          "start": 11169,
+          "end": 11219
+        },
+        {
+          "text": "PostgresConnection",
+          "tokenType": "constant",
+          "start": 12868,
+          "end": 12886
+        },
+        {
+          "text": "SQLiteConnection",
+          "tokenType": "constant",
+          "start": 12932,
+          "end": 12948
+        },
+        {
+          "text": "$result",
+          "tokenType": "parameter",
+          "start": 12978,
+          "end": 12985
+        },
+        {
+          "text": "$result",
+          "tokenType": "parameter",
+          "start": 13032,
+          "end": 13039
+        },
+        {
+          "text": "SQLiteConnection",
+          "tokenType": "constant",
+          "start": 13349,
+          "end": 13365
+        },
+        {
+          "text": "$value",
+          "tokenType": "variable",
+          "start": 13433,
+          "end": 13439
+        }
+      ]
+    }
+  ],
+  "checkpointHash": "c0d54666cd8db746b6d4ba76bd9aedc0234b527f593c9e48556a78615b20b890",
+  "checkpointEpoch": 1,
+  "device": "mps"
+}
