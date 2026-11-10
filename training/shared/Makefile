@@ -1073,6 +1073,7 @@ dataset-dart:
 dataset-dart-curriculum:
 	$(PYTHON) -m packs.dart.dataset.generate_curriculum
 	$(PYTHON) -m packs.dart.dataset.generate_literals
+	$(PYTHON) -m packs.dart.dataset.generate_literals
 
 dataset-dart-collect:
 	$(PYTHON) -m packs.dart.dataset.pipeline collect

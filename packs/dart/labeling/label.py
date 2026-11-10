@@ -35,7 +35,8 @@ def label(*,source,document_kind='dart',profile='dart'):
     def signature_role(n):
         if 'constructor' in n.kind:return 'constructor'
         if n.kind in {'getter_signature','setter_signature'}:return 'property'
-        return 'method' if ancestor(n,{'method_declaration','member_declaration'}) else 'function'
+        owner=ancestor(n,{'method_declaration','member_declaration','local_function_declaration','function_declaration','external_function_declaration'})
+        return 'method' if owner is not None and owner.kind in {'method_declaration','member_declaration'} else 'function'
     def type_names(n):
         if n is None:return
         if n.kind in {'annotation','arguments','formal_parameter_list','parameter_type_list'}:return
@@ -73,10 +74,10 @@ def label(*,source,document_kind='dart',profile='dart'):
                     if parameter.kind=='type_parameter':bind(first(parameter.fields.get('name')),'type-parameter')
             elif child.kind=='enum_entry':bind(first(child.fields.get('name')),'enum-member')
             elif child.kind in {'initialized_identifier','initialized_variable_declaration','static_final_declaration'}:bind(first(child.fields.get('name')),variable_role(child))
-            elif child.kind in {'function_declaration','getter_declaration','setter_declaration','external_function_declaration','method_declaration','member_declaration','declaration','method_signature','top_level_variable_declaration','initialized_identifier_list','static_final_declaration_list'}:precollect(child)
+            elif child.kind in {'function_declaration','local_function_declaration','getter_declaration','setter_declaration','external_function_declaration','method_declaration','member_declaration','declaration','method_signature','top_level_variable_declaration','initialized_identifier_list','static_final_declaration_list'}:precollect(child)
     enum_names={first(n.fields.get('name')).text:{x.fields['name'].text for x in n.descendants() if x.kind=='enum_entry'} for n in tree.descendants() if n.kind=='enum_declaration'}
     def visit(n):
-        scoped=n.kind in SCOPES
+        scoped=n.kind in SCOPES or n.kind=='formal_parameter_list' and n.parent and n.parent.kind in {'formal_parameter','field_formal_parameter','super_formal_parameter'}
         if scoped:
             scopes.append({});precollect(n)
             if n.kind=='block' and n.parent and n.parent.kind=='try_statement':
@@ -96,6 +97,7 @@ def label(*,source,document_kind='dart',profile='dart'):
         elif n.kind=='type_parameter':mark(name,'type-parameter',True);bind(name,'type-parameter');features.add('generics')
         elif n.kind=='enum_entry':mark(name,'enum-member',True);bind(name,'enum-member');features.add('enums')
         elif n.kind in {'formal_parameter','field_formal_parameter','super_formal_parameter'}:
+            name=name or next((x for x in n.children if x.kind=='identifier'),None)
             if name is not None:
                 role='property' if n.kind in {'field_formal_parameter','super_formal_parameter'} or ancestor(n,{'primary_constructor'}) else 'parameter'
                 mark(name,'keyword' if name.text=='_' and role=='parameter' else role,name.text!='_');bind(name,role)

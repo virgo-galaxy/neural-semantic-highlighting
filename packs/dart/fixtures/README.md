@@ -1,6 +1,6 @@
 # Dart Golden
 
-33 independently hand-marked original UTF-16 cases cover functions, bindings,
+35 independently hand-marked original UTF-16 cases cover functions, bindings,
 fields/constructors/getters, generics/enums, calls/arguments, imports, records and
 patterns, catches/async, annotations, plain/raw/multiline/interpolated strings,
 Unicode/BOM/CRLF, labels, modern primary constructors, extension types, wildcards,

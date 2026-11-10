@@ -38,6 +38,15 @@ class DartTeacherTests(unittest.TestCase):
     def test_const_initializer_does_not_make_final_binding_constant(self):
         source='void f() { final value=const Missing(); }';at=source.index('value')
         self.assertIn(dict(start=at,end=at+5,tokenType='variable',modifiers=['declaration']),label(source=source)['spans'])
+    def test_untyped_closure_formals_and_local_functions(self):
+        source='class Box { void f() { int inner(int n) => n; final action=(value) => value; } }'
+        spans=label(source=source)['spans'];at=source.index('inner')
+        self.assertIn(dict(start=at,end=at+5,tokenType='function',modifiers=['declaration']),spans)
+        at=source.index('value');self.assertIn(dict(start=at,end=at+5,tokenType='parameter',modifiers=['declaration']),spans)
+        at=source.rindex('value');self.assertIn(dict(start=at,end=at+5,tokenType='parameter'),spans)
+    def test_function_typed_parameter_names_do_not_leak(self):
+        source='void f(int action(int item)) { print(item); }';at=source.rindex('item')
+        self.assertIn(dict(start=at,end=at+4,tokenType='variable'),label(source=source)['spans'])
     def test_imports_annotations_and_input_never_execute(self):
         source="import 'missing-file.dart'; @Missing('do not run') void main() { throw 'not executed'; }"
         self.assertTrue(label(source=source)['spans'])
