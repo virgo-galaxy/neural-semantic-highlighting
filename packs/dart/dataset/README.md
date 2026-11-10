@@ -15,3 +15,8 @@ bounded tasks, labels original UTF-16, validates coverage, audits copies and
 prepares immutable 512-byte snapshots. Unsupported syntax is quarantined without
 fallback. Freeze split-groups.json before the first run; keep natural, focus and
 visible-development evidence separate. No compiler-validity claim is made.
+
+A bounded literal/context revision adds 192 authored records in eight families.
+The original 94 family assignments are retained and extended to 102. The initial
+corpus/Gold/prepared snapshots remain intact; closure/local-function and callback
+scope fixes create a new Gold identity. No upstream recollection or SDK is needed.
