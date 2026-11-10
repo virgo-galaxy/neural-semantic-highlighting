@@ -161,6 +161,9 @@ check:
 	$(MAKE) test-labeling-cpp
 	$(PYTHON) -m compileall -q training/cpp packs/cpp/runtime
 	$(PYTHON) -c 'import packs.cpp.runtime.local'
+	$(MAKE) test-labeling-php
+	$(PYTHON) -m compileall -q training/php packs/php/runtime
+	$(PYTHON) -c 'import packs.php.runtime.local'
 	$(PYTHON) -m compileall -q training/java packs/java/runtime
 	$(PYTHON) -c 'import packs.java.runtime.local'
 	$(PYTHON) -m compileall -q training/sql packs/sql/runtime

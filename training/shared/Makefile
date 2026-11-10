@@ -775,3 +775,70 @@ challenge-cpp:
 export-cpp-model:
 	@test -n "$(CPP_CHECKPOINT)" -a -n "$(CPP_TEST_REPORT)" || (echo 'Set CPP_CHECKPOINT and CPP_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.cpp.export_model --checkpoint "$(CPP_CHECKPOINT)" --test-report "$(CPP_TEST_REPORT)"
+
+PHP_DEVICE ?= auto
+PHP_EPOCHS ?= 3
+PHP_BATCH_SIZE ?= 32
+PHP_LEARNING_RATE ?=
+PHP_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-php dataset-php-tools dataset-php-sources dataset-php-curriculum dataset-php-collect dataset-php-label dataset-php-validate dataset-php-prepare test-labeling-php train-php-smoke train-php continue-php predict-php evaluate-php challenge-php export-php-model
+
+dataset-php-tools:
+	$(PYTHON) -m packs.php.labeling.tools
+
+dataset-php-sources:
+	$(PYTHON) -m packs.php.dataset.fetch_sources
+
+dataset-php:
+	$(MAKE) dataset-php-tools
+	$(MAKE) dataset-php-sources
+	$(MAKE) dataset-php-curriculum
+	$(MAKE) dataset-php-collect
+	$(MAKE) dataset-php-label
+	$(MAKE) dataset-php-validate
+	$(MAKE) dataset-php-prepare
+
+dataset-php-curriculum:
+	$(PYTHON) -m packs.php.dataset.generate_curriculum
+
+dataset-php-collect:
+	$(PYTHON) -m packs.php.dataset.pipeline collect
+
+dataset-php-label:
+	$(PYTHON) -m packs.php.dataset.pipeline label
+
+dataset-php-validate:
+	$(PYTHON) -m packs.php.dataset.pipeline validate
+
+dataset-php-prepare:
+	$(PYTHON) -m training.php.prepare
+
+test-labeling-php:
+	$(PYTHON) -m unittest discover -s packs/php/tests -v
+
+train-php-smoke:
+	$(PYTHON) -m training.php.train --smoke --epochs 1 --device $(PHP_DEVICE) $(if $(PHP_RUN),--output-dir "$(PHP_RUN)") $(if $(PHP_INIT_FROM),--init-from "$(PHP_INIT_FROM)")
+
+train-php:
+	$(PYTHON) -m training.php.train --epochs $(PHP_EPOCHS) --device $(PHP_DEVICE) --batch-size $(PHP_BATCH_SIZE) $(if $(PHP_LEARNING_RATE),--learning-rate $(PHP_LEARNING_RATE)) $(if $(PHP_RUN),--output-dir "$(PHP_RUN)") $(if $(PHP_INIT_FROM),--init-from "$(PHP_INIT_FROM)")
+
+continue-php:
+	@test -n "$(PHP_CHECKPOINT)" || (echo 'Set PHP_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.php.train --resume "$(PHP_CHECKPOINT)" --epochs $(PHP_EPOCHS) --device $(PHP_DEVICE)
+
+predict-php:
+	@test -n "$(PHP_SOURCE)" || (echo 'Set PHP_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.php.predict --device $(PHP_DEVICE) --file "$(PHP_SOURCE)" $(if $(PHP_CHECKPOINT),--checkpoint "$(PHP_CHECKPOINT)")
+
+evaluate-php:
+	@test -n "$(PHP_CHECKPOINT)" || (echo 'Set PHP_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.php.evaluate --checkpoint "$(PHP_CHECKPOINT)" --device $(PHP_DEVICE) --split $(PHP_EVAL_SPLIT)
+
+challenge-php:
+	@test -n "$(PHP_CHECKPOINT)" || (echo 'Set PHP_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.php.challenge --checkpoint "$(PHP_CHECKPOINT)" --device $(PHP_DEVICE)
+
+export-php-model:
+	@test -n "$(PHP_CHECKPOINT)" -a -n "$(PHP_TEST_REPORT)" || (echo 'Set PHP_CHECKPOINT and PHP_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.php.export_model --checkpoint "$(PHP_CHECKPOINT)" --test-report "$(PHP_TEST_REPORT)"
