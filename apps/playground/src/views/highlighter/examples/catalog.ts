@@ -6,6 +6,7 @@ import cIcon from "@/assets/document-kinds/c.svg";
 import cppIcon from "@/assets/document-kinds/cpp.svg";
 import csharpIcon from "@/assets/document-kinds/csharp.svg";
 import cssIcon from "@/assets/document-kinds/css.svg";
+import dartIcon from "@/assets/document-kinds/dart.svg";
 import goIcon from "@/assets/document-kinds/go.svg";
 import htmlIcon from "@/assets/document-kinds/html.svg";
 import javaIcon from "@/assets/document-kinds/java.svg";
@@ -91,6 +92,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   svelte: { label: "Svelte", icon: svelteIcon },
   rust: { label: "Rust", icon: rustIcon },
   zig: { label: "Zig", icon: zigIcon },
+  dart: { label: "Dart", icon: dartIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -161,6 +163,7 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".svelte", "svelte"],
   [".rs", "rust"],
   [".zig", "zig"],
+  [".dart", "dart"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

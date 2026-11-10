@@ -171,6 +171,7 @@ describe("shipped browser artifacts", () => {
       "svelte",
       "rust",
       "zig",
+      "dart",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

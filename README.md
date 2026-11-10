@@ -701,11 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **21 model packs**, with browser inference and Playground examples.
+There are **22 model packs**, with browser inference and Playground examples.
 The browser conversion preserves the selected weights without retraining or
 quantization. [Browser verification](docs/browser-runtime.md) records conversion
-checks and the exact-output comparison across 139 examples/edge cases, including
-Java, C#, C, C++, PHP, Svelte, Rust and Zig. Independent local-package verification also covers its public imports. This is
+checks and the exact-output comparison across 147 examples/edge cases, including
+Java, C#, C, C++, PHP, Svelte, Rust, Zig and Dart. Independent local-package verification also covers its public imports. This is
 runtime parity evidence, not a new accuracy evaluation.
 
 The table reports **exact-span F1**: token start, end and semantic type must match.
@@ -735,6 +735,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [Svelte](packs/svelte/model/README.md)                      | `.svelte`; legacy component syntax and Svelte 5 runes/snippets; predicted JS/TS and CSS/SCSS/Less regions                                                           | [88.47%](packs/svelte/model/BENCHMARKS.md) — natural base template/region test, 9 files; visible composed examples 97.53%, reported separately | Browser + local base; [snippet/binding, entity and long mixed-body region boundaries](packs/svelte/model/KNOWN_ISSUES.md) remain limited             |
 | [Rust](packs/rust/model/README.md)                          | `.rs`; common stable Rust 2018/2021/2024 source, traits/impls, generics/lifetimes, patterns, async and macro syntax                                                 | [94.90%](packs/rust/model/BENCHMARKS.md) — natural test, 15 files                                                                              | Browser + local; [raw/format-string boundaries, macro DSLs and local semantic roles](packs/rust/model/KNOWN_ISSUES.md) remain limited                |
 | [Zig](packs/zig/model/README.md)                            | `.zig`; Zig 0.17.1 only, current functions/containers, errors/optionals, comptime, captures and builtins                                                            | [92.51%](packs/zig/model/BENCHMARKS.md) — natural test, 21 files                                                                               | Browser + local; [quoted identifiers, literal boundaries and local roles](packs/zig/model/KNOWN_ISSUES.md) remain limited                            |
+| [Dart](packs/dart/model/README.md)                          | `.dart`; null-safe Dart, classes/generics, records/patterns, async, collections and common Flutter widget code                                                      | [94.22%](packs/dart/model/BENCHMARKS.md) — natural test, 20 files                                                                              | Browser + local; [raw/interpolated string boundaries, constructor/local roles and patterns](packs/dart/model/KNOWN_ISSUES.md) remain limited         |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -773,3 +774,11 @@ with current SDK-checked display examples. Historical syntax/APIs, master and ZO
 are outside this pack. Browser/Playground consumers need no Zig SDK, compiler,
 Python provider or parser. See [Zig evaluation](packs/zig/model/BENCHMARKS.md)
 for the small official-source holdout and measured limits.
+
+Dart uses `{ language: "dart" }`; selective
+`@nsh/highlighter/languages/dart` needs one model. Common Flutter widget code is
+Dart source and uses this same entry. No Dart/Flutter SDK was installed for this
+baseline; browser consumers require no SDK, analyzer, parser or Python provider.
+Modern forms have bounded independent grammar coverage, without certifying every
+SDK release or resolving imported widgets/types. See [Dart evaluation](packs/dart/model/BENCHMARKS.md)
+for separate natural, focus and visible results.

@@ -10,6 +10,7 @@ import c from "./languages/c.js";
 import cpp from "./languages/cpp.js";
 import csharp from "./languages/csharp.js";
 import css from "./languages/css.js";
+import dart from "./languages/dart.js";
 import go from "./languages/go.js";
 import html from "./languages/html.js";
 import java from "./languages/java.js";
@@ -50,6 +51,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       svelte,
       rust,
       zig,
+      dart,
     ],
   });
 }

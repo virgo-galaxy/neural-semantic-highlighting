@@ -245,3 +245,31 @@ source snapshots, experiments and models. See [Zig training](../training/zig/REA
 [contract](../packs/zig/SEMANTICS.md) and [evaluation](../packs/zig/model/BENCHMARKS.md).
 Frontends use `zig` / `@nsh/highlighter/languages/zig` through the existing browser
 worker and need no SDK, Python provider or runtime syntax repair.
+
+## Dart offline workflow
+
+No Dart/Flutter SDK, analyzer, pub environment or global dependency is installed.
+The pinned independent Tree-sitter 0.25.10 / Dart grammar 0.3.0 uses existing
+Apple Clang to build a project-local parse-only library. Parser sources, Git blobs,
+licenses, compiler identity and library hashes are locked in ignored cache.
+This provides CST/source-local Gold rather than official analyzer semantics.
+Imports, annotations, generators and input projects never execute.
+
+`make dataset-dart` captures 212 bounded official Dart-package/Flutter-stable
+sources with original licenses, generates 55 original task families and eight
+literal/context families, labels/validates original UTF-16, audits cross-family
+copies and prepares immutable external snapshots. All 94 initial assignments
+remain; the final frozen map extends to 102 before corrected training. Golden and
+Playground are excluded. Eleven teacher tests and 35 manually marked cases are
+separate from neural scores. Display examples have parse/coverage evidence only,
+without SDK/compiler checks.
+
+Data stays under `~/Datasets/neural-semantic-highlighting/dart`; full resumable
+optimizer/RNG checkpoints, candidate archives and measured run logs under
+`artifacts/dart`. Review actual validation source and visible probes before
+freezing and the first adaptive test; preserve all previous data/runs/models.
+Initialize/resume only full checkpoints, never inference `.pt`/ONNX. See
+[Dart training](../training/dart/README.md), [contract](../packs/dart/SEMANTICS.md)
+and [evaluation](../packs/dart/model/BENCHMARKS.md). Frontends use `dart` or
+`@nsh/highlighter/languages/dart` through the existing browser worker. Flutter
+source shares that model without an installed framework or widget resolution.

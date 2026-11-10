@@ -28,7 +28,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 ```
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML and Vue descriptors include
-their JS/TS/CSS dependencies automatically. Default registration covers 21 packs;
+their JS/TS/CSS dependencies automatically. Default registration covers 22 packs;
 weights are fetched lazily. Models are about 3.7 MB each, with a shared 14.8 MB
 uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -98,3 +98,10 @@ Selective `@nsh/highlighter/languages/zig` emits one model asset; no Zig compile
 SDK, Python provider or parser is needed by the frontend. Historical releases,
 master and ZON are outside this pack. See [Zig evaluation](../../packs/zig/model/BENCHMARKS.md)
 and [known issues](../../packs/zig/model/KNOWN_ISSUES.md).
+
+Dart uses `{ language: "dart" }` for original `.dart` source, including common
+Flutter widget code. Selective `@nsh/highlighter/languages/dart` emits one model
+asset. Consumers require no Dart/Flutter SDK, analyzer, language parser or Python
+provider. See [Dart evaluation](../../packs/dart/model/BENCHMARKS.md) and
+[known issues](../../packs/dart/model/KNOWN_ISSUES.md), including literal boundaries
+and approximate local/constructor roles.

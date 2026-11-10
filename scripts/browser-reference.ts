@@ -31,6 +31,7 @@ const ids = [
   "svelte",
   "rust",
   "zig",
+  "dart",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,

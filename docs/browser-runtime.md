@@ -300,3 +300,44 @@ Zig is the twenty-first model, targeting **0.17.1 only**. Its
 literal-boundary, inferred/local-role and 512-byte-context limits. This single
 release's source is bounded evidence, not universal application compatibility.
 All packages and the repository remain private; nothing is published or pushed.
+
+## Dart addition
+
+Dart is the twenty-second model. Its [verification record](dart-browser-verification.json)
+retains browser, private-package and Playground evidence without an installed
+Dart/Flutter SDK:
+
+- **147/147** examples/edges across all models match native CPU spans, original
+  UTF-16 offsets and modifiers, including eight Dart examples. The previous 139
+  reference results remain unchanged.
+- A fresh temporary Vite consumer installs the four private local tarballs from
+  the existing offline cache and passes **12/12** Dart cases using public imports.
+  Empty input, BOM/CRLF/Unicode and long source preserve original text. All six
+  palette/mode combinations render; selective Dart emits **one ONNX asset**.
+- Eight numerical export lengths pass with maximum head error below `1e-4`,
+  without retraining or quantization. All 43 previous native/browser/historical
+  artifact hashes remain unchanged.
+- Full `make check` passes 154 frontend tests, eleven Dart teacher tests, all 35
+  independently marked Golden cases and the existing data/runtime checks. The
+  neural model itself is exact in 6/35 visible Golden cases; teacher exactness is
+  separate from neural quality and includes declaration modifiers.
+- No Dart/Flutter SDK, analyzer, pub environment or global dependency is installed.
+  Existing Apple Clang builds the pinned independent Tree-sitter grammar in
+  ignored project cache. Generated C source, licenses, Git blobs, compiler and
+  library hashes are retained. No source project, import, generator or annotation
+  is executed; displayed source has parse/coverage evidence only, not SDK checks.
+- The capture pins 212 Dart-package/Flutter-stable source files. Initial 94 family
+  assignments remain intact; eight bounded literal/context families extend the
+  frozen map to 102. All original source/Gold/prepared revisions and training
+  runs remain preserved. No training follows the frozen candidate's first test.
+- Playground selection, shuffle, edit/blur and light/dark themes preserve original
+  source without console warnings/errors. Common Flutter code uses the same Dart
+  entry. Frontend inference needs no SDK, Python provider or language parser.
+
+[Dart evaluation](../packs/dart/model/BENCHMARKS.md) separates natural test
+(94.22%, 20 files), focus and visible development examples (89.36% aggregate;
+Flutter widget 96.85%, mixed strings 85.34%). [Known issues](../packs/dart/model/KNOWN_ISSUES.md)
+retain raw/triple/interpolated literal boundaries, inferred/local/constructor
+roles, complex patterns and context limits. Independent grammar acceptance does
+not certify complete SDK-version compatibility or resolve imported widgets.
+All packages and the repository remain private; nothing is published or pushed.
