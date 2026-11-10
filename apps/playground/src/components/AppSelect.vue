@@ -54,6 +54,7 @@ function handleValueChange(value: unknown): void {
         v-if="selectedOption?.icon"
         class="app-select-trigger-icon"
         :src="selectedOption.icon"
+        :data-icon-name="selectedOption.value"
         alt=""
         aria-hidden="true"
       />
@@ -80,7 +81,13 @@ function handleValueChange(value: unknown): void {
             :value="option.value"
           >
             <span v-if="hasIcons" class="app-select-item-icon-slot" aria-hidden="true">
-              <img v-if="option.icon" class="app-select-item-icon" :src="option.icon" alt="" />
+              <img
+                v-if="option.icon"
+                class="app-select-item-icon"
+                :src="option.icon"
+                :data-icon-name="option.value"
+                alt=""
+              />
             </span>
 
             <SelectItemText class="app-select-item-label">
@@ -154,6 +161,11 @@ function handleValueChange(value: unknown): void {
   height: 14px;
 
   object-fit: contain;
+}
+
+html:has(.app-page[data-nsh-theme="dark"]) .app-select-trigger-icon[data-icon-name="rust"],
+html:has(.app-page[data-nsh-theme="dark"]) .app-select-item-icon[data-icon-name="rust"] {
+  filter: invert(1);
 }
 
 .app-select-value {

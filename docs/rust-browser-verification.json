@@ -1,0 +1,1191 @@
+{
+  "date": "2026-11-10",
+  "scope": "Rust source-local model added after the user-authorized existing stable toolchain update; frontend needs no SDK",
+  "modelsAvailable": 20,
+  "selectedModel": {
+    "file": "model.pt",
+    "format": "nsh-rust-model-v1",
+    "sha256": "2bed2cf3dc495274d8c4fc0a0cfadd6ed6d7f39f49efa1515084ba9e625fa44d",
+    "bytes": 3640437,
+    "parameterCount": 894743,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "browserModel": {
+    "file": "model.onnx",
+    "sha256": "c2bae69bbf78449b5f53f1a45489d9295fa15d35005ed2b8bebee2a2678240cc",
+    "bytes": 3707603
+  },
+  "conversion": {
+    "reference": "selected PyTorch CPU inference",
+    "torch": "2.14.0",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "sourceSha256": "2bed2cf3dc495274d8c4fc0a0cfadd6ed6d7f39f49efa1515084ba9e625fa44d",
+    "modelSha256": "c2bae69bbf78449b5f53f1a45489d9295fa15d35005ed2b8bebee2a2678240cc",
+    "comparisons": [
+      {
+        "bytes": 1,
+        "maxAbsoluteErrors": [3.337860107421875e-6, 3.382563591003418e-6, 1.9073486328125e-6]
+      },
+      {
+        "bytes": 2,
+        "maxAbsoluteErrors": [4.76837158203125e-6, 6.67572021484375e-6, 5.7220458984375e-6]
+      },
+      {
+        "bytes": 7,
+        "maxAbsoluteErrors": [4.410743713378906e-6, 1.430511474609375e-5, 7.62939453125e-6]
+      },
+      {
+        "bytes": 31,
+        "maxAbsoluteErrors": [9.059906005859375e-6, 1.430511474609375e-5, 1.0967254638671875e-5]
+      },
+      {
+        "bytes": 64,
+        "maxAbsoluteErrors": [1.1682510375976562e-5, 1.7404556274414062e-5, 1.52587890625e-5]
+      },
+      {
+        "bytes": 127,
+        "maxAbsoluteErrors": [1.4781951904296875e-5, 2.288818359375e-5, 1.1444091796875e-5]
+      },
+      {
+        "bytes": 511,
+        "maxAbsoluteErrors": [1.52587890625e-5, 1.71661376953125e-5, 1.9073486328125e-5]
+      },
+      {
+        "bytes": 512,
+        "maxAbsoluteErrors": [1.1593103408813477e-5, 2.3603439331054688e-5, 1.9550323486328125e-5]
+      }
+    ]
+  },
+  "parity": {
+    "total": 131,
+    "passed": 131,
+    "failures": [],
+    "timings": [
+      {
+        "filename": "assembly/aarch64.S",
+        "ms": 249
+      },
+      {
+        "filename": "assembly/att.s",
+        "ms": 17.5
+      },
+      {
+        "filename": "assembly/intel.s",
+        "ms": 12.700000047683716
+      },
+      {
+        "filename": "assembly/macros.asm",
+        "ms": 12.5
+      },
+      {
+        "filename": "assembly/masm.asm",
+        "ms": 14.400000035762787
+      },
+      {
+        "filename": "assembly/nasm.asm",
+        "ms": 19.100000023841858
+      },
+      {
+        "filename": "awk/counts.awk",
+        "ms": 51.59999996423721
+      },
+      {
+        "filename": "awk/files.awk",
+        "ms": 10
+      },
+      {
+        "filename": "awk/normalize.awk",
+        "ms": 13.599999964237213
+      },
+      {
+        "filename": "awk/report.awk",
+        "ms": 16.399999976158142
+      },
+      {
+        "filename": "bash/build.sh",
+        "ms": 58
+      },
+      {
+        "filename": "bash/files.csh",
+        "ms": 8.5
+      },
+      {
+        "filename": "bash/files.zsh",
+        "ms": 8.700000047683716
+      },
+      {
+        "filename": "bash/functions.sh",
+        "ms": 12.100000023841858
+      },
+      {
+        "filename": "bash/heredoc.sh",
+        "ms": 16
+      },
+      {
+        "filename": "bash/portable.sh",
+        "ms": 12.300000011920929
+      },
+      {
+        "filename": "bat/arguments.bat",
+        "ms": 60.10000002384186
+      },
+      {
+        "filename": "bat/build.bat",
+        "ms": 13.699999988079071
+      },
+      {
+        "filename": "bat/functions.cmd",
+        "ms": 6.100000023841858
+      },
+      {
+        "filename": "bat/records.cmd",
+        "ms": 16.5
+      },
+      {
+        "filename": "c/callbacks.c",
+        "ms": 68.30000001192093
+      },
+      {
+        "filename": "c/file-reader.c",
+        "ms": 18.599999964237213
+      },
+      {
+        "filename": "c/hello.c",
+        "ms": 10.399999976158142
+      },
+      {
+        "filename": "c/linked-list.c",
+        "ms": 16.600000023841858
+      },
+      {
+        "filename": "c/literals.c",
+        "ms": 21.599999964237213
+      },
+      {
+        "filename": "c/macros.h",
+        "ms": 21.600000023841858
+      },
+      {
+        "filename": "c/modern-c.c",
+        "ms": 32.60000002384186
+      },
+      {
+        "filename": "c/points.c",
+        "ms": 20.80000001192093
+      },
+      {
+        "filename": "cpp/algorithms.cpp",
+        "ms": 62.09999996423721
+      },
+      {
+        "filename": "cpp/bindings.cpp",
+        "ms": 24.19999998807907
+      },
+      {
+        "filename": "cpp/classes.cpp",
+        "ms": 27
+      },
+      {
+        "filename": "cpp/concepts.cpp",
+        "ms": 17.69999998807907
+      },
+      {
+        "filename": "cpp/hello.cpp",
+        "ms": 20.5
+      },
+      {
+        "filename": "cpp/raw-strings.cpp",
+        "ms": 22.30000001192093
+      },
+      {
+        "filename": "cpp/smart-pointers.cpp",
+        "ms": 22
+      },
+      {
+        "filename": "cpp/templates.hpp",
+        "ms": 23.30000001192093
+      },
+      {
+        "filename": "csharp/AsyncStream.cs",
+        "ms": 59.30000001192093
+      },
+      {
+        "filename": "csharp/Collections.cs",
+        "ms": 28.30000001192093
+      },
+      {
+        "filename": "csharp/GenericStore.cs",
+        "ms": 27.200000047683716
+      },
+      {
+        "filename": "csharp/Hello.cs",
+        "ms": 27.19999998807907
+      },
+      {
+        "filename": "csharp/Options.cs",
+        "ms": 26.5
+      },
+      {
+        "filename": "csharp/Queries.cs",
+        "ms": 36.40000003576279
+      },
+      {
+        "filename": "csharp/Records.cs",
+        "ms": 30.200000047683716
+      },
+      {
+        "filename": "csharp/StringTemplates.cs",
+        "ms": 30.299999952316284
+      },
+      {
+        "filename": "css/hello.css",
+        "ms": 52.90000003576279
+      },
+      {
+        "filename": "css/responsive-grid.css",
+        "ms": 13.700000047683716
+      },
+      {
+        "filename": "go/generics.go",
+        "ms": 94.90000003576279
+      },
+      {
+        "filename": "go/hello.go",
+        "ms": 10.300000011920929
+      },
+      {
+        "filename": "go/long-raw-string.go",
+        "ms": 85.59999996423721
+      },
+      {
+        "filename": "go/selectors.go",
+        "ms": 22.5
+      },
+      {
+        "filename": "go/struct-methods.go",
+        "ms": 25.899999976158142
+      },
+      {
+        "filename": "html/embedded.html",
+        "ms": 148.69999998807907
+      },
+      {
+        "filename": "html/forms-and-dialog.html",
+        "ms": 48.30000001192093
+      },
+      {
+        "filename": "html/hello.html",
+        "ms": 37.40000003576279
+      },
+      {
+        "filename": "html/raw-text.html",
+        "ms": 37.59999996423721
+      },
+      {
+        "filename": "html/tailwind-card.html",
+        "ms": 50.89999997615814
+      },
+      {
+        "filename": "html/web-components.html",
+        "ms": 34.60000002384186
+      },
+      {
+        "filename": "java/Annotations.java",
+        "ms": 79
+      },
+      {
+        "filename": "java/AsyncTasks.java",
+        "ms": 27.69999998807907
+      },
+      {
+        "filename": "java/Hello.java",
+        "ms": 41
+      },
+      {
+        "filename": "java/PatternRouting.java",
+        "ms": 38.89999997615814
+      },
+      {
+        "filename": "java/Result.java",
+        "ms": 23.899999976158142
+      },
+      {
+        "filename": "java/TextTemplates.java",
+        "ms": 23.400000035762787
+      },
+      {
+        "filename": "java/module-info.java",
+        "ms": 20.69999998807907
+      },
+      {
+        "filename": "javascript/async-cache.js",
+        "ms": 59.89999997615814
+      },
+      {
+        "filename": "javascript/data-pipeline.js",
+        "ms": 58.89999997615814
+      },
+      {
+        "filename": "javascript/event-bus.js",
+        "ms": 62.60000002384186
+      },
+      {
+        "filename": "javascript/hello.js",
+        "ms": 14.900000035762787
+      },
+      {
+        "filename": "javascript/react-hooks.jsx",
+        "ms": 132.9000000357628
+      },
+      {
+        "filename": "javascript/tailwind-profile-card.jsx",
+        "ms": 178.60000002384186
+      },
+      {
+        "filename": "less/hello.less",
+        "ms": 13.099999964237213
+      },
+      {
+        "filename": "less/responsive.less",
+        "ms": 10.800000011920929
+      },
+      {
+        "filename": "perl/counter.pm",
+        "ms": 98.89999997615814
+      },
+      {
+        "filename": "perl/heredoc.pl",
+        "ms": 9
+      },
+      {
+        "filename": "perl/indented-heredoc.pl",
+        "ms": 6.199999988079071
+      },
+      {
+        "filename": "perl/normalize.pl",
+        "ms": 18.700000047683716
+      },
+      {
+        "filename": "perl/records.pl",
+        "ms": 18.599999964237213
+      },
+      {
+        "filename": "php/closures.php",
+        "ms": 67.80000001192093
+      },
+      {
+        "filename": "php/collections.php",
+        "ms": 20.19999998807907
+      },
+      {
+        "filename": "php/embedded.phtml",
+        "ms": 37.89999997615814
+      },
+      {
+        "filename": "php/enums.php",
+        "ms": 17.80000001192093
+      },
+      {
+        "filename": "php/hello.php",
+        "ms": 11.299999952316284
+      },
+      {
+        "filename": "php/heredoc.php",
+        "ms": 13.400000035762787
+      },
+      {
+        "filename": "php/records.php",
+        "ms": 19.899999976158142
+      },
+      {
+        "filename": "php/template.phtml",
+        "ms": 23.100000023841858
+      },
+      {
+        "filename": "powershell/functions.ps1",
+        "ms": 50.89999997615814
+      },
+      {
+        "filename": "powershell/here-strings.ps1",
+        "ms": 14.5
+      },
+      {
+        "filename": "powershell/pipeline.ps1",
+        "ms": 13.199999988079071
+      },
+      {
+        "filename": "powershell/records.ps1",
+        "ms": 16.30000001192093
+      },
+      {
+        "filename": "python/async-stream.py",
+        "ms": 73.5
+      },
+      {
+        "filename": "python/generics.py",
+        "ms": 32.10000002384186
+      },
+      {
+        "filename": "python/records.py",
+        "ms": 25.299999952316284
+      },
+      {
+        "filename": "python/strings.py",
+        "ms": 18.200000047683716
+      },
+      {
+        "filename": "rust/async.rs",
+        "ms": 78.90000003576279
+      },
+      {
+        "filename": "rust/edition2024.rs",
+        "ms": 35.5
+      },
+      {
+        "filename": "rust/hello.rs",
+        "ms": 31.599999964237213
+      },
+      {
+        "filename": "rust/macros.rs",
+        "ms": 32.10000002384186
+      },
+      {
+        "filename": "rust/ownership.rs",
+        "ms": 33
+      },
+      {
+        "filename": "rust/patterns.rs",
+        "ms": 51.90000003576279
+      },
+      {
+        "filename": "rust/raw-strings.rs",
+        "ms": 36.59999996423721
+      },
+      {
+        "filename": "rust/traits-generics.rs",
+        "ms": 38.40000003576279
+      },
+      {
+        "filename": "scss/hello.scss",
+        "ms": 15.300000011920929
+      },
+      {
+        "filename": "scss/surface-layout.scss",
+        "ms": 15.699999988079071
+      },
+      {
+        "filename": "sql/mysql.sql",
+        "ms": 81
+      },
+      {
+        "filename": "sql/oracle.sql",
+        "ms": 19.19999998807907
+      },
+      {
+        "filename": "sql/postgres.sql",
+        "ms": 18.600000023841858
+      },
+      {
+        "filename": "sql/queries.sql",
+        "ms": 22.30000001192093
+      },
+      {
+        "filename": "svelte/async-content.svelte",
+        "ms": 107.39999997615814
+      },
+      {
+        "filename": "svelte/control-flow.svelte",
+        "ms": 45.69999998807907
+      },
+      {
+        "filename": "svelte/counter.svelte",
+        "ms": 48.69999998807907
+      },
+      {
+        "filename": "svelte/directives.svelte",
+        "ms": 49.10000002384186
+      },
+      {
+        "filename": "svelte/legacy-component.svelte",
+        "ms": 37.89999997615814
+      },
+      {
+        "filename": "svelte/module-less.svelte",
+        "ms": 44.30000001192093
+      },
+      {
+        "filename": "svelte/snippets.svelte",
+        "ms": 55.69999998807907
+      },
+      {
+        "filename": "svelte/typed-scss.svelte",
+        "ms": 49.5
+      },
+      {
+        "filename": "typescript/async-api-client.ts",
+        "ms": 112.30000001192093
+      },
+      {
+        "filename": "typescript/event-pipeline.ts",
+        "ms": 116.40000003576279
+      },
+      {
+        "filename": "typescript/hello.ts",
+        "ms": 20.80000001192093
+      },
+      {
+        "filename": "typescript/react-hooks.tsx",
+        "ms": 168.0999999642372
+      },
+      {
+        "filename": "typescript/tailwind-profile-card.tsx",
+        "ms": 203.19999998807907
+      },
+      {
+        "filename": "typescript/typed-cache.ts",
+        "ms": 55.69999998807907
+      },
+      {
+        "filename": "vue/hello.vue",
+        "ms": 98.29999995231628
+      },
+      {
+        "filename": "vue/scoped-styles.vue",
+        "ms": 46.80000001192093
+      },
+      {
+        "filename": "vue/tsx-render.vue",
+        "ms": 46
+      },
+      {
+        "filename": "vue/vue2-options.vue",
+        "ms": 103.39999997615814
+      },
+      {
+        "filename": "vue/vue3-composition.vue",
+        "ms": 76.80000001192093
+      },
+      {
+        "filename": "vue/vue32-typed-setup.vue",
+        "ms": 85.89999997615814
+      },
+      {
+        "filename": "edge/127.ts",
+        "ms": 0
+      },
+      {
+        "filename": "edge/128.ts",
+        "ms": 0.40000003576278687
+      },
+      {
+        "filename": "edge/129.ts",
+        "ms": 3.5
+      },
+      {
+        "filename": "edge/130.ts",
+        "ms": 186.10000002384186
+      }
+    ]
+  },
+  "independentPackage": {
+    "status": "passed",
+    "language": ["rust"],
+    "aliases": ["rust", "rs"],
+    "cases": [
+      {
+        "filename": "rust/async.rs",
+        "spans": 124,
+        "equal": true,
+        "alias": "rust"
+      },
+      {
+        "filename": "rust/edition2024.rs",
+        "spans": 132,
+        "equal": true,
+        "alias": "rs"
+      },
+      {
+        "filename": "rust/hello.rs",
+        "spans": 113,
+        "equal": true,
+        "alias": "rust"
+      },
+      {
+        "filename": "rust/macros.rs",
+        "spans": 130,
+        "equal": true,
+        "alias": "rs"
+      },
+      {
+        "filename": "rust/ownership.rs",
+        "spans": 131,
+        "equal": true,
+        "alias": "rust"
+      },
+      {
+        "filename": "rust/patterns.rs",
+        "spans": 157,
+        "equal": true,
+        "alias": "rs"
+      },
+      {
+        "filename": "rust/raw-strings.rs",
+        "spans": 64,
+        "equal": true,
+        "alias": "rust"
+      },
+      {
+        "filename": "rust/traits-generics.rs",
+        "spans": 122,
+        "equal": true,
+        "alias": "rs"
+      },
+      {
+        "filename": "edge-0.rs",
+        "spans": 0,
+        "equal": true,
+        "alias": "rust"
+      },
+      {
+        "filename": "edge-1.rs",
+        "spans": 0,
+        "equal": true,
+        "alias": "rs"
+      },
+      {
+        "filename": "edge-2.rs",
+        "spans": 19,
+        "equal": true,
+        "alias": "rust"
+      },
+      {
+        "filename": "edge-3.rs",
+        "spans": 340,
+        "equal": true,
+        "alias": "rs"
+      }
+    ],
+    "palettes": [
+      {
+        "preset": "default",
+        "mode": "light",
+        "background": "rgb(251, 252, 255)"
+      },
+      {
+        "preset": "default",
+        "mode": "dark",
+        "background": "rgb(21, 27, 41)"
+      },
+      {
+        "preset": "muted",
+        "mode": "light",
+        "background": "rgb(246, 245, 241)"
+      },
+      {
+        "preset": "muted",
+        "mode": "dark",
+        "background": "rgb(38, 40, 35)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "light",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "dark",
+        "background": "rgb(0, 0, 0)"
+      }
+    ]
+  },
+  "consumerBuild": {
+    "directory": "artifacts/rust/consumer-dist",
+    "offlineCacheOnly": true,
+    "publicImports": true,
+    "modelAssets": ["rust-C-oLKFY8.onnx"],
+    "noRepositoryAliases": true
+  },
+  "playground": {
+    "language": "rust",
+    "filename": "traits-generics.rs",
+    "sourcePreserved": true,
+    "editedSourcePreserved": true,
+    "shuffleVerified": true,
+    "lightAndDarkVerified": true,
+    "lightIconFilter": "none",
+    "darkIconFilter": "invert(1)",
+    "screenshot": "artifacts/rust/playground.png",
+    "logs": {
+      "playground": [],
+      "parity": [],
+      "consumer": []
+    }
+  },
+  "checks": {
+    "makeCheck": "passed",
+    "frontendTests": 154,
+    "rustTeacherTests": 8,
+    "independentMarkedGolden": 23,
+    "neuralGoldenExact": 7
+  },
+  "quality": {
+    "naturalTest": {
+      "documents": 15,
+      "exactDocumentsIncludingModifiers": 1,
+      "exactSpan": {
+        "precision": 0.944686671796187,
+        "recall": 0.9534081104400345,
+        "f1": 0.9490273543178598,
+        "tp": 11050,
+        "fp": 647,
+        "fn": 540,
+        "support": 11590
+      },
+      "exactSpanMacroF1": 0.7962206710511814,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9318628708215781,
+        "recall": 0.9404659188955996,
+        "f1": 0.9361446300511015,
+        "tp": 10900,
+        "fp": 797,
+        "fn": 690,
+        "support": 11590
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9755620723362659,
+          "recall": 0.9486692015209125,
+          "f1": 0.9619277108433735,
+          "tp": 998,
+          "fp": 25,
+          "fn": 54,
+          "support": 1052
+        },
+        "comment": {
+          "precision": 0.9656160458452722,
+          "recall": 0.986822840409956,
+          "f1": 0.9761042722664736,
+          "tp": 674,
+          "fp": 24,
+          "fn": 9,
+          "support": 683
+        },
+        "string": {
+          "precision": 0.5311004784688995,
+          "recall": 0.7708333333333334,
+          "f1": 0.6288951841359773,
+          "tp": 111,
+          "fp": 98,
+          "fn": 33,
+          "support": 144
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 95,
+          "fp": 0,
+          "fn": 0,
+          "support": 95
+        },
+        "operator": {
+          "precision": 0.9934024505183789,
+          "recall": 0.9832089552238806,
+          "f1": 0.9882794186591655,
+          "tp": 1054,
+          "fp": 7,
+          "fn": 18,
+          "support": 1072
+        },
+        "punctuation": {
+          "precision": 0.9925444465685337,
+          "recall": 0.9975024015369837,
+          "f1": 0.9950172479877347,
+          "tp": 5192,
+          "fp": 39,
+          "fn": 13,
+          "support": 5205
+        },
+        "namespace": {
+          "precision": 0.9279069767441861,
+          "recall": 0.95,
+          "f1": 0.9388235294117647,
+          "tp": 399,
+          "fp": 31,
+          "fn": 21,
+          "support": 420
+        },
+        "type": {
+          "precision": 0.8981233243967829,
+          "recall": 0.8839050131926122,
+          "f1": 0.8909574468085106,
+          "tp": 335,
+          "fp": 38,
+          "fn": 44,
+          "support": 379
+        },
+        "trait": {
+          "precision": 0.8333333333333334,
+          "recall": 0.9259259259259259,
+          "f1": 0.8771929824561403,
+          "tp": 25,
+          "fp": 5,
+          "fn": 2,
+          "support": 27
+        },
+        "enum": {
+          "precision": 0.23076923076923078,
+          "recall": 0.14285714285714285,
+          "f1": 0.17647058823529413,
+          "tp": 3,
+          "fp": 10,
+          "fn": 18,
+          "support": 21
+        },
+        "enum-member": {
+          "precision": 0.3673469387755102,
+          "recall": 0.75,
+          "f1": 0.4931506849315068,
+          "tp": 18,
+          "fp": 31,
+          "fn": 6,
+          "support": 24
+        },
+        "function": {
+          "precision": 0.9683860232945092,
+          "recall": 0.9797979797979798,
+          "f1": 0.9740585774058578,
+          "tp": 582,
+          "fp": 19,
+          "fn": 12,
+          "support": 594
+        },
+        "parameter": {
+          "precision": 0.7697160883280757,
+          "recall": 0.856140350877193,
+          "f1": 0.8106312292358804,
+          "tp": 488,
+          "fp": 146,
+          "fn": 82,
+          "support": 570
+        },
+        "variable": {
+          "precision": 0.7986111111111112,
+          "recall": 0.6804733727810651,
+          "f1": 0.7348242811501597,
+          "tp": 460,
+          "fp": 116,
+          "fn": 216,
+          "support": 676
+        },
+        "property": {
+          "precision": 0.9,
+          "recall": 0.9798387096774194,
+          "f1": 0.9382239382239382,
+          "tp": 243,
+          "fp": 27,
+          "fn": 5,
+          "support": 248
+        },
+        "type-parameter": {
+          "precision": 0.9636363636363636,
+          "recall": 0.9724770642201835,
+          "f1": 0.9680365296803652,
+          "tp": 106,
+          "fp": 4,
+          "fn": 3,
+          "support": 109
+        },
+        "decorator": {
+          "precision": 0.9386973180076629,
+          "recall": 0.9839357429718876,
+          "f1": 0.9607843137254902,
+          "tp": 245,
+          "fp": 16,
+          "fn": 4,
+          "support": 249
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "support": 0
+        },
+        "constant": {
+          "precision": 0.6875,
+          "recall": 1.0,
+          "f1": 0.8148148148148148,
+          "tp": 22,
+          "fp": 10,
+          "fn": 0,
+          "support": 22
+        }
+      }
+    },
+    "visibleAggregate": {
+      "documents": 8,
+      "exactDocumentsIncludingModifiers": 0,
+      "exactSpan": {
+        "precision": 0.9075025693730729,
+        "recall": 0.9383634431455898,
+        "f1": 0.922675026123302,
+        "tp": 883,
+        "fp": 90,
+        "fn": 58,
+        "support": 941
+      },
+      "exactSpanMacroF1": 0.763950078990762,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.895169578622816,
+        "recall": 0.9256110520722636,
+        "f1": 0.910135841170324,
+        "tp": 871,
+        "fp": 102,
+        "fn": 70,
+        "support": 941
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9090909090909091,
+          "recall": 0.9574468085106383,
+          "f1": 0.9326424870466321,
+          "tp": 90,
+          "fp": 9,
+          "fn": 4,
+          "support": 94
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "string": {
+          "precision": 0.5,
+          "recall": 0.7142857142857143,
+          "f1": 0.5882352941176471,
+          "tp": 20,
+          "fp": 20,
+          "fn": 8,
+          "support": 28
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "support": 20
+        },
+        "operator": {
+          "precision": 0.9534883720930233,
+          "recall": 1.0,
+          "f1": 0.9761904761904762,
+          "tp": 123,
+          "fp": 6,
+          "fn": 0,
+          "support": 123
+        },
+        "punctuation": {
+          "precision": 0.9766899766899767,
+          "recall": 1.0,
+          "f1": 0.9882075471698113,
+          "tp": 419,
+          "fp": 10,
+          "fn": 0,
+          "support": 419
+        },
+        "namespace": {
+          "precision": 0.5882352941176471,
+          "recall": 1.0,
+          "f1": 0.7407407407407407,
+          "tp": 10,
+          "fp": 7,
+          "fn": 0,
+          "support": 10
+        },
+        "type": {
+          "precision": 0.9117647058823529,
+          "recall": 0.8611111111111112,
+          "f1": 0.8857142857142857,
+          "tp": 31,
+          "fp": 3,
+          "fn": 5,
+          "support": 36
+        },
+        "trait": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285714,
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "support": 3
+        },
+        "enum": {
+          "precision": 0.5,
+          "recall": 0.2,
+          "f1": 0.2857142857142857,
+          "tp": 1,
+          "fp": 1,
+          "fn": 4,
+          "support": 5
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 0.42857142857142855,
+          "f1": 0.6,
+          "tp": 3,
+          "fp": 0,
+          "fn": 4,
+          "support": 7
+        },
+        "function": {
+          "precision": 0.9253731343283582,
+          "recall": 0.9538461538461539,
+          "f1": 0.9393939393939394,
+          "tp": 62,
+          "fp": 5,
+          "fn": 3,
+          "support": 65
+        },
+        "parameter": {
+          "precision": 0.7608695652173914,
+          "recall": 0.9722222222222222,
+          "f1": 0.8536585365853658,
+          "tp": 35,
+          "fp": 11,
+          "fn": 1,
+          "support": 36
+        },
+        "variable": {
+          "precision": 0.7948717948717948,
+          "recall": 0.5344827586206896,
+          "f1": 0.6391752577319587,
+          "tp": 31,
+          "fp": 8,
+          "fn": 27,
+          "support": 58
+        },
+        "property": {
+          "precision": 0.7142857142857143,
+          "recall": 1.0,
+          "f1": 0.8333333333333334,
+          "tp": 15,
+          "fp": 6,
+          "fn": 0,
+          "support": 15
+        },
+        "type-parameter": {
+          "precision": 0.8461538461538461,
+          "recall": 1.0,
+          "f1": 0.9166666666666666,
+          "tp": 11,
+          "fp": 2,
+          "fn": 0,
+          "support": 11
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        }
+      }
+    },
+    "goldenExact": 7,
+    "goldenCases": 23,
+    "rawStringDisplayF1": 0.7407407407407407
+  },
+  "toolchain": {
+    "before": "rustc/cargo 1.97.1; rustup 1.29.0",
+    "after": "rustc/cargo 1.99.1; rustup 1.29.3",
+    "authoredCompilerProbes": 6,
+    "displayCompilerChecks": 8,
+    "cargoDependenciesInstalled": false,
+    "nightlyInstalled": false,
+    "upstreamProjectsBuilt": false
+  },
+  "preservation": {
+    "previousModelArtifactHashes": {
+      "packs/assembly/browser/model.onnx": "366d770f40ec20bcb97ed83d78c1a11f8a001a182efa0a5f31c69e03d04f6ad6",
+      "packs/assembly/model/model.pt": "a1c669891bc4386312dc445bd9be07b17abcbef6aabb41585e052a7838b4f3b1",
+      "packs/awk/browser/model.onnx": "ca36f5bcd4485bb1a78b81d0e4c08d27201a86ad6f5e797833d9fba2bc66dff8",
+      "packs/awk/model/model.pt": "cf230cd59618824f0f4834ef1ad4158cf8c04e5e684c5b4b8fc7cfb3c412ba68",
+      "packs/bash/browser/model.onnx": "69e515b768fb399bda1d6716d3466838c8e858d1025d08992a49698a964d454e",
+      "packs/bash/model-20261108-e16/model.pt": "e65e77ae5328d4142fb385bf57e7d58183d4502c8495ccc3d4dc2c4cb99cde43",
+      "packs/bash/model/model.pt": "04187850e1b0683d9c4550ad864df6150628ebde0aeb4390acc23f3894f1398a",
+      "packs/bat/browser/model.onnx": "c5c527c4d6501035d8c32077279d1ba4e50f2840dea2bef794f03c3cb105fff3",
+      "packs/bat/model/model.pt": "a9c4ef3d90d2a6b32074c411035b9640b08282b92c16e47a897bd506ee17c27e",
+      "packs/c/browser/model.onnx": "07834638820dcb384d816104f547cb400a09234e7c795c94db7cbf299a7209bb",
+      "packs/c/model/model.pt": "6418250639758349b43f8182f958d838b277abdfd7575220d9ba104226219c8c",
+      "packs/cpp/browser/model.onnx": "c4bf80ec01700967279423c72315977d829841903481f712870317bf5dbdb890",
+      "packs/cpp/model/model.pt": "c10725d39082379d545cafd493a6df9d3473099d9f570c3c8b3c473b0f4f348f",
+      "packs/csharp/browser/model.onnx": "fdd087f40f06d26c4a9612bcebef7b5711cb48f29c9e111cbcac0ccb75e4cff1",
+      "packs/csharp/model/model.pt": "81d8e72034f079072a179b4902cfc39561137f838d0cd5fdd8f56ae6907a6795",
+      "packs/css/browser/model.onnx": "a8289f9e82a09fb7e54cd96e8d572f380dd5b600eb84f0562513d2c8034525f3",
+      "packs/css/model/model.pt": "a6c271903b5b65f0cc1f82a4406cb1fc831c1a4ad21c54ddd1fd0f2de324645a",
+      "packs/go/browser/model.onnx": "714398ae0df38766ced84a4dd0866585ad233a7474100906ecf4d6ff115ce8d1",
+      "packs/go/model/model.pt": "993eb9a436faf18806b02ea9a99a65fa3c625367ac249af1038880231fdd9f50",
+      "packs/html/browser/model.onnx": "93b924619a25dd853ad28b6f142587fc6f6bb5319cfc6464d9261bb808710cf9",
+      "packs/html/model/model.pt": "7006144cd38d18c563f6548ffac1f8c51cf2916e5656b97ff3e83b97b5dccc95",
+      "packs/java/browser/model.onnx": "2956a7876814e709ee93a3bae26544bb5c853828d40b0df382af0e4b2e9d50a8",
+      "packs/java/model/model.pt": "60ded3abfa9f6058ef8c377ad9c21021988a2e6eeb97508a0052a706db9d3f3c",
+      "packs/perl/browser/model.onnx": "cbad629b7dee9e58d815a29ef59be1ef2ca9b3288f52082330e66a95a7dea2dd",
+      "packs/perl/model/model.pt": "7f2a77e4f3d7e767ea0cf0fdab9802bd0c68d370cb1590cb5c243c3cd4b463a1",
+      "packs/php/browser/model.onnx": "3c551599315bb5a931c69746290daf2562e591885167eb368898455910b80760",
+      "packs/php/model/model.pt": "4c267a864f19d5e4935eef0e9782d03527adbf536f90e19ae03a2a1a43f9bf39",
+      "packs/powershell/browser/model.onnx": "d0b3bdc10bd2c1feb446d104f4253c25183aed49261f9962e81cd5f314f38cba",
+      "packs/powershell/model/model.pt": "a45cec6dbe18161c4faaf99cf35fca11854dd301e773c3d2e8d76ebb8a20a0fe",
+      "packs/python/browser/model.onnx": "306c22ab5df354527293267abe6443489b0d249635fdaba05cd24bfe130905be",
+      "packs/python/model/model.pt": "10a61e246f261d5cea904b01ff544831e35e39024bad19930e0ca8684586ee02",
+      "packs/sql/browser/model.onnx": "2c14ab1ed319eaf23e05af5708a306795afd10e4252e879e12eb6a780729dde7",
+      "packs/sql/model/model.pt": "864244dfcfb3a22bdd0dc894d7a1c107d82a7311552d313853517c96c42c923e",
+      "packs/svelte/browser/model.onnx": "089f82810da21659fc1f1fa89531105983b5bad8ab413d90288cdb75e2feaf93",
+      "packs/svelte/model/model.pt": "d1332a46f2af4f44a0281573c606508b0ff05c10f290de08f45f253763f8e034",
+      "packs/typescript/browser/model.onnx": "45b10c1ac1808545b6e0b9999f03c83f6a3a66b15a9d80cd4e0c8eadb36fadbe",
+      "packs/typescript/model/model.pt": "a63c132df376d956f8feb19c60620a3a922a5299ad012224d58a4ff3a09597a0",
+      "packs/vue/browser/model.onnx": "dee5e28cbce42351c5c098a0665cc374e410c0d16c9fa555e37582843a6edcce",
+      "packs/vue/model/model.pt": "8733409079fcead598dc2405b82abc9f59537e3284afcd841a36a061eccaecaa"
+    },
+    "unchangedPreviousReferenceCases": 123,
+    "previousFrozenFamilies": 192,
+    "extendedFrozenFamilies": 208
+  },
+  "distribution": {
+    "repositoryPrivate": true,
+    "packagesPrivate": true,
+    "published": false,
+    "pushed": false
+  }
+}

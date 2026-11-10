@@ -17,6 +17,7 @@ import perl from "./languages/perl.js";
 import php from "./languages/php.js";
 import powershell from "./languages/powershell.js";
 import python from "./languages/python.js";
+import rust from "./languages/rust.js";
 import sql from "./languages/sql.js";
 import svelte from "./languages/svelte.js";
 import typescript from "./languages/typescript.js";
@@ -46,6 +47,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       cpp,
       php,
       svelte,
+      rust,
     ],
   });
 }

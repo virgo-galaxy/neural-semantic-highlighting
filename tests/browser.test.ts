@@ -169,6 +169,7 @@ describe("shipped browser artifacts", () => {
       "cpp",
       "php",
       "svelte",
+      "rust",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

@@ -56,3 +56,6 @@ Devicon revision and under the preserved MIT license.
 
 The Svelte entry uses `svelte.svg`, from `icons/svelte/svelte-original.svg` at the
 same pinned Devicon revision and under the preserved MIT license.
+
+The Rust entry uses `rust.svg`, from `icons/rust/rust-original.svg` at the
+same pinned Devicon revision and under the preserved MIT license.

@@ -49,6 +49,7 @@ const aliases: Readonly<Record<string, string>> = {
   masm: "assembly",
   gas: "assembly",
   py: "python",
+  rs: "rust",
   cs: "csharp",
   "c#": "csharp",
   "c++": "cpp",

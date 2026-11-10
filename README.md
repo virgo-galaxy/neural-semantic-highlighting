@@ -701,11 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **19 model packs**, with browser inference and Playground examples.
+There are **20 model packs**, with browser inference and Playground examples.
 The browser conversion preserves the selected weights without retraining or
 quantization. [Browser verification](docs/browser-runtime.md) records conversion
-checks and the exact-output comparison across 123 examples/edge cases, including
-Java, C#, C, C++, PHP and Svelte. Independent local-package verification also covers its public imports. This is
+checks and the exact-output comparison across 131 examples/edge cases, including
+Java, C#, C, C++, PHP, Svelte and Rust. Independent local-package verification also covers its public imports. This is
 runtime parity evidence, not a new accuracy evaluation.
 
 The table reports **exact-span F1**: token start, end and semantic type must match.
@@ -733,6 +733,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [C++](packs/cpp/model/README.md)                            | C++ source / explicit C++ headers; `.cpp`, `.cc`, `.cxx`, `.c++`, `.C`, `.hpp`, `.hh`, `.hxx`, `.h++`, `.ipp`, `.tpp`; common C++11–20 and accepted modern forms    | [92.67%](packs/cpp/model/BENCHMARKS.md) — natural test, 14 files                                                                               | Browser + local; [raw strings, local/template roles and attribute boundaries](packs/cpp/model/KNOWN_ISSUES.md) remain limited                        |
 | [PHP](packs/php/model/README.md)                            | Modern accepted PHP 8 source, `.php`, `.phtml`, tagless snippets; PHP-predicted HTML regions reuse existing HTML/JS/CSS models                                      | [94.05%](packs/php/model/BENCHMARKS.md) — natural base PHP/region test, 21 files; composed template evidence reported separately               | Browser + local base; [interpolation/heredoc boundaries, local roles and mixed-template region cuts](packs/php/model/KNOWN_ISSUES.md) remain limited |
 | [Svelte](packs/svelte/model/README.md)                      | `.svelte`; legacy component syntax and Svelte 5 runes/snippets; predicted JS/TS and CSS/SCSS/Less regions                                                           | [88.47%](packs/svelte/model/BENCHMARKS.md) — natural base template/region test, 9 files; visible composed examples 97.53%, reported separately | Browser + local base; [snippet/binding, entity and long mixed-body region boundaries](packs/svelte/model/KNOWN_ISSUES.md) remain limited             |
+| [Rust](packs/rust/model/README.md)                          | `.rs`; common stable Rust 2018/2021/2024 source, traits/impls, generics/lifetimes, patterns, async and macro syntax                                                 | [94.90%](packs/rust/model/BENCHMARKS.md) — natural test, 15 files                                                                              | Browser + local; [raw/format-string boundaries, macro DSLs and local semantic roles](packs/rust/model/KNOWN_ISSUES.md) remain limited                |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -757,3 +758,10 @@ dependencies automatically; no Svelte app dependency or preprocessor is needed.
 Attribute values remain whole spans, while template expressions and code/style
 bodies use predicted-region composition. The table separates the small natural
 base holdout from the eight visible composed development examples.
+
+Rust uses `{ language: "rust" }` or `"rs"`; selective
+`@nsh/highlighter/languages/rust` needs one model. Browser/Playground consumers
+need no Rust SDK, Cargo or Python. The maintainer's existing toolchain was updated
+for development; common syntax shares one entry, without edition auto-detection
+or project compilation. Raw/format-string and local-role limits remain in the
+[Rust report](packs/rust/model/BENCHMARKS.md).

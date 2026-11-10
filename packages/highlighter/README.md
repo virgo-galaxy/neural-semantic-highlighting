@@ -28,7 +28,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 ```
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML and Vue descriptors include
-their JS/TS/CSS dependencies automatically. Default registration covers 19 packs;
+their JS/TS/CSS dependencies automatically. Default registration covers 20 packs;
 weights are fetched lazily. Models are about 3.7 MB each, with a shared 14.8 MB
 uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -84,3 +84,11 @@ values are opaque; template expressions and script/style bodies use only predict
 regions. See [Svelte evidence](../../packs/svelte/model/BENCHMARKS.md) and
 [known issues](../../packs/svelte/model/KNOWN_ISSUES.md) before treating base or
 visible composed scores as general accuracy.
+
+Rust uses `{ language: "rust" }` (or `"rs"`) for original `.rs` source.
+Selective `@nsh/highlighter/languages/rust` emits one model asset and requires no
+Rust compiler, Cargo, Python provider or language parser. Common stable
+2018/2021/2024 syntax shares one entry; compiler compatibility is not inferred.
+See [Rust evaluation](../../packs/rust/model/BENCHMARKS.md) and
+[known issues](../../packs/rust/model/KNOWN_ISSUES.md), including raw/format-string
+boundaries, macro DSLs and source-local role approximations.

@@ -222,3 +222,41 @@ base holdout (**88.47%, nine files**) separate from visible composed development
 examples (**97.53%, eight files**). These scopes must not be presented as one
 accuracy figure. [Known issues](../packs/svelte/model/KNOWN_ISSUES.md) retain the
 remaining snippet, entity, binding and mixed-region boundary limits.
+
+## Rust addition
+
+Rust is the twentieth model. Its [verification record](rust-browser-verification.json)
+retains the update, conversion, package and Playground evidence.
+
+- **131/131** examples/edges across all models match native CPU spans, original
+  UTF-16 offsets and modifiers exactly, including eight Rust sources. All 123
+  previous reference results remain unchanged.
+- A fresh temporary Vite consumer installs four private local tarballs from the
+  existing offline cache, builds through public imports and passes **12/12** Rust
+  cases. `rust` / `rs`, empty input, BOM/CRLF/Unicode and long source preserve
+  exact spans and rendered text. Six preset/mode combinations were verified.
+- Selective Rust emits **one ONNX asset**. Its eight numerical length checks have
+  maximum absolute head error below `2.37e-5`; conversion does not retrain or
+  quantize the 894,743-parameter, 512-byte model.
+- Full `make check` passes 154 frontend tests, eight Rust teacher tests and all
+  existing checks. The offline teacher passes all 23 independent marked cases.
+- Existing stable Rust was updated at the user's request: Rust/Cargo 1.99.1 and
+  rustup 1.29.3. Six authored metadata-only compiler probes cover common
+  2018/2021/2024 source, C strings and modern 2024 forms; all eight display files
+  also pass Rust 2024 metadata checks. No Cargo dependency/nightly or extra SDK
+  is installed; collected libraries never build/run or execute procedural macros.
+- Playground selection, shuffle, edit/blur highlighting, original text, light/dark
+  and the pinned monochrome Devicon's dark-mode contrast were checked. The page,
+  parity harness and independent consumer have no browser warnings/errors.
+- All 39 earlier native/browser/historical model artifacts have unchanged hashes.
+  Every earlier corpus, Gold snapshot and experiment remains; 192 initial Rust
+  source-family assignments are retained and extended to 208 before refinement.
+- Browser consumers require no Rust, Cargo, Python provider, parser, source-regex
+  repair or new highlighting service. Repository/packages remain private and no
+  package is published.
+
+[Rust quality](../packs/rust/model/BENCHMARKS.md) separates natural test
+(**94.90%, 15 files**) from focus and visible development code. The mixed
+raw/format-string probe remains weaker; [known issues](../packs/rust/model/KNOWN_ISSUES.md)
+record literal boundaries, macros and local symbol-role approximations. Runtime
+parity is consistency evidence, not a claim of perfect language semantics.

@@ -198,3 +198,23 @@ its score must not be replaced with the higher combined score.
 `composeSvelteGold` builds independent offline references and never chooses runtime
 cuts. Frontends use `svelte` / `@nsh/highlighter/languages/svelte` through the existing
 worker. Playground examples are raw source, not an installed or executed Svelte app.
+
+## Rust offline workflow
+
+The existing stable toolchain was updated with `rustup update stable` at the
+user's request: Rust/Cargo 1.99.1 and rustup 1.29.3. Small authored standard-library
+probes use `rustc --emit=metadata` for 2018/2021/2024 coverage; no collected project,
+Cargo build script, dependency or procedural macro is built/executed.
+
+`make dataset-rust-tools` builds pinned Tree-sitter sources with existing Clang in
+ignored project cache. `make dataset-rust` captures bounded source/license hashes,
+generates original tasks, labels original UTF-16 and freezes copy-audited families.
+The Gold teacher is parse-only/source-local, not rustc type-checker output. See
+[Rust training](../training/rust/README.md) and [the contract](../packs/rust/SEMANTICS.md).
+
+Transfer/resume only full `artifacts` checkpoints. Inspect actual validation,
+Golden and authored source before first test; keep natural/focus/visible scores
+separate. The [evaluation](../packs/rust/model/BENCHMARKS.md) retains the initial
+and literal revisions, compiler evidence and controlled raw/format-string limits.
+Frontends use `rust` / `rs` or `@nsh/highlighter/languages/rust` through the existing
+browser worker, without Rust/Cargo/Python or runtime syntax repair.

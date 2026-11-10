@@ -15,6 +15,7 @@ import perlIcon from "@/assets/document-kinds/perl.svg";
 import phpIcon from "@/assets/document-kinds/php.svg";
 import powershellIcon from "@/assets/document-kinds/powershell.svg";
 import pythonIcon from "@/assets/document-kinds/python.svg";
+import rustIcon from "@/assets/document-kinds/rust.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
 import sqlIcon from "@/assets/document-kinds/sql.svg";
 import svelteIcon from "@/assets/document-kinds/svelte.svg";
@@ -87,6 +88,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   cpp: { label: "C++", icon: cppIcon },
   php: { label: "PHP", icon: phpIcon },
   svelte: { label: "Svelte", icon: svelteIcon },
+  rust: { label: "Rust", icon: rustIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -155,6 +157,7 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".php", "php"],
   [".phtml", "php"],
   [".svelte", "svelte"],
+  [".rs", "rust"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {
