@@ -801,6 +801,7 @@ dataset-php:
 
 dataset-php-curriculum:
 	$(PYTHON) -m packs.php.dataset.generate_curriculum
+	$(PYTHON) -m packs.php.dataset.generate_mixed
 
 dataset-php-collect:
 	$(PYTHON) -m packs.php.dataset.pipeline collect
