@@ -22,3 +22,9 @@ execution of collected scripts/configuration is involved. The parser's recovery
 errors and incomplete original coverage fail closed. Revisions are immutable;
 full optimizer/RNG checkpoints stay under artifacts/json, separate from inference
 .pt/ONNX bundles. Preserve all prior language data, experiments and formal models.
+
+A separate mixed extension adds 12 shared families / 576 files for escaped and
+embedded-looking string contents, paths, quoted keys and mixed block comments.
+It follows the same copy audit after the initial review found entire simple-string
+families excluded as structural copies. The original curriculum, snapshots and
+159 frozen assignments remain preserved; the audit policy is unchanged.

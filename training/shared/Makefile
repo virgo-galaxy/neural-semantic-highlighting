@@ -1560,6 +1560,7 @@ dataset-json:
 
 dataset-json-curriculum:
 	$(PYTHON) -m packs.json.dataset.generate_curriculum
+	$(PYTHON) -m packs.json.dataset.generate_mixed
 
 dataset-json-collect:
 	$(PYTHON) -m packs.json.dataset.pipeline collect
