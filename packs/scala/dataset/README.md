@@ -5,8 +5,11 @@ under ~/Datasets/neural-semantic-highlighting/scala; full optimizer/RNG checkpoi
 remain under artifacts/scala. Inference bundles contain neither raw data nor
 resumable checkpoints. Golden/tests/Playground never enter training capture.
 
-Four pinned upstream captures contain 156 Scala files from Scala 2 standard library,
-Scala 3 library, Cats and Ox. Original Git blobs and root licenses/notices are
+Five pinned upstream captures contain 180 Scala files from Scala 2 standard library,
+Scala 3 library, Cats, Ox and Kyo. The 24 Kyo files form one complete project
+family reserved for the unseen Scala 3 test before any neural evaluation. The
+shared collector excludes 20 other captured files in reserved paths, retaining
+all originals. Original Git blobs and root licenses/notices are
 preserved. The original curriculum adds 54 families with 24 variants each, covering
 common Scala 2 braces, Scala 3 indentation/contextual forms and mixed string code.
 Copy audits precede windowing; source families freeze before training, natural and
