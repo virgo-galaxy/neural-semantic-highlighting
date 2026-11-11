@@ -1602,3 +1602,70 @@ challenge-json:
 export-json-model:
 	@test -n "$(JSON_CHECKPOINT)" -a -n "$(JSON_TEST_REPORT)" || (echo 'Set JSON_CHECKPOINT and JSON_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.json.export_model --checkpoint "$(JSON_CHECKPOINT)" --test-report "$(JSON_TEST_REPORT)"
+
+YAML_DEVICE ?= auto
+YAML_EPOCHS ?= 3
+YAML_BATCH_SIZE ?= 32
+YAML_LEARNING_RATE ?=
+YAML_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-yaml dataset-yaml-tools dataset-yaml-sources dataset-yaml-curriculum dataset-yaml-collect dataset-yaml-label dataset-yaml-validate dataset-yaml-prepare test-labeling-yaml train-yaml-smoke train-yaml continue-yaml predict-yaml evayamlte-yaml challenge-yaml export-yaml-model
+
+dataset-yaml-tools:
+	$(PYTHON) -m packs.yaml.labeling.tools
+
+dataset-yaml-sources:
+	$(PYTHON) -m packs.yaml.dataset.fetch_sources
+
+dataset-yaml:
+	$(MAKE) dataset-yaml-tools
+	$(MAKE) dataset-yaml-sources
+	$(MAKE) dataset-yaml-curriculum
+	$(MAKE) dataset-yaml-collect
+	$(MAKE) dataset-yaml-label
+	$(MAKE) dataset-yaml-validate
+	$(MAKE) dataset-yaml-prepare
+
+dataset-yaml-curriculum:
+	$(PYTHON) -m packs.yaml.dataset.generate_curriculum
+
+dataset-yaml-collect:
+	$(PYTHON) -m packs.yaml.dataset.pipeline collect
+
+dataset-yaml-label:
+	$(PYTHON) -m packs.yaml.dataset.pipeline label
+
+dataset-yaml-validate:
+	$(PYTHON) -m packs.yaml.dataset.pipeline validate
+
+dataset-yaml-prepare:
+	$(PYTHON) -m training.yaml.prepare
+
+test-labeling-yaml:
+	$(PYTHON) -m unittest discover -s packs/yaml/tests -v
+
+train-yaml-smoke:
+	$(PYTHON) -m training.yaml.train --smoke --epochs 1 --device $(YAML_DEVICE) $(if $(YAML_RUN),--output-dir "$(YAML_RUN)") $(if $(YAML_INIT_FROM),--init-from "$(YAML_INIT_FROM)")
+
+train-yaml:
+	$(PYTHON) -m training.yaml.train --epochs $(YAML_EPOCHS) --device $(YAML_DEVICE) --batch-size $(YAML_BATCH_SIZE) $(if $(YAML_LEARNING_RATE),--learning-rate $(YAML_LEARNING_RATE)) $(if $(YAML_RUN),--output-dir "$(YAML_RUN)") $(if $(YAML_INIT_FROM),--init-from "$(YAML_INIT_FROM)")
+
+continue-yaml:
+	@test -n "$(YAML_CHECKPOINT)" || (echo 'Set YAML_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.yaml.train --resume "$(YAML_CHECKPOINT)" --epochs $(YAML_EPOCHS) --device $(YAML_DEVICE)
+
+predict-yaml:
+	@test -n "$(YAML_SOURCE)" || (echo 'Set YAML_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.yaml.predict --device $(YAML_DEVICE) --file "$(YAML_SOURCE)" $(if $(YAML_CHECKPOINT),--checkpoint "$(YAML_CHECKPOINT)")
+
+evayamlte-yaml:
+	@test -n "$(YAML_CHECKPOINT)" || (echo 'Set YAML_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.yaml.evayamlte --checkpoint "$(YAML_CHECKPOINT)" --device $(YAML_DEVICE) --split $(YAML_EVAL_SPLIT)
+
+challenge-yaml:
+	@test -n "$(YAML_CHECKPOINT)" || (echo 'Set YAML_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.yaml.challenge --checkpoint "$(YAML_CHECKPOINT)" --device $(YAML_DEVICE)
+
+export-yaml-model:
+	@test -n "$(YAML_CHECKPOINT)" -a -n "$(YAML_TEST_REPORT)" || (echo 'Set YAML_CHECKPOINT and YAML_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.yaml.export_model --checkpoint "$(YAML_CHECKPOINT)" --test-report "$(YAML_TEST_REPORT)"

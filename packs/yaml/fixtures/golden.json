@@ -1,0 +1,242 @@
+[
+  {
+    "id": "empty",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": ""
+  },
+  {
+    "id": "whitespace",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": " \r\n"
+  },
+  {
+    "id": "comment",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦comment|# note 🌌⟧\r\n"
+  },
+  {
+    "id": "mapping",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|name⟧⟦punctuation|:⟧ ⟦string|demo⟧\n"
+  },
+  {
+    "id": "quoted-key",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|\"display name\"⟧⟦punctuation|:⟧ ⟦string|\"Hello\"⟧"
+  },
+  {
+    "id": "sequence",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦punctuation|-⟧ ⟦string|one⟧\n⟦punctuation|-⟧ ⟦string|two⟧\n"
+  },
+  {
+    "id": "flow-sequence",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦punctuation|[⟧⟦string|one⟧⟦punctuation|,⟧ ⟦number|2⟧⟦punctuation|,⟧ ⟦keyword|true⟧⟦punctuation|]⟧"
+  },
+  {
+    "id": "flow-mapping",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦punctuation|{⟧⟦property|x⟧⟦punctuation|:⟧ ⟦number|1⟧⟦punctuation|,⟧ ⟦property|y⟧⟦punctuation|:⟧ ⟦keyword|null⟧⟦punctuation|}⟧"
+  },
+  {
+    "id": "nested",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|server⟧⟦punctuation|:⟧\n  ⟦property|port⟧⟦punctuation|:⟧ ⟦number|8080⟧\n"
+  },
+  {
+    "id": "boolean",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|enabled⟧⟦punctuation|:⟧ ⟦keyword|true⟧\n⟦property|disabled⟧⟦punctuation|:⟧ ⟦keyword|false⟧"
+  },
+  {
+    "id": "null",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|value⟧⟦punctuation|:⟧ ⟦keyword|~⟧"
+  },
+  {
+    "id": "core-strings",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|on⟧⟦punctuation|:⟧ ⟦string|yes⟧\n⟦property|off⟧⟦punctuation|:⟧ ⟦string|NO⟧"
+  },
+  {
+    "id": "numbers",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦punctuation|[⟧⟦number|-1.25e+3⟧⟦punctuation|,⟧ ⟦number|0x2f⟧⟦punctuation|,⟧ ⟦number|0o17⟧⟦punctuation|,⟧ ⟦number|.inf⟧⟦punctuation|,⟧ ⟦number|.nan⟧⟦punctuation|]⟧"
+  },
+  {
+    "id": "core-underscore",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|amount⟧⟦punctuation|:⟧ ⟦string|1_000⟧"
+  },
+  {
+    "id": "date-string",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|created⟧⟦punctuation|:⟧ ⟦string|2026-11-11⟧"
+  },
+  {
+    "id": "url",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|url⟧⟦punctuation|:⟧ ⟦string|https://example.test/a#section⟧"
+  },
+  {
+    "id": "quoted-hash",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|text⟧⟦punctuation|:⟧ ⟦string|\"# not a comment\"⟧ ⟦comment|# note⟧"
+  },
+  {
+    "id": "single-quote",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|text⟧⟦punctuation|:⟧ ⟦string|'it''s literal \\n'⟧"
+  },
+  {
+    "id": "double-quote",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|text⟧⟦punctuation|:⟧ ⟦string|\"line\\n\\u661f\"⟧"
+  },
+  {
+    "id": "literal-block",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|text⟧⟦punctuation|:⟧ ⟦punctuation||⟧\n⟦string|  echo \"hello\"\n  # literal\n⟧"
+  },
+  {
+    "id": "folded-block",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|text⟧⟦punctuation|:⟧ ⟦punctuation|>-⟧\n⟦string|  first line\n  second line\n⟧"
+  },
+  {
+    "id": "chomp-indent",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|text⟧⟦punctuation|:⟧ ⟦punctuation||2+⟧\n⟦string|  raw\n\n⟧"
+  },
+  {
+    "id": "header-comment",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|text⟧⟦punctuation|:⟧ ⟦punctuation|>-⟧ ⟦comment|# header⟧\r\n⟦string|  🌌 text\r\n⟧"
+  },
+  {
+    "id": "anchor",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|base⟧⟦punctuation|:⟧ ⟦label+declaration|&defaults⟧ ⟦punctuation|{⟧⟦property|port⟧⟦punctuation|:⟧ ⟦number|80⟧⟦punctuation|}⟧"
+  },
+  {
+    "id": "alias",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|copy⟧⟦punctuation|:⟧ ⟦label|*defaults⟧"
+  },
+  {
+    "id": "merge-key",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|<<⟧⟦punctuation|:⟧ ⟦label|*defaults⟧"
+  },
+  {
+    "id": "local-tag",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|image⟧⟦punctuation|:⟧ ⟦decorator|!Ref⟧ ⟦string|Container⟧"
+  },
+  {
+    "id": "typed-tag",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|value⟧⟦punctuation|:⟧ ⟦decorator|!!str⟧ ⟦string|123⟧"
+  },
+  {
+    "id": "verbatim-tag",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|value⟧⟦punctuation|:⟧ ⟦decorator|!<tag:example.test,2026:item>⟧ ⟦string|demo⟧"
+  },
+  {
+    "id": "directive",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦keyword|%YAML 1.2⟧\n⟦punctuation|---⟧\n⟦property|ready⟧⟦punctuation|:⟧ ⟦keyword|true⟧\n⟦punctuation|...⟧\n"
+  },
+  {
+    "id": "tag-directive",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦keyword|%TAG !e! tag:example.test,2026:⟧\n⟦punctuation|---⟧\n⟦decorator|!e!item⟧ ⟦string|demo⟧"
+  },
+  {
+    "id": "multi-document",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦punctuation|---⟧\n⟦property|x⟧⟦punctuation|:⟧ ⟦number|1⟧\n⟦punctuation|---⟧\n⟦property|x⟧⟦punctuation|:⟧ ⟦number|2⟧\n"
+  },
+  {
+    "id": "explicit-key",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦punctuation|?⟧ ⟦punctuation|[⟧⟦string|a⟧⟦punctuation|,⟧ ⟦string|b⟧⟦punctuation|]⟧\n⟦punctuation|:⟧ ⟦string|value⟧"
+  },
+  {
+    "id": "empty-value",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|nothing⟧⟦punctuation|:⟧ ⟦comment|# implicit null has no source token⟧\n"
+  },
+  {
+    "id": "duplicate-keys",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|x⟧⟦punctuation|:⟧ ⟦number|1⟧\n⟦property|x⟧⟦punctuation|:⟧ ⟦number|2⟧"
+  },
+  {
+    "id": "unicode-crlf",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|标题🌌⟧⟦punctuation|:⟧ ⟦string|\"星空\"⟧\r\n"
+  },
+  {
+    "id": "bom",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦punctuation|﻿⟧⟦property|x⟧⟦punctuation|:⟧ ⟦number|1⟧"
+  },
+  {
+    "id": "multiline-plain",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|text⟧⟦punctuation|:⟧ ⟦string|first line\n  second line⟧\n"
+  },
+  {
+    "id": "empty-document",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦punctuation|---⟧\n⟦punctuation|...⟧\n"
+  },
+  {
+    "id": "empty-string",
+    "documentKind": "yaml",
+    "profile": "yaml",
+    "markedSource": "⟦property|text⟧⟦punctuation|:⟧ ⟦string|\"\"⟧"
+  }
+]
