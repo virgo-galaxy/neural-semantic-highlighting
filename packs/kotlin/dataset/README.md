@@ -7,10 +7,13 @@ Full training checkpoints remain under `artifacts/kotlin`; neither is committed.
 `upstreams.json` pins every original Git source/license blob from Kotlin stdlib,
 Kotlinx Coroutines, Kotlinx Serialization and Android Compose samples. Capture
 includes 225 `.kt` files and 54 `.kts` files with complete original licenses/notices,
-unchanged bytes and source locks. No collected project, import, annotation, script,
+unchanged bytes and source locks. Four captured files in reserved `model` paths
+remain preserved but are excluded by the shared collector, leaving 275 natural inputs. No collected project, import, annotation, script,
 Gradle dependency or compiler plugin runs. Original task generators create 69
 language and 14 script families, with 24 variants per family and retained seeds.
-Golden, tests and Playground never enter collection roots.
+A separate mixed-task generator adds 12 families (288 variants) after visible
+review of raw/interpolated strings, nested generics and lambda scopes. It never
+rewrites the initial curriculum. Golden, tests and Playground never enter collection roots.
 
 The shared pipeline publishes immutable corpus/Gold/prepared snapshots, excludes
 exact/lexical/normalized cross-family copies before windows and freezes intact

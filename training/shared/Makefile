@@ -1223,6 +1223,7 @@ dataset-kotlin:
 
 dataset-kotlin-curriculum:
 	$(PYTHON) -m packs.kotlin.dataset.generate_curriculum
+	$(PYTHON) -m packs.kotlin.dataset.generate_mixed
 
 dataset-kotlin-collect:
 	$(PYTHON) -m packs.kotlin.dataset.pipeline collect

@@ -36,7 +36,15 @@ def main():
             print(file.name,round(report['metrics']['exactSpan']['f1'],4),flush=True)
         snapshot=Path(pack.checkpoint['dataset']['path'])
         records=[r for r in map(json.loads,(snapshot/'validation/documents.jsonl').read_text().splitlines()) if r['stream']=='natural']
-        for r in records[:10]:
+        buckets = {}
+        for record in records:
+            buckets.setdefault((record['repository'], record['profile']), []).append(record)
+        inspected = []
+        while len(inspected) < min(10, len(records)):
+            for bucket in buckets.values():
+                if bucket and len(inspected) < 10:
+                    inspected.append(bucket.pop(0))
+        for r in inspected:
             source=r['source']; predicted,report=compare(pack,source,r['result'])
             natural.append({**{k:r[k] for k in ['repository','path','sourceGroup','contentHash']},**report})
             print(r['repository'],r['path'],round(report['metrics']['exactSpan']['f1'],4),flush=True)
