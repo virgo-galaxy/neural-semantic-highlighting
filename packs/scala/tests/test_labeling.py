@@ -39,6 +39,12 @@ class ScalaTeacherTests(unittest.TestCase):
         source='given limit: Int = 2\nextension (s: String)\n  def repeat(using n: Int) = s * n\n';spans=label(source=source)['spans'];at=source.rindex('n\n');self.assertIn(dict(start=at,end=at+1,tokenType='parameter'),spans)
     def test_unicode_crlf_comments_keep_original_offsets(self):
         source='// 🌌\r\nval 名 = "星"\r\n';result=label(source=source);encode(dict(source=source,documentKind='scala',result=result,contentHash=hashlib.sha256(source.encode()).hexdigest()),Schema.load(ROOT/'schema.json'))
+    def test_end_marker_keyword_and_label_restore_original_cst_range(self):
+        source='object Store:\n  def f =\n    1\n  end f\nend Store\n';spans=label(source=source)['spans']
+        for word in ['end f','end Store']:
+            at=source.index(word);self.assertIn(dict(start=at,end=at+3,tokenType='keyword'),spans)
+            name=word[4:];self.assertIn(dict(start=at+4,end=at+4+len(name),tokenType='label'),spans)
+        result=label(source=source);encode(dict(source=source,documentKind='scala',result=result,contentHash=hashlib.sha256(source.encode()).hexdigest()),Schema.load(ROOT/'schema.json'))
     def test_invalid_source_fails_closed(self):
         for source in ['def f(', 'class {', '\0']:
             with self.subTest(source=source):

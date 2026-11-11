@@ -145,6 +145,12 @@ def label(*,source,document_kind='scala',profile='scala'):
     def segment(start,end,parent):return Node('string_segment',start,end,True,parent=parent,raw=raw)
     def atoms(n):
         if n.kind in COMMENTS|LITERALS:yield n;return
+        if n.kind=='end_marker':
+            if raw[n.start:n.start+3]!=b'end':raise ValueError('Unmapped Scala end marker')
+            yield Node('end_keyword',n.start,n.start+3,True,parent=n,raw=raw)
+            for child in n.children:
+                yield Node('end_name' if child.kind=='_end_ident' else 'end_keyword',child.start,child.end,True,parent=n,raw=raw)
+            return
         if n.kind=='interpolated_string_expression':
             shell=next((c for c in n.children if c.kind=='interpolated_string'),None)
             if shell is None:raise ValueError('Unmapped Scala interpolator shell')
@@ -167,6 +173,8 @@ def label(*,source,document_kind='scala',profile='scala'):
         decl=False
         if n.start in roles and n.kind!='string_segment':role,decl=roles[n.start]
         elif n.kind in COMMENTS:role='comment'
+        elif n.kind=='end_keyword':role='keyword'
+        elif n.kind=='end_name':role='label'
         elif n.kind in {'string','string_segment','character_literal','escape_sequence','xml_string','xml_text'}:role='string'
         elif n.kind in {'integer_literal','floating_point_literal'}:role='number'
         elif n.kind in {'boolean_literal','null_literal','wildcard','namespace_wildcard','unit'} or n.kind.endswith('_modifier') or not n.named and n.text.isidentifier():role='keyword'

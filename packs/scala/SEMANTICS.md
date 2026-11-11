@@ -32,6 +32,10 @@ from child tokens; boundaries come from its original node ranges, never rescanni
 content or evaluating code. Dollar and brace delimiters are punctuation. Raw/f/
 custom interpolators retain syntax-only treatment. Comments remain comments.
 
+End-marker nodes also omit the `end` keyword from their children. Its original
+node range supplies that keyword, and the accompanying identifier is a label;
+this is a bounded offline CST adapter, without runtime source scanning.
+
 Original source bytes, CRLF/CR and Unicode offsets are preserved. Parser errors,
 missing/unmapped tokens, Unicode boundary errors and nonspace coverage gaps fail
 closed. Grammar acceptance is not compiler correctness or support for every Scala
