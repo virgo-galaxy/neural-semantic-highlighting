@@ -313,3 +313,23 @@ typecheck with preserved Xcode Swift 6.0.3/macOS 15.2 SDK because the current CL
 SDK's SwiftUIMacros plugin is absent. No SDK/plugin installation is attempted.
 This is offline validation only: consumer and Playground inference are browser
 native and need no compiler, parser, Python provider or new application/port.
+
+## Kotlin offline workflow
+
+Kotlin follows the shared command names and external dataset/checkpoint locations.
+`make dataset-kotlin-tools` prepares pinned official Kotlin 2.4.21 Maven JARs only
+in ignored project cache, reusing the existing JDK 22.0.1. It installs no Kotlin
+SDK, Gradle, Android SDK or global language dependency. Offline PSI/lexer Gold
+never executes source/scripts, resolves dependencies or loads compiler plugins.
+
+`make dataset-kotlin` retains original pinned blobs/licenses, immutable snapshots,
+copy audits and frozen source families. The original curriculum stays unchanged;
+a separate mixed generator adds 288 independent tasks after literal/role review.
+`make test-labeling-kotlin` checks 13 tests and 32 manually marked Golden cases.
+Six authored JVM examples also compile using the cached official compiler and
+libraries; Compose and Gradle examples are parse-only. None executes.
+
+See [training](../training/kotlin/README.md), [semantic scope](../packs/kotlin/SEMANTICS.md)
+and [selected evaluation](../packs/kotlin/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only; inference .pt/ONNX files are never resumable. Frontend inference
+uses the existing browser worker without JVM, Kotlin, parser or Python.

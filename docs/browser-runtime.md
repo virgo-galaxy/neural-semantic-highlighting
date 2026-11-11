@@ -407,3 +407,34 @@ examples aggregate **92.16%** and the two common SwiftUI examples score about
 these from parity: mixed literal boundaries, dollar names and local semantic roles
 remain approximate. Browser consumers require no Swift SDK, Xcode, parser or
 Python process. The repository and packages remain private and unpublished.
+
+## Kotlin addition
+
+Kotlin is the twenty-fourth selected model. Its [verification record](kotlin-browser-verification.json)
+retains conversion, browser parity, independent package and preservation evidence.
+
+- Real Chromium browser inference matches **179/179** original UTF-16 spans, roles
+  and modifiers, including all earlier cases, eight Kotlin/code-script displays
+  and four empty/CRLF/Unicode/long multi-window Kotlin probes.
+- An independent temporary Vite application installs four local package archives
+  offline and imports public core + Kotlin + themes exports. Its static build
+  emits **one Kotlin ONNX asset**, without repository aliases, and passes **12/12**
+  span and original-text checks. It is served through the existing Playground
+  filesystem route, with no new server or port.
+- `kotlin`, `Kotlin`, `kt`, `kts`, `kotlin-script`, `highlightElement` on a
+  `language-kts` element, `highlightTokens`, six preset/mode combinations and a
+  custom CSS override all pass. Playground adds the pinned Devicon icon, eight
+  examples, shuffle and light/dark switching through the existing browser worker.
+- Full `make check` passes **156** frontend tests and all previous language checks,
+  including **13** Kotlin teacher tests and **32** independent marked Golden cases.
+  All 46 earlier native/ONNX files remain byte-identical.
+
+The first code/script natural test is **94.57%**
+across 31 files; visible examples aggregate
+**92.74%**. The neural model is entirely
+exact in 16/32 Golden cases. [Evaluation and limits](../packs/kotlin/model/BENCHMARKS.md)
+keep these evidence sets separate. Raw/multi-dollar template boundaries, imported
+calls, implicit receivers and local roles remain approximate. Offline Gold reuses
+the existing JDK with official Kotlin 2.4.21 Maven components in project cache;
+no Kotlin SDK, Gradle, Android SDK or global dependency is installed. Browser
+consumers require none of these tools or a Python process.

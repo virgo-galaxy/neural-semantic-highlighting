@@ -5,6 +5,7 @@ import { type BrowserModel, BrowserRuntime } from "@nsh/browser";
 import { createHighlighter } from "@nsh/highlighter/core";
 import dart from "@nsh/highlighter/languages/dart";
 import flutter from "@nsh/highlighter/languages/flutter";
+import kotlin from "@nsh/highlighter/languages/kotlin";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { characterMap, SpanDecoder } from "../packages/runtimes/browser/src/decode.js";
@@ -152,6 +153,24 @@ describe("consumer API", () => {
     await expect(tokens).resolves.toEqual(empty);
     highlighter.close();
   });
+  it("routes Kotlin file and script aliases through one model", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [kotlin] });
+    expect(highlighter.languages()).toEqual(["kotlin"]);
+    for (const language of ["Kotlin", "kt", "kts", "kotlin-script"]) {
+      expect(highlighter.supports(language)).toBe(true);
+      const pending = highlighter.highlight('val title = "<星🌌>"', { language });
+      const worker = FakeWorker.instances[0];
+      const message = worker.messages.at(-1)!;
+      expect(message.model).toMatchObject({ id: "kotlin", sha256: kotlin.sha256 });
+      worker.reply(message.id);
+      const rendered = await pending;
+      expect(rendered.language).toBe("kotlin");
+      expect(rendered.value).toContain("&lt;星🌌&gt;");
+    }
+    expect(FakeWorker.instances).toHaveLength(1);
+    highlighter.close();
+  });
   it("resolves aliases and escapes rendered source", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [model] });
@@ -195,6 +214,7 @@ describe("shipped browser artifacts", () => {
       "zig",
       "dart",
       "swift",
+      "kotlin",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

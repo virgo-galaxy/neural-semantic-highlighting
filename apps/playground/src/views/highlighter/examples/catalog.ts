@@ -12,6 +12,7 @@ import goIcon from "@/assets/document-kinds/go.svg";
 import htmlIcon from "@/assets/document-kinds/html.svg";
 import javaIcon from "@/assets/document-kinds/java.svg";
 import javascriptIcon from "@/assets/document-kinds/javascript.svg";
+import kotlinIcon from "@/assets/document-kinds/kotlin.svg";
 import lessIcon from "@/assets/document-kinds/less.svg";
 import perlIcon from "@/assets/document-kinds/perl.svg";
 import phpIcon from "@/assets/document-kinds/php.svg";
@@ -97,6 +98,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   dart: { label: "Dart", icon: dartIcon },
   flutter: { label: "Flutter", icon: flutterIcon },
   swift: { label: "Swift", icon: swiftIcon },
+  kotlin: { label: "Kotlin", icon: kotlinIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -169,6 +171,8 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".zig", "zig"],
   [".dart", "dart"],
   [".swift", "swift"],
+  [".kt", "kotlin"],
+  [".kts", "kotlin"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

@@ -33,6 +33,7 @@ const ids = [
   "zig",
   "dart",
   "swift",
+  "kotlin",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -114,6 +115,19 @@ for (const [index, source] of [
     source,
     documentKind: "swift",
     result: await getPack("swift").highlight({ source, documentKind: "swift" }),
+  });
+}
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '// 星空 🌌\r\nval title = "Kotlin"\r\n',
+  'val text = """\n' + "Original 🌌 message. ".repeat(160) + '\n"""\n',
+].entries()) {
+  cases.push({
+    filename: `edge/kotlin-${index}.kt`,
+    source,
+    documentKind: "kotlin",
+    result: await getPack("kotlin").highlight({ source, documentKind: "kotlin" }),
   });
 }
 await Promise.all([...models.values()].map((model) => model.close()));

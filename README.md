@@ -472,8 +472,8 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`, `java`, `csharp`, `swift`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
-`cmd`, `asm`, `nasm`, `masm`, `gas`, `cs` and `c#`. Shell profiles share one model; naming a
+`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
 ## Assets and performance
@@ -737,6 +737,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [Zig](packs/zig/model/README.md)                            | `.zig`; Zig 0.17.1 only, current functions/containers, errors/optionals, comptime, captures and builtins                                                            | [92.51%](packs/zig/model/BENCHMARKS.md) — natural test, 21 files                                                                               | Browser + local; [quoted identifiers, literal boundaries and local roles](packs/zig/model/KNOWN_ISSUES.md) remain limited                            |
 | [Dart / Flutter](packs/dart/model/README.md)                | `.dart`; null-safe Dart, classes/generics, records/patterns, async, collections and common Flutter widget code                                                      | [94.22%](packs/dart/model/BENCHMARKS.md) — natural test, 20 files                                                                              | Browser + local; [raw/interpolated string boundaries, constructor/local roles and patterns](packs/dart/model/KNOWN_ISSUES.md) remain limited         |
 | [Swift](packs/swift/model/README.md)                        | `.swift`; modern Swift functions/types/protocols, generics, patterns, async/actors, macros/attributes and common SwiftUI                                            | [93.65%](packs/swift/model/BENCHMARKS.md) — natural test, 22 files                                                                             | Browser + local; [mixed string boundaries, dollar names and local roles](packs/swift/model/KNOWN_ISSUES.md) remain limited                           |
+| [Kotlin](packs/kotlin/model/README.md)                      | `.kt`, `.kts`; modern Kotlin classes/objects, generics, nullable code, coroutines, common Compose and Gradle Kotlin scripts                                         | [94.57%](packs/kotlin/model/BENCHMARKS.md) — natural code/script test, 31 files                                                                | Browser + local; [raw/multi-dollar templates, implicit receivers and local semantic roles](packs/kotlin/model/KNOWN_ISSUES.md) remain limited        |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -788,7 +789,7 @@ Flutter also has a dedicated Playground entry, icon and eight examples. Use
 `{ language: "flutter" }` or selectively import
 `@nsh/highlighter/languages/flutter`. It shares the Dart descriptor and **one
 Dart model asset**, so Flutter adds no separate model. The workspace now contains
-23 model packs including Swift. Files keep `.dart`;
+24 model packs including Swift and Kotlin. Files keep `.dart`;
 Flutter normalizes to `dart` in returned language and HTML `data-language`,
 including `highlightElement` on `language-flutter` elements. Existing Dart theme
 and CSS overrides apply. No Dart/Flutter SDK is installed or required.
@@ -806,3 +807,13 @@ Python process. The Playground includes eight Swift/SwiftUI examples with the
 existing Devicon icon and all preset/light/dark themes. See [Swift evaluation](packs/swift/model/BENCHMARKS.md)
 and [known issues](packs/swift/model/KNOWN_ISSUES.md), including mixed literal
 boundaries, dollar names and source-local role approximations.
+
+Kotlin uses `{ language: "kotlin" }` for `.kt` and `.kts`, including common
+coroutine/Flow, Compose and Gradle Kotlin-script syntax. `kt`, `kts` and
+`kotlin-script` aliases share the same model and canonical `kotlin` output.
+Selective `@nsh/highlighter/languages/kotlin` emits one model asset. Browser
+applications require no JDK, Kotlin SDK, Gradle, Android environment, parser or
+Python process. The Playground provides eight Kotlin/script examples, the pinned
+Devicon icon and all existing preset/light/dark themes. See [Kotlin evaluation](packs/kotlin/model/BENCHMARKS.md)
+and [known issues](packs/kotlin/model/KNOWN_ISSUES.md); Compose/Gradle examples
+are syntax demonstrations rather than framework/build compatibility guarantees.

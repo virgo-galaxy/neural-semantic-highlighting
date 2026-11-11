@@ -71,3 +71,6 @@ at the same pinned Devicon revision and under the preserved MIT license.
 
 The Swift entry uses `swift.svg`, from `icons/swift/swift-original.svg` at the
 same pinned Devicon revision and under the preserved MIT license.
+
+The Kotlin entry uses `kotlin.svg`, from `icons/kotlin/kotlin-original.svg` at the
+same pinned Devicon revision and under the preserved MIT license.

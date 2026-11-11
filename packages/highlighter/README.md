@@ -120,3 +120,11 @@ views, bindings, result builders and actor/async syntax. Selective
 parser or Python process is required in a frontend application. See
 [Swift evaluation](../../packs/swift/model/BENCHMARKS.md) and
 [known issues](../../packs/swift/model/KNOWN_ISSUES.md).
+
+Kotlin uses `{ language: "kotlin" }` for `.kt`/`.kts`, including common coroutine,
+Compose and Gradle Kotlin-script syntax. `kt`, `kts`, `kotlin-script` and
+case-normalized IDs share one descriptor and canonical `kotlin` output.
+Selective `@nsh/highlighter/languages/kotlin` emits one model asset. No JDK,
+Kotlin SDK, Gradle, Android SDK, parser or Python process is required in frontend
+applications. Existing themes and custom CSS apply. See [evaluation](../../packs/kotlin/model/BENCHMARKS.md)
+and [known limits](../../packs/kotlin/model/KNOWN_ISSUES.md).
