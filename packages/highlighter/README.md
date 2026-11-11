@@ -113,3 +113,10 @@ both emits one Dart model asset. Return values and HTML normalize to canonical
 `language-flutter`, and `highlightTokens` accepts the same alias. The Playground
 has a separate Flutter entry; files remain `.dart`. See
 [Flutter coverage and limits](../../packs/dart/model/FLUTTER.md).
+
+Swift uses `{ language: "swift" }` for `.swift` source, including common SwiftUI
+views, bindings, result builders and actor/async syntax. Selective
+`@nsh/highlighter/languages/swift` emits one model asset; no Swift SDK, Xcode,
+parser or Python process is required in a frontend application. See
+[Swift evaluation](../../packs/swift/model/BENCHMARKS.md) and
+[known issues](../../packs/swift/model/KNOWN_ISSUES.md).

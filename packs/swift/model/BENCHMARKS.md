@@ -51,7 +51,8 @@ artifacts/swift, outside the committed inference bundle.
 ## Environment, Gold and bounded training
 
 The existing toolchain was explicitly upgraded to Swift 6.4.2 in the preceding
-environment task. This language task installs no SDK, package or global dependency.
+environment task. Offline supervision installs no SDK, language package or global dependency.
+Independent frontend verification uses local npm archives in a temporary project.
 Our parse-only helper links the installed official SwiftParser/SwiftSyntax libraries;
 compiler, library, helper-source and helper-binary hashes are retained. It never
 executes collected projects, follows imports or expands macros. Parser errors,

@@ -472,7 +472,7 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`, `java`, `csharp`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`bat`, `assembly`, `java`, `csharp`, `swift`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs` and `c#`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
@@ -736,6 +736,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [Rust](packs/rust/model/README.md)                          | `.rs`; common stable Rust 2018/2021/2024 source, traits/impls, generics/lifetimes, patterns, async and macro syntax                                                 | [94.90%](packs/rust/model/BENCHMARKS.md) — natural test, 15 files                                                                              | Browser + local; [raw/format-string boundaries, macro DSLs and local semantic roles](packs/rust/model/KNOWN_ISSUES.md) remain limited                |
 | [Zig](packs/zig/model/README.md)                            | `.zig`; Zig 0.17.1 only, current functions/containers, errors/optionals, comptime, captures and builtins                                                            | [92.51%](packs/zig/model/BENCHMARKS.md) — natural test, 21 files                                                                               | Browser + local; [quoted identifiers, literal boundaries and local roles](packs/zig/model/KNOWN_ISSUES.md) remain limited                            |
 | [Dart / Flutter](packs/dart/model/README.md)                | `.dart`; null-safe Dart, classes/generics, records/patterns, async, collections and common Flutter widget code                                                      | [94.22%](packs/dart/model/BENCHMARKS.md) — natural test, 20 files                                                                              | Browser + local; [raw/interpolated string boundaries, constructor/local roles and patterns](packs/dart/model/KNOWN_ISSUES.md) remain limited         |
+| [Swift](packs/swift/model/README.md)                        | `.swift`; modern Swift functions/types/protocols, generics, patterns, async/actors, macros/attributes and common SwiftUI                                            | [93.65%](packs/swift/model/BENCHMARKS.md) — natural test, 22 files                                                                             | Browser + local; [mixed string boundaries, dollar names and local roles](packs/swift/model/KNOWN_ISSUES.md) remain limited                           |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -786,7 +787,8 @@ for separate natural, focus and visible results.
 Flutter also has a dedicated Playground entry, icon and eight examples. Use
 `{ language: "flutter" }` or selectively import
 `@nsh/highlighter/languages/flutter`. It shares the Dart descriptor and **one
-Dart model asset**, so there are still 22 model packs. Files keep `.dart`;
+Dart model asset**, so Flutter adds no separate model. The workspace now contains
+23 model packs including Swift. Files keep `.dart`;
 Flutter normalizes to `dart` in returned language and HTML `data-language`,
 including `highlightElement` on `language-flutter` elements. Existing Dart theme
 and CSS overrides apply. No Dart/Flutter SDK is installed or required.
@@ -796,3 +798,11 @@ The separate [Flutter application review](packs/dart/model/FLUTTER.md) scores
 examples aggregate 95.73%. This supplements the historical Dart test in the table
 and keeps application, visible and strict Golden evidence separate. The existing
 weights were retained after review; no new training or duplicate model is added.
+
+Swift uses `{ language: "swift" }` for original `.swift` source, including common
+SwiftUI view/result-builder code. Selective `@nsh/highlighter/languages/swift`
+emits one model asset; frontend applications need no Swift, Xcode, parser or
+Python process. The Playground includes eight Swift/SwiftUI examples with the
+existing Devicon icon and all preset/light/dark themes. See [Swift evaluation](packs/swift/model/BENCHMARKS.md)
+and [known issues](packs/swift/model/KNOWN_ISSUES.md), including mixed literal
+boundaries, dollar names and source-local role approximations.

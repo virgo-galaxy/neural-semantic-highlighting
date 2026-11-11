@@ -377,3 +377,33 @@ source-local roles, strict Golden diagnostics and existing model limits. Importe
 widget types, versions and generated code are not resolved. Existing data,
 checkpoints, models and reports remain preserved. Packages/repository stay private;
 nothing is published or pushed as part of this addition.
+
+## Swift addition
+
+Swift is the twenty-third selected model. Its [verification record](swift-browser-verification.json)
+preserves the selected native/browser hashes and additive checks.
+
+- The float32 export passes ONNX checking and all eight CPU PyTorch/ORT head
+  comparisons, from 1 through 512 bytes, within the existing `1e-4` tolerance.
+- Real Chromium browser inference matches **167/167** original UTF-16 span, role
+  and modifier references: every prior case, eight new Swift/SwiftUI displays and
+  four Swift empty/CRLF/Unicode/long multi-window probes.
+- An independent temporary frontend installs four local npm archives and cached
+  Vite completely offline. Its production build uses public imports and **one
+  Swift ONNX asset**, without repository aliases. The prebuilt static output is
+  accessed through the existing local Playground server; no new service or port
+  is introduced. It passes **12/12** Swift comparisons and original-text checks.
+- Case-normalized Swift IDs, `highlightElement`, `highlightTokens`, six theme/mode
+  combinations and a public custom CSS color override are verified. The Playground
+  exposes Swift with the pinned Devicon icon, eight examples, shuffle and light/dark
+  controls. No browser console errors were observed.
+- `make check` passes all **155** TypeScript/JavaScript tests and existing native
+  checks, including **12** Swift teacher tests and **28** independent Golden cases.
+  All **44** earlier native/ONNX weight files remain byte-identical.
+
+The selected model's natural test F1 is **93.65%** across 22 files; displayed
+examples aggregate **92.16%** and the two common SwiftUI examples score about
+97.7%. [Quality and known limits](../packs/swift/model/BENCHMARKS.md) distinguish
+these from parity: mixed literal boundaries, dollar names and local semantic roles
+remain approximate. Browser consumers require no Swift SDK, Xcode, parser or
+Python process. The repository and packages remain private and unpublished.

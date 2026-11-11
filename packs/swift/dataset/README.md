@@ -10,6 +10,8 @@ Async Algorithms, HTTP Types, Alamofire and Apple's Food Truck SwiftUI sample.
 It retains full root license/notice files, byte hashes and capture locks, without
 building projects or loading their dependencies. `generate_curriculum.py` writes
 68 independently authored task families, 24 variants each, with retained seeds.
+`generate_literals.py` adds 12 separate mixed literal/closure families after the
+initial validation review, preserving all original tasks and assignments.
 Golden, tests and Playground are excluded from collection roots.
 
 The shared collector, fail-closed official parser teacher and validator publish

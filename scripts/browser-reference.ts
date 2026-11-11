@@ -32,6 +32,7 @@ const ids = [
   "rust",
   "zig",
   "dart",
+  "swift",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -100,6 +101,19 @@ for (const source of [
     source,
     documentKind: "typescript",
     result: await getPack("typescript").highlight({ source, documentKind: "typescript" }),
+  });
+}
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '// 星空 🌌\r\nlet title = "Swift"\r\n',
+  'let text = """\n' + "Original 🌌 message. ".repeat(160) + '\n"""\n',
+].entries()) {
+  cases.push({
+    filename: `edge/swift-${index}.swift`,
+    source,
+    documentKind: "swift",
+    result: await getPack("swift").highlight({ source, documentKind: "swift" }),
   });
 }
 await Promise.all([...models.values()].map((model) => model.close()));

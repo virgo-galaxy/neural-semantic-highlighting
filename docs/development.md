@@ -294,3 +294,22 @@ The [Flutter report](../packs/dart/model/FLUTTER.md) records the measured decisi
 to reuse the current weights, including strict Golden and source-local limits.
 The public alias canonicalizes to Dart; the Playground keeps its own Flutter
 label/icon while `.dart` sources are routed to Dart inference.
+
+## Swift offline workflow
+
+Swift follows the shared command names and existing external dataset/checkpoint
+locations. The already installed official Swift 6.4.2 SwiftParser supplies offline
+source-accurate Gold, without typechecking, loading project dependencies, expanding
+macros or executing collected code. Offline supervision installs no SDK or language package.
+`make dataset-swift` preserves pinned original source/license blobs, immutable
+snapshots, copy audits and frozen source families. `make test-labeling-swift` checks
+28 independent Golden cases and 12 focused tests.
+
+See [Swift training](../training/swift/README.md), [semantic scope](../packs/swift/SEMANTICS.md)
+and [the selected model](../packs/swift/model/BENCHMARKS.md). Resume full artifacts
+checkpoints, never model.pt/ONNX; preserve every prior language's formal weights.
+Six authored examples typecheck on 6.4.2; two common SwiftUI examples additionally
+typecheck with preserved Xcode Swift 6.0.3/macOS 15.2 SDK because the current CLI
+SDK's SwiftUIMacros plugin is absent. No SDK/plugin installation is attempted.
+This is offline validation only: consumer and Playground inference are browser
+native and need no compiler, parser, Python provider or new application/port.

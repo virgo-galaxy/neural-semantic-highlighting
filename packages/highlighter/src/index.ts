@@ -21,6 +21,7 @@ import python from "./languages/python.js";
 import rust from "./languages/rust.js";
 import sql from "./languages/sql.js";
 import svelte from "./languages/svelte.js";
+import swift from "./languages/swift.js";
 import typescript from "./languages/typescript.js";
 import vue from "./languages/vue.js";
 import zig from "./languages/zig.js";
@@ -52,6 +53,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       rust,
       zig,
       dart,
+      swift,
     ],
   });
 }

@@ -25,6 +25,7 @@ for (const id of [
   "rust",
   "zig",
   "dart",
+  "swift",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }
