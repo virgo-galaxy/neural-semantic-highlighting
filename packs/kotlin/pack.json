@@ -1,0 +1,20 @@
+{
+  "label": "Kotlin",
+  "profiles": ["kotlin", "kotlin-script"],
+  "scope": "kotlin-local-semantic-spans",
+  "contextBytes": 512,
+  "requiredTrainingFeatures": {
+    "kotlin": [
+      "functions",
+      "types",
+      "generics",
+      "properties",
+      "lambdas",
+      "null-safety",
+      "interpolation",
+      "coroutines"
+    ],
+    "kotlin-script": ["calls", "lambdas", "properties", "interpolation"]
+  },
+  "minimumTrainingFeatureGroups": 2
+}

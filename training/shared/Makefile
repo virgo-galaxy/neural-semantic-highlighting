@@ -1197,3 +1197,70 @@ challenge-swift:
 export-swift-model:
 	@test -n "$(SWIFT_CHECKPOINT)" -a -n "$(SWIFT_TEST_REPORT)" || (echo 'Set SWIFT_CHECKPOINT and SWIFT_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.swift.export_model --checkpoint "$(SWIFT_CHECKPOINT)" --test-report "$(SWIFT_TEST_REPORT)"
+
+KOTLIN_DEVICE ?= auto
+KOTLIN_EPOCHS ?= 3
+KOTLIN_BATCH_SIZE ?= 32
+KOTLIN_LEARNING_RATE ?=
+KOTLIN_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-kotlin dataset-kotlin-tools dataset-kotlin-sources dataset-kotlin-curriculum dataset-kotlin-collect dataset-kotlin-label dataset-kotlin-validate dataset-kotlin-prepare test-labeling-kotlin train-kotlin-smoke train-kotlin continue-kotlin predict-kotlin evaluate-kotlin challenge-kotlin export-kotlin-model
+
+dataset-kotlin-tools:
+	$(PYTHON) -m packs.kotlin.labeling.tools
+
+dataset-kotlin-sources:
+	$(PYTHON) -m packs.kotlin.dataset.fetch_sources
+
+dataset-kotlin:
+	$(MAKE) dataset-kotlin-tools
+	$(MAKE) dataset-kotlin-sources
+	$(MAKE) dataset-kotlin-curriculum
+	$(MAKE) dataset-kotlin-collect
+	$(MAKE) dataset-kotlin-label
+	$(MAKE) dataset-kotlin-validate
+	$(MAKE) dataset-kotlin-prepare
+
+dataset-kotlin-curriculum:
+	$(PYTHON) -m packs.kotlin.dataset.generate_curriculum
+
+dataset-kotlin-collect:
+	$(PYTHON) -m packs.kotlin.dataset.pipeline collect
+
+dataset-kotlin-label:
+	$(PYTHON) -m packs.kotlin.dataset.pipeline label
+
+dataset-kotlin-validate:
+	$(PYTHON) -m packs.kotlin.dataset.pipeline validate
+
+dataset-kotlin-prepare:
+	$(PYTHON) -m training.kotlin.prepare
+
+test-labeling-kotlin:
+	$(PYTHON) -m unittest discover -s packs/kotlin/tests -v
+
+train-kotlin-smoke:
+	$(PYTHON) -m training.kotlin.train --smoke --epochs 1 --device $(KOTLIN_DEVICE) $(if $(KOTLIN_RUN),--output-dir "$(KOTLIN_RUN)") $(if $(KOTLIN_INIT_FROM),--init-from "$(KOTLIN_INIT_FROM)")
+
+train-kotlin:
+	$(PYTHON) -m training.kotlin.train --epochs $(KOTLIN_EPOCHS) --device $(KOTLIN_DEVICE) --batch-size $(KOTLIN_BATCH_SIZE) $(if $(KOTLIN_LEARNING_RATE),--learning-rate $(KOTLIN_LEARNING_RATE)) $(if $(KOTLIN_RUN),--output-dir "$(KOTLIN_RUN)") $(if $(KOTLIN_INIT_FROM),--init-from "$(KOTLIN_INIT_FROM)")
+
+continue-kotlin:
+	@test -n "$(KOTLIN_CHECKPOINT)" || (echo 'Set KOTLIN_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.kotlin.train --resume "$(KOTLIN_CHECKPOINT)" --epochs $(KOTLIN_EPOCHS) --device $(KOTLIN_DEVICE)
+
+predict-kotlin:
+	@test -n "$(KOTLIN_SOURCE)" || (echo 'Set KOTLIN_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.kotlin.predict --device $(KOTLIN_DEVICE) --file "$(KOTLIN_SOURCE)" $(if $(KOTLIN_CHECKPOINT),--checkpoint "$(KOTLIN_CHECKPOINT)")
+
+evaluate-kotlin:
+	@test -n "$(KOTLIN_CHECKPOINT)" || (echo 'Set KOTLIN_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.kotlin.evaluate --checkpoint "$(KOTLIN_CHECKPOINT)" --device $(KOTLIN_DEVICE) --split $(KOTLIN_EVAL_SPLIT)
+
+challenge-kotlin:
+	@test -n "$(KOTLIN_CHECKPOINT)" || (echo 'Set KOTLIN_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.kotlin.challenge --checkpoint "$(KOTLIN_CHECKPOINT)" --device $(KOTLIN_DEVICE)
+
+export-kotlin-model:
+	@test -n "$(KOTLIN_CHECKPOINT)" -a -n "$(KOTLIN_TEST_REPORT)" || (echo 'Set KOTLIN_CHECKPOINT and KOTLIN_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.kotlin.export_model --checkpoint "$(KOTLIN_CHECKPOINT)" --test-report "$(KOTLIN_TEST_REPORT)"
