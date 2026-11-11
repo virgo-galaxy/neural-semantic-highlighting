@@ -18,3 +18,7 @@ project cache. No Ruby SDK, interpreter, gem or global dependency is installed.
 Collected source, build files, subprocesses, projects and dependencies never run.
 Parser, original-byte/Unicode and coverage errors fail closed with explicit
 quarantines. A permissive EOF heredoc is rejected unless its CST end is nonempty.
+
+A separate mixed generator adds 12 independent families / 288 variants after
+visible review of qualified names, instance calls, heredocs and mixed literals.
+The initial 56 families and every frozen assignment remain preserved.

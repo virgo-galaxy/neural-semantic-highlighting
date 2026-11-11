@@ -1425,6 +1425,7 @@ dataset-ruby:
 
 dataset-ruby-curriculum:
 	$(PYTHON) -m packs.ruby.dataset.generate_curriculum
+	$(PYTHON) -m packs.ruby.dataset.generate_mixed
 
 dataset-ruby-collect:
 	$(PYTHON) -m packs.ruby.dataset.pipeline collect
