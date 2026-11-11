@@ -1,0 +1,1044 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "4cfc21f2742c74e7c452865f4aa74582460472edd66bc128b9644ff914de7560",
+  "cases": [
+    {
+      "id": "empty",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "function",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "func size(_ n: Int) -> Int { n + 1 }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 29,
+          "end": 30,
+          "text": "n",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 29,
+          "end": 30,
+          "text": "n",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "argument-label",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "func send(to target: Int) -> Int { target }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 35,
+          "end": 41,
+          "text": "target",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 35,
+          "end": 41,
+          "text": "target",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bindings",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "let initial = 8; var next = initial + 2",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "generic",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "func keep<T>(_ item: T) -> T { item }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "property",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "struct Parcel { let code: String }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "method",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "struct Parcel { func value() -> Int { 4 } }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "constructor",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "struct Parcel {}; let packet = Parcel()",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 22,
+          "end": 28,
+          "text": "packet",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 22,
+          "end": 28,
+          "text": "packet",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "initializer",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "struct Parcel { init() {} }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "enum",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "enum Phase { case idle, running }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 24,
+          "end": 31,
+          "text": "running",
+          "tokenType": "enum-member",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 24,
+          "end": 31,
+          "text": "running",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "enum-reference",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "enum Phase { case idle }; let state = Phase.idle",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 18,
+          "end": 22,
+          "text": "idle",
+          "tokenType": "enum-member",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 30,
+          "end": 35,
+          "text": "state",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 38,
+          "end": 43,
+          "text": "Phase",
+          "tokenType": "enum",
+          "modifiers": []
+        },
+        {
+          "start": 44,
+          "end": 48,
+          "text": "idle",
+          "tokenType": "enum-member",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 18,
+          "end": 22,
+          "text": "idle",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 30,
+          "end": 35,
+          "text": "state",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 38,
+          "end": 43,
+          "text": "Phase",
+          "tokenType": "type-parameter",
+          "modifiers": []
+        },
+        {
+          "start": 44,
+          "end": 48,
+          "text": "idle",
+          "tokenType": "decorator",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "closure",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "let values = [1].map { item in item + 3 }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 31,
+          "end": 35,
+          "text": "item",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 31,
+          "end": 35,
+          "text": "item",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "closure-dollar",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "let values = [2].map { $0 * 3 }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 23,
+          "end": 25,
+          "text": "$0",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 23,
+          "end": 25,
+          "text": "$0",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "import",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "import Foundation",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 17,
+          "text": "Foundation",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 17,
+          "text": "Foundation",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "attribute",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "@MainActor func refresh() {}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 16,
+          "end": 23,
+          "text": "refresh",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 16,
+          "end": 23,
+          "text": "refresh",
+          "tokenType": "method",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "argument",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "display(title: \"Orbit\")",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 7,
+          "text": "display",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 7,
+          "text": "display",
+          "tokenType": "decorator",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "tuple-label",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "let point = (x: 2, y: 7)",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 13,
+          "end": 14,
+          "text": "x",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 19,
+          "end": 20,
+          "text": "y",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 14,
+          "text": "x",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 19,
+          "end": 20,
+          "text": "y",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plain-string",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "let title = \"\u661f\u7a7a \ud83c\udf0c\"",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "raw-string",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "let literal = #\"\\(nothing) // original\"#",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 14,
+          "end": 40,
+          "text": "#\"\\(nothing) // original\"#",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 14,
+          "end": 16,
+          "text": "#\"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": "\\",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 18,
+          "text": "(",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 18,
+          "end": 25,
+          "text": "nothing",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "text": ")",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 40,
+          "text": "// original\"#",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "interpolation",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "let title = \"Star \\(count)\"",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "regex",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "let pattern = /[a-z]+/",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "comment",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "/* outer /* nested */ remaining */\r\n// \u661f\u7a7a \ud83c\udf0c\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 34,
+          "text": "/* outer /* nested */ remaining */",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 35,
+          "text": "/* outer /* nested */ remaining */\r",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "escaped-identifier",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "let `repeat` = 3",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 12,
+          "text": "`repeat`",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 12,
+          "text": "`repeat`",
+          "tokenType": "string",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "async",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "func fetch() async -> Int { 5 }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "actor",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "actor Ledger { var total = 0 }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "optional",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "let name: String? = nil",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "macro",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "#Preview { Text(\"Orbit\") }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "#",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 8,
+          "text": "Preview",
+          "tokenType": "decorator",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "#Preview",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "swiftui-wrapper",
+      "profile": "swift",
+      "documentKind": "swift",
+      "source": "@State var count = 6",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    }
+  ],
+  "profiles": {
+    "swift": {
+      "documents": 28,
+      "exactDocumentsIncludingModifiers": 13,
+      "exactSpan": {
+        "precision": 0.9094650205761317,
+        "recall": 0.9246861924686193,
+        "f1": 0.91701244813278,
+        "tp": 221,
+        "fp": 22,
+        "fn": 18,
+        "support": 239
+      },
+      "exactSpanMacroF1": 0.7510739453813458,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9012345679012346,
+        "recall": 0.9163179916317992,
+        "f1": 0.9087136929460581,
+        "tp": 219,
+        "fp": 24,
+        "fn": 20,
+        "support": 239
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.925,
+          "recall": 1.0,
+          "f1": 0.961038961038961,
+          "tp": 37,
+          "fp": 3,
+          "fn": 0,
+          "support": 37
+        },
+        "comment": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.6,
+          "recall": 0.8571428571428571,
+          "f1": 0.7058823529411765,
+          "tp": 6,
+          "fp": 4,
+          "fn": 1,
+          "support": 7
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 14,
+          "fp": 0,
+          "fn": 0,
+          "support": 14
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 25,
+          "fp": 0,
+          "fn": 0,
+          "support": 25
+        },
+        "punctuation": {
+          "precision": 0.9651162790697675,
+          "recall": 0.9880952380952381,
+          "f1": 0.9764705882352941,
+          "tp": 83,
+          "fp": 3,
+          "fn": 1,
+          "support": 84
+        },
+        "namespace": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 13,
+          "fp": 0,
+          "fn": 0,
+          "support": 13
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 0,
+          "fn": 1,
+          "support": 3
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 0.25,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 0,
+          "fn": 3,
+          "support": 4
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 0.7142857142857143,
+          "f1": 0.8333333333333334,
+          "tp": 5,
+          "fp": 0,
+          "fn": 2,
+          "support": 7
+        },
+        "method": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 1,
+          "fn": 0,
+          "support": 3
+        },
+        "constructor": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "parameter": {
+          "precision": 0.8181818181818182,
+          "recall": 0.8181818181818182,
+          "f1": 0.8181818181818182,
+          "tp": 9,
+          "fp": 2,
+          "fn": 2,
+          "support": 11
+        },
+        "variable": {
+          "precision": 0.8666666666666667,
+          "recall": 0.8125,
+          "f1": 0.8387096774193549,
+          "tp": 13,
+          "fp": 2,
+          "fn": 3,
+          "support": 16
+        },
+        "property": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5,
+          "tp": 2,
+          "fp": 2,
+          "fn": 2,
+          "support": 4
+        },
+        "type-parameter": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 1,
+          "fn": 0,
+          "support": 3
+        },
+        "decorator": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285714,
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "support": 3
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "swift": {
+      "documents": 28,
+      "exactDocumentsIncludingModifiers": 13,
+      "exactSpan": {
+        "precision": 0.9094650205761317,
+        "recall": 0.9246861924686193,
+        "f1": 0.91701244813278,
+        "tp": 221,
+        "fp": 22,
+        "fn": 18,
+        "support": 239
+      },
+      "exactSpanMacroF1": 0.7510739453813458,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9012345679012346,
+        "recall": 0.9163179916317992,
+        "f1": 0.9087136929460581,
+        "tp": 219,
+        "fp": 24,
+        "fn": 20,
+        "support": 239
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.925,
+          "recall": 1.0,
+          "f1": 0.961038961038961,
+          "tp": 37,
+          "fp": 3,
+          "fn": 0,
+          "support": 37
+        },
+        "comment": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.6,
+          "recall": 0.8571428571428571,
+          "f1": 0.7058823529411765,
+          "tp": 6,
+          "fp": 4,
+          "fn": 1,
+          "support": 7
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 14,
+          "fp": 0,
+          "fn": 0,
+          "support": 14
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 25,
+          "fp": 0,
+          "fn": 0,
+          "support": 25
+        },
+        "punctuation": {
+          "precision": 0.9651162790697675,
+          "recall": 0.9880952380952381,
+          "f1": 0.9764705882352941,
+          "tp": 83,
+          "fp": 3,
+          "fn": 1,
+          "support": 84
+        },
+        "namespace": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 13,
+          "fp": 0,
+          "fn": 0,
+          "support": 13
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 0,
+          "fn": 1,
+          "support": 3
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 0.25,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 0,
+          "fn": 3,
+          "support": 4
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 0.7142857142857143,
+          "f1": 0.8333333333333334,
+          "tp": 5,
+          "fp": 0,
+          "fn": 2,
+          "support": 7
+        },
+        "method": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 1,
+          "fn": 0,
+          "support": 3
+        },
+        "constructor": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "parameter": {
+          "precision": 0.8181818181818182,
+          "recall": 0.8181818181818182,
+          "f1": 0.8181818181818182,
+          "tp": 9,
+          "fp": 2,
+          "fn": 2,
+          "support": 11
+        },
+        "variable": {
+          "precision": 0.8666666666666667,
+          "recall": 0.8125,
+          "f1": 0.8387096774193549,
+          "tp": 13,
+          "fp": 2,
+          "fn": 3,
+          "support": 16
+        },
+        "property": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5,
+          "tp": 2,
+          "fp": 2,
+          "fn": 2,
+          "support": 4
+        },
+        "type-parameter": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 1,
+          "fn": 0,
+          "support": 3
+        },
+        "decorator": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285714,
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "support": 3
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "checkpointHash": "134d8c8d39a2fd13211d52ac94d71f4e439ddb66f94f3cd2ed6896d5518724ad",
+  "checkpointEpoch": 6,
+  "device": "cpu"
+}

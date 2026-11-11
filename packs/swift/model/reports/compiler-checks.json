@@ -1,0 +1,63 @@
+{
+  "toolchain": "Swift 6.4.2",
+  "purpose": "typecheck authored examples only; never collected projects",
+  "files": [
+    {
+      "filename": "bindings.swift",
+      "exitCode": 1,
+      "diagnostics": "apps/playground/src/views/highlighter/examples/swift/bindings.swift:5:24: error: external macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found\n 3 | struct DocumentEditor: View {\n 4 |     @Binding var title: String\n 5 |     @State private var isPublished = false\n   |                        `- error: external macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found\n 6 | \n 7 |     var body: some View {\n\nSwiftUI.State:1:145: note: 'State()' declared here\n1 | @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: \"SwiftUIMacros\", type: \"StateMacro\")\n  |                                                                                                                                                 `- note: 'State()' declared here\n\napps/playground/src/views/highlighter/examples/swift/bindings.swift:5:24: error: external macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found\n 3 | struct DocumentEditor: View {\n 4 |     @Binding var title: String\n 5 |     @State private var isPublished = false\n   |                        `- error: external macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found\n 6 | \n 7 |     var body: some View {\n\nSwiftUI.State:1:145: note: 'State()' declared here\n1 | @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: \"SwiftUIMacros\", type: \"StateMacro\")\n  |                                                                                                                                                 `- note: 'State()' declared here\n\napps/playground/src/views/highlighter/examples/swift/bindings.swift:11:43: error: cannot find '$isPublished' in scope\n 9 |             Section(\"Document\") {\n10 |                 TextField(\"Title\", text: $title)\n11 |                 Toggle(\"Published\", isOn: $isPublished)\n   |                                           `- error: cannot find '$isPublished' in scope\n12 |             }\n13 |             Section {\n"
+    },
+    {
+      "filename": "collections.swift",
+      "exitCode": 0,
+      "diagnostics": ""
+    },
+    {
+      "filename": "concurrency.swift",
+      "exitCode": 0,
+      "diagnostics": ""
+    },
+    {
+      "filename": "generics.swift",
+      "exitCode": 0,
+      "diagnostics": ""
+    },
+    {
+      "filename": "hello.swift",
+      "exitCode": 0,
+      "diagnostics": ""
+    },
+    {
+      "filename": "patterns.swift",
+      "exitCode": 0,
+      "diagnostics": ""
+    },
+    {
+      "filename": "strings.swift",
+      "exitCode": 0,
+      "diagnostics": ""
+    },
+    {
+      "filename": "swiftui.swift",
+      "exitCode": 1,
+      "diagnostics": "apps/playground/src/views/highlighter/examples/swift/swiftui.swift:5:24: error: external macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found\n 3 | struct CounterCard: View {\n 4 |     let title: String\n 5 |     @State private var count = 0\n   |                        `- error: external macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found\n 6 | \n 7 |     var body: some View {\n\nSwiftUI.State:1:145: note: 'State()' declared here\n1 | @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: \"SwiftUIMacros\", type: \"StateMacro\")\n  |                                                                                                                                                 `- note: 'State()' declared here\n\napps/playground/src/views/highlighter/examples/swift/swiftui.swift:5:24: error: external macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found\n 3 | struct CounterCard: View {\n 4 |     let title: String\n 5 |     @State private var count = 0\n   |                        `- error: external macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found\n 6 | \n 7 |     var body: some View {\n\nSwiftUI.State:1:145: note: 'State()' declared here\n1 | @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: \"SwiftUIMacros\", type: \"StateMacro\")\n  |                                                                                                                                                 `- note: 'State()' declared here\n\napps/playground/src/views/highlighter/examples/swift/swiftui.swift:14:23: error: left side of mutating operator isn't mutable: 'self' is immutable\n12 |                 .monospacedDigit()\n13 |             Button(\"Add one\", systemImage: \"plus\") {\n14 |                 count += 1\n   |                       `- error: left side of mutating operator isn't mutable: 'self' is immutable\n15 |             }\n16 |             .buttonStyle(.borderedProminent)\n"
+    }
+  ],
+  "swiftuiExistingXcodeChecks": [
+    {
+      "filename": "swiftui.swift",
+      "exitCode": 0,
+      "diagnostics": "",
+      "compiler": "Existing Xcode Apple Swift 6.0.3",
+      "sdk": "Existing macOS 15.2 SDK"
+    },
+    {
+      "filename": "bindings.swift",
+      "exitCode": 0,
+      "diagnostics": "",
+      "compiler": "Existing Xcode Apple Swift 6.0.3",
+      "sdk": "Existing macOS 15.2 SDK"
+    }
+  ],
+  "latestSDKLimitation": "Swift 6.4.2 imports the macOS 27 SwiftUI State macro interface, but the existing CLI SDK has no SwiftUIMacros plugin; no SDK or plugin installed."
+}
