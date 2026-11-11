@@ -163,8 +163,10 @@ check:
 	$(PYTHON) -c 'import packs.cpp.runtime.local'
 	$(MAKE) test-labeling-kotlin
 	$(MAKE) test-labeling-r
+	$(MAKE) test-labeling-scala
 	$(PYTHON) -m compileall -q training/kotlin packs/kotlin/runtime
 	$(PYTHON) -m compileall -q training/r packs/r/runtime
+	$(PYTHON) -m compileall -q training/scala packs/scala/runtime
 	$(PYTHON) -c 'import packs.kotlin.runtime.local'
 	$(MAKE) test-labeling-swift
 	$(PYTHON) -m compileall -q training/swift packs/swift/runtime

@@ -1332,3 +1332,70 @@ challenge-r:
 export-r-model:
 	@test -n "$(R_CHECKPOINT)" -a -n "$(R_TEST_REPORT)" || (echo 'Set R_CHECKPOINT and R_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.r.export_model --checkpoint "$(R_CHECKPOINT)" --test-report "$(R_TEST_REPORT)"
+
+SCALA_DEVICE ?= auto
+SCALA_EPOCHS ?= 3
+SCALA_BATCH_SIZE ?= 32
+SCALA_LEARNING_RATE ?=
+SCALA_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-scala dataset-scala-tools dataset-scala-sources dataset-scala-curriculum dataset-scala-collect dataset-scala-label dataset-scala-validate dataset-scala-prepare test-labeling-scala train-scala-smoke train-scala continue-scala predict-scala evaluate-scala challenge-scala export-scala-model
+
+dataset-scala-tools:
+	$(PYTHON) -m packs.scala.labeling.tools
+
+dataset-scala-sources:
+	$(PYTHON) -m packs.scala.dataset.fetch_sources
+
+dataset-scala:
+	$(MAKE) dataset-scala-tools
+	$(MAKE) dataset-scala-sources
+	$(MAKE) dataset-scala-curriculum
+	$(MAKE) dataset-scala-collect
+	$(MAKE) dataset-scala-label
+	$(MAKE) dataset-scala-validate
+	$(MAKE) dataset-scala-prepare
+
+dataset-scala-curriculum:
+	$(PYTHON) -m packs.scala.dataset.generate_curriculum
+
+dataset-scala-collect:
+	$(PYTHON) -m packs.scala.dataset.pipeline collect
+
+dataset-scala-label:
+	$(PYTHON) -m packs.scala.dataset.pipeline label
+
+dataset-scala-validate:
+	$(PYTHON) -m packs.scala.dataset.pipeline validate
+
+dataset-scala-prepare:
+	$(PYTHON) -m training.scala.prepare
+
+test-labeling-scala:
+	$(PYTHON) -m unittest discover -s packs/scala/tests -v
+
+train-scala-smoke:
+	$(PYTHON) -m training.scala.train --smoke --epochs 1 --device $(SCALA_DEVICE) $(if $(SCALA_RUN),--output-dir "$(SCALA_RUN)") $(if $(SCALA_INIT_FROM),--init-from "$(SCALA_INIT_FROM)")
+
+train-scala:
+	$(PYTHON) -m training.scala.train --epochs $(SCALA_EPOCHS) --device $(SCALA_DEVICE) --batch-size $(SCALA_BATCH_SIZE) $(if $(SCALA_LEARNING_RATE),--learning-rate $(SCALA_LEARNING_RATE)) $(if $(SCALA_RUN),--output-dir "$(SCALA_RUN)") $(if $(SCALA_INIT_FROM),--init-from "$(SCALA_INIT_FROM)")
+
+continue-scala:
+	@test -n "$(SCALA_CHECKPOINT)" || (echo 'Set SCALA_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.scala.train --resume "$(SCALA_CHECKPOINT)" --epochs $(SCALA_EPOCHS) --device $(SCALA_DEVICE)
+
+predict-scala:
+	@test -n "$(SCALA_SOURCE)" || (echo 'Set SCALA_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.scala.predict --device $(SCALA_DEVICE) --file "$(SCALA_SOURCE)" $(if $(SCALA_CHECKPOINT),--checkpoint "$(SCALA_CHECKPOINT)")
+
+evaluate-scala:
+	@test -n "$(SCALA_CHECKPOINT)" || (echo 'Set SCALA_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.scala.evaluate --checkpoint "$(SCALA_CHECKPOINT)" --device $(SCALA_DEVICE) --split $(SCALA_EVAL_SPLIT)
+
+challenge-scala:
+	@test -n "$(SCALA_CHECKPOINT)" || (echo 'Set SCALA_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.scala.challenge --checkpoint "$(SCALA_CHECKPOINT)" --device $(SCALA_DEVICE)
+
+export-scala-model:
+	@test -n "$(SCALA_CHECKPOINT)" -a -n "$(SCALA_TEST_REPORT)" || (echo 'Set SCALA_CHECKPOINT and SCALA_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.scala.export_model --checkpoint "$(SCALA_CHECKPOINT)" --test-report "$(SCALA_TEST_REPORT)"
