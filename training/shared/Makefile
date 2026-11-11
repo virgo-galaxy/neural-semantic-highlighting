@@ -1265,3 +1265,70 @@ challenge-kotlin:
 export-kotlin-model:
 	@test -n "$(KOTLIN_CHECKPOINT)" -a -n "$(KOTLIN_TEST_REPORT)" || (echo 'Set KOTLIN_CHECKPOINT and KOTLIN_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.kotlin.export_model --checkpoint "$(KOTLIN_CHECKPOINT)" --test-report "$(KOTLIN_TEST_REPORT)"
+
+R_DEVICE ?= auto
+R_EPOCHS ?= 3
+R_BATCH_SIZE ?= 32
+R_LEARNING_RATE ?=
+R_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-r dataset-r-tools dataset-r-sources dataset-r-curriculum dataset-r-collect dataset-r-label dataset-r-validate dataset-r-prepare test-labeling-r train-r-smoke train-r continue-r predict-r evaluate-r challenge-r export-r-model
+
+dataset-r-tools:
+	$(PYTHON) -m packs.r.labeling.tools
+
+dataset-r-sources:
+	$(PYTHON) -m packs.r.dataset.fetch_sources
+
+dataset-r:
+	$(MAKE) dataset-r-tools
+	$(MAKE) dataset-r-sources
+	$(MAKE) dataset-r-curriculum
+	$(MAKE) dataset-r-collect
+	$(MAKE) dataset-r-label
+	$(MAKE) dataset-r-validate
+	$(MAKE) dataset-r-prepare
+
+dataset-r-curriculum:
+	$(PYTHON) -m packs.r.dataset.generate_curriculum
+
+dataset-r-collect:
+	$(PYTHON) -m packs.r.dataset.pipeline collect
+
+dataset-r-label:
+	$(PYTHON) -m packs.r.dataset.pipeline label
+
+dataset-r-validate:
+	$(PYTHON) -m packs.r.dataset.pipeline validate
+
+dataset-r-prepare:
+	$(PYTHON) -m training.r.prepare
+
+test-labeling-r:
+	$(PYTHON) -m unittest discover -s packs/r/tests -v
+
+train-r-smoke:
+	$(PYTHON) -m training.r.train --smoke --epochs 1 --device $(R_DEVICE) $(if $(R_RUN),--output-dir "$(R_RUN)") $(if $(R_INIT_FROM),--init-from "$(R_INIT_FROM)")
+
+train-r:
+	$(PYTHON) -m training.r.train --epochs $(R_EPOCHS) --device $(R_DEVICE) --batch-size $(R_BATCH_SIZE) $(if $(R_LEARNING_RATE),--learning-rate $(R_LEARNING_RATE)) $(if $(R_RUN),--output-dir "$(R_RUN)") $(if $(R_INIT_FROM),--init-from "$(R_INIT_FROM)")
+
+continue-r:
+	@test -n "$(R_CHECKPOINT)" || (echo 'Set R_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.r.train --resume "$(R_CHECKPOINT)" --epochs $(R_EPOCHS) --device $(R_DEVICE)
+
+predict-r:
+	@test -n "$(R_SOURCE)" || (echo 'Set R_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.r.predict --device $(R_DEVICE) --file "$(R_SOURCE)" $(if $(R_CHECKPOINT),--checkpoint "$(R_CHECKPOINT)")
+
+evaluate-r:
+	@test -n "$(R_CHECKPOINT)" || (echo 'Set R_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.r.evaluate --checkpoint "$(R_CHECKPOINT)" --device $(R_DEVICE) --split $(R_EVAL_SPLIT)
+
+challenge-r:
+	@test -n "$(R_CHECKPOINT)" || (echo 'Set R_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.r.challenge --checkpoint "$(R_CHECKPOINT)" --device $(R_DEVICE)
+
+export-r-model:
+	@test -n "$(R_CHECKPOINT)" -a -n "$(R_TEST_REPORT)" || (echo 'Set R_CHECKPOINT and R_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.r.export_model --checkpoint "$(R_CHECKPOINT)" --test-report "$(R_TEST_REPORT)"

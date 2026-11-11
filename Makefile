@@ -162,7 +162,9 @@ check:
 	$(PYTHON) -m compileall -q training/cpp packs/cpp/runtime
 	$(PYTHON) -c 'import packs.cpp.runtime.local'
 	$(MAKE) test-labeling-kotlin
+	$(MAKE) test-labeling-r
 	$(PYTHON) -m compileall -q training/kotlin packs/kotlin/runtime
+	$(PYTHON) -m compileall -q training/r packs/r/runtime
 	$(PYTHON) -c 'import packs.kotlin.runtime.local'
 	$(MAKE) test-labeling-swift
 	$(PYTHON) -m compileall -q training/swift packs/swift/runtime
