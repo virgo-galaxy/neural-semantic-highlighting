@@ -1534,3 +1534,70 @@ challenge-lua:
 export-lua-model:
 	@test -n "$(LUA_CHECKPOINT)" -a -n "$(LUA_TEST_REPORT)" || (echo 'Set LUA_CHECKPOINT and LUA_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.lua.export_model --checkpoint "$(LUA_CHECKPOINT)" --test-report "$(LUA_TEST_REPORT)"
+
+JSON_DEVICE ?= auto
+JSON_EPOCHS ?= 3
+JSON_BATCH_SIZE ?= 32
+JSON_LEARNING_RATE ?=
+JSON_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-json dataset-json-tools dataset-json-sources dataset-json-curriculum dataset-json-collect dataset-json-label dataset-json-validate dataset-json-prepare test-labeling-json train-json-smoke train-json continue-json predict-json evajsonte-json challenge-json export-json-model
+
+dataset-json-tools:
+	$(PYTHON) -m packs.json.labeling.tools
+
+dataset-json-sources:
+	$(PYTHON) -m packs.json.dataset.fetch_sources
+
+dataset-json:
+	$(MAKE) dataset-json-tools
+	$(MAKE) dataset-json-sources
+	$(MAKE) dataset-json-curriculum
+	$(MAKE) dataset-json-collect
+	$(MAKE) dataset-json-label
+	$(MAKE) dataset-json-validate
+	$(MAKE) dataset-json-prepare
+
+dataset-json-curriculum:
+	$(PYTHON) -m packs.json.dataset.generate_curriculum
+
+dataset-json-collect:
+	$(PYTHON) -m packs.json.dataset.pipeline collect
+
+dataset-json-label:
+	$(PYTHON) -m packs.json.dataset.pipeline label
+
+dataset-json-validate:
+	$(PYTHON) -m packs.json.dataset.pipeline validate
+
+dataset-json-prepare:
+	$(PYTHON) -m training.json.prepare
+
+test-labeling-json:
+	$(PYTHON) -m unittest discover -s packs/json/tests -v
+
+train-json-smoke:
+	$(PYTHON) -m training.json.train --smoke --epochs 1 --device $(JSON_DEVICE) $(if $(JSON_RUN),--output-dir "$(JSON_RUN)") $(if $(JSON_INIT_FROM),--init-from "$(JSON_INIT_FROM)")
+
+train-json:
+	$(PYTHON) -m training.json.train --epochs $(JSON_EPOCHS) --device $(JSON_DEVICE) --batch-size $(JSON_BATCH_SIZE) $(if $(JSON_LEARNING_RATE),--learning-rate $(JSON_LEARNING_RATE)) $(if $(JSON_RUN),--output-dir "$(JSON_RUN)") $(if $(JSON_INIT_FROM),--init-from "$(JSON_INIT_FROM)")
+
+continue-json:
+	@test -n "$(JSON_CHECKPOINT)" || (echo 'Set JSON_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.json.train --resume "$(JSON_CHECKPOINT)" --epochs $(JSON_EPOCHS) --device $(JSON_DEVICE)
+
+predict-json:
+	@test -n "$(JSON_SOURCE)" || (echo 'Set JSON_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.json.predict --device $(JSON_DEVICE) --file "$(JSON_SOURCE)" $(if $(JSON_CHECKPOINT),--checkpoint "$(JSON_CHECKPOINT)")
+
+evajsonte-json:
+	@test -n "$(JSON_CHECKPOINT)" || (echo 'Set JSON_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.json.evajsonte --checkpoint "$(JSON_CHECKPOINT)" --device $(JSON_DEVICE) --split $(JSON_EVAL_SPLIT)
+
+challenge-json:
+	@test -n "$(JSON_CHECKPOINT)" || (echo 'Set JSON_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.json.challenge --checkpoint "$(JSON_CHECKPOINT)" --device $(JSON_DEVICE)
+
+export-json-model:
+	@test -n "$(JSON_CHECKPOINT)" -a -n "$(JSON_TEST_REPORT)" || (echo 'Set JSON_CHECKPOINT and JSON_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.json.export_model --checkpoint "$(JSON_CHECKPOINT)" --test-report "$(JSON_TEST_REPORT)"
