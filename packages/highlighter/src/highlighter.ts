@@ -35,6 +35,7 @@ export interface BrowserHighlighter {
 
 const aliases: Readonly<Record<string, string>> = {
   js: "javascript",
+  yml: "yaml",
   ts: "typescript",
   sh: "bash",
   shell: "bash",

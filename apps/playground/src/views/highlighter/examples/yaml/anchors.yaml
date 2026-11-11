@@ -1,0 +1,17 @@
+defaults: &defaults
+  retries: 3
+  timeout: 30
+  enabled: true
+
+services:
+  primary:
+    <<: *defaults
+    name: docs-api
+    endpoints: ["https://api.example.test", "https://backup.example.test"]
+  preview:
+    <<: *defaults
+    name: docs-preview
+    enabled: false
+
+# Tags and aliases are displayed without loading or expanding them.
+image: !Ref ContainerImage

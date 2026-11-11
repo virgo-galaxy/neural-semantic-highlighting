@@ -91,3 +91,7 @@ under the retained Devicon MIT license.
 JSON and JSONC share `json.svg`, from `icons/json/json-original.svg` at the
 same pinned Devicon revision `32fe1d3b3f36ad11f90ab94f7db59738139c2bf6`,
 under the retained Devicon MIT license. These remain distinct source entries.
+
+The YAML entry uses `yaml.svg`, from `icons/yaml/yaml-original.svg` at the
+same pinned Devicon revision `32fe1d3b3f36ad11f90ab94f7db59738139c2bf6`,
+under the retained Devicon MIT license. `.yaml` and `.yml` share one entry/model.

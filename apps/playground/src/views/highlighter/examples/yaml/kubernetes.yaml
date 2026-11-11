@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docs-preview
+  labels: {app: docs}
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: docs}
+  template:
+    metadata:
+      labels: {app: docs}
+    spec:
+      containers:
+        - name: web
+          image: example/docs:1.0
+          ports:
+            - containerPort: 3000
+          resources:
+            limits: {cpu: 500m, memory: 256Mi}

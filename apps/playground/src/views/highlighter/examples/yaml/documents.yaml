@@ -1,0 +1,19 @@
+%YAML 1.2
+---
+kind: ConfigMap
+metadata:
+  name: docs-settings
+data:
+  title: "Documentation"
+  config: |-
+    theme = "default"
+    page_size = 20
+...
+---
+kind: Service
+metadata: {name: docs-service}
+spec:
+  selector: {app: docs}
+  ports:
+    - port: 80
+      targetPort: 3000

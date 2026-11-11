@@ -30,6 +30,7 @@ import svelte from "./languages/svelte.js";
 import swift from "./languages/swift.js";
 import typescript from "./languages/typescript.js";
 import vue from "./languages/vue.js";
+import yaml from "./languages/yaml.js";
 import zig from "./languages/zig.js";
 
 export type { BrowserHighlighter, HighlightedCode, HighlighterOptions } from "./highlighter.js";
@@ -66,6 +67,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       ruby,
       lua,
       json,
+      yaml,
     ],
   });
 }

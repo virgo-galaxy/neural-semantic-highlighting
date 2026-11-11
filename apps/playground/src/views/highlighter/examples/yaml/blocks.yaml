@@ -1,0 +1,13 @@
+description: >-
+  This paragraph uses a folded scalar.
+  Its original lines remain visible in the code block.
+
+script: |2- # Literal source; no command is executed.
+  echo "Hello 🌌"
+  # This line belongs to the string, not a YAML comment.
+  printf '%s\n' "${WORKSPACE}/docs"
+
+payload: |
+  {"title": "This remains string content", "ready": true}
+
+enabled: true

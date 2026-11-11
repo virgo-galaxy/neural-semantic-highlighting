@@ -398,3 +398,15 @@ See [training](../training/json/README.md), [semantics](../packs/json/SEMANTICS.
 and [selected evaluation](../packs/json/model/BENCHMARKS.md). Resume full artifacts
 checkpoints only. Frontend/Playground use one selected ONNX asset in the existing
 browser Worker with separate JSON/JSONC entries and explicit configuration kinds.
+
+## YAML offline workflow
+
+`make dataset-yaml` follows the existing external dataset/checkpoint paths,
+immutable revisions, copy audits and frozen source families. `make dataset-yaml-tools`
+prepares Pinned yaml 2.9.1 official npm Document/CST assets with archive/per-file hashes and retained ISC license, using existing Node only in project cache. No language SDK/global package is installed; collected source,
+configuration commands and schemas never execute. `make test-labeling-yaml` checks
+14 focused tests and 40 independently marked Golden cases.
+See [training](../training/yaml/README.md), [semantics](../packs/yaml/SEMANTICS.md)
+and [selected evaluation](../packs/yaml/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only, never inference .pt/ONNX. Frontend and Playground inference use
+the selected ONNX asset in the existing browser Worker without a Python bridge.

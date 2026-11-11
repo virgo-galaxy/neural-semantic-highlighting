@@ -2,13 +2,13 @@
 
 ## Current verified state
 
-The latest [JSON / JSONC addition record](json-browser-verification.json), dated
-2026-11-11, covers **29 selected model packs** and **251/251** exact Chromium/native
-span/role/modifier comparisons, with **158** passing frontend tests. Its independent
-local-package consumer passes **24/24** comparisons across both JSON kinds, plus
-the element/tokens API, six preset/mode combinations and custom CSS. Earlier
-language-specific consumer checks remain in their own records below. JSON and
-JSONC share one model; Flutter uses the Dart model.
+The latest [YAML addition record](yaml-browser-verification.json), dated 2026-11-12,
+covers **30 selected model packs** and **263/263** exact Chromium/native
+span/role/modifier comparisons, with **159** passing frontend tests. Its independent
+local-package consumer passes **12/12** YAML comparisons plus the element/tokens API,
+six preset/mode combinations and custom CSS. Earlier language-specific consumer
+checks remain in their own records below. JSON and JSONC share one model;
+Flutter uses the Dart model.
 
 The Playground and frontend package run the selected ONNX models in a browser
 Worker, without a Python provider or language SDK. Packages remain private and
@@ -601,4 +601,32 @@ Combined natural held-out F1 is **99.78%** on
 35/48. [Quality and limits](../packs/json/model/BENCHMARKS.md)
 keep these evidence sets distinct. Very short empty-container/primitive and comment-plus-container snippets can merge spans or misclassify keywords. Quoted-key/value roles, escapes and long string/comment boundaries across the 512-byte context remain approximate. No schema/type validation, JSON5 syntax, embedded-string parsing, automatic format detection or runtime parser/spelling repair is provided. JSONC explicitly accepts trailing commas; strict JSON supervision rejects them and comments, while runtime highlighting itself is not a syntax validator. Offline tools are
 Pinned Microsoft jsonc-parser 3.3.1 official npm assets with SHA-512/archive/per-file hashes, using existing Node only in project cache; no language SDK/global package is installed and collected projects
+never execute. Frontend consumers require no language toolchain or Python process.
+
+## YAML addition
+
+YAML is selected model 30. The [verification record](yaml-browser-verification.json)
+retains ONNX conversion, browser/native parity and independent public-package evidence.
+
+- Chromium matches **263/263** original UTF-16 span/role/modifier references,
+  including all earlier cases, eight new displays and four empty/CRLF/Unicode/long
+  multi-window probes. These are consistency checks, not additional accuracy tests.
+- An independent temporary Vite app installs four local package archives offline,
+  imports public core + yaml + theme exports, and emits **one model asset** without
+  repository aliases. It passes **12/12** spans/original-text comparisons,
+  `highlightElement`, `highlightTokens`, case-normalized IDs, six preset/mode
+  combinations and custom CSS. Static output uses the existing Playground
+  filesystem route; no new server/port is introduced.
+- Playground adds the pinned Devicon icon, eight examples, shuffle and light/dark
+  switching through the existing browser worker, without Python. Full `make check`
+  passes **159** frontend tests and every prior language check,
+  including **14** new teacher tests and **40** marked Golden cases.
+  All 58 earlier native/ONNX weight files remain byte-identical.
+
+Natural held-out F1 is **95.34%** on
+12 real files. Visible displays aggregate
+**94.44%**; strict neural Golden agreement is
+15/40. [Quality and limits](../packs/yaml/model/BENCHMARKS.md)
+keep these evidence sets distinct. Block scalars remain a material weakness: header comments can merge into bodies, indented # lines can receive comment roles, folded bodies can fragment, and JSON-looking literal content can acquire nested property/keyword roles even within the context. Plain/quoted/block scalar and header boundaries, indentation-sensitive key/value roles, anchors/aliases/tags and multi-document context remain approximate. No alias expansion, schema/application validation, legacy YAML 1.1 type guarantee, template execution, embedded-language parsing or runtime parser/spelling repair is provided. Offline tools are
+Pinned yaml 2.9.1 official npm Document/CST assets with archive/per-file hashes and retained ISC license, using existing Node only in project cache; no language SDK/global package is installed and collected projects
 never execute. Frontend consumers require no language toolchain or Python process.

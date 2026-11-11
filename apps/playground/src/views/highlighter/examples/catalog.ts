@@ -30,6 +30,7 @@ import svelteIcon from "@/assets/document-kinds/svelte.svg";
 import swiftIcon from "@/assets/document-kinds/swift.svg";
 import typescriptIcon from "@/assets/document-kinds/typescript.svg";
 import vueIcon from "@/assets/document-kinds/vue.svg";
+import yamlIcon from "@/assets/document-kinds/yaml.svg";
 import zigIcon from "@/assets/document-kinds/zig.svg";
 import type { HighlighterExample, HighlighterLanguage } from "@/views/highlighter/examples/types";
 
@@ -110,6 +111,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   lua: { label: "Lua", icon: luaIcon },
   json: { label: "JSON", icon: jsonIcon },
   jsonc: { label: "JSONC", icon: jsonIcon },
+  yaml: { label: "YAML", icon: yamlIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -199,6 +201,8 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".json", "json"],
   [".jsonc", "jsonc"],
   [".code-workspace", "jsonc"],
+  [".yaml", "yaml"],
+  [".yml", "yaml"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

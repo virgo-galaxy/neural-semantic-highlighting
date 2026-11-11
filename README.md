@@ -472,7 +472,7 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
@@ -701,11 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **29 model packs**, with browser inference and Playground examples,
-including Swift, Kotlin, R, Scala, Ruby, Lua and JSON/JSONC. Flutter shares the Dart model.
+There are **30 model packs**, with browser inference and Playground examples.
+Some source kinds share weights, including JSON/JSONC; Flutter shares Dart.
 The browser conversion preserves the selected weights without retraining or
-quantization. The latest [verification record](docs/json-browser-verification.json)
-retains **251/251** exact browser/native comparisons and **158** passing frontend
+quantization. The latest [verification record](docs/yaml-browser-verification.json)
+retains **263/263** exact browser/native comparisons and **159** passing frontend
 tests. Independent local-package checks cover public imports, original source
 text, themes and custom CSS. [Browser verification](docs/browser-runtime.md)
 keeps the earlier rollout results separately. These are runtime/packaging checks,
@@ -746,6 +746,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [Ruby](packs/ruby/model/README.md)                          | Common modern Ruby .rb/.rake/.gemspec and Gemfile/Rakefile syntax, classes/modules, blocks, patterns, Rails-style calls, heredocs and percent/regex literals        | [86.96%](packs/ruby/model/BENCHMARKS.md) — natural test, 15 files                                                                              | Browser + local; [measured boundaries and source-local roles](packs/ruby/model/KNOWN_ISSUES.md) remain limited                                       |
 | [Lua](packs/lua/model/README.md)                            | Common Lua 5.x .lua functions, closures, tables, methods, long strings/comments, 5.4 attributes and 5.5 global declarations/named varargs                           | [91.78%](packs/lua/model/BENCHMARKS.md) — natural test, 15 files                                                                               | Browser + local; [measured boundaries and source-local roles](packs/lua/model/KNOWN_ISSUES.md) remain limited                                        |
 | [JSON / JSONC](packs/json/model/README.md)                  | `.json`, `.jsonc`, `.code-workspace`; strict JSON and explicit JSONC comments/trailing commas; quoted keys/values and nested data                                   | [Natural test](packs/json/model/BENCHMARKS.md): JSON 99.71% (9 files); JSONC 99.84% (6 files)                                                  | Browser + local, one shared model; [literal/comment boundaries and key/value roles](packs/json/model/KNOWN_ISSUES.md) remain limited                 |
+| [YAML](packs/yaml/model/README.md)                          | YAML .yaml/.yml configuration, YAML 1.2 Core scalars, mappings/sequences, quoted/block strings, anchors/aliases, tags, directives and multi-document streams        | [95.34%](packs/yaml/model/BENCHMARKS.md) — natural test, 12 files                                                                              | Browser + local; [measured scalar/structure roles and boundaries](packs/yaml/model/KNOWN_ISSUES.md) remain limited                                   |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -868,3 +869,11 @@ and strings containing code/comment markers remain strings. Existing themes and
 custom CSS apply. Playground has separate JSON/JSONC entries and eight examples
 each. See [separate evaluations](packs/json/model/BENCHMARKS.md) and
 [known limits](packs/json/model/KNOWN_ISSUES.md).
+
+YAML uses `{ language: "yaml" }`. The `yml` alias and .yaml/.yml source share one YAML descriptor and canonical yaml output.
+Selective `@nsh/highlighter/languages/yaml` emits one model asset. YAML .yaml/.yml configuration, YAML 1.2 Core scalars, mappings/sequences, quoted/block strings, anchors/aliases, tags, directives and multi-document streams.
+Browser applications require no language SDK, parser or Python provider. The
+Playground adds eight independent examples and the pinned Devicon icon; all theme
+presets, light/dark mode and custom CSS apply. See
+[YAML evaluation](packs/yaml/model/BENCHMARKS.md) and
+[known limits](packs/yaml/model/KNOWN_ISSUES.md).

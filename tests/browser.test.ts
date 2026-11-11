@@ -9,6 +9,7 @@ import json from "@nsh/highlighter/languages/json";
 import jsonc from "@nsh/highlighter/languages/jsonc";
 import kotlin from "@nsh/highlighter/languages/kotlin";
 import ruby from "@nsh/highlighter/languages/ruby";
+import yaml from "@nsh/highlighter/languages/yaml";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { characterMap, SpanDecoder } from "../packages/runtimes/browser/src/decode.js";
@@ -193,6 +194,24 @@ describe("consumer API", () => {
     expect(FakeWorker.instances).toHaveLength(1);
     highlighter.close();
   });
+  it("routes YAML and yml aliases through the same model", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [yaml] });
+    expect(highlighter.languages()).toEqual(["yaml"]);
+    for (const language of ["yaml", "YAML", "yml", "YML"]) {
+      expect(highlighter.supports(language)).toBe(true);
+      const pending = highlighter.highlight('title: "<星🌌>"', { language });
+      const worker = FakeWorker.instances[0];
+      const message = worker.messages.at(-1)!;
+      expect(message.model).toMatchObject({ id: "yaml", sha256: yaml.sha256 });
+      worker.reply(message.id);
+      const rendered = await pending;
+      expect(rendered.language).toBe("yaml");
+      expect(rendered.value).toContain("&lt;星🌌&gt;");
+    }
+    expect(FakeWorker.instances).toHaveLength(1);
+    highlighter.close();
+  });
   it("routes Ruby source and build-file aliases through one descriptor", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [ruby] });
@@ -260,6 +279,7 @@ describe("shipped browser artifacts", () => {
       "ruby",
       "lua",
       "json",
+      "yaml",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

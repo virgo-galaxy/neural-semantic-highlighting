@@ -29,7 +29,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
 include their JS/TS/CSS dependencies automatically; PHP includes HTML and its
-child dependencies. Default registration covers 29 packs, including Swift,
+child dependencies. Default registration covers 30 packs, including Swift,
 Kotlin, R, Scala, Ruby and Lua. Flutter shares Dart's model. Weights are fetched
 lazily. Models are about 3.7 MB each, with a shared 14.8 MB uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -162,3 +162,9 @@ Playground entries, case-normalized IDs, all themes and custom CSS are supported
 No parser, SDK or Python provider participates in browser inference. See
 [evaluation by format](../../packs/json/model/BENCHMARKS.md) and
 [known limits](../../packs/json/model/KNOWN_ISSUES.md).
+
+YAML uses `{ language: "yaml" }`. The `yml` alias and .yaml/.yml source share one YAML descriptor and canonical yaml output.
+YAML .yaml/.yml configuration, YAML 1.2 Core scalars, mappings/sequences, quoted/block strings, anchors/aliases, tags, directives and multi-document streams. Selective `@nsh/highlighter/languages/yaml` emits one model asset,
+without a language SDK, parser or Python provider. All existing themes/custom CSS
+apply. See [evaluation](../../packs/yaml/model/BENCHMARKS.md) and
+[known limits](../../packs/yaml/model/KNOWN_ISSUES.md).

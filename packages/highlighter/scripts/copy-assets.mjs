@@ -32,6 +32,7 @@ for (const id of [
   "ruby",
   "lua",
   "json",
+  "yaml",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

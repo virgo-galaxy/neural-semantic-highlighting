@@ -39,6 +39,7 @@ const ids = [
   "ruby",
   "lua",
   "json",
+  "yaml",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -210,6 +211,20 @@ for (const kind of ["json", "jsonc"]) {
       result: await getPack(kind).highlight({ source, documentKind: kind }),
     });
 }
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '# 星空 🌌\r\nname: "YAML"\r\nready: true\r\n',
+  "content: |-\n" +
+    "  Original 🌌 literal with # markers, {braces} and quotes.\n".repeat(80) +
+    "ready: true\n",
+].entries())
+  cases.push({
+    filename: `edge/yaml-${index}.yaml`,
+    source,
+    documentKind: "yaml",
+    result: await getPack("yaml").highlight({ source, documentKind: "yaml" }),
+  });
 await Promise.all([...models.values()].map((model) => model.close()));
 writeFileSync(
   "artifacts/browser/reference.json",
