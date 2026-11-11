@@ -1129,3 +1129,71 @@ evaluate-flutter:
 
 challenge-flutter:
 	$(PYTHON) -m training.dart.challenge_flutter --device $(DART_DEVICE) --output "$(FLUTTER_CHALLENGE_REPORT)"
+
+SWIFT_DEVICE ?= auto
+SWIFT_EPOCHS ?= 3
+SWIFT_BATCH_SIZE ?= 32
+SWIFT_LEARNING_RATE ?=
+SWIFT_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-swift dataset-swift-tools dataset-swift-sources dataset-swift-curriculum dataset-swift-collect dataset-swift-label dataset-swift-validate dataset-swift-prepare test-labeling-swift train-swift-smoke train-swift continue-swift predict-swift evaluate-swift challenge-swift export-swift-model
+
+dataset-swift-tools:
+	$(PYTHON) -m packs.swift.labeling.tools
+
+dataset-swift-sources:
+	$(PYTHON) -m packs.swift.dataset.fetch_sources
+
+dataset-swift:
+	$(MAKE) dataset-swift-tools
+	$(MAKE) dataset-swift-sources
+	$(MAKE) dataset-swift-curriculum
+	$(MAKE) dataset-swift-collect
+	$(MAKE) dataset-swift-label
+	$(MAKE) dataset-swift-validate
+	$(MAKE) dataset-swift-prepare
+
+dataset-swift-curriculum:
+	$(PYTHON) -m packs.swift.dataset.generate_curriculum
+	$(PYTHON) -m packs.swift.dataset.generate_literals
+
+dataset-swift-collect:
+	$(PYTHON) -m packs.swift.dataset.pipeline collect
+
+dataset-swift-label:
+	$(PYTHON) -m packs.swift.dataset.pipeline label
+
+dataset-swift-validate:
+	$(PYTHON) -m packs.swift.dataset.pipeline validate
+
+dataset-swift-prepare:
+	$(PYTHON) -m training.swift.prepare
+
+test-labeling-swift:
+	$(PYTHON) -m unittest discover -s packs/swift/tests -v
+
+train-swift-smoke:
+	$(PYTHON) -m training.swift.train --smoke --epochs 1 --device $(SWIFT_DEVICE) $(if $(SWIFT_RUN),--output-dir "$(SWIFT_RUN)") $(if $(SWIFT_INIT_FROM),--init-from "$(SWIFT_INIT_FROM)")
+
+train-swift:
+	$(PYTHON) -m training.swift.train --epochs $(SWIFT_EPOCHS) --device $(SWIFT_DEVICE) --batch-size $(SWIFT_BATCH_SIZE) $(if $(SWIFT_LEARNING_RATE),--learning-rate $(SWIFT_LEARNING_RATE)) $(if $(SWIFT_RUN),--output-dir "$(SWIFT_RUN)") $(if $(SWIFT_INIT_FROM),--init-from "$(SWIFT_INIT_FROM)")
+
+continue-swift:
+	@test -n "$(SWIFT_CHECKPOINT)" || (echo 'Set SWIFT_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.swift.train --resume "$(SWIFT_CHECKPOINT)" --epochs $(SWIFT_EPOCHS) --device $(SWIFT_DEVICE)
+
+predict-swift:
+	@test -n "$(SWIFT_SOURCE)" || (echo 'Set SWIFT_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.swift.predict --device $(SWIFT_DEVICE) --file "$(SWIFT_SOURCE)" $(if $(SWIFT_CHECKPOINT),--checkpoint "$(SWIFT_CHECKPOINT)")
+
+evaluate-swift:
+	@test -n "$(SWIFT_CHECKPOINT)" || (echo 'Set SWIFT_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.swift.evaluate --checkpoint "$(SWIFT_CHECKPOINT)" --device $(SWIFT_DEVICE) --split $(SWIFT_EVAL_SPLIT)
+
+challenge-swift:
+	@test -n "$(SWIFT_CHECKPOINT)" || (echo 'Set SWIFT_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.swift.challenge --checkpoint "$(SWIFT_CHECKPOINT)" --device $(SWIFT_DEVICE)
+
+export-swift-model:
+	@test -n "$(SWIFT_CHECKPOINT)" -a -n "$(SWIFT_TEST_REPORT)" || (echo 'Set SWIFT_CHECKPOINT and SWIFT_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.swift.export_model --checkpoint "$(SWIFT_CHECKPOINT)" --test-report "$(SWIFT_TEST_REPORT)"
