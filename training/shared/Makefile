@@ -1467,3 +1467,70 @@ challenge-ruby:
 export-ruby-model:
 	@test -n "$(RUBY_CHECKPOINT)" -a -n "$(RUBY_TEST_REPORT)" || (echo 'Set RUBY_CHECKPOINT and RUBY_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.ruby.export_model --checkpoint "$(RUBY_CHECKPOINT)" --test-report "$(RUBY_TEST_REPORT)"
+
+LUA_DEVICE ?= auto
+LUA_EPOCHS ?= 3
+LUA_BATCH_SIZE ?= 32
+LUA_LEARNING_RATE ?=
+LUA_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-lua dataset-lua-tools dataset-lua-sources dataset-lua-curriculum dataset-lua-collect dataset-lua-label dataset-lua-validate dataset-lua-prepare test-labeling-lua train-lua-smoke train-lua continue-lua predict-lua evaluate-lua challenge-lua export-lua-model
+
+dataset-lua-tools:
+	$(PYTHON) -m packs.lua.labeling.tools
+
+dataset-lua-sources:
+	$(PYTHON) -m packs.lua.dataset.fetch_sources
+
+dataset-lua:
+	$(MAKE) dataset-lua-tools
+	$(MAKE) dataset-lua-sources
+	$(MAKE) dataset-lua-curriculum
+	$(MAKE) dataset-lua-collect
+	$(MAKE) dataset-lua-label
+	$(MAKE) dataset-lua-validate
+	$(MAKE) dataset-lua-prepare
+
+dataset-lua-curriculum:
+	$(PYTHON) -m packs.lua.dataset.generate_curriculum
+
+dataset-lua-collect:
+	$(PYTHON) -m packs.lua.dataset.pipeline collect
+
+dataset-lua-label:
+	$(PYTHON) -m packs.lua.dataset.pipeline label
+
+dataset-lua-validate:
+	$(PYTHON) -m packs.lua.dataset.pipeline validate
+
+dataset-lua-prepare:
+	$(PYTHON) -m training.lua.prepare
+
+test-labeling-lua:
+	$(PYTHON) -m unittest discover -s packs/lua/tests -v
+
+train-lua-smoke:
+	$(PYTHON) -m training.lua.train --smoke --epochs 1 --device $(LUA_DEVICE) $(if $(LUA_RUN),--output-dir "$(LUA_RUN)") $(if $(LUA_INIT_FROM),--init-from "$(LUA_INIT_FROM)")
+
+train-lua:
+	$(PYTHON) -m training.lua.train --epochs $(LUA_EPOCHS) --device $(LUA_DEVICE) --batch-size $(LUA_BATCH_SIZE) $(if $(LUA_LEARNING_RATE),--learning-rate $(LUA_LEARNING_RATE)) $(if $(LUA_RUN),--output-dir "$(LUA_RUN)") $(if $(LUA_INIT_FROM),--init-from "$(LUA_INIT_FROM)")
+
+continue-lua:
+	@test -n "$(LUA_CHECKPOINT)" || (echo 'Set LUA_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.lua.train --resume "$(LUA_CHECKPOINT)" --epochs $(LUA_EPOCHS) --device $(LUA_DEVICE)
+
+predict-lua:
+	@test -n "$(LUA_SOURCE)" || (echo 'Set LUA_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.lua.predict --device $(LUA_DEVICE) --file "$(LUA_SOURCE)" $(if $(LUA_CHECKPOINT),--checkpoint "$(LUA_CHECKPOINT)")
+
+evaluate-lua:
+	@test -n "$(LUA_CHECKPOINT)" || (echo 'Set LUA_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.lua.evaluate --checkpoint "$(LUA_CHECKPOINT)" --device $(LUA_DEVICE) --split $(LUA_EVAL_SPLIT)
+
+challenge-lua:
+	@test -n "$(LUA_CHECKPOINT)" || (echo 'Set LUA_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.lua.challenge --checkpoint "$(LUA_CHECKPOINT)" --device $(LUA_DEVICE)
+
+export-lua-model:
+	@test -n "$(LUA_CHECKPOINT)" -a -n "$(LUA_TEST_REPORT)" || (echo 'Set LUA_CHECKPOINT and LUA_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.lua.export_model --checkpoint "$(LUA_CHECKPOINT)" --test-report "$(LUA_TEST_REPORT)"
