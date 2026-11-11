@@ -1399,3 +1399,70 @@ challenge-scala:
 export-scala-model:
 	@test -n "$(SCALA_CHECKPOINT)" -a -n "$(SCALA_TEST_REPORT)" || (echo 'Set SCALA_CHECKPOINT and SCALA_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.scala.export_model --checkpoint "$(SCALA_CHECKPOINT)" --test-report "$(SCALA_TEST_REPORT)"
+
+RUBY_DEVICE ?= auto
+RUBY_EPOCHS ?= 3
+RUBY_BATCH_SIZE ?= 32
+RUBY_LEARNING_RATE ?=
+RUBY_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-ruby dataset-ruby-tools dataset-ruby-sources dataset-ruby-curriculum dataset-ruby-collect dataset-ruby-label dataset-ruby-validate dataset-ruby-prepare test-labeling-ruby train-ruby-smoke train-ruby continue-ruby predict-ruby evaluate-ruby challenge-ruby export-ruby-model
+
+dataset-ruby-tools:
+	$(PYTHON) -m packs.ruby.labeling.tools
+
+dataset-ruby-sources:
+	$(PYTHON) -m packs.ruby.dataset.fetch_sources
+
+dataset-ruby:
+	$(MAKE) dataset-ruby-tools
+	$(MAKE) dataset-ruby-sources
+	$(MAKE) dataset-ruby-curriculum
+	$(MAKE) dataset-ruby-collect
+	$(MAKE) dataset-ruby-label
+	$(MAKE) dataset-ruby-validate
+	$(MAKE) dataset-ruby-prepare
+
+dataset-ruby-curriculum:
+	$(PYTHON) -m packs.ruby.dataset.generate_curriculum
+
+dataset-ruby-collect:
+	$(PYTHON) -m packs.ruby.dataset.pipeline collect
+
+dataset-ruby-label:
+	$(PYTHON) -m packs.ruby.dataset.pipeline label
+
+dataset-ruby-validate:
+	$(PYTHON) -m packs.ruby.dataset.pipeline validate
+
+dataset-ruby-prepare:
+	$(PYTHON) -m training.ruby.prepare
+
+test-labeling-ruby:
+	$(PYTHON) -m unittest discover -s packs/ruby/tests -v
+
+train-ruby-smoke:
+	$(PYTHON) -m training.ruby.train --smoke --epochs 1 --device $(RUBY_DEVICE) $(if $(RUBY_RUN),--output-dir "$(RUBY_RUN)") $(if $(RUBY_INIT_FROM),--init-from "$(RUBY_INIT_FROM)")
+
+train-ruby:
+	$(PYTHON) -m training.ruby.train --epochs $(RUBY_EPOCHS) --device $(RUBY_DEVICE) --batch-size $(RUBY_BATCH_SIZE) $(if $(RUBY_LEARNING_RATE),--learning-rate $(RUBY_LEARNING_RATE)) $(if $(RUBY_RUN),--output-dir "$(RUBY_RUN)") $(if $(RUBY_INIT_FROM),--init-from "$(RUBY_INIT_FROM)")
+
+continue-ruby:
+	@test -n "$(RUBY_CHECKPOINT)" || (echo 'Set RUBY_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.ruby.train --resume "$(RUBY_CHECKPOINT)" --epochs $(RUBY_EPOCHS) --device $(RUBY_DEVICE)
+
+predict-ruby:
+	@test -n "$(RUBY_SOURCE)" || (echo 'Set RUBY_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.ruby.predict --device $(RUBY_DEVICE) --file "$(RUBY_SOURCE)" $(if $(RUBY_CHECKPOINT),--checkpoint "$(RUBY_CHECKPOINT)")
+
+evaluate-ruby:
+	@test -n "$(RUBY_CHECKPOINT)" || (echo 'Set RUBY_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.ruby.evaluate --checkpoint "$(RUBY_CHECKPOINT)" --device $(RUBY_DEVICE) --split $(RUBY_EVAL_SPLIT)
+
+challenge-ruby:
+	@test -n "$(RUBY_CHECKPOINT)" || (echo 'Set RUBY_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.ruby.challenge --checkpoint "$(RUBY_CHECKPOINT)" --device $(RUBY_DEVICE)
+
+export-ruby-model:
+	@test -n "$(RUBY_CHECKPOINT)" -a -n "$(RUBY_TEST_REPORT)" || (echo 'Set RUBY_CHECKPOINT and RUBY_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.ruby.export_model --checkpoint "$(RUBY_CHECKPOINT)" --test-report "$(RUBY_TEST_REPORT)"
