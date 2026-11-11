@@ -2,12 +2,13 @@
 
 ## Current verified state
 
-The latest [Lua addition record](lua-browser-verification.json), dated 2026-11-11,
-covers **28 selected model packs** and **227/227** exact Chromium/native
-span/role/modifier comparisons, with **157** passing frontend tests. Its independent
-local-package consumer passes **12/12** Lua comparisons plus the element/tokens API,
-six preset/mode combinations and custom CSS. Earlier language-specific consumer
-checks remain in their own records below. Flutter uses the Dart model.
+The latest [JSON / JSONC addition record](json-browser-verification.json), dated
+2026-11-11, covers **29 selected model packs** and **251/251** exact Chromium/native
+span/role/modifier comparisons, with **158** passing frontend tests. Its independent
+local-package consumer passes **24/24** comparisons across both JSON kinds, plus
+the element/tokens API, six preset/mode combinations and custom CSS. Earlier
+language-specific consumer checks remain in their own records below. JSON and
+JSONC share one model; Flutter uses the Dart model.
 
 The Playground and frontend package run the selected ONNX models in a browser
 Worker, without a Python provider or language SDK. Packages remain private and
@@ -568,4 +569,36 @@ Natural held-out F1 is **91.78%** on
 10/32. [Quality and limits](../packs/lua/model/BENCHMARKS.md)
 keep these evidence sets distinct. Long/delimited string and comment boundaries, table/method roles, closure captures, dynamic metatables and distant lexical bindings remain approximate. No Lua/Neovim/LuaRocks execution, dependency resolution or full LuaJIT/Luau dialect compatibility is claimed. Offline tools are
 Tree-sitter Lua 0.5.0 at 10fe0054 with runtime 0.25.10, compiled with existing Clang only in project cache; no language SDK/global package is installed and collected projects
+never execute. Frontend consumers require no language toolchain or Python process.
+
+## JSON / JSONC addition
+
+JSON / JSONC is selected model 29. The [verification record](json-browser-verification.json)
+retains ONNX conversion, browser/native parity and independent public-package evidence.
+
+- Chromium matches **251/251** original UTF-16 span/role/modifier references,
+  including all earlier cases, sixteen new displays and eight empty/CRLF/Unicode/long
+  multi-window probes. These are consistency checks, not additional accuracy tests.
+- An independent temporary Vite app installs four local package archives offline,
+  imports public core + json + theme exports, and emits **one model asset** without
+  repository aliases. It passes **24/24** spans/original-text comparisons,
+  `highlightElement`, `highlightTokens`, case-normalized JSON/JSONC kinds, six preset/mode
+  combinations and custom CSS. Static output uses the existing Playground
+  filesystem route; no new server/port is introduced.
+- Playground adds the pinned Devicon icon, sixteen examples, shuffle and light/dark
+  switching through the existing browser worker, without Python. Full `make check`
+  passes **158** frontend tests and every prior language check,
+  including **13** new teacher tests and **48** marked Golden cases.
+  All 56 earlier native/ONNX weight files remain byte-identical.
+
+Combined natural held-out F1 is **99.78%** on
+15 real files. Separately, JSON scores
+**99.71%** on
+9 files, and JSONC scores
+**99.84%** on
+6 files. Visible displays aggregate
+**98.84%**; strict neural Golden agreement is
+35/48. [Quality and limits](../packs/json/model/BENCHMARKS.md)
+keep these evidence sets distinct. Very short empty-container/primitive and comment-plus-container snippets can merge spans or misclassify keywords. Quoted-key/value roles, escapes and long string/comment boundaries across the 512-byte context remain approximate. No schema/type validation, JSON5 syntax, embedded-string parsing, automatic format detection or runtime parser/spelling repair is provided. JSONC explicitly accepts trailing commas; strict JSON supervision rejects them and comments, while runtime highlighting itself is not a syntax validator. Offline tools are
+Pinned Microsoft jsonc-parser 3.3.1 official npm assets with SHA-512/archive/per-file hashes, using existing Node only in project cache; no language SDK/global package is installed and collected projects
 never execute. Frontend consumers require no language toolchain or Python process.

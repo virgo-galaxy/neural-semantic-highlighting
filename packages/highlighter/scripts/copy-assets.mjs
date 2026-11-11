@@ -31,6 +31,7 @@ for (const id of [
   "scala",
   "ruby",
   "lua",
+  "json",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

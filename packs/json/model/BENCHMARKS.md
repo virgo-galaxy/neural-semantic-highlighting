@@ -1,9 +1,10 @@
 # JSON / JSONC baseline evaluation
 
 Exact-span F1 requires matching original UTF-16 start, end and role. Role macro F1
-averages represented roles; declaration modifiers are separate. This measures
-independent parser/source-local Gold, not compiler/type correctness, package or
-framework resolution, dynamic dispatch, complete project analysis or every release.
+averages represented roles. This contract assigns no declaration modifiers.
+It measures independently parsed JSON/JSONC token ranges and key/value roles,
+not JSON Schema validation, application configuration correctness or a guarantee
+that runtime highlighting detects invalid syntax.
 
 | Evidence   | Profile | Stream  | Documents | Exact-span F1 | Role macro F1 |
 | ---------- | ------- | ------- | --------: | ------------: | ------------: |

@@ -38,6 +38,7 @@ const ids = [
   "scala",
   "ruby",
   "lua",
+  "json",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -86,7 +87,10 @@ for (const entry of readdirSync(folder, { withFileTypes: true }).filter((entry) 
 )) {
   for (const filename of readdirSync(resolve(folder, entry.name))) {
     const source = readFileSync(resolve(folder, entry.name, filename), "utf8");
-    const kind = suffixes.find((item) => filename.endsWith(item.extension))?.kind;
+    const kind =
+      entry.name === "jsonc"
+        ? "jsonc"
+        : suffixes.find((item) => filename.endsWith(item.extension))?.kind;
     if (!kind) throw new Error(`Unknown example suffix: ${filename}`);
     const result = await getPack(kind).highlight({ source, documentKind: kind });
     cases.push({ filename: entry.name + "/" + filename, source, documentKind: kind, result });
@@ -185,6 +189,26 @@ for (const [index, source] of [
     documentKind: "lua",
     result: await getPack("lua").highlight({ source, documentKind: "lua" }),
   });
+}
+for (const kind of ["json", "jsonc"]) {
+  const probes = [
+    "",
+    "\r\n",
+    '{"title":"星空 🌌","active":true}\r\n',
+    '{"text":"' + "Original 🌌 data with [] {} : , // literal. ".repeat(90) + '","done":true}\n',
+  ];
+  if (kind === "jsonc") {
+    probes[2] = '// 星空 🌌\r\n{"active":true,}\r\n';
+    probes[3] =
+      "/* " + "Original 🌌 comment with {} and quotes. ".repeat(90) + ' */\n{"done":true,}\n';
+  }
+  for (const [index, source] of probes.entries())
+    cases.push({
+      filename: `edge/${kind}-${index}.${kind}`,
+      source,
+      documentKind: kind,
+      result: await getPack(kind).highlight({ source, documentKind: kind }),
+    });
 }
 await Promise.all([...models.values()].map((model) => model.close()));
 writeFileSync(

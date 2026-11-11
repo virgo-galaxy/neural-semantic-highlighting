@@ -87,3 +87,7 @@ same pinned Devicon revision and under the preserved MIT license.
 The Lua entry uses `lua.svg`, from `icons/lua/lua-original.svg` at the
 same pinned Devicon revision `32fe1d3b3f36ad11f90ab94f7db59738139c2bf6`,
 under the retained Devicon MIT license.
+
+JSON and JSONC share `json.svg`, from `icons/json/json-original.svg` at the
+same pinned Devicon revision `32fe1d3b3f36ad11f90ab94f7db59738139c2bf6`,
+under the retained Devicon MIT license. These remain distinct source entries.

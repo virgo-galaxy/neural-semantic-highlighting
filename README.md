@@ -472,7 +472,7 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
@@ -701,11 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **28 model packs**, with browser inference and Playground examples,
-including Swift, Kotlin, R, Scala, Ruby and Lua. Flutter shares the Dart model.
+There are **29 model packs**, with browser inference and Playground examples,
+including Swift, Kotlin, R, Scala, Ruby, Lua and JSON/JSONC. Flutter shares the Dart model.
 The browser conversion preserves the selected weights without retraining or
-quantization. The latest [verification record](docs/lua-browser-verification.json)
-retains **227/227** exact browser/native comparisons and **157** passing frontend
+quantization. The latest [verification record](docs/json-browser-verification.json)
+retains **251/251** exact browser/native comparisons and **158** passing frontend
 tests. Independent local-package checks cover public imports, original source
 text, themes and custom CSS. [Browser verification](docs/browser-runtime.md)
 keeps the earlier rollout results separately. These are runtime/packaging checks,
@@ -745,6 +745,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [Scala](packs/scala/model/README.md)                        | Common Scala 2/3 .scala/.sc/.sbt source, significant indentation, givens/using, extensions, enums, generics and interpolated strings                                | [89.00%](packs/scala/model/BENCHMARKS.md) — natural test, 30 files                                                                             | Browser + local; [measured boundaries and source-local roles](packs/scala/model/KNOWN_ISSUES.md) remain limited                                      |
 | [Ruby](packs/ruby/model/README.md)                          | Common modern Ruby .rb/.rake/.gemspec and Gemfile/Rakefile syntax, classes/modules, blocks, patterns, Rails-style calls, heredocs and percent/regex literals        | [86.96%](packs/ruby/model/BENCHMARKS.md) — natural test, 15 files                                                                              | Browser + local; [measured boundaries and source-local roles](packs/ruby/model/KNOWN_ISSUES.md) remain limited                                       |
 | [Lua](packs/lua/model/README.md)                            | Common Lua 5.x .lua functions, closures, tables, methods, long strings/comments, 5.4 attributes and 5.5 global declarations/named varargs                           | [91.78%](packs/lua/model/BENCHMARKS.md) — natural test, 15 files                                                                               | Browser + local; [measured boundaries and source-local roles](packs/lua/model/KNOWN_ISSUES.md) remain limited                                        |
+| [JSON / JSONC](packs/json/model/README.md)                  | `.json`, `.jsonc`, `.code-workspace`; strict JSON and explicit JSONC comments/trailing commas; quoted keys/values and nested data                                   | [Natural test](packs/json/model/BENCHMARKS.md): JSON 99.71% (9 files); JSONC 99.84% (6 files)                                                  | Browser + local, one shared model; [literal/comment boundaries and key/value roles](packs/json/model/KNOWN_ISSUES.md) remain limited                 |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -851,3 +852,19 @@ SDK, interpreter/compiler, package environment, parser or Python process. The
 Playground adds eight examples and the pinned Devicon icon; all existing themes
 and custom CSS apply. See [Lua evaluation](packs/lua/model/BENCHMARKS.md) and
 [known limits](packs/lua/model/KNOWN_ISSUES.md).
+
+JSON and JSONC share one JSON-family model while retaining separate document kinds
+and evaluations. Use `{ language: "json" }` for strict JSON or
+`{ language: "jsonc" }` for comments and common trailing-comma configurations.
+Files such as `tsconfig.json` and `.vscode/launch.json` may contain JSONC despite
+their extension; select `jsonc` explicitly. `.code-workspace` is a JSONC extension.
+JSON5 forms, schema validation and automatic format detection are outside this pack;
+highlighting itself is not a syntax validator.
+
+Selective `@nsh/highlighter/languages/json` and `@nsh/highlighter/languages/jsonc`
+share the same descriptor. Register either or both to support both kinds with
+**one model asset**. Object keys use `property`, values retain their own roles,
+and strings containing code/comment markers remain strings. Existing themes and
+custom CSS apply. Playground has separate JSON/JSONC entries and eight examples
+each. See [separate evaluations](packs/json/model/BENCHMARKS.md) and
+[known limits](packs/json/model/KNOWN_ISSUES.md).

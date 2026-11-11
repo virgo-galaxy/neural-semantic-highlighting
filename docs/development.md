@@ -381,3 +381,20 @@ See [training](../training/lua/README.md), [semantic scope](../packs/lua/SEMANTI
 and [selected evaluation](../packs/lua/model/BENCHMARKS.md). Resume full artifacts
 checkpoints only; inference .pt/ONNX files never resume training. Frontend and
 Playground inference uses the existing browser worker without a Python bridge.
+
+## JSON / JSONC offline workflow
+
+`make dataset-json` follows the same external dataset and full-checkpoint paths,
+immutable revisions, copy audits and frozen source families. The JSON/JSONC model
+has two explicit document kinds/profiles. Directory groups and original/mixed
+curriculum families are shared across both profiles before deduplication and split
+assignment; adding a comment does not create an independent held-out source.
+
+`make dataset-json-tools` verifies and unpacks pinned Microsoft jsonc-parser 3.3.1
+assets into project cache for offline supervision with existing Node. No SDK or
+global package is installed, and configurations/schemas/scripts never execute.
+`make test-labeling-json` checks 13 focused tests and 48 hand-marked Golden cases.
+See [training](../training/json/README.md), [semantics](../packs/json/SEMANTICS.md)
+and [selected evaluation](../packs/json/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only. Frontend/Playground use one selected ONNX asset in the existing
+browser Worker with separate JSON/JSONC entries and explicit configuration kinds.

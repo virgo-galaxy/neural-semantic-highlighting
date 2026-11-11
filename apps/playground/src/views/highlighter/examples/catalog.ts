@@ -12,6 +12,7 @@ import goIcon from "@/assets/document-kinds/go.svg";
 import htmlIcon from "@/assets/document-kinds/html.svg";
 import javaIcon from "@/assets/document-kinds/java.svg";
 import javascriptIcon from "@/assets/document-kinds/javascript.svg";
+import jsonIcon from "@/assets/document-kinds/json.svg";
 import kotlinIcon from "@/assets/document-kinds/kotlin.svg";
 import lessIcon from "@/assets/document-kinds/less.svg";
 import luaIcon from "@/assets/document-kinds/lua.svg";
@@ -107,6 +108,8 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   scala: { label: "Scala", icon: scalaIcon },
   ruby: { label: "Ruby", icon: rubyIcon },
   lua: { label: "Lua", icon: luaIcon },
+  json: { label: "JSON", icon: jsonIcon },
+  jsonc: { label: "JSONC", icon: jsonIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -193,6 +196,9 @@ const DOCUMENT_KIND_SUFFIXES = [
   ["Gemfile", "ruby"],
   ["Rakefile", "ruby"],
   [".lua", "lua"],
+  [".json", "json"],
+  [".jsonc", "jsonc"],
+  [".code-workspace", "jsonc"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {
@@ -204,6 +210,8 @@ function formatLanguageLabel(languageId: string): string {
 }
 
 function documentKindFor(filename: string, languageId: string): string {
+  // JSONC configurations may intentionally keep names such as tsconfig.json.
+  if (languageId === "jsonc") return "jsonc";
   return DOCUMENT_KIND_SUFFIXES.find(([suffix]) => filename.endsWith(suffix))?.[1] ?? languageId;
 }
 

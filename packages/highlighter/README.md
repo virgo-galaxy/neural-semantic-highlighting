@@ -29,7 +29,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
 include their JS/TS/CSS dependencies automatically; PHP includes HTML and its
-child dependencies. Default registration covers 28 packs, including Swift,
+child dependencies. Default registration covers 29 packs, including Swift,
 Kotlin, R, Scala, Ruby and Lua. Flutter shares Dart's model. Weights are fetched
 lazily. Models are about 3.7 MB each, with a shared 14.8 MB uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -149,3 +149,16 @@ Lua uses `{ language: "lua" }`. Common Lua 5.x .lua functions, closures, tables,
 Selective `@nsh/highlighter/languages/lua` emits one model asset and requires no
 language SDK, parser or Python process. Existing themes/custom CSS apply. See
 [evaluation](../../packs/lua/model/BENCHMARKS.md) and [known limits](../../packs/lua/model/KNOWN_ISSUES.md).
+
+JSON and JSONC use `{ language: "json" }` and `{ language: "jsonc" }` respectively.
+The latter accepts comments and common trailing-comma configuration syntax; select
+it explicitly for commented files named `tsconfig.json` or `launch.json`.
+`.code-workspace` is also JSONC. JSON5 extensions, schema validation and automatic
+format detection are not provided; highlighting does not validate syntax.
+
+`@nsh/highlighter/languages/jsonc` re-exports `languages/json`. Registering either
+or both enables both document kinds and emits **one model asset**. Separate
+Playground entries, case-normalized IDs, all themes and custom CSS are supported.
+No parser, SDK or Python provider participates in browser inference. See
+[evaluation by format](../../packs/json/model/BENCHMARKS.md) and
+[known limits](../../packs/json/model/KNOWN_ISSUES.md).

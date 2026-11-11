@@ -1,6 +1,6 @@
 from pathlib import Path
 import json
-ids=['typescript','go','css','html','vue','python','bash','perl','awk','sql','powershell','bat','assembly','java','csharp','c','cpp','php','svelte','rust','zig','dart','swift','kotlin','r','scala','ruby','lua']
+ids=['typescript','go','css','html','vue','python','bash','perl','awk','sql','powershell','bat','assembly','java','csharp','c','cpp','php','svelte','rust','zig','dart','swift','kotlin','r','scala','ruby','lua','json']
 for id in ids:
  m=json.loads((Path('packs')/id/'browser/model.json').read_text())
  record={'id':id,'manifest':m['manifest'],'sha256':m['model']['sha256'],'contextBytes':m['contextBytes'],'schema':m['schema'],'modifierThreshold':m['modifierThreshold'],'decoder':m['decoder']}
@@ -14,3 +14,5 @@ for id in ids:
 imports=''.join(f'import {id} from "./languages/{id}.js";\n' for id in ids)
 Path('packages/highlighter/src/index.ts').write_text(imports+'import { createHighlighter as createConfiguredHighlighter, type HighlighterOptions } from "./highlighter.js";\n\nexport type { BrowserHighlighter, HighlightedCode, HighlighterOptions } from "./highlighter.js";\nexport function createHighlighter(options: HighlighterOptions = {}) {\n  return createConfiguredHighlighter({ ...options, languages: options.languages ?? ['+', '.join(ids)+'] });\n}\n')
 Path('packages/highlighter/src/languages/flutter.ts').write_text('/** Flutter source shares the selected Dart model and its single model asset. */\nexport { default } from "./dart.js";\n')
+
+Path('packages/highlighter/src/languages/jsonc.ts').write_text('/** JSONC shares the selected JSON-family model and its single asset. */\nexport { default } from "./json.js";\n')

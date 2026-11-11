@@ -5,6 +5,8 @@ import { type BrowserModel, BrowserRuntime } from "@nsh/browser";
 import { createHighlighter } from "@nsh/highlighter/core";
 import dart from "@nsh/highlighter/languages/dart";
 import flutter from "@nsh/highlighter/languages/flutter";
+import json from "@nsh/highlighter/languages/json";
+import jsonc from "@nsh/highlighter/languages/jsonc";
 import kotlin from "@nsh/highlighter/languages/kotlin";
 import ruby from "@nsh/highlighter/languages/ruby";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -172,6 +174,25 @@ describe("consumer API", () => {
     expect(FakeWorker.instances).toHaveLength(1);
     highlighter.close();
   });
+  it("preserves explicit JSON and JSONC kinds while sharing one model", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [json, jsonc] });
+    expect(jsonc).toBe(json);
+    expect(highlighter.languages()).toEqual(["json", "jsonc"]);
+    for (const language of ["json", "JSON", "jsonc", "JSONC"]) {
+      expect(highlighter.supports(language)).toBe(true);
+      const pending = highlighter.highlight('{"title":"<星🌌>"}', { language });
+      const worker = FakeWorker.instances[0];
+      const message = worker.messages.at(-1)!;
+      expect(message.model).toMatchObject({ id: "json", sha256: json.sha256 });
+      worker.reply(message.id);
+      const rendered = await pending;
+      expect(rendered.language).toBe(language.toLowerCase());
+      expect(rendered.value).toContain("&lt;星🌌&gt;");
+    }
+    expect(FakeWorker.instances).toHaveLength(1);
+    highlighter.close();
+  });
   it("routes Ruby source and build-file aliases through one descriptor", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [ruby] });
@@ -238,6 +259,7 @@ describe("shipped browser artifacts", () => {
       "scala",
       "ruby",
       "lua",
+      "json",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(
