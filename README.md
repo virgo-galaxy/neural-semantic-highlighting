@@ -472,7 +472,7 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
@@ -741,6 +741,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [R](packs/r/model/README.md)                                | Original .R/.r/.Rprofile source; common statistical/data, native and magrittr pipe syntax                                                                           | [96.04%](packs/r/model/BENCHMARKS.md) — natural test, 15 files                                                                                 | Browser + local; [measured boundaries and source-local roles](packs/r/model/KNOWN_ISSUES.md) remain limited                                          |
 | [Scala](packs/scala/model/README.md)                        | Common Scala 2/3 .scala/.sc/.sbt source, significant indentation, givens/using, extensions, enums, generics and interpolated strings                                | [89.00%](packs/scala/model/BENCHMARKS.md) — natural test, 30 files                                                                             | Browser + local; [measured boundaries and source-local roles](packs/scala/model/KNOWN_ISSUES.md) remain limited                                      |
 | [Ruby](packs/ruby/model/README.md)                          | Common modern Ruby .rb/.rake/.gemspec and Gemfile/Rakefile syntax, classes/modules, blocks, patterns, Rails-style calls, heredocs and percent/regex literals        | [86.96%](packs/ruby/model/BENCHMARKS.md) — natural test, 15 files                                                                              | Browser + local; [measured boundaries and source-local roles](packs/ruby/model/KNOWN_ISSUES.md) remain limited                                       |
+| [Lua](packs/lua/model/README.md)                            | Common Lua 5.x .lua functions, closures, tables, methods, long strings/comments, 5.4 attributes and 5.5 global declarations/named varargs                           | [91.78%](packs/lua/model/BENCHMARKS.md) — natural test, 15 files                                                                               | Browser + local; [measured boundaries and source-local roles](packs/lua/model/KNOWN_ISSUES.md) remain limited                                        |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -792,7 +793,7 @@ Flutter also has a dedicated Playground entry, icon and eight examples. Use
 `{ language: "flutter" }` or selectively import
 `@nsh/highlighter/languages/flutter`. It shares the Dart descriptor and **one
 Dart model asset**, so Flutter adds no separate model. The workspace now contains
-27 model packs including Swift and Kotlin. Files keep `.dart`;
+28 model packs including Swift and Kotlin. Files keep `.dart`;
 Flutter normalizes to `dart` in returned language and HTML `data-language`,
 including `highlightElement` on `language-flutter` elements. Existing Dart theme
 and CSS overrides apply. No Dart/Flutter SDK is installed or required.
@@ -841,3 +842,10 @@ SDK, interpreter/compiler, package environment, parser or Python process. The
 Playground adds eight examples and the pinned Devicon icon; all existing themes
 and custom CSS apply. See [Ruby evaluation](packs/ruby/model/BENCHMARKS.md) and
 [known limits](packs/ruby/model/KNOWN_ISSUES.md).
+
+Lua uses `{ language: "lua" }`. Selective `@nsh/highlighter/languages/lua`
+emits one model asset. Common Lua 5.x .lua functions, closures, tables, methods, long strings/comments, 5.4 attributes and 5.5 global declarations/named varargs. Browser applications require no language
+SDK, interpreter/compiler, package environment, parser or Python process. The
+Playground adds eight examples and the pinned Devicon icon; all existing themes
+and custom CSS apply. See [Lua evaluation](packs/lua/model/BENCHMARKS.md) and
+[known limits](packs/lua/model/KNOWN_ISSUES.md).

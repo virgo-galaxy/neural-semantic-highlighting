@@ -14,6 +14,7 @@ import javaIcon from "@/assets/document-kinds/java.svg";
 import javascriptIcon from "@/assets/document-kinds/javascript.svg";
 import kotlinIcon from "@/assets/document-kinds/kotlin.svg";
 import lessIcon from "@/assets/document-kinds/less.svg";
+import luaIcon from "@/assets/document-kinds/lua.svg";
 import perlIcon from "@/assets/document-kinds/perl.svg";
 import phpIcon from "@/assets/document-kinds/php.svg";
 import powershellIcon from "@/assets/document-kinds/powershell.svg";
@@ -105,6 +106,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   r: { label: "R", icon: rIcon },
   scala: { label: "Scala", icon: scalaIcon },
   ruby: { label: "Ruby", icon: rubyIcon },
+  lua: { label: "Lua", icon: luaIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -190,6 +192,7 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".gemspec", "ruby"],
   ["Gemfile", "ruby"],
   ["Rakefile", "ruby"],
+  [".lua", "lua"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

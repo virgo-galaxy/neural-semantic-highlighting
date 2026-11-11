@@ -15,6 +15,7 @@ import go from "./languages/go.js";
 import html from "./languages/html.js";
 import java from "./languages/java.js";
 import kotlin from "./languages/kotlin.js";
+import lua from "./languages/lua.js";
 import perl from "./languages/perl.js";
 import php from "./languages/php.js";
 import powershell from "./languages/powershell.js";
@@ -62,6 +63,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       r,
       scala,
       ruby,
+      lua,
     ],
   });
 }

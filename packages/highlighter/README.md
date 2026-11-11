@@ -143,3 +143,8 @@ Ruby uses `{ language: "ruby" }`. Aliases `rb`, `rake`, `gemspec`, `gemfile` and
 Selective `@nsh/highlighter/languages/ruby` emits one model asset and requires no
 language SDK, parser or Python process. Existing themes/custom CSS apply. See
 [evaluation](../../packs/ruby/model/BENCHMARKS.md) and [known limits](../../packs/ruby/model/KNOWN_ISSUES.md).
+
+Lua uses `{ language: "lua" }`. Common Lua 5.x .lua functions, closures, tables, methods, long strings/comments, 5.4 attributes and 5.5 global declarations/named varargs.
+Selective `@nsh/highlighter/languages/lua` emits one model asset and requires no
+language SDK, parser or Python process. Existing themes/custom CSS apply. See
+[evaluation](../../packs/lua/model/BENCHMARKS.md) and [known limits](../../packs/lua/model/KNOWN_ISSUES.md).

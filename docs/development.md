@@ -369,3 +369,15 @@ See [training](../training/ruby/README.md), [semantic scope](../packs/ruby/SEMAN
 and [selected evaluation](../packs/ruby/model/BENCHMARKS.md). Resume full artifacts
 checkpoints only; inference .pt/ONNX files never resume training. Frontend and
 Playground inference uses the existing browser worker without a Python bridge.
+
+## Lua offline workflow
+
+`make dataset-lua` follows the existing external dataset/checkpoint paths,
+immutable revisions, copy audits and frozen source families. `make dataset-lua-tools`
+prepares Tree-sitter Lua 0.5.0 at 10fe0054 with runtime 0.25.10, compiled with existing Clang only in project cache. No language SDK or global package is installed; collected
+source, dependencies and projects never execute. `make test-labeling-lua` checks
+13 tests and 32 independently hand-marked Golden cases.
+See [training](../training/lua/README.md), [semantic scope](../packs/lua/SEMANTICS.md)
+and [selected evaluation](../packs/lua/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only; inference .pt/ONNX files never resume training. Frontend and
+Playground inference uses the existing browser worker without a Python bridge.

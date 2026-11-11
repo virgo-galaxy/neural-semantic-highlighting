@@ -522,3 +522,31 @@ Natural held-out F1 is **86.96%** on
 keep these evidence sets distinct. Heredoc/percent/regex/interpolated string boundaries, destructuring/pattern bindings, constant/type and top-level/member call roles remain approximate. Dynamic dispatch, metaprogramming, Rails/Rake DSLs, generated classes, refinements and distant scopes are source-local approximations without Ruby/gem execution or dependency resolution. Offline tools are
 Tree-sitter Ruby 0.23.1 at ad907a69 with runtime 0.25.10, compiled with existing Clang only in project cache; no language SDK/global package is installed and collected projects
 never execute. Frontend consumers require no language toolchain or Python process.
+
+## Lua addition
+
+Lua is selected model 28. The [verification record](lua-browser-verification.json)
+retains ONNX conversion, browser/native parity and independent public-package evidence.
+
+- Chromium matches **227/227** original UTF-16 span/role/modifier references,
+  including all earlier cases, eight new displays and four empty/CRLF/Unicode/long
+  multi-window probes. These are consistency checks, not additional accuracy tests.
+- An independent temporary Vite app installs four local package archives offline,
+  imports public core + lua + theme exports, and emits **one model asset** without
+  repository aliases. It passes **12/12** spans/original-text comparisons,
+  `highlightElement`, `highlightTokens`, case-normalized IDs, six preset/mode
+  combinations and custom CSS. Static output uses the existing Playground
+  filesystem route; no new server/port is introduced.
+- Playground adds the pinned Devicon icon, eight examples, shuffle and light/dark
+  switching through the existing browser worker, without Python. Full `make check`
+  passes **157** frontend tests and every prior language check,
+  including **13** new teacher tests and **32** marked Golden cases.
+  All 54 earlier native/ONNX weight files remain byte-identical.
+
+Natural held-out F1 is **91.78%** on
+15 real files. Visible displays aggregate
+**92.28%**; strict neural Golden agreement is
+10/32. [Quality and limits](../packs/lua/model/BENCHMARKS.md)
+keep these evidence sets distinct. Long/delimited string and comment boundaries, table/method roles, closure captures, dynamic metatables and distant lexical bindings remain approximate. No Lua/Neovim/LuaRocks execution, dependency resolution or full LuaJIT/Luau dialect compatibility is claimed. Offline tools are
+Tree-sitter Lua 0.5.0 at 10fe0054 with runtime 0.25.10, compiled with existing Clang only in project cache; no language SDK/global package is installed and collected projects
+never execute. Frontend consumers require no language toolchain or Python process.

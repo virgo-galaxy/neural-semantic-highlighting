@@ -37,6 +37,7 @@ const ids = [
   "r",
   "scala",
   "ruby",
+  "lua",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -170,6 +171,19 @@ for (const [index, source] of [
     source,
     documentKind: "ruby",
     result: await getPack("ruby").highlight({ source, documentKind: "ruby" }),
+  });
+}
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '-- 星空 🌌\r\nlocal title = "Lua"\r\n',
+  "local text = [==[\n" + "Original 🌌 message. ".repeat(160) + "\n]==]\n",
+].entries()) {
+  cases.push({
+    filename: `edge/lua-${index}.lua`,
+    source,
+    documentKind: "lua",
+    result: await getPack("lua").highlight({ source, documentKind: "lua" }),
   });
 }
 await Promise.all([...models.values()].map((model) => model.close()));
