@@ -8,7 +8,7 @@ resumable checkpoints. Golden/tests/Playground never enter training capture.
 Five pinned upstream captures contain 180 Scala files from Scala 2 standard library,
 Scala 3 library, Cats, Ox and Kyo. The 24 Kyo files form one complete project
 family reserved for the unseen Scala 3 test before any neural evaluation. The
-shared collector excludes 20 other captured files in reserved paths, retaining
+shared collector excludes 21 captured files (including one Kyo source) in reserved paths, retaining
 all originals. Original Git blobs and root licenses/notices are
 preserved. The original curriculum adds 54 families with 24 variants each, covering
 common Scala 2 braces, Scala 3 indentation/contextual forms and mixed string code.
