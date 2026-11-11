@@ -36,6 +36,7 @@ const ids = [
   "kotlin",
   "r",
   "scala",
+  "ruby",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -156,6 +157,19 @@ for (const [index, source] of [
     source,
     documentKind: "scala",
     result: await getPack("scala").highlight({ source, documentKind: "scala" }),
+  });
+}
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '# 星空 🌌\r\nname = "Ruby"\r\n',
+  "text = <<~CONTENT\n" + "Original 🌌 message. ".repeat(160) + "\nCONTENT\n",
+].entries()) {
+  cases.push({
+    filename: `edge/ruby-${index}.rb`,
+    source,
+    documentKind: "ruby",
+    result: await getPack("ruby").highlight({ source, documentKind: "ruby" }),
   });
 }
 await Promise.all([...models.values()].map((model) => model.close()));

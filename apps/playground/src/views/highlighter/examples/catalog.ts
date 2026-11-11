@@ -19,6 +19,7 @@ import phpIcon from "@/assets/document-kinds/php.svg";
 import powershellIcon from "@/assets/document-kinds/powershell.svg";
 import pythonIcon from "@/assets/document-kinds/python.svg";
 import rIcon from "@/assets/document-kinds/r.svg";
+import rubyIcon from "@/assets/document-kinds/ruby.svg";
 import rustIcon from "@/assets/document-kinds/rust.svg";
 import scalaIcon from "@/assets/document-kinds/scala.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
@@ -103,6 +104,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   kotlin: { label: "Kotlin", icon: kotlinIcon },
   r: { label: "R", icon: rIcon },
   scala: { label: "Scala", icon: scalaIcon },
+  ruby: { label: "Ruby", icon: rubyIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -183,6 +185,11 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".scala", "scala"],
   [".sc", "scala"],
   [".sbt", "scala"],
+  [".rb", "ruby"],
+  [".rake", "ruby"],
+  [".gemspec", "ruby"],
+  ["Gemfile", "ruby"],
+  ["Rakefile", "ruby"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

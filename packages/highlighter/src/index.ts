@@ -20,6 +20,7 @@ import php from "./languages/php.js";
 import powershell from "./languages/powershell.js";
 import python from "./languages/python.js";
 import r from "./languages/r.js";
+import ruby from "./languages/ruby.js";
 import rust from "./languages/rust.js";
 import scala from "./languages/scala.js";
 import sql from "./languages/sql.js";
@@ -60,6 +61,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       kotlin,
       r,
       scala,
+      ruby,
     ],
   });
 }

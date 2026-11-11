@@ -6,6 +6,7 @@ import { createHighlighter } from "@nsh/highlighter/core";
 import dart from "@nsh/highlighter/languages/dart";
 import flutter from "@nsh/highlighter/languages/flutter";
 import kotlin from "@nsh/highlighter/languages/kotlin";
+import ruby from "@nsh/highlighter/languages/ruby";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { characterMap, SpanDecoder } from "../packages/runtimes/browser/src/decode.js";
@@ -171,6 +172,24 @@ describe("consumer API", () => {
     expect(FakeWorker.instances).toHaveLength(1);
     highlighter.close();
   });
+  it("routes Ruby source and build-file aliases through one descriptor", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [ruby] });
+    expect(highlighter.languages()).toEqual(["ruby"]);
+    for (const language of ["Ruby", "rb", "rake", "gemspec", "Gemfile", "Rakefile"]) {
+      expect(highlighter.supports(language)).toBe(true);
+      const pending = highlighter.highlight('puts "<星🌌>"', { language });
+      const worker = FakeWorker.instances[0];
+      const message = worker.messages.at(-1)!;
+      expect(message.model).toMatchObject({ id: "ruby", sha256: ruby.sha256 });
+      worker.reply(message.id);
+      const rendered = await pending;
+      expect(rendered.language).toBe("ruby");
+      expect(rendered.value).toContain("&lt;星🌌&gt;");
+    }
+    expect(FakeWorker.instances).toHaveLength(1);
+    highlighter.close();
+  });
   it("resolves aliases and escapes rendered source", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [model] });
@@ -217,6 +236,7 @@ describe("shipped browser artifacts", () => {
       "kotlin",
       "r",
       "scala",
+      "ruby",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

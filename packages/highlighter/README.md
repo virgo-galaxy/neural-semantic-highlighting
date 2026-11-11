@@ -138,3 +138,8 @@ Scala uses `{ language: "scala" }`. Common Scala 2/3 .scala/.sc/.sbt source, sig
 Selective `@nsh/highlighter/languages/scala` emits one model asset and requires no
 language SDK, parser or Python process. Existing themes/custom CSS apply. See
 [evaluation](../../packs/scala/model/BENCHMARKS.md) and [known limits](../../packs/scala/model/KNOWN_ISSUES.md).
+
+Ruby uses `{ language: "ruby" }`. Aliases `rb`, `rake`, `gemspec`, `gemfile` and `rakefile` normalize to `ruby`. Common modern Ruby .rb/.rake/.gemspec and Gemfile/Rakefile syntax, classes/modules, blocks, patterns, Rails-style calls, heredocs and percent/regex literals.
+Selective `@nsh/highlighter/languages/ruby` emits one model asset and requires no
+language SDK, parser or Python process. Existing themes/custom CSS apply. See
+[evaluation](../../packs/ruby/model/BENCHMARKS.md) and [known limits](../../packs/ruby/model/KNOWN_ISSUES.md).

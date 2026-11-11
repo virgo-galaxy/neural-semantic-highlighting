@@ -357,3 +357,15 @@ See [training](../training/scala/README.md), [semantic scope](../packs/scala/SEM
 and [selected evaluation](../packs/scala/model/BENCHMARKS.md). Resume full artifacts
 checkpoints only; inference .pt/ONNX files never resume training. Frontend and
 Playground inference uses the existing browser worker without a Python bridge.
+
+## Ruby offline workflow
+
+`make dataset-ruby` follows the existing external dataset/checkpoint paths,
+immutable revisions, copy audits and frozen source families. `make dataset-ruby-tools`
+prepares Tree-sitter Ruby 0.23.1 at ad907a69 with runtime 0.25.10, compiled with existing Clang only in project cache. No language SDK or global package is installed; collected
+source, dependencies and projects never execute. `make test-labeling-ruby` checks
+13 tests and 33 independently hand-marked Golden cases.
+See [training](../training/ruby/README.md), [semantic scope](../packs/ruby/SEMANTICS.md)
+and [selected evaluation](../packs/ruby/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only; inference .pt/ONNX files never resume training. Frontend and
+Playground inference uses the existing browser worker without a Python bridge.

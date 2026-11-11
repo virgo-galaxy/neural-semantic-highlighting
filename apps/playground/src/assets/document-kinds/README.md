@@ -80,3 +80,6 @@ same pinned Devicon revision and under the preserved MIT license.
 
 The Scala entry uses `scala.svg`, from `icons/scala/scala-original.svg` at the
 same pinned Devicon revision and under the preserved MIT license.
+
+The Ruby entry uses `ruby.svg`, from `icons/ruby/ruby-original.svg` at the
+same pinned Devicon revision and under the preserved MIT license.
