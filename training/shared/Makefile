@@ -1628,6 +1628,7 @@ dataset-yaml:
 
 dataset-yaml-curriculum:
 	$(PYTHON) -m packs.yaml.dataset.generate_curriculum
+	$(PYTHON) -m packs.yaml.dataset.generate_mixed
 
 dataset-yaml-collect:
 	$(PYTHON) -m packs.yaml.dataset.pipeline collect

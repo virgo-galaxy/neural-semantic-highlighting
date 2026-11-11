@@ -21,3 +21,8 @@ hashes plus Node/teacher provenance are retained. No SDK, global package, schema
 fetch or source/dependency execution is needed. Parser/CST/coverage errors fail
 closed. Full optimizer/RNG checkpoints stay under artifacts/yaml, never in formal
 inference .pt/ONNX bundles.
+
+A separate mixed extension adds eight families / 192 tasks after real validation
+and display review exposed block-header/body, adjacent-comment and anchor-context
+errors. The same unchanged copy audit and all 161 original frozen assignments are
+preserved, alongside the initial curriculum, Gold/prepared revisions and full run.
