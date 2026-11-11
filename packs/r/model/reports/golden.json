@@ -1,0 +1,1170 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "168004b338529d2c60fb6bc77ee145a2fd494f97bf659de0fc7878293cd4d545",
+  "cases": [
+    {
+      "id": "empty",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "assignment",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "answer <- 42",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "function",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "double <- function(n) n * 2",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 22,
+          "end": 23,
+          "text": "n",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 22,
+          "end": 23,
+          "text": "n",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lambda",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "\\(x) x + 1",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "\\",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "text": "x",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 5,
+          "end": 6,
+          "text": "x",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "\\",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "text": "x",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 6,
+          "text": "x",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "default",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "function(x = 3L) x",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 17,
+          "end": 18,
+          "text": "x",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 17,
+          "end": 18,
+          "text": "x",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "call",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "sum(values, na.rm = TRUE)",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 10,
+          "text": "values",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 17,
+          "text": "na.rm",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 10,
+          "text": "values",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 17,
+          "text": "na.rm",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "namespace",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "stats::median(x)",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 14,
+          "end": 15,
+          "text": "x",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 14,
+          "end": 15,
+          "text": "x",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "utils:::helper",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 14,
+          "text": "helper",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 14,
+          "text": "helper",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "extract",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "item$name",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "slot",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "item@value",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 10,
+          "text": "value",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 10,
+          "text": "value",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "method",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "item$run()",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 4,
+          "text": "item",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 4,
+          "text": "item",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "subset",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "x[1, ]",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "subset2",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "x[[1]]",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "pipe",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "x |> sort()",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "custom-pipe",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "x %>% head(3)",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "formula",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "y ~ x + group",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "loop",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "for (n in items) print(n)",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 10,
+          "end": 15,
+          "text": "items",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 23,
+          "end": 24,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "n",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 10,
+          "end": 15,
+          "text": "items",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 23,
+          "end": 24,
+          "text": "n",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "conditional",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "if (TRUE) 1 else 0",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 16,
+          "text": "else",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 16,
+          "text": "else",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "return",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "function(x) return(x)",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "right-assign",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "7 -> n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "super-assign",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "n <<- 7",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 5,
+          "text": "<<-",
+          "tokenType": "operator",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "text": "<",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 3,
+          "end": 5,
+          "text": "<-",
+          "tokenType": "operator",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "separator",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "n <- 1; n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 9,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 9,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backticks",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "`odd name` <- 3",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 10,
+          "text": "`odd name`",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 14,
+          "end": 15,
+          "text": "3",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 11,
+          "text": "`odd name` ",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 14,
+          "end": 15,
+          "text": "3",
+          "tokenType": "number",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "variadic",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "function(...) list(...)",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "integer",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "0xffL",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "complex",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "2.5i",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 4,
+          "text": "2.5i",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 4,
+          "text": "2.5i",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "na",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "NA_real_",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "NA_real_",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "NA_real_",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "string",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "\"# still a string\"",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 18,
+          "text": "\"# still a string\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 18,
+          "text": "\"# still a string\"",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "raw",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "r\"(C:\\new\\file # text)\"",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 23,
+          "text": "r\"(C:\\new\\file # text)\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "r",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 23,
+          "text": "\"(C:\\new\\file # text)\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "delimited-raw",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "R\"--[quote \" # raw]--\"",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 22,
+          "text": "R\"--[quote \" # raw]--\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 10,
+          "text": "R\"--[quote",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 11,
+          "end": 12,
+          "text": "\"",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 13,
+          "end": 22,
+          "text": "# raw]--\"",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "comment",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "# \u661f\u7a7a \ud83c\udf0c comment\r\nx <- 1",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "roxygen",
+      "profile": "r",
+      "documentKind": "r",
+      "source": "#' @param x input\nNULL",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 18,
+          "end": 22,
+          "text": "NULL",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 18,
+          "end": 22,
+          "text": "NULL",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "r": {
+      "documents": 32,
+      "exactDocumentsIncludingModifiers": 13,
+      "exactSpan": {
+        "precision": 0.8380281690140845,
+        "recall": 0.8623188405797102,
+        "f1": 0.85,
+        "tp": 119,
+        "fp": 23,
+        "fn": 19,
+        "support": 138
+      },
+      "exactSpanMacroF1": 0.7648240490122141,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.7887323943661971,
+        "recall": 0.8115942028985508,
+        "f1": 0.8,
+        "tp": 112,
+        "fp": 30,
+        "fn": 26,
+        "support": 138
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9090909090909091,
+          "recall": 0.7692307692307693,
+          "f1": 0.8333333333333334,
+          "tp": 10,
+          "fp": 1,
+          "fn": 3,
+          "support": 13
+        },
+        "comment": {
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "tp": 2,
+          "fp": 4,
+          "fn": 0,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 4,
+          "fn": 3,
+          "support": 3
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 0.9375,
+          "f1": 0.967741935483871,
+          "tp": 15,
+          "fp": 0,
+          "fn": 1,
+          "support": 16
+        },
+        "operator": {
+          "precision": 0.9047619047619048,
+          "recall": 0.95,
+          "f1": 0.926829268292683,
+          "tp": 19,
+          "fp": 2,
+          "fn": 1,
+          "support": 20
+        },
+        "punctuation": {
+          "precision": 0.9736842105263158,
+          "recall": 1.0,
+          "f1": 0.9866666666666667,
+          "tp": 37,
+          "fp": 1,
+          "fn": 0,
+          "support": 37
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "type": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.7272727272727273,
+          "recall": 1.0,
+          "f1": 0.8421052631578947,
+          "tp": 8,
+          "fp": 3,
+          "fn": 0,
+          "support": 8
+        },
+        "method": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "constructor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 0.7272727272727273,
+          "recall": 0.7272727272727273,
+          "f1": 0.7272727272727273,
+          "tp": 8,
+          "fp": 3,
+          "fn": 3,
+          "support": 11
+        },
+        "variable": {
+          "precision": 0.7619047619047619,
+          "recall": 0.6956521739130435,
+          "f1": 0.7272727272727273,
+          "tp": 16,
+          "fp": 5,
+          "fn": 7,
+          "support": 23
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "support": 2
+        },
+        "type-parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "r": {
+      "documents": 32,
+      "exactDocumentsIncludingModifiers": 13,
+      "exactSpan": {
+        "precision": 0.8380281690140845,
+        "recall": 0.8623188405797102,
+        "f1": 0.85,
+        "tp": 119,
+        "fp": 23,
+        "fn": 19,
+        "support": 138
+      },
+      "exactSpanMacroF1": 0.7648240490122141,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.7887323943661971,
+        "recall": 0.8115942028985508,
+        "f1": 0.8,
+        "tp": 112,
+        "fp": 30,
+        "fn": 26,
+        "support": 138
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9090909090909091,
+          "recall": 0.7692307692307693,
+          "f1": 0.8333333333333334,
+          "tp": 10,
+          "fp": 1,
+          "fn": 3,
+          "support": 13
+        },
+        "comment": {
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "tp": 2,
+          "fp": 4,
+          "fn": 0,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 4,
+          "fn": 3,
+          "support": 3
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 0.9375,
+          "f1": 0.967741935483871,
+          "tp": 15,
+          "fp": 0,
+          "fn": 1,
+          "support": 16
+        },
+        "operator": {
+          "precision": 0.9047619047619048,
+          "recall": 0.95,
+          "f1": 0.926829268292683,
+          "tp": 19,
+          "fp": 2,
+          "fn": 1,
+          "support": 20
+        },
+        "punctuation": {
+          "precision": 0.9736842105263158,
+          "recall": 1.0,
+          "f1": 0.9866666666666667,
+          "tp": 37,
+          "fp": 1,
+          "fn": 0,
+          "support": 37
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "type": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.7272727272727273,
+          "recall": 1.0,
+          "f1": 0.8421052631578947,
+          "tp": 8,
+          "fp": 3,
+          "fn": 0,
+          "support": 8
+        },
+        "method": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "constructor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 0.7272727272727273,
+          "recall": 0.7272727272727273,
+          "f1": 0.7272727272727273,
+          "tp": 8,
+          "fp": 3,
+          "fn": 3,
+          "support": 11
+        },
+        "variable": {
+          "precision": 0.7619047619047619,
+          "recall": 0.6956521739130435,
+          "f1": 0.7272727272727273,
+          "tp": 16,
+          "fp": 5,
+          "fn": 7,
+          "support": 23
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "support": 2
+        },
+        "type-parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "checkpointHash": "6aa5a0b033e515fb7377e8e5f6374a8a7d0b84566cc19f334967008d55f3a76c",
+  "checkpointEpoch": 5,
+  "device": "cpu"
+}
