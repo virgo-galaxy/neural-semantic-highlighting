@@ -63,9 +63,15 @@ inference artifact. Dataset source and prepared tensors remain outside Git under
 
 ## Use
 
-Normal Playground startup is `pnpm dev`; CSS, SCSS and Less share one lazy local
-Python process. To inspect another candidate, set `NSH_CSS_CHECKPOINT` before
-starting Vite. Browser-native inference is not implemented.
+Start the Playground with `pnpm dev`. CSS, SCSS and Less share one selected ONNX
+model, loaded on demand in the browser Worker; no Python provider is required.
+Frontend applications use `@nsh/highlighter` with `css`, `scss` or `less`; see the
+[consumer integration](../../../README.md#highlight-code) and
+[browser verification](../../../docs/browser-runtime.md).
+
+The Python CLI remains a native development/reference tool. Pass
+`--checkpoint path/to/candidate.pt` to inspect compatible development weights;
+this does not select the Playground's browser model.
 
 ```bash
 .venv/bin/python -m packs.css.runtime.local --text '.card { color: red; }' --document-kind css

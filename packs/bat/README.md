@@ -2,7 +2,7 @@
 
 One independent neural entry covers common Windows batch source in `.bat` and
 `.cmd`. It reuses the same small byte Transformer, source/Gold/Golden workflow,
-UTF-16 spans, local bridge, renderer and themes as previous packs.
+UTF-16 spans, browser/native runtimes, renderer and themes as previous packs.
 
 No Windows environment is installed and batch source is never executed.
 [SEMANTICS.md](SEMANTICS.md) defines bounded labels, variables and string policy.

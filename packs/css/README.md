@@ -57,7 +57,8 @@ to return for a manual check. Do not configure scheduled monitoring or notificat
 ## Status
 
 The first [selected model](model/README.md) supports CSS, SCSS and Less through
-the local Python runtime and Playground. It has independent per-kind test evidence
+the browser Worker, Playground and optional native Python reference runtime.
+Frontend consumers require no Python provider. It has independent per-kind test evidence
 and explicit [known issues](model/KNOWN_ISSUES.md). Golden tooling correctness is
 separate from trained-model prediction quality. The repository remains private.
 

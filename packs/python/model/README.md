@@ -20,12 +20,17 @@ This first bounded baseline covers common Python display code. Source-local name
 roles and long docstrings remain weaker than punctuation and keywords; inspect
 [BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md) before
 depending on exact semantic roles. f/t-strings are complete strings rather than
-composed interpolation expressions. Browser-native inference remains future work.
+composed interpolation expressions. Browser/Playground inference uses the selected
+ONNX model in the existing Worker. Frontend applications use `{ language: "python" }`
+without a Python provider; see [consumer integration](../../../README.md#highlight-code)
+and [browser verification](../../../docs/browser-runtime.md).
+
+The Python CLI below is an optional native development/reference tool:
 
 ```sh
 .venv/bin/python -m packs.python.runtime.local --file example.py
 ```
 
-The Playground uses the same persistent local-process bridge as the existing packs.
-`NSH_PYTHON_CHECKPOINT` can select a full development checkpoint without replacing
-this bundle. Repository, datasets and historical experiments remain private.
+Use the CLI's `--checkpoint path/to/candidate.pt` option to inspect compatible
+development weights without replacing this bundle or the Playground's browser
+model. Repository, datasets and historical experiments remain private.

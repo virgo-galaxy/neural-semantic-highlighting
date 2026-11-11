@@ -80,10 +80,15 @@ optimizer or data history. Only this frozen candidate was evaluated on final tes
 
 ## Use
 
-`pnpm dev` exposes one Vue entry with versioned and mixed-style examples. Vue,
-TypeScript-family and CSS-family local processes load lazily and are reused.
-`NSH_VUE_CHECKPOINT` optionally selects an experimental checkpoint at startup.
-Browser-native inference is not implemented.
+`pnpm dev` exposes one Vue entry with versioned and mixed-style examples. The Vue
+descriptor loads its selected ONNX model and JS/TS/CSS dependencies on demand in
+the browser Worker. Frontend applications use `{ language: "vue" }` without a Python
+provider or Vue compiler. See the [consumer integration](../../../README.md#highlight-code)
+and [browser verification](../../../docs/browser-runtime.md).
+
+The Python CLI below remains a native development/reference tool. Its
+`--checkpoint path/to/candidate.pt` option selects compatible development weights,
+without changing the Playground's browser model.
 
 ```bash
 .venv/bin/python -m packs.vue.runtime.local --text '<template><p>{{ title }}</p></template>'

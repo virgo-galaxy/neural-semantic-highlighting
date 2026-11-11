@@ -701,12 +701,15 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **22 model packs**, with browser inference and Playground examples.
+There are **28 model packs**, with browser inference and Playground examples,
+including Swift, Kotlin, R, Scala, Ruby and Lua. Flutter shares the Dart model.
 The browser conversion preserves the selected weights without retraining or
-quantization. [Browser verification](docs/browser-runtime.md) records conversion
-checks and the exact-output comparison across 155 examples/edge cases, including
-Java, C#, C, C++, PHP, Svelte, Rust, Zig, Dart and Flutter. Independent local-package verification also covers its public imports. This is
-runtime parity evidence, not a new accuracy evaluation.
+quantization. The latest [verification record](docs/lua-browser-verification.json)
+retains **227/227** exact browser/native comparisons and **157** passing frontend
+tests. Independent local-package checks cover public imports, original source
+text, themes and custom CSS. [Browser verification](docs/browser-runtime.md)
+keeps the earlier rollout results separately. These are runtime/packaging checks,
+not a new accuracy evaluation.
 
 The table reports **exact-span F1**: token start, end and semantic type must match.
 It is not character accuracy or the percentage of perfect files. Different test
@@ -792,8 +795,7 @@ for separate natural, focus and visible results.
 Flutter also has a dedicated Playground entry, icon and eight examples. Use
 `{ language: "flutter" }` or selectively import
 `@nsh/highlighter/languages/flutter`. It shares the Dart descriptor and **one
-Dart model asset**, so Flutter adds no separate model. The workspace now contains
-28 model packs including Swift and Kotlin. Files keep `.dart`;
+Dart model asset**, so Flutter adds no separate model. Files keep `.dart`;
 Flutter normalizes to `dart` in returned language and HTML `data-language`,
 including `highlightElement` on `language-flutter` elements. Existing Dart theme
 and CSS overrides apply. No Dart/Flutter SDK is installed or required.

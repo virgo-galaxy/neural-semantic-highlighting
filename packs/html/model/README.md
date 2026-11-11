@@ -68,9 +68,15 @@ A train-only transition-decoder diagnostic was also not adopted. Neither changes
 this inference bundle. Earlier experiments, curriculum versions and checkpoints
 remain preserved; none of those candidates was tested on the final test split.
 
-Start the Playground with `pnpm dev` and select HTML. HTML, JS and CSS processes
-are loaded lazily and reused. `NSH_HTML_CHECKPOINT` is an optional development
-override. Browser-native inference is still future work.
+Start the Playground with `pnpm dev` and select HTML. The HTML descriptor loads
+its selected ONNX model and JS/TS/CSS dependencies on demand in the browser Worker.
+Frontend applications use `{ language: "html" }`; no Python process is required.
+See the [consumer integration](../../../README.md#highlight-code) and
+[browser verification](../../../docs/browser-runtime.md).
+
+The Python CLI below remains a native development/reference tool. Its
+`--checkpoint path/to/candidate.pt` option selects compatible development weights,
+without changing the Playground's browser model.
 
 ```bash
 .venv/bin/python -m packs.html.runtime.local --text '<p>Hello</p>'

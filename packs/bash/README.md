@@ -8,7 +8,8 @@ language entry. Read [SEMANTICS.md](SEMANTICS.md) for the local role contract.
 Offline Gold reads source with pinned, isolated lexer assets and a local
 command-position adapter. It never executes scripts or installs a shell. Pure
 neural inference reuses the existing Transformer, byte cursor, span protocol,
-local-process bridge, renderer and themes. Compiler/lexer tooling stays offline.
+browser Worker, optional native runtime, renderer and themes. Compiler/lexer
+tooling stays offline; frontend consumers need no Python provider.
 
 Source, Gold and prepared snapshots live under
 `~/Datasets/neural-semantic-highlighting/bash`; full resumable checkpoints live

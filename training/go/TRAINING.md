@@ -314,10 +314,12 @@ Decoding is greedy, with type scores averaged over character starts and modifier
 read at predicted span beginnings. Struct tags can remain whole `string` spans;
 this step does not add framework-specific public token types or styling.
 
-The Python CLI and `packs/go/runtime/local.py` share the same pure-neural inference
-path. The Vue Playground reaches that runtime through the normal local-process
-`SemanticPack` adapter. The selected runtime artifact lives at
-`packs/go/model/model.pt`.
+The Python CLI and `packs/go/runtime/local.py` share the same pure-neural native
+reference path. Its selected artifact lives at `packs/go/model/model.pt`.
+The Vue Playground and frontend consumers instead use the reviewed ONNX export
+under `packs/go/browser/`, through the browser Worker without a Python provider.
+See [consumer integration](../../README.md#highlight-code) and
+[browser verification](../../docs/browser-runtime.md).
 
 ## Verification scope
 

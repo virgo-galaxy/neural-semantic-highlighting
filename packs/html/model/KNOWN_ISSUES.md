@@ -29,8 +29,10 @@ custom elements and common embedded bodies. Its failures are visible and retaine
   whole strings; attributes do not invoke child packs. `.vue`, Svelte, server
   templates, JSX and TSX are separate kinds. Explicitly obsolete HTML is not a
   target. Imports/resources are never resolved and source is never executed.
-- **Runtime:** Playground uses local Python through the Vite development bridge.
-  The inference model is not yet a browser-native package.
+- **Runtime:** Playground and frontend consumers use the selected ONNX model in
+  the browser Worker. HTML composition loads existing JS/TS/CSS models for predicted
+  embedded regions, without Python or a source parser. [Browser verification](../../../docs/browser-runtime.md)
+  establishes consistent execution, not improved model accuracy.
 
 Source characters and UTF-16 alignment remain intact even when roles are wrong.
 Use this as a documented initial baseline. Further work should start from actual

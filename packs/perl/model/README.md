@@ -1,7 +1,8 @@
 # Perl neural model
 
 The selected 894,227-parameter byte Transformer highlights Perl 5 through the
-existing local Python process. It returns original UTF-16 spans without invoking
+browser Worker or optional native Python runtime. It returns original UTF-16
+spans without invoking
 Perl, PPI, a compiler, source regex repairs or command execution at inference.
 
 Frozen epoch 9 of
@@ -24,5 +25,8 @@ Data/Gold/immutable snapshots stay external under
 `~/Datasets/neural-semantic-highlighting/perl`. Offline Gold uses already available
 host PPI 1.270; source is parsed as text, never compiled or executed. No additional
 language environment was installed. Existing datasets, experiments and formal
-models are preserved. The repository remains private. Playground uses the same
-persistent local bridge; `NSH_PERL_CHECKPOINT` selects a compatible dev candidate.
+models are preserved. The repository remains private. Playground and frontend
+consumers use the selected ONNX model in the browser Worker with
+`{ language: "perl" }`, without a Python provider; see [consumer integration](../../../README.md#highlight-code).
+The native CLI's `--checkpoint path/to/candidate.pt` selects compatible development
+weights, without changing the Playground's browser model.

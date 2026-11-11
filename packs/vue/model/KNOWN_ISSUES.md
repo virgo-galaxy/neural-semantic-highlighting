@@ -33,8 +33,11 @@ every Vue compiler feature or source shape is perfect.
   CSS-family selector/URL/interpolation limitations also apply here. CSS `v-bind`,
   scoped/deep selectors and render code are highlighted lexically; framework
   macros, imports, component identities and CSS Modules are not resolved/executed.
-- **Runtime:** one Vue entry covers all profiles through the local Vite/Python
-  bridge. No browser-native inference or framework compiler is bundled.
+- **Runtime:** one Vue entry covers all profiles through the selected ONNX model
+  in the browser Worker, with existing JS/TS/CSS models for predicted embedded
+  regions. No Python provider or Vue compiler participates in frontend inference.
+  [Browser verification](../../../docs/browser-runtime.md) preserves measured
+  model limits rather than claiming framework or semantic correctness.
 
 Original source and Unicode alignment are preserved even when roles are wrong.
 Further work should start from a product failure and a short measured experiment,

@@ -27,10 +27,11 @@ import typescript from "@nsh/highlighter/languages/typescript";
 const highlighter = createHighlighter({ languages: [typescript] });
 ```
 
-JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML and Vue descriptors include
-their JS/TS/CSS dependencies automatically. Default registration covers 22 packs;
-weights are fetched lazily. Models are about 3.7 MB each, with a shared 14.8 MB
-uncompressed WASM asset. Vite production bundling is verified; other bundlers are
+JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
+include their JS/TS/CSS dependencies automatically; PHP includes HTML and its
+child dependencies. Default registration covers 28 packs, including Swift,
+Kotlin, R, Scala, Ruby and Lua. Flutter shares Dart's model. Weights are fetched
+lazily. Models are about 3.7 MB each, with a shared 14.8 MB uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
 
 `theme.css` provides the Default preset. For all presets:

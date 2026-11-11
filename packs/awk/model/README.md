@@ -23,5 +23,8 @@ This float32 export is inference-only. Source, Gold and immutable prepared data
 stay external under `~/Datasets/neural-semantic-highlighting/awk`. Offline Gold
 uses pinned isolated lexer assets and a bounded role adapter; no AWK environment
 was installed and source is never executed. Preserve all prior models, datasets
-and experiments. Repository remains private. Playground uses the same persistent
-local bridge; `NSH_AWK_CHECKPOINT` selects a compatible development checkpoint.
+and experiments. Repository remains private. Playground and frontend consumers
+use the selected ONNX model in the browser Worker with `{ language: "awk" }`,
+without a Python provider; see [consumer integration](../../../README.md#highlight-code).
+The native CLI's `--checkpoint path/to/candidate.pt` selects compatible development
+weights, without changing the Playground's browser model.

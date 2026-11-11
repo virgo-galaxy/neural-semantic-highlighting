@@ -49,10 +49,20 @@ The checkpoint's validation Modifier F1 is 0.9791, evaluated at Gold BEGIN posit
 
 **Next verification:** retain fixtures, expand targeted coverage where product usage requires it, and add end-to-end Modifier evaluation on predicted spans. Use validation/development cases for changes; do not repeatedly tune to a frozen final test while calling it unseen.
 
-## 6. Delivery, provenance and performance work remains
+## 6. Historical provenance and current delivery
 
 The supplied reports do not embed model SHA-256 or corpus/split fingerprints. The original training commit, environment lock and complete training-data provenance were not supplied. The export binds the files now; it cannot recreate missing historical evidence. Licensing information was not supplied either and is not fabricated here.
 
-The selected weights load in the existing Python inference code. No HTTP service, JS model backend, browser export, latency/throughput/peak-memory benchmark, or public-distribution license audit is included in this step.
+The original native export review did not include browser delivery. The selected
+weights have since been exported to ONNX and integrated into `@nsh/highlighter`
+and the browser Playground, without a Python provider or remote inference service.
+[Browser verification](../../../docs/browser-runtime.md) records export hashes,
+numerical checks, exact-output comparisons and independent package integration.
+It does not reconstruct the missing historical training provenance above, establish
+cross-device latency/throughput/peak-memory benchmarks or complete a public-distribution
+license audit.
 
-**Next work:** connect this artifact to a protocol-serving implementation and a real code-block consumer, measure product-visible behavior, and record model/code/data hashes in future evaluations. Keep Core, renderer and themes independent of this model's training implementation. Schedule model changes from observed product impact rather than a requirement to obtain 1.0000 on every metric.
+**Next work:** measure real product behavior and device/network performance, and
+record model/code/data hashes in future evaluations. Keep Core, renderer and themes
+independent of this model's training implementation. Schedule model changes from
+observed product impact rather than a requirement to obtain 1.0000 on every metric.

@@ -1,5 +1,24 @@
 # Browser runtime verification
 
+## Current verified state
+
+The latest [Lua addition record](lua-browser-verification.json), dated 2026-11-11,
+covers **28 selected model packs** and **227/227** exact Chromium/native
+span/role/modifier comparisons, with **157** passing frontend tests. Its independent
+local-package consumer passes **12/12** Lua comparisons plus the element/tokens API,
+six preset/mode combinations and custom CSS. Earlier language-specific consumer
+checks remain in their own records below. Flutter uses the Dart model.
+
+The Playground and frontend package run the selected ONNX models in a browser
+Worker, without a Python provider or language SDK. Packages remain private and
+unpublished; local tarballs are the supported installation route before release.
+See the [consumer README](../README.md) for current usage and the
+[scope and limits](#scope-and-limits) for unverified browsers/deployments.
+
+The sections below are historical rollout records. Counts, artifact hashes,
+checks and statements about publication or pushing describe each addition at the
+time it was verified, rather than the current repository totals or Git status.
+
 The original rollout on 2026-11-09 exported **13 selected models** without retraining or
 quantization, then exercised in a real Chromium browser on macOS arm64. The
 [verification record](browser-verification.json) lists hashes, per-pack numerical

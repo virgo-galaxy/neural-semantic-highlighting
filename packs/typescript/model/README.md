@@ -41,7 +41,13 @@ The following document kinds are declared in the pack manifest. This list is a c
 | `typescript-esm-declaration`      | `.d.mts`   |
 | `typescript-commonjs-declaration` | `.d.cts`   |
 
-Use the existing Python loader for now, from the repository root:
+Frontend applications and Playground use the selected ONNX weights in the browser
+Worker through `@nsh/highlighter`, including JS/TS/JSX/TSX. No Python provider is
+required; see [consumer integration](../../../README.md#highlight-code) and
+[browser verification](../../../docs/browser-runtime.md).
+
+For native development/reference output, use the existing Python loader from the
+repository root:
 
 ```bash
 .venv/bin/python training/typescript/predict.py \
@@ -49,7 +55,11 @@ Use the existing Python loader for now, from the repository root:
   --text 'const value = 1;'
 ```
 
-The CLI prints diagnostic text, not a production HTTP response. It needs the existing Python runtime code and PyTorch, but not the training Dataset to infer a supplied string. A `.pt` file is not directly executable by the JS library. The serving/client integration is a separate next step; this export does not claim that integration already exists or change the experiment defaults.
+The CLI prints native diagnostic text. It needs the existing Python runtime code
+and PyTorch, but not the training dataset to infer a supplied string. A `.pt` file
+is not directly executable by the JS library: browser consumers load the reviewed
+ONNX export under `../browser/`. The later browser integration does not change the
+selected weights, original experiment defaults or historical evaluation evidence.
 
 ## Contents and maintenance
 

@@ -23,7 +23,8 @@ training checkpoints under `artifacts`, never inference-only `model.pt` exports.
 Do not modify adjacent Virgo Design, replace previous models or publish the repo.
 
 The [selected 894,614-parameter model](model/README.md) and
-[measured limits](model/KNOWN_ISSUES.md) are integrated with the local runtime and
-Playground. Natural independent test exact-span F1 is 87.52%; source-local name
+[measured limits](model/KNOWN_ISSUES.md) are integrated with the browser Worker,
+Playground and optional native reference runtime. Frontend consumers need no
+Python provider. Natural independent test exact-span F1 is 87.52%; source-local name
 roles and long strings remain material limits. See [SEMANTICS.md](SEMANTICS.md)
 and [training commands](../../training/python/README.md).

@@ -2,7 +2,8 @@
 
 Flutter has a dedicated Playground entry, icon and eight examples. Source files
 are still .dart; the public Flutter alias uses the same selected Dart weights,
-schema and 512-byte inference context. The project still has 22 model packs.
+schema and 512-byte inference context. Flutter adds no separate model; see the
+[current supported-model summary](../../../README.md#supported-languages-and-measured-quality).
 No Dart/Flutter SDK, analyzer, pub environment or framework runtime is installed.
 
     const { html } = await highlighter.highlight(source, { language: "flutter" });

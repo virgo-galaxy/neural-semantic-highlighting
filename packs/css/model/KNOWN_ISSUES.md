@@ -33,8 +33,10 @@ Golden development probes or are explicit coverage gaps.
   remain preserved; exclusion is not a claim that their syntax is invalid.
 - **Scope and runtime:** `.sass` indentation, Stylus and embedded Vue/HTML style
   sections are outside this pack. Imports are not resolved and preprocessors are
-  not executed. Browser-native inference remains future work; Playground uses
-  its existing Vite-to-Python development bridge.
+  not executed. HTML/Vue/Svelte composition can reuse this pack for predicted style
+  regions. Playground and frontend inference use the selected ONNX model in the
+  browser Worker without a Python bridge. [Browser verification](../../../docs/browser-runtime.md)
+  establishes execution consistency, without resolving the prediction limits above.
 
 See the raw per-kind/per-role reports and the visible probe mismatches. Further
 work should start from product code failures and a short measured experiment,

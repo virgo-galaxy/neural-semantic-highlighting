@@ -25,6 +25,9 @@ This is a float32 inference export, without optimizer or resumable state. Full
 checkpoints stay under `artifacts/bash`; immutable source, Gold and prepared
 snapshots stay external under `~/Datasets/neural-semantic-highlighting/bash`.
 The previous formal bundle is preserved at `../model-20261108-e16`, with its
-original semantic contract. The repository remains private. Playground uses the
-same persistent local-process bridge, including explicit function/Here Document
-examples; `NSH_BASH_CHECKPOINT` can select a compatible development candidate.
+original semantic contract. The repository remains private. Playground runs the
+selected ONNX model in the browser Worker, including explicit function/Here
+Document examples. Frontend applications use `{ language: "bash" }` or the existing
+shell aliases without a Python provider; see [consumer integration](../../../README.md#highlight-code).
+The native CLI's `--checkpoint path/to/candidate.pt` selects compatible development
+weights, without changing the Playground's browser model.
