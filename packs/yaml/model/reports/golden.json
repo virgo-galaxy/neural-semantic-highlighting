@@ -1,0 +1,1403 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "add49ad06c8b8cb55190ade9edfad69bbd0134ecbb942b73fb79d8e48ed79bf7",
+  "cases": [
+    {
+      "id": "empty",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "whitespace",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": " \r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "comment",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "# note \ud83c\udf0c\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "mapping",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "name: demo\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "quoted-key",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "\"display name\": \"Hello\"",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 14,
+          "text": "\"display name\"",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "\"display",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 9,
+          "end": 14,
+          "text": "name\"",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "sequence",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "- one\n- two\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "flow-sequence",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "[one, 2, true]",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 1,
+          "end": 4,
+          "text": "one",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 7,
+          "text": "2",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 1,
+          "end": 4,
+          "text": "one",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 7,
+          "text": "2",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "flow-mapping",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "{x: 1, y: null}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 10,
+          "end": 14,
+          "text": "null",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 14,
+          "end": 15,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 10,
+          "end": 15,
+          "text": "null}",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "nested",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "server:\n  port: 8080\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "boolean",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "enabled: true\ndisabled: false",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 24,
+          "end": 29,
+          "text": "false",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 24,
+          "end": 29,
+          "text": "false",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "null",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "value: ~",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 8,
+          "text": "~",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 8,
+          "text": "~",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "core-strings",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "on: yes\noff: NO",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 13,
+          "end": 15,
+          "text": "NO",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 15,
+          "text": "NO",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "numbers",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "[-1.25e+3, 0x2f, 0o17, .inf, .nan]",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "[",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 9,
+          "text": "-1.25e+3",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 9,
+          "text": "[-1.25e+3",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "core-underscore",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "amount: 1_000",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 13,
+          "text": "1_000",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 13,
+          "text": "1_000",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "date-string",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "created: 2026-11-11",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 9,
+          "end": 19,
+          "text": "2026-11-11",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 9,
+          "end": 19,
+          "text": "2026-11-11",
+          "tokenType": "number",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "url",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "url: https://example.test/a#section",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "quoted-hash",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "text: \"# not a comment\" # note",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 23,
+          "text": "\"# not a comment\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 23,
+          "text": "\"# not a comment\"",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "single-quote",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "text: 'it''s literal \\n'",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "double-quote",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "text: \"line\\n\\u661f\"",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "literal-block",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "text: |\n  echo \"hello\"\n  # literal\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 35,
+          "text": "  echo \"hello\"\n  # literal\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 22,
+          "text": "  echo \"hello\"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 23,
+          "end": 24,
+          "text": " ",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 25,
+          "end": 34,
+          "text": "# literal",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "folded-block",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "text: >-\n  first line\n  second line\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 9,
+          "end": 36,
+          "text": "  first line\n  second line\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 9,
+          "end": 35,
+          "text": "  first line\n  second line",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "chomp-indent",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "text: |2+\n  raw\n\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 10,
+          "end": 17,
+          "text": "  raw\n\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 15,
+          "text": "raw",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "header-comment",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "text: >- # header\r\n  \ud83c\udf0c text\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 19,
+          "end": 30,
+          "text": "  \ud83c\udf0c text\r\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 21,
+          "end": 28,
+          "text": "\ud83c\udf0c text",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "anchor",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "base: &defaults {port: 80}",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "alias",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "copy: *defaults",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 15,
+          "text": "*defaults",
+          "tokenType": "label",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 15,
+          "text": "*defaults",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "merge-key",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "<<: *defaults",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "<<",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 4,
+          "end": 13,
+          "text": "*defaults",
+          "tokenType": "label",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "<<",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 4,
+          "end": 13,
+          "text": "*defaults",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "local-tag",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "image: !Ref Container",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 11,
+          "text": "!Ref",
+          "tokenType": "decorator",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 21,
+          "text": "Container",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 11,
+          "text": "!Ref",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 12,
+          "end": 21,
+          "text": "Container",
+          "tokenType": "string",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "typed-tag",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "value: !!str 123",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 12,
+          "text": "!!str",
+          "tokenType": "decorator",
+          "modifiers": []
+        },
+        {
+          "start": 13,
+          "end": 16,
+          "text": "123",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 12,
+          "text": "!!str",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 13,
+          "end": 16,
+          "text": "123",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "verbatim-tag",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "value: !<tag:example.test,2026:item> demo",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 36,
+          "text": "!<tag:example.test,2026:item>",
+          "tokenType": "decorator",
+          "modifiers": []
+        },
+        {
+          "start": 37,
+          "end": 41,
+          "text": "demo",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 25,
+          "text": "!<tag:example.test",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "text": ",",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 31,
+          "text": "2026:",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 31,
+          "end": 41,
+          "text": "item> demo",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "directive",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "%YAML 1.2\n---\nready: true\n...\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "tag-directive",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "%TAG !e! tag:example.test,2026:\n---\n!e!item demo",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 31,
+          "text": "%TAG !e! tag:example.test,2026:",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 43,
+          "text": "!e!item",
+          "tokenType": "decorator",
+          "modifiers": []
+        },
+        {
+          "start": 44,
+          "end": 48,
+          "text": "demo",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 4,
+          "text": "%TAG",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 8,
+          "text": "!e!",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 9,
+          "end": 25,
+          "text": "tag:example.test",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 25,
+          "end": 30,
+          "text": ",2026",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 30,
+          "end": 31,
+          "text": ":",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 48,
+          "text": "!e!item demo",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "multi-document",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "---\nx: 1\n---\nx: 2\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "explicit-key",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "? [a, b]\n: value",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 3,
+          "end": 4,
+          "text": "a",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 7,
+          "text": "b",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 3,
+          "end": 4,
+          "text": "a",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 7,
+          "text": "b",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "empty-value",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "nothing: # implicit null has no source token\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "duplicate-keys",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "x: 1\nx: 2",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 3,
+          "end": 4,
+          "text": "1",
+          "tokenType": "number",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 9,
+          "text": "2",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 3,
+          "end": 4,
+          "text": "1",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 9,
+          "text": "2",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "\u6807\u9898\ud83c\udf0c: \"\u661f\u7a7a\"\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "bom",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "\ufeffx: 1",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "multiline-plain",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "text: first line\n  second line\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 30,
+          "text": "first line\n  second line",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 16,
+          "text": "first line",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 30,
+          "text": "  second line",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "empty-document",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "---\n...\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 7,
+          "text": "...",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 7,
+          "text": "...",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "empty-string",
+      "profile": "yaml",
+      "documentKind": "yaml",
+      "source": "text: \"\"",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 8,
+          "text": "\"\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 8,
+          "text": "\"\"",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "yaml": {
+      "documents": 40,
+      "exactDocumentsIncludingModifiers": 15,
+      "exactSpan": {
+        "precision": 0.7740112994350282,
+        "recall": 0.8058823529411765,
+        "f1": 0.7896253602305475,
+        "tp": 137,
+        "fp": 40,
+        "fn": 33,
+        "support": 170
+      },
+      "exactSpanMacroF1": 0.603362971002,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.7570621468926554,
+        "recall": 0.788235294117647,
+        "f1": 0.7723342939481268,
+        "tp": 134,
+        "fp": 43,
+        "fn": 36,
+        "support": 170
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.4,
+          "recall": 0.5,
+          "f1": 0.4444444444444444,
+          "tp": 4,
+          "fp": 6,
+          "fn": 4,
+          "support": 8
+        },
+        "comment": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 4,
+          "fp": 2,
+          "fn": 0,
+          "support": 4
+        },
+        "string": {
+          "precision": 0.5,
+          "recall": 0.4074074074074074,
+          "f1": 0.4489795918367347,
+          "tp": 11,
+          "fp": 11,
+          "fn": 16,
+          "support": 27
+        },
+        "number": {
+          "precision": 0.7142857142857143,
+          "recall": 0.7142857142857143,
+          "f1": 0.7142857142857143,
+          "tp": 10,
+          "fp": 4,
+          "fn": 4,
+          "support": 14
+        },
+        "operator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "punctuation": {
+          "precision": 0.9452054794520548,
+          "recall": 0.9583333333333334,
+          "f1": 0.9517241379310345,
+          "tp": 69,
+          "fp": 4,
+          "fn": 3,
+          "support": 72
+        },
+        "namespace": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "method": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constructor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "property": {
+          "precision": 0.8,
+          "recall": 0.9473684210526315,
+          "f1": 0.8674698795180723,
+          "tp": 36,
+          "fp": 9,
+          "fn": 2,
+          "support": 38
+        },
+        "type-parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 4,
+          "support": 4
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "label": {
+          "precision": 0.42857142857142855,
+          "recall": 1.0,
+          "f1": 0.6,
+          "tp": 3,
+          "fp": 4,
+          "fn": 0,
+          "support": 3
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "yaml": {
+      "documents": 40,
+      "exactDocumentsIncludingModifiers": 15,
+      "exactSpan": {
+        "precision": 0.7740112994350282,
+        "recall": 0.8058823529411765,
+        "f1": 0.7896253602305475,
+        "tp": 137,
+        "fp": 40,
+        "fn": 33,
+        "support": 170
+      },
+      "exactSpanMacroF1": 0.603362971002,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.7570621468926554,
+        "recall": 0.788235294117647,
+        "f1": 0.7723342939481268,
+        "tp": 134,
+        "fp": 43,
+        "fn": 36,
+        "support": 170
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.4,
+          "recall": 0.5,
+          "f1": 0.4444444444444444,
+          "tp": 4,
+          "fp": 6,
+          "fn": 4,
+          "support": 8
+        },
+        "comment": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 4,
+          "fp": 2,
+          "fn": 0,
+          "support": 4
+        },
+        "string": {
+          "precision": 0.5,
+          "recall": 0.4074074074074074,
+          "f1": 0.4489795918367347,
+          "tp": 11,
+          "fp": 11,
+          "fn": 16,
+          "support": 27
+        },
+        "number": {
+          "precision": 0.7142857142857143,
+          "recall": 0.7142857142857143,
+          "f1": 0.7142857142857143,
+          "tp": 10,
+          "fp": 4,
+          "fn": 4,
+          "support": 14
+        },
+        "operator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "punctuation": {
+          "precision": 0.9452054794520548,
+          "recall": 0.9583333333333334,
+          "f1": 0.9517241379310345,
+          "tp": 69,
+          "fp": 4,
+          "fn": 3,
+          "support": 72
+        },
+        "namespace": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "method": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constructor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "property": {
+          "precision": 0.8,
+          "recall": 0.9473684210526315,
+          "f1": 0.8674698795180723,
+          "tp": 36,
+          "fp": 9,
+          "fn": 2,
+          "support": 38
+        },
+        "type-parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 4,
+          "support": 4
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "label": {
+          "precision": 0.42857142857142855,
+          "recall": 1.0,
+          "f1": 0.6,
+          "tp": 3,
+          "fp": 4,
+          "fn": 0,
+          "support": 3
+        }
+      }
+    }
+  },
+  "checkpointHash": "61ab25b3ecfc7a8f47a779ab0b14ddacef1927d3198b79e4e209f69549e711ec",
+  "checkpointEpoch": 3,
+  "device": "mps"
+}
