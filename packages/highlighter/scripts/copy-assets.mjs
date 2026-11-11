@@ -28,6 +28,7 @@ for (const id of [
   "swift",
   "kotlin",
   "r",
+  "scala",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

@@ -739,6 +739,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [Swift](packs/swift/model/README.md)                        | `.swift`; modern Swift functions/types/protocols, generics, patterns, async/actors, macros/attributes and common SwiftUI                                            | [93.65%](packs/swift/model/BENCHMARKS.md) — natural test, 22 files                                                                             | Browser + local; [mixed string boundaries, dollar names and local roles](packs/swift/model/KNOWN_ISSUES.md) remain limited                           |
 | [Kotlin](packs/kotlin/model/README.md)                      | `.kt`, `.kts`; modern Kotlin classes/objects, generics, nullable code, coroutines, common Compose and Gradle Kotlin scripts                                         | [94.57%](packs/kotlin/model/BENCHMARKS.md) — natural code/script test, 31 files                                                                | Browser + local; [raw/multi-dollar templates, implicit receivers and local semantic roles](packs/kotlin/model/KNOWN_ISSUES.md) remain limited        |
 | [R](packs/r/model/README.md)                                | Original .R/.r/.Rprofile source; common statistical/data, native and magrittr pipe syntax                                                                           | [96.04%](packs/r/model/BENCHMARKS.md) — natural test, 15 files                                                                                 | Browser + local; [measured boundaries and source-local roles](packs/r/model/KNOWN_ISSUES.md) remain limited                                          |
+| [Scala](packs/scala/model/README.md)                        | Common Scala 2/3 .scala/.sc/.sbt source, significant indentation, givens/using, extensions, enums, generics and interpolated strings                                | [89.00%](packs/scala/model/BENCHMARKS.md) — natural test, 30 files                                                                             | Browser + local; [measured boundaries and source-local roles](packs/scala/model/KNOWN_ISSUES.md) remain limited                                      |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -790,7 +791,7 @@ Flutter also has a dedicated Playground entry, icon and eight examples. Use
 `{ language: "flutter" }` or selectively import
 `@nsh/highlighter/languages/flutter`. It shares the Dart descriptor and **one
 Dart model asset**, so Flutter adds no separate model. The workspace now contains
-25 model packs including Swift and Kotlin. Files keep `.dart`;
+26 model packs including Swift and Kotlin. Files keep `.dart`;
 Flutter normalizes to `dart` in returned language and HTML `data-language`,
 including `highlightElement` on `language-flutter` elements. Existing Dart theme
 and CSS overrides apply. No Dart/Flutter SDK is installed or required.
@@ -825,3 +826,10 @@ SDK, interpreter/compiler, package environment, parser or Python process. The
 Playground adds eight examples and the pinned Devicon icon; all existing themes
 and custom CSS apply. See [R evaluation](packs/r/model/BENCHMARKS.md) and
 [known limits](packs/r/model/KNOWN_ISSUES.md).
+
+Scala uses `{ language: "scala" }`. Selective `@nsh/highlighter/languages/scala`
+emits one model asset. Common Scala 2/3 .scala/.sc/.sbt source, significant indentation, givens/using, extensions, enums, generics and interpolated strings. Browser applications require no language
+SDK, interpreter/compiler, package environment, parser or Python process. The
+Playground adds eight examples and the pinned Devicon icon; all existing themes
+and custom CSS apply. See [Scala evaluation](packs/scala/model/BENCHMARKS.md) and
+[known limits](packs/scala/model/KNOWN_ISSUES.md).

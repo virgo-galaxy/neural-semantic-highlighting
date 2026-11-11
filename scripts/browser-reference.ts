@@ -35,6 +35,7 @@ const ids = [
   "swift",
   "kotlin",
   "r",
+  "scala",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -142,6 +143,19 @@ for (const [index, source] of [
     source,
     documentKind: "r",
     result: await getPack("r").highlight({ source, documentKind: "r" }),
+  });
+}
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '// 星空 🌌\r\nval title = "Scala"\r\n',
+  'val text = """\n' + "Original 🌌 message. ".repeat(160) + '\n"""\n',
+].entries()) {
+  cases.push({
+    filename: `edge/scala-${index}.scala`,
+    source,
+    documentKind: "scala",
+    result: await getPack("scala").highlight({ source, documentKind: "scala" }),
   });
 }
 await Promise.all([...models.values()].map((model) => model.close()));

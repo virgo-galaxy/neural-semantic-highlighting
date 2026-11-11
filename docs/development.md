@@ -345,3 +345,15 @@ See [training](../training/r/README.md), [semantic scope](../packs/r/SEMANTICS.m
 and [selected evaluation](../packs/r/model/BENCHMARKS.md). Resume full artifacts
 checkpoints only; inference .pt/ONNX files never resume training. Frontend and
 Playground inference uses the existing browser worker without a Python bridge.
+
+## Scala offline workflow
+
+`make dataset-scala` follows the existing external dataset/checkpoint paths,
+immutable revisions, copy audits and frozen source families. `make dataset-scala-tools`
+prepares Tree-sitter Scala 0.26.12 with runtime 0.25.10, compiled with existing Clang only in project cache. No language SDK or global package is installed; collected
+source, dependencies and projects never execute. `make test-labeling-scala` checks
+13 tests and 33 independently hand-marked Golden cases.
+See [training](../training/scala/README.md), [semantic scope](../packs/scala/SEMANTICS.md)
+and [selected evaluation](../packs/scala/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only; inference .pt/ONNX files never resume training. Frontend and
+Playground inference uses the existing browser worker without a Python bridge.

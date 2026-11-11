@@ -21,6 +21,7 @@ import powershell from "./languages/powershell.js";
 import python from "./languages/python.js";
 import r from "./languages/r.js";
 import rust from "./languages/rust.js";
+import scala from "./languages/scala.js";
 import sql from "./languages/sql.js";
 import svelte from "./languages/svelte.js";
 import swift from "./languages/swift.js";
@@ -58,6 +59,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       swift,
       kotlin,
       r,
+      scala,
     ],
   });
 }

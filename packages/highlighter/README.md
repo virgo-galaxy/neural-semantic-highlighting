@@ -133,3 +133,8 @@ R uses `{ language: "r" }`. Original .R/.r/.Rprofile source; common statistical/
 Selective `@nsh/highlighter/languages/r` emits one model asset and requires no
 language SDK, parser or Python process. Existing themes/custom CSS apply. See
 [evaluation](../../packs/r/model/BENCHMARKS.md) and [known limits](../../packs/r/model/KNOWN_ISSUES.md).
+
+Scala uses `{ language: "scala" }`. Common Scala 2/3 .scala/.sc/.sbt source, significant indentation, givens/using, extensions, enums, generics and interpolated strings.
+Selective `@nsh/highlighter/languages/scala` emits one model asset and requires no
+language SDK, parser or Python process. Existing themes/custom CSS apply. See
+[evaluation](../../packs/scala/model/BENCHMARKS.md) and [known limits](../../packs/scala/model/KNOWN_ISSUES.md).
