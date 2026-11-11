@@ -19,6 +19,7 @@ import perl from "./languages/perl.js";
 import php from "./languages/php.js";
 import powershell from "./languages/powershell.js";
 import python from "./languages/python.js";
+import r from "./languages/r.js";
 import rust from "./languages/rust.js";
 import sql from "./languages/sql.js";
 import svelte from "./languages/svelte.js";
@@ -56,6 +57,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       dart,
       swift,
       kotlin,
+      r,
     ],
   });
 }

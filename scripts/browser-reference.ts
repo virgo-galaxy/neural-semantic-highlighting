@@ -34,6 +34,7 @@ const ids = [
   "dart",
   "swift",
   "kotlin",
+  "r",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -128,6 +129,19 @@ for (const [index, source] of [
     source,
     documentKind: "kotlin",
     result: await getPack("kotlin").highlight({ source, documentKind: "kotlin" }),
+  });
+}
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '# 星空 🌌\r\nname <- "R"\r\n',
+  'text <- r"---[\n' + "Original 🌌 message. ".repeat(160) + '\n]---"\n',
+].entries()) {
+  cases.push({
+    filename: `edge/r-${index}.R`,
+    source,
+    documentKind: "r",
+    result: await getPack("r").highlight({ source, documentKind: "r" }),
   });
 }
 await Promise.all([...models.values()].map((model) => model.close()));

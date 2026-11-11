@@ -27,6 +27,7 @@ for (const id of [
   "dart",
   "swift",
   "kotlin",
+  "r",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

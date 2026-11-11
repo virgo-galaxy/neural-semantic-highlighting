@@ -128,3 +128,8 @@ Selective `@nsh/highlighter/languages/kotlin` emits one model asset. No JDK,
 Kotlin SDK, Gradle, Android SDK, parser or Python process is required in frontend
 applications. Existing themes and custom CSS apply. See [evaluation](../../packs/kotlin/model/BENCHMARKS.md)
 and [known limits](../../packs/kotlin/model/KNOWN_ISSUES.md).
+
+R uses `{ language: "r" }`. Original .R/.r/.Rprofile source; common statistical/data, native and magrittr pipe syntax.
+Selective `@nsh/highlighter/languages/r` emits one model asset and requires no
+language SDK, parser or Python process. Existing themes/custom CSS apply. See
+[evaluation](../../packs/r/model/BENCHMARKS.md) and [known limits](../../packs/r/model/KNOWN_ISSUES.md).

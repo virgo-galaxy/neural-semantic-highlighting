@@ -74,3 +74,6 @@ same pinned Devicon revision and under the preserved MIT license.
 
 The Kotlin entry uses `kotlin.svg`, from `icons/kotlin/kotlin-original.svg` at the
 same pinned Devicon revision and under the preserved MIT license.
+
+The R entry uses `r.svg`, from `icons/r/r-original.svg` at the
+same pinned Devicon revision and under the preserved MIT license.

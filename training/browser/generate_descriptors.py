@@ -1,6 +1,6 @@
 from pathlib import Path
 import json
-ids=['typescript','go','css','html','vue','python','bash','perl','awk','sql','powershell','bat','assembly','java','csharp','c','cpp','php','svelte','rust','zig','dart','swift','kotlin']
+ids=['typescript','go','css','html','vue','python','bash','perl','awk','sql','powershell','bat','assembly','java','csharp','c','cpp','php','svelte','rust','zig','dart','swift','kotlin','r']
 for id in ids:
  m=json.loads((Path('packs')/id/'browser/model.json').read_text())
  record={'id':id,'manifest':m['manifest'],'sha256':m['model']['sha256'],'contextBytes':m['contextBytes'],'schema':m['schema'],'modifierThreshold':m['modifierThreshold'],'decoder':m['decoder']}

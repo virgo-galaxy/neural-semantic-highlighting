@@ -18,6 +18,7 @@ import perlIcon from "@/assets/document-kinds/perl.svg";
 import phpIcon from "@/assets/document-kinds/php.svg";
 import powershellIcon from "@/assets/document-kinds/powershell.svg";
 import pythonIcon from "@/assets/document-kinds/python.svg";
+import rIcon from "@/assets/document-kinds/r.svg";
 import rustIcon from "@/assets/document-kinds/rust.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
 import sqlIcon from "@/assets/document-kinds/sql.svg";
@@ -99,6 +100,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   flutter: { label: "Flutter", icon: flutterIcon },
   swift: { label: "Swift", icon: swiftIcon },
   kotlin: { label: "Kotlin", icon: kotlinIcon },
+  r: { label: "R", icon: rIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -173,6 +175,9 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".swift", "swift"],
   [".kt", "kotlin"],
   [".kts", "kotlin"],
+  [".R", "r"],
+  [".r", "r"],
+  [".Rprofile", "r"],
 ] as const;
 
 function formatLanguageLabel(languageId: string): string {

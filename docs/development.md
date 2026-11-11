@@ -333,3 +333,15 @@ See [training](../training/kotlin/README.md), [semantic scope](../packs/kotlin/S
 and [selected evaluation](../packs/kotlin/model/BENCHMARKS.md). Resume full artifacts
 checkpoints only; inference .pt/ONNX files are never resumable. Frontend inference
 uses the existing browser worker without JVM, Kotlin, parser or Python.
+
+## R offline workflow
+
+`make dataset-r` follows the existing external dataset/checkpoint paths,
+immutable revisions, copy audits and frozen source families. `make dataset-r-tools`
+prepares r-lib tree-sitter-r 1.3.0 and Tree-sitter 0.25.10, compiled with existing Clang only in project cache. No language SDK or global package is installed; collected
+source, dependencies and projects never execute. `make test-labeling-r` checks
+10 tests and 32 independently hand-marked Golden cases.
+See [training](../training/r/README.md), [semantic scope](../packs/r/SEMANTICS.md)
+and [selected evaluation](../packs/r/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only; inference .pt/ONNX files never resume training. Frontend and
+Playground inference uses the existing browser worker without a Python bridge.
