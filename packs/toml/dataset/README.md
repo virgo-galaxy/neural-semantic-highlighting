@@ -13,3 +13,7 @@ Use `make dataset-toml-tools`, `make dataset-toml-sources`, then
 from ignored project cache with retained licenses/hashes. No SDK/global install,
 configuration command, project build or dependency execution is involved.
 Full optimizer/RNG continuation checkpoints belong under `artifacts/toml`.
+
+The final curriculum contains 52 families / 1,248 variants. A bounded 12-family
+mixed extension follows observed quoted-key, date and multiline-string errors;
+it preserves all 130 original family assignments and the first six-epoch run.

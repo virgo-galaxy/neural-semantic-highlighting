@@ -1696,6 +1696,7 @@ dataset-toml:
 
 dataset-toml-curriculum:
 	$(PYTHON) -m packs.toml.dataset.generate_curriculum
+	$(PYTHON) -m packs.toml.dataset.generate_mixed
 
 dataset-toml-collect:
 	$(PYTHON) -m packs.toml.dataset.pipeline collect
