@@ -1738,3 +1738,70 @@ challenge-toml:
 export-toml-model:
 	@test -n "$(TOML_CHECKPOINT)" -a -n "$(TOML_TEST_REPORT)" || (echo 'Set TOML_CHECKPOINT and TOML_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.toml.export_model --checkpoint "$(TOML_CHECKPOINT)" --test-report "$(TOML_TEST_REPORT)"
+
+INI_DEVICE ?= auto
+INI_EPOCHS ?= 3
+INI_BATCH_SIZE ?= 32
+INI_LEARNING_RATE ?=
+INI_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-ini dataset-ini-tools dataset-ini-sources dataset-ini-curriculum dataset-ini-collect dataset-ini-label dataset-ini-validate dataset-ini-prepare test-labeling-ini train-ini-smoke train-ini continue-ini predict-ini evaluate-ini challenge-ini export-ini-model
+
+dataset-ini-tools:
+	$(PYTHON) -m packs.ini.labeling.tools
+
+dataset-ini-sources:
+	$(PYTHON) -m packs.ini.dataset.fetch_sources
+
+dataset-ini:
+	$(MAKE) dataset-ini-tools
+	$(MAKE) dataset-ini-sources
+	$(MAKE) dataset-ini-curriculum
+	$(MAKE) dataset-ini-collect
+	$(MAKE) dataset-ini-label
+	$(MAKE) dataset-ini-validate
+	$(MAKE) dataset-ini-prepare
+
+dataset-ini-curriculum:
+	$(PYTHON) -m packs.ini.dataset.generate_curriculum
+
+dataset-ini-collect:
+	$(PYTHON) -m packs.ini.dataset.pipeline collect
+
+dataset-ini-label:
+	$(PYTHON) -m packs.ini.dataset.pipeline label
+
+dataset-ini-validate:
+	$(PYTHON) -m packs.ini.dataset.pipeline validate
+
+dataset-ini-prepare:
+	$(PYTHON) -m training.ini.prepare
+
+test-labeling-ini:
+	$(PYTHON) -m unittest discover -s packs/ini/tests -v
+
+train-ini-smoke:
+	$(PYTHON) -m training.ini.train --smoke --epochs 1 --device $(INI_DEVICE) $(if $(INI_RUN),--output-dir "$(INI_RUN)") $(if $(INI_INIT_FROM),--init-from "$(INI_INIT_FROM)")
+
+train-ini:
+	$(PYTHON) -m training.ini.train --epochs $(INI_EPOCHS) --device $(INI_DEVICE) --batch-size $(INI_BATCH_SIZE) $(if $(INI_LEARNING_RATE),--learning-rate $(INI_LEARNING_RATE)) $(if $(INI_RUN),--output-dir "$(INI_RUN)") $(if $(INI_INIT_FROM),--init-from "$(INI_INIT_FROM)")
+
+continue-ini:
+	@test -n "$(INI_CHECKPOINT)" || (echo 'Set INI_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.ini.train --resume "$(INI_CHECKPOINT)" --epochs $(INI_EPOCHS) --device $(INI_DEVICE)
+
+predict-ini:
+	@test -n "$(INI_SOURCE)" || (echo 'Set INI_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.ini.predict --device $(INI_DEVICE) --file "$(INI_SOURCE)" $(if $(INI_CHECKPOINT),--checkpoint "$(INI_CHECKPOINT)")
+
+evaluate-ini:
+	@test -n "$(INI_CHECKPOINT)" || (echo 'Set INI_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.ini.evaluate --checkpoint "$(INI_CHECKPOINT)" --device $(INI_DEVICE) --split $(INI_EVAL_SPLIT)
+
+challenge-ini:
+	@test -n "$(INI_CHECKPOINT)" || (echo 'Set INI_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.ini.challenge --checkpoint "$(INI_CHECKPOINT)" --device $(INI_DEVICE)
+
+export-ini-model:
+	@test -n "$(INI_CHECKPOINT)" -a -n "$(INI_TEST_REPORT)" || (echo 'Set INI_CHECKPOINT and INI_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.ini.export_model --checkpoint "$(INI_CHECKPOINT)" --test-report "$(INI_TEST_REPORT)"
