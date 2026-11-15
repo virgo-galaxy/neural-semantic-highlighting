@@ -1,0 +1,731 @@
+{
+  "phases": [
+    {
+      "run": "artifacts/ini/context512-20261115-01",
+      "completedEpochs": 6,
+      "timings": [
+        {
+          "epoch": 1,
+          "epochSeconds": 5.345292416983284,
+          "checkpointSeconds": 0.11789745802525431
+        },
+        {
+          "epoch": 2,
+          "epochSeconds": 5.139820707961917,
+          "checkpointSeconds": 0.17187720898073167
+        },
+        {
+          "epoch": 3,
+          "epochSeconds": 5.132746791932732,
+          "checkpointSeconds": 0.0656183750834316
+        },
+        {
+          "epoch": 4,
+          "epochSeconds": 5.54150158399716,
+          "checkpointSeconds": 0.11836612492334098
+        },
+        {
+          "epoch": 5,
+          "epochSeconds": 5.3525477080838755,
+          "checkpointSeconds": 0.17549887509085238
+        },
+        {
+          "epoch": 6,
+          "epochSeconds": 4.938017540960573,
+          "checkpointSeconds": 0.11515437497291714
+        }
+      ],
+      "invocations": [
+        {
+          "device": "mps",
+          "initialEpochBudget": 3,
+          "trainingConfig": {
+            "batch_size": 32,
+            "learning_rate": 0.0003,
+            "weight_decay": 0.01,
+            "modifier_loss_weight": 0.1,
+            "modifier_threshold": 0.6,
+            "patience": 5,
+            "seed": 42,
+            "smoke": false,
+            "smoke_batches": 8,
+            "smoke_eval_windows": 48,
+            "sampling": "natural-plus-curriculum",
+            "focus_every": 1,
+            "focus_batch_size": 32
+          },
+          "modelConfig": {
+            "context_bytes": 512,
+            "width": 128,
+            "heads": 4,
+            "layers": 4,
+            "feed_forward": 512,
+            "dropout": 0.1,
+            "local_kernel": 1
+          },
+          "parameters": 894872,
+          "dataset": {
+            "snapshot": "ce912c6b95d4eccd80c2e39497e65b6daf7e1e75329de8a53e742502f36a3839",
+            "manifestHash": "f2a7ffe457b990ed0517b7dc0c795e430c57ecad23543cbedd856f1854bc94bf",
+            "path": "/Users/mystic/Datasets/neural-semantic-highlighting/ini/prepared/ce912c6b95d4eccd80c2e39497e65b6daf7e1e75329de8a53e742502f36a3839"
+          },
+          "selection": "mean per-profile natural real-source validation exact-span macro F1; fixed-window logits reassembled",
+          "initialization": {
+            "mode": "toml-weights-only-transfer",
+            "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/toml/context512-refine-20261115-01/candidates/epoch-0002.pt",
+            "checkpointHash": "5940c3ef451b3894cb16ec6cbaabaad905c6e59e88930a156882915f7f95dd7e",
+            "sourceEpoch": 2,
+            "sourceDataset": {
+              "snapshot": "78554aa8a7b2f37b3fcc23c098a5388e59e5d118023ff2dbb7b099047afa8c61",
+              "manifestHash": "d26c66e72a30149f2f440b9451535e8aa07c61789f3c27d2ce137057389be26b",
+              "path": "/Users/mystic/Datasets/neural-semantic-highlighting/toml/prepared/78554aa8a7b2f37b3fcc23c098a5388e59e5d118023ff2dbb7b099047afa8c61"
+            },
+            "copiedTokenTypes": [
+              "keyword",
+              "comment",
+              "string",
+              "number",
+              "operator",
+              "punctuation",
+              "namespace",
+              "type",
+              "enum",
+              "enum-member",
+              "function",
+              "method",
+              "constructor",
+              "parameter",
+              "variable",
+              "property",
+              "type-parameter",
+              "decorator",
+              "constant",
+              "label"
+            ],
+            "newTokenTypes": [],
+            "newTensors": [],
+            "copiedModifiers": [
+              "declaration"
+            ],
+            "optimizerAndTrainingState": "fresh pack run"
+          },
+          "provenance": {
+            "codeHashes": {
+              "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+              "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+              "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+              "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+              "training/ini/challenge.py": "aaf04180abb2e2dbb808b0a83b564d4075a50fc89fd23415cdc5962f858ba05b",
+              "training/ini/evaluate.py": "a3b33c4c4ea1933454630e7072f0119d9364e9289000e39aa7266a292f92da8a",
+              "training/ini/export_model.py": "03f6abfc7f8fbb3ca6c07a5dc161b7fbaa559761db33a1bd6e132408dc16b72e",
+              "training/ini/predict.py": "4a6cd85c138ba5cbe96edc6a270eff68b8d9dc1cf3056da8efad72d57267d3df",
+              "training/ini/prepare.py": "1af9e6314bcedfed1a845e9f029ba7e4a8524de10de4a018c011a07daca9d8d8",
+              "training/ini/review.py": "8d0fd47e378183cb5a04222e54fca6b9a061e72acde8203377dd7e5f0968759a",
+              "training/ini/train.py": "782c83214cdfc4808295048da6ac7b6b0b04a9fa3ad21c9db8e0b2a6e445f5e7",
+              "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+              "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+              "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+              "training/shared/encoding.py": "56c8ecba2b66d518eb031167647e5deb366cd53f642657170faae97601ed991c",
+              "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
+              "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+              "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+              "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+              "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+              "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+              "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+              "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+              "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+              "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+              "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+              "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+              "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+              "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+              "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+              "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+              "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+              "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
+            },
+            "semanticsHash": "da9da0b7b566aaf696c72dbaeca5f63639c6e4f7f175520e8a47424a7cdc1aae",
+            "packConfigHash": "d55d2c837471d9c798068acf6fc59603ee06498379a685a082cb883ddfd49167",
+            "decoderPolicy": {
+              "coalesce_types": [],
+              "modifier_roles": null
+            },
+            "pythonTorch": "2.14.0",
+            "repositoryDirty": true,
+            "repositoryCommit": "03ccd135e08245d5345a4fc419ea15541af893ae"
+          },
+          "resumeCheckpoint": null
+        },
+        {
+          "device": "mps",
+          "initialEpochBudget": 3,
+          "trainingConfig": {
+            "batch_size": 32,
+            "learning_rate": 0.0003,
+            "weight_decay": 0.01,
+            "modifier_loss_weight": 0.1,
+            "modifier_threshold": 0.6,
+            "patience": 5,
+            "seed": 42,
+            "smoke": false,
+            "smoke_batches": 8,
+            "smoke_eval_windows": 48,
+            "sampling": "natural-plus-curriculum",
+            "focus_every": 1,
+            "focus_batch_size": 32
+          },
+          "modelConfig": {
+            "context_bytes": 512,
+            "width": 128,
+            "heads": 4,
+            "layers": 4,
+            "feed_forward": 512,
+            "dropout": 0.1,
+            "local_kernel": 1
+          },
+          "parameters": 894872,
+          "dataset": {
+            "snapshot": "ce912c6b95d4eccd80c2e39497e65b6daf7e1e75329de8a53e742502f36a3839",
+            "manifestHash": "f2a7ffe457b990ed0517b7dc0c795e430c57ecad23543cbedd856f1854bc94bf",
+            "path": "/Users/mystic/Datasets/neural-semantic-highlighting/ini/prepared/ce912c6b95d4eccd80c2e39497e65b6daf7e1e75329de8a53e742502f36a3839"
+          },
+          "selection": "mean per-profile natural real-source validation exact-span macro F1; fixed-window logits reassembled",
+          "initialization": {
+            "mode": "toml-weights-only-transfer",
+            "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/toml/context512-refine-20261115-01/candidates/epoch-0002.pt",
+            "checkpointHash": "5940c3ef451b3894cb16ec6cbaabaad905c6e59e88930a156882915f7f95dd7e",
+            "sourceEpoch": 2,
+            "sourceDataset": {
+              "snapshot": "78554aa8a7b2f37b3fcc23c098a5388e59e5d118023ff2dbb7b099047afa8c61",
+              "manifestHash": "d26c66e72a30149f2f440b9451535e8aa07c61789f3c27d2ce137057389be26b",
+              "path": "/Users/mystic/Datasets/neural-semantic-highlighting/toml/prepared/78554aa8a7b2f37b3fcc23c098a5388e59e5d118023ff2dbb7b099047afa8c61"
+            },
+            "copiedTokenTypes": [
+              "keyword",
+              "comment",
+              "string",
+              "number",
+              "operator",
+              "punctuation",
+              "namespace",
+              "type",
+              "enum",
+              "enum-member",
+              "function",
+              "method",
+              "constructor",
+              "parameter",
+              "variable",
+              "property",
+              "type-parameter",
+              "decorator",
+              "constant",
+              "label"
+            ],
+            "newTokenTypes": [],
+            "newTensors": [],
+            "copiedModifiers": [
+              "declaration"
+            ],
+            "optimizerAndTrainingState": "fresh pack run"
+          },
+          "provenance": {
+            "codeHashes": {
+              "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+              "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+              "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+              "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+              "training/ini/challenge.py": "aaf04180abb2e2dbb808b0a83b564d4075a50fc89fd23415cdc5962f858ba05b",
+              "training/ini/evaluate.py": "a3b33c4c4ea1933454630e7072f0119d9364e9289000e39aa7266a292f92da8a",
+              "training/ini/export_model.py": "03f6abfc7f8fbb3ca6c07a5dc161b7fbaa559761db33a1bd6e132408dc16b72e",
+              "training/ini/predict.py": "4a6cd85c138ba5cbe96edc6a270eff68b8d9dc1cf3056da8efad72d57267d3df",
+              "training/ini/prepare.py": "1af9e6314bcedfed1a845e9f029ba7e4a8524de10de4a018c011a07daca9d8d8",
+              "training/ini/review.py": "8d0fd47e378183cb5a04222e54fca6b9a061e72acde8203377dd7e5f0968759a",
+              "training/ini/train.py": "782c83214cdfc4808295048da6ac7b6b0b04a9fa3ad21c9db8e0b2a6e445f5e7",
+              "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+              "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+              "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+              "training/shared/encoding.py": "56c8ecba2b66d518eb031167647e5deb366cd53f642657170faae97601ed991c",
+              "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
+              "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+              "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+              "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+              "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+              "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+              "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+              "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+              "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+              "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+              "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+              "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+              "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+              "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+              "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+              "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+              "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+              "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
+            },
+            "semanticsHash": "da9da0b7b566aaf696c72dbaeca5f63639c6e4f7f175520e8a47424a7cdc1aae",
+            "packConfigHash": "d55d2c837471d9c798068acf6fc59603ee06498379a685a082cb883ddfd49167",
+            "decoderPolicy": {
+              "coalesce_types": [],
+              "modifier_roles": null
+            },
+            "pythonTorch": "2.14.0",
+            "repositoryDirty": true,
+            "repositoryCommit": "03ccd135e08245d5345a4fc419ea15541af893ae"
+          },
+          "resumeCheckpoint": "artifacts/ini/context512-20261115-01/last.pt"
+        }
+      ]
+    },
+    {
+      "run": "artifacts/ini/context512-mixed-20261115-01",
+      "completedEpochs": 6,
+      "timings": [
+        {
+          "epoch": 1,
+          "epochSeconds": 7.551880083978176,
+          "checkpointSeconds": 0.12213033402804285
+        },
+        {
+          "epoch": 2,
+          "epochSeconds": 6.67682833399158,
+          "checkpointSeconds": 0.06140866701025516
+        },
+        {
+          "epoch": 3,
+          "epochSeconds": 6.572100667050108,
+          "checkpointSeconds": 0.05997945799026638
+        },
+        {
+          "epoch": 4,
+          "epochSeconds": 6.885858208057471,
+          "checkpointSeconds": 0.05898045806679875
+        },
+        {
+          "epoch": 5,
+          "epochSeconds": 6.502754000015557,
+          "checkpointSeconds": 0.11307129205670208
+        },
+        {
+          "epoch": 6,
+          "epochSeconds": 6.825749750016257,
+          "checkpointSeconds": 0.08584808302111924
+        }
+      ],
+      "invocations": [
+        {
+          "device": "mps",
+          "initialEpochBudget": 3,
+          "trainingConfig": {
+            "batch_size": 32,
+            "learning_rate": 0.0003,
+            "weight_decay": 0.01,
+            "modifier_loss_weight": 0.1,
+            "modifier_threshold": 0.6,
+            "patience": 5,
+            "seed": 42,
+            "smoke": false,
+            "smoke_batches": 8,
+            "smoke_eval_windows": 48,
+            "sampling": "natural-plus-curriculum",
+            "focus_every": 1,
+            "focus_batch_size": 64
+          },
+          "modelConfig": {
+            "context_bytes": 512,
+            "width": 128,
+            "heads": 4,
+            "layers": 4,
+            "feed_forward": 512,
+            "dropout": 0.1,
+            "local_kernel": 1
+          },
+          "parameters": 894872,
+          "dataset": {
+            "snapshot": "72cb31aee90dadd65b397ae95cfafa6e8935e86f5242717b0da165d6c62ef13b",
+            "manifestHash": "39385fc7fa88f7e82d61e7448caf84a66eb40244043247443c8894a9f8c243b1",
+            "path": "/Users/mystic/Datasets/neural-semantic-highlighting/ini/prepared/72cb31aee90dadd65b397ae95cfafa6e8935e86f5242717b0da165d6c62ef13b"
+          },
+          "selection": "mean per-profile natural real-source validation exact-span macro F1; fixed-window logits reassembled",
+          "initialization": {
+            "mode": "ini-weights-only-transfer",
+            "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/ini/context512-20261115-01/candidates/epoch-0006.pt",
+            "checkpointHash": "74ac6c5e91c6b5c59a35c738da106195477633b5140a17b7b38662a344e605e8",
+            "sourceEpoch": 6,
+            "sourceDataset": {
+              "snapshot": "ce912c6b95d4eccd80c2e39497e65b6daf7e1e75329de8a53e742502f36a3839",
+              "manifestHash": "f2a7ffe457b990ed0517b7dc0c795e430c57ecad23543cbedd856f1854bc94bf",
+              "path": "/Users/mystic/Datasets/neural-semantic-highlighting/ini/prepared/ce912c6b95d4eccd80c2e39497e65b6daf7e1e75329de8a53e742502f36a3839"
+            },
+            "copiedTokenTypes": [
+              "keyword",
+              "comment",
+              "string",
+              "number",
+              "operator",
+              "punctuation",
+              "namespace",
+              "type",
+              "enum",
+              "enum-member",
+              "function",
+              "method",
+              "constructor",
+              "parameter",
+              "variable",
+              "property",
+              "type-parameter",
+              "decorator",
+              "constant",
+              "label"
+            ],
+            "newTokenTypes": [],
+            "newTensors": [],
+            "copiedModifiers": [
+              "declaration"
+            ],
+            "optimizerAndTrainingState": "fresh pack run"
+          },
+          "provenance": {
+            "codeHashes": {
+              "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+              "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+              "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+              "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+              "training/ini/challenge.py": "aaf04180abb2e2dbb808b0a83b564d4075a50fc89fd23415cdc5962f858ba05b",
+              "training/ini/evaluate.py": "a3b33c4c4ea1933454630e7072f0119d9364e9289000e39aa7266a292f92da8a",
+              "training/ini/export_model.py": "03f6abfc7f8fbb3ca6c07a5dc161b7fbaa559761db33a1bd6e132408dc16b72e",
+              "training/ini/predict.py": "4a6cd85c138ba5cbe96edc6a270eff68b8d9dc1cf3056da8efad72d57267d3df",
+              "training/ini/prepare.py": "1af9e6314bcedfed1a845e9f029ba7e4a8524de10de4a018c011a07daca9d8d8",
+              "training/ini/review.py": "8d0fd47e378183cb5a04222e54fca6b9a061e72acde8203377dd7e5f0968759a",
+              "training/ini/train.py": "782c83214cdfc4808295048da6ac7b6b0b04a9fa3ad21c9db8e0b2a6e445f5e7",
+              "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+              "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+              "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+              "training/shared/encoding.py": "56c8ecba2b66d518eb031167647e5deb366cd53f642657170faae97601ed991c",
+              "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
+              "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+              "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+              "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+              "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+              "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+              "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+              "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+              "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+              "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+              "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+              "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+              "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+              "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+              "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+              "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+              "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+              "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
+            },
+            "semanticsHash": "da9da0b7b566aaf696c72dbaeca5f63639c6e4f7f175520e8a47424a7cdc1aae",
+            "packConfigHash": "d55d2c837471d9c798068acf6fc59603ee06498379a685a082cb883ddfd49167",
+            "decoderPolicy": {
+              "coalesce_types": [],
+              "modifier_roles": null
+            },
+            "pythonTorch": "2.14.0",
+            "repositoryDirty": true,
+            "repositoryCommit": "2d0a4b6e7fb8df6809ec2f94896f33d69b6b9c4f"
+          },
+          "resumeCheckpoint": null
+        },
+        {
+          "device": "mps",
+          "initialEpochBudget": 3,
+          "trainingConfig": {
+            "batch_size": 32,
+            "learning_rate": 0.0003,
+            "weight_decay": 0.01,
+            "modifier_loss_weight": 0.1,
+            "modifier_threshold": 0.6,
+            "patience": 5,
+            "seed": 42,
+            "smoke": false,
+            "smoke_batches": 8,
+            "smoke_eval_windows": 48,
+            "sampling": "natural-plus-curriculum",
+            "focus_every": 1,
+            "focus_batch_size": 64
+          },
+          "modelConfig": {
+            "context_bytes": 512,
+            "width": 128,
+            "heads": 4,
+            "layers": 4,
+            "feed_forward": 512,
+            "dropout": 0.1,
+            "local_kernel": 1
+          },
+          "parameters": 894872,
+          "dataset": {
+            "snapshot": "72cb31aee90dadd65b397ae95cfafa6e8935e86f5242717b0da165d6c62ef13b",
+            "manifestHash": "39385fc7fa88f7e82d61e7448caf84a66eb40244043247443c8894a9f8c243b1",
+            "path": "/Users/mystic/Datasets/neural-semantic-highlighting/ini/prepared/72cb31aee90dadd65b397ae95cfafa6e8935e86f5242717b0da165d6c62ef13b"
+          },
+          "selection": "mean per-profile natural real-source validation exact-span macro F1; fixed-window logits reassembled",
+          "initialization": {
+            "mode": "ini-weights-only-transfer",
+            "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/ini/context512-20261115-01/candidates/epoch-0006.pt",
+            "checkpointHash": "74ac6c5e91c6b5c59a35c738da106195477633b5140a17b7b38662a344e605e8",
+            "sourceEpoch": 6,
+            "sourceDataset": {
+              "snapshot": "ce912c6b95d4eccd80c2e39497e65b6daf7e1e75329de8a53e742502f36a3839",
+              "manifestHash": "f2a7ffe457b990ed0517b7dc0c795e430c57ecad23543cbedd856f1854bc94bf",
+              "path": "/Users/mystic/Datasets/neural-semantic-highlighting/ini/prepared/ce912c6b95d4eccd80c2e39497e65b6daf7e1e75329de8a53e742502f36a3839"
+            },
+            "copiedTokenTypes": [
+              "keyword",
+              "comment",
+              "string",
+              "number",
+              "operator",
+              "punctuation",
+              "namespace",
+              "type",
+              "enum",
+              "enum-member",
+              "function",
+              "method",
+              "constructor",
+              "parameter",
+              "variable",
+              "property",
+              "type-parameter",
+              "decorator",
+              "constant",
+              "label"
+            ],
+            "newTokenTypes": [],
+            "newTensors": [],
+            "copiedModifiers": [
+              "declaration"
+            ],
+            "optimizerAndTrainingState": "fresh pack run"
+          },
+          "provenance": {
+            "codeHashes": {
+              "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+              "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+              "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+              "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+              "training/ini/challenge.py": "aaf04180abb2e2dbb808b0a83b564d4075a50fc89fd23415cdc5962f858ba05b",
+              "training/ini/evaluate.py": "a3b33c4c4ea1933454630e7072f0119d9364e9289000e39aa7266a292f92da8a",
+              "training/ini/export_model.py": "03f6abfc7f8fbb3ca6c07a5dc161b7fbaa559761db33a1bd6e132408dc16b72e",
+              "training/ini/predict.py": "4a6cd85c138ba5cbe96edc6a270eff68b8d9dc1cf3056da8efad72d57267d3df",
+              "training/ini/prepare.py": "1af9e6314bcedfed1a845e9f029ba7e4a8524de10de4a018c011a07daca9d8d8",
+              "training/ini/review.py": "8d0fd47e378183cb5a04222e54fca6b9a061e72acde8203377dd7e5f0968759a",
+              "training/ini/train.py": "782c83214cdfc4808295048da6ac7b6b0b04a9fa3ad21c9db8e0b2a6e445f5e7",
+              "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+              "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+              "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+              "training/shared/encoding.py": "56c8ecba2b66d518eb031167647e5deb366cd53f642657170faae97601ed991c",
+              "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
+              "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+              "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+              "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+              "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+              "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+              "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+              "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+              "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+              "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+              "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+              "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+              "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+              "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+              "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+              "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+              "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+              "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
+            },
+            "semanticsHash": "da9da0b7b566aaf696c72dbaeca5f63639c6e4f7f175520e8a47424a7cdc1aae",
+            "packConfigHash": "d55d2c837471d9c798068acf6fc59603ee06498379a685a082cb883ddfd49167",
+            "decoderPolicy": {
+              "coalesce_types": [],
+              "modifier_roles": null
+            },
+            "pythonTorch": "2.14.0",
+            "repositoryDirty": true,
+            "repositoryCommit": "2d0a4b6e7fb8df6809ec2f94896f33d69b6b9c4f"
+          },
+          "resumeCheckpoint": "artifacts/ini/context512-mixed-20261115-01/last.pt"
+        }
+      ]
+    },
+    {
+      "run": "artifacts/ini/context512-refine-20261115-01",
+      "completedEpochs": 3,
+      "timings": [
+        {
+          "epoch": 1,
+          "epochSeconds": 7.214448292041197,
+          "checkpointSeconds": 0.12377737497445196
+        },
+        {
+          "epoch": 2,
+          "epochSeconds": 6.754976375028491,
+          "checkpointSeconds": 0.1242256669793278
+        },
+        {
+          "epoch": 3,
+          "epochSeconds": 6.691626042011194,
+          "checkpointSeconds": 0.06282787502277642
+        }
+      ],
+      "invocations": [
+        {
+          "device": "mps",
+          "initialEpochBudget": 3,
+          "trainingConfig": {
+            "batch_size": 32,
+            "learning_rate": 0.0001,
+            "weight_decay": 0.01,
+            "modifier_loss_weight": 0.1,
+            "modifier_threshold": 0.6,
+            "patience": 5,
+            "seed": 42,
+            "smoke": false,
+            "smoke_batches": 8,
+            "smoke_eval_windows": 48,
+            "sampling": "natural-plus-curriculum",
+            "focus_every": 1,
+            "focus_batch_size": 64
+          },
+          "modelConfig": {
+            "context_bytes": 512,
+            "width": 128,
+            "heads": 4,
+            "layers": 4,
+            "feed_forward": 512,
+            "dropout": 0.1,
+            "local_kernel": 1
+          },
+          "parameters": 894872,
+          "dataset": {
+            "snapshot": "72cb31aee90dadd65b397ae95cfafa6e8935e86f5242717b0da165d6c62ef13b",
+            "manifestHash": "39385fc7fa88f7e82d61e7448caf84a66eb40244043247443c8894a9f8c243b1",
+            "path": "/Users/mystic/Datasets/neural-semantic-highlighting/ini/prepared/72cb31aee90dadd65b397ae95cfafa6e8935e86f5242717b0da165d6c62ef13b"
+          },
+          "selection": "mean per-profile natural real-source validation exact-span macro F1; fixed-window logits reassembled",
+          "initialization": {
+            "mode": "ini-weights-only-transfer",
+            "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/ini/context512-mixed-20261115-01/candidates/epoch-0005.pt",
+            "checkpointHash": "2e2018ce9d4a33da9baf0039d9edcb338eb0be9efdee9294d17d1bc191946f39",
+            "sourceEpoch": 5,
+            "sourceDataset": {
+              "snapshot": "72cb31aee90dadd65b397ae95cfafa6e8935e86f5242717b0da165d6c62ef13b",
+              "manifestHash": "39385fc7fa88f7e82d61e7448caf84a66eb40244043247443c8894a9f8c243b1",
+              "path": "/Users/mystic/Datasets/neural-semantic-highlighting/ini/prepared/72cb31aee90dadd65b397ae95cfafa6e8935e86f5242717b0da165d6c62ef13b"
+            },
+            "copiedTokenTypes": [
+              "keyword",
+              "comment",
+              "string",
+              "number",
+              "operator",
+              "punctuation",
+              "namespace",
+              "type",
+              "enum",
+              "enum-member",
+              "function",
+              "method",
+              "constructor",
+              "parameter",
+              "variable",
+              "property",
+              "type-parameter",
+              "decorator",
+              "constant",
+              "label"
+            ],
+            "newTokenTypes": [],
+            "newTensors": [],
+            "copiedModifiers": [
+              "declaration"
+            ],
+            "optimizerAndTrainingState": "fresh pack run"
+          },
+          "provenance": {
+            "codeHashes": {
+              "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+              "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+              "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+              "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+              "training/ini/challenge.py": "aaf04180abb2e2dbb808b0a83b564d4075a50fc89fd23415cdc5962f858ba05b",
+              "training/ini/evaluate.py": "a3b33c4c4ea1933454630e7072f0119d9364e9289000e39aa7266a292f92da8a",
+              "training/ini/export_model.py": "03f6abfc7f8fbb3ca6c07a5dc161b7fbaa559761db33a1bd6e132408dc16b72e",
+              "training/ini/predict.py": "4a6cd85c138ba5cbe96edc6a270eff68b8d9dc1cf3056da8efad72d57267d3df",
+              "training/ini/prepare.py": "1af9e6314bcedfed1a845e9f029ba7e4a8524de10de4a018c011a07daca9d8d8",
+              "training/ini/review.py": "8d0fd47e378183cb5a04222e54fca6b9a061e72acde8203377dd7e5f0968759a",
+              "training/ini/train.py": "782c83214cdfc4808295048da6ac7b6b0b04a9fa3ad21c9db8e0b2a6e445f5e7",
+              "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+              "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+              "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+              "training/shared/encoding.py": "56c8ecba2b66d518eb031167647e5deb366cd53f642657170faae97601ed991c",
+              "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
+              "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+              "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+              "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+              "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+              "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+              "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+              "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+              "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+              "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+              "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+              "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+              "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+              "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+              "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+              "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+              "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+              "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
+            },
+            "semanticsHash": "da9da0b7b566aaf696c72dbaeca5f63639c6e4f7f175520e8a47424a7cdc1aae",
+            "packConfigHash": "d55d2c837471d9c798068acf6fc59603ee06498379a685a082cb883ddfd49167",
+            "decoderPolicy": {
+              "coalesce_types": [],
+              "modifier_roles": null
+            },
+            "pythonTorch": "2.14.0",
+            "repositoryDirty": true,
+            "repositoryCommit": "2d0a4b6e7fb8df6809ec2f94896f33d69b6b9c4f"
+          },
+          "resumeCheckpoint": null
+        }
+      ]
+    }
+  ],
+  "initializer": "artifacts/toml/context512-refine-20261115-01/candidates/epoch-0002.pt",
+  "selected": {
+    "checkpoint": "artifacts/ini/context512-refine-20261115-01/candidates/epoch-0002.pt",
+    "checkpointHash": "ad760bada3d9329f10eb5c186d7a3460f16395b2c4ec8e2fa598803b79010172",
+    "checkpointEpoch": 2,
+    "frozenAtUTC": "2026-11-15T15:41:15.161587+00:00",
+    "selectedBeforeFirstTest": true,
+    "trainingComplete": true,
+    "selection": "Fixed mean per-profile natural validation exact-span role macro F1",
+    "decision": "Keep a bounded useful display baseline after independent Golden, visible examples and actual natural validation review; stop training before the first adaptive test.",
+    "reviewed": [
+      "40 independent marked Golden cases",
+      "8 authored display sources",
+      "7 actual natural validation sources"
+    ],
+    "reviewSha256": "f3aa915f47cf5e4522f884962f075fd9f288e86933781e9e79a3208d6a58fe6d",
+    "goldenSha256": "db7877ada3d6c4cf5777b8eb8a10fb5a393a95d346512d31798e4ea324cde73a",
+    "goldenExact": 17,
+    "frozenFamilies": 114,
+    "newSDKInstalledForThisTask": false
+  },
+  "trainingSeconds": 93.12614850210957,
+  "smokeRun": "artifacts/ini/smoke-20261115-01"
+}
