@@ -13,6 +13,12 @@ class XmlTeacherTests(unittest.TestCase):
   for case in json.loads((ROOT/'fixtures/golden.json').read_text()):
    with self.subTest(case=case['id']):
     g=unmark(case['markedSource']);self.assertEqual(self.check(g['source'],case['documentKind'])['spans'],g['spans'])
+ def test_counterpart_curriculum_uses_one_source_family_identity(self):
+  rows=json.loads((ROOT/'dataset/sources.json').read_text())['sources']
+  for directory in ['curriculum-v1','mixed-v1']:
+   sources=[x for x in rows if x['path'].endswith('/'+directory)]
+   self.assertEqual({x['profile']for x in sources},{'xml','svg'})
+   self.assertEqual(len({(x['id'],x['groupBy'])for x in sources}),1)
  def test_case_sensitive_matching(self):
   with self.assertRaises(ValueError):self.check('<Name></name>')
  def test_xml_has_no_html_void_or_unquoted_attribute_rules(self):

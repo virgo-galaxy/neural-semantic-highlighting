@@ -19,3 +19,17 @@ prepared snapshots. Resume only full optimizer/RNG checkpoints in artifacts/xml;
 never use packs/*/model/model.pt or ONNX. Preserve earlier captures, data revisions,
 experiments and formal weights. Review validation before freezing the candidate;
 the first adaptive held-out test is final and cannot drive another training run.
+
+A bounded 20-family/960-task mixed extension follows the first six epochs' actual
+validation/display review: short XML declarations, variable processing instructions,
+public/internal doctypes, multiline CDATA, adjacent escaped markup/entities and
+SVG semicolon-valued animation attributes. All natural holdouts and earlier snapshots/checkpoints remain preserved.
+A subsequent family-identity audit corrected the initial exploratory kind-specific
+focus IDs: XML/SVG counterparts now use the same source ID and family key. The
+first six exploratory epochs are excluded from final candidate selection and
+weight transfer. The final shared-family run starts again from the full HTML
+checkpoint; this prevents any counterpart leakage into final focus holdouts.
+The exact/lexical/structural copy audit is unchanged.
+Before any training, intact natural groups were allocated by fixed size/hash order
+to provide at least six real validation/test files for each kind; no predictions
+or source contents informed this allocation.

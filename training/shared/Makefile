@@ -1900,6 +1900,7 @@ dataset-xml:
 
 dataset-xml-curriculum:
 	$(PYTHON) -m packs.xml.dataset.generate_curriculum
+	$(PYTHON) -m packs.xml.dataset.generate_mixed
 
 dataset-xml-collect:
 	$(PYTHON) -m packs.xml.dataset.pipeline collect
@@ -1941,4 +1942,3 @@ challenge-xml:
 export-xml-model:
 	@test -n "$(XML_CHECKPOINT)" -a -n "$(XML_TEST_REPORT)" || (echo 'Set XML_CHECKPOINT and XML_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.xml.export_model --checkpoint "$(XML_CHECKPOINT)" --test-report "$(XML_TEST_REPORT)"
-
