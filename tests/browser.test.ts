@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { type BrowserModel, BrowserRuntime } from "@nsh/browser";
 import { createHighlighter } from "@nsh/highlighter/core";
 import dart from "@nsh/highlighter/languages/dart";
+import dotenv from "@nsh/highlighter/languages/dotenv";
 import flutter from "@nsh/highlighter/languages/flutter";
 import ini from "@nsh/highlighter/languages/ini";
 import json from "@nsh/highlighter/languages/json";
@@ -232,6 +233,24 @@ describe("consumer API", () => {
     expect(FakeWorker.instances).toHaveLength(1);
     highlighter.close();
   });
+  it("routes Dotenv names through its selected model", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [dotenv] });
+    expect(highlighter.languages()).toEqual(["dotenv"]);
+    for (const language of ["dotenv", "Dotenv", "env", "ENV", ".env"]) {
+      expect(highlighter.supports(language)).toBe(true);
+      const pending = highlighter.highlight('title = "<星🌌>"', { language });
+      const worker = FakeWorker.instances[0];
+      const message = worker.messages.at(-1)!;
+      expect(message.model).toMatchObject({ id: "dotenv", sha256: dotenv.sha256 });
+      worker.reply(message.id);
+      const rendered = await pending;
+      expect(rendered.language).toBe("dotenv");
+      expect(rendered.value).toContain("&lt;星🌌&gt;");
+    }
+    expect(FakeWorker.instances).toHaveLength(1);
+    highlighter.close();
+  });
   it("routes INI names through its selected model", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [ini] });
@@ -320,6 +339,7 @@ describe("shipped browser artifacts", () => {
       "yaml",
       "toml",
       "ini",
+      "dotenv",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

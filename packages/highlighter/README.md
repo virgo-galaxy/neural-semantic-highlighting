@@ -29,7 +29,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
 include their JS/TS/CSS dependencies automatically; PHP includes HTML and its
-child dependencies. Default registration covers 32 packs, including Swift,
+child dependencies. Default registration covers 33 packs, including Swift,
 Kotlin, R, Scala, Ruby and Lua. Flutter shares Dart's model. Weights are fetched
 lazily. Models are about 3.7 MB each, with a shared 14.8 MB uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -180,3 +180,9 @@ INI .ini/.cfg and EditorConfig source, sections/root options, =/: key-value deli
 without a language SDK, parser or Python provider. All existing themes/custom CSS
 apply. See [evaluation](../../packs/ini/model/BENCHMARKS.md) and
 [known limits](../../packs/ini/model/KNOWN_ISSUES.md).
+
+.env uses `{ language: "dotenv" }`. dotenv, env and .env (case normalized) share one descriptor and canonical dotenv output. Filename examples include .env, .env.local and .env.production; the API takes an explicit language rather than auto-detecting file content.
+Common .env/.env.* dotenv configuration, variable declarations, export, plain/single/double/backtick and multiline string values, hash comments, empty values and opaque references. Selective `@nsh/highlighter/languages/dotenv` emits one model asset,
+without a language SDK, parser or Python provider. All existing themes/custom CSS
+apply. See [evaluation](../../packs/dotenv/model/BENCHMARKS.md) and
+[known limits](../../packs/dotenv/model/KNOWN_ISSUES.md).

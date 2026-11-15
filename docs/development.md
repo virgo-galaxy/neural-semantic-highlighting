@@ -434,3 +434,15 @@ See [training](../training/ini/README.md), [semantics](../packs/ini/SEMANTICS.md
 and [selected evaluation](../packs/ini/model/BENCHMARKS.md). Resume full artifacts
 checkpoints only, never inference .pt/ONNX. Frontend and Playground inference use
 the selected ONNX asset in the existing browser Worker without a Python bridge.
+
+## .env offline workflow
+
+`make dataset-dotenv` follows the existing external dataset/checkpoint paths,
+immutable revisions, copy audits and frozen source families. `make dataset-dotenv-tools`
+prepares Pinned official dotenv 18.0.10 parse-only npm assets with retained BSD-2-Clause license and archive/per-file hashes, using existing Node only. No language SDK/global package is installed; collected source,
+configuration commands and schemas never execute. `make test-labeling-dotenv` checks
+12 focused tests and 40 independently marked Golden cases.
+See [training](../training/dotenv/README.md), [semantics](../packs/dotenv/SEMANTICS.md)
+and [selected evaluation](../packs/dotenv/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only, never inference .pt/ONNX. Frontend and Playground inference use
+the selected ONNX asset in the existing browser Worker without a Python bridge.

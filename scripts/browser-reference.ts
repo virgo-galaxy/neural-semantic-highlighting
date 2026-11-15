@@ -42,6 +42,7 @@ const ids = [
   "yaml",
   "toml",
   "ini",
+  "dotenv",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -254,6 +255,20 @@ for (const [index, source] of [
     source,
     documentKind: "ini",
     result: await getPack("ini").highlight({ source, documentKind: "ini" }),
+  });
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '\ufeff# 星空 🌌\r\nTITLE="星空 🌌"\r\nexport READY=true\r\n',
+  'TEXT="first line\n' +
+    "  Original 🌌 value with # markers, {braces} and quotes.\n".repeat(80) +
+    'last line"\nREADY=true\n',
+].entries())
+  cases.push({
+    filename: `edge/dotenv-${index}.env`,
+    source,
+    documentKind: "dotenv",
+    result: await getPack("dotenv").highlight({ source, documentKind: "dotenv" }),
   });
 await Promise.all([...models.values()].map((model) => model.close()));
 writeFileSync(

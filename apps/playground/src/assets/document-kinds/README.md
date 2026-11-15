@@ -103,3 +103,7 @@ under the retained Devicon MIT license.
 The INI entry uses an original repository-authored `ini.svg` document/settings
 icon. The pinned Devicon revision has no INI icon, so it does not reuse another
 language logo or introduce a third-party asset/license.
+
+The .env entry uses an original repository-authored `dotenv.svg` configuration
+icon. The pinned Devicon revision has no dotenv icon at its canonical path;
+no other language logo or additional third-party asset/license is reused.

@@ -2,10 +2,10 @@
 
 ## Current verified state
 
-The latest [INI addition record](ini-browser-verification.json), dated 2026-11-15,
-covers **32 selected model packs** and **287/287** exact Chromium/native
-span/role/modifier comparisons, with **161** passing frontend tests. Its independent
-local-package consumer passes **12/12** INI comparisons plus the element/tokens API,
+The latest [.env addition record](dotenv-browser-verification.json), dated 2026-11-16,
+covers **33 selected model packs** and **299/299** exact Chromium/native
+span/role/modifier comparisons, with **162** passing frontend tests. Its independent
+local-package consumer passes **12/12** .env comparisons plus the element/tokens API,
 six preset/mode combinations and custom CSS. Earlier language-specific consumer
 checks remain in their own records below. JSON and JSONC share one model;
 Flutter uses the Dart model.
@@ -685,4 +685,32 @@ Natural held-out F1 is **89.70%** on
 17/40. [Quality and limits](../packs/ini/model/BENCHMARKS.md)
 keep these evidence sets distinct. Indented continuation lines resembling assignments or headers can split or gain property/punctuation roles (continuations.ini display 82.76% F1). Packaging constraints/version strings and empty-value continuations remain weaker (setup.cfg 89.47%); quoted/path values and section/glob boundaries can also fragment. Common INI/EditorConfig source uses one explicit dialect: #/; full-line comments, with inline value markers kept literal. Application-specific inline comments/escape rules and general .conf/.env syntax are outside scope. No interpolation, configuration execution, project validation or runtime parser/spelling repair is provided. Offline tools are
 Existing CPython 3.12 ConfigParser with interpolation disabled, independent section/key inventory validation and Python/stdlib/teacher SHA-256 provenance; no downloaded tool or SDK; no language SDK/global package is installed and collected projects
+never execute. Frontend consumers require no language toolchain or Python process.
+
+## .env addition
+
+.env is selected model 33. The [verification record](dotenv-browser-verification.json)
+retains ONNX conversion, browser/native parity and independent public-package evidence.
+
+- Chromium matches **299/299** original UTF-16 span/role/modifier references,
+  including all earlier cases, eight new displays and four empty/CRLF/Unicode/long
+  multi-window probes. These are consistency checks, not additional accuracy tests.
+- An independent temporary Vite app installs four local package archives offline,
+  imports public core + dotenv + theme exports, and emits **one model asset** without
+  repository aliases. It passes **12/12** spans/original-text comparisons,
+  `highlightElement`, `highlightTokens`, case-normalized IDs, six preset/mode
+  combinations and custom CSS. Static output uses the existing Playground
+  filesystem route; no new server/port is introduced.
+- Playground adds the original dotenv configuration icon, eight examples, shuffle and light/dark
+  switching through the existing browser worker, without Python. Full `make check`
+  passes **162** frontend tests and every prior language check,
+  including **12** new teacher tests and **40** marked Golden cases.
+  All 65 earlier native/ONNX weight files remain byte-identical.
+
+Natural held-out F1 is **98.25%** on
+3 real files. Visible displays aggregate
+**97.70%**; strict neural Golden agreement is
+21/40. [Quality and limits](../packs/dotenv/model/BENCHMARKS.md)
+keep these evidence sets distinct. Quoted/multiline boundaries remain a measured weakness (multiline.env display 81.82% F1), including assignment/hash-looking content within values; individual comment/value boundaries can still split (comments.env 93.33%). Declaration flags, escaped quotes and long bodies remain approximate. One common ASCII-name/equals-assignment dotenv profile is supported; loader-specific colon/dotted/dashed names are outside the teacher contract. All values remain strings. No expansion, command substitution, environment injection, decryption, application validation or runtime parser/spelling repair is provided. Offline tools are
+Pinned official dotenv 18.0.10 parse-only npm assets with retained BSD-2-Clause license and archive/per-file hashes, using existing Node only; no language SDK/global package is installed and collected projects
 never execute. Frontend consumers require no language toolchain or Python process.

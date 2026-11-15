@@ -36,6 +36,8 @@ export interface BrowserHighlighter {
 const aliases: Readonly<Record<string, string>> = {
   js: "javascript",
   yml: "yaml",
+  env: "dotenv",
+  ".env": "dotenv",
   cfg: "ini",
   editorconfig: "ini",
   ts: "typescript",
