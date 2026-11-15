@@ -1874,3 +1874,71 @@ challenge-dotenv:
 export-dotenv-model:
 	@test -n "$(DOTENV_CHECKPOINT)" -a -n "$(DOTENV_TEST_REPORT)" || (echo 'Set DOTENV_CHECKPOINT and DOTENV_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.dotenv.export_model --checkpoint "$(DOTENV_CHECKPOINT)" --test-report "$(DOTENV_TEST_REPORT)"
+
+XML_DEVICE ?= auto
+XML_EPOCHS ?= 3
+XML_BATCH_SIZE ?= 32
+XML_LEARNING_RATE ?=
+XML_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-xml dataset-xml-tools dataset-xml-sources dataset-xml-curriculum dataset-xml-collect dataset-xml-label dataset-xml-validate dataset-xml-prepare test-labeling-xml train-xml-smoke train-xml continue-xml predict-xml evaluate-xml challenge-xml export-xml-model
+
+dataset-xml-tools:
+	$(PYTHON) -m packs.xml.labeling.tools
+
+dataset-xml-sources:
+	$(PYTHON) -m packs.xml.dataset.fetch_sources
+
+dataset-xml:
+	$(MAKE) dataset-xml-tools
+	$(MAKE) dataset-xml-sources
+	$(MAKE) dataset-xml-curriculum
+	$(MAKE) dataset-xml-collect
+	$(MAKE) dataset-xml-label
+	$(MAKE) dataset-xml-validate
+	$(MAKE) dataset-xml-prepare
+
+dataset-xml-curriculum:
+	$(PYTHON) -m packs.xml.dataset.generate_curriculum
+
+dataset-xml-collect:
+	$(PYTHON) -m packs.xml.dataset.pipeline collect
+
+dataset-xml-label:
+	$(PYTHON) -m packs.xml.dataset.pipeline label
+
+dataset-xml-validate:
+	$(PYTHON) -m packs.xml.dataset.pipeline validate
+
+dataset-xml-prepare:
+	$(PYTHON) -m training.xml.prepare
+
+test-labeling-xml:
+	$(PYTHON) -m unittest discover -s packs/xml/tests -v
+
+train-xml-smoke:
+	$(PYTHON) -m training.xml.train --smoke --epochs 1 --device $(XML_DEVICE) $(if $(XML_RUN),--output-dir "$(XML_RUN)") $(if $(XML_INIT_FROM),--init-from "$(XML_INIT_FROM)")
+
+train-xml:
+	$(PYTHON) -m training.xml.train --epochs $(XML_EPOCHS) --device $(XML_DEVICE) --batch-size $(XML_BATCH_SIZE) $(if $(XML_LEARNING_RATE),--learning-rate $(XML_LEARNING_RATE)) $(if $(XML_RUN),--output-dir "$(XML_RUN)") $(if $(XML_INIT_FROM),--init-from "$(XML_INIT_FROM)")
+
+continue-xml:
+	@test -n "$(XML_CHECKPOINT)" || (echo 'Set XML_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.xml.train --resume "$(XML_CHECKPOINT)" --epochs $(XML_EPOCHS) --device $(XML_DEVICE)
+
+predict-xml:
+	@test -n "$(XML_SOURCE)" || (echo 'Set XML_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.xml.predict --device $(XML_DEVICE) --file "$(XML_SOURCE)" $(if $(XML_CHECKPOINT),--checkpoint "$(XML_CHECKPOINT)")
+
+evaluate-xml:
+	@test -n "$(XML_CHECKPOINT)" || (echo 'Set XML_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.xml.evaluate --checkpoint "$(XML_CHECKPOINT)" --device $(XML_DEVICE) --split $(XML_EVAL_SPLIT)
+
+challenge-xml:
+	@test -n "$(XML_CHECKPOINT)" || (echo 'Set XML_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.xml.challenge --checkpoint "$(XML_CHECKPOINT)" --device $(XML_DEVICE)
+
+export-xml-model:
+	@test -n "$(XML_CHECKPOINT)" -a -n "$(XML_TEST_REPORT)" || (echo 'Set XML_CHECKPOINT and XML_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.xml.export_model --checkpoint "$(XML_CHECKPOINT)" --test-report "$(XML_TEST_REPORT)"
+
