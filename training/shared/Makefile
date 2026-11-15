@@ -1670,3 +1670,70 @@ challenge-yaml:
 export-yaml-model:
 	@test -n "$(YAML_CHECKPOINT)" -a -n "$(YAML_TEST_REPORT)" || (echo 'Set YAML_CHECKPOINT and YAML_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.yaml.export_model --checkpoint "$(YAML_CHECKPOINT)" --test-report "$(YAML_TEST_REPORT)"
+
+TOML_DEVICE ?= auto
+TOML_EPOCHS ?= 3
+TOML_BATCH_SIZE ?= 32
+TOML_LEARNING_RATE ?=
+TOML_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-toml dataset-toml-tools dataset-toml-sources dataset-toml-curriculum dataset-toml-collect dataset-toml-label dataset-toml-validate dataset-toml-prepare test-labeling-toml train-toml-smoke train-toml continue-toml predict-toml evatomlte-toml challenge-toml export-toml-model
+
+dataset-toml-tools:
+	$(PYTHON) -m packs.toml.labeling.tools
+
+dataset-toml-sources:
+	$(PYTHON) -m packs.toml.dataset.fetch_sources
+
+dataset-toml:
+	$(MAKE) dataset-toml-tools
+	$(MAKE) dataset-toml-sources
+	$(MAKE) dataset-toml-curriculum
+	$(MAKE) dataset-toml-collect
+	$(MAKE) dataset-toml-label
+	$(MAKE) dataset-toml-validate
+	$(MAKE) dataset-toml-prepare
+
+dataset-toml-curriculum:
+	$(PYTHON) -m packs.toml.dataset.generate_curriculum
+
+dataset-toml-collect:
+	$(PYTHON) -m packs.toml.dataset.pipeline collect
+
+dataset-toml-label:
+	$(PYTHON) -m packs.toml.dataset.pipeline label
+
+dataset-toml-validate:
+	$(PYTHON) -m packs.toml.dataset.pipeline validate
+
+dataset-toml-prepare:
+	$(PYTHON) -m training.toml.prepare
+
+test-labeling-toml:
+	$(PYTHON) -m unittest discover -s packs/toml/tests -v
+
+train-toml-smoke:
+	$(PYTHON) -m training.toml.train --smoke --epochs 1 --device $(TOML_DEVICE) $(if $(TOML_RUN),--output-dir "$(TOML_RUN)") $(if $(TOML_INIT_FROM),--init-from "$(TOML_INIT_FROM)")
+
+train-toml:
+	$(PYTHON) -m training.toml.train --epochs $(TOML_EPOCHS) --device $(TOML_DEVICE) --batch-size $(TOML_BATCH_SIZE) $(if $(TOML_LEARNING_RATE),--learning-rate $(TOML_LEARNING_RATE)) $(if $(TOML_RUN),--output-dir "$(TOML_RUN)") $(if $(TOML_INIT_FROM),--init-from "$(TOML_INIT_FROM)")
+
+continue-toml:
+	@test -n "$(TOML_CHECKPOINT)" || (echo 'Set TOML_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.toml.train --resume "$(TOML_CHECKPOINT)" --epochs $(TOML_EPOCHS) --device $(TOML_DEVICE)
+
+predict-toml:
+	@test -n "$(TOML_SOURCE)" || (echo 'Set TOML_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.toml.predict --device $(TOML_DEVICE) --file "$(TOML_SOURCE)" $(if $(TOML_CHECKPOINT),--checkpoint "$(TOML_CHECKPOINT)")
+
+evatomlte-toml:
+	@test -n "$(TOML_CHECKPOINT)" || (echo 'Set TOML_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.toml.evatomlte --checkpoint "$(TOML_CHECKPOINT)" --device $(TOML_DEVICE) --split $(TOML_EVAL_SPLIT)
+
+challenge-toml:
+	@test -n "$(TOML_CHECKPOINT)" || (echo 'Set TOML_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.toml.challenge --checkpoint "$(TOML_CHECKPOINT)" --device $(TOML_DEVICE)
+
+export-toml-model:
+	@test -n "$(TOML_CHECKPOINT)" -a -n "$(TOML_TEST_REPORT)" || (echo 'Set TOML_CHECKPOINT and TOML_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.toml.export_model --checkpoint "$(TOML_CHECKPOINT)" --test-report "$(TOML_TEST_REPORT)"

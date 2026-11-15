@@ -168,6 +168,7 @@ check:
 	$(MAKE) test-labeling-lua
 	$(MAKE) test-labeling-json
 	$(MAKE) test-labeling-yaml
+	$(MAKE) test-labeling-toml
 	$(PYTHON) -m compileall -q training/kotlin packs/kotlin/runtime
 	$(PYTHON) -m compileall -q training/r packs/r/runtime
 	$(PYTHON) -m compileall -q training/scala packs/scala/runtime
@@ -175,6 +176,7 @@ check:
 	$(PYTHON) -m compileall -q training/lua packs/lua/runtime
 	$(PYTHON) -m compileall -q training/json packs/json/runtime
 	$(PYTHON) -m compileall -q training/yaml packs/yaml/runtime
+	$(PYTHON) -m compileall -q training/toml packs/toml/runtime
 	$(PYTHON) -c 'import packs.kotlin.runtime.local'
 	$(MAKE) test-labeling-swift
 	$(PYTHON) -m compileall -q training/swift packs/swift/runtime

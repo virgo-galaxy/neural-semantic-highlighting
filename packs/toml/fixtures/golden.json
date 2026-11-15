@@ -1,0 +1,242 @@
+[
+  {
+    "id": "empty",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": ""
+  },
+  {
+    "id": "whitespace",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": " \r\n"
+  },
+  {
+    "id": "comment",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦comment|# 🌌 config⟧\r\n"
+  },
+  {
+    "id": "bare-key",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|name⟧ ⟦punctuation|=⟧ ⟦string|\"example\"⟧"
+  },
+  {
+    "id": "quoted-key",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|\"display name\"⟧ ⟦punctuation|=⟧ ⟦string|'Hello'⟧"
+  },
+  {
+    "id": "empty-key",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|\"\"⟧ ⟦punctuation|=⟧ ⟦string|\"\"⟧"
+  },
+  {
+    "id": "numeric-key",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|123⟧ ⟦punctuation|=⟧ ⟦number|45⟧"
+  },
+  {
+    "id": "dotted-key",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|fruit⟧⟦punctuation|.⟧⟦property|apple⟧⟦punctuation|=⟧⟦string|\"red\"⟧"
+  },
+  {
+    "id": "numeric-dotted",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|3⟧⟦punctuation|.⟧⟦property|14159⟧⟦punctuation|=⟧⟦string|\"pi\"⟧"
+  },
+  {
+    "id": "quoted-dot",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|a⟧⟦punctuation|.⟧⟦property|\"b.c\"⟧⟦punctuation|=⟧⟦keyword|true⟧"
+  },
+  {
+    "id": "table",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦punctuation|[⟧⟦namespace|server⟧⟦punctuation|]⟧\n⟦property|port⟧ ⟦punctuation|=⟧ ⟦number|8080⟧"
+  },
+  {
+    "id": "nested-table",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦punctuation|[⟧⟦namespace|a⟧⟦punctuation|.⟧⟦namespace|\"b.c\"⟧⟦punctuation|]⟧\n⟦property|x⟧ ⟦punctuation|=⟧ ⟦keyword|false⟧"
+  },
+  {
+    "id": "array-table",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦punctuation|[⟧⟦punctuation|[⟧⟦namespace|items⟧⟦punctuation|]⟧⟦punctuation|]⟧\n⟦property|id⟧ ⟦punctuation|=⟧ ⟦number|7⟧"
+  },
+  {
+    "id": "repeated-array-table",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦punctuation|[⟧⟦punctuation|[⟧⟦namespace|rows⟧⟦punctuation|]⟧⟦punctuation|]⟧\n⟦property|x⟧ ⟦punctuation|=⟧ ⟦number|1⟧\n⟦punctuation|[⟧⟦punctuation|[⟧⟦namespace|rows⟧⟦punctuation|]⟧⟦punctuation|]⟧\n⟦property|x⟧ ⟦punctuation|=⟧ ⟦number|2⟧"
+  },
+  {
+    "id": "inline",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|row⟧ ⟦punctuation|=⟧ ⟦punctuation|{⟧⟦property|id⟧⟦punctuation|=⟧⟦number|2⟧⟦punctuation|,⟧ ⟦property|ok⟧⟦punctuation|=⟧⟦keyword|true⟧⟦punctuation|}⟧"
+  },
+  {
+    "id": "array",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|xs⟧ ⟦punctuation|=⟧ ⟦punctuation|[⟧⟦number|1⟧⟦punctuation|,⟧ ⟦string|\"2\"⟧⟦punctuation|,⟧ ⟦keyword|false⟧⟦punctuation|,⟧⟦punctuation|]⟧"
+  },
+  {
+    "id": "nested-array",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|xs⟧ ⟦punctuation|=⟧ ⟦punctuation|[⟧⟦punctuation|[⟧⟦number|1⟧⟦punctuation|]⟧⟦punctuation|,⟧ ⟦punctuation|[⟧⟦number|2⟧⟦punctuation|]⟧⟦punctuation|]⟧"
+  },
+  {
+    "id": "empty-containers",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|xs⟧ ⟦punctuation|=⟧ ⟦punctuation|[⟧⟦punctuation|]⟧\n⟦property|row⟧ ⟦punctuation|=⟧ ⟦punctuation|{⟧⟦punctuation|}⟧"
+  },
+  {
+    "id": "signed-integer",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|value⟧ ⟦punctuation|=⟧ ⟦number|-1_024⟧"
+  },
+  {
+    "id": "signed-float",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|value⟧ ⟦punctuation|=⟧ ⟦number|+1.25e-3⟧"
+  },
+  {
+    "id": "radix",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|xs⟧ ⟦punctuation|=⟧ ⟦punctuation|[⟧⟦number|0xDEAD_BEEF⟧⟦punctuation|,⟧⟦number|0o755⟧⟦punctuation|,⟧⟦number|0b1010⟧⟦punctuation|]⟧"
+  },
+  {
+    "id": "special-float",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|xs⟧ ⟦punctuation|=⟧ ⟦punctuation|[⟧⟦number|inf⟧⟦punctuation|,⟧⟦number|-inf⟧⟦punctuation|,⟧⟦number|+nan⟧⟦punctuation|]⟧"
+  },
+  {
+    "id": "booleans",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|a⟧ ⟦punctuation|=⟧ ⟦keyword|true⟧\n⟦property|b⟧ ⟦punctuation|=⟧ ⟦keyword|false⟧"
+  },
+  {
+    "id": "boolean-key",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|true⟧ ⟦punctuation|=⟧ ⟦string|\"false\"⟧"
+  },
+  {
+    "id": "basic-escape",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|text⟧ ⟦punctuation|=⟧ ⟦string|\"quote\\\" slash\\\\ newline\\n\"⟧"
+  },
+  {
+    "id": "literal",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|path⟧ ⟦punctuation|=⟧ ⟦string|'C:\\docs\\notes'⟧"
+  },
+  {
+    "id": "hash-string",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|text⟧ ⟦punctuation|=⟧ ⟦string|\"# not comment\"⟧ ⟦comment|# comment⟧"
+  },
+  {
+    "id": "multiline-basic",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|text⟧ ⟦punctuation|=⟧ ⟦string|\"\"\"\nfirst\n# literal\nlast\n\"\"\"⟧"
+  },
+  {
+    "id": "multiline-literal",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|text⟧ ⟦punctuation|=⟧ ⟦string|'''\n\\w+ # data\n'''⟧"
+  },
+  {
+    "id": "continuation",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|text⟧ ⟦punctuation|=⟧ ⟦string|\"\"\"long \\\n  continued\"\"\"⟧"
+  },
+  {
+    "id": "offset-date",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|when⟧ ⟦punctuation|=⟧ ⟦number|1979-05-27T07:32:00-08:00⟧"
+  },
+  {
+    "id": "local-date-time",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|when⟧ ⟦punctuation|=⟧ ⟦number|1979-05-27 07:32:00.123⟧"
+  },
+  {
+    "id": "local-date",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|when⟧ ⟦punctuation|=⟧ ⟦number|2026-11-15⟧"
+  },
+  {
+    "id": "local-time",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|when⟧ ⟦punctuation|=⟧ ⟦number|07:32:00.5⟧"
+  },
+  {
+    "id": "short-time-11",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|when⟧ ⟦punctuation|=⟧ ⟦number|07:32⟧"
+  },
+  {
+    "id": "short-datetime-11",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|when⟧ ⟦punctuation|=⟧ ⟦number|2026-11-15T07:32Z⟧"
+  },
+  {
+    "id": "new-escapes-11",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|text⟧ ⟦punctuation|=⟧ ⟦string|\"escape\\e unicode\\xE9\"⟧"
+  },
+  {
+    "id": "multiline-inline-11",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|row⟧ ⟦punctuation|=⟧ ⟦punctuation|{⟧\n ⟦property|x⟧⟦punctuation|=⟧⟦number|1⟧⟦punctuation|,⟧ ⟦comment|# note⟧\n⟦punctuation|}⟧"
+  },
+  {
+    "id": "unicode-crlf",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|\"标题🌌\"⟧ ⟦punctuation|=⟧ ⟦string|\"星空 👩🏽‍💻\"⟧\r\n"
+  },
+  {
+    "id": "opaque-content",
+    "documentKind": "toml",
+    "profile": "toml",
+    "markedSource": "⟦property|payload⟧ ⟦punctuation|=⟧ ⟦string|'''{\"active\": true, \"value\": 1}'''⟧"
+  }
+]
