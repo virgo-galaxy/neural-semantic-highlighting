@@ -1,7 +1,7 @@
 # XML / SVG training
 
 The established four-layer, width-128, four-head, feed-forward-512 Transformer
-uses a compact eight-role markup schema plus closing modifier and 512-byte
+has 893,324 parameters and uses a compact eight-role markup schema plus closing modifier and 512-byte
 context. Initialize compatible layers/role heads from the full HTML training
 checkpoint, not its exported inference model. Existing CPython Expat supplies
 independent offline validation; no SDK or package installation is needed.
