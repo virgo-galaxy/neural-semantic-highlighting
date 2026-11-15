@@ -29,7 +29,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
 include their JS/TS/CSS dependencies automatically; PHP includes HTML and its
-child dependencies. Default registration covers 33 packs, including Swift,
+child dependencies. Default registration covers 34 packs, including Swift,
 Kotlin, R, Scala, Ruby and Lua. Flutter shares Dart's model. Weights are fetched
 lazily. Models are about 3.7 MB each, with a shared 14.8 MB uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -186,3 +186,15 @@ Common .env/.env.* dotenv configuration, variable declarations, export, plain/si
 without a language SDK, parser or Python provider. All existing themes/custom CSS
 apply. See [evaluation](../../packs/dotenv/model/BENCHMARKS.md) and
 [known limits](../../packs/dotenv/model/KNOWN_ISSUES.md).
+
+XML / SVG uses `{ language: "xml" }`. XML and SVG retain distinct document kinds. languages/svg re-exports languages/xml; importing either or both shares one model asset. Select the language explicitly; filename/content auto-detection is not provided.
+UTF-8 XML 1.0 and SVG source, qualified tags/attributes, text, references, declarations, comments and opaque CDATA. Selective `@nsh/highlighter/languages/xml` emits one model asset,
+without a language SDK, parser or Python provider. All existing themes/custom CSS
+apply. See [evaluation](../../packs/xml/model/BENCHMARKS.md) and
+[known limits](../../packs/xml/model/KNOWN_ISSUES.md).
+
+Use `{ language: "svg" }` for SVG. Selective imports from either
+`@nsh/highlighter/languages/xml` or `@nsh/highlighter/languages/svg` register both
+kinds; combining them still emits one model asset. Returned `language` and
+`data-language` preserve `xml` versus `svg`. SVG is escaped source, never inserted
+as live graphic markup; embedded CSS/JS and SVG path commands remain opaque.

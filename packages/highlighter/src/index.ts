@@ -33,6 +33,7 @@ import swift from "./languages/swift.js";
 import toml from "./languages/toml.js";
 import typescript from "./languages/typescript.js";
 import vue from "./languages/vue.js";
+import xml from "./languages/xml.js";
 import yaml from "./languages/yaml.js";
 import zig from "./languages/zig.js";
 
@@ -74,6 +75,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       toml,
       ini,
       dotenv,
+      xml,
     ],
   });
 }

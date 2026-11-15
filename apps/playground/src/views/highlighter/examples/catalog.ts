@@ -29,10 +29,12 @@ import scalaIcon from "@/assets/document-kinds/scala.svg";
 import scssIcon from "@/assets/document-kinds/scss.svg";
 import sqlIcon from "@/assets/document-kinds/sql.svg";
 import svelteIcon from "@/assets/document-kinds/svelte.svg";
+import svgIcon from "@/assets/document-kinds/svg.svg";
 import swiftIcon from "@/assets/document-kinds/swift.svg";
 import tomlIcon from "@/assets/document-kinds/toml.svg";
 import typescriptIcon from "@/assets/document-kinds/typescript.svg";
 import vueIcon from "@/assets/document-kinds/vue.svg";
+import xmlIcon from "@/assets/document-kinds/xml.svg";
 import yamlIcon from "@/assets/document-kinds/yaml.svg";
 import zigIcon from "@/assets/document-kinds/zig.svg";
 import type { HighlighterExample, HighlighterLanguage } from "@/views/highlighter/examples/types";
@@ -118,6 +120,8 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   toml: { label: "TOML", icon: tomlIcon },
   ini: { label: "INI", icon: iniIcon },
   dotenv: { label: ".env", icon: dotenvIcon },
+  xml: { label: "XML", icon: xmlIcon },
+  svg: { label: "SVG", icon: svgIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -215,6 +219,18 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".CFG", "ini"],
   [".editorconfig", "ini"],
   [".toml", "toml"],
+  [".xml", "xml"],
+  [".xsd", "xml"],
+  [".xsl", "xml"],
+  [".xslt", "xml"],
+  [".wsdl", "xml"],
+  [".rss", "xml"],
+  [".atom", "xml"],
+  [".plist", "xml"],
+  [".csproj", "xml"],
+  [".props", "xml"],
+  [".targets", "xml"],
+  [".svg", "svg"],
   [".yaml", "yaml"],
   [".yml", "yaml"],
 ] as const;

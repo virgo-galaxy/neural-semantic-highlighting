@@ -446,3 +446,15 @@ See [training](../training/dotenv/README.md), [semantics](../packs/dotenv/SEMANT
 and [selected evaluation](../packs/dotenv/model/BENCHMARKS.md). Resume full artifacts
 checkpoints only, never inference .pt/ONNX. Frontend and Playground inference use
 the selected ONNX asset in the existing browser Worker without a Python bridge.
+
+## XML / SVG offline workflow
+
+`make dataset-xml` follows the existing external dataset/checkpoint paths,
+immutable revisions, copy audits and frozen source families. `make dataset-xml-tools`
+prepares Existing CPython 3.12 Expat raw-event and namespace-aware validation with binary/source hashes; no downloads, SDKs or packages. No language SDK/global package is installed; collected source,
+configuration commands and schemas never execute. `make test-labeling-xml` checks
+14 focused tests and 48 independently marked Golden cases.
+See [training](../training/xml/README.md), [semantics](../packs/xml/SEMANTICS.md)
+and [selected evaluation](../packs/xml/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only, never inference .pt/ONNX. Frontend and Playground inference use
+the selected ONNX asset in the existing browser Worker without a Python bridge.

@@ -11,7 +11,9 @@ import json from "@nsh/highlighter/languages/json";
 import jsonc from "@nsh/highlighter/languages/jsonc";
 import kotlin from "@nsh/highlighter/languages/kotlin";
 import ruby from "@nsh/highlighter/languages/ruby";
+import svg from "@nsh/highlighter/languages/svg";
 import toml from "@nsh/highlighter/languages/toml";
+import xml from "@nsh/highlighter/languages/xml";
 import yaml from "@nsh/highlighter/languages/yaml";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
@@ -87,6 +89,27 @@ describe("browser decoder", () => {
 });
 
 describe("browser runtime lifecycle", () => {
+  it("preserves XML and SVG kinds through one shared model and escapes graphic source", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [xml, svg] });
+    expect(svg).toBe(xml);
+    expect(highlighter.languages()).toEqual(["xml", "svg"]);
+    const source = '<svg><script>alert("source")</script></svg>';
+    for (const language of ["xml", "XML", "svg", "SVG"]) {
+      expect(highlighter.supports(language)).toBe(true);
+      const pending = highlighter.highlight(source, { language });
+      const worker = FakeWorker.instances[0]!;
+      const message = worker.messages.at(-1)!;
+      expect(message.model).toMatchObject({ id: "xml", sha256: xml.sha256 });
+      worker.reply(message.id);
+      const rendered = await pending;
+      expect(rendered.language).toBe(language.toLowerCase());
+      expect(rendered.html).toContain("&lt;svg&gt;");
+      expect(rendered.html).not.toContain("<script>");
+    }
+    expect(FakeWorker.instances).toHaveLength(1);
+    highlighter.close();
+  });
   it("handles empty input and validation without creating a worker", async () => {
     const runtime = new BrowserRuntime();
     const pack = runtime.createPack(model);
@@ -340,6 +363,7 @@ describe("shipped browser artifacts", () => {
       "toml",
       "ini",
       "dotenv",
+      "xml",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

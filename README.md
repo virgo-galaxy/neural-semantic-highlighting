@@ -472,7 +472,7 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`, `ini`, `dotenv`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`, `ini`, `dotenv`, `xml`, `svg`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
@@ -701,11 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **33 model packs**, with browser inference and Playground examples.
-Some source kinds share weights, including JSON/JSONC; Flutter shares Dart.
+There are **34 model packs**, with browser inference and Playground examples.
+Some source kinds share weights, including XML/SVG and JSON/JSONC; Flutter shares Dart.
 The browser conversion preserves the selected weights without retraining or
-quantization. The latest [verification record](docs/dotenv-browser-verification.json)
-retains **299/299** exact browser/native comparisons and **162** passing frontend
+quantization. The latest [verification record](docs/xml-browser-verification.json)
+retains **323/323** exact browser/native comparisons and **163** passing frontend
 tests. Independent local-package checks cover public imports, original source
 text, themes and custom CSS. [Browser verification](docs/browser-runtime.md)
 keeps the earlier rollout results separately. These are runtime/packaging checks,
@@ -750,6 +750,8 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [TOML](packs/toml/model/README.md)                          | TOML .toml configuration, common 1.0 forms and tested 1.1 additions, tables/array tables, dotted/quoted keys, arrays/inline tables, four string and date/time forms                 | [99.10%](packs/toml/model/BENCHMARKS.md) — natural test, 9 files                                                                               | Browser + local; [measured scalar/structure roles and boundaries](packs/toml/model/KNOWN_ISSUES.md) remain limited                                   |
 | [INI](packs/ini/model/README.md)                            | INI .ini/.cfg and EditorConfig source, sections/root options, =/: key-value delimiters, full-line comments, duplicates, empty/valueless options and indented continuations          | [89.70%](packs/ini/model/BENCHMARKS.md) — natural test, 8 files                                                                                | Browser + local; [measured scalar/structure roles and boundaries](packs/ini/model/KNOWN_ISSUES.md) remain limited                                    |
 | [.env](packs/dotenv/model/README.md)                        | Common .env/.env.* dotenv configuration, variable declarations, export, plain/single/double/backtick and multiline string values, hash comments, empty values and opaque references | [98.25%](packs/dotenv/model/BENCHMARKS.md) — natural test, 3 files                                                                             | Browser + local; [measured scalar/structure roles and boundaries](packs/dotenv/model/KNOWN_ISSUES.md) remain limited                                 |
+| [XML](packs/xml/model/README.md)                            | .xml, .xsd, .xsl/.xslt, .plist, .csproj/.props/.targets; XML 1.0 source                                                                                                             | [85.87%](packs/xml/model/BENCHMARKS.md) — natural test, 7 files                                                                                | Browser + local; one shared XML/SVG model; [CDATA/long boundaries and embedded-source limits](packs/xml/model/KNOWN_ISSUES.md)                       |
+| [SVG](packs/xml/model/README.md)                            | .svg; paths, shapes, groups, gradients, filters, animation and accessible text; XML 1.0 source                                                                                      | [100.00%](packs/xml/model/BENCHMARKS.md) — natural test, 6 files                                                                               | Browser + local; one shared XML/SVG model; [CDATA/long boundaries and embedded-source limits](packs/xml/model/KNOWN_ISSUES.md)                       |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -923,3 +925,30 @@ themes/custom CSS apply, without a Python provider, dotenv loader or language SD
 [Evaluation](packs/dotenv/model/BENCHMARKS.md) and
 [known limits](packs/dotenv/model/KNOWN_ISSUES.md) retain the small real-template
 holdout and measured multiline/comment boundary errors.
+
+XML / SVG uses `{ language: "xml" }`. XML and SVG retain distinct document kinds. languages/svg re-exports languages/xml; importing either or both shares one model asset. Select the language explicitly; filename/content auto-detection is not provided.
+Selective `@nsh/highlighter/languages/xml` emits one model asset. UTF-8 XML 1.0 and SVG source, qualified tags/attributes, text, references, declarations, comments and opaque CDATA.
+Browser applications require no language SDK, parser or Python provider. The
+Playground adds two entries, sixteen independent examples, a Devicon XML icon and an original SVG icon; all theme
+presets, light/dark mode and custom CSS apply. See
+[XML / SVG evaluation](packs/xml/model/BENCHMARKS.md) and
+[known limits](packs/xml/model/KNOWN_ISSUES.md).
+
+```ts
+// Default registration already includes both; choose the source kind explicitly.
+await highlighter.highlight(xmlSource, { language: "xml" });
+await highlighter.highlight(svgSource, { language: "svg" });
+```
+
+For a selective build, import the core factory and either or both entries:
+
+```ts
+import { createHighlighter as createMarkupHighlighter } from "@nsh/highlighter/core";
+import xml from "@nsh/highlighter/languages/xml";
+import svg from "@nsh/highlighter/languages/svg";
+const markupHighlighter = createMarkupHighlighter({ languages: [xml, svg] });
+```
+
+SVG source is rendered as escaped code, not inserted as executable SVG markup.
+CDATA and style/script/path attribute values remain opaque in this XML/SVG
+baseline; it does not add embedded CSS/JavaScript or SVG path-command highlighting.

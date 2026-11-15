@@ -107,3 +107,8 @@ language logo or introduce a third-party asset/license.
 The .env entry uses an original repository-authored `dotenv.svg` configuration
 icon. The pinned Devicon revision has no dotenv icon at its canonical path;
 no other language logo or additional third-party asset/license is reused.
+
+The XML entry uses `xml.svg`, from `icons/xml/xml-original.svg` at the same
+pinned Devicon revision and preserved MIT license. SVG uses `svg.svg`, an original
+vector/geometry mark authored for this project; that revision has no SVG-language
+icon directory. These UI assets never enter the XML/SVG training corpus.

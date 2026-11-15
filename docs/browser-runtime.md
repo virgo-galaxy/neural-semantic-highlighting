@@ -2,12 +2,12 @@
 
 ## Current verified state
 
-The latest [.env addition record](dotenv-browser-verification.json), dated 2026-11-16,
-covers **33 selected model packs** and **299/299** exact Chromium/native
-span/role/modifier comparisons, with **162** passing frontend tests. Its independent
-local-package consumer passes **12/12** .env comparisons plus the element/tokens API,
+The latest [XML / SVG addition record](xml-browser-verification.json), dated 2026-11-16,
+covers **34 selected model packs** and **323/323** exact Chromium/native
+span/role/modifier comparisons, with **163** passing frontend tests. Its independent
+local-package consumer passes **24/24** XML / SVG comparisons plus the element/tokens API,
 six preset/mode combinations and custom CSS. Earlier language-specific consumer
-checks remain in their own records below. JSON and JSONC share one model;
+checks remain in their own records below. XML and SVG share one model, as do JSON and JSONC;
 Flutter uses the Dart model.
 
 The Playground and frontend package run the selected ONNX models in a browser
@@ -713,4 +713,32 @@ Natural held-out F1 is **98.25%** on
 21/40. [Quality and limits](../packs/dotenv/model/BENCHMARKS.md)
 keep these evidence sets distinct. Quoted/multiline boundaries remain a measured weakness (multiline.env display 81.82% F1), including assignment/hash-looking content within values; individual comment/value boundaries can still split (comments.env 93.33%). Declaration flags, escaped quotes and long bodies remain approximate. One common ASCII-name/equals-assignment dotenv profile is supported; loader-specific colon/dotted/dashed names are outside the teacher contract. All values remain strings. No expansion, command substitution, environment injection, decryption, application validation or runtime parser/spelling repair is provided. Offline tools are
 Pinned official dotenv 18.0.10 parse-only npm assets with retained BSD-2-Clause license and archive/per-file hashes, using existing Node only; no language SDK/global package is installed and collected projects
+never execute. Frontend consumers require no language toolchain or Python process.
+
+## XML / SVG addition
+
+XML / SVG is selected model 34. The [verification record](xml-browser-verification.json)
+retains ONNX conversion, browser/native parity and independent public-package evidence.
+
+- Chromium matches **323/323** original UTF-16 span/role/modifier references,
+  including all earlier cases, sixteen new displays and eight empty/CRLF/Unicode/long
+  multi-window probes. These are consistency checks, not additional accuracy tests.
+- An independent temporary Vite app installs four local package archives offline,
+  imports public core + xml + theme exports, and emits **one model asset** without
+  repository aliases. It passes **24/24** spans/original-text comparisons,
+  `highlightElement`, `highlightTokens`, case-normalized IDs, six preset/mode
+  combinations and custom CSS. Static output uses the existing Playground
+  filesystem route; no new server/port is introduced.
+- Playground adds the Devicon XML and original SVG icons, sixteen examples and two distinct entries, shuffle and light/dark
+  switching through the existing browser worker, without Python. Full `make check`
+  passes **163** frontend tests and every prior language check,
+  including **14** new teacher tests and **48** marked Golden cases.
+  All 67 earlier native/ONNX weight files remain byte-identical.
+
+Natural held-out F1 is **92.20%** on
+13 real files. Visible displays aggregate
+**98.97%**; strict neural Golden agreement is
+37/48. [Quality and limits](../packs/xml/model/BENCHMARKS.md)
+keep these evidence sets distinct. Natural XML test comment and string exact-span F1 are only 51.28% (15 reference comment spans) and 70.93% (69 string spans), so the aggregate must not hide difficult comment/quoted-content boundaries. The instruction-plus-nested-code CDATA display remains weak (xml/cdata.xml 78.26% exact-span F1): a processing instruction can split into keyword fragments, quoted markup inside CDATA can receive tag/text roles, and escaped closing-tag text can merge entity boundaries. Atom text/whitespace and public-doctype boundaries also remain approximate (feed.xml 97.48%, preferences.plist 97.30%). All eight authored SVG displays reach 100%, which is visible development evidence rather than unseen generalization. Long strings/comments/CDATA and closing modifiers across 512 bytes remain approximate. UTF-8 XML 1.0 is the bounded profile; no XML 1.1, custom entity expansion, DTD/schema validation, SVGZ, SVG path/CSS/JS parsing, template syntax, automatic detection or runtime parser/spelling repair is provided. Offline tools are
+Existing CPython 3.12 Expat raw-event and namespace-aware validation with binary/source hashes; no downloads, SDKs or packages; no language SDK/global package is installed and collected projects
 never execute. Frontend consumers require no language toolchain or Python process.

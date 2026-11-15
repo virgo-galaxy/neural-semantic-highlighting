@@ -43,6 +43,7 @@ const ids = [
   "toml",
   "ini",
   "dotenv",
+  "xml",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -270,7 +271,34 @@ for (const [index, source] of [
     documentKind: "dotenv",
     result: await getPack("dotenv").highlight({ source, documentKind: "dotenv" }),
   });
+for (const kind of ["xml", "svg"]) {
+  const rootName = kind === "svg" ? "svg" : "document";
+  const probes = [
+    "",
+    "\r\n",
+    "\ufeff<" + rootName + ' title="星空 🌌">原文 &amp; text</' + rootName + ">\r\n",
+    "<" +
+      rootName +
+      ' data-long="' +
+      "Original 🌌 value &amp; source. ".repeat(90) +
+      '"><![CDATA[' +
+      "Original 🌌 CDATA <tag/> & data. ".repeat(90) +
+      "]]></" +
+      rootName +
+      ">\n",
+  ];
+  for (const [index, source] of probes.entries())
+    cases.push({
+      filename: `edge/${kind}-${index}.${kind}`,
+      source,
+      documentKind: kind,
+      result: await getPack(kind).highlight({ source, documentKind: kind }),
+    });
+}
 await Promise.all([...models.values()].map((model) => model.close()));
+if (new Set(cases.map((item) => item.filename)).size !== cases.length) {
+  throw new Error("Native-reference filenames must be unique");
+}
 writeFileSync(
   "artifacts/browser/reference.json",
   JSON.stringify({ reference: "selected PyTorch CPU + existing composition", cases }, null, 2) +
