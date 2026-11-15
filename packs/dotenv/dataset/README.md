@@ -22,3 +22,8 @@ environment injection, reference expansion or command execution occurs.
 `make dataset-dotenv` creates immutable corpus/Gold/prepared revisions. Continue
 only full optimizer/RNG checkpoints under artifacts/dotenv, never inference .pt
 or ONNX bundles. Preserve all prior data, captures, runs and formal models.
+
+A bounded 12-family/288-task mixed extension follows observed multiline, quoted
+hash and all-string literal errors. Final curriculum: 52 families / 1,248 tasks.
+All 52 original family assignments, data revisions and the first six-epoch run
+remain preserved; parser semantics and copy-audit policy stay fixed.

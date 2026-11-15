@@ -1832,6 +1832,7 @@ dataset-dotenv:
 
 dataset-dotenv-curriculum:
 	$(PYTHON) -m packs.dotenv.dataset.generate_curriculum
+	$(PYTHON) -m packs.dotenv.dataset.generate_mixed
 
 dataset-dotenv-collect:
 	$(PYTHON) -m packs.dotenv.dataset.pipeline collect
