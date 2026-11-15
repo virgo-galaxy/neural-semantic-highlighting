@@ -1764,6 +1764,7 @@ dataset-ini:
 
 dataset-ini-curriculum:
 	$(PYTHON) -m packs.ini.dataset.generate_curriculum
+	$(PYTHON) -m packs.ini.dataset.generate_mixed
 
 dataset-ini-collect:
 	$(PYTHON) -m packs.ini.dataset.pipeline collect

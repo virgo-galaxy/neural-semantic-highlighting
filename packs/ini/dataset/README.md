@@ -18,3 +18,8 @@ Every corpus, Gold, prepared snapshot, prior run and formal model is preserved.
 without downloads or installs. `make dataset-ini` follows the established external
 paths and immutable pipeline. Resume full optimizer/RNG checkpoints only under
 artifacts/ini; inference .pt/ONNX are never continuation checkpoints.
+
+A separate 12-family/288-task mixed extension follows observed continuation,
+version and opaque-value errors. Final curriculum: 52 families / 1,248 tasks.
+All 102 original assignments, sources, Gold/prepared revisions and the first
+six-epoch run remain preserved.
