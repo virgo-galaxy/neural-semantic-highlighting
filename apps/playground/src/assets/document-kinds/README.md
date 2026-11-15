@@ -99,3 +99,7 @@ under the retained Devicon MIT license. `.yaml` and `.yml` share one entry/model
 The TOML entry uses `toml.svg`, from `icons/toml/toml-original.svg` at the
 same pinned Devicon revision `32fe1d3b3f36ad11f90ab94f7db59738139c2bf6`,
 under the retained Devicon MIT license.
+
+The INI entry uses an original repository-authored `ini.svg` document/settings
+icon. The pinned Devicon revision has no INI icon, so it does not reuse another
+language logo or introduce a third-party asset/license.

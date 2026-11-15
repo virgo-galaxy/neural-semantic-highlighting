@@ -13,6 +13,7 @@ import css from "./languages/css.js";
 import dart from "./languages/dart.js";
 import go from "./languages/go.js";
 import html from "./languages/html.js";
+import ini from "./languages/ini.js";
 import java from "./languages/java.js";
 import json from "./languages/json.js";
 import kotlin from "./languages/kotlin.js";
@@ -70,6 +71,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       json,
       yaml,
       toml,
+      ini,
     ],
   });
 }

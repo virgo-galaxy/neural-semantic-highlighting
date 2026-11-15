@@ -34,6 +34,7 @@ for (const id of [
   "json",
   "yaml",
   "toml",
+  "ini",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

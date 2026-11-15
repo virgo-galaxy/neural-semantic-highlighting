@@ -422,3 +422,15 @@ See [training](../training/toml/README.md), [semantics](../packs/toml/SEMANTICS.
 and [selected evaluation](../packs/toml/model/BENCHMARKS.md). Resume full artifacts
 checkpoints only, never inference .pt/ONNX. Frontend and Playground inference use
 the selected ONNX asset in the existing browser Worker without a Python bridge.
+
+## INI offline workflow
+
+`make dataset-ini` follows the existing external dataset/checkpoint paths,
+immutable revisions, copy audits and frozen source families. `make dataset-ini-tools`
+prepares Existing CPython 3.12 ConfigParser with interpolation disabled, independent section/key inventory validation and Python/stdlib/teacher SHA-256 provenance; no downloaded tool or SDK. No language SDK/global package is installed; collected source,
+configuration commands and schemas never execute. `make test-labeling-ini` checks
+12 focused tests and 40 independently marked Golden cases.
+See [training](../training/ini/README.md), [semantics](../packs/ini/SEMANTICS.md)
+and [selected evaluation](../packs/ini/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only, never inference .pt/ONNX. Frontend and Playground inference use
+the selected ONNX asset in the existing browser Worker without a Python bridge.

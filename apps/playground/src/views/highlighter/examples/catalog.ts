@@ -10,6 +10,7 @@ import dartIcon from "@/assets/document-kinds/dart.svg";
 import flutterIcon from "@/assets/document-kinds/flutter.svg";
 import goIcon from "@/assets/document-kinds/go.svg";
 import htmlIcon from "@/assets/document-kinds/html.svg";
+import iniIcon from "@/assets/document-kinds/ini.svg";
 import javaIcon from "@/assets/document-kinds/java.svg";
 import javascriptIcon from "@/assets/document-kinds/javascript.svg";
 import jsonIcon from "@/assets/document-kinds/json.svg";
@@ -35,7 +36,7 @@ import yamlIcon from "@/assets/document-kinds/yaml.svg";
 import zigIcon from "@/assets/document-kinds/zig.svg";
 import type { HighlighterExample, HighlighterLanguage } from "@/views/highlighter/examples/types";
 
-const sources = import.meta.glob("./*/*", {
+const sources = import.meta.glob(["./*/*", "./ini/.editorconfig"], {
   eager: true,
   import: "default",
   query: "?raw",
@@ -114,6 +115,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   jsonc: { label: "JSONC", icon: jsonIcon },
   yaml: { label: "YAML", icon: yamlIcon },
   toml: { label: "TOML", icon: tomlIcon },
+  ini: { label: "INI", icon: iniIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -203,6 +205,11 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".json", "json"],
   [".jsonc", "jsonc"],
   [".code-workspace", "jsonc"],
+  [".ini", "ini"],
+  [".INI", "ini"],
+  [".cfg", "ini"],
+  [".CFG", "ini"],
+  [".editorconfig", "ini"],
   [".toml", "toml"],
   [".yaml", "yaml"],
   [".yml", "yaml"],

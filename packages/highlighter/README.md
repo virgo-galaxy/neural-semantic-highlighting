@@ -29,7 +29,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
 include their JS/TS/CSS dependencies automatically; PHP includes HTML and its
-child dependencies. Default registration covers 31 packs, including Swift,
+child dependencies. Default registration covers 32 packs, including Swift,
 Kotlin, R, Scala, Ruby and Lua. Flutter shares Dart's model. Weights are fetched
 lazily. Models are about 3.7 MB each, with a shared 14.8 MB uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -174,3 +174,9 @@ TOML .toml configuration, common 1.0 forms and tested 1.1 additions, tables/arra
 without a language SDK, parser or Python provider. All existing themes/custom CSS
 apply. See [evaluation](../../packs/toml/model/BENCHMARKS.md) and
 [known limits](../../packs/toml/model/KNOWN_ISSUES.md).
+
+INI uses `{ language: "ini" }`. ini, cfg and editorconfig (case normalized) use one INI descriptor and canonical ini output. .ini/.cfg and .editorconfig share it; generic .conf requires explicit INI selection.
+INI .ini/.cfg and EditorConfig source, sections/root options, =/: key-value delimiters, full-line comments, duplicates, empty/valueless options and indented continuations. Selective `@nsh/highlighter/languages/ini` emits one model asset,
+without a language SDK, parser or Python provider. All existing themes/custom CSS
+apply. See [evaluation](../../packs/ini/model/BENCHMARKS.md) and
+[known limits](../../packs/ini/model/KNOWN_ISSUES.md).

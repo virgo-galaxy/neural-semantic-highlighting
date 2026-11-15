@@ -41,6 +41,7 @@ const ids = [
   "json",
   "yaml",
   "toml",
+  "ini",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -239,6 +240,20 @@ for (const [index, source] of [
     source,
     documentKind: "toml",
     result: await getPack("toml").highlight({ source, documentKind: "toml" }),
+  });
+for (const [index, source] of [
+  "",
+  "\r\n",
+  "\ufeff# 星空 🌌\r\n[设置]\r\n标题=星空\r\nready=true\r\n",
+  "[article]\nbody=first line\n" +
+    "  Original 🌌 continuation with # markers, {braces} and quotes.\n".repeat(80) +
+    "ready=true\n",
+].entries())
+  cases.push({
+    filename: `edge/ini-${index}.ini`,
+    source,
+    documentKind: "ini",
+    result: await getPack("ini").highlight({ source, documentKind: "ini" }),
   });
 await Promise.all([...models.values()].map((model) => model.close()));
 writeFileSync(

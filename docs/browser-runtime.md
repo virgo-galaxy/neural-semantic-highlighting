@@ -2,10 +2,10 @@
 
 ## Current verified state
 
-The latest [TOML addition record](toml-browser-verification.json), dated 2026-11-15,
-covers **31 selected model packs** and **275/275** exact Chromium/native
-span/role/modifier comparisons, with **160** passing frontend tests. Its independent
-local-package consumer passes **12/12** TOML comparisons plus the element/tokens API,
+The latest [INI addition record](ini-browser-verification.json), dated 2026-11-15,
+covers **32 selected model packs** and **287/287** exact Chromium/native
+span/role/modifier comparisons, with **161** passing frontend tests. Its independent
+local-package consumer passes **12/12** INI comparisons plus the element/tokens API,
 six preset/mode combinations and custom CSS. Earlier language-specific consumer
 checks remain in their own records below. JSON and JSONC share one model;
 Flutter uses the Dart model.
@@ -657,4 +657,32 @@ Natural held-out F1 is **99.10%** on
 27/40. [Quality and limits](../packs/toml/model/BENCHMARKS.md)
 keep these evidence sets distinct. Multiline string bodies remain a material weakness: original quoted/hash/shell-looking content can fragment or receive comment/property roles even inside the 512-byte context (strings.toml display 68.42% F1). Quoted keys containing dots can split or acquire the header role (keys.toml 91.89%). Header/assignment roles, dates and long bodies remain approximate. Common 1.0 and tested 1.1 forms do not certify every TOML edge case; the pinned parser labels 1.1 support experimental. No project validation, configuration execution, interpolation or runtime parser/spelling repair is provided. Offline tools are
 Pinned toml-eslint-parser 1.0.3 and eslint-visitor-keys 5.0.1 official npm assets, with original licenses and archive/per-file hashes, using existing Node only; no language SDK/global package is installed and collected projects
+never execute. Frontend consumers require no language toolchain or Python process.
+
+## INI addition
+
+INI is selected model 32. The [verification record](ini-browser-verification.json)
+retains ONNX conversion, browser/native parity and independent public-package evidence.
+
+- Chromium matches **287/287** original UTF-16 span/role/modifier references,
+  including all earlier cases, eight new displays and four empty/CRLF/Unicode/long
+  multi-window probes. These are consistency checks, not additional accuracy tests.
+- An independent temporary Vite app installs four local package archives offline,
+  imports public core + ini + theme exports, and emits **one model asset** without
+  repository aliases. It passes **12/12** spans/original-text comparisons,
+  `highlightElement`, `highlightTokens`, case-normalized IDs, six preset/mode
+  combinations and custom CSS. Static output uses the existing Playground
+  filesystem route; no new server/port is introduced.
+- Playground adds the original INI configuration icon, eight examples, shuffle and light/dark
+  switching through the existing browser worker, without Python. Full `make check`
+  passes **161** frontend tests and every prior language check,
+  including **12** new teacher tests and **40** marked Golden cases.
+  All 63 earlier native/ONNX weight files remain byte-identical.
+
+Natural held-out F1 is **89.70%** on
+8 real files. Visible displays aggregate
+**95.17%**; strict neural Golden agreement is
+17/40. [Quality and limits](../packs/ini/model/BENCHMARKS.md)
+keep these evidence sets distinct. Indented continuation lines resembling assignments or headers can split or gain property/punctuation roles (continuations.ini display 82.76% F1). Packaging constraints/version strings and empty-value continuations remain weaker (setup.cfg 89.47%); quoted/path values and section/glob boundaries can also fragment. Common INI/EditorConfig source uses one explicit dialect: #/; full-line comments, with inline value markers kept literal. Application-specific inline comments/escape rules and general .conf/.env syntax are outside scope. No interpolation, configuration execution, project validation or runtime parser/spelling repair is provided. Offline tools are
+Existing CPython 3.12 ConfigParser with interpolation disabled, independent section/key inventory validation and Python/stdlib/teacher SHA-256 provenance; no downloaded tool or SDK; no language SDK/global package is installed and collected projects
 never execute. Frontend consumers require no language toolchain or Python process.
