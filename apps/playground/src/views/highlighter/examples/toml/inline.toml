@@ -1,0 +1,14 @@
+# Tested TOML 1.1 additions
+name = "Inline configuration"
+settings = {
+  # Inline tables may span original lines.
+  enabled = true,
+  retries = 3,
+  endpoints = ["primary", "backup"],
+  paths = { root = "./docs", cache = "./cache" },
+}
+
+[display]
+escapes = "escape\e and letter\xE9"
+start = 09:30
+release = 2026-11-15T09:30Z

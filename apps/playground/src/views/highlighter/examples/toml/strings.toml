@@ -1,0 +1,14 @@
+name = "Strings remain original source"
+pattern = '^\w+\d+$'
+message = "A \"quoted\" value with newline\n and slash\\"
+
+article = """
+A multiline description with "quotes" and # characters.
+The original line breaks remain visible.
+"""
+
+script = '''
+#!/bin/sh
+# Literal content stays a TOML string.
+printf '%s\n' "$HOME"
+'''

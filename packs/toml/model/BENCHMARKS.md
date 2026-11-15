@@ -22,7 +22,7 @@ captures do not certify an entire language ecosystem or dependency environment.
 
 113 Git-pinned original files come from Ruff, uv, Helix, mise, Hatch.
 Original root licenses/notices, Git blob hashes and source bytes remain preserved.
-The original curriculum has 52 families / 1248 variants.
+The final curriculum has 52 families / 1,248 variants.
 Original Git commit/tree/blob identities and licenses are preserved. Fixed AST/token validation happens before path-hash bounded selection; candidate rejections are retained. Parser supervision never executes project configuration. A separate 12-family/288-task mixed extension follows actual validation/display review, preserving all 130 original family assignments and initial corpus/run.
 Golden, tests and displayed source never enter collection roots. Corpus/Gold /
 prepared revisions remain immutable; exact and cross-family copies are audited
@@ -61,8 +61,8 @@ reports/experiments.json. Inference .pt/ONNX never initialize or resume training
 
 No language SDK/interpreter or global dependency is installed. Offline tooling:
 Pinned toml-eslint-parser 1.0.3 and eslint-visitor-keys 5.0.1 official npm assets, with original licenses and archive/per-file hashes, using existing Node only. Fixed revisions, original licenses/blob hashes, compiler and binary
-provenance are retained. Collected source/dependencies never execute. Grammar
-acceptance is not compiler validity. Parser errors, original coverage and Unicode
+provenance are retained. Collected source/dependencies never execute. Parser
+acceptance is not project/schema validity. Parser errors, original coverage and Unicode
 boundary failures quarantine input. Original CRLF and Unicode text remain unchanged.
 
 ## Real and independently visible review

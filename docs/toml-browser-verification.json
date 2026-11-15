@@ -1,0 +1,1741 @@
+{
+  "date": "2026-11-15",
+  "scope": "TOML .toml configuration, common 1.0 forms and tested 1.1 additions, tables/array tables, dotted/quoted keys, arrays/inline tables, four string and date/time forms",
+  "modelsAvailable": 31,
+  "selectedModel": {
+    "file": "model.pt",
+    "format": "nsh-toml-model-v1",
+    "sha256": "e28301ab9474c6eceb70c47f684f03001f3c3617b94e643ae3b799aadac77476",
+    "bytes": 3636853,
+    "parameterCount": 894872,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "browserModel": {
+    "file": "model.onnx",
+    "sha256": "1a2aea71fe4a061552c3e1c9b4b81dc0dd32b6d8d526a5b4b57d58cf08ee81bc",
+    "bytes": 3708119
+  },
+  "conversion": {
+    "reference": "selected PyTorch CPU inference",
+    "torch": "2.14.0",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "sourceSha256": "e28301ab9474c6eceb70c47f684f03001f3c3617b94e643ae3b799aadac77476",
+    "modelSha256": "1a2aea71fe4a061552c3e1c9b4b81dc0dd32b6d8d526a5b4b57d58cf08ee81bc",
+    "comparisons": [
+      {
+        "bytes": 1,
+        "maxAbsoluteErrors": [1.1920928955078125e-6, 4.0531158447265625e-6, 0.0]
+      },
+      {
+        "bytes": 2,
+        "maxAbsoluteErrors": [3.814697265625e-6, 7.62939453125e-6, 2.86102294921875e-6]
+      },
+      {
+        "bytes": 7,
+        "maxAbsoluteErrors": [5.841255187988281e-6, 1.049041748046875e-5, 8.58306884765625e-6]
+      },
+      {
+        "bytes": 31,
+        "maxAbsoluteErrors": [1.049041748046875e-5, 1.9073486328125e-5, 1.239776611328125e-5]
+      },
+      {
+        "bytes": 64,
+        "maxAbsoluteErrors": [1.9073486328125e-5, 2.5272369384765625e-5, 2.002716064453125e-5]
+      },
+      {
+        "bytes": 127,
+        "maxAbsoluteErrors": [2.1457672119140625e-5, 2.1219253540039062e-5, 1.7642974853515625e-5]
+      },
+      {
+        "bytes": 511,
+        "maxAbsoluteErrors": [1.8596649169921875e-5, 3.910064697265625e-5, 1.811981201171875e-5]
+      },
+      {
+        "bytes": 512,
+        "maxAbsoluteErrors": [2.002716064453125e-5, 2.9087066650390625e-5, 1.430511474609375e-5]
+      }
+    ]
+  },
+  "parity": {
+    "total": 275,
+    "passed": 275,
+    "failures": [],
+    "timings": [
+      {
+        "filename": "assembly/aarch64.S",
+        "ms": 137.89999997615814
+      },
+      {
+        "filename": "assembly/att.s",
+        "ms": 17
+      },
+      {
+        "filename": "assembly/intel.s",
+        "ms": 12.299999952316284
+      },
+      {
+        "filename": "assembly/macros.asm",
+        "ms": 11.800000071525574
+      },
+      {
+        "filename": "assembly/masm.asm",
+        "ms": 14.600000023841858
+      },
+      {
+        "filename": "assembly/nasm.asm",
+        "ms": 19.100000023841858
+      },
+      {
+        "filename": "awk/counts.awk",
+        "ms": 66.60000002384186
+      },
+      {
+        "filename": "awk/files.awk",
+        "ms": 10.399999976158142
+      },
+      {
+        "filename": "awk/normalize.awk",
+        "ms": 13.600000023841858
+      },
+      {
+        "filename": "awk/report.awk",
+        "ms": 16.600000023841858
+      },
+      {
+        "filename": "bash/build.sh",
+        "ms": 48.5
+      },
+      {
+        "filename": "bash/files.csh",
+        "ms": 10.5
+      },
+      {
+        "filename": "bash/files.zsh",
+        "ms": 8.899999976158142
+      },
+      {
+        "filename": "bash/functions.sh",
+        "ms": 12.600000023841858
+      },
+      {
+        "filename": "bash/heredoc.sh",
+        "ms": 16.200000047683716
+      },
+      {
+        "filename": "bash/portable.sh",
+        "ms": 12.5
+      },
+      {
+        "filename": "bat/arguments.bat",
+        "ms": 56.60000002384186
+      },
+      {
+        "filename": "bat/build.bat",
+        "ms": 13.399999976158142
+      },
+      {
+        "filename": "bat/functions.cmd",
+        "ms": 6.300000071525574
+      },
+      {
+        "filename": "bat/records.cmd",
+        "ms": 17
+      },
+      {
+        "filename": "c/callbacks.c",
+        "ms": 61
+      },
+      {
+        "filename": "c/file-reader.c",
+        "ms": 17.200000047683716
+      },
+      {
+        "filename": "c/hello.c",
+        "ms": 10.5
+      },
+      {
+        "filename": "c/linked-list.c",
+        "ms": 16.600000023841858
+      },
+      {
+        "filename": "c/literals.c",
+        "ms": 21.699999928474426
+      },
+      {
+        "filename": "c/macros.h",
+        "ms": 21.899999976158142
+      },
+      {
+        "filename": "c/modern-c.c",
+        "ms": 32.60000002384186
+      },
+      {
+        "filename": "c/points.c",
+        "ms": 21.299999952316284
+      },
+      {
+        "filename": "cpp/algorithms.cpp",
+        "ms": 68.39999997615814
+      },
+      {
+        "filename": "cpp/bindings.cpp",
+        "ms": 25.200000047683716
+      },
+      {
+        "filename": "cpp/classes.cpp",
+        "ms": 26.899999976158142
+      },
+      {
+        "filename": "cpp/concepts.cpp",
+        "ms": 17.799999952316284
+      },
+      {
+        "filename": "cpp/hello.cpp",
+        "ms": 21
+      },
+      {
+        "filename": "cpp/raw-strings.cpp",
+        "ms": 22.800000071525574
+      },
+      {
+        "filename": "cpp/smart-pointers.cpp",
+        "ms": 22
+      },
+      {
+        "filename": "cpp/templates.hpp",
+        "ms": 23.899999976158142
+      },
+      {
+        "filename": "csharp/AsyncStream.cs",
+        "ms": 91.79999995231628
+      },
+      {
+        "filename": "csharp/Collections.cs",
+        "ms": 29.399999976158142
+      },
+      {
+        "filename": "csharp/GenericStore.cs",
+        "ms": 28.300000071525574
+      },
+      {
+        "filename": "csharp/Hello.cs",
+        "ms": 27.800000071525574
+      },
+      {
+        "filename": "csharp/Options.cs",
+        "ms": 28.699999928474426
+      },
+      {
+        "filename": "csharp/Queries.cs",
+        "ms": 37.10000002384186
+      },
+      {
+        "filename": "csharp/Records.cs",
+        "ms": 30.600000023841858
+      },
+      {
+        "filename": "csharp/StringTemplates.cs",
+        "ms": 30.100000023841858
+      },
+      {
+        "filename": "css/hello.css",
+        "ms": 54.60000002384186
+      },
+      {
+        "filename": "css/responsive-grid.css",
+        "ms": 14.600000023841858
+      },
+      {
+        "filename": "dart/async.dart",
+        "ms": 104.30000007152557
+      },
+      {
+        "filename": "dart/classes.dart",
+        "ms": 58.10000002384186
+      },
+      {
+        "filename": "dart/collections.dart",
+        "ms": 50.700000047683716
+      },
+      {
+        "filename": "dart/hello.dart",
+        "ms": 33.699999928474426
+      },
+      {
+        "filename": "dart/modern.dart",
+        "ms": 51.300000071525574
+      },
+      {
+        "filename": "dart/patterns.dart",
+        "ms": 55.40000009536743
+      },
+      {
+        "filename": "dart/strings.dart",
+        "ms": 41.10000002384186
+      },
+      {
+        "filename": "dart/widgets.dart",
+        "ms": 58.60000002384186
+      },
+      {
+        "filename": "flutter/animation.dart",
+        "ms": 71.19999992847443
+      },
+      {
+        "filename": "flutter/builders.dart",
+        "ms": 70
+      },
+      {
+        "filename": "flutter/forms.dart",
+        "ms": 91.29999995231628
+      },
+      {
+        "filename": "flutter/hello.dart",
+        "ms": 86.89999997615814
+      },
+      {
+        "filename": "flutter/inherited.dart",
+        "ms": 79.5
+      },
+      {
+        "filename": "flutter/lists.dart",
+        "ms": 66.39999997615814
+      },
+      {
+        "filename": "flutter/navigation.dart",
+        "ms": 69.39999997615814
+      },
+      {
+        "filename": "flutter/stateful.dart",
+        "ms": 52.700000047683716
+      },
+      {
+        "filename": "go/generics.go",
+        "ms": 71.29999995231628
+      },
+      {
+        "filename": "go/hello.go",
+        "ms": 10.100000023841858
+      },
+      {
+        "filename": "go/long-raw-string.go",
+        "ms": 85.39999997615814
+      },
+      {
+        "filename": "go/selectors.go",
+        "ms": 22.299999952316284
+      },
+      {
+        "filename": "go/struct-methods.go",
+        "ms": 25.899999976158142
+      },
+      {
+        "filename": "html/embedded.html",
+        "ms": 142.69999992847443
+      },
+      {
+        "filename": "html/forms-and-dialog.html",
+        "ms": 48
+      },
+      {
+        "filename": "html/hello.html",
+        "ms": 37.60000002384186
+      },
+      {
+        "filename": "html/raw-text.html",
+        "ms": 38.10000002384186
+      },
+      {
+        "filename": "html/tailwind-card.html",
+        "ms": 51.39999997615814
+      },
+      {
+        "filename": "html/web-components.html",
+        "ms": 34.39999997615814
+      },
+      {
+        "filename": "java/Annotations.java",
+        "ms": 63.799999952316284
+      },
+      {
+        "filename": "java/AsyncTasks.java",
+        "ms": 28.100000023841858
+      },
+      {
+        "filename": "java/Hello.java",
+        "ms": 41.5
+      },
+      {
+        "filename": "java/PatternRouting.java",
+        "ms": 38.59999990463257
+      },
+      {
+        "filename": "java/Result.java",
+        "ms": 24.200000047683716
+      },
+      {
+        "filename": "java/TextTemplates.java",
+        "ms": 23.299999952316284
+      },
+      {
+        "filename": "java/module-info.java",
+        "ms": 20.5
+      },
+      {
+        "filename": "javascript/async-cache.js",
+        "ms": 59.39999997615814
+      },
+      {
+        "filename": "javascript/data-pipeline.js",
+        "ms": 58.800000071525574
+      },
+      {
+        "filename": "javascript/event-bus.js",
+        "ms": 61.5
+      },
+      {
+        "filename": "javascript/hello.js",
+        "ms": 14.899999976158142
+      },
+      {
+        "filename": "javascript/react-hooks.jsx",
+        "ms": 133.69999992847443
+      },
+      {
+        "filename": "javascript/tailwind-profile-card.jsx",
+        "ms": 181.29999995231628
+      },
+      {
+        "filename": "json/hello.json",
+        "ms": 47.40000009536743
+      },
+      {
+        "filename": "json/numbers.json",
+        "ms": 13.5
+      },
+      {
+        "filename": "json/package.json",
+        "ms": 15
+      },
+      {
+        "filename": "json/response.json",
+        "ms": 28.100000023841858
+      },
+      {
+        "filename": "json/schema.json",
+        "ms": 32.700000047683716
+      },
+      {
+        "filename": "json/strings.json",
+        "ms": 18.90000009536743
+      },
+      {
+        "filename": "json/theme.json",
+        "ms": 22.40000009536743
+      },
+      {
+        "filename": "json/unicode.json",
+        "ms": 12.700000047683716
+      },
+      {
+        "filename": "jsonc/comments.jsonc",
+        "ms": 30
+      },
+      {
+        "filename": "jsonc/extensions.json",
+        "ms": 11.799999952316284
+      },
+      {
+        "filename": "jsonc/hello.jsonc",
+        "ms": 14.899999976158142
+      },
+      {
+        "filename": "jsonc/launch.json",
+        "ms": 25.700000047683716
+      },
+      {
+        "filename": "jsonc/strings.jsonc",
+        "ms": 22
+      },
+      {
+        "filename": "jsonc/tasks.json",
+        "ms": 22.799999952316284
+      },
+      {
+        "filename": "jsonc/tsconfig.json",
+        "ms": 27.5
+      },
+      {
+        "filename": "jsonc/workspace.code-workspace",
+        "ms": 22.600000023841858
+      },
+      {
+        "filename": "kotlin/build.gradle.kts",
+        "ms": 55.299999952316284
+      },
+      {
+        "filename": "kotlin/collections.kt",
+        "ms": 47.5
+      },
+      {
+        "filename": "kotlin/compose.kt",
+        "ms": 49.799999952316284
+      },
+      {
+        "filename": "kotlin/coroutines.kt",
+        "ms": 40
+      },
+      {
+        "filename": "kotlin/generics.kt",
+        "ms": 43.39999997615814
+      },
+      {
+        "filename": "kotlin/hello.kt",
+        "ms": 25.299999952316284
+      },
+      {
+        "filename": "kotlin/models.kt",
+        "ms": 47
+      },
+      {
+        "filename": "kotlin/strings.kt",
+        "ms": 34.199999928474426
+      },
+      {
+        "filename": "less/hello.less",
+        "ms": 12.700000047683716
+      },
+      {
+        "filename": "less/responsive.less",
+        "ms": 11.100000023841858
+      },
+      {
+        "filename": "lua/closures.lua",
+        "ms": 61.800000071525574
+      },
+      {
+        "filename": "lua/hello.lua",
+        "ms": 16.899999976158142
+      },
+      {
+        "filename": "lua/loops.lua",
+        "ms": 25.699999928474426
+      },
+      {
+        "filename": "lua/modern.lua",
+        "ms": 27.700000047683716
+      },
+      {
+        "filename": "lua/modules.lua",
+        "ms": 30.299999952316284
+      },
+      {
+        "filename": "lua/neovim.lua",
+        "ms": 38.5
+      },
+      {
+        "filename": "lua/strings.lua",
+        "ms": 34.60000002384186
+      },
+      {
+        "filename": "lua/tables.lua",
+        "ms": 24.100000023841858
+      },
+      {
+        "filename": "perl/counter.pm",
+        "ms": 52.89999997615814
+      },
+      {
+        "filename": "perl/heredoc.pl",
+        "ms": 9.099999904632568
+      },
+      {
+        "filename": "perl/indented-heredoc.pl",
+        "ms": 7.100000023841858
+      },
+      {
+        "filename": "perl/normalize.pl",
+        "ms": 18.600000023841858
+      },
+      {
+        "filename": "perl/records.pl",
+        "ms": 18.799999952316284
+      },
+      {
+        "filename": "php/closures.php",
+        "ms": 45
+      },
+      {
+        "filename": "php/collections.php",
+        "ms": 19.5
+      },
+      {
+        "filename": "php/embedded.phtml",
+        "ms": 38
+      },
+      {
+        "filename": "php/enums.php",
+        "ms": 18.40000009536743
+      },
+      {
+        "filename": "php/hello.php",
+        "ms": 10.899999976158142
+      },
+      {
+        "filename": "php/heredoc.php",
+        "ms": 13
+      },
+      {
+        "filename": "php/records.php",
+        "ms": 19.700000047683716
+      },
+      {
+        "filename": "php/template.phtml",
+        "ms": 21.799999952316284
+      },
+      {
+        "filename": "powershell/functions.ps1",
+        "ms": 42.299999952316284
+      },
+      {
+        "filename": "powershell/here-strings.ps1",
+        "ms": 14.300000071525574
+      },
+      {
+        "filename": "powershell/pipeline.ps1",
+        "ms": 13.699999928474426
+      },
+      {
+        "filename": "powershell/records.ps1",
+        "ms": 15.799999952316284
+      },
+      {
+        "filename": "python/async-stream.py",
+        "ms": 58.200000047683716
+      },
+      {
+        "filename": "python/generics.py",
+        "ms": 31.699999928474426
+      },
+      {
+        "filename": "python/records.py",
+        "ms": 25.700000047683716
+      },
+      {
+        "filename": "python/strings.py",
+        "ms": 17.5
+      },
+      {
+        "filename": "r/frames.R",
+        "ms": 61.199999928474426
+      },
+      {
+        "filename": "r/functions.R",
+        "ms": 36.800000071525574
+      },
+      {
+        "filename": "r/hello.R",
+        "ms": 18.300000071525574
+      },
+      {
+        "filename": "r/models.R",
+        "ms": 41.299999952316284
+      },
+      {
+        "filename": "r/objects.R",
+        "ms": 39.299999952316284
+      },
+      {
+        "filename": "r/pipeline.R",
+        "ms": 37.200000047683716
+      },
+      {
+        "filename": "r/plot.R",
+        "ms": 25.799999952316284
+      },
+      {
+        "filename": "r/strings.R",
+        "ms": 37.89999997615814
+      },
+      {
+        "filename": "ruby/blocks.rb",
+        "ms": 65
+      },
+      {
+        "filename": "ruby/classes.rb",
+        "ms": 32.60000002384186
+      },
+      {
+        "filename": "ruby/collections.rb",
+        "ms": 36.199999928474426
+      },
+      {
+        "filename": "ruby/hello.rb",
+        "ms": 15.5
+      },
+      {
+        "filename": "ruby/heredoc.rb",
+        "ms": 24
+      },
+      {
+        "filename": "ruby/patterns.rb",
+        "ms": 35.09999990463257
+      },
+      {
+        "filename": "ruby/rails.rb",
+        "ms": 43.10000002384186
+      },
+      {
+        "filename": "ruby/strings.rb",
+        "ms": 34.5
+      },
+      {
+        "filename": "rust/async.rs",
+        "ms": 88.29999995231628
+      },
+      {
+        "filename": "rust/edition2024.rs",
+        "ms": 35.200000047683716
+      },
+      {
+        "filename": "rust/hello.rs",
+        "ms": 30.899999976158142
+      },
+      {
+        "filename": "rust/macros.rs",
+        "ms": 32.199999928474426
+      },
+      {
+        "filename": "rust/ownership.rs",
+        "ms": 33.200000047683716
+      },
+      {
+        "filename": "rust/patterns.rs",
+        "ms": 49.199999928474426
+      },
+      {
+        "filename": "rust/raw-strings.rs",
+        "ms": 36.300000071525574
+      },
+      {
+        "filename": "rust/traits-generics.rs",
+        "ms": 38.10000002384186
+      },
+      {
+        "filename": "scala/async.scala",
+        "ms": 121.5
+      },
+      {
+        "filename": "scala/collections.scala",
+        "ms": 34.10000002384186
+      },
+      {
+        "filename": "scala/contextual.scala",
+        "ms": 37.5
+      },
+      {
+        "filename": "scala/generics.scala",
+        "ms": 42.59999990463257
+      },
+      {
+        "filename": "scala/hello.scala",
+        "ms": 23.200000047683716
+      },
+      {
+        "filename": "scala/models.scala",
+        "ms": 29
+      },
+      {
+        "filename": "scala/scala2.scala",
+        "ms": 34
+      },
+      {
+        "filename": "scala/strings.scala",
+        "ms": 36.300000071525574
+      },
+      {
+        "filename": "scss/hello.scss",
+        "ms": 13.899999976158142
+      },
+      {
+        "filename": "scss/surface-layout.scss",
+        "ms": 12.100000023841858
+      },
+      {
+        "filename": "sql/mysql.sql",
+        "ms": 62.200000047683716
+      },
+      {
+        "filename": "sql/oracle.sql",
+        "ms": 19
+      },
+      {
+        "filename": "sql/postgres.sql",
+        "ms": 17.399999976158142
+      },
+      {
+        "filename": "sql/queries.sql",
+        "ms": 22
+      },
+      {
+        "filename": "svelte/async-content.svelte",
+        "ms": 82.5
+      },
+      {
+        "filename": "svelte/control-flow.svelte",
+        "ms": 43.199999928474426
+      },
+      {
+        "filename": "svelte/counter.svelte",
+        "ms": 44.60000002384186
+      },
+      {
+        "filename": "svelte/directives.svelte",
+        "ms": 47.5
+      },
+      {
+        "filename": "svelte/legacy-component.svelte",
+        "ms": 34.799999952316284
+      },
+      {
+        "filename": "svelte/module-less.svelte",
+        "ms": 40.200000047683716
+      },
+      {
+        "filename": "svelte/snippets.svelte",
+        "ms": 52.89999997615814
+      },
+      {
+        "filename": "svelte/typed-scss.svelte",
+        "ms": 48.10000002384186
+      },
+      {
+        "filename": "swift/bindings.swift",
+        "ms": 97.10000002384186
+      },
+      {
+        "filename": "swift/collections.swift",
+        "ms": 44.59999990463257
+      },
+      {
+        "filename": "swift/concurrency.swift",
+        "ms": 48
+      },
+      {
+        "filename": "swift/generics.swift",
+        "ms": 41.200000047683716
+      },
+      {
+        "filename": "swift/hello.swift",
+        "ms": 24.5
+      },
+      {
+        "filename": "swift/patterns.swift",
+        "ms": 43.799999952316284
+      },
+      {
+        "filename": "swift/strings.swift",
+        "ms": 41
+      },
+      {
+        "filename": "swift/swiftui.swift",
+        "ms": 40.89999997615814
+      },
+      {
+        "filename": "toml/Cargo.toml",
+        "ms": 45.300000071525574
+      },
+      {
+        "filename": "toml/hello.toml",
+        "ms": 15.099999904632568
+      },
+      {
+        "filename": "toml/inline.toml",
+        "ms": 24.800000071525574
+      },
+      {
+        "filename": "toml/keys.toml",
+        "ms": 19.799999952316284
+      },
+      {
+        "filename": "toml/literals.toml",
+        "ms": 25.600000023841858
+      },
+      {
+        "filename": "toml/pyproject.toml",
+        "ms": 27.800000071525574
+      },
+      {
+        "filename": "toml/services.toml",
+        "ms": 15.5
+      },
+      {
+        "filename": "toml/strings.toml",
+        "ms": 24.300000071525574
+      },
+      {
+        "filename": "typescript/async-api-client.ts",
+        "ms": 111.5
+      },
+      {
+        "filename": "typescript/event-pipeline.ts",
+        "ms": 115.20000004768372
+      },
+      {
+        "filename": "typescript/hello.ts",
+        "ms": 20.299999952316284
+      },
+      {
+        "filename": "typescript/react-hooks.tsx",
+        "ms": 168
+      },
+      {
+        "filename": "typescript/tailwind-profile-card.tsx",
+        "ms": 204.79999995231628
+      },
+      {
+        "filename": "typescript/typed-cache.ts",
+        "ms": 55.300000071525574
+      },
+      {
+        "filename": "vue/hello.vue",
+        "ms": 112.39999997615814
+      },
+      {
+        "filename": "vue/scoped-styles.vue",
+        "ms": 47.199999928474426
+      },
+      {
+        "filename": "vue/tsx-render.vue",
+        "ms": 45.800000071525574
+      },
+      {
+        "filename": "vue/vue2-options.vue",
+        "ms": 105.5
+      },
+      {
+        "filename": "vue/vue3-composition.vue",
+        "ms": 77.39999997615814
+      },
+      {
+        "filename": "vue/vue32-typed-setup.vue",
+        "ms": 86.89999997615814
+      },
+      {
+        "filename": "yaml/anchors.yaml",
+        "ms": 74.39999997615814
+      },
+      {
+        "filename": "yaml/blocks.yaml",
+        "ms": 28.799999952316284
+      },
+      {
+        "filename": "yaml/compose.yaml",
+        "ms": 34.799999952316284
+      },
+      {
+        "filename": "yaml/documents.yaml",
+        "ms": 19.899999976158142
+      },
+      {
+        "filename": "yaml/hello.yaml",
+        "ms": 13
+      },
+      {
+        "filename": "yaml/kubernetes.yaml",
+        "ms": 33
+      },
+      {
+        "filename": "yaml/monitoring.yml",
+        "ms": 23.200000047683716
+      },
+      {
+        "filename": "yaml/workflow.yml",
+        "ms": 32.5
+      },
+      {
+        "filename": "zig/captures.zig",
+        "ms": 90.5
+      },
+      {
+        "filename": "zig/comptime.zig",
+        "ms": 38.60000002384186
+      },
+      {
+        "filename": "zig/containers.zig",
+        "ms": 30.399999976158142
+      },
+      {
+        "filename": "zig/errors-optionals.zig",
+        "ms": 38.39999997615814
+      },
+      {
+        "filename": "zig/hello.zig",
+        "ms": 31.300000071525574
+      },
+      {
+        "filename": "zig/memory.zig",
+        "ms": 31.799999952316284
+      },
+      {
+        "filename": "zig/reflection.zig",
+        "ms": 28.600000023841858
+      },
+      {
+        "filename": "zig/strings.zig",
+        "ms": 26.700000047683716
+      },
+      {
+        "filename": "edge/231.ts",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/232.ts",
+        "ms": 0.5999999046325684
+      },
+      {
+        "filename": "edge/233.ts",
+        "ms": 3.3000000715255737
+      },
+      {
+        "filename": "edge/234.ts",
+        "ms": 187.60000002384186
+      },
+      {
+        "filename": "edge/swift-0.swift",
+        "ms": 0
+      },
+      {
+        "filename": "edge/swift-1.swift",
+        "ms": 0.5
+      },
+      {
+        "filename": "edge/swift-2.swift",
+        "ms": 3.5
+      },
+      {
+        "filename": "edge/swift-3.swift",
+        "ms": 322.7999999523163
+      },
+      {
+        "filename": "edge/kotlin-0.kt",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/kotlin-1.kt",
+        "ms": 0.5
+      },
+      {
+        "filename": "edge/kotlin-2.kt",
+        "ms": 2.299999952316284
+      },
+      {
+        "filename": "edge/kotlin-3.kt",
+        "ms": 405.2000000476837
+      },
+      {
+        "filename": "edge/r-0.R",
+        "ms": 0.09999990463256836
+      },
+      {
+        "filename": "edge/r-1.R",
+        "ms": 0.5
+      },
+      {
+        "filename": "edge/r-2.R",
+        "ms": 2
+      },
+      {
+        "filename": "edge/r-3.R",
+        "ms": 361.89999997615814
+      },
+      {
+        "filename": "edge/scala-0.scala",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/scala-1.scala",
+        "ms": 0.5
+      },
+      {
+        "filename": "edge/scala-2.scala",
+        "ms": 2.700000047683716
+      },
+      {
+        "filename": "edge/scala-3.scala",
+        "ms": 319
+      },
+      {
+        "filename": "edge/ruby-0.rb",
+        "ms": 0
+      },
+      {
+        "filename": "edge/ruby-1.rb",
+        "ms": 0.5999999046325684
+      },
+      {
+        "filename": "edge/ruby-2.rb",
+        "ms": 2.200000047683716
+      },
+      {
+        "filename": "edge/ruby-3.rb",
+        "ms": 449.2999999523163
+      },
+      {
+        "filename": "edge/lua-0.lua",
+        "ms": 0
+      },
+      {
+        "filename": "edge/lua-1.lua",
+        "ms": 0.2999999523162842
+      },
+      {
+        "filename": "edge/lua-2.lua",
+        "ms": 2.3000000715255737
+      },
+      {
+        "filename": "edge/lua-3.lua",
+        "ms": 361.1999999284744
+      },
+      {
+        "filename": "edge/json-0.json",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/json-1.json",
+        "ms": 0.6000000238418579
+      },
+      {
+        "filename": "edge/json-2.json",
+        "ms": 2.5
+      },
+      {
+        "filename": "edge/json-3.json",
+        "ms": 403.89999997615814
+      },
+      {
+        "filename": "edge/jsonc-0.jsonc",
+        "ms": 0
+      },
+      {
+        "filename": "edge/jsonc-1.jsonc",
+        "ms": 1.600000023841858
+      },
+      {
+        "filename": "edge/jsonc-2.jsonc",
+        "ms": 2.299999952316284
+      },
+      {
+        "filename": "edge/jsonc-3.jsonc",
+        "ms": 326.39999997615814
+      },
+      {
+        "filename": "edge/yaml-0.yaml",
+        "ms": 0
+      },
+      {
+        "filename": "edge/yaml-1.yaml",
+        "ms": 0.5
+      },
+      {
+        "filename": "edge/yaml-2.yaml",
+        "ms": 2.6999999284744263
+      },
+      {
+        "filename": "edge/yaml-3.yaml",
+        "ms": 549.9000000953674
+      },
+      {
+        "filename": "edge/toml-0.toml",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/toml-1.toml",
+        "ms": 0.7000000476837158
+      },
+      {
+        "filename": "edge/toml-2.toml",
+        "ms": 2.600000023841858
+      },
+      {
+        "filename": "edge/toml-3.toml",
+        "ms": 416.40000009536743
+      }
+    ]
+  },
+  "independentPackage": {
+    "status": "passed",
+    "language": ["toml"],
+    "aliases": ["toml", "TOML"],
+    "cases": [
+      {
+        "filename": "toml/Cargo.toml",
+        "spans": 69,
+        "equal": true,
+        "alias": "toml"
+      },
+      {
+        "filename": "toml/hello.toml",
+        "spans": 37,
+        "equal": true,
+        "alias": "TOML"
+      },
+      {
+        "filename": "toml/inline.toml",
+        "spans": 49,
+        "equal": true,
+        "alias": "toml"
+      },
+      {
+        "filename": "toml/keys.toml",
+        "spans": 38,
+        "equal": true,
+        "alias": "TOML"
+      },
+      {
+        "filename": "toml/literals.toml",
+        "spans": 59,
+        "equal": true,
+        "alias": "toml"
+      },
+      {
+        "filename": "toml/pyproject.toml",
+        "spans": 72,
+        "equal": true,
+        "alias": "TOML"
+      },
+      {
+        "filename": "toml/services.toml",
+        "spans": 55,
+        "equal": true,
+        "alias": "toml"
+      },
+      {
+        "filename": "toml/strings.toml",
+        "spans": 23,
+        "equal": true,
+        "alias": "TOML"
+      },
+      {
+        "filename": "edge/toml-0.toml",
+        "spans": 0,
+        "equal": true,
+        "alias": "toml"
+      },
+      {
+        "filename": "edge/toml-1.toml",
+        "spans": 0,
+        "equal": true,
+        "alias": "TOML"
+      },
+      {
+        "filename": "edge/toml-2.toml",
+        "spans": 7,
+        "equal": true,
+        "alias": "toml"
+      },
+      {
+        "filename": "edge/toml-3.toml",
+        "spans": 65,
+        "equal": true,
+        "alias": "TOML"
+      }
+    ],
+    "palettes": [
+      {
+        "preset": "default",
+        "mode": "light",
+        "background": "rgb(251, 252, 255)"
+      },
+      {
+        "preset": "default",
+        "mode": "dark",
+        "background": "rgb(21, 27, 41)"
+      },
+      {
+        "preset": "muted",
+        "mode": "light",
+        "background": "rgb(246, 245, 241)"
+      },
+      {
+        "preset": "muted",
+        "mode": "dark",
+        "background": "rgb(38, 40, 35)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "light",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "dark",
+        "background": "rgb(0, 0, 0)"
+      }
+    ],
+    "highlightElement": true,
+    "highlightTokens": true,
+    "customColor": "rgb(18, 52, 86)"
+  },
+  "consumerBuild": {
+    "directory": "artifacts/toml/consumer-dist",
+    "offlineCacheOnly": true,
+    "publicImports": true,
+    "modelAssets": ["toml-CEBEuuiz.onnx"],
+    "noRepositoryAliases": true,
+    "servedUsing": "Existing Playground filesystem route; no new server or port"
+  },
+  "playground": {
+    "url": "http://127.0.0.1:3000/",
+    "language": "TOML",
+    "examples": 8,
+    "sourceKind": "toml",
+    "observedExample": "keys.toml",
+    "browserInference": true,
+    "lightDark": true,
+    "shuffle": true,
+    "screenshot": "artifacts/toml/playground.png",
+    "consoleErrors": []
+  },
+  "checks": {
+    "makeCheckPassed": true,
+    "typescriptJavascriptTests": 160,
+    "teacherTests": 12,
+    "independentMarkedGoldenCases": 40
+  },
+  "quality": {
+    "naturalTest": {
+      "documents": 9,
+      "exactDocumentsIncludingModifiers": 7,
+      "exactSpan": {
+        "precision": 0.9839816933638444,
+        "recall": 0.9981429897864438,
+        "f1": 0.9910117538603365,
+        "tp": 2150,
+        "fp": 35,
+        "fn": 4,
+        "support": 2154
+      },
+      "exactSpanMacroF1": 0.9751892880197405,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9839816933638444,
+        "recall": 0.9981429897864438,
+        "f1": 0.9910117538603365,
+        "tp": 2150,
+        "fp": 35,
+        "fn": 4,
+        "support": 2154
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 225,
+          "fp": 0,
+          "fn": 0,
+          "support": 225
+        },
+        "comment": {
+          "precision": 0.9411764705882353,
+          "recall": 0.9411764705882353,
+          "f1": 0.9411764705882353,
+          "tp": 16,
+          "fp": 1,
+          "fn": 1,
+          "support": 17
+        },
+        "string": {
+          "precision": 0.9508196721311475,
+          "recall": 1.0,
+          "f1": 0.9747899159663865,
+          "tp": 174,
+          "fp": 9,
+          "fn": 0,
+          "support": 174
+        },
+        "number": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "punctuation": {
+          "precision": 0.9871355060034306,
+          "recall": 1.0,
+          "f1": 0.9935261113508848,
+          "tp": 1151,
+          "fp": 15,
+          "fn": 0,
+          "support": 1151
+        },
+        "namespace": {
+          "precision": 0.9402985074626866,
+          "recall": 0.9545454545454546,
+          "f1": 0.9473684210526315,
+          "tp": 63,
+          "fp": 4,
+          "fn": 3,
+          "support": 66
+        },
+        "type": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "method": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constructor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "property": {
+          "precision": 0.9886148007590133,
+          "recall": 1.0,
+          "f1": 0.9942748091603053,
+          "tp": 521,
+          "fp": 6,
+          "fn": 0,
+          "support": 521
+        },
+        "type-parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "visibleDisplays": {
+      "documents": 8,
+      "exactDocumentsIncludingModifiers": 6,
+      "exactSpan": {
+        "precision": 0.9651741293532339,
+        "recall": 0.9897959183673469,
+        "f1": 0.9773299748110831,
+        "tp": 388,
+        "fp": 14,
+        "fn": 4,
+        "support": 392
+      },
+      "exactSpanMacroF1": 0.935498698271245,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9651741293532339,
+        "recall": 0.9897959183673469,
+        "f1": 0.9773299748110831,
+        "tp": 388,
+        "fp": 14,
+        "fn": 4,
+        "support": 392
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 8,
+          "fp": 0,
+          "fn": 0,
+          "support": 8
+        },
+        "comment": {
+          "precision": 0.5714285714285714,
+          "recall": 1.0,
+          "f1": 0.7272727272727273,
+          "tp": 4,
+          "fp": 3,
+          "fn": 0,
+          "support": 4
+        },
+        "string": {
+          "precision": 0.8909090909090909,
+          "recall": 0.9607843137254902,
+          "f1": 0.9245283018867925,
+          "tp": 49,
+          "fp": 6,
+          "fn": 2,
+          "support": 51
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 29,
+          "fp": 0,
+          "fn": 0,
+          "support": 29
+        },
+        "operator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 194,
+          "fp": 0,
+          "fn": 0,
+          "support": 194
+        },
+        "namespace": {
+          "precision": 0.875,
+          "recall": 0.9333333333333333,
+          "f1": 0.9032258064516129,
+          "tp": 28,
+          "fp": 4,
+          "fn": 2,
+          "support": 30
+        },
+        "type": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "method": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constructor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "property": {
+          "precision": 0.987012987012987,
+          "recall": 1.0,
+          "f1": 0.9934640522875817,
+          "tp": 76,
+          "fp": 1,
+          "fn": 0,
+          "support": 76
+        },
+        "type-parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "strictNeuralGoldenExact": 27,
+    "strictNeuralGoldenTotal": 40
+  },
+  "environment": {
+    "languageSDKOrGlobalDependencyInstalled": false,
+    "developmentOnly": "Pinned toml-eslint-parser 1.0.3 and eslint-visitor-keys 5.0.1 official npm assets, with original licenses and archive/per-file hashes, using existing Node only",
+    "sourceOrDependencyExecution": false,
+    "frontendPythonOrLanguageSDKRequired": false
+  },
+  "preservation": {
+    "priorNativeAndOnnxArtifactsChecked": 61,
+    "allByteIdentical": true,
+    "currentGoldMatchesPreparedIdentity": true,
+    "allPreviousDataAndRunsRetained": true,
+    "previousFormalModelWeightFilesChecked": 60,
+    "previousHistoricalWeightFilesChecked": 1
+  },
+  "distribution": {
+    "repositoryPrivate": true,
+    "packagesPrivate": true,
+    "npmPublished": false
+  }
+}

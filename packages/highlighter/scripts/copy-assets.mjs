@@ -33,6 +33,7 @@ for (const id of [
   "lua",
   "json",
   "yaml",
+  "toml",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

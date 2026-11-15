@@ -40,6 +40,7 @@ const ids = [
   "lua",
   "json",
   "yaml",
+  "toml",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -224,6 +225,20 @@ for (const [index, source] of [
     source,
     documentKind: "yaml",
     result: await getPack("yaml").highlight({ source, documentKind: "yaml" }),
+  });
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '# 星空 🌌\r\nname="TOML"\r\nready=true\r\n',
+  'text="""\n' +
+    "Original 🌌 literal with # markers, {braces} and quotes.\n".repeat(80) +
+    '"""\nready=true\n',
+].entries())
+  cases.push({
+    filename: `edge/toml-${index}.toml`,
+    source,
+    documentKind: "toml",
+    result: await getPack("toml").highlight({ source, documentKind: "toml" }),
   });
 await Promise.all([...models.values()].map((model) => model.close()));
 writeFileSync(

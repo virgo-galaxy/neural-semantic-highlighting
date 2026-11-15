@@ -28,6 +28,7 @@ import scala from "./languages/scala.js";
 import sql from "./languages/sql.js";
 import svelte from "./languages/svelte.js";
 import swift from "./languages/swift.js";
+import toml from "./languages/toml.js";
 import typescript from "./languages/typescript.js";
 import vue from "./languages/vue.js";
 import yaml from "./languages/yaml.js";
@@ -68,6 +69,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       lua,
       json,
       yaml,
+      toml,
     ],
   });
 }

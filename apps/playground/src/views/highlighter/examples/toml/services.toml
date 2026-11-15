@@ -1,0 +1,17 @@
+[[services]]
+name = "api"
+ports = [8080, 8081]
+enabled = true
+
+[services.health]
+path = "/ready"
+interval = 15
+
+[[services]]
+name = "worker"
+ports = []
+enabled = false
+
+[services.health]
+command = "check-worker"
+interval = 30

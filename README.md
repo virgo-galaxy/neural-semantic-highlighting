@@ -472,7 +472,7 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
@@ -701,11 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **30 model packs**, with browser inference and Playground examples.
+There are **31 model packs**, with browser inference and Playground examples.
 Some source kinds share weights, including JSON/JSONC; Flutter shares Dart.
 The browser conversion preserves the selected weights without retraining or
-quantization. The latest [verification record](docs/yaml-browser-verification.json)
-retains **263/263** exact browser/native comparisons and **159** passing frontend
+quantization. The latest [verification record](docs/toml-browser-verification.json)
+retains **275/275** exact browser/native comparisons and **160** passing frontend
 tests. Independent local-package checks cover public imports, original source
 text, themes and custom CSS. [Browser verification](docs/browser-runtime.md)
 keeps the earlier rollout results separately. These are runtime/packaging checks,
@@ -747,6 +747,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [Lua](packs/lua/model/README.md)                            | Common Lua 5.x .lua functions, closures, tables, methods, long strings/comments, 5.4 attributes and 5.5 global declarations/named varargs                           | [91.78%](packs/lua/model/BENCHMARKS.md) — natural test, 15 files                                                                               | Browser + local; [measured boundaries and source-local roles](packs/lua/model/KNOWN_ISSUES.md) remain limited                                        |
 | [JSON / JSONC](packs/json/model/README.md)                  | `.json`, `.jsonc`, `.code-workspace`; strict JSON and explicit JSONC comments/trailing commas; quoted keys/values and nested data                                   | [Natural test](packs/json/model/BENCHMARKS.md): JSON 99.71% (9 files); JSONC 99.84% (6 files)                                                  | Browser + local, one shared model; [literal/comment boundaries and key/value roles](packs/json/model/KNOWN_ISSUES.md) remain limited                 |
 | [YAML](packs/yaml/model/README.md)                          | YAML .yaml/.yml configuration, YAML 1.2 Core scalars, mappings/sequences, quoted/block strings, anchors/aliases, tags, directives and multi-document streams        | [95.34%](packs/yaml/model/BENCHMARKS.md) — natural test, 12 files                                                                              | Browser + local; [measured scalar/structure roles and boundaries](packs/yaml/model/KNOWN_ISSUES.md) remain limited                                   |
+| [TOML](packs/toml/model/README.md)                          | TOML .toml configuration, common 1.0 forms and tested 1.1 additions, tables/array tables, dotted/quoted keys, arrays/inline tables, four string and date/time forms | [99.10%](packs/toml/model/BENCHMARKS.md) — natural test, 9 files                                                                               | Browser + local; [measured scalar/structure roles and boundaries](packs/toml/model/KNOWN_ISSUES.md) remain limited                                   |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -877,3 +878,14 @@ Playground adds eight independent examples and the pinned Devicon icon; all them
 presets, light/dark mode and custom CSS apply. See
 [YAML evaluation](packs/yaml/model/BENCHMARKS.md) and
 [known limits](packs/yaml/model/KNOWN_ISSUES.md).
+
+TOML uses `{ language: "toml" }`; selective
+`@nsh/highlighter/languages/toml` emits one model asset. It covers common TOML
+1.0 configuration and tested 1.1 additions, including tables, array tables,
+quoted/dotted keys, inline tables, strings and date/time values. Use explicit
+TOML selection for lockfiles; generic `.lock` and `.conf` extensions have no TOML
+mapping. Frontend applications require no language SDK, parser or Python provider.
+The Playground includes eight examples, the Devicon icon and all existing themes
+and custom CSS options. See [evaluation](packs/toml/model/BENCHMARKS.md) and
+[known limits](packs/toml/model/KNOWN_ISSUES.md), especially multiline strings and
+quoted keys containing dots.

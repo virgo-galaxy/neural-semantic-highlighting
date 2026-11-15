@@ -28,6 +28,7 @@ import scssIcon from "@/assets/document-kinds/scss.svg";
 import sqlIcon from "@/assets/document-kinds/sql.svg";
 import svelteIcon from "@/assets/document-kinds/svelte.svg";
 import swiftIcon from "@/assets/document-kinds/swift.svg";
+import tomlIcon from "@/assets/document-kinds/toml.svg";
 import typescriptIcon from "@/assets/document-kinds/typescript.svg";
 import vueIcon from "@/assets/document-kinds/vue.svg";
 import yamlIcon from "@/assets/document-kinds/yaml.svg";
@@ -112,6 +113,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   json: { label: "JSON", icon: jsonIcon },
   jsonc: { label: "JSONC", icon: jsonIcon },
   yaml: { label: "YAML", icon: yamlIcon },
+  toml: { label: "TOML", icon: tomlIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -201,6 +203,7 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".json", "json"],
   [".jsonc", "jsonc"],
   [".code-workspace", "jsonc"],
+  [".toml", "toml"],
   [".yaml", "yaml"],
   [".yml", "yaml"],
 ] as const;

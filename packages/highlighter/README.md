@@ -29,7 +29,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
 include their JS/TS/CSS dependencies automatically; PHP includes HTML and its
-child dependencies. Default registration covers 30 packs, including Swift,
+child dependencies. Default registration covers 31 packs, including Swift,
 Kotlin, R, Scala, Ruby and Lua. Flutter shares Dart's model. Weights are fetched
 lazily. Models are about 3.7 MB each, with a shared 14.8 MB uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -168,3 +168,9 @@ YAML .yaml/.yml configuration, YAML 1.2 Core scalars, mappings/sequences, quoted
 without a language SDK, parser or Python provider. All existing themes/custom CSS
 apply. See [evaluation](../../packs/yaml/model/BENCHMARKS.md) and
 [known limits](../../packs/yaml/model/KNOWN_ISSUES.md).
+
+TOML uses `{ language: "toml" }`. TOML uses one descriptor and canonical toml output. Generic .lock/.conf files are not automatically assigned TOML.
+TOML .toml configuration, common 1.0 forms and tested 1.1 additions, tables/array tables, dotted/quoted keys, arrays/inline tables, four string and date/time forms. Selective `@nsh/highlighter/languages/toml` emits one model asset,
+without a language SDK, parser or Python provider. All existing themes/custom CSS
+apply. See [evaluation](../../packs/toml/model/BENCHMARKS.md) and
+[known limits](../../packs/toml/model/KNOWN_ISSUES.md).

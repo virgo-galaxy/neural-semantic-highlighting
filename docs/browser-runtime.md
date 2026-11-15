@@ -2,10 +2,10 @@
 
 ## Current verified state
 
-The latest [YAML addition record](yaml-browser-verification.json), dated 2026-11-12,
-covers **30 selected model packs** and **263/263** exact Chromium/native
-span/role/modifier comparisons, with **159** passing frontend tests. Its independent
-local-package consumer passes **12/12** YAML comparisons plus the element/tokens API,
+The latest [TOML addition record](toml-browser-verification.json), dated 2026-11-15,
+covers **31 selected model packs** and **275/275** exact Chromium/native
+span/role/modifier comparisons, with **160** passing frontend tests. Its independent
+local-package consumer passes **12/12** TOML comparisons plus the element/tokens API,
 six preset/mode combinations and custom CSS. Earlier language-specific consumer
 checks remain in their own records below. JSON and JSONC share one model;
 Flutter uses the Dart model.
@@ -629,4 +629,32 @@ Natural held-out F1 is **95.34%** on
 15/40. [Quality and limits](../packs/yaml/model/BENCHMARKS.md)
 keep these evidence sets distinct. Block scalars remain a material weakness: header comments can merge into bodies, indented # lines can receive comment roles, folded bodies can fragment, and JSON-looking literal content can acquire nested property/keyword roles even within the context. Plain/quoted/block scalar and header boundaries, indentation-sensitive key/value roles, anchors/aliases/tags and multi-document context remain approximate. No alias expansion, schema/application validation, legacy YAML 1.1 type guarantee, template execution, embedded-language parsing or runtime parser/spelling repair is provided. Offline tools are
 Pinned yaml 2.9.1 official npm Document/CST assets with archive/per-file hashes and retained ISC license, using existing Node only in project cache; no language SDK/global package is installed and collected projects
+never execute. Frontend consumers require no language toolchain or Python process.
+
+## TOML addition
+
+TOML is selected model 31. The [verification record](toml-browser-verification.json)
+retains ONNX conversion, browser/native parity and independent public-package evidence.
+
+- Chromium matches **275/275** original UTF-16 span/role/modifier references,
+  including all earlier cases, eight new displays and four empty/CRLF/Unicode/long
+  multi-window probes. These are consistency checks, not additional accuracy tests.
+- An independent temporary Vite app installs four local package archives offline,
+  imports public core + toml + theme exports, and emits **one model asset** without
+  repository aliases. It passes **12/12** spans/original-text comparisons,
+  `highlightElement`, `highlightTokens`, case-normalized IDs, six preset/mode
+  combinations and custom CSS. Static output uses the existing Playground
+  filesystem route; no new server/port is introduced.
+- Playground adds the pinned Devicon icon, eight examples, shuffle and light/dark
+  switching through the existing browser worker, without Python. Full `make check`
+  passes **160** frontend tests and every prior language check,
+  including **12** new teacher tests and **40** marked Golden cases.
+  All 61 earlier native/ONNX weight files remain byte-identical.
+
+Natural held-out F1 is **99.10%** on
+9 real files. Visible displays aggregate
+**97.73%**; strict neural Golden agreement is
+27/40. [Quality and limits](../packs/toml/model/BENCHMARKS.md)
+keep these evidence sets distinct. Multiline string bodies remain a material weakness: original quoted/hash/shell-looking content can fragment or receive comment/property roles even inside the 512-byte context (strings.toml display 68.42% F1). Quoted keys containing dots can split or acquire the header role (keys.toml 91.89%). Header/assignment roles, dates and long bodies remain approximate. Common 1.0 and tested 1.1 forms do not certify every TOML edge case; the pinned parser labels 1.1 support experimental. No project validation, configuration execution, interpolation or runtime parser/spelling repair is provided. Offline tools are
+Pinned toml-eslint-parser 1.0.3 and eslint-visitor-keys 5.0.1 official npm assets, with original licenses and archive/per-file hashes, using existing Node only; no language SDK/global package is installed and collected projects
 never execute. Frontend consumers require no language toolchain or Python process.

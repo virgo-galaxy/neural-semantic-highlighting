@@ -410,3 +410,15 @@ See [training](../training/yaml/README.md), [semantics](../packs/yaml/SEMANTICS.
 and [selected evaluation](../packs/yaml/model/BENCHMARKS.md). Resume full artifacts
 checkpoints only, never inference .pt/ONNX. Frontend and Playground inference use
 the selected ONNX asset in the existing browser Worker without a Python bridge.
+
+## TOML offline workflow
+
+`make dataset-toml` follows the existing external dataset/checkpoint paths,
+immutable revisions, copy audits and frozen source families. `make dataset-toml-tools`
+prepares Pinned toml-eslint-parser 1.0.3 and eslint-visitor-keys 5.0.1 official npm assets, with original licenses and archive/per-file hashes, using existing Node only. No language SDK/global package is installed; collected source,
+configuration commands and schemas never execute. `make test-labeling-toml` checks
+12 focused tests and 40 independently marked Golden cases.
+See [training](../training/toml/README.md), [semantics](../packs/toml/SEMANTICS.md)
+and [selected evaluation](../packs/toml/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only, never inference .pt/ONNX. Frontend and Playground inference use
+the selected ONNX asset in the existing browser Worker without a Python bridge.

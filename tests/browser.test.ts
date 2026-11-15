@@ -9,6 +9,7 @@ import json from "@nsh/highlighter/languages/json";
 import jsonc from "@nsh/highlighter/languages/jsonc";
 import kotlin from "@nsh/highlighter/languages/kotlin";
 import ruby from "@nsh/highlighter/languages/ruby";
+import toml from "@nsh/highlighter/languages/toml";
 import yaml from "@nsh/highlighter/languages/yaml";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
@@ -212,6 +213,24 @@ describe("consumer API", () => {
     expect(FakeWorker.instances).toHaveLength(1);
     highlighter.close();
   });
+  it("routes TOML names through its selected model", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [toml] });
+    expect(highlighter.languages()).toEqual(["toml"]);
+    for (const language of ["toml", "TOML"]) {
+      expect(highlighter.supports(language)).toBe(true);
+      const pending = highlighter.highlight('title = "<星🌌>"', { language });
+      const worker = FakeWorker.instances[0];
+      const message = worker.messages.at(-1)!;
+      expect(message.model).toMatchObject({ id: "toml", sha256: toml.sha256 });
+      worker.reply(message.id);
+      const rendered = await pending;
+      expect(rendered.language).toBe("toml");
+      expect(rendered.value).toContain("&lt;星🌌&gt;");
+    }
+    expect(FakeWorker.instances).toHaveLength(1);
+    highlighter.close();
+  });
   it("routes Ruby source and build-file aliases through one descriptor", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [ruby] });
@@ -280,6 +299,7 @@ describe("shipped browser artifacts", () => {
       "lua",
       "json",
       "yaml",
+      "toml",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(
