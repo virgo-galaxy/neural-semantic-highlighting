@@ -1541,7 +1541,7 @@ JSON_BATCH_SIZE ?= 32
 JSON_LEARNING_RATE ?=
 JSON_EVAL_SPLIT ?= validation
 
-.PHONY: dataset-json dataset-json-tools dataset-json-sources dataset-json-curriculum dataset-json-collect dataset-json-label dataset-json-validate dataset-json-prepare test-labeling-json train-json-smoke train-json continue-json predict-json evajsonte-json challenge-json export-json-model
+.PHONY: dataset-json dataset-json-tools dataset-json-sources dataset-json-curriculum dataset-json-collect dataset-json-label dataset-json-validate dataset-json-prepare test-labeling-json train-json-smoke train-json continue-json predict-json evaluate-json challenge-json export-json-model
 
 dataset-json-tools:
 	$(PYTHON) -m packs.json.labeling.tools
@@ -1591,9 +1591,9 @@ predict-json:
 	@test -n "$(JSON_SOURCE)" || (echo 'Set JSON_SOURCE to a source file'; exit 1)
 	$(PYTHON) -m training.json.predict --device $(JSON_DEVICE) --file "$(JSON_SOURCE)" $(if $(JSON_CHECKPOINT),--checkpoint "$(JSON_CHECKPOINT)")
 
-evajsonte-json:
+evaluate-json:
 	@test -n "$(JSON_CHECKPOINT)" || (echo 'Set JSON_CHECKPOINT to a frozen candidate'; exit 1)
-	$(PYTHON) -m training.json.evajsonte --checkpoint "$(JSON_CHECKPOINT)" --device $(JSON_DEVICE) --split $(JSON_EVAL_SPLIT)
+	$(PYTHON) -m training.json.evaluate --checkpoint "$(JSON_CHECKPOINT)" --device $(JSON_DEVICE) --split $(JSON_EVAL_SPLIT)
 
 challenge-json:
 	@test -n "$(JSON_CHECKPOINT)" || (echo 'Set JSON_CHECKPOINT to a frozen candidate'; exit 1)
@@ -1609,7 +1609,7 @@ YAML_BATCH_SIZE ?= 32
 YAML_LEARNING_RATE ?=
 YAML_EVAL_SPLIT ?= validation
 
-.PHONY: dataset-yaml dataset-yaml-tools dataset-yaml-sources dataset-yaml-curriculum dataset-yaml-collect dataset-yaml-label dataset-yaml-validate dataset-yaml-prepare test-labeling-yaml train-yaml-smoke train-yaml continue-yaml predict-yaml evayamlte-yaml challenge-yaml export-yaml-model
+.PHONY: dataset-yaml dataset-yaml-tools dataset-yaml-sources dataset-yaml-curriculum dataset-yaml-collect dataset-yaml-label dataset-yaml-validate dataset-yaml-prepare test-labeling-yaml train-yaml-smoke train-yaml continue-yaml predict-yaml evaluate-yaml challenge-yaml export-yaml-model
 
 dataset-yaml-tools:
 	$(PYTHON) -m packs.yaml.labeling.tools
@@ -1659,9 +1659,9 @@ predict-yaml:
 	@test -n "$(YAML_SOURCE)" || (echo 'Set YAML_SOURCE to a source file'; exit 1)
 	$(PYTHON) -m training.yaml.predict --device $(YAML_DEVICE) --file "$(YAML_SOURCE)" $(if $(YAML_CHECKPOINT),--checkpoint "$(YAML_CHECKPOINT)")
 
-evayamlte-yaml:
+evaluate-yaml:
 	@test -n "$(YAML_CHECKPOINT)" || (echo 'Set YAML_CHECKPOINT to a frozen candidate'; exit 1)
-	$(PYTHON) -m training.yaml.evayamlte --checkpoint "$(YAML_CHECKPOINT)" --device $(YAML_DEVICE) --split $(YAML_EVAL_SPLIT)
+	$(PYTHON) -m training.yaml.evaluate --checkpoint "$(YAML_CHECKPOINT)" --device $(YAML_DEVICE) --split $(YAML_EVAL_SPLIT)
 
 challenge-yaml:
 	@test -n "$(YAML_CHECKPOINT)" || (echo 'Set YAML_CHECKPOINT to a frozen candidate'; exit 1)
@@ -1677,7 +1677,7 @@ TOML_BATCH_SIZE ?= 32
 TOML_LEARNING_RATE ?=
 TOML_EVAL_SPLIT ?= validation
 
-.PHONY: dataset-toml dataset-toml-tools dataset-toml-sources dataset-toml-curriculum dataset-toml-collect dataset-toml-label dataset-toml-validate dataset-toml-prepare test-labeling-toml train-toml-smoke train-toml continue-toml predict-toml evatomlte-toml challenge-toml export-toml-model
+.PHONY: dataset-toml dataset-toml-tools dataset-toml-sources dataset-toml-curriculum dataset-toml-collect dataset-toml-label dataset-toml-validate dataset-toml-prepare test-labeling-toml train-toml-smoke train-toml continue-toml predict-toml evaluate-toml challenge-toml export-toml-model
 
 dataset-toml-tools:
 	$(PYTHON) -m packs.toml.labeling.tools
@@ -1727,9 +1727,9 @@ predict-toml:
 	@test -n "$(TOML_SOURCE)" || (echo 'Set TOML_SOURCE to a source file'; exit 1)
 	$(PYTHON) -m training.toml.predict --device $(TOML_DEVICE) --file "$(TOML_SOURCE)" $(if $(TOML_CHECKPOINT),--checkpoint "$(TOML_CHECKPOINT)")
 
-evatomlte-toml:
+evaluate-toml:
 	@test -n "$(TOML_CHECKPOINT)" || (echo 'Set TOML_CHECKPOINT to a frozen candidate'; exit 1)
-	$(PYTHON) -m training.toml.evatomlte --checkpoint "$(TOML_CHECKPOINT)" --device $(TOML_DEVICE) --split $(TOML_EVAL_SPLIT)
+	$(PYTHON) -m training.toml.evaluate --checkpoint "$(TOML_CHECKPOINT)" --device $(TOML_DEVICE) --split $(TOML_EVAL_SPLIT)
 
 challenge-toml:
 	@test -n "$(TOML_CHECKPOINT)" || (echo 'Set TOML_CHECKPOINT to a frozen candidate'; exit 1)
