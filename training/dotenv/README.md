@@ -1,0 +1,22 @@
+# DOTENV training
+
+Use the shared 894,872-parameter, 512-byte Transformer on the existing MPS host.
+No new SDK or global package is installed. Pinned dotenv 18.0.10 parse-only assets use existing Node in project cache.
+
+    make dataset-dotenv
+    make test-labeling-dotenv
+    caffeinate -i make train-dotenv-smoke DOTENV_DEVICE=mps DOTENV_RUN=artifacts/dotenv/smoke DOTENV_INIT_FROM=artifacts/ini/context512-refine-20261115-01/candidates/epoch-0002.pt
+    caffeinate -i make train-dotenv DOTENV_DEVICE=mps DOTENV_EPOCHS=3 DOTENV_RUN=artifacts/dotenv/context512 DOTENV_INIT_FROM=artifacts/ini/context512-refine-20261115-01/candidates/epoch-0002.pt
+    caffeinate -i make continue-dotenv DOTENV_DEVICE=mps DOTENV_EPOCHS=3 DOTENV_CHECKPOINT=artifacts/dotenv/context512/last.pt
+
+Initialize only from compatible full checkpoints under artifacts. Resume complete
+last.pt in its original run; archive best full candidates before continuation.
+Inference packs/*/model/model.pt and ONNX are never resumable checkpoints.
+Review actual natural validation, independent Golden and displayed source before
+freezing a candidate and first adaptive test. Keep language/script and natural /
+focus / visible evidence distinct. Stop at a useful bounded baseline and preserve
+measured limits, every prior snapshot, experiment and formal model.
+
+External data stays under ~/Datasets/neural-semantic-highlighting/dotenv. Full
+optimizer/RNG checkpoints, invocation settings and measured epoch timings stay
+under artifacts/dotenv. Frontend consumers require no DOTENV parser, language SDK or Python process.

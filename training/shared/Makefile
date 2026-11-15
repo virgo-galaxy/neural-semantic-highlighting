@@ -1806,3 +1806,70 @@ challenge-ini:
 export-ini-model:
 	@test -n "$(INI_CHECKPOINT)" -a -n "$(INI_TEST_REPORT)" || (echo 'Set INI_CHECKPOINT and INI_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.ini.export_model --checkpoint "$(INI_CHECKPOINT)" --test-report "$(INI_TEST_REPORT)"
+
+DOTENV_DEVICE ?= auto
+DOTENV_EPOCHS ?= 3
+DOTENV_BATCH_SIZE ?= 32
+DOTENV_LEARNING_RATE ?=
+DOTENV_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-dotenv dataset-dotenv-tools dataset-dotenv-sources dataset-dotenv-curriculum dataset-dotenv-collect dataset-dotenv-label dataset-dotenv-validate dataset-dotenv-prepare test-labeling-dotenv train-dotenv-smoke train-dotenv continue-dotenv predict-dotenv evaluate-dotenv challenge-dotenv export-dotenv-model
+
+dataset-dotenv-tools:
+	$(PYTHON) -m packs.dotenv.labeling.tools
+
+dataset-dotenv-sources:
+	$(PYTHON) -m packs.dotenv.dataset.fetch_sources
+
+dataset-dotenv:
+	$(MAKE) dataset-dotenv-tools
+	$(MAKE) dataset-dotenv-sources
+	$(MAKE) dataset-dotenv-curriculum
+	$(MAKE) dataset-dotenv-collect
+	$(MAKE) dataset-dotenv-label
+	$(MAKE) dataset-dotenv-validate
+	$(MAKE) dataset-dotenv-prepare
+
+dataset-dotenv-curriculum:
+	$(PYTHON) -m packs.dotenv.dataset.generate_curriculum
+
+dataset-dotenv-collect:
+	$(PYTHON) -m packs.dotenv.dataset.pipeline collect
+
+dataset-dotenv-label:
+	$(PYTHON) -m packs.dotenv.dataset.pipeline label
+
+dataset-dotenv-validate:
+	$(PYTHON) -m packs.dotenv.dataset.pipeline validate
+
+dataset-dotenv-prepare:
+	$(PYTHON) -m training.dotenv.prepare
+
+test-labeling-dotenv:
+	$(PYTHON) -m unittest discover -s packs/dotenv/tests -v
+
+train-dotenv-smoke:
+	$(PYTHON) -m training.dotenv.train --smoke --epochs 1 --device $(DOTENV_DEVICE) $(if $(DOTENV_RUN),--output-dir "$(DOTENV_RUN)") $(if $(DOTENV_INIT_FROM),--init-from "$(DOTENV_INIT_FROM)")
+
+train-dotenv:
+	$(PYTHON) -m training.dotenv.train --epochs $(DOTENV_EPOCHS) --device $(DOTENV_DEVICE) --batch-size $(DOTENV_BATCH_SIZE) $(if $(DOTENV_LEARNING_RATE),--learning-rate $(DOTENV_LEARNING_RATE)) $(if $(DOTENV_RUN),--output-dir "$(DOTENV_RUN)") $(if $(DOTENV_INIT_FROM),--init-from "$(DOTENV_INIT_FROM)")
+
+continue-dotenv:
+	@test -n "$(DOTENV_CHECKPOINT)" || (echo 'Set DOTENV_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.dotenv.train --resume "$(DOTENV_CHECKPOINT)" --epochs $(DOTENV_EPOCHS) --device $(DOTENV_DEVICE)
+
+predict-dotenv:
+	@test -n "$(DOTENV_SOURCE)" || (echo 'Set DOTENV_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.dotenv.predict --device $(DOTENV_DEVICE) --file "$(DOTENV_SOURCE)" $(if $(DOTENV_CHECKPOINT),--checkpoint "$(DOTENV_CHECKPOINT)")
+
+evaluate-dotenv:
+	@test -n "$(DOTENV_CHECKPOINT)" || (echo 'Set DOTENV_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.dotenv.evaluate --checkpoint "$(DOTENV_CHECKPOINT)" --device $(DOTENV_DEVICE) --split $(DOTENV_EVAL_SPLIT)
+
+challenge-dotenv:
+	@test -n "$(DOTENV_CHECKPOINT)" || (echo 'Set DOTENV_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.dotenv.challenge --checkpoint "$(DOTENV_CHECKPOINT)" --device $(DOTENV_DEVICE)
+
+export-dotenv-model:
+	@test -n "$(DOTENV_CHECKPOINT)" -a -n "$(DOTENV_TEST_REPORT)" || (echo 'Set DOTENV_CHECKPOINT and DOTENV_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.dotenv.export_model --checkpoint "$(DOTENV_CHECKPOINT)" --test-report "$(DOTENV_TEST_REPORT)"
