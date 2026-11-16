@@ -114,5 +114,9 @@ def model_from_checkpoint(payload: dict, device: torch.device) -> SemanticTransf
         raise ValueError("Invalid checkpoint schema")
     model = SemanticTransformer(ModelConfig(**payload["modelConfig"]), len(schema["tokenTypes"]), len(schema["modifiers"]))
     model.load_state_dict(payload["model"], strict=True)
+    if payload.get('structuredDecoder') is not None:
+        from training.shared.structured import validate
+        validate(payload['structuredDecoder'], schema)
+        model.structured_decoder = payload['structuredDecoder']
     return model.to(device)
 

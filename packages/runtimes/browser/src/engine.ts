@@ -2,6 +2,7 @@ import type { HighlightResult } from "@nsh/core";
 import * as ort from "onnxruntime-web/wasm";
 
 import { argmax, characterMap, SpanDecoder } from "./decode.js";
+import { StructuredSpanDecoder } from "./structured.js";
 import type { BrowserModel, ModelRequest } from "./types.js";
 
 // One thread works without COOP/COEP or SharedArrayBuffer. Both files are shipped
@@ -39,7 +40,9 @@ async function sessionFor(model: ModelRequest) {
 
 export async function highlight(model: ModelRequest, source: string): Promise<HighlightResult> {
   const { bytes: starts, units } = characterMap(source);
-  const decoder = new SpanDecoder(model as unknown as BrowserModel);
+  const decoder = model.structuredDecoder
+    ? new StructuredSpanDecoder(model as unknown as BrowserModel)
+    : new SpanDecoder(model as unknown as BrowserModel);
   if (!source.length) return decoder.finish();
   const raw = new TextEncoder().encode(source);
   const session = await sessionFor(model);
@@ -72,15 +75,27 @@ export async function highlight(model: ModelRequest, source: string): Promise<Hi
       if (commitIndex <= cursorIndex) throw new Error("Browser inference cursor made no progress");
       for (let i = cursorIndex; i < commitIndex; i++) {
         const offset = starts[i] - cursor;
-        decoder.append(
-          units[i],
-          units[i + 1],
-          argmax(boundary, offset * 3, 3),
-          type,
-          offset * model.schema.tokenTypes.length,
-          modifier,
-          offset * model.schema.modifiers.length,
-        );
+        if (decoder instanceof StructuredSpanDecoder)
+          decoder.append(
+            units[i],
+            units[i + 1],
+            boundary,
+            offset * 3,
+            type,
+            offset * model.schema.tokenTypes.length,
+            modifier,
+            offset * model.schema.modifiers.length,
+          );
+        else
+          decoder.append(
+            units[i],
+            units[i + 1],
+            argmax(boundary, offset * 3, 3),
+            type,
+            offset * model.schema.tokenTypes.length,
+            modifier,
+            offset * model.schema.modifiers.length,
+          );
       }
       cursorIndex = commitIndex;
     } finally {

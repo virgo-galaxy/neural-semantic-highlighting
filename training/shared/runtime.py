@@ -28,7 +28,8 @@ class LocalPack:
         if not isinstance(source,str) or document_kind not in self.spec.document_kinds:
             raise ValueError('Unsupported source or document kind')
         return decode(source,document_logits(self.model,source,self.device),self.checkpoint['schema'],
-                      threshold=self.checkpoint['trainingConfig']['modifier_threshold'],**self.spec.decoder())
+                      threshold=self.checkpoint['trainingConfig']['modifier_threshold'],
+                      structured_decoder=getattr(self.model, 'structured_decoder', None), **self.spec.decoder())
 
 def run_stdio(pack):
     for line in sys.stdin:

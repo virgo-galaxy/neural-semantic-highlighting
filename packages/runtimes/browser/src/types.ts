@@ -1,5 +1,14 @@
 import type { PackManifest } from "@nsh/core";
 
+export interface StructuredDecoder {
+  format: "nsh-joint-bio-v1";
+  tokenTypes: readonly string[];
+  typeWeight: number;
+  transitionWeight: number;
+  transitions: readonly (readonly (number | null)[])[];
+  initial: readonly (number | null)[];
+}
+
 export interface BrowserModel {
   id: string;
   dependencies?: readonly BrowserModel[];
@@ -9,6 +18,7 @@ export interface BrowserModel {
   contextBytes: number;
   schema: { tokenTypes: readonly string[]; modifiers: readonly string[] };
   modifierThreshold: number;
+  structuredDecoder?: StructuredDecoder;
   decoder?: {
     coalesceAdjacentTokenTypes?: readonly string[];
     modifierRoles?: Readonly<Record<string, readonly string[]>>;

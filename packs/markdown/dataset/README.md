@@ -23,7 +23,11 @@ The test split includes the 14 exposed v1 regressions and **20 new independent
 documents** from entirely reserved families. They must be reported separately.
 [optimization-protocol.json](optimization-protocol.json) fixes these families
 before training; the 11 new validation documents may guide selection, the new
-test cohort may not. Authored curriculum counts remain 1,272 / 144 / 120.
+test cohort may not. A subsequent visible fence review adds 192 original
+train-only tasks in eight structural families: imports, blank lines, multi-line
+opaque prose, varied delimiters, CRLF and Unicode. The generator reads no display,
+Golden or held-out source. Natural, validation and test records remain unchanged;
+authored curriculum counts become 1,464 / 144 / 120.
 
 `make dataset-markdown-tools` fingerprints existing parse-only Prettier/remark/GFM,
 entity-decoder and Node assets; all remain offline tools. Source, code fences,

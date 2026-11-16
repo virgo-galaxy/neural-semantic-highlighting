@@ -159,6 +159,9 @@ def run(args) -> Path:
         initialization = checkpoint.get("initialization") if checkpoint else None
         if args.init_from:
             initialization = initialize_from_checkpoint(model, args.init_from)
+        # Calibration belongs to frozen weights; optimizer updates require a
+        # new train/validation-only fit rather than reusing stale transitions.
+        model.structured_decoder = None
         optimizer = torch.optim.AdamW(model.parameters(), lr=config.learning_rate, weight_decay=config.weight_decay)
         state = checkpoint["trainingState"].copy() if checkpoint else {
             "bestScore": -1., "bestEpoch": 0, "epochsWithoutImprovement": 0, "optimizerSteps": 0}

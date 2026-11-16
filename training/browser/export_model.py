@@ -90,6 +90,8 @@ def export(pack_id, output):
               'decoder': policy, 'quantized': False, 'resumableTrainingCheckpoint': False,
               'input': 'original-utf8-bytes', 'output': 'original-utf16-spans',
               'exporterSha256': digest(Path(__file__)), 'graphSha256': digest(Path(__file__).with_name('model.py'))}
+    if pack.checkpoint.get('structuredDecoder') is not None:
+        record['structuredDecoder'] = pack.checkpoint['structuredDecoder']
     (output / 'model.json').write_text(json.dumps(record, indent=2) + '\n')
     (output / 'verification.json').write_text(json.dumps({'reference': 'selected PyTorch CPU inference',
         'torch': str(torch.__version__), 'onnx': onnx.__version__, 'onnxruntime': ort.__version__,

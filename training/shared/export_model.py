@@ -11,6 +11,7 @@ import torch
 
 from training.shared.checkpoints import atomic_json, load_checkpoint, save_checkpoint
 from training.shared.prepare import REPOSITORY, file_hash
+from training.shared.structured import parameters_hash
 
 
 
@@ -25,6 +26,8 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
     if checkpoint["modelConfig"]["context_bytes"] != 512 or checkpoint.get("documentKinds") != list(current().document_kinds):
         raise ValueError("Expected the pack baseline configuration")
     report = json.loads(test_report.read_text())
+    if report.get('structuredDecoderHash') != parameters_hash(checkpoint.get('structuredDecoder')):
+        raise ValueError('Test report must use the frozen structured decoder')
     identity = {key: checkpoint["dataset"][key] for key in ("snapshot", "manifestHash")}
     if (report.get("split") != "test" or report.get("inference") != "predicted-adaptive-cursor"
             or report.get("checkpointHash") != source_hash or report.get("checkpointEpoch") != checkpoint["epoch"]
@@ -53,6 +56,11 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
         "trainingConfig": {"modifier_threshold": checkpoint["trainingConfig"]["modifier_threshold"]},
         "validation": checkpoint["validation"], "provenance": checkpoint["provenance"],
         "initialization": checkpoint.get("initialization")}
+    if checkpoint.get('structuredDecoder') is not None:
+        from training.shared.structured import validate
+        validate(checkpoint['structuredDecoder'], checkpoint['schema'])
+        artifact['structuredDecoder'] = checkpoint['structuredDecoder']
+        artifact['decoderCalibration'] = checkpoint['decoderCalibration']
     save_checkpoint(output, artifact)
     # Verify the stored float32 tensors; export performs no quantization/retraining.
     reloaded = torch.load(output, map_location="cpu", weights_only=True)
@@ -77,7 +85,7 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
         "documentKinds": list(current().document_kinds),
         "input": {"encoding": "utf-8", "unit": "byte", "vocabSize": 257, "paddingId": 256, "maxLengthBytes": 512},
         "output": {"offsetEncoding": "utf-16", "interval": "[start,end)", "contract": "../SEMANTICS.md"},
-        "inference": {"windowing": "predicted-adaptive-cursor", "decoder": "greedy-mean-logit",
+        "inference": {"windowing": "predicted-adaptive-cursor", "decoder": "joint-bio-viterbi" if artifact.get('structuredDecoder') else "greedy-mean-logit",
                       "packPolicy": current().decoder(),
                       "modifierThreshold": artifact["trainingConfig"]["modifier_threshold"], "parserRequired": False},
         "scope": current().scope,
@@ -90,6 +98,8 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
         "reports": {"test-metrics.json": {"file": "reports/test-metrics.json", "sha256": file_hash(report_target),
             "checkpointHash": source_hash, "split": "test", "inference": "predicted-adaptive-cursor"}},
     }
+    if artifact.get('decoderCalibration'):
+        metadata['provenance']['decoderCalibration'] = artifact['decoderCalibration']
     atomic_json(output.with_name("model.json"), metadata)
     return metadata
 

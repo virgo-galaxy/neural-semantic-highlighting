@@ -14,6 +14,7 @@ from training.shared.checkpoints import atomic_json, load_model_artifact, model_
 from training.shared.metrics import evaluate_adaptive, evaluate_fixed
 from training.shared.trainer_data import Snapshot, WindowSplit, sha256_file
 from training.shared.provenance import code_hashes
+from training.shared.structured import parameters_hash
 
 
 def main():
@@ -24,7 +25,16 @@ def main():
     parser.add_argument("--device", choices=["auto", "cpu", "mps", "cuda"], default="auto")
     parser.add_argument("--inference", choices=["adaptive", "fixed"], default="adaptive")
     parser.add_argument("--output", type=Path)
+    parser.add_argument('--cohort-groups', type=Path, help='Frozen JSON name -> natural source-family lists (adaptive only)')
     args = parser.parse_args()
+    cohorts = json.loads(args.cohort_groups.read_text()) if args.cohort_groups else None
+    if cohorts is not None:
+        if (args.inference != 'adaptive' or not isinstance(cohorts, dict) or not cohorts
+                or any(not isinstance(v, list) or not v or any(not isinstance(g, str) for g in v) for v in cohorts.values())):
+            raise ValueError('Expected nonempty adaptive natural cohort family lists')
+        groups = [group for values in cohorts.values() for group in values]
+        if len(groups) != len(set(groups)):
+            raise ValueError('Evaluation cohorts must have disjoint source families')
     checkpoint_hash = sha256_file(args.checkpoint)
     payload = load_model_artifact(args.checkpoint)
     if sha256_file(args.checkpoint) != checkpoint_hash:
@@ -40,12 +50,17 @@ def main():
     model = model_from_checkpoint(payload, device)
     split = WindowSplit(snapshot, args.split)
     try:
-        report = (evaluate_adaptive if args.inference == "adaptive" else evaluate_fixed)(
-            model, split, device, threshold=payload["trainingConfig"]["modifier_threshold"])
+        options = {'threshold': payload['trainingConfig']['modifier_threshold']}
+        if args.inference == 'adaptive': options['cohorts'] = cohorts
+        report = (evaluate_adaptive if args.inference == "adaptive" else evaluate_fixed)(model, split, device, **options)
         report.update(checkpointHash=checkpoint_hash, checkpointEpoch=payload["epoch"],
             decoderPolicy=current().decoder(),
             smokeCheckpoint=bool(payload["trainingConfig"].get("smoke")), dataset=snapshot.identity(),
             modelConfig=payload["modelConfig"], device=device.type, torchVersion=str(torch.__version__), codeHashes=code_hashes())
+        if payload.get('structuredDecoder') is not None:
+            report['structuredDecoderHash'] = parameters_hash(payload['structuredDecoder'])
+        if args.cohort_groups:
+            report['cohortGroupsHash'] = sha256_file(args.cohort_groups)
     finally:
         split.close()
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S-%f")

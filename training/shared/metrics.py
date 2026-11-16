@@ -141,7 +141,8 @@ def evaluate_fixed(model: SemanticTransformer, split: WindowSplit, device: torch
             raise ValueError("Prepared bytes do not match document source")
         output = ModelOutput(torch.cat([p.boundary for p in pending]), torch.cat([p.token_type for p in pending]),
                              torch.cat([p.modifier for p in pending]))
-        predicted = decode(source, output, schema, threshold=threshold, **current().decoder())
+        predicted = decode(source, output, schema, threshold=threshold,
+                           structured_decoder=getattr(model, 'structured_decoder', None), **current().decoder())
         spans[doc["stream"]].add(doc["result"], predicted)
         profiles[doc["profile"]][doc["stream"]].add(doc["result"], predicted)
         document_kinds[doc["documentKind"]].add(doc["result"], predicted)
@@ -184,19 +185,27 @@ def evaluate_fixed(model: SemanticTransformer, split: WindowSplit, device: torch
 
 @torch.inference_mode()
 def evaluate_adaptive(model: SemanticTransformer, split: WindowSplit, device: torch.device,
-                      *, threshold: float = .60) -> dict:
+                      *, threshold: float = .60, cohorts: dict[str, list[str]] | None = None) -> dict:
     docs, schema = split.documents(), split.snapshot.schema
     metrics = {kind: SpanMetrics(schema) for kind in split.streams}
     document_kinds = {kind: SpanMetrics(schema) for kind in current().document_kinds}
     features: dict[str, SpanMetrics] = {}
     profiles = {p: {stream: SpanMetrics(schema) for stream in split.streams} for p in current().profiles}
+    cohort_metrics = {name: SpanMetrics(schema) for name in (cohorts or {})}
+    cohort_members = {name: [] for name in cohort_metrics}
     started = time.monotonic()
     for index, doc in enumerate(docs.values(), 1):
         output = document_logits(model, doc["source"], device)
-        result = decode(doc["source"], output, schema, threshold=threshold, **current().decoder())
+        result = decode(doc["source"], output, schema, threshold=threshold,
+                        structured_decoder=getattr(model, 'structured_decoder', None), **current().decoder())
         metrics[doc["stream"]].add(doc["result"], result)
         profiles[doc["profile"]][doc["stream"]].add(doc["result"], result)
         document_kinds[doc["documentKind"]].add(doc["result"], result)
+        if doc['stream'] == 'natural':
+            for name, groups in (cohorts or {}).items():
+                if doc['sourceGroup'] in groups:
+                    cohort_metrics[name].add(doc['result'], result)
+                    cohort_members[name].append(dict(id=doc['id'], sourceGroup=doc['sourceGroup'], contentHash=doc['contentHash']))
         for feature in doc.get("features", []):
             features.setdefault(feature, SpanMetrics(schema)).add(doc["result"], result)
         if index == 1 or index % 10 == 0 or index == len(docs):
@@ -206,4 +215,5 @@ def evaluate_adaptive(model: SemanticTransformer, split: WindowSplit, device: to
             "documentKinds": {kind: value.report() for kind, value in document_kinds.items()},
             "features": {name: value.report() for name, value in features.items()},
             "profiles": {p: {stream: metric.report() for stream, metric in values.items()} for p, values in profiles.items()},
+            "cohorts": {name: {**value.report(), 'members': cohort_members[name]} for name, value in cohort_metrics.items()},
             "scope": current().scope}

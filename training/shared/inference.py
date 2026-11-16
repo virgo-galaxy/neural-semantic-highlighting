@@ -71,7 +71,8 @@ def document_logits(model: SemanticTransformer, source: str, device: torch.devic
 
 
 def decode(source: str, logits: ModelOutput, schema: dict, *, threshold: float = .60,
-           coalesce_types: tuple[str, ...] = (), modifier_roles: dict | None = None) -> dict:
+           coalesce_types: tuple[str, ...] = (), modifier_roles: dict | None = None,
+           structured_decoder: dict | None = None) -> dict:
     if not 0 < threshold < 1:
         raise ValueError("Modifier threshold must be between 0 and 1")
     starts, units = character_map(source)
@@ -81,32 +82,36 @@ def decode(source: str, logits: ModelOutput, schema: dict, *, threshold: float =
     if not positions:
         return {"offsetEncoding": "utf-16", "spans": []}
     indices = torch.tensor(positions, dtype=torch.long)
-    boundaries = logits.boundary[indices].argmax(-1).tolist()
-    ranges, active = [], None
-    for index, label in enumerate(boundaries):
-        if label in (0, 1):
-            if active is not None:
-                ranges.append((active, index))
-            active = index if label == 1 else None
-        elif label == 2:
-            if active is None:
-                active = index
-        else:
-            raise ValueError("Unknown predicted boundary class")
-    if active is not None:
-        ranges.append((active, len(positions)))
-    if not ranges:
-        return {"offsetEncoding": "utf-16", "spans": []}
-    lo = torch.tensor([a for a, _ in ranges], dtype=torch.long)
-    hi = torch.tensor([b for _, b in ranges], dtype=torch.long)
     types = logits.token_type[indices]
-    # Prefix sums implement mean-logit voting without a Python tensor operation
-    # per span. Dividing by span length would not change argmax.
-    # Accumulate on CPU in float64 to avoid cancellation for short spans late
-    # in a long document. No float64 tensor is sent to the MPS device.
-    prefix = torch.cat((torch.zeros(1, types.shape[-1], dtype=torch.float64),
-                        types.cumsum(0, dtype=torch.float64)), dim=0)
-    role_ids = (prefix[hi] - prefix[lo]).argmax(-1).tolist()
+    if structured_decoder is not None:
+        from training.shared.structured import ranges as joint_ranges
+        joint = joint_ranges(logits.boundary[indices], types, structured_decoder)
+        ranges = [(a, b) for a, b, _ in joint]
+        role_ids = [role for _, _, role in joint]
+    else:
+        boundaries = logits.boundary[indices].argmax(-1).tolist()
+        ranges, active = [], None
+        for index, label in enumerate(boundaries):
+            if label in (0, 1):
+                if active is not None:
+                    ranges.append((active, index))
+                active = index if label == 1 else None
+            elif label == 2:
+                if active is None:
+                    active = index
+            else:
+                raise ValueError("Unknown predicted boundary class")
+        if active is not None:
+            ranges.append((active, len(positions)))
+        if not ranges:
+            return {"offsetEncoding": "utf-16", "spans": []}
+        lo = torch.tensor([a for a, _ in ranges], dtype=torch.long)
+        hi = torch.tensor([b for _, b in ranges], dtype=torch.long)
+        # Float64 prefix sums keep short-span votes stable in long documents.
+        prefix = torch.cat((torch.zeros(1, types.shape[-1], dtype=torch.float64),
+                            types.cumsum(0, dtype=torch.float64)), dim=0)
+        role_ids = (prefix[hi] - prefix[lo]).argmax(-1).tolist()
+    lo = torch.tensor([a for a, _ in ranges], dtype=torch.long)
     modifier_flags = (logits.modifier[indices[lo]].sigmoid() >= threshold).tolist()
     spans = []
     for (a, b), role, flags in zip(ranges, role_ids, modifier_flags):
