@@ -1,0 +1,45 @@
+const aliases: Readonly<Record<string, string>> = {
+  md: "markdown",
+  mdown: "markdown",
+  mkd: "markdown",
+  js: "javascript",
+  yml: "yaml",
+  env: "dotenv",
+  ".env": "dotenv",
+  cfg: "ini",
+  editorconfig: "ini",
+  ts: "typescript",
+  sh: "bash",
+  shell: "bash",
+  zsh: "bash",
+  csh: "bash",
+  tcsh: "bash",
+  pwsh: "powershell",
+  ps1: "powershell",
+  cmd: "bat",
+  asm: "assembly",
+  nasm: "assembly",
+  masm: "assembly",
+  gas: "assembly",
+  py: "python",
+  rs: "rust",
+  rb: "ruby",
+  rake: "ruby",
+  gemspec: "ruby",
+  gemfile: "ruby",
+  rakefile: "ruby",
+  flutter: "dart",
+  kt: "kotlin",
+  kts: "kotlin",
+  "kotlin-script": "kotlin",
+  cs: "csharp",
+  "c#": "csharp",
+  "c++": "cpp",
+  cxx: "cpp",
+};
+
+/** Normalize an explicitly supplied language ID; never examines source content. */
+export function normalizeLanguageId(language: string): string {
+  const id = language.toLowerCase();
+  return aliases[id] ?? id;
+}

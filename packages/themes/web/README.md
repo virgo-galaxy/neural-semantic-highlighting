@@ -87,3 +87,11 @@ change model weights, token types, offsets or modifiers.
 The common palette also covers PHP's `trait` and `constant` roles, using type and
 enum-member color families across all light/dark presets. Consumer overrides use
 `--nsh-trait` and `--nsh-constant` with the usual optional style suffixes.
+
+Markdown adds shared `heading`, `link`, `link-destination`, `code`, `code-fence`,
+`code-language` and `embedded-code` roles to all six preset/mode palettes. Heading
+weight and link underline follow their role styles. Nested `strong`, `emphasis`
+and `strikethrough` modifiers additionally use `--nsh-strong-font-weight`,
+`--nsh-emphasis-font-style` and `--nsh-strikethrough-text-decoration` overrides.
+These are semantic styles shared across languages; code-fence child spans keep
+their actual `data-nsh-language` and existing language colors.

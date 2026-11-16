@@ -19,6 +19,17 @@ def compare(pack, source, gold):
     return predicted,dict(metrics=metric.report(),missing=describe(expected-actual),unexpected=describe(actual-expected))
 
 
+def code_regions(source, result):
+    raw=source.encode('utf-16-le');language=None;regions=[]
+    for span in result['spans']:
+        role=span['tokenType']
+        if role=='code-fence':language=None
+        elif role=='code-language':language=raw[span['start']*2:span['end']*2].decode('utf-16-le').strip().lower()
+        elif role=='embedded-code':
+            regions.append(dict(start=span['start'],end=span['end'],infoWord=language));language=None
+    return regions
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--checkpoint',type=Path,required=True)
@@ -29,10 +40,11 @@ def main():
         pack=LocalPack(checkpoint_path=args.checkpoint,device_name=args.device)
         aggregate=SpanMetrics(pack.checkpoint['schema']); displays=[]; natural=[]
         folder=REPOSITORY/'apps/playground/src/views/highlighter/examples/markdown'
-        for file in sorted(p for p in folder.iterdir() if p.suffix in {".markdown"}):
+        for file in sorted(p for p in folder.iterdir() if p.suffix in {".md", ".markdown", ".mdown", ".mkd"}):
             source=file.read_bytes().decode('utf-8'); gold=label(source=source,profile='markdown')
             predicted,report=compare(pack,source,gold); aggregate.add(gold,predicted)
-            displays.append(dict(filename=file.name,sourceSha256=file_hash(file),**report))
+            expected=code_regions(source,gold);actual=code_regions(source,predicted)
+            displays.append(dict(filename=file.name,sourceSha256=file_hash(file),predictedCodeRegions=dict(expected=expected,actual=actual,exact=expected==actual),**report))
             print(file.name,round(report['metrics']['exactSpan']['f1'],4),flush=True)
         snapshot=Path(pack.checkpoint['dataset']['path'])
         records=[r for r in map(json.loads,(snapshot/'validation/documents.jsonl').read_text().splitlines()) if r['stream']=='natural']

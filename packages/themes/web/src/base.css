@@ -8,3 +8,13 @@
   background: var(--nsh-selection-background, var(--_nsh-selection-background));
   color: var(--nsh-selection-foreground, var(--_nsh-selection-foreground));
 }
+
+:where(.nsh-token)[data-modifiers~="strong"] {
+  font-weight: var(--nsh-strong-font-weight, 700);
+}
+:where(.nsh-token)[data-modifiers~="emphasis"] {
+  font-style: var(--nsh-emphasis-font-style, italic);
+}
+:where(.nsh-token)[data-modifiers~="strikethrough"] {
+  text-decoration-line: var(--nsh-strikethrough-text-decoration, line-through);
+}

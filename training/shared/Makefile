@@ -1968,6 +1968,7 @@ dataset-markdown:
 
 dataset-markdown-curriculum:
 	$(PYTHON) -m packs.markdown.dataset.generate_curriculum
+	$(PYTHON) -m packs.markdown.dataset.generate_mixed
 
 dataset-markdown-collect:
 	$(PYTHON) -m packs.markdown.dataset.pipeline collect

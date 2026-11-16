@@ -22,3 +22,9 @@ quarantined with originals retained. `make dataset-markdown` publishes immutable
 corpus/Gold/prepared revisions. Review validation and visible probes before freeze
 and the first adaptive held-out test; no training follows that test. Resume only
 full artifacts checkpoints, never formal inference weights or browser exports.
+
+A bounded 24-family/576-task mixed extension follows the first six epochs' real
+validation review: wrapped English/CJK prose, consecutive inline code, nested
+formatting, varied references/autolinks/images and longer metadata blocks.
+All 92 earlier family assignments, original tasks, snapshots and experiments
+remain preserved. Teacher semantics and copy-audit policy stay unchanged.

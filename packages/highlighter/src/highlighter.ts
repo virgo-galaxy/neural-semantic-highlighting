@@ -3,9 +3,11 @@ import {
   createHighlighter as createCoreHighlighter,
   type HighlightRequest,
   type HighlightResult,
+  normalizeLanguageId,
   type SemanticPack,
 } from "@nsh/core";
 import { createCompositeHtmlPack } from "@nsh/core/composition/html";
+import { createCompositeMarkdownPack } from "@nsh/core/composition/markdown";
 import { createCompositePhpPack } from "@nsh/core/composition/php";
 import { createCompositeSveltePack } from "@nsh/core/composition/svelte";
 import { createCompositeVuePack } from "@nsh/core/composition/vue";
@@ -33,43 +35,6 @@ export interface BrowserHighlighter {
   close(): void;
 }
 
-const aliases: Readonly<Record<string, string>> = {
-  js: "javascript",
-  yml: "yaml",
-  env: "dotenv",
-  ".env": "dotenv",
-  cfg: "ini",
-  editorconfig: "ini",
-  ts: "typescript",
-  sh: "bash",
-  shell: "bash",
-  zsh: "bash",
-  csh: "bash",
-  tcsh: "bash",
-  pwsh: "powershell",
-  ps1: "powershell",
-  cmd: "bat",
-  asm: "assembly",
-  nasm: "assembly",
-  masm: "assembly",
-  gas: "assembly",
-  py: "python",
-  rs: "rust",
-  rb: "ruby",
-  rake: "ruby",
-  gemspec: "ruby",
-  gemfile: "ruby",
-  rakefile: "ruby",
-  flutter: "dart",
-  kt: "kotlin",
-  kts: "kotlin",
-  "kotlin-script": "kotlin",
-  cs: "csharp",
-  "c#": "csharp",
-  "c++": "cpp",
-  cxx: "cpp",
-};
-
 /** Configure selected models explicitly; no Node/Python imports or source uploads. */
 export function createHighlighter(options: HighlighterOptions): BrowserHighlighter {
   const models = new Map<string, BrowserModel>();
@@ -87,30 +52,39 @@ export function createHighlighter(options: HighlighterOptions): BrowserHighlight
   const base = new Map<string, SemanticPack>();
   for (const model of models.values()) base.set(model.id, runtime.createPack(model));
   const packs = [...base].map(([id, pack]) =>
-    id === "php"
-      ? createCompositePhpPack({
+    id === "markdown"
+      ? createCompositeMarkdownPack({
           base: pack,
+          resolveLanguage: (name) => {
+            const kind = normalizeLanguageId(name);
+            return kind !== "markdown" && core.supports(kind) ? kind : undefined;
+          },
           highlightEmbedded: (request) => core.highlight(request),
         })
-      : id === "html"
-        ? createCompositeHtmlPack({
+      : id === "php"
+        ? createCompositePhpPack({
             base: pack,
             highlightEmbedded: (request) => core.highlight(request),
           })
-        : id === "vue"
-          ? createCompositeVuePack({
+        : id === "html"
+          ? createCompositeHtmlPack({
               base: pack,
               highlightEmbedded: (request) => core.highlight(request),
             })
-          : id === "svelte"
-            ? createCompositeSveltePack({
+          : id === "vue"
+            ? createCompositeVuePack({
                 base: pack,
                 highlightEmbedded: (request) => core.highlight(request),
               })
-            : pack,
+            : id === "svelte"
+              ? createCompositeSveltePack({
+                  base: pack,
+                  highlightEmbedded: (request) => core.highlight(request),
+                })
+              : pack,
   );
   const core = createCoreHighlighter({ packs });
-  const kindFor = (language: string) => aliases[language.toLowerCase()] ?? language.toLowerCase();
+  const kindFor = normalizeLanguageId;
   const highlight = async (
     code: string,
     { language }: { language: string },
