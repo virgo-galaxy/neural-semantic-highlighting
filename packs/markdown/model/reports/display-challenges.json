@@ -1,0 +1,2046 @@
+{
+  "checkpointHash": "a242673a7a0f39619fca26c2232806854e05d1f40bb98f5cc30d17b619624ce1",
+  "purpose": "Visible development probes, not unseen test evidence",
+  "metrics": {
+    "documents": 8,
+    "exactDocumentsIncludingModifiers": 1,
+    "exactSpan": {
+      "precision": 0.862453531598513,
+      "recall": 0.8787878787878788,
+      "f1": 0.8705440900562852,
+      "tp": 232,
+      "fp": 37,
+      "fn": 32,
+      "support": 264
+    },
+    "exactSpanMacroF1": 0.8176061545243816,
+    "exactSpanIncludingModifiers": {
+      "precision": 0.8401486988847584,
+      "recall": 0.8560606060606061,
+      "f1": 0.8480300187617261,
+      "tp": 226,
+      "fp": 43,
+      "fn": 38,
+      "support": 264
+    },
+    "byTokenType": {
+      "keyword": {
+        "precision": 0.7142857142857143,
+        "recall": 1.0,
+        "f1": 0.8333333333333334,
+        "tp": 5,
+        "fp": 2,
+        "fn": 0,
+        "support": 5
+      },
+      "comment": {
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "tp": 1,
+        "fp": 1,
+        "fn": 0,
+        "support": 1
+      },
+      "string": {
+        "precision": 1.0,
+        "recall": 0.8333333333333334,
+        "f1": 0.9090909090909091,
+        "tp": 5,
+        "fp": 0,
+        "fn": 1,
+        "support": 6
+      },
+      "punctuation": {
+        "precision": 0.9494949494949495,
+        "recall": 0.94,
+        "f1": 0.9447236180904522,
+        "tp": 94,
+        "fp": 5,
+        "fn": 6,
+        "support": 100
+      },
+      "text": {
+        "precision": 0.8378378378378378,
+        "recall": 0.8266666666666667,
+        "f1": 0.8322147651006712,
+        "tp": 62,
+        "fp": 12,
+        "fn": 13,
+        "support": 75
+      },
+      "entity": {
+        "precision": 0.5,
+        "recall": 0.5714285714285714,
+        "f1": 0.5333333333333333,
+        "tp": 4,
+        "fp": 4,
+        "fn": 3,
+        "support": 7
+      },
+      "heading": {
+        "precision": 0.8421052631578947,
+        "recall": 0.9411764705882353,
+        "f1": 0.8888888888888888,
+        "tp": 16,
+        "fp": 3,
+        "fn": 1,
+        "support": 17
+      },
+      "link": {
+        "precision": 0.9,
+        "recall": 1.0,
+        "f1": 0.9473684210526315,
+        "tp": 9,
+        "fp": 1,
+        "fn": 0,
+        "support": 9
+      },
+      "link-destination": {
+        "precision": 1.0,
+        "recall": 0.8571428571428571,
+        "f1": 0.9230769230769231,
+        "tp": 6,
+        "fp": 0,
+        "fn": 1,
+        "support": 7
+      },
+      "code": {
+        "precision": 0.3333333333333333,
+        "recall": 0.4444444444444444,
+        "f1": 0.38095238095238093,
+        "tp": 4,
+        "fp": 8,
+        "fn": 5,
+        "support": 9
+      },
+      "code-fence": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 14,
+        "fp": 0,
+        "fn": 0,
+        "support": 14
+      },
+      "code-language": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 7,
+        "fp": 0,
+        "fn": 0,
+        "support": 7
+      },
+      "embedded-code": {
+        "precision": 0.8333333333333334,
+        "recall": 0.7142857142857143,
+        "f1": 0.7692307692307693,
+        "tp": 5,
+        "fp": 1,
+        "fn": 2,
+        "support": 7
+      }
+    }
+  },
+  "cases": [
+    {
+      "filename": "code.md",
+      "sourceSha256": "9fc8767e92c05cb77cfddc5f95df1299b245aa4705ad06a8d433da946d85ee2c",
+      "predictedCodeRegions": {
+        "expected": [
+          {
+            "start": 36,
+            "end": 148,
+            "infoWord": "python"
+          },
+          {
+            "start": 169,
+            "end": 242,
+            "infoWord": "sh"
+          },
+          {
+            "start": 293,
+            "end": 373,
+            "infoWord": "example-language"
+          }
+        ],
+        "actual": [
+          {
+            "start": 62,
+            "end": 148,
+            "infoWord": "python"
+          },
+          {
+            "start": 169,
+            "end": 242,
+            "infoWord": "sh"
+          }
+        ],
+        "exact": false
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8571428571428571,
+          "recall": 0.9,
+          "f1": 0.8780487804878049,
+          "tp": 18,
+          "fp": 3,
+          "fn": 2,
+          "support": 20
+        },
+        "exactSpanMacroF1": 0.7148148148148148,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8571428571428571,
+          "recall": 0.9,
+          "f1": 0.8780487804878049,
+          "tp": 18,
+          "fp": 3,
+          "fn": 2,
+          "support": 20
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.8888888888888888,
+            "tp": 4,
+            "fp": 1,
+            "fn": 0,
+            "support": 4
+          },
+          "link": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "link-destination": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code-fence": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "code-language": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "embedded-code": {
+            "precision": 0.5,
+            "recall": 0.3333333333333333,
+            "f1": 0.4,
+            "tp": 1,
+            "fp": 1,
+            "fn": 2,
+            "support": 3
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 36,
+          "end": 148,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "text": "from pathlib import Path\n\nfolder = Path(\"./examples\")\nfor source in folder.glob(\"*.md\"):\n    print(source.name)\n"
+        },
+        {
+          "start": 293,
+          "end": 373,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "text": "This body remains original code text.\nNo language is guessed from its contents.\n"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 36,
+          "end": 60,
+          "tokenType": "heading",
+          "modifiers": [],
+          "text": "from pathlib import Path"
+        },
+        {
+          "start": 62,
+          "end": 148,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "text": "folder = Path(\"./examples\")\nfor source in folder.glob(\"*.md\"):\n    print(source.name)\n"
+        },
+        {
+          "start": 293,
+          "end": 373,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "This body remains original code text.\nNo language is guessed from its contents.\n"
+        }
+      ]
+    },
+    {
+      "filename": "formatting.md",
+      "sourceSha256": "fbf22bbdedec55118dbcddf4ab2b48f976ad3c263861627660cfef8e067a85ec",
+      "predictedCodeRegions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.7727272727272727,
+          "recall": 0.7906976744186046,
+          "f1": 0.7816091954022989,
+          "tp": 34,
+          "fp": 10,
+          "fn": 9,
+          "support": 43
+        },
+        "exactSpanMacroF1": 0.6578699022581732,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.7045454545454546,
+          "recall": 0.7209302325581395,
+          "f1": 0.7126436781609196,
+          "tp": 31,
+          "fp": 13,
+          "fn": 12,
+          "support": 43
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.9166666666666666,
+            "f1": 0.9565217391304348,
+            "tp": 11,
+            "fp": 0,
+            "fn": 1,
+            "support": 12
+          },
+          "text": {
+            "precision": 0.7727272727272727,
+            "recall": 0.8095238095238095,
+            "f1": 0.7906976744186046,
+            "tp": 17,
+            "fp": 5,
+            "fn": 4,
+            "support": 21
+          },
+          "entity": {
+            "precision": 0.5,
+            "recall": 0.5714285714285714,
+            "f1": 0.5333333333333333,
+            "tp": 4,
+            "fp": 4,
+            "fn": 3,
+            "support": 7
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "tp": 1,
+            "fp": 0,
+            "fn": 1,
+            "support": 2
+          },
+          "link": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "link-destination": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "code-fence": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code-language": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 85,
+          "end": 103,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": ".\nYou can combine "
+        },
+        {
+          "start": 105,
+          "end": 116,
+          "tokenType": "text",
+          "modifiers": [
+            "strong"
+          ],
+          "text": "strong and "
+        },
+        {
+          "start": 128,
+          "end": 133,
+          "tokenType": "text",
+          "modifiers": [
+            "strong"
+          ],
+          "text": " text"
+        },
+        {
+          "start": 154,
+          "end": 170,
+          "tokenType": "heading",
+          "modifiers": [],
+          "text": "A setext heading"
+        },
+        {
+          "start": 171,
+          "end": 186,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "---------------"
+        },
+        {
+          "start": 220,
+          "end": 233,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "literal stars"
+        },
+        {
+          "start": 240,
+          "end": 242,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "\\_"
+        },
+        {
+          "start": 242,
+          "end": 253,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "underscores"
+        },
+        {
+          "start": 253,
+          "end": 255,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "\\_"
+        },
+        {
+          "start": 255,
+          "end": 276,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": ".\nReferences such as "
+        },
+        {
+          "start": 281,
+          "end": 283,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": ", "
+        },
+        {
+          "start": 283,
+          "end": 287,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "&lt;"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 85,
+          "end": 86,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "."
+        },
+        {
+          "start": 87,
+          "end": 103,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "You can combine "
+        },
+        {
+          "start": 105,
+          "end": 116,
+          "tokenType": "text",
+          "modifiers": [
+            "strong",
+            "emphasis"
+          ],
+          "text": "strong and "
+        },
+        {
+          "start": 128,
+          "end": 133,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " text"
+        },
+        {
+          "start": 154,
+          "end": 186,
+          "tokenType": "comment",
+          "modifiers": [],
+          "text": "A setext heading\n---------------"
+        },
+        {
+          "start": 220,
+          "end": 233,
+          "tokenType": "text",
+          "modifiers": [
+            "strong"
+          ],
+          "text": "literal stars"
+        },
+        {
+          "start": 240,
+          "end": 241,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 241,
+          "end": 253,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "_underscores"
+        },
+        {
+          "start": 253,
+          "end": 254,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 254,
+          "end": 255,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "_"
+        },
+        {
+          "start": 255,
+          "end": 256,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "."
+        },
+        {
+          "start": 257,
+          "end": 276,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "References such as "
+        },
+        {
+          "start": 281,
+          "end": 287,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": ", &lt;"
+        }
+      ]
+    },
+    {
+      "filename": "hello.md",
+      "sourceSha256": "c07c8c766b2c4d70f570b1b6524c4184f32b8781f542b4a282489cf3d0507ac6",
+      "predictedCodeRegions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 31,
+          "fp": 0,
+          "fn": 0,
+          "support": 31
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.967741935483871,
+          "recall": 0.967741935483871,
+          "f1": 0.967741935483871,
+          "tp": 30,
+          "fp": 1,
+          "fn": 1,
+          "support": 31
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 14,
+            "fp": 0,
+            "fn": 0,
+            "support": 14
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "link": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "link-destination": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "code": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "code-fence": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code-language": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 54,
+          "end": 62,
+          "tokenType": "text",
+          "modifiers": [
+            "emphasis"
+          ],
+          "text": "emphasis"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 54,
+          "end": 62,
+          "tokenType": "text",
+          "modifiers": [
+            "strong",
+            "emphasis"
+          ],
+          "text": "emphasis"
+        }
+      ]
+    },
+    {
+      "filename": "links.md",
+      "sourceSha256": "4a0e9566e3ac7f9a3aa1b28d6c5791cc4742a2ed44bdb1c5e508dd8b6733e78e",
+      "predictedCodeRegions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.7777777777777778,
+          "recall": 0.8536585365853658,
+          "f1": 0.813953488372093,
+          "tp": 35,
+          "fp": 10,
+          "fn": 6,
+          "support": 41
+        },
+        "exactSpanMacroF1": 0.7444444444444445,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.7777777777777778,
+          "recall": 0.8536585365853658,
+          "f1": 0.813953488372093,
+          "tp": 35,
+          "fp": 10,
+          "fn": 6,
+          "support": 41
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "punctuation": {
+            "precision": 0.8888888888888888,
+            "recall": 0.8888888888888888,
+            "f1": 0.8888888888888888,
+            "tp": 16,
+            "fp": 2,
+            "fn": 2,
+            "support": 18
+          },
+          "text": {
+            "precision": 0.4444444444444444,
+            "recall": 0.5714285714285714,
+            "f1": 0.5,
+            "tp": 4,
+            "fp": 5,
+            "fn": 3,
+            "support": 7
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "link": {
+            "precision": 0.875,
+            "recall": 1.0,
+            "f1": 0.9333333333333333,
+            "tp": 7,
+            "fp": 1,
+            "fn": 0,
+            "support": 7
+          },
+          "link-destination": {
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.8888888888888888,
+            "tp": 4,
+            "fp": 0,
+            "fn": 1,
+            "support": 5
+          },
+          "code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code-fence": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code-language": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 81,
+          "end": 91,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " or visit\n"
+        },
+        {
+          "start": 207,
+          "end": 209,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "]["
+        },
+        {
+          "start": 209,
+          "end": 212,
+          "tokenType": "link-destination",
+          "modifiers": [],
+          "text": "api"
+        },
+        {
+          "start": 212,
+          "end": 213,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "]"
+        },
+        {
+          "start": 213,
+          "end": 290,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " describes the same asynchronous interface.\nA shortcut reference also works: "
+        },
+        {
+          "start": 385,
+          "end": 463,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "These are source links; the highlighter does not load images or navigate URLs."
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 81,
+          "end": 90,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " or visit"
+        },
+        {
+          "start": 207,
+          "end": 208,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "]"
+        },
+        {
+          "start": 208,
+          "end": 209,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "["
+        },
+        {
+          "start": 209,
+          "end": 212,
+          "tokenType": "link",
+          "modifiers": [],
+          "text": "api"
+        },
+        {
+          "start": 212,
+          "end": 213,
+          "tokenType": "keyword",
+          "modifiers": [],
+          "text": "]"
+        },
+        {
+          "start": 213,
+          "end": 214,
+          "tokenType": "keyword",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 214,
+          "end": 256,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "describes the same asynchronous interface."
+        },
+        {
+          "start": 257,
+          "end": 290,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "A shortcut reference also works: "
+        },
+        {
+          "start": 385,
+          "end": 408,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "These are source links;"
+        },
+        {
+          "start": 408,
+          "end": 463,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " the highlighter does not load images or navigate URLs."
+        }
+      ]
+    },
+    {
+      "filename": "lists.md",
+      "sourceSha256": "c08e68fb0773eb201feb520366d00dc496cd906bd5a05d444adbd8ddfe9e34d0",
+      "predictedCodeRegions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "support": 32
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "support": 32
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 15,
+            "fp": 0,
+            "fn": 0,
+            "support": 15
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "link": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "link-destination": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code-fence": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code-language": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "filename": "mixed.md",
+      "sourceSha256": "396a731d49d6d64509ee68b52831f61879c50cfe06b6b33a935a042f26f84216",
+      "predictedCodeRegions": {
+        "expected": [
+          {
+            "start": 108,
+            "end": 189,
+            "infoWord": "tsx"
+          },
+          {
+            "start": 202,
+            "end": 274,
+            "infoWord": "json"
+          },
+          {
+            "start": 286,
+            "end": 357,
+            "infoWord": "css"
+          }
+        ],
+        "actual": [
+          {
+            "start": 108,
+            "end": 189,
+            "infoWord": "tsx"
+          },
+          {
+            "start": 202,
+            "end": 274,
+            "infoWord": "json"
+          },
+          {
+            "start": 286,
+            "end": 357,
+            "infoWord": "css"
+          }
+        ],
+        "exact": true
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.95,
+          "recall": 0.9047619047619048,
+          "f1": 0.926829268292683,
+          "tp": 19,
+          "fp": 1,
+          "fn": 2,
+          "support": 21
+        },
+        "exactSpanMacroF1": 0.9357142857142857,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.95,
+          "recall": 0.9047619047619048,
+          "f1": 0.926829268292683,
+          "tp": 19,
+          "fp": 1,
+          "fn": 2,
+          "support": 21
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8,
+            "tp": 2,
+            "fp": 0,
+            "fn": 1,
+            "support": 3
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "text": {
+            "precision": 0.75,
+            "recall": 0.75,
+            "f1": 0.75,
+            "tp": 3,
+            "fp": 1,
+            "fn": 1,
+            "support": 4
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "link": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "link-destination": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code-fence": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "code-language": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "embedded-code": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 422,
+          "end": 428,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "a note"
+        },
+        {
+          "start": 428,
+          "end": 435,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "</span>"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 422,
+          "end": 435,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "a note</span>"
+        }
+      ]
+    },
+    {
+      "filename": "tables.md",
+      "sourceSha256": "77de0374b7e58ce04162d5310e940c45fdfe8afabec52d0e5d3187cb886213f7",
+      "predictedCodeRegions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8448275862068966,
+          "recall": 0.9074074074074074,
+          "f1": 0.875,
+          "tp": 49,
+          "fp": 9,
+          "fn": 5,
+          "support": 54
+        },
+        "exactSpanMacroF1": 0.8571191520344063,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8448275862068966,
+          "recall": 0.9074074074074074,
+          "f1": 0.875,
+          "tp": 49,
+          "fp": 9,
+          "fn": 5,
+          "support": 54
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 0.9666666666666667,
+            "recall": 1.0,
+            "f1": 0.9830508474576272,
+            "tp": 29,
+            "fp": 1,
+            "fn": 0,
+            "support": 29
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "tp": 10,
+            "fp": 0,
+            "fn": 2,
+            "support": 12
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "tp": 4,
+            "fp": 2,
+            "fn": 0,
+            "support": 4
+          },
+          "link": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "link-destination": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "code": {
+            "precision": 0.25,
+            "recall": 0.4,
+            "f1": 0.3076923076923077,
+            "tp": 2,
+            "fp": 6,
+            "fn": 3,
+            "support": 5
+          },
+          "code-fence": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code-language": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 101,
+          "end": 104,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "yes"
+        },
+        {
+          "start": 109,
+          "end": 112,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "XML"
+        },
+        {
+          "start": 115,
+          "end": 121,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`.xml`"
+        },
+        {
+          "start": 138,
+          "end": 144,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`.svg`"
+        },
+        {
+          "start": 342,
+          "end": 356,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`left | right`"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 101,
+          "end": 104,
+          "tokenType": "heading",
+          "modifiers": [],
+          "text": "yes"
+        },
+        {
+          "start": 109,
+          "end": 112,
+          "tokenType": "heading",
+          "modifiers": [],
+          "text": "XML"
+        },
+        {
+          "start": 115,
+          "end": 116,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`"
+        },
+        {
+          "start": 116,
+          "end": 121,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": ".xml`"
+        },
+        {
+          "start": 138,
+          "end": 139,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`"
+        },
+        {
+          "start": 139,
+          "end": 144,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": ".svg`"
+        },
+        {
+          "start": 342,
+          "end": 347,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`left"
+        },
+        {
+          "start": 348,
+          "end": 349,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 350,
+          "end": 356,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "right`"
+        }
+      ]
+    },
+    {
+      "filename": "unicode.md",
+      "sourceSha256": "5a6c18ce8e5bb0f83473e1743b08cd3f880464b237d71f17b6d828b008f9a7b0",
+      "predictedCodeRegions": {
+        "expected": [
+          {
+            "start": 146,
+            "end": 214,
+            "infoWord": "xml"
+          }
+        ],
+        "actual": [
+          {
+            "start": 146,
+            "end": 214,
+            "infoWord": "xml"
+          }
+        ],
+        "exact": true
+      },
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.7777777777777778,
+          "recall": 0.6363636363636364,
+          "f1": 0.7,
+          "tp": 14,
+          "fp": 4,
+          "fn": 8,
+          "support": 22
+        },
+        "exactSpanMacroF1": 0.7928321678321678,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.6666666666666666,
+          "recall": 0.5454545454545454,
+          "f1": 0.6,
+          "tp": 12,
+          "fp": 6,
+          "fn": 10,
+          "support": 22
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 0.6666666666666666,
+            "recall": 0.5714285714285714,
+            "f1": 0.6153846153846154,
+            "tp": 4,
+            "fp": 2,
+            "fn": 3,
+            "support": 7
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 0.5714285714285714,
+            "f1": 0.7272727272727273,
+            "tp": 4,
+            "fp": 0,
+            "fn": 3,
+            "support": 7
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "link": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "link-destination": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 2,
+            "support": 2
+          },
+          "code-fence": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "code-language": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-code": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "﻿"
+        },
+        {
+          "start": 1,
+          "end": 35,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "---\r\ntitle: 星空 source preview\r\n---"
+        },
+        {
+          "start": 57,
+          "end": 59,
+          "tokenType": "text",
+          "modifiers": [
+            "strong"
+          ],
+          "text": "粗体"
+        },
+        {
+          "start": 59,
+          "end": 61,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "**"
+        },
+        {
+          "start": 61,
+          "end": 62,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "、"
+        },
+        {
+          "start": 62,
+          "end": 63,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "*"
+        },
+        {
+          "start": 63,
+          "end": 65,
+          "tokenType": "text",
+          "modifiers": [
+            "emphasis"
+          ],
+          "text": "强调"
+        },
+        {
+          "start": 66,
+          "end": 70,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "，以及 "
+        },
+        {
+          "start": 70,
+          "end": 87,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`const 标题 = \"星空\"`"
+        },
+        {
+          "start": 87,
+          "end": 88,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "。"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 35,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "﻿---\r\ntitle: 星空 source preview\r\n---"
+        },
+        {
+          "start": 57,
+          "end": 61,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "粗体**"
+        },
+        {
+          "start": 61,
+          "end": 63,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "、*"
+        },
+        {
+          "start": 63,
+          "end": 65,
+          "tokenType": "text",
+          "modifiers": [
+            "strong"
+          ],
+          "text": "强调"
+        },
+        {
+          "start": 66,
+          "end": 70,
+          "tokenType": "text",
+          "modifiers": [
+            "strong"
+          ],
+          "text": "，以及 "
+        },
+        {
+          "start": 70,
+          "end": 88,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`const 标题 = \"星空\"`。"
+        }
+      ]
+    }
+  ]
+}

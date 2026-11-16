@@ -1,6 +1,6 @@
 # Markdown training
 
-Use the established four-layer, width-128, four-head, FFN-512 Transformer with
+The model has 894,227 parameters. Use the established four-layer, width-128, four-head, FFN-512 Transformer with
 512 original UTF-8 bytes of context and the pack's prose/code-role schema.
 Initialize compatible weights from the full reviewed XML artifacts checkpoint;
 new role/modifier heads are fresh. Existing Node and pinned Prettier parse-only
