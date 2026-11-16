@@ -476,3 +476,13 @@ The Python artifact returns base roles/regions; the frontend factory composes
 registered children. `normalizeLanguageId` normalizes explicit IDs and aliases,
 without source-language detection. Selective builds register desired child
 models explicitly, keeping bundle size under consumer control.
+
+The November 17 optimization freezes 20 new natural test documents before
+training, separately from 14 exposed v1 regressions. It retains all old captures
+and adds bounded real-source and original multiline-fence training data. The
+optional joint BIO/role decoder fits transitions on natural training Gold and
+selects weights on validation only; it has no source-spelling rules. Freeze,
+review and stop training before the first new independent test. The test report
+binds the calibrated decoder as well as weights/snapshot. See the reproducible
+[calibration and cohort commands](../training/markdown/README.md). Both v1
+native/browser bundles remain in dated Markdown pack directories.

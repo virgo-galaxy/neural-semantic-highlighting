@@ -1,20 +1,21 @@
 {
-  "checkpoint": "artifacts/markdown/context512-mixed-20261116-01/candidates/epoch-0005.pt",
-  "checkpointHash": "a242673a7a0f39619fca26c2232806854e05d1f40bb98f5cc30d17b619624ce1",
-  "checkpointEpoch": 5,
-  "frozenAtUTC": "2026-11-16T15:06:51.721659+00:00",
+  "checkpoint": "artifacts/markdown/optimization-20261116/calibrated-fences-e3.pt",
+  "checkpointHash": "6b6d7d4447172dc9c7aeafebe4ee08b1b89d16b4685cbc8635410d3a8b264401",
+  "checkpointEpoch": 3,
+  "frozenAtUTC": "2026-11-16T16:21:15.961977+00:00",
   "selectedBeforeFirstTest": true,
   "trainingComplete": true,
-  "selection": "Fixed mean per-profile natural validation exact-span role macro F1; visible Markdown/fence review precedes first test",
-  "decision": "Keep a bounded useful display baseline after independent Golden, visible examples and actual natural validation review; stop training before the first adaptive test.",
-  "reviewed": [
-    "48 independent marked Golden cases",
-    "8 authored display sources",
-    "10 actual natural validation sources"
-  ],
-  "reviewSha256": "08cdf66b2144aba5f73e712d295cef83879c6dd3c333638931cbc7bd55bd1c6a",
-  "goldenSha256": "eb6390e9389e2cc6a6ab49ff01c3c50db6ef70a395cdf446a239e02d6894468d",
-  "goldenExact": 15,
-  "frozenFamilies": 116,
-  "newSDKInstalledForThisTask": false
+  "primaryFreshTestUsedForSelection": false,
+  "selection": "Adaptive natural validation minimum across fresh/legacy/all; exact visible fence body/info gate, then higher validation score",
+  "decision": "Fence refinement epoch three: all validation cohorts exceed 90%, all seven visible top-level body/info ranges exact. Control epoch nine has slightly higher aggregate validation but still splits two visible bodies; not selected.",
+  "calibrationReportHash": "98fb7e47fb3618dcbfba53034ec707afdc68bb06a6eee1695e71be285a05caba",
+  "reviewHash": "d16098b4ffb335d31fdbe81848a9d688baa7e122bbb224ef9bd927865dd33681",
+  "goldenHash": "919150b5678f9213e1e3c20aa8e1d7960bc7390eba65a61fb29ec72fa62eaee4",
+  "protocolHash": "ec79a8138b01bb8e5ce1940a7503ff047d862aaf75ee6dc01ee2dce6d84bd43f",
+  "cohortGroupsHash": "1b1470f17b050428c25ce3f2766a545e2c3d5ea24fd89549296339ed73fa980c",
+  "goldenExact": 21,
+  "goldenCases": 48,
+  "displayExactSpanF1": 0.9565217391304348,
+  "exactPredictedFenceBodies": 7,
+  "expectedFenceBodies": 7
 }

@@ -60,7 +60,7 @@ try {
     reports[mode] = outputs;
   }
   writeFileSync(
-    "artifacts/markdown/consumer-reference.json",
+    process.argv[2] ?? "artifacts/markdown/consumer-reference.json",
     JSON.stringify(
       {
         reference:

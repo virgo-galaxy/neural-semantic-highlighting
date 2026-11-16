@@ -61,6 +61,13 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
         validate(checkpoint['structuredDecoder'], checkpoint['schema'])
         artifact['structuredDecoder'] = checkpoint['structuredDecoder']
         artifact['decoderCalibration'] = checkpoint['decoderCalibration']
+        calibration_path = Path(artifact['decoderCalibration']['validationReport'])
+        if (artifact['decoderCalibration'].get('primaryTestUsed') is not False
+                or file_hash(calibration_path) != artifact['decoderCalibration']['validationReportHash']):
+            raise ValueError('Calibrated export requires intact validation-only selection evidence')
+        calibration = json.loads(calibration_path.read_text())
+        if calibration.get('primaryTestUsed') is not False:
+            raise ValueError('Decoder calibration must not use independent test predictions')
     save_checkpoint(output, artifact)
     # Verify the stored float32 tensors; export performs no quantization/retraining.
     reloaded = torch.load(output, map_location="cpu", weights_only=True)
@@ -100,6 +107,11 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
     }
     if artifact.get('decoderCalibration'):
         metadata['provenance']['decoderCalibration'] = artifact['decoderCalibration']
+        metadata['selection'] = dict(epoch=checkpoint['epoch'],
+            metric=calibration['selection'], score=calibration['selected']['selectionScore'],
+            validationReportSha256=file_hash(calibration_path),
+            trainingBestEpoch=checkpoint['trainingState']['bestEpoch'],
+            trainingBestFixedMacroF1=checkpoint['trainingState']['bestScore'])
     atomic_json(output.with_name("model.json"), metadata)
     return metadata
 

@@ -1,19 +1,19 @@
 {
-  "date": "2026-11-16",
-  "scope": "Markdown/GFM source, headings, lists/tasks, tables, links/references, nested emphasis, code, opaque HTML/front matter and predicted top-level fenced regions",
+  "date": "2026-11-17",
+  "scope": "Optimized Markdown/GFM base spans and predicted explicit registered-language fence composition",
   "modelsAvailable": 35,
   "selectedModel": {
     "file": "model.pt",
     "format": "nsh-markdown-model-v1",
-    "sha256": "9ce68a8f7093cc2d6cddb1f0020f11cfcce58675ba78035b307e2d12d23911be",
-    "bytes": 3632629,
+    "sha256": "ac6d3d429bc19d558036fa1ac00cb20eb8c93d4d6c48d26231a7adc14c81ff60",
+    "bytes": 3638133,
     "parameterCount": 894227,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "browserModel": {
     "file": "model.onnx",
-    "sha256": "68d79f17f6d37761dd77b8f8f67f43c939b138abae7f628bcab0042d8e0893f1",
+    "sha256": "447c56e2546f1cd027a6b2e1cac79829c430d28de26bfdcad96e515c513ed64a",
     "bytes": 3705539
   },
   "conversion": {
@@ -21,40 +21,40 @@
     "torch": "2.14.0",
     "onnx": "1.23.2",
     "onnxruntime": "1.31.1",
-    "sourceSha256": "9ce68a8f7093cc2d6cddb1f0020f11cfcce58675ba78035b307e2d12d23911be",
-    "modelSha256": "68d79f17f6d37761dd77b8f8f67f43c939b138abae7f628bcab0042d8e0893f1",
+    "sourceSha256": "ac6d3d429bc19d558036fa1ac00cb20eb8c93d4d6c48d26231a7adc14c81ff60",
+    "modelSha256": "447c56e2546f1cd027a6b2e1cac79829c430d28de26bfdcad96e515c513ed64a",
     "comparisons": [
       {
         "bytes": 1,
-        "maxAbsoluteErrors": [2.8014183044433594e-6, 1.3589859008789062e-5, 3.2186508178710938e-6]
+        "maxAbsoluteErrors": [1.430511474609375e-6, 4.76837158203125e-6, 2.86102294921875e-6]
       },
       {
         "bytes": 2,
-        "maxAbsoluteErrors": [3.0994415283203125e-6, 6.198883056640625e-6, 1.9073486328125e-6]
+        "maxAbsoluteErrors": [3.0994415283203125e-6, 5.245208740234375e-6, 1.9073486328125e-6]
       },
       {
         "bytes": 7,
-        "maxAbsoluteErrors": [3.814697265625e-6, 1.4185905456542969e-5, 4.127621650695801e-6]
+        "maxAbsoluteErrors": [7.152557373046875e-6, 7.3909759521484375e-6, 3.337860107421875e-6]
       },
       {
         "bytes": 31,
-        "maxAbsoluteErrors": [7.62939453125e-6, 1.2278556823730469e-5, 6.4373016357421875e-6]
+        "maxAbsoluteErrors": [1.049041748046875e-5, 2.0503997802734375e-5, 7.152557373046875e-6]
       },
       {
         "bytes": 64,
-        "maxAbsoluteErrors": [1.4662742614746094e-5, 2.288818359375e-5, 1.0371208190917969e-5]
+        "maxAbsoluteErrors": [1.8596649169921875e-5, 1.8715858459472656e-5, 1.3828277587890625e-5]
       },
       {
         "bytes": 127,
-        "maxAbsoluteErrors": [2.014636993408203e-5, 2.002716064453125e-5, 8.106231689453125e-6]
+        "maxAbsoluteErrors": [1.7702579498291016e-5, 2.5272369384765625e-5, 1.621246337890625e-5]
       },
       {
         "bytes": 511,
-        "maxAbsoluteErrors": [2.199411392211914e-5, 2.849102020263672e-5, 1.621246337890625e-5]
+        "maxAbsoluteErrors": [1.919269561767578e-5, 3.337860107421875e-5, 1.430511474609375e-5]
       },
       {
         "bytes": 512,
-        "maxAbsoluteErrors": [1.52587890625e-5, 3.1948089599609375e-5, 9.5367431640625e-6]
+        "maxAbsoluteErrors": [2.372264862060547e-5, 2.09808349609375e-5, 1.33514404296875e-5]
       }
     ]
   },
@@ -65,75 +65,75 @@
     "timings": [
       {
         "filename": "assembly/aarch64.S",
-        "ms": 266.1999999284744
+        "ms": 228.80000007152557
       },
       {
         "filename": "assembly/att.s",
-        "ms": 17.40000009536743
+        "ms": 17.399999976158142
       },
       {
         "filename": "assembly/intel.s",
-        "ms": 12.400000095367432
+        "ms": 12.700000047683716
       },
       {
         "filename": "assembly/macros.asm",
-        "ms": 12.099999904632568
-      },
-      {
-        "filename": "assembly/masm.asm",
-        "ms": 14
-      },
-      {
-        "filename": "assembly/nasm.asm",
-        "ms": 18.299999952316284
-      },
-      {
-        "filename": "awk/counts.awk",
-        "ms": 57.60000002384186
-      },
-      {
-        "filename": "awk/files.awk",
-        "ms": 10.199999928474426
-      },
-      {
-        "filename": "awk/normalize.awk",
-        "ms": 12.899999976158142
-      },
-      {
-        "filename": "awk/report.awk",
-        "ms": 16
-      },
-      {
-        "filename": "bash/build.sh",
-        "ms": 56.89999997615814
-      },
-      {
-        "filename": "bash/files.csh",
-        "ms": 9.899999976158142
-      },
-      {
-        "filename": "bash/files.zsh",
-        "ms": 8.5
-      },
-      {
-        "filename": "bash/functions.sh",
-        "ms": 12
-      },
-      {
-        "filename": "bash/heredoc.sh",
-        "ms": 15.600000023841858
-      },
-      {
-        "filename": "bash/portable.sh",
         "ms": 12.100000023841858
       },
       {
+        "filename": "assembly/masm.asm",
+        "ms": 14.299999952316284
+      },
+      {
+        "filename": "assembly/nasm.asm",
+        "ms": 18.800000071525574
+      },
+      {
+        "filename": "awk/counts.awk",
+        "ms": 55.09999990463257
+      },
+      {
+        "filename": "awk/files.awk",
+        "ms": 10.100000023841858
+      },
+      {
+        "filename": "awk/normalize.awk",
+        "ms": 13.300000071525574
+      },
+      {
+        "filename": "awk/report.awk",
+        "ms": 16.399999976158142
+      },
+      {
+        "filename": "bash/build.sh",
+        "ms": 77.5
+      },
+      {
+        "filename": "bash/files.csh",
+        "ms": 9.700000047683716
+      },
+      {
+        "filename": "bash/files.zsh",
+        "ms": 8.899999976158142
+      },
+      {
+        "filename": "bash/functions.sh",
+        "ms": 12.200000047683716
+      },
+      {
+        "filename": "bash/heredoc.sh",
+        "ms": 15.599999904632568
+      },
+      {
+        "filename": "bash/portable.sh",
+        "ms": 12.300000071525574
+      },
+      {
         "filename": "bat/arguments.bat",
-        "ms": 58
+        "ms": 68
       },
       {
         "filename": "bat/build.bat",
-        "ms": 13
+        "ms": 13.300000071525574
       },
       {
         "filename": "bat/functions.cmd",
@@ -141,11 +141,11 @@
       },
       {
         "filename": "bat/records.cmd",
-        "ms": 16.399999976158142
+        "ms": 16.5
       },
       {
         "filename": "c/callbacks.c",
-        "ms": 93.5
+        "ms": 74.60000002384186
       },
       {
         "filename": "c/file-reader.c",
@@ -153,143 +153,143 @@
       },
       {
         "filename": "c/hello.c",
-        "ms": 10.100000023841858
+        "ms": 10.299999952316284
       },
       {
         "filename": "c/linked-list.c",
-        "ms": 16.299999952316284
+        "ms": 16.799999952316284
       },
       {
         "filename": "c/literals.c",
-        "ms": 21.299999952316284
+        "ms": 21.800000071525574
       },
       {
         "filename": "c/macros.h",
-        "ms": 21.40000009536743
+        "ms": 21.199999928474426
       },
       {
         "filename": "c/modern-c.c",
-        "ms": 31.699999928474426
+        "ms": 32.5
       },
       {
         "filename": "c/points.c",
-        "ms": 20.800000071525574
+        "ms": 20.899999976158142
       },
       {
         "filename": "cpp/algorithms.cpp",
-        "ms": 70.79999995231628
+        "ms": 87.20000004768372
       },
       {
         "filename": "cpp/bindings.cpp",
-        "ms": 24.199999928474426
+        "ms": 24.800000071525574
       },
       {
         "filename": "cpp/classes.cpp",
-        "ms": 26.600000023841858
+        "ms": 27.399999976158142
       },
       {
         "filename": "cpp/concepts.cpp",
-        "ms": 17.5
+        "ms": 18.100000023841858
       },
       {
         "filename": "cpp/hello.cpp",
-        "ms": 20.200000047683716
+        "ms": 20.399999976158142
       },
       {
         "filename": "cpp/raw-strings.cpp",
-        "ms": 22
+        "ms": 22.600000023841858
       },
       {
         "filename": "cpp/smart-pointers.cpp",
-        "ms": 21.90000009536743
+        "ms": 21.40000009536743
       },
       {
         "filename": "cpp/templates.hpp",
-        "ms": 23
+        "ms": 23.600000023841858
       },
       {
         "filename": "csharp/AsyncStream.cs",
-        "ms": 68
+        "ms": 65.39999997615814
       },
       {
         "filename": "csharp/Collections.cs",
-        "ms": 28.200000047683716
+        "ms": 28.299999952316284
       },
       {
         "filename": "csharp/GenericStore.cs",
-        "ms": 27.199999928474426
+        "ms": 27.40000009536743
       },
       {
         "filename": "csharp/Hello.cs",
-        "ms": 26.600000023841858
+        "ms": 27.09999990463257
       },
       {
         "filename": "csharp/Options.cs",
-        "ms": 26.399999976158142
+        "ms": 26.700000047683716
       },
       {
         "filename": "csharp/Queries.cs",
-        "ms": 35.799999952316284
+        "ms": 36.5
       },
       {
         "filename": "csharp/Records.cs",
-        "ms": 29.800000071525574
+        "ms": 29.600000023841858
       },
       {
         "filename": "csharp/StringTemplates.cs",
-        "ms": 29.799999952316284
+        "ms": 30
       },
       {
         "filename": "css/hello.css",
-        "ms": 83.89999997615814
+        "ms": 66.10000002384186
       },
       {
         "filename": "css/responsive-grid.css",
-        "ms": 15
+        "ms": 14.699999928474426
       },
       {
         "filename": "dart/async.dart",
-        "ms": 89.70000004768372
+        "ms": 117.30000007152557
       },
       {
         "filename": "dart/classes.dart",
-        "ms": 57.40000009536743
+        "ms": 56.699999928474426
       },
       {
         "filename": "dart/collections.dart",
-        "ms": 50.200000047683716
+        "ms": 49.39999997615814
       },
       {
         "filename": "dart/hello.dart",
-        "ms": 32.699999928474426
+        "ms": 32.300000071525574
       },
       {
         "filename": "dart/modern.dart",
-        "ms": 50
+        "ms": 49.800000071525574
       },
       {
         "filename": "dart/patterns.dart",
-        "ms": 53.700000047683716
+        "ms": 54.299999952316284
       },
       {
         "filename": "dart/strings.dart",
-        "ms": 39.800000071525574
+        "ms": 40.299999952316284
       },
       {
         "filename": "dart/widgets.dart",
-        "ms": 58.5
+        "ms": 58
       },
       {
         "filename": "dotenv/comments.env",
-        "ms": 64.90000009536743
+        "ms": 57.799999952316284
       },
       {
         "filename": "dotenv/export.env",
-        "ms": 11.600000023841858
+        "ms": 11.800000071525574
       },
       {
         "filename": "dotenv/frontend.env",
-        "ms": 17.899999976158142
+        "ms": 17.59999990463257
       },
       {
         "filename": "dotenv/hello.env",
@@ -297,215 +297,215 @@
       },
       {
         "filename": "dotenv/multiline.env",
-        "ms": 16.600000023841858
+        "ms": 16.299999952316284
       },
       {
         "filename": "dotenv/production.env",
-        "ms": 21.399999976158142
+        "ms": 22.200000047683716
       },
       {
         "filename": "dotenv/quotes.env",
-        "ms": 18
+        "ms": 17.699999928474426
       },
       {
         "filename": "dotenv/references.env",
-        "ms": 14.100000023841858
+        "ms": 13.899999976158142
       },
       {
         "filename": "flutter/animation.dart",
-        "ms": 69.60000002384186
+        "ms": 69.89999997615814
       },
       {
         "filename": "flutter/builders.dart",
-        "ms": 68.89999997615814
+        "ms": 69
       },
       {
         "filename": "flutter/forms.dart",
-        "ms": 88.10000002384186
+        "ms": 91
       },
       {
         "filename": "flutter/hello.dart",
-        "ms": 85
+        "ms": 87
       },
       {
         "filename": "flutter/inherited.dart",
-        "ms": 77.5
+        "ms": 78.89999997615814
       },
       {
         "filename": "flutter/lists.dart",
-        "ms": 65.10000002384186
+        "ms": 66.79999995231628
       },
       {
         "filename": "flutter/navigation.dart",
-        "ms": 67.20000004768372
+        "ms": 68.89999997615814
       },
       {
         "filename": "flutter/stateful.dart",
-        "ms": 51.39999997615814
+        "ms": 53.200000047683716
       },
       {
         "filename": "go/generics.go",
-        "ms": 73.19999992847443
+        "ms": 67.5
       },
       {
         "filename": "go/hello.go",
-        "ms": 10
+        "ms": 10.099999904632568
       },
       {
         "filename": "go/long-raw-string.go",
-        "ms": 83
+        "ms": 84.5
       },
       {
         "filename": "go/selectors.go",
-        "ms": 21.799999952316284
+        "ms": 22.100000023841858
       },
       {
         "filename": "go/struct-methods.go",
-        "ms": 25.5
+        "ms": 25.700000047683716
       },
       {
         "filename": "html/embedded.html",
-        "ms": 126.69999992847443
+        "ms": 123.19999992847443
       },
       {
         "filename": "html/forms-and-dialog.html",
-        "ms": 47.39999997615814
+        "ms": 47.800000071525574
       },
       {
         "filename": "html/hello.html",
-        "ms": 37.10000002384186
+        "ms": 36.90000009536743
       },
       {
         "filename": "html/raw-text.html",
-        "ms": 36.89999997615814
+        "ms": 37.299999952316284
       },
       {
         "filename": "html/tailwind-card.html",
-        "ms": 50.200000047683716
+        "ms": 50.89999997615814
       },
       {
         "filename": "html/web-components.html",
-        "ms": 33.799999952316284
+        "ms": 34.5
       },
       {
         "filename": "ini/.editorconfig",
-        "ms": 76.39999997615814
+        "ms": 59.299999952316284
       },
       {
         "filename": "ini/continuations.ini",
-        "ms": 26.199999928474426
-      },
-      {
-        "filename": "ini/hello.ini",
-        "ms": 12.800000071525574
-      },
-      {
-        "filename": "ini/logging.ini",
-        "ms": 20.5
-      },
-      {
-        "filename": "ini/paths.ini",
-        "ms": 21.399999976158142
-      },
-      {
-        "filename": "ini/server.ini",
-        "ms": 14.099999904632568
-      },
-      {
-        "filename": "ini/setup.cfg",
-        "ms": 19.200000047683716
-      },
-      {
-        "filename": "ini/tox.ini",
-        "ms": 19.299999952316284
-      },
-      {
-        "filename": "java/Annotations.java",
-        "ms": 66.60000002384186
-      },
-      {
-        "filename": "java/AsyncTasks.java",
         "ms": 27.100000023841858
       },
       {
+        "filename": "ini/hello.ini",
+        "ms": 12.899999976158142
+      },
+      {
+        "filename": "ini/logging.ini",
+        "ms": 21
+      },
+      {
+        "filename": "ini/paths.ini",
+        "ms": 21.800000071525574
+      },
+      {
+        "filename": "ini/server.ini",
+        "ms": 14.100000023841858
+      },
+      {
+        "filename": "ini/setup.cfg",
+        "ms": 19.5
+      },
+      {
+        "filename": "ini/tox.ini",
+        "ms": 19.399999976158142
+      },
+      {
+        "filename": "java/Annotations.java",
+        "ms": 55.300000071525574
+      },
+      {
+        "filename": "java/AsyncTasks.java",
+        "ms": 27.299999952316284
+      },
+      {
         "filename": "java/Hello.java",
-        "ms": 39.700000047683716
+        "ms": 41.5
       },
       {
         "filename": "java/PatternRouting.java",
-        "ms": 37.5
+        "ms": 38.39999997615814
       },
       {
         "filename": "java/Result.java",
-        "ms": 23.40000009536743
+        "ms": 24
       },
       {
         "filename": "java/TextTemplates.java",
-        "ms": 22.299999952316284
+        "ms": 23.5
       },
       {
         "filename": "java/module-info.java",
-        "ms": 20.299999952316284
+        "ms": 21.200000047683716
       },
       {
         "filename": "javascript/async-cache.js",
-        "ms": 58.200000047683716
+        "ms": 59.39999997615814
       },
       {
         "filename": "javascript/data-pipeline.js",
-        "ms": 57.299999952316284
+        "ms": 58.89999997615814
       },
       {
         "filename": "javascript/event-bus.js",
-        "ms": 60.39999997615814
+        "ms": 61.299999952316284
       },
       {
         "filename": "javascript/hello.js",
-        "ms": 14.399999976158142
+        "ms": 15
       },
       {
         "filename": "javascript/react-hooks.jsx",
-        "ms": 130.20000004768372
+        "ms": 132.60000002384186
       },
       {
         "filename": "javascript/tailwind-profile-card.jsx",
-        "ms": 178.89999997615814
+        "ms": 179.10000002384186
       },
       {
         "filename": "json/hello.json",
-        "ms": 42.199999928474426
+        "ms": 54
       },
       {
         "filename": "json/numbers.json",
-        "ms": 13.399999976158142
-      },
-      {
-        "filename": "json/package.json",
-        "ms": 14.5
-      },
-      {
-        "filename": "json/response.json",
-        "ms": 27.5
-      },
-      {
-        "filename": "json/schema.json",
-        "ms": 32.10000002384186
-      },
-      {
-        "filename": "json/strings.json",
-        "ms": 18.199999928474426
-      },
-      {
-        "filename": "json/theme.json",
-        "ms": 22.600000023841858
-      },
-      {
-        "filename": "json/unicode.json",
         "ms": 13.600000023841858
       },
       {
+        "filename": "json/package.json",
+        "ms": 14.899999976158142
+      },
+      {
+        "filename": "json/response.json",
+        "ms": 27.700000047683716
+      },
+      {
+        "filename": "json/schema.json",
+        "ms": 32.699999928474426
+      },
+      {
+        "filename": "json/strings.json",
+        "ms": 18.5
+      },
+      {
+        "filename": "json/theme.json",
+        "ms": 21.899999976158142
+      },
+      {
+        "filename": "json/unicode.json",
+        "ms": 13
+      },
+      {
         "filename": "jsonc/comments.jsonc",
-        "ms": 30.799999952316284
+        "ms": 30.200000047683716
       },
       {
         "filename": "jsonc/extensions.json",
@@ -513,287 +513,287 @@
       },
       {
         "filename": "jsonc/hello.jsonc",
-        "ms": 14.899999976158142
+        "ms": 15.200000047683716
       },
       {
         "filename": "jsonc/launch.json",
-        "ms": 25
+        "ms": 25.299999952316284
       },
       {
         "filename": "jsonc/strings.jsonc",
-        "ms": 21.199999928474426
+        "ms": 21.700000047683716
       },
       {
         "filename": "jsonc/tasks.json",
-        "ms": 22.100000023841858
+        "ms": 22.59999990463257
       },
       {
         "filename": "jsonc/tsconfig.json",
-        "ms": 26.200000047683716
+        "ms": 26.700000047683716
       },
       {
         "filename": "jsonc/workspace.code-workspace",
-        "ms": 22.299999952316284
+        "ms": 22.700000047683716
       },
       {
         "filename": "kotlin/build.gradle.kts",
-        "ms": 59
+        "ms": 63.200000047683716
       },
       {
         "filename": "kotlin/collections.kt",
-        "ms": 45.89999997615814
+        "ms": 47
       },
       {
         "filename": "kotlin/compose.kt",
-        "ms": 48.59999990463257
+        "ms": 49.89999997615814
       },
       {
         "filename": "kotlin/coroutines.kt",
-        "ms": 38.90000009536743
+        "ms": 40
       },
       {
         "filename": "kotlin/generics.kt",
-        "ms": 42.89999997615814
+        "ms": 43.39999997615814
       },
       {
         "filename": "kotlin/hello.kt",
-        "ms": 24.5
+        "ms": 24.899999976158142
       },
       {
         "filename": "kotlin/models.kt",
-        "ms": 45.800000071525574
+        "ms": 46.89999997615814
       },
       {
         "filename": "kotlin/strings.kt",
-        "ms": 33.799999952316284
+        "ms": 34.60000002384186
       },
       {
         "filename": "less/hello.less",
-        "ms": 12.699999928474426
-      },
-      {
-        "filename": "less/responsive.less",
-        "ms": 10.700000047683716
-      },
-      {
-        "filename": "lua/closures.lua",
-        "ms": 73.29999995231628
-      },
-      {
-        "filename": "lua/hello.lua",
-        "ms": 16.800000071525574
-      },
-      {
-        "filename": "lua/loops.lua",
-        "ms": 25.200000047683716
-      },
-      {
-        "filename": "lua/modern.lua",
-        "ms": 27.200000047683716
-      },
-      {
-        "filename": "lua/modules.lua",
-        "ms": 29.699999928474426
-      },
-      {
-        "filename": "lua/neovim.lua",
-        "ms": 37.89999997615814
-      },
-      {
-        "filename": "lua/strings.lua",
-        "ms": 34.10000002384186
-      },
-      {
-        "filename": "lua/tables.lua",
-        "ms": 23.5
-      },
-      {
-        "filename": "markdown/code.md",
-        "ms": 104.89999997615814
-      },
-      {
-        "filename": "markdown/formatting.md",
-        "ms": 32.39999997615814
-      },
-      {
-        "filename": "markdown/hello.md",
-        "ms": 22.100000023841858
-      },
-      {
-        "filename": "markdown/links.md",
-        "ms": 37.90000009536743
-      },
-      {
-        "filename": "markdown/lists.md",
-        "ms": 25.59999990463257
-      },
-      {
-        "filename": "markdown/mixed.md",
-        "ms": 49.300000071525574
-      },
-      {
-        "filename": "markdown/tables.md",
-        "ms": 27.399999976158142
-      },
-      {
-        "filename": "markdown/unicode.md",
-        "ms": 48.799999952316284
-      },
-      {
-        "filename": "perl/counter.pm",
-        "ms": 71.20000004768372
-      },
-      {
-        "filename": "perl/heredoc.pl",
-        "ms": 9.199999928474426
-      },
-      {
-        "filename": "perl/indented-heredoc.pl",
-        "ms": 6.399999976158142
-      },
-      {
-        "filename": "perl/normalize.pl",
-        "ms": 18.600000023841858
-      },
-      {
-        "filename": "perl/records.pl",
-        "ms": 18.699999928474426
-      },
-      {
-        "filename": "php/closures.php",
-        "ms": 52.200000047683716
-      },
-      {
-        "filename": "php/collections.php",
-        "ms": 18.699999928474426
-      },
-      {
-        "filename": "php/embedded.phtml",
-        "ms": 37.60000002384186
-      },
-      {
-        "filename": "php/enums.php",
-        "ms": 17.899999976158142
-      },
-      {
-        "filename": "php/hello.php",
-        "ms": 10.900000095367432
-      },
-      {
-        "filename": "php/heredoc.php",
-        "ms": 13.199999928474426
-      },
-      {
-        "filename": "php/records.php",
-        "ms": 19.299999952316284
-      },
-      {
-        "filename": "php/template.phtml",
-        "ms": 21.200000047683716
-      },
-      {
-        "filename": "powershell/functions.ps1",
-        "ms": 47.39999997615814
-      },
-      {
-        "filename": "powershell/here-strings.ps1",
-        "ms": 14.299999952316284
-      },
-      {
-        "filename": "powershell/pipeline.ps1",
         "ms": 13.300000071525574
       },
       {
+        "filename": "less/responsive.less",
+        "ms": 10.899999976158142
+      },
+      {
+        "filename": "lua/closures.lua",
+        "ms": 66.79999995231628
+      },
+      {
+        "filename": "lua/hello.lua",
+        "ms": 17
+      },
+      {
+        "filename": "lua/loops.lua",
+        "ms": 25.600000023841858
+      },
+      {
+        "filename": "lua/modern.lua",
+        "ms": 27.700000047683716
+      },
+      {
+        "filename": "lua/modules.lua",
+        "ms": 29.899999976158142
+      },
+      {
+        "filename": "lua/neovim.lua",
+        "ms": 38.39999997615814
+      },
+      {
+        "filename": "lua/strings.lua",
+        "ms": 34.699999928474426
+      },
+      {
+        "filename": "lua/tables.lua",
+        "ms": 24.300000071525574
+      },
+      {
+        "filename": "markdown/code.md",
+        "ms": 104.19999992847443
+      },
+      {
+        "filename": "markdown/formatting.md",
+        "ms": 35.299999952316284
+      },
+      {
+        "filename": "markdown/hello.md",
+        "ms": 25.200000047683716
+      },
+      {
+        "filename": "markdown/links.md",
+        "ms": 41.39999997615814
+      },
+      {
+        "filename": "markdown/lists.md",
+        "ms": 27.699999928474426
+      },
+      {
+        "filename": "markdown/mixed.md",
+        "ms": 51.89999997615814
+      },
+      {
+        "filename": "markdown/tables.md",
+        "ms": 28.600000023841858
+      },
+      {
+        "filename": "markdown/unicode.md",
+        "ms": 74.29999995231628
+      },
+      {
+        "filename": "perl/counter.pm",
+        "ms": 62.700000047683716
+      },
+      {
+        "filename": "perl/heredoc.pl",
+        "ms": 9.599999904632568
+      },
+      {
+        "filename": "perl/indented-heredoc.pl",
+        "ms": 6.300000071525574
+      },
+      {
+        "filename": "perl/normalize.pl",
+        "ms": 18.5
+      },
+      {
+        "filename": "perl/records.pl",
+        "ms": 18.799999952316284
+      },
+      {
+        "filename": "php/closures.php",
+        "ms": 67.39999997615814
+      },
+      {
+        "filename": "php/collections.php",
+        "ms": 19
+      },
+      {
+        "filename": "php/embedded.phtml",
+        "ms": 37.300000071525574
+      },
+      {
+        "filename": "php/enums.php",
+        "ms": 18
+      },
+      {
+        "filename": "php/hello.php",
+        "ms": 11.599999904632568
+      },
+      {
+        "filename": "php/heredoc.php",
+        "ms": 13.300000071525574
+      },
+      {
+        "filename": "php/records.php",
+        "ms": 19.899999976158142
+      },
+      {
+        "filename": "php/template.phtml",
+        "ms": 22.100000023841858
+      },
+      {
+        "filename": "powershell/functions.ps1",
+        "ms": 54.89999997615814
+      },
+      {
+        "filename": "powershell/here-strings.ps1",
+        "ms": 14.399999976158142
+      },
+      {
+        "filename": "powershell/pipeline.ps1",
+        "ms": 13.799999952316284
+      },
+      {
         "filename": "powershell/records.ps1",
-        "ms": 15.799999952316284
+        "ms": 15.800000071525574
       },
       {
         "filename": "python/async-stream.py",
-        "ms": 29.100000023841858
+        "ms": 29.40000009536743
       },
       {
         "filename": "python/generics.py",
-        "ms": 31.100000023841858
+        "ms": 31.399999976158142
       },
       {
         "filename": "python/records.py",
-        "ms": 25
+        "ms": 25.5
       },
       {
         "filename": "python/strings.py",
-        "ms": 17.299999952316284
+        "ms": 17.800000071525574
       },
       {
         "filename": "r/frames.R",
-        "ms": 75.5
+        "ms": 72.39999997615814
       },
       {
         "filename": "r/functions.R",
-        "ms": 36.799999952316284
+        "ms": 37.799999952316284
       },
       {
         "filename": "r/hello.R",
-        "ms": 17.700000047683716
+        "ms": 18
       },
       {
         "filename": "r/models.R",
-        "ms": 40.39999997615814
+        "ms": 41.09999990463257
       },
       {
         "filename": "r/objects.R",
-        "ms": 38.299999952316284
+        "ms": 38.800000071525574
       },
       {
         "filename": "r/pipeline.R",
-        "ms": 36.699999928474426
+        "ms": 37.199999928474426
       },
       {
         "filename": "r/plot.R",
-        "ms": 25.100000023841858
+        "ms": 25.40000009536743
       },
       {
         "filename": "r/strings.R",
-        "ms": 37.10000002384186
+        "ms": 38.09999990463257
       },
       {
         "filename": "ruby/blocks.rb",
-        "ms": 69.5
+        "ms": 81.70000004768372
       },
       {
         "filename": "ruby/classes.rb",
-        "ms": 32.300000071525574
+        "ms": 33.10000002384186
       },
       {
         "filename": "ruby/collections.rb",
-        "ms": 35.699999928474426
+        "ms": 36.5
       },
       {
         "filename": "ruby/hello.rb",
-        "ms": 15.700000047683716
+        "ms": 15.400000095367432
       },
       {
         "filename": "ruby/heredoc.rb",
-        "ms": 23.299999952316284
+        "ms": 23.90000009536743
       },
       {
         "filename": "ruby/patterns.rb",
-        "ms": 34.700000047683716
+        "ms": 35.300000071525574
       },
       {
         "filename": "ruby/rails.rb",
-        "ms": 42.699999928474426
+        "ms": 43
       },
       {
         "filename": "ruby/strings.rb",
-        "ms": 33.39999997615814
+        "ms": 34.200000047683716
       },
       {
         "filename": "rust/async.rs",
-        "ms": 86
+        "ms": 81.79999995231628
       },
       {
         "filename": "rust/edition2024.rs",
-        "ms": 34.299999952316284
+        "ms": 34.89999997615814
       },
       {
         "filename": "rust/hello.rs",
@@ -801,187 +801,187 @@
       },
       {
         "filename": "rust/macros.rs",
-        "ms": 31
+        "ms": 31.899999976158142
       },
       {
         "filename": "rust/ownership.rs",
-        "ms": 32.39999997615814
+        "ms": 33
       },
       {
         "filename": "rust/patterns.rs",
-        "ms": 48.200000047683716
+        "ms": 48.60000002384186
       },
       {
         "filename": "rust/raw-strings.rs",
-        "ms": 35.5
+        "ms": 36.10000002384186
       },
       {
         "filename": "rust/traits-generics.rs",
-        "ms": 37.40000009536743
+        "ms": 38.299999952316284
       },
       {
         "filename": "scala/async.scala",
-        "ms": 85.5
+        "ms": 87.60000002384186
       },
       {
         "filename": "scala/collections.scala",
-        "ms": 32.800000071525574
+        "ms": 33.39999997615814
       },
       {
         "filename": "scala/contextual.scala",
-        "ms": 37.199999928474426
+        "ms": 37.799999952316284
       },
       {
         "filename": "scala/generics.scala",
-        "ms": 42.700000047683716
+        "ms": 43.89999997615814
       },
       {
         "filename": "scala/hello.scala",
-        "ms": 22.699999928474426
+        "ms": 23.300000071525574
       },
       {
         "filename": "scala/models.scala",
-        "ms": 28.399999976158142
+        "ms": 29.199999928474426
       },
       {
         "filename": "scala/scala2.scala",
-        "ms": 33.60000002384186
+        "ms": 34.200000047683716
       },
       {
         "filename": "scala/strings.scala",
-        "ms": 35.299999952316284
+        "ms": 36.60000002384186
       },
       {
         "filename": "scss/hello.scss",
-        "ms": 13.300000071525574
+        "ms": 13.700000047683716
       },
       {
         "filename": "scss/surface-layout.scss",
-        "ms": 12.200000047683716
+        "ms": 12.300000071525574
       },
       {
         "filename": "sql/mysql.sql",
-        "ms": 65.20000004768372
+        "ms": 62.60000002384186
       },
       {
         "filename": "sql/oracle.sql",
-        "ms": 18.799999952316284
+        "ms": 19.100000023841858
       },
       {
         "filename": "sql/postgres.sql",
-        "ms": 17.100000023841858
+        "ms": 17.5
       },
       {
         "filename": "sql/queries.sql",
-        "ms": 21.5
+        "ms": 22
       },
       {
         "filename": "svelte/async-content.svelte",
-        "ms": 69.70000004768372
+        "ms": 91.60000002384186
       },
       {
         "filename": "svelte/control-flow.svelte",
-        "ms": 41.799999952316284
+        "ms": 42.09999990463257
       },
       {
         "filename": "svelte/counter.svelte",
-        "ms": 43.700000047683716
+        "ms": 44.89999997615814
       },
       {
         "filename": "svelte/directives.svelte",
-        "ms": 46.5
+        "ms": 47.800000071525574
       },
       {
         "filename": "svelte/legacy-component.svelte",
-        "ms": 34
+        "ms": 34.5
       },
       {
         "filename": "svelte/module-less.svelte",
-        "ms": 39.09999990463257
+        "ms": 41.200000047683716
       },
       {
         "filename": "svelte/snippets.svelte",
-        "ms": 51.800000071525574
+        "ms": 53.799999952316284
       },
       {
         "filename": "svelte/typed-scss.svelte",
-        "ms": 46.5
+        "ms": 48
       },
       {
         "filename": "svg/accessible.svg",
-        "ms": 30
+        "ms": 30.600000023841858
       },
       {
         "filename": "svg/animation.svg",
-        "ms": 25.299999952316284
+        "ms": 26
       },
       {
         "filename": "svg/cdata.svg",
-        "ms": 29
+        "ms": 29.300000071525574
       },
       {
         "filename": "svg/filters.svg",
-        "ms": 44
+        "ms": 45.10000002384186
       },
       {
         "filename": "svg/gradients.svg",
-        "ms": 29.299999952316284
+        "ms": 29.899999976158142
       },
       {
         "filename": "svg/hello.svg",
-        "ms": 27.5
+        "ms": 28.5
       },
       {
         "filename": "svg/mask.svg",
-        "ms": 25.899999976158142
+        "ms": 26.5
       },
       {
         "filename": "svg/symbols.svg",
-        "ms": 29
+        "ms": 29.399999976158142
       },
       {
         "filename": "swift/bindings.swift",
-        "ms": 109.80000007152557
+        "ms": 98.29999995231628
       },
       {
         "filename": "swift/collections.swift",
-        "ms": 43.799999952316284
+        "ms": 44.299999952316284
       },
       {
         "filename": "swift/concurrency.swift",
-        "ms": 47
+        "ms": 48.10000002384186
       },
       {
         "filename": "swift/generics.swift",
-        "ms": 40.699999928474426
+        "ms": 41.299999952316284
       },
       {
         "filename": "swift/hello.swift",
-        "ms": 24.300000071525574
+        "ms": 24.5
       },
       {
         "filename": "swift/patterns.swift",
-        "ms": 42.800000071525574
+        "ms": 44.39999997615814
       },
       {
         "filename": "swift/strings.swift",
-        "ms": 40.39999997615814
+        "ms": 40.799999952316284
       },
       {
         "filename": "swift/swiftui.swift",
-        "ms": 40.5
+        "ms": 41.199999928474426
       },
       {
         "filename": "toml/Cargo.toml",
-        "ms": 64.69999992847443
+        "ms": 71.5
       },
       {
         "filename": "toml/hello.toml",
-        "ms": 15.300000071525574
+        "ms": 15.5
       },
       {
         "filename": "toml/inline.toml",
-        "ms": 24.200000047683716
+        "ms": 24.5
       },
       {
         "filename": "toml/keys.toml",
@@ -989,179 +989,179 @@
       },
       {
         "filename": "toml/literals.toml",
-        "ms": 25.59999990463257
+        "ms": 26.299999952316284
       },
       {
         "filename": "toml/pyproject.toml",
-        "ms": 27.90000009536743
+        "ms": 28.600000023841858
       },
       {
         "filename": "toml/services.toml",
-        "ms": 15.599999904632568
+        "ms": 16
       },
       {
         "filename": "toml/strings.toml",
-        "ms": 24
+        "ms": 24.399999976158142
       },
       {
         "filename": "typescript/async-api-client.ts",
-        "ms": 109.10000002384186
+        "ms": 112.39999997615814
       },
       {
         "filename": "typescript/event-pipeline.ts",
-        "ms": 111.89999997615814
+        "ms": 114.59999990463257
       },
       {
         "filename": "typescript/hello.ts",
-        "ms": 20.100000023841858
+        "ms": 21
       },
       {
         "filename": "typescript/react-hooks.tsx",
-        "ms": 164.29999995231628
+        "ms": 167.90000009536743
       },
       {
         "filename": "typescript/tailwind-profile-card.tsx",
-        "ms": 196.5
+        "ms": 200.60000002384186
       },
       {
         "filename": "typescript/typed-cache.ts",
-        "ms": 54.299999952316284
+        "ms": 55.699999928474426
       },
       {
         "filename": "vue/hello.vue",
-        "ms": 90.29999995231628
+        "ms": 100.10000002384186
       },
       {
         "filename": "vue/scoped-styles.vue",
-        "ms": 46
+        "ms": 47.5
       },
       {
         "filename": "vue/tsx-render.vue",
-        "ms": 44.200000047683716
+        "ms": 45.5
       },
       {
         "filename": "vue/vue2-options.vue",
-        "ms": 100.19999992847443
+        "ms": 104.29999995231628
       },
       {
         "filename": "vue/vue3-composition.vue",
-        "ms": 74.30000007152557
+        "ms": 76.60000002384186
       },
       {
         "filename": "vue/vue32-typed-setup.vue",
-        "ms": 83.5
+        "ms": 85.90000009536743
       },
       {
         "filename": "xml/catalog.xsl",
-        "ms": 24.100000023841858
+        "ms": 24.90000009536743
       },
       {
         "filename": "xml/cdata.xml",
-        "ms": 21.200000047683716
+        "ms": 21.90000009536743
       },
       {
         "filename": "xml/feed.xml",
-        "ms": 27.40000009536743
+        "ms": 28.200000047683716
       },
       {
         "filename": "xml/hello.xml",
-        "ms": 18.800000071525574
+        "ms": 19.5
       },
       {
         "filename": "xml/namespaces.xml",
-        "ms": 26.09999990463257
+        "ms": 27.09999990463257
       },
       {
         "filename": "xml/pom.xml",
-        "ms": 42.300000071525574
+        "ms": 43.5
       },
       {
         "filename": "xml/preferences.plist",
-        "ms": 25.90000009536743
+        "ms": 26.700000047683716
       },
       {
         "filename": "xml/schema.xsd",
-        "ms": 29.300000071525574
+        "ms": 29.5
       },
       {
         "filename": "yaml/anchors.yaml",
-        "ms": 60.5
+        "ms": 58.10000002384186
       },
       {
         "filename": "yaml/blocks.yaml",
-        "ms": 27.5
+        "ms": 28.299999952316284
       },
       {
         "filename": "yaml/compose.yaml",
-        "ms": 34.10000002384186
+        "ms": 34.5
       },
       {
         "filename": "yaml/documents.yaml",
-        "ms": 19.799999952316284
+        "ms": 20.299999952316284
       },
       {
         "filename": "yaml/hello.yaml",
-        "ms": 12.800000071525574
+        "ms": 12.899999976158142
       },
       {
         "filename": "yaml/kubernetes.yaml",
-        "ms": 31.699999928474426
+        "ms": 32.800000071525574
       },
       {
         "filename": "yaml/monitoring.yml",
-        "ms": 23.299999952316284
+        "ms": 23.59999990463257
       },
       {
         "filename": "yaml/workflow.yml",
-        "ms": 31.5
+        "ms": 31.899999976158142
       },
       {
         "filename": "zig/captures.zig",
-        "ms": 85.70000004768372
+        "ms": 79.5
       },
       {
         "filename": "zig/comptime.zig",
-        "ms": 37.799999952316284
+        "ms": 38.299999952316284
       },
       {
         "filename": "zig/containers.zig",
-        "ms": 30
+        "ms": 29.899999976158142
       },
       {
         "filename": "zig/errors-optionals.zig",
-        "ms": 37.299999952316284
+        "ms": 37.5
       },
       {
         "filename": "zig/hello.zig",
-        "ms": 31.100000023841858
+        "ms": 31.399999976158142
       },
       {
         "filename": "zig/memory.zig",
-        "ms": 31.300000071525574
+        "ms": 31.799999952316284
       },
       {
         "filename": "zig/reflection.zig",
-        "ms": 28.5
+        "ms": 28.799999952316284
       },
       {
         "filename": "zig/strings.zig",
-        "ms": 26
+        "ms": 26.5
       },
       {
         "filename": "edge/271.ts",
-        "ms": 0
+        "ms": 0.10000002384185791
       },
       {
         "filename": "edge/272.ts",
-        "ms": 0.6000000238418579
+        "ms": 0.6999999284744263
       },
       {
         "filename": "edge/273.ts",
-        "ms": 3.3000000715255737
+        "ms": 3.200000047683716
       },
       {
         "filename": "edge/274.ts",
-        "ms": 183.20000004768372
+        "ms": 187.69999992847443
       },
       {
         "filename": "edge/swift-0.swift",
@@ -1169,31 +1169,31 @@
       },
       {
         "filename": "edge/swift-1.swift",
-        "ms": 0.5
+        "ms": 0.8999999761581421
       },
       {
         "filename": "edge/swift-2.swift",
-        "ms": 2.399999976158142
+        "ms": 2.5
       },
       {
         "filename": "edge/swift-3.swift",
-        "ms": 314.7999999523163
+        "ms": 321.39999997615814
       },
       {
         "filename": "edge/kotlin-0.kt",
-        "ms": 0
+        "ms": 0.10000002384185791
       },
       {
         "filename": "edge/kotlin-1.kt",
-        "ms": 0.5
+        "ms": 0.7000000476837158
       },
       {
         "filename": "edge/kotlin-2.kt",
-        "ms": 2.600000023841858
+        "ms": 2.6999999284744263
       },
       {
         "filename": "edge/kotlin-3.kt",
-        "ms": 391.6999999284744
+        "ms": 402.7000000476837
       },
       {
         "filename": "edge/r-0.R",
@@ -1201,19 +1201,19 @@
       },
       {
         "filename": "edge/r-1.R",
-        "ms": 0.5
+        "ms": 0.6999999284744263
       },
       {
         "filename": "edge/r-2.R",
-        "ms": 1.8000000715255737
+        "ms": 2
       },
       {
         "filename": "edge/r-3.R",
-        "ms": 349.7999999523163
+        "ms": 359.7000000476837
       },
       {
         "filename": "edge/scala-0.scala",
-        "ms": 0.20000004768371582
+        "ms": 0.10000002384185791
       },
       {
         "filename": "edge/scala-1.scala",
@@ -1221,27 +1221,27 @@
       },
       {
         "filename": "edge/scala-2.scala",
-        "ms": 2.299999952316284
+        "ms": 2.899999976158142
       },
       {
         "filename": "edge/scala-3.scala",
-        "ms": 308.3000000715256
+        "ms": 316.89999997615814
       },
       {
         "filename": "edge/ruby-0.rb",
-        "ms": 0.09999990463256836
+        "ms": 0
       },
       {
         "filename": "edge/ruby-1.rb",
-        "ms": 1.3000000715255737
+        "ms": 1.600000023841858
       },
       {
         "filename": "edge/ruby-2.rb",
-        "ms": 1.899999976158142
+        "ms": 1.9000000953674316
       },
       {
         "filename": "edge/ruby-3.rb",
-        "ms": 436.2999999523163
+        "ms": 447.2999999523163
       },
       {
         "filename": "edge/lua-0.lua",
@@ -1249,15 +1249,15 @@
       },
       {
         "filename": "edge/lua-1.lua",
-        "ms": 0.3999999761581421
+        "ms": 0.5
       },
       {
         "filename": "edge/lua-2.lua",
-        "ms": 2.600000023841858
+        "ms": 2.1999999284744263
       },
       {
         "filename": "edge/lua-3.lua",
-        "ms": 349.7999999523163
+        "ms": 361.60000002384186
       },
       {
         "filename": "edge/json-0.json",
@@ -1265,19 +1265,19 @@
       },
       {
         "filename": "edge/json-1.json",
-        "ms": 0.3999999761581421
+        "ms": 0.5
       },
       {
         "filename": "edge/json-2.json",
-        "ms": 2.4000000953674316
+        "ms": 2.399999976158142
       },
       {
         "filename": "edge/json-3.json",
-        "ms": 390.2999999523163
+        "ms": 402.89999997615814
       },
       {
         "filename": "edge/jsonc-0.jsonc",
-        "ms": 0
+        "ms": 0.10000002384185791
       },
       {
         "filename": "edge/jsonc-1.jsonc",
@@ -1289,55 +1289,55 @@
       },
       {
         "filename": "edge/jsonc-3.jsonc",
-        "ms": 315.10000002384186
+        "ms": 325.39999997615814
       },
       {
         "filename": "edge/yaml-0.yaml",
-        "ms": 0
-      },
-      {
-        "filename": "edge/yaml-1.yaml",
-        "ms": 0.3999999761581421
-      },
-      {
-        "filename": "edge/yaml-2.yaml",
-        "ms": 2.8000000715255737
-      },
-      {
-        "filename": "edge/yaml-3.yaml",
-        "ms": 534
-      },
-      {
-        "filename": "edge/toml-0.toml",
         "ms": 0.10000002384185791
       },
       {
+        "filename": "edge/yaml-1.yaml",
+        "ms": 0.5
+      },
+      {
+        "filename": "edge/yaml-2.yaml",
+        "ms": 2.799999952316284
+      },
+      {
+        "filename": "edge/yaml-3.yaml",
+        "ms": 546
+      },
+      {
+        "filename": "edge/toml-0.toml",
+        "ms": 0
+      },
+      {
         "filename": "edge/toml-1.toml",
-        "ms": 0.6000000238418579
+        "ms": 0.3999999761581421
       },
       {
         "filename": "edge/toml-2.toml",
-        "ms": 2.399999976158142
+        "ms": 2.600000023841858
       },
       {
         "filename": "edge/toml-3.toml",
-        "ms": 404.3000000715256
+        "ms": 410.89999997615814
       },
       {
         "filename": "edge/ini-0.ini",
-        "ms": 0.09999990463256836
+        "ms": 0
       },
       {
         "filename": "edge/ini-1.ini",
-        "ms": 0.40000009536743164
+        "ms": 0.7000000476837158
       },
       {
         "filename": "edge/ini-2.ini",
-        "ms": 3.299999952316284
+        "ms": 3.5
       },
       {
         "filename": "edge/ini-3.ini",
-        "ms": 487.89999997615814
+        "ms": 499.1999999284744
       },
       {
         "filename": "edge/dotenv-0.env",
@@ -1349,11 +1349,11 @@
       },
       {
         "filename": "edge/dotenv-2.env",
-        "ms": 3.399999976158142
+        "ms": 4
       },
       {
         "filename": "edge/dotenv-3.env",
-        "ms": 403.1999999284744
+        "ms": 416
       },
       {
         "filename": "edge/xml-0.xml",
@@ -1361,31 +1361,31 @@
       },
       {
         "filename": "edge/xml-1.xml",
-        "ms": 0.3999999761581421
+        "ms": 0.5
       },
       {
         "filename": "edge/xml-2.xml",
-        "ms": 3.700000047683716
+        "ms": 4
       },
       {
         "filename": "edge/xml-3.xml",
-        "ms": 647
+        "ms": 665.1000000238419
       },
       {
         "filename": "edge/svg-0.svg",
-        "ms": 0.09999990463256836
+        "ms": 0
       },
       {
         "filename": "edge/svg-1.svg",
-        "ms": 0.40000009536743164
+        "ms": 1.100000023841858
       },
       {
         "filename": "edge/svg-2.svg",
-        "ms": 3.0999999046325684
+        "ms": 3.600000023841858
       },
       {
         "filename": "edge/svg-3.svg",
-        "ms": 618.3000000715256
+        "ms": 637.2999999523163
       },
       {
         "filename": "edge/markdown-0.md",
@@ -1393,18 +1393,19 @@
       },
       {
         "filename": "edge/markdown-1.md",
-        "ms": 0.6000000238418579
+        "ms": 0.6999999284744263
       },
       {
         "filename": "edge/markdown-2.md",
-        "ms": 3.200000047683716
+        "ms": 3.5
       },
       {
         "filename": "edge/markdown-3.md",
-        "ms": 620.3999999761581
+        "ms": 655.6000000238419
       }
     ]
   },
+  "previousNonMarkdownReferencesUnchanged": 323,
   "independentPackages": {
     "only": {
       "status": "passed",
@@ -1416,14 +1417,14 @@
           "filename": "markdown/code.md",
           "equal": true,
           "alias": "markdown",
-          "spans": 21,
+          "spans": 20,
           "childSpans": 0
         },
         {
           "filename": "markdown/formatting.md",
           "equal": true,
           "alias": "Markdown",
-          "spans": 44,
+          "spans": 45,
           "childSpans": 0
         },
         {
@@ -1437,7 +1438,7 @@
           "filename": "markdown/links.md",
           "equal": true,
           "alias": "MD",
-          "spans": 45,
+          "spans": 41,
           "childSpans": 0
         },
         {
@@ -1451,21 +1452,21 @@
           "filename": "markdown/mixed.md",
           "equal": true,
           "alias": "mkd",
-          "spans": 20,
+          "spans": 21,
           "childSpans": 0
         },
         {
           "filename": "markdown/tables.md",
           "equal": true,
           "alias": "markdown",
-          "spans": 58,
+          "spans": 56,
           "childSpans": 0
         },
         {
           "filename": "markdown/unicode.md",
           "equal": true,
           "alias": "Markdown",
-          "spans": 18,
+          "spans": 19,
           "childSpans": 0
         },
         {
@@ -1493,7 +1494,7 @@
           "filename": "edge/markdown-3.md",
           "equal": true,
           "alias": "mkd",
-          "spans": 12,
+          "spans": 7,
           "childSpans": 0
         }
       ],
@@ -1563,14 +1564,14 @@
           "filename": "markdown/code.md",
           "equal": true,
           "alias": "markdown",
-          "spans": 21,
+          "spans": 20,
           "childSpans": 0
         },
         {
           "filename": "markdown/formatting.md",
           "equal": true,
           "alias": "Markdown",
-          "spans": 44,
+          "spans": 45,
           "childSpans": 0
         },
         {
@@ -1584,7 +1585,7 @@
           "filename": "markdown/links.md",
           "equal": true,
           "alias": "MD",
-          "spans": 45,
+          "spans": 41,
           "childSpans": 0
         },
         {
@@ -1598,21 +1599,21 @@
           "filename": "markdown/mixed.md",
           "equal": true,
           "alias": "mkd",
-          "spans": 54,
+          "spans": 55,
           "childSpans": 36
         },
         {
           "filename": "markdown/tables.md",
           "equal": true,
           "alias": "markdown",
-          "spans": 58,
+          "spans": 56,
           "childSpans": 0
         },
         {
           "filename": "markdown/unicode.md",
           "equal": true,
           "alias": "Markdown",
-          "spans": 18,
+          "spans": 19,
           "childSpans": 0
         },
         {
@@ -1640,7 +1641,7 @@
           "filename": "edge/markdown-3.md",
           "equal": true,
           "alias": "mkd",
-          "spans": 12,
+          "spans": 7,
           "childSpans": 0
         }
       ],
@@ -1691,50 +1692,300 @@
     "publicImports": true,
     "noRepositoryAliases": true,
     "assets": {
-      "only": ["markdown-BMp1M_9q.onnx"],
-      "composed": ["typescript-DMFQaYaV.onnx", "markdown-BMp1M_9q.onnx", "json-Ci57iC4P.onnx"]
+      "only": ["markdown-D5j9OM_p.onnx"],
+      "composed": ["typescript-DMFQaYaV.onnx", "markdown-D5j9OM_p.onnx", "json-Ci57iC4P.onnx"]
     },
-    "referenceSha256": "58ef9349f2b3b51b716d9908f5f90988ed67bdf2bc8314538d9e4dfdfca380ef",
-    "servedUsing": "Existing Playground filesystem route; no new server or port"
+    "referenceSha256": "30be083032fc264545e849df62edc0f29a23b070dcb0e55087f18014893061ea",
+    "servedUsing": "Existing Playground filesystem route; no new app, server or port"
   },
   "playground": {
     "url": "http://127.0.0.1:3000/",
     "language": "Markdown",
     "examples": 8,
-    "observedExample": "formatting.md",
+    "observedExample": "mixed.md",
     "browserInference": true,
     "lightDark": true,
     "shuffle": true,
-    "screenshot": "artifacts/markdown/playground.png",
-    "consoleErrors": []
+    "screenshot": "artifacts/markdown/optimization-20261116/playground.png",
+    "consoleErrors": {
+      "playground": [],
+      "parity": [],
+      "only": [],
+      "composed": []
+    }
   },
   "checks": {
     "makeCheckPassed": true,
-    "frontendTests": 173,
+    "frontendTests": 175,
+    "sharedPipelineTests": 15,
     "teacherTests": 14,
     "independentMarkedGoldenCases": 48
   },
   "quality": {
-    "baseNaturalTest": {
-      "documents": 14,
+    "primaryFreshIndependentTest": {
+      "documents": 20,
       "exactDocumentsIncludingModifiers": 0,
       "exactSpan": {
-        "precision": 0.7356786308533396,
-        "recall": 0.8129760966640399,
-        "f1": 0.7723983029698028,
-        "tp": 3095,
-        "fp": 1112,
-        "fn": 712,
+        "precision": 0.9452274183215887,
+        "recall": 0.9568741893644618,
+        "f1": 0.9510151466322914,
+        "tp": 5902,
+        "fp": 342,
+        "fn": 266,
+        "support": 6168
+      },
+      "exactSpanMacroF1": 0.9380198166876687,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9439461883408071,
+        "recall": 0.9555771725032426,
+        "f1": 0.9497260715436674,
+        "tp": 5894,
+        "fp": 350,
+        "fn": 274,
+        "support": 6168
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "f1": 0.9090909090909091,
+          "tp": 5,
+          "fp": 1,
+          "fn": 0,
+          "support": 5
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "support": 20
+        },
+        "string": {
+          "precision": 0.8728606356968215,
+          "recall": 0.8771498771498771,
+          "f1": 0.875,
+          "tp": 357,
+          "fp": 52,
+          "fn": 50,
+          "support": 407
+        },
+        "punctuation": {
+          "precision": 0.9666666666666667,
+          "recall": 0.9933701657458563,
+          "f1": 0.9798365122615804,
+          "tp": 2697,
+          "fp": 93,
+          "fn": 18,
+          "support": 2715
+        },
+        "text": {
+          "precision": 0.9413305395495024,
+          "recall": 0.9224845995893224,
+          "f1": 0.9318122893440498,
+          "tp": 1797,
+          "fp": 112,
+          "fn": 151,
+          "support": 1948
+        },
+        "entity": {
+          "precision": 0.865546218487395,
+          "recall": 0.9279279279279279,
+          "f1": 0.8956521739130435,
+          "tp": 103,
+          "fp": 16,
+          "fn": 8,
+          "support": 111
+        },
+        "heading": {
+          "precision": 0.9552238805970149,
+          "recall": 0.973384030418251,
+          "f1": 0.9642184557438794,
+          "tp": 256,
+          "fp": 12,
+          "fn": 7,
+          "support": 263
+        },
+        "link": {
+          "precision": 0.9507042253521126,
+          "recall": 0.9574468085106383,
+          "f1": 0.9540636042402827,
+          "tp": 135,
+          "fp": 7,
+          "fn": 6,
+          "support": 141
+        },
+        "link-destination": {
+          "precision": 0.9863945578231292,
+          "recall": 1.0,
+          "f1": 0.9931506849315068,
+          "tp": 145,
+          "fp": 2,
+          "fn": 0,
+          "support": 145
+        },
+        "code": {
+          "precision": 0.8851963746223565,
+          "recall": 0.9272151898734177,
+          "f1": 0.9057187017001546,
+          "tp": 293,
+          "fp": 38,
+          "fn": 23,
+          "support": 316
+        },
+        "code-fence": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 50,
+          "fp": 0,
+          "fn": 0,
+          "support": 50
+        },
+        "code-language": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 22,
+          "fp": 0,
+          "fn": 0,
+          "support": 22
+        },
+        "embedded-code": {
+          "precision": 0.7096774193548387,
+          "recall": 0.88,
+          "f1": 0.7857142857142857,
+          "tp": 22,
+          "fp": 9,
+          "fn": 3,
+          "support": 25
+        }
+      },
+      "members": [
+        {
+          "id": "32a7f02cda576856d4ae4719ba11d867fd7485893d5169f406b942fc8a8fbbe4",
+          "sourceGroup": "tanstack-query-markdown-v1:packages/solid-query",
+          "contentHash": "e19edd5be9ea3edad327978538c2f7b8c53e0c396814a9c42b59b3fd610385e0"
+        },
+        {
+          "id": "349f068579a5f4b082f5c4045f7e729fdd9a253c6231fab632d74f2a9d49957d",
+          "sourceGroup": "ant-design-markdown-v1:components/listy",
+          "contentHash": "47ffc2852577f3f34a187401bda0868858a2c9a3bb72b17dd55295acd6ba18f0"
+        },
+        {
+          "id": "4149a81d71b3590ee7a917b8d9be368372dd898cc1cddd0eee65f76e9b8a91a8",
+          "sourceGroup": "tanstack-query-markdown-v1:packages/query-codemods",
+          "contentHash": "ebeaa04ab3ab4a2402e4851381627f4a09593ca0076ea68179c0c62879f1d395"
+        },
+        {
+          "id": "5193e6bc60782dfb5d9071739eead933bcc8420c44aa8ff193124d4203648295",
+          "sourceGroup": "vite-markdown-v1:README",
+          "contentHash": "588718673f32a3691b8e75b93fb4c2f8e8bc9a6dc0bf61794ba7b6c006594111"
+        },
+        {
+          "id": "75fc77c576a4ebcc169ec4a31268df33c87fa54a0c02ae2d3e6ab35c7b0049b9",
+          "sourceGroup": "redux-toolkit-markdown-v1:CONTRIBUTING",
+          "contentHash": "66b9df457be2129964953e3a72e63f6082c06a67c16b6b48475d020c9c89f3ac"
+        },
+        {
+          "id": "7c1918872c5d03712932a14dc3d03a7a1a53b29550294f4f1c6ae35d201c3f9a",
+          "sourceGroup": "ant-design-markdown-v1:components/calendar",
+          "contentHash": "151f4b48a968b033587234225cd3647b8f4378b85dee19c19ed7fda935e0cba7"
+        },
+        {
+          "id": "81f87f417db069914b717c6f6819510fb816def53605693c6d114738aace6145",
+          "sourceGroup": "tanstack-query-markdown-v1:.github",
+          "contentHash": "4f48d0c1a989b61b3fd6078a2c7808e98dac65d631373be848718647af4c1b75"
+        },
+        {
+          "id": "82c7d16ad2c1359d25efb15aff97b8364e7da0bff37b547ebe6d42bb03d398de",
+          "sourceGroup": "typescript-markdown-v1:.github/ISSUE_TEMPLATE",
+          "contentHash": "c05c2e79b7cffb2e62dce72a2d8b4d1c9a4f862ae0d31d6916d614e99fcb3216"
+        },
+        {
+          "id": "9ac6c825f8f76366dd453c1a5cb7aa07ec6c650fa673c4e07c8da80bf2b90678",
+          "sourceGroup": "tanstack-query-markdown-v1:README",
+          "contentHash": "8b48efd96b0760eb8001b16ae4cbabd812ee050b22d13e3eca3a42daaf28a03b"
+        },
+        {
+          "id": "a4f53b69a296f5486435c2c46b5499fac33de6aac3632081f40516f57283a604",
+          "sourceGroup": "ant-design-markdown-v1:components/qr-code",
+          "contentHash": "681e4e498194e6c498623c0bcb8201030a414e147432a926c3dfa7c55a14e32f"
+        },
+        {
+          "id": "afce6af2278ef3ed423be9d554295552a368b025112c89244bf13784c5d28f03",
+          "sourceGroup": "ant-design-markdown-v1:components/qr-code",
+          "contentHash": "4693a58ffc136d4ca5cd55c632efd006426c19b5d800c148453967d0499a0363"
+        },
+        {
+          "id": "afd5ef7bc6881919bc17a4803c79aeee59f9962c6522c442a117a810a5dad46f",
+          "sourceGroup": "ant-design-markdown-v1:components/popconfirm",
+          "contentHash": "ed3b1bc0b0741730af129d5820f396c42c4879f7e5589a8cf2b11361db787272"
+        },
+        {
+          "id": "c04410763baaa4ec35d7a820e71d915a9f0e1b51f8de2f2614267a450b450e10",
+          "sourceGroup": "ant-design-markdown-v1:components/calendar",
+          "contentHash": "138baa8d71700a030c3b6ed79c7dc36ba1395960c2c8452b94741b420c62cc7e"
+        },
+        {
+          "id": "c1cd1a16ac3b92b30fa9b79fca6992a4e5cec0082688dd470718669fae6fdee5",
+          "sourceGroup": "ant-design-markdown-v1:components/notification",
+          "contentHash": "b6d1d01e6a59b6613bd8e39f9e3f28c323516e63b6b409c25f6234c5d05eee1d"
+        },
+        {
+          "id": "d0c4a0c38fa58a04e7367ad2713ba533151b4af24aa21526202566b508504c51",
+          "sourceGroup": "ant-design-markdown-v1:components/notification",
+          "contentHash": "2eceefe66f95f6f8084373b526d49d28bdeecc8f7ead16063f0ef776e5c9ab66"
+        },
+        {
+          "id": "d5cf0515cc7b40ae676a192ce3d3001b0b3ec9b3f4f673bb00baef816c7d9d8a",
+          "sourceGroup": "ant-design-markdown-v1:components/popconfirm",
+          "contentHash": "bd6c3857c51eb1af8c154cc2dc64c57b2fe16a4911ae6456cece0b70d205036f"
+        },
+        {
+          "id": "d8bc4f6c4c29de6ddfffc05a145c3f85d842387f3ea72c2bc942584b6915ee2c",
+          "sourceGroup": "ant-design-markdown-v1:components/listy",
+          "contentHash": "53db5c7b406b085b06978b95ae63a14798e89239544701f7db05854fbb6fa686"
+        },
+        {
+          "id": "f25fd9110b8dcac5559498e687d09fa133f00741a7f2e9950d03bbcbf1eedd2e",
+          "sourceGroup": "tanstack-query-markdown-v1:examples/svelte",
+          "contentHash": "0e696827339ae9c55e929a3690aee7d420de49fc116d5e6b1d6f893d2c49905f"
+        },
+        {
+          "id": "fed5d9774fe035636b072a3921eac799fc74d13027b814186dd652aa25d5e469",
+          "sourceGroup": "ant-design-markdown-v1:components/mentions",
+          "contentHash": "0cb338c10d0a4334ace0e73d70cde4a914b97af285fd2be42dc55fda84525213"
+        },
+        {
+          "id": "ff94f66021dfd2a28d12632bdedfd2a39547fa27189a1368f72ef4284263cec4",
+          "sourceGroup": "ant-design-markdown-v1:components/mentions",
+          "contentHash": "6f6f1da847bb0b746394074a1194f59b93aaa89b21ffa9391a65916d009238ab"
+        }
+      ]
+    },
+    "exposedLegacyRegression": {
+      "documents": 14,
+      "exactDocumentsIncludingModifiers": 1,
+      "exactSpan": {
+        "precision": 0.9514838709677419,
+        "recall": 0.9684791174152876,
+        "f1": 0.9599062744077064,
+        "tp": 3687,
+        "fp": 188,
+        "fn": 120,
         "support": 3807
       },
-      "exactSpanMacroF1": 0.7102848023640895,
+      "exactSpanMacroF1": 0.9374373586560775,
       "exactSpanIncludingModifiers": {
-        "precision": 0.7344901354884716,
-        "recall": 0.8116627265563435,
-        "f1": 0.7711504866483654,
-        "tp": 3090,
-        "fp": 1117,
-        "fn": 717,
+        "precision": 0.9509677419354838,
+        "recall": 0.9679537693722091,
+        "f1": 0.9593855766727415,
+        "tp": 3685,
+        "fp": 190,
+        "fn": 122,
         "support": 3807
       },
       "byTokenType": {
@@ -1743,231 +1994,445 @@
           "recall": 0.0,
           "f1": 0.0,
           "tp": 0,
-          "fp": 13,
+          "fp": 0,
           "fn": 0,
           "support": 0
         },
         "comment": {
-          "precision": 0.5,
+          "precision": 0.7142857142857143,
           "recall": 0.8333333333333334,
-          "f1": 0.625,
+          "f1": 0.7692307692307693,
           "tp": 5,
-          "fp": 5,
+          "fp": 2,
           "fn": 1,
           "support": 6
         },
         "string": {
-          "precision": 0.7771084337349398,
-          "recall": 0.86,
-          "f1": 0.8164556962025317,
-          "tp": 129,
-          "fp": 37,
-          "fn": 21,
+          "precision": 0.9726027397260274,
+          "recall": 0.9466666666666667,
+          "f1": 0.9594594594594594,
+          "tp": 142,
+          "fp": 4,
+          "fn": 8,
           "support": 150
         },
         "punctuation": {
-          "precision": 0.862088535754824,
-          "recall": 0.9749679075738126,
-          "f1": 0.9150602409638554,
-          "tp": 1519,
-          "fp": 243,
-          "fn": 39,
+          "precision": 0.9564134495641345,
+          "recall": 0.9858793324775353,
+          "f1": 0.9709228824273072,
+          "tp": 1536,
+          "fp": 70,
+          "fn": 22,
           "support": 1558
         },
         "text": {
-          "precision": 0.6038167938931298,
-          "recall": 0.6065950920245399,
-          "f1": 0.6052027543993879,
-          "tp": 791,
-          "fp": 519,
-          "fn": 513,
+          "precision": 0.9443173150266971,
+          "recall": 0.9493865030674846,
+          "f1": 0.9468451242829828,
+          "tp": 1238,
+          "fp": 73,
+          "fn": 66,
           "support": 1304
         },
         "entity": {
-          "precision": 0.6146788990825688,
-          "recall": 0.5630252100840336,
-          "f1": 0.5877192982456141,
-          "tp": 67,
-          "fp": 42,
-          "fn": 52,
+          "precision": 0.9658119658119658,
+          "recall": 0.9495798319327731,
+          "f1": 0.9576271186440678,
+          "tp": 113,
+          "fp": 4,
+          "fn": 6,
           "support": 119
         },
         "heading": {
-          "precision": 0.48518518518518516,
-          "recall": 0.7277777777777777,
-          "f1": 0.5822222222222222,
-          "tp": 131,
-          "fp": 139,
-          "fn": 49,
+          "precision": 0.9558011049723757,
+          "recall": 0.9611111111111111,
+          "f1": 0.9584487534626038,
+          "tp": 173,
+          "fp": 8,
+          "fn": 7,
           "support": 180
         },
         "link": {
-          "precision": 0.8688524590163934,
+          "precision": 0.9814814814814815,
           "recall": 1.0,
-          "f1": 0.9298245614035088,
+          "f1": 0.9906542056074766,
           "tp": 53,
-          "fp": 8,
+          "fp": 1,
           "fn": 0,
           "support": 53
         },
         "link-destination": {
-          "precision": 0.9464285714285714,
-          "recall": 0.9814814814814815,
-          "f1": 0.9636363636363636,
-          "tp": 53,
-          "fp": 3,
-          "fn": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 54,
+          "fp": 0,
+          "fn": 0,
           "support": 54
         },
         "code": {
-          "precision": 0.7942857142857143,
-          "recall": 0.9025974025974026,
-          "f1": 0.8449848024316109,
-          "tp": 278,
-          "fp": 72,
-          "fn": 30,
+          "precision": 0.9522292993630573,
+          "recall": 0.9707792207792207,
+          "f1": 0.9614147909967846,
+          "tp": 299,
+          "fp": 15,
+          "fn": 9,
           "support": 308
         },
         "code-fence": {
-          "precision": 0.8809523809523809,
-          "recall": 0.9736842105263158,
-          "f1": 0.925,
-          "tp": 37,
-          "fp": 5,
-          "fn": 1,
+          "precision": 0.95,
+          "recall": 1.0,
+          "f1": 0.9743589743589743,
+          "tp": 38,
+          "fp": 2,
+          "fn": 0,
           "support": 38
         },
         "code-language": {
-          "precision": 0.9,
+          "precision": 0.8571428571428571,
           "recall": 1.0,
-          "f1": 0.9473684210526315,
+          "f1": 0.9230769230769231,
           "tp": 18,
-          "fp": 2,
+          "fp": 3,
           "fn": 0,
           "support": 18
         },
         "embedded-code": {
-          "precision": 0.3684210526315789,
-          "recall": 0.7368421052631579,
-          "f1": 0.49122807017543857,
-          "tp": 14,
-          "fp": 24,
-          "fn": 5,
+          "precision": 0.75,
+          "recall": 0.9473684210526315,
+          "f1": 0.8372093023255814,
+          "tp": 18,
+          "fp": 6,
+          "fn": 1,
           "support": 19
+        }
+      },
+      "members": [
+        {
+          "id": "143be39d640cd02b1ae88638907960c42d3be95ddf1a7975e487100eeb579780",
+          "sourceGroup": "tanstack-query-markdown-v1:docs/framework/preact/reference",
+          "contentHash": "db8cb91d6da591d76bff1712a1b64ac5cb6408851118cd7079eec515a41a3023"
+        },
+        {
+          "id": "1cf84662fd9d0fc54a7a1db64180bd820c4a6c056b0ce218781a45bf276a4b6f",
+          "sourceGroup": "tanstack-query-markdown-v1:docs/framework/preact/reference",
+          "contentHash": "6f3a76012b7895a09e3939e44af421b05cba38788e98375f7495f42b44ab7c3b"
+        },
+        {
+          "id": "298ff6af1f461dda945db622658deacf4197ddeb2cbdb9ed56589855f46a3f9d",
+          "sourceGroup": "tanstack-query-markdown-v1:docs/framework/svelte/reference",
+          "contentHash": "440eb28cf63889bf3d7b27ecce0ee404eedc6c14136650ffbc8c1b4970b86f86"
+        },
+        {
+          "id": "29923254710d973312048281fa23d791b4e0f6ff3743d02704ca1b5ac44cef41",
+          "sourceGroup": "tanstack-query-markdown-v1:docs/framework/preact/reference",
+          "contentHash": "f870ed36fe5e2cd84aa2bfbf78450390729ce09e4ce352c8d6206aba02bc883e"
+        },
+        {
+          "id": "46adbea28a3e698d356cb2324ee7c6cffb8926ff5791f1f04601d0a7a4b2856b",
+          "sourceGroup": "ant-design-markdown-v1:components/tree",
+          "contentHash": "19bc949596e81b01d2ab5e73509d897b2a7f66954ebd81133573eba186a3ee70"
+        },
+        {
+          "id": "4a6d18613055fcab98780744dc23c13848b4414120333ebaf1c6fdfdca7b1c6e",
+          "sourceGroup": "tanstack-query-markdown-v1:docs/framework/preact/reference",
+          "contentHash": "2fdf20324371631a4c4f8c53eafa52da087d1fc3009c3b21ced29ec755628e0b"
+        },
+        {
+          "id": "576e331422cba3c768edcfea8739d0c08a33a3c15348429234b58b8f0b71f316",
+          "sourceGroup": "tanstack-query-markdown-v1:docs/framework/preact/reference",
+          "contentHash": "5ed9dbc3f999be9ea4ea5c501f03f4c4d25babdbb45adb06e87e20feccae42bf"
+        },
+        {
+          "id": "61c3aa6d06071f0355c3e2482e18adbcaf8a642516db87df6412b64834a00fd3",
+          "sourceGroup": "vite-markdown-v1:.github",
+          "contentHash": "6b7e78d042c69c74cf5bbf821eafe122623d64357d600962fcecd9fcfa79b7c1"
+        },
+        {
+          "id": "a1d0444f9b7abd693fd40e04b8c16cdd870b6ac877faf03592c0f044bda39068",
+          "sourceGroup": "tanstack-query-markdown-v1:docs/framework/svelte/reference",
+          "contentHash": "818862c7319e511b1fabc193acd3b4ee0c8b71bf4dd653a896b989834a78ce48"
+        },
+        {
+          "id": "a39f90355b1bdc4cbe6773810867c59e90b0701130c6d83245ca82daad9f6461",
+          "sourceGroup": "vite-markdown-v1:.github",
+          "contentHash": "b2324f478f59a215b5531c1a6fde834771d0aecc548661bd70e9e65f56f97862"
+        },
+        {
+          "id": "ad3508867eca89624d17b60faf3d34910ef767afda33677a29fc46b54df37f81",
+          "sourceGroup": "ant-design-markdown-v1:components/tree",
+          "contentHash": "2bbf1b108690b76359094e2fca8fdf4be92fabfe10a0609dead34272c4e59fff"
+        },
+        {
+          "id": "bb851a9a3ea5e4faaef901f12216d27ffc41dcdab46c758810cdc6e2ef59b269",
+          "sourceGroup": "vite-markdown-v1:.github",
+          "contentHash": "79b0c583c474130b551524e7076fc309fa157167029c5c38add972a4484595ff"
+        },
+        {
+          "id": "c528096d7f24836545f99650b1507929745a86cc309f2a37b471c314a93774a0",
+          "sourceGroup": "tanstack-query-markdown-v1:docs/framework/preact/reference",
+          "contentHash": "c08e65f53d400a3aa29f1e6b702aac1568faab07632b160f31377d3471459a72"
+        },
+        {
+          "id": "fe771ad847e3f201fa1401d56612a478501af8e6cec77e99b30ea38b2e94dcd0",
+          "sourceGroup": "ant-design-markdown-v1:components/input",
+          "contentHash": "614582e49ca6af12bc7589880fd9b60842c9240b45e9392398759536d7a6ad68"
+        }
+      ]
+    },
+    "allNaturalTest": {
+      "documents": 34,
+      "exactDocumentsIncludingModifiers": 1,
+      "exactSpan": {
+        "precision": 0.9476232829330962,
+        "recall": 0.9613032581453634,
+        "f1": 0.954414253010849,
+        "tp": 9589,
+        "fp": 530,
+        "fn": 386,
+        "support": 9975
+      },
+      "exactSpanMacroF1": 0.9389370503728394,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9466350429884376,
+        "recall": 0.9603007518796992,
+        "f1": 0.9534189310241863,
+        "tp": 9579,
+        "fp": 540,
+        "fn": 396,
+        "support": 9975
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "f1": 0.9090909090909091,
+          "tp": 5,
+          "fp": 1,
+          "fn": 0,
+          "support": 5
+        },
+        "comment": {
+          "precision": 0.9259259259259259,
+          "recall": 0.9615384615384616,
+          "f1": 0.9433962264150944,
+          "tp": 25,
+          "fp": 2,
+          "fn": 1,
+          "support": 26
+        },
+        "string": {
+          "precision": 0.8990990990990991,
+          "recall": 0.895870736086176,
+          "f1": 0.8974820143884892,
+          "tp": 499,
+          "fp": 56,
+          "fn": 58,
+          "support": 557
+        },
+        "punctuation": {
+          "precision": 0.9629208371246588,
+          "recall": 0.990638895389656,
+          "f1": 0.9765832275925712,
+          "tp": 4233,
+          "fp": 163,
+          "fn": 40,
+          "support": 4273
+        },
+        "text": {
+          "precision": 0.9425465838509317,
+          "recall": 0.9332718327183271,
+          "f1": 0.9378862793572311,
+          "tp": 3035,
+          "fp": 185,
+          "fn": 217,
+          "support": 3252
+        },
+        "entity": {
+          "precision": 0.9152542372881356,
+          "recall": 0.9391304347826087,
+          "f1": 0.927038626609442,
+          "tp": 216,
+          "fp": 20,
+          "fn": 14,
+          "support": 230
+        },
+        "heading": {
+          "precision": 0.955456570155902,
+          "recall": 0.9683972911963883,
+          "f1": 0.9618834080717489,
+          "tp": 429,
+          "fp": 20,
+          "fn": 14,
+          "support": 443
+        },
+        "link": {
+          "precision": 0.9591836734693877,
+          "recall": 0.9690721649484536,
+          "f1": 0.9641025641025641,
+          "tp": 188,
+          "fp": 8,
+          "fn": 6,
+          "support": 194
+        },
+        "link-destination": {
+          "precision": 0.9900497512437811,
+          "recall": 1.0,
+          "f1": 0.995,
+          "tp": 199,
+          "fp": 2,
+          "fn": 0,
+          "support": 199
+        },
+        "code": {
+          "precision": 0.9178294573643411,
+          "recall": 0.9487179487179487,
+          "f1": 0.9330181245074862,
+          "tp": 592,
+          "fp": 53,
+          "fn": 32,
+          "support": 624
+        },
+        "code-fence": {
+          "precision": 0.9777777777777777,
+          "recall": 1.0,
+          "f1": 0.9887640449438202,
+          "tp": 88,
+          "fp": 2,
+          "fn": 0,
+          "support": 88
+        },
+        "code-language": {
+          "precision": 0.9302325581395349,
+          "recall": 1.0,
+          "f1": 0.963855421686747,
+          "tp": 40,
+          "fp": 3,
+          "fn": 0,
+          "support": 40
+        },
+        "embedded-code": {
+          "precision": 0.7272727272727273,
+          "recall": 0.9090909090909091,
+          "f1": 0.8080808080808081,
+          "tp": 40,
+          "fp": 15,
+          "fn": 4,
+          "support": 44
         }
       }
     },
     "baseVisibleDisplays": {
       "documents": 8,
-      "exactDocumentsIncludingModifiers": 1,
+      "exactDocumentsIncludingModifiers": 4,
       "exactSpan": {
-        "precision": 0.862453531598513,
-        "recall": 0.8787878787878788,
-        "f1": 0.8705440900562852,
-        "tp": 232,
-        "fp": 37,
-        "fn": 32,
+        "precision": 0.9547169811320755,
+        "recall": 0.9583333333333334,
+        "f1": 0.9565217391304348,
+        "tp": 253,
+        "fp": 12,
+        "fn": 11,
         "support": 264
       },
-      "exactSpanMacroF1": 0.8176061545243816,
+      "exactSpanMacroF1": 0.9621867873035528,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8401486988847584,
-        "recall": 0.8560606060606061,
-        "f1": 0.8480300187617261,
-        "tp": 226,
-        "fp": 43,
-        "fn": 38,
+        "precision": 0.939622641509434,
+        "recall": 0.9431818181818182,
+        "f1": 0.941398865784499,
+        "tp": 249,
+        "fp": 16,
+        "fn": 15,
         "support": 264
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.7142857142857143,
+          "precision": 1.0,
           "recall": 1.0,
-          "f1": 0.8333333333333334,
+          "f1": 1.0,
           "tp": 5,
-          "fp": 2,
+          "fp": 0,
           "fn": 0,
           "support": 5
         },
         "comment": {
-          "precision": 0.5,
+          "precision": 1.0,
           "recall": 1.0,
-          "f1": 0.6666666666666666,
+          "f1": 1.0,
           "tp": 1,
-          "fp": 1,
+          "fp": 0,
           "fn": 0,
           "support": 1
         },
         "string": {
           "precision": 1.0,
-          "recall": 0.8333333333333334,
-          "f1": 0.9090909090909091,
-          "tp": 5,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 6,
           "fp": 0,
-          "fn": 1,
+          "fn": 0,
           "support": 6
         },
         "punctuation": {
-          "precision": 0.9494949494949495,
-          "recall": 0.94,
-          "f1": 0.9447236180904522,
-          "tp": 94,
-          "fp": 5,
-          "fn": 6,
+          "precision": 0.98,
+          "recall": 0.98,
+          "f1": 0.98,
+          "tp": 98,
+          "fp": 2,
+          "fn": 2,
           "support": 100
         },
         "text": {
-          "precision": 0.8378378378378378,
-          "recall": 0.8266666666666667,
-          "f1": 0.8322147651006712,
-          "tp": 62,
-          "fp": 12,
-          "fn": 13,
+          "precision": 0.9210526315789473,
+          "recall": 0.9333333333333333,
+          "f1": 0.9271523178807947,
+          "tp": 70,
+          "fp": 6,
+          "fn": 5,
           "support": 75
         },
         "entity": {
-          "precision": 0.5,
-          "recall": 0.5714285714285714,
-          "f1": 0.5333333333333333,
-          "tp": 4,
-          "fp": 4,
-          "fn": 3,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
           "support": 7
         },
         "heading": {
-          "precision": 0.8421052631578947,
+          "precision": 1.0,
           "recall": 0.9411764705882353,
-          "f1": 0.8888888888888888,
+          "f1": 0.9696969696969697,
           "tp": 16,
-          "fp": 3,
+          "fp": 0,
           "fn": 1,
           "support": 17
         },
         "link": {
-          "precision": 0.9,
+          "precision": 1.0,
           "recall": 1.0,
-          "f1": 0.9473684210526315,
+          "f1": 1.0,
           "tp": 9,
-          "fp": 1,
+          "fp": 0,
           "fn": 0,
           "support": 9
         },
         "link-destination": {
           "precision": 1.0,
-          "recall": 0.8571428571428571,
-          "f1": 0.9230769230769231,
-          "tp": 6,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 7,
           "fp": 0,
-          "fn": 1,
+          "fn": 0,
           "support": 7
         },
         "code": {
-          "precision": 0.3333333333333333,
-          "recall": 0.4444444444444444,
-          "f1": 0.38095238095238093,
-          "tp": 4,
-          "fp": 8,
-          "fn": 5,
+          "precision": 0.6,
+          "recall": 0.6666666666666666,
+          "f1": 0.631578947368421,
+          "tp": 6,
+          "fp": 4,
+          "fn": 3,
           "support": 9
         },
         "code-fence": {
@@ -1989,38 +2454,46 @@
           "support": 7
         },
         "embedded-code": {
-          "precision": 0.8333333333333334,
-          "recall": 0.7142857142857143,
-          "f1": 0.7692307692307693,
-          "tp": 5,
-          "fp": 1,
-          "fn": 2,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
           "support": 7
         }
       }
     },
-    "strictGoldenExact": 15,
+    "strictGoldenExact": 21,
     "strictGoldenTotal": 48,
     "predictedVisibleCodeRegions": {
-      "scope": "Authored visible predicted-region diagnostics; no child semantic-accuracy claim",
       "expectedBodies": 7,
-      "exactBodyAndInfoMatches": 5,
-      "predictedBodies": 6
+      "exactBodyAndInfoMatches": 7,
+      "predictedBodies": 7
     },
     "completeComposedSemanticAccuracyMeasured": false
+  },
+  "decoder": {
+    "format": "nsh-joint-bio-v1",
+    "fit": "Natural training Gold only",
+    "selection": "Natural validation only",
+    "typeWeight": 0.5,
+    "transitionWeight": 0.5,
+    "sourceSpellingRules": false
+  },
+  "preservation": {
+    "priorWeightFilesChecked": 71,
+    "allByteIdentical": true,
+    "unchangedAtOriginalPaths": 69,
+    "datedMarkdownArchives": 2,
+    "allSnapshotsAndRunsRetained": true,
+    "oldRegressionSourceAndGoldUnchanged": true
   },
   "environment": {
     "languageSDKOrGlobalDependencyInstalled": false,
     "newOfflineParserInstalled": false,
-    "offlineTeacher": "Existing pinned Prettier 3.9.6 Markdown/remark/GFM parse-only assets, entities and Node, all file-hashed; no dependency or SDK installation",
     "sourceExecution": false,
     "frontendPythonOrMarkdownParserRequired": false
-  },
-  "preservation": {
-    "priorWeightFilesChecked": 69,
-    "allByteIdentical": true,
-    "currentGoldMatchesPrepared": true,
-    "allSnapshotsAndRunsRetained": true
   },
   "distribution": {
     "repositoryPrivate": true,

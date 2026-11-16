@@ -1,0 +1,1606 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "b8ac01435e0d78ac8beb5f574a444bcad39ec486bfb396f39fd3c9e049ec9ea7",
+  "cases": [
+    {
+      "id": "empty",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "whitespace",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": " \r\n",
+      "exactIncludingModifiers": false,
+      "missing": [],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": " \r\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "plain",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "Source preview.",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "heading-one",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "# Heading",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "heading-six",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "###### Small heading",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 6,
+          "text": "######",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 7,
+          "end": 20,
+          "text": "Small heading",
+          "tokenType": "heading",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 20,
+          "text": "###### Small heading",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "heading-closing",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "## Heading ##",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 3,
+          "end": 10,
+          "text": "Heading",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 11,
+          "end": 13,
+          "text": "##",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 3,
+          "end": 13,
+          "text": "Heading ##",
+          "tokenType": "code",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "setext",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "Heading\n=======",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 7,
+          "text": "Heading",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 15,
+          "text": "=======",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 15,
+          "text": "Heading\n=======",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "setext-two",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "Heading\n-------",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 7,
+          "text": "Heading",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 15,
+          "text": "-------",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 15,
+          "text": "Heading\n-------",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "rule",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "***",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "***",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "***",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "rule-spaced",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "- - -",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "strong",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "**bold**",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "strong-underscore",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "__bold__",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "__",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 6,
+          "text": "bold",
+          "tokenType": "text",
+          "modifiers": [
+            "strong"
+          ]
+        },
+        {
+          "start": 6,
+          "end": 8,
+          "text": "__",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "__bold__",
+          "tokenType": "link",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "emphasis",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "*soft*",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 1,
+          "end": 5,
+          "text": "soft",
+          "tokenType": "text",
+          "modifiers": [
+            "emphasis"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 1,
+          "end": 5,
+          "text": "soft",
+          "tokenType": "text",
+          "modifiers": [
+            "strong",
+            "strikethrough"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "emphasis-underscore",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "_soft_",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "_",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 5,
+          "text": "soft",
+          "tokenType": "text",
+          "modifiers": [
+            "emphasis"
+          ]
+        },
+        {
+          "start": 5,
+          "end": 6,
+          "text": "_",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 6,
+          "text": "_soft_",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "strike",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "~~old~~",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "~~",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 5,
+          "text": "old",
+          "tokenType": "text",
+          "modifiers": [
+            "strikethrough"
+          ]
+        },
+        {
+          "start": 5,
+          "end": 7,
+          "text": "~~",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 5,
+          "text": "~~old",
+          "tokenType": "code-language",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 7,
+          "text": "~~",
+          "tokenType": "code-fence",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "nested",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "**bold *both***",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 13,
+          "text": "*",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 13,
+          "end": 15,
+          "text": "**",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 15,
+          "text": "***",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "intraword",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "file_name_here",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 14,
+          "text": "file_name_here",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 14,
+          "text": "file_name_here",
+          "tokenType": "link",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "escaped",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "\\*literal\\*",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 2,
+          "end": 9,
+          "text": "literal",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 2,
+          "end": 9,
+          "text": "literal",
+          "tokenType": "entity",
+          "modifiers": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "entities",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "&amp; &#65; &#x1F30C;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 5,
+          "text": "&amp;",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 11,
+          "text": "&#65;",
+          "tokenType": "entity",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 6,
+          "text": "&amp; ",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 12,
+          "text": "&#65; ",
+          "tokenType": "entity",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unknown-entity",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "&unknown;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 9,
+          "text": "&unknown;",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 9,
+          "text": "&unknown;",
+          "tokenType": "entity",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "inline-code",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "`a < b`",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 7,
+          "text": "`a < b`",
+          "tokenType": "code",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "`a ",
+          "tokenType": "code",
+          "modifiers": []
+        },
+        {
+          "start": 3,
+          "end": 7,
+          "text": "< b`",
+          "tokenType": "code",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "double-backtick",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "`` a ` b ``",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "link",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "[docs](https://example.test/docs)",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "link-title",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "[docs](/docs \"Read docs\")",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 24,
+          "end": 25,
+          "text": ")",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 24,
+          "end": 25,
+          "text": ")",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "link-angle",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "[docs](<https://example.test/a%20b>)",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 35,
+          "text": "<https://example.test/a%20b>",
+          "tokenType": "link-destination",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 36,
+          "text": ")",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 8,
+          "text": "<",
+          "tokenType": "link-destination",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 35,
+          "text": "https://example.test/a%20b>",
+          "tokenType": "link-destination",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 36,
+          "text": ")",
+          "tokenType": "link-destination",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "autolink",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "<https://example.test>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "<",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 21,
+          "text": "https://example.test",
+          "tokenType": "link",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 22,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 22,
+          "text": "<https://example.test>",
+          "tokenType": "link",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "bare-autolink",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "https://example.test",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 20,
+          "text": "https://example.test",
+          "tokenType": "link",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 20,
+          "text": "https://example.test",
+          "tokenType": "link-destination",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "image",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "![Preview](preview.svg)",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "![",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 22,
+          "end": 23,
+          "text": ")",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "![",
+          "tokenType": "code-fence",
+          "modifiers": []
+        },
+        {
+          "start": 22,
+          "end": 23,
+          "text": ")",
+          "tokenType": "link-destination",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "reference",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "[docs]: /docs\n\n[docs]",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "[",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 13,
+          "text": "/docs",
+          "tokenType": "link-destination",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 16,
+          "text": "[",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 20,
+          "text": "docs",
+          "tokenType": "link",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "[",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 13,
+          "text": "/docs",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 20,
+          "text": "[docs",
+          "tokenType": "link",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "full-reference",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "[ref]: /docs\n\n[Read][ref]",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 19,
+          "end": 21,
+          "text": "][",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 24,
+          "text": "ref",
+          "tokenType": "link-destination",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 19,
+          "end": 20,
+          "text": "]",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 20,
+          "end": 21,
+          "text": "[",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 24,
+          "text": "ref",
+          "tokenType": "link",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unordered",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "- First\n- Second",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "-",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 7,
+          "text": "First",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 9,
+          "text": "-",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 10,
+          "end": 16,
+          "text": "Second",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 16,
+          "text": "- First\n- Second",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "ordered",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "1. First\n2. Second",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "1.",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 3,
+          "end": 8,
+          "text": "First",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 18,
+          "text": "Second",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "1.",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 3,
+          "end": 8,
+          "text": "First",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 18,
+          "text": "Second",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "task",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "- [x] Done",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "-",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 5,
+          "text": "[x]",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 10,
+          "text": "Done",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "- ",
+          "tokenType": "link",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 5,
+          "text": "[x]",
+          "tokenType": "link",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 10,
+          "text": "Done",
+          "tokenType": "link",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "task-unchecked",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "- [ ] Pending",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "-",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 13,
+          "text": "Pending",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "- ",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 13,
+          "text": "Pending",
+          "tokenType": "link",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "quote",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "> Quoted source",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 2,
+          "end": 15,
+          "text": "Quoted source",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 1,
+          "end": 15,
+          "text": " Quoted source",
+          "tokenType": "link",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "fence",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "```js\nconst answer = 42;\n```",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "tilde-fence",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "~~~python\nprint(\"source\")\n~~~",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "untyped-fence",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "```\nordinary code\n```",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 18,
+          "text": "ordinary code\n",
+          "tokenType": "embedded-code",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 17,
+          "text": "ordinary code",
+          "tokenType": "embedded-code",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unknown-fence",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "```unknown-language\noriginal text\n```",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "```",
+          "tokenType": "code-fence",
+          "modifiers": []
+        },
+        {
+          "start": 3,
+          "end": 19,
+          "text": "unknown-language",
+          "tokenType": "code-language",
+          "modifiers": []
+        },
+        {
+          "start": 34,
+          "end": 37,
+          "text": "```",
+          "tokenType": "code-fence",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 19,
+          "text": "```unknown-language",
+          "tokenType": "code-language",
+          "modifiers": []
+        },
+        {
+          "start": 34,
+          "end": 35,
+          "text": "`",
+          "tokenType": "code-fence",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 37,
+          "text": "``",
+          "tokenType": "code-fence",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "empty-fence",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "```json\n```",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "unclosed-fence",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "```ts\nconst n = 1;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "fence-meta",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "```tsx title=example\n<App />\n```",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "indented-code",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "    const n = 1;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 16,
+          "text": "const n = 1;",
+          "tokenType": "code",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 16,
+          "text": "    const n = 1;",
+          "tokenType": "embedded-code",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "html-comment",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "<!-- original comment -->",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "raw-html",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "<div class=\"note\">source</div>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "front-matter",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "---\ntitle: Preview\n---\n\n# Hello",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 24,
+          "end": 25,
+          "text": "#",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 31,
+          "text": "Hello",
+          "tokenType": "heading",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 24,
+          "end": 31,
+          "text": "# Hello",
+          "tokenType": "code",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "table",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "| Name | Value |\n| :--- | ---: |\n| one | `two` |",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "unicode-crlf",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "\ufeff# \u661f\u7a7a \ud83c\udf0c\r\n\r\n\u539f\u6587 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 22,
+          "text": "\u539f\u6587 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 14,
+          "text": "\u539f\u6587",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 22,
+          "text": "\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+          "tokenType": "heading",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "markdown": {
+      "documents": 48,
+      "exactDocumentsIncludingModifiers": 15,
+      "exactSpan": {
+        "precision": 0.635036496350365,
+        "recall": 0.5838926174496645,
+        "f1": 0.6083916083916084,
+        "tp": 87,
+        "fp": 50,
+        "fn": 62,
+        "support": 149
+      },
+      "exactSpanMacroF1": 0.5740289909520679,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.6277372262773723,
+        "recall": 0.5771812080536913,
+        "f1": 0.6013986013986014,
+        "tp": 86,
+        "fp": 51,
+        "fn": 63,
+        "support": 149
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "support": 2
+        },
+        "comment": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.2727272727272727,
+          "recall": 1.0,
+          "f1": 0.42857142857142855,
+          "tp": 3,
+          "fp": 8,
+          "fn": 0,
+          "support": 3
+        },
+        "punctuation": {
+          "precision": 0.8947368421052632,
+          "recall": 0.5483870967741935,
+          "f1": 0.68,
+          "tp": 34,
+          "fp": 4,
+          "fn": 28,
+          "support": 62
+        },
+        "text": {
+          "precision": 0.8571428571428571,
+          "recall": 0.3,
+          "f1": 0.4444444444444444,
+          "tp": 6,
+          "fp": 1,
+          "fn": 14,
+          "support": 20
+        },
+        "entity": {
+          "precision": 0.42857142857142855,
+          "recall": 0.6,
+          "f1": 0.5,
+          "tp": 3,
+          "fp": 4,
+          "fn": 2,
+          "support": 5
+        },
+        "heading": {
+          "precision": 0.5714285714285714,
+          "recall": 0.4444444444444444,
+          "f1": 0.5,
+          "tp": 4,
+          "fp": 3,
+          "fn": 5,
+          "support": 9
+        },
+        "link": {
+          "precision": 0.4117647058823529,
+          "recall": 0.7,
+          "f1": 0.5185185185185185,
+          "tp": 7,
+          "fp": 10,
+          "fn": 3,
+          "support": 10
+        },
+        "link-destination": {
+          "precision": 0.4444444444444444,
+          "recall": 0.5714285714285714,
+          "f1": 0.5,
+          "tp": 4,
+          "fp": 5,
+          "fn": 3,
+          "support": 7
+        },
+        "code": {
+          "precision": 0.42857142857142855,
+          "recall": 0.6,
+          "f1": 0.5,
+          "tp": 3,
+          "fp": 4,
+          "fn": 2,
+          "support": 5
+        },
+        "code-fence": {
+          "precision": 0.7333333333333333,
+          "recall": 0.8461538461538461,
+          "f1": 0.7857142857142857,
+          "tp": 11,
+          "fp": 4,
+          "fn": 2,
+          "support": 13
+        },
+        "code-language": {
+          "precision": 0.7142857142857143,
+          "recall": 0.8333333333333334,
+          "f1": 0.7692307692307693,
+          "tp": 5,
+          "fp": 2,
+          "fn": 1,
+          "support": 6
+        },
+        "embedded-code": {
+          "precision": 0.7142857142857143,
+          "recall": 0.8333333333333334,
+          "f1": 0.7692307692307693,
+          "tp": 5,
+          "fp": 2,
+          "fn": 1,
+          "support": 6
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "markdown": {
+      "documents": 48,
+      "exactDocumentsIncludingModifiers": 15,
+      "exactSpan": {
+        "precision": 0.635036496350365,
+        "recall": 0.5838926174496645,
+        "f1": 0.6083916083916084,
+        "tp": 87,
+        "fp": 50,
+        "fn": 62,
+        "support": 149
+      },
+      "exactSpanMacroF1": 0.5740289909520679,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.6277372262773723,
+        "recall": 0.5771812080536913,
+        "f1": 0.6013986013986014,
+        "tp": 86,
+        "fp": 51,
+        "fn": 63,
+        "support": 149
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "support": 2
+        },
+        "comment": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.2727272727272727,
+          "recall": 1.0,
+          "f1": 0.42857142857142855,
+          "tp": 3,
+          "fp": 8,
+          "fn": 0,
+          "support": 3
+        },
+        "punctuation": {
+          "precision": 0.8947368421052632,
+          "recall": 0.5483870967741935,
+          "f1": 0.68,
+          "tp": 34,
+          "fp": 4,
+          "fn": 28,
+          "support": 62
+        },
+        "text": {
+          "precision": 0.8571428571428571,
+          "recall": 0.3,
+          "f1": 0.4444444444444444,
+          "tp": 6,
+          "fp": 1,
+          "fn": 14,
+          "support": 20
+        },
+        "entity": {
+          "precision": 0.42857142857142855,
+          "recall": 0.6,
+          "f1": 0.5,
+          "tp": 3,
+          "fp": 4,
+          "fn": 2,
+          "support": 5
+        },
+        "heading": {
+          "precision": 0.5714285714285714,
+          "recall": 0.4444444444444444,
+          "f1": 0.5,
+          "tp": 4,
+          "fp": 3,
+          "fn": 5,
+          "support": 9
+        },
+        "link": {
+          "precision": 0.4117647058823529,
+          "recall": 0.7,
+          "f1": 0.5185185185185185,
+          "tp": 7,
+          "fp": 10,
+          "fn": 3,
+          "support": 10
+        },
+        "link-destination": {
+          "precision": 0.4444444444444444,
+          "recall": 0.5714285714285714,
+          "f1": 0.5,
+          "tp": 4,
+          "fp": 5,
+          "fn": 3,
+          "support": 7
+        },
+        "code": {
+          "precision": 0.42857142857142855,
+          "recall": 0.6,
+          "f1": 0.5,
+          "tp": 3,
+          "fp": 4,
+          "fn": 2,
+          "support": 5
+        },
+        "code-fence": {
+          "precision": 0.7333333333333333,
+          "recall": 0.8461538461538461,
+          "f1": 0.7857142857142857,
+          "tp": 11,
+          "fp": 4,
+          "fn": 2,
+          "support": 13
+        },
+        "code-language": {
+          "precision": 0.7142857142857143,
+          "recall": 0.8333333333333334,
+          "f1": 0.7692307692307693,
+          "tp": 5,
+          "fp": 2,
+          "fn": 1,
+          "support": 6
+        },
+        "embedded-code": {
+          "precision": 0.7142857142857143,
+          "recall": 0.8333333333333334,
+          "f1": 0.7692307692307693,
+          "tp": 5,
+          "fp": 2,
+          "fn": 1,
+          "support": 6
+        }
+      }
+    }
+  },
+  "checkpointHash": "a242673a7a0f39619fca26c2232806854e05d1f40bb98f5cc30d17b619624ce1",
+  "checkpointEpoch": 5,
+  "device": "mps"
+}

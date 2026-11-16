@@ -1,0 +1,5644 @@
+{
+  "sourceCheckpoint": "artifacts/markdown/context512-fences-20261117-01/candidates/epoch-0003.pt",
+  "sourceCheckpointHash": "4791bd8e77b4e9e3666ee9b6739651e2bdf7085a462fdf962592c48c6487a5e5",
+  "dataset": {
+    "snapshot": "55885990c801a91c3b328e1b00fb91668bd6eb4e83e8b0f62330391498754f26",
+    "manifestHash": "e1b2447a5d435c48089135f69a46461ac8fb2ceb400f04d059128cae2a360352",
+    "path": "/Users/mystic/Datasets/neural-semantic-highlighting/markdown/prepared/55885990c801a91c3b328e1b00fb91668bd6eb4e83e8b0f62330391498754f26"
+  },
+  "protocolHash": "ec79a8138b01bb8e5ce1940a7503ff047d862aaf75ee6dc01ee2dce6d84bd43f",
+  "fit": "Laplace-smoothed legal BIO/role transitions on natural TRAIN Gold only",
+  "selection": "Maximum minimum exact-span F1 of all/fresh/legacy natural VALIDATION; macro F1 breaks ties",
+  "primaryTestUsed": false,
+  "trials": [
+    {
+      "typeWeight": 0.1,
+      "transitionWeight": 0.1,
+      "selectionScore": 0.9021650659286994,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.8876404494382022,
+            "recall": 0.9208199356913184,
+            "f1": 0.9039258236338529,
+            "tp": 4582,
+            "fp": 580,
+            "fn": 394,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.8950061184739694,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8839597055404882,
+            "recall": 0.9170016077170418,
+            "f1": 0.9001775498125864,
+            "tp": 4563,
+            "fp": 599,
+            "fn": 413,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.7830188679245284,
+              "recall": 0.8924731182795699,
+              "f1": 0.8341708542713567,
+              "tp": 83,
+              "fp": 23,
+              "fn": 10,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.9188293760353395,
+              "recall": 0.9748096074985354,
+              "f1": 0.9459920409323479,
+              "tp": 1664,
+              "fp": 147,
+              "fn": 43,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8344988344988346,
+              "recall": 0.8280647648419429,
+              "f1": 0.8312693498452013,
+              "tp": 1074,
+              "fp": 213,
+              "fn": 223,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.7176470588235294,
+              "recall": 0.8243243243243243,
+              "f1": 0.7672955974842768,
+              "tp": 122,
+              "fp": 48,
+              "fn": 26,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.861904761904762,
+              "recall": 0.8829268292682927,
+              "f1": 0.8722891566265061,
+              "tp": 181,
+              "fp": 29,
+              "fn": 24,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.9014084507042254,
+              "recall": 0.9808429118773946,
+              "f1": 0.9394495412844037,
+              "tp": 256,
+              "fp": 28,
+              "fn": 5,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.9738805970149254,
+              "recall": 0.981203007518797,
+              "f1": 0.9775280898876404,
+              "tp": 261,
+              "fp": 7,
+              "fn": 5,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.9244444444444444,
+              "recall": 0.9327354260089686,
+              "f1": 0.9285714285714286,
+              "tp": 624,
+              "fp": 51,
+              "fn": 45,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 0.9761904761904762,
+              "recall": 1.0,
+              "f1": 0.9879518072289156,
+              "tp": 164,
+              "fp": 4,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 80,
+              "fp": 0,
+              "fn": 0,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.7040816326530612,
+              "recall": 0.8414634146341463,
+              "f1": 0.7666666666666667,
+              "tp": 69,
+              "fp": 29,
+              "fn": 13,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.8853035143769968,
+            "recall": 0.919681380683704,
+            "f1": 0.9021650659286994,
+            "tp": 2771,
+            "fp": 359,
+            "fn": 242,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.8956508846413866,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8837060702875399,
+            "recall": 0.9180219050779953,
+            "f1": 0.9005371968093765,
+            "tp": 2766,
+            "fp": 364,
+            "fn": 247,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "tp": 3,
+              "fp": 1,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.8214285714285714,
+              "recall": 0.9019607843137255,
+              "f1": 0.8598130841121495,
+              "tp": 46,
+              "fp": 10,
+              "fn": 5,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.9085318985395849,
+              "recall": 0.9752475247524752,
+              "f1": 0.940708316752885,
+              "tp": 1182,
+              "fp": 119,
+              "fn": 30,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.806970509383378,
+              "recall": 0.7962962962962963,
+              "f1": 0.8015978695073236,
+              "tp": 602,
+              "fp": 144,
+              "fn": 154,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8125,
+              "recall": 0.9285714285714286,
+              "f1": 0.8666666666666667,
+              "tp": 26,
+              "fp": 6,
+              "fn": 2,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.8811881188118812,
+              "recall": 0.8557692307692307,
+              "f1": 0.8682926829268293,
+              "tp": 89,
+              "fp": 12,
+              "fn": 15,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.880184331797235,
+              "recall": 0.9794871794871794,
+              "f1": 0.9271844660194175,
+              "tp": 191,
+              "fp": 26,
+              "fn": 4,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.99,
+              "recall": 1.0,
+              "f1": 0.9949748743718593,
+              "tp": 198,
+              "fp": 2,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.924198250728863,
+              "recall": 0.9269005847953217,
+              "f1": 0.9255474452554745,
+              "tp": 317,
+              "fp": 26,
+              "fn": 25,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 62,
+              "fp": 0,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.6486486486486487,
+              "recall": 0.7741935483870968,
+              "f1": 0.7058823529411765,
+              "tp": 24,
+              "fp": 13,
+              "fn": 7,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 0,
+          "exactSpan": {
+            "precision": 0.8912401574803149,
+            "recall": 0.9225674987264392,
+            "f1": 0.9066332916145181,
+            "tp": 1811,
+            "fp": 221,
+            "fn": 152,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.9063630262591582,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8843503937007874,
+            "recall": 0.9154355578196638,
+            "f1": 0.8996245306633291,
+            "tp": 1797,
+            "fp": 235,
+            "fn": 166,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.74,
+              "recall": 0.8809523809523809,
+              "f1": 0.8043478260869565,
+              "tp": 37,
+              "fp": 13,
+              "fn": 5,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.9450980392156862,
+              "recall": 0.9737373737373738,
+              "f1": 0.9592039800995025,
+              "tp": 482,
+              "fp": 28,
+              "fn": 13,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.8724584103512015,
+              "recall": 0.8724584103512015,
+              "f1": 0.8724584103512015,
+              "tp": 472,
+              "fp": 69,
+              "fn": 69,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.6956521739130435,
+              "recall": 0.8,
+              "f1": 0.7441860465116279,
+              "tp": 96,
+              "fp": 42,
+              "fn": 24,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8440366972477065,
+              "recall": 0.9108910891089109,
+              "f1": 0.8761904761904762,
+              "tp": 92,
+              "fp": 17,
+              "fn": 9,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.9701492537313433,
+              "recall": 0.9848484848484849,
+              "f1": 0.9774436090225563,
+              "tp": 65,
+              "fp": 2,
+              "fn": 1,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9264705882352942,
+              "recall": 0.9264705882352942,
+              "f1": 0.9264705882352942,
+              "tp": 63,
+              "fp": 5,
+              "fn": 5,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.9246987951807228,
+              "recall": 0.9388379204892966,
+              "f1": 0.9317147192716236,
+              "tp": 307,
+              "fp": 25,
+              "fn": 20,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 0.9622641509433962,
+              "recall": 1.0,
+              "f1": 0.9807692307692307,
+              "tp": 102,
+              "fp": 4,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 49,
+              "fp": 0,
+              "fn": 0,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.7377049180327869,
+              "recall": 0.8823529411764706,
+              "f1": 0.8035714285714286,
+              "tp": 45,
+              "fp": 16,
+              "fn": 6,
+              "support": 51
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.1,
+      "transitionWeight": 0.3,
+      "selectionScore": 0.9081682763136356,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 4,
+          "exactSpan": {
+            "precision": 0.9022807707432167,
+            "recall": 0.9222266881028939,
+            "f1": 0.9121447028423773,
+            "tp": 4589,
+            "fp": 497,
+            "fn": 387,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.8512498607532442,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8985450255603618,
+            "recall": 0.9184083601286174,
+            "f1": 0.9083681176704432,
+            "tp": 4570,
+            "fp": 516,
+            "fn": 406,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 1,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.8144329896907216,
+              "recall": 0.8494623655913979,
+              "f1": 0.8315789473684211,
+              "tp": 79,
+              "fp": 18,
+              "fn": 14,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.9014084507042254,
+              "recall": 0.9748096074985354,
+              "f1": 0.9366732338868562,
+              "tp": 1664,
+              "fp": 182,
+              "fn": 43,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8609112709832134,
+              "recall": 0.8303777949113339,
+              "f1": 0.8453689167974883,
+              "tp": 1077,
+              "fp": 174,
+              "fn": 220,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.8486842105263158,
+              "recall": 0.8716216216216216,
+              "f1": 0.86,
+              "tp": 129,
+              "fp": 23,
+              "fn": 19,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.896551724137931,
+              "recall": 0.8878048780487805,
+              "f1": 0.8921568627450981,
+              "tp": 182,
+              "fp": 21,
+              "fn": 23,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.9660377358490566,
+              "recall": 0.9808429118773946,
+              "f1": 0.973384030418251,
+              "tp": 256,
+              "fp": 9,
+              "fn": 5,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.9923371647509579,
+              "recall": 0.9736842105263158,
+              "f1": 0.9829222011385199,
+              "tp": 259,
+              "fp": 2,
+              "fn": 7,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.9327354260089686,
+              "recall": 0.9327354260089686,
+              "f1": 0.9327354260089686,
+              "tp": 624,
+              "fp": 45,
+              "fn": 45,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 164,
+              "fp": 0,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 80,
+              "fp": 0,
+              "fn": 0,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.7634408602150538,
+              "recall": 0.8658536585365854,
+              "f1": 0.8114285714285714,
+              "tp": 71,
+              "fp": 22,
+              "fn": 11,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 3,
+          "exactSpan": {
+            "precision": 0.8959948320413437,
+            "recall": 0.9206770660471291,
+            "f1": 0.9081682763136356,
+            "tp": 2774,
+            "fp": 322,
+            "fn": 239,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.9152925443396224,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8943798449612403,
+            "recall": 0.9190175904414205,
+            "f1": 0.9065313471926666,
+            "tp": 2769,
+            "fp": 327,
+            "fn": 244,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.88,
+              "recall": 0.8627450980392157,
+              "f1": 0.8712871287128713,
+              "tp": 44,
+              "fp": 6,
+              "fn": 7,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.8961334344200151,
+              "recall": 0.9752475247524752,
+              "f1": 0.9340181746345319,
+              "tp": 1182,
+              "fp": 137,
+              "fn": 30,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.8372413793103448,
+              "recall": 0.8029100529100529,
+              "f1": 0.8197164078325456,
+              "tp": 607,
+              "fp": 118,
+              "fn": 149,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8125,
+              "recall": 0.9285714285714286,
+              "f1": 0.8666666666666667,
+              "tp": 26,
+              "fp": 6,
+              "fn": 2,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.898989898989899,
+              "recall": 0.8557692307692307,
+              "f1": 0.8768472906403941,
+              "tp": 89,
+              "fp": 10,
+              "fn": 15,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.9696969696969697,
+              "recall": 0.9846153846153847,
+              "f1": 0.9770992366412213,
+              "tp": 192,
+              "fp": 6,
+              "fn": 3,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.9949748743718593,
+              "recall": 1.0,
+              "f1": 0.9974811083123426,
+              "tp": 198,
+              "fp": 1,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.9239766081871345,
+              "recall": 0.9239766081871345,
+              "f1": 0.9239766081871345,
+              "tp": 316,
+              "fp": 26,
+              "fn": 26,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 62,
+              "fp": 0,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.6666666666666666,
+              "recall": 0.7741935483870968,
+              "f1": 0.7164179104477612,
+              "tp": 24,
+              "fp": 12,
+              "fn": 7,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.9120603015075377,
+            "recall": 0.9246051961283749,
+            "f1": 0.9182899064002024,
+            "tp": 1815,
+            "fp": 175,
+            "fn": 148,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.8530403412667921,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9050251256281407,
+            "recall": 0.9174732552215996,
+            "f1": 0.9112066784720465,
+            "tp": 1801,
+            "fp": 189,
+            "fn": 162,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 1,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.7446808510638298,
+              "recall": 0.8333333333333334,
+              "f1": 0.7865168539325843,
+              "tp": 35,
+              "fp": 12,
+              "fn": 7,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.9146110056925996,
+              "recall": 0.9737373737373738,
+              "f1": 0.9432485322896281,
+              "tp": 482,
+              "fp": 45,
+              "fn": 13,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.8935361216730038,
+              "recall": 0.8687615526802218,
+              "f1": 0.8809746954076851,
+              "tp": 470,
+              "fp": 56,
+              "fn": 71,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.8583333333333333,
+              "recall": 0.8583333333333333,
+              "f1": 0.8583333333333333,
+              "tp": 103,
+              "fp": 17,
+              "fn": 17,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8942307692307693,
+              "recall": 0.9207920792079208,
+              "f1": 0.9073170731707317,
+              "tp": 93,
+              "fp": 11,
+              "fn": 8,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.9552238805970149,
+              "recall": 0.9696969696969697,
+              "f1": 0.9624060150375939,
+              "tp": 64,
+              "fp": 3,
+              "fn": 2,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9838709677419355,
+              "recall": 0.8970588235294118,
+              "f1": 0.9384615384615385,
+              "tp": 61,
+              "fp": 1,
+              "fn": 7,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.9418960244648318,
+              "recall": 0.9418960244648318,
+              "f1": 0.9418960244648318,
+              "tp": 308,
+              "fp": 19,
+              "fn": 19,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 102,
+              "fp": 0,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 49,
+              "fp": 0,
+              "fn": 0,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.8245614035087719,
+              "recall": 0.9215686274509803,
+              "f1": 0.8703703703703703,
+              "tp": 47,
+              "fp": 10,
+              "fn": 4,
+              "support": 51
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.1,
+      "transitionWeight": 0.5,
+      "selectionScore": 0.9102859020703253,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 5,
+          "exactSpan": {
+            "precision": 0.9059592159968323,
+            "recall": 0.9196141479099679,
+            "f1": 0.9127356138426249,
+            "tp": 4576,
+            "fp": 475,
+            "fn": 400,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.9235724004172255,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9021975846367056,
+            "recall": 0.9157958199356914,
+            "f1": 0.9089458462152189,
+            "tp": 4557,
+            "fp": 494,
+            "fn": 419,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.8085106382978723,
+              "recall": 0.8172043010752689,
+              "f1": 0.8128342245989305,
+              "tp": 76,
+              "fp": 18,
+              "fn": 17,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.8982683982683982,
+              "recall": 0.9724663151728178,
+              "f1": 0.9338959212376934,
+              "tp": 1660,
+              "fp": 188,
+              "fn": 47,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8713355048859935,
+              "recall": 0.8249807247494217,
+              "f1": 0.8475247524752475,
+              "tp": 1070,
+              "fp": 158,
+              "fn": 227,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.8533333333333334,
+              "recall": 0.8648648648648649,
+              "f1": 0.8590604026845637,
+              "tp": 128,
+              "fp": 22,
+              "fn": 20,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.900990099009901,
+              "recall": 0.8878048780487805,
+              "f1": 0.8943488943488943,
+              "tp": 182,
+              "fp": 20,
+              "fn": 23,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.9808429118773946,
+              "recall": 0.9808429118773946,
+              "f1": 0.9808429118773946,
+              "tp": 256,
+              "fp": 5,
+              "fn": 5,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.9923371647509579,
+              "recall": 0.9736842105263158,
+              "f1": 0.9829222011385199,
+              "tp": 259,
+              "fp": 2,
+              "fn": 7,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.9342301943198804,
+              "recall": 0.9342301943198804,
+              "f1": 0.9342301943198804,
+              "tp": 625,
+              "fp": 44,
+              "fn": 44,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 164,
+              "fp": 0,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 80,
+              "fp": 0,
+              "fn": 0,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.8,
+              "recall": 0.8780487804878049,
+              "f1": 0.8372093023255814,
+              "tp": 72,
+              "fp": 18,
+              "fn": 10,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 3,
+          "exactSpan": {
+            "precision": 0.9013992840872112,
+            "recall": 0.9193494855625622,
+            "f1": 0.9102859020703253,
+            "tp": 2770,
+            "fp": 303,
+            "fn": 243,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.9165752203144625,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8997722095671982,
+            "recall": 0.9176900099568537,
+            "f1": 0.908642786723628,
+            "tp": 2765,
+            "fp": 308,
+            "fn": 248,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.8723404255319149,
+              "recall": 0.803921568627451,
+              "f1": 0.8367346938775511,
+              "tp": 41,
+              "fp": 6,
+              "fn": 10,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.8987052551408987,
+              "recall": 0.9735973597359736,
+              "f1": 0.9346534653465347,
+              "tp": 1180,
+              "fp": 133,
+              "fn": 32,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.8437067773167358,
+              "recall": 0.8068783068783069,
+              "f1": 0.8248816768086545,
+              "tp": 610,
+              "fp": 113,
+              "fn": 146,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8,
+              "recall": 0.8571428571428571,
+              "f1": 0.8275862068965517,
+              "tp": 24,
+              "fp": 6,
+              "fn": 4,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.9175257731958762,
+              "recall": 0.8557692307692307,
+              "f1": 0.8855721393034826,
+              "tp": 89,
+              "fp": 8,
+              "fn": 15,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.9948186528497409,
+              "recall": 0.9846153846153847,
+              "f1": 0.9896907216494846,
+              "tp": 192,
+              "fp": 1,
+              "fn": 3,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.9949748743718593,
+              "recall": 1.0,
+              "f1": 0.9974811083123426,
+              "tp": 198,
+              "fp": 1,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.9210526315789473,
+              "recall": 0.9210526315789473,
+              "f1": 0.9210526315789473,
+              "tp": 315,
+              "fp": 27,
+              "fn": 27,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 62,
+              "fp": 0,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.7575757575757576,
+              "recall": 0.8064516129032258,
+              "f1": 0.78125,
+              "tp": 25,
+              "fp": 8,
+              "fn": 6,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.9130434782608695,
+            "recall": 0.9200203769740194,
+            "f1": 0.91651865008881,
+            "tp": 1806,
+            "fp": 172,
+            "fn": 157,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.9233120089784478,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9059656218402427,
+            "recall": 0.912888436067244,
+            "f1": 0.9094138543516874,
+            "tp": 1792,
+            "fp": 186,
+            "fn": 171,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.7446808510638298,
+              "recall": 0.8333333333333334,
+              "f1": 0.7865168539325843,
+              "tp": 35,
+              "fp": 12,
+              "fn": 7,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.897196261682243,
+              "recall": 0.9696969696969697,
+              "f1": 0.9320388349514563,
+              "tp": 480,
+              "fp": 55,
+              "fn": 15,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.9108910891089109,
+              "recall": 0.8502772643253235,
+              "f1": 0.8795411089866156,
+              "tp": 460,
+              "fp": 45,
+              "fn": 81,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.8666666666666667,
+              "recall": 0.8666666666666667,
+              "f1": 0.8666666666666667,
+              "tp": 104,
+              "fp": 16,
+              "fn": 16,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8857142857142857,
+              "recall": 0.9207920792079208,
+              "f1": 0.9029126213592233,
+              "tp": 93,
+              "fp": 12,
+              "fn": 8,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.9411764705882353,
+              "recall": 0.9696969696969697,
+              "f1": 0.9552238805970149,
+              "tp": 64,
+              "fp": 4,
+              "fn": 2,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9838709677419355,
+              "recall": 0.8970588235294118,
+              "f1": 0.9384615384615385,
+              "tp": 61,
+              "fp": 1,
+              "fn": 7,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.9480122324159022,
+              "recall": 0.9480122324159022,
+              "f1": 0.9480122324159022,
+              "tp": 310,
+              "fp": 17,
+              "fn": 17,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 102,
+              "fp": 0,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 49,
+              "fp": 0,
+              "fn": 0,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.8245614035087719,
+              "recall": 0.9215686274509803,
+              "f1": 0.8703703703703703,
+              "tp": 47,
+              "fp": 10,
+              "fn": 4,
+              "support": 51
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.25,
+      "transitionWeight": 0.1,
+      "selectionScore": 0.9022482893450635,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.8867814979678731,
+            "recall": 0.9208199356913184,
+            "f1": 0.9034802326727792,
+            "tp": 4582,
+            "fp": 585,
+            "fn": 394,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.8919374946997524,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8831043158505902,
+            "recall": 0.9170016077170418,
+            "f1": 0.8997338065661047,
+            "tp": 4563,
+            "fp": 604,
+            "fn": 413,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.7830188679245284,
+              "recall": 0.8924731182795699,
+              "f1": 0.8341708542713567,
+              "tp": 83,
+              "fp": 23,
+              "fn": 10,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.9312849162011173,
+              "recall": 0.9765670767428236,
+              "f1": 0.9533886188161281,
+              "tp": 1667,
+              "fp": 123,
+              "fn": 40,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8318999218139171,
+              "recall": 0.8203546646106399,
+              "f1": 0.8260869565217391,
+              "tp": 1064,
+              "fp": 215,
+              "fn": 233,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.7142857142857143,
+              "recall": 0.8445945945945946,
+              "f1": 0.7739938080495357,
+              "tp": 125,
+              "fp": 50,
+              "fn": 23,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.8714285714285714,
+              "recall": 0.8926829268292683,
+              "f1": 0.8819277108433735,
+              "tp": 183,
+              "fp": 27,
+              "fn": 22,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.8590604026845637,
+              "recall": 0.9808429118773946,
+              "f1": 0.9159212880143113,
+              "tp": 256,
+              "fp": 42,
+              "fn": 5,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.9704797047970479,
+              "recall": 0.9887218045112782,
+              "f1": 0.9795158286778398,
+              "tp": 263,
+              "fp": 8,
+              "fn": 3,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.9164222873900293,
+              "recall": 0.9342301943198804,
+              "f1": 0.9252405625462621,
+              "tp": 625,
+              "fp": 57,
+              "fn": 44,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 0.9704142011834319,
+              "recall": 1.0,
+              "f1": 0.984984984984985,
+              "tp": 164,
+              "fp": 5,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 80,
+              "fp": 0,
+              "fn": 0,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.6666666666666666,
+              "recall": 0.8292682926829268,
+              "f1": 0.7391304347826086,
+              "tp": 68,
+              "fp": 34,
+              "fn": 14,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.88608,
+            "recall": 0.9190175904414205,
+            "f1": 0.9022482893450635,
+            "tp": 2769,
+            "fp": 356,
+            "fn": 244,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.8931554023712694,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.88448,
+            "recall": 0.917358114835712,
+            "f1": 0.9006190941674813,
+            "tp": 2764,
+            "fp": 361,
+            "fn": 249,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "tp": 3,
+              "fp": 1,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.8214285714285714,
+              "recall": 0.9019607843137255,
+              "f1": 0.8598130841121495,
+              "tp": 46,
+              "fp": 10,
+              "fn": 5,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.9198443579766536,
+              "recall": 0.9752475247524752,
+              "f1": 0.94673608329996,
+              "tp": 1182,
+              "fp": 103,
+              "fn": 30,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.8075370121130552,
+              "recall": 0.7936507936507936,
+              "f1": 0.800533689126084,
+              "tp": 600,
+              "fp": 143,
+              "fn": 156,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8125,
+              "recall": 0.9285714285714286,
+              "f1": 0.8666666666666667,
+              "tp": 26,
+              "fp": 6,
+              "fn": 2,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.89,
+              "recall": 0.8557692307692307,
+              "f1": 0.8725490196078431,
+              "tp": 89,
+              "fp": 11,
+              "fn": 15,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.834061135371179,
+              "recall": 0.9794871794871794,
+              "f1": 0.9009433962264151,
+              "tp": 191,
+              "fp": 38,
+              "fn": 4,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.99,
+              "recall": 1.0,
+              "f1": 0.9949748743718593,
+              "tp": 198,
+              "fp": 2,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.9188405797101449,
+              "recall": 0.9269005847953217,
+              "f1": 0.9228529839883551,
+              "tp": 317,
+              "fp": 28,
+              "fn": 25,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 62,
+              "fp": 0,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.631578947368421,
+              "recall": 0.7741935483870968,
+              "f1": 0.6956521739130435,
+              "tp": 24,
+              "fp": 14,
+              "fn": 7,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 0,
+          "exactSpan": {
+            "precision": 0.8878550440744368,
+            "recall": 0.9235863474274071,
+            "f1": 0.9053682896379526,
+            "tp": 1813,
+            "fp": 229,
+            "fn": 150,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.9039222573410853,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8809990205680706,
+            "recall": 0.9164544065206317,
+            "f1": 0.8983770287141074,
+            "tp": 1799,
+            "fp": 243,
+            "fn": 164,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.74,
+              "recall": 0.8809523809523809,
+              "f1": 0.8043478260869565,
+              "tp": 37,
+              "fp": 13,
+              "fn": 5,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.9603960396039604,
+              "recall": 0.9797979797979798,
+              "f1": 0.97,
+              "tp": 485,
+              "fp": 20,
+              "fn": 10,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.8656716417910447,
+              "recall": 0.8576709796672828,
+              "f1": 0.861652739090065,
+              "tp": 464,
+              "fp": 72,
+              "fn": 77,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.6923076923076923,
+              "recall": 0.825,
+              "f1": 0.752851711026616,
+              "tp": 99,
+              "fp": 44,
+              "fn": 21,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8545454545454545,
+              "recall": 0.9306930693069307,
+              "f1": 0.8909952606635071,
+              "tp": 94,
+              "fp": 16,
+              "fn": 7,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.9420289855072463,
+              "recall": 0.9848484848484849,
+              "f1": 0.9629629629629629,
+              "tp": 65,
+              "fp": 4,
+              "fn": 1,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9154929577464789,
+              "recall": 0.9558823529411765,
+              "f1": 0.935251798561151,
+              "tp": 65,
+              "fp": 6,
+              "fn": 3,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.913946587537092,
+              "recall": 0.9418960244648318,
+              "f1": 0.927710843373494,
+              "tp": 308,
+              "fp": 29,
+              "fn": 19,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 0.9532710280373832,
+              "recall": 1.0,
+              "f1": 0.9760765550239234,
+              "tp": 102,
+              "fp": 5,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 49,
+              "fp": 0,
+              "fn": 0,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.6875,
+              "recall": 0.8627450980392157,
+              "f1": 0.7652173913043478,
+              "tp": 44,
+              "fp": 20,
+              "fn": 7,
+              "support": 51
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.25,
+      "transitionWeight": 0.3,
+      "selectionScore": 0.9116827789611667,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 3,
+          "exactSpan": {
+            "precision": 0.9067896389324961,
+            "recall": 0.9286575562700965,
+            "f1": 0.9175933280381255,
+            "tp": 4621,
+            "fp": 475,
+            "fn": 355,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.9111014228860984,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9028649921507065,
+            "recall": 0.9246382636655949,
+            "f1": 0.9136219221604448,
+            "tp": 4601,
+            "fp": 495,
+            "fn": 375,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.7843137254901961,
+              "recall": 0.8602150537634409,
+              "f1": 0.8205128205128205,
+              "tp": 80,
+              "fp": 22,
+              "fn": 13,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.925,
+              "recall": 0.9753954305799648,
+              "f1": 0.9495295124037639,
+              "tp": 1665,
+              "fp": 135,
+              "fn": 42,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8671439936356404,
+              "recall": 0.8404009252120278,
+              "f1": 0.8535630383711824,
+              "tp": 1090,
+              "fp": 167,
+              "fn": 207,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.8509316770186336,
+              "recall": 0.9256756756756757,
+              "f1": 0.8867313915857605,
+              "tp": 137,
+              "fp": 24,
+              "fn": 11,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.8894230769230769,
+              "recall": 0.9024390243902439,
+              "f1": 0.8958837772397095,
+              "tp": 185,
+              "fp": 23,
+              "fn": 20,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.9081272084805654,
+              "recall": 0.9846743295019157,
+              "f1": 0.9448529411764706,
+              "tp": 257,
+              "fp": 26,
+              "fn": 4,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.981203007518797,
+              "recall": 0.981203007518797,
+              "f1": 0.981203007518797,
+              "tp": 261,
+              "fp": 5,
+              "fn": 5,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.9359165424739195,
+              "recall": 0.9387144992526159,
+              "f1": 0.9373134328358209,
+              "tp": 628,
+              "fp": 43,
+              "fn": 41,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 0.9939393939393939,
+              "recall": 1.0,
+              "f1": 0.9969604863221885,
+              "tp": 164,
+              "fp": 1,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 80,
+              "fp": 0,
+              "fn": 0,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.7142857142857143,
+              "recall": 0.8536585365853658,
+              "f1": 0.7777777777777778,
+              "tp": 70,
+              "fp": 28,
+              "fn": 12,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.9003236245954692,
+            "recall": 0.9233322270162628,
+            "f1": 0.9116827789611667,
+            "tp": 2782,
+            "fp": 308,
+            "fn": 231,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.9015533733218987,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.898705501618123,
+            "recall": 0.9216727514105543,
+            "f1": 0.9100442405374406,
+            "tp": 2777,
+            "fp": 313,
+            "fn": 236,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "tp": 3,
+              "fp": 1,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.8333333333333334,
+              "recall": 0.8823529411764706,
+              "f1": 0.8571428571428571,
+              "tp": 45,
+              "fp": 9,
+              "fn": 6,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.9162141194724592,
+              "recall": 0.9744224422442245,
+              "f1": 0.944422231107557,
+              "tp": 1181,
+              "fp": 108,
+              "fn": 31,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.8482758620689655,
+              "recall": 0.8134920634920635,
+              "f1": 0.8305199189736664,
+              "tp": 615,
+              "fp": 110,
+              "fn": 141,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8125,
+              "recall": 0.9285714285714286,
+              "f1": 0.8666666666666667,
+              "tp": 26,
+              "fp": 6,
+              "fn": 2,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.89,
+              "recall": 0.8557692307692307,
+              "f1": 0.8725490196078431,
+              "tp": 89,
+              "fp": 11,
+              "fn": 15,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.897196261682243,
+              "recall": 0.9846153846153847,
+              "f1": 0.9388753056234719,
+              "tp": 192,
+              "fp": 22,
+              "fn": 3,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.99,
+              "recall": 1.0,
+              "f1": 0.9949748743718593,
+              "tp": 198,
+              "fp": 2,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.9210526315789473,
+              "recall": 0.9210526315789473,
+              "f1": 0.9210526315789473,
+              "tp": 315,
+              "fp": 27,
+              "fn": 27,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 62,
+              "fp": 0,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.6756756756756757,
+              "recall": 0.8064516129032258,
+              "f1": 0.7352941176470589,
+              "tp": 25,
+              "fp": 12,
+              "fn": 6,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.9167497507477568,
+            "recall": 0.9368313805399898,
+            "f1": 0.926681783824641,
+            "tp": 1839,
+            "fp": 167,
+            "fn": 124,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.9243185199771132,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.909272183449651,
+            "recall": 0.9291900152827305,
+            "f1": 0.9191232048374905,
+            "tp": 1824,
+            "fp": 182,
+            "fn": 139,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.7291666666666666,
+              "recall": 0.8333333333333334,
+              "f1": 0.7777777777777778,
+              "tp": 35,
+              "fp": 13,
+              "fn": 7,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.9471624266144814,
+              "recall": 0.9777777777777777,
+              "f1": 0.9622266401590457,
+              "tp": 484,
+              "fp": 27,
+              "fn": 11,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.8928571428571429,
+              "recall": 0.878003696857671,
+              "f1": 0.8853681267474371,
+              "tp": 475,
+              "fp": 57,
+              "fn": 66,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.8604651162790697,
+              "recall": 0.925,
+              "f1": 0.891566265060241,
+              "tp": 111,
+              "fp": 18,
+              "fn": 9,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8888888888888888,
+              "recall": 0.9504950495049505,
+              "f1": 0.9186602870813397,
+              "tp": 96,
+              "fp": 12,
+              "fn": 5,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.9420289855072463,
+              "recall": 0.9848484848484849,
+              "f1": 0.9629629629629629,
+              "tp": 65,
+              "fp": 4,
+              "fn": 1,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9545454545454546,
+              "recall": 0.9264705882352942,
+              "f1": 0.9402985074626866,
+              "tp": 63,
+              "fp": 3,
+              "fn": 5,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.9513677811550152,
+              "recall": 0.9571865443425076,
+              "f1": 0.9542682926829268,
+              "tp": 313,
+              "fp": 16,
+              "fn": 14,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 0.9902912621359223,
+              "recall": 1.0,
+              "f1": 0.9951219512195122,
+              "tp": 102,
+              "fp": 1,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 49,
+              "fp": 0,
+              "fn": 0,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.7377049180327869,
+              "recall": 0.8823529411764706,
+              "f1": 0.8035714285714286,
+              "tp": 45,
+              "fp": 16,
+              "fn": 6,
+              "support": 51
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.25,
+      "transitionWeight": 0.5,
+      "selectionScore": 0.912015758371635,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 4,
+          "exactSpan": {
+            "precision": 0.9107601184600197,
+            "recall": 0.9270498392282959,
+            "f1": 0.9188327855791256,
+            "tp": 4613,
+            "fp": 452,
+            "fn": 363,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.9144382761757491,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.906614017769003,
+            "recall": 0.9228295819935691,
+            "f1": 0.9146499352654118,
+            "tp": 4592,
+            "fp": 473,
+            "fn": 384,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.7857142857142857,
+              "recall": 0.8279569892473119,
+              "f1": 0.806282722513089,
+              "tp": 77,
+              "fp": 21,
+              "fn": 16,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.9192924267551134,
+              "recall": 0.974223784417106,
+              "f1": 0.9459613196814562,
+              "tp": 1663,
+              "fp": 146,
+              "fn": 44,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8761061946902655,
+              "recall": 0.8396299151888974,
+              "f1": 0.8574803149606299,
+              "tp": 1089,
+              "fp": 154,
+              "fn": 208,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.8571428571428571,
+              "recall": 0.9324324324324325,
+              "f1": 0.8932038834951457,
+              "tp": 138,
+              "fp": 23,
+              "fn": 10,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.9019607843137255,
+              "recall": 0.8975609756097561,
+              "f1": 0.8997555012224939,
+              "tp": 184,
+              "fp": 20,
+              "fn": 21,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.9311594202898551,
+              "recall": 0.9846743295019157,
+              "f1": 0.957169459962756,
+              "tp": 257,
+              "fp": 19,
+              "fn": 4,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.9923371647509579,
+              "recall": 0.9736842105263158,
+              "f1": 0.9829222011385199,
+              "tp": 259,
+              "fp": 2,
+              "fn": 7,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.9385307346326837,
+              "recall": 0.9357249626307922,
+              "f1": 0.937125748502994,
+              "tp": 626,
+              "fp": 41,
+              "fn": 43,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 164,
+              "fp": 0,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 80,
+              "fp": 0,
+              "fn": 0,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.7422680412371134,
+              "recall": 0.8780487804878049,
+              "f1": 0.8044692737430168,
+              "tp": 72,
+              "fp": 25,
+              "fn": 10,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.9022409873335498,
+            "recall": 0.922004646531696,
+            "f1": 0.912015758371635,
+            "tp": 2778,
+            "fp": 301,
+            "fn": 235,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.9006326307464588,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9006170834686587,
+            "recall": 0.9203451709259873,
+            "f1": 0.9103742613263296,
+            "tp": 2773,
+            "fp": 306,
+            "fn": 240,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "tp": 3,
+              "fp": 1,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.8235294117647058,
+              "recall": 0.8235294117647058,
+              "f1": 0.8235294117647058,
+              "tp": 42,
+              "fp": 9,
+              "fn": 9,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.9126738794435858,
+              "recall": 0.9744224422442245,
+              "f1": 0.942537909018356,
+              "tp": 1181,
+              "fp": 113,
+              "fn": 31,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.8529819694868238,
+              "recall": 0.8134920634920635,
+              "f1": 0.8327691266079892,
+              "tp": 615,
+              "fp": 106,
+              "fn": 141,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8125,
+              "recall": 0.9285714285714286,
+              "f1": 0.8666666666666667,
+              "tp": 26,
+              "fp": 6,
+              "fn": 2,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.9081632653061225,
+              "recall": 0.8557692307692307,
+              "f1": 0.8811881188118812,
+              "tp": 89,
+              "fp": 9,
+              "fn": 15,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.9230769230769231,
+              "recall": 0.9846153846153847,
+              "f1": 0.9528535980148883,
+              "tp": 192,
+              "fp": 16,
+              "fn": 3,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.9949748743718593,
+              "recall": 1.0,
+              "f1": 0.9974811083123426,
+              "tp": 198,
+              "fp": 1,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.9181286549707602,
+              "recall": 0.9181286549707602,
+              "f1": 0.9181286549707602,
+              "tp": 314,
+              "fp": 28,
+              "fn": 28,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 62,
+              "fp": 0,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.6756756756756757,
+              "recall": 0.8064516129032258,
+              "f1": 0.7352941176470589,
+              "tp": 25,
+              "fp": 12,
+              "fn": 6,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.9239677744209466,
+            "recall": 0.934793683138054,
+            "f1": 0.9293492023297037,
+            "tp": 1835,
+            "fp": 151,
+            "fn": 128,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.9302311299275815,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9159113796576033,
+            "recall": 0.9266428935303107,
+            "f1": 0.9212458850341859,
+            "tp": 1819,
+            "fp": 167,
+            "fn": 144,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.7446808510638298,
+              "recall": 0.8333333333333334,
+              "f1": 0.7865168539325843,
+              "tp": 35,
+              "fp": 12,
+              "fn": 7,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.9359223300970874,
+              "recall": 0.9737373737373738,
+              "f1": 0.9544554455445544,
+              "tp": 482,
+              "fp": 33,
+              "fn": 13,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.9080459770114943,
+              "recall": 0.8761552680221811,
+              "f1": 0.8918156161806209,
+              "tp": 474,
+              "fp": 48,
+              "fn": 67,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.8682170542635659,
+              "recall": 0.9333333333333333,
+              "f1": 0.8995983935742972,
+              "tp": 112,
+              "fp": 17,
+              "fn": 8,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8962264150943396,
+              "recall": 0.9405940594059405,
+              "f1": 0.9178743961352657,
+              "tp": 95,
+              "fp": 11,
+              "fn": 6,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.9558823529411765,
+              "recall": 0.9848484848484849,
+              "f1": 0.9701492537313433,
+              "tp": 65,
+              "fp": 3,
+              "fn": 1,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9838709677419355,
+              "recall": 0.8970588235294118,
+              "f1": 0.9384615384615385,
+              "tp": 61,
+              "fp": 1,
+              "fn": 7,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.96,
+              "recall": 0.9541284403669725,
+              "f1": 0.9570552147239264,
+              "tp": 312,
+              "fp": 13,
+              "fn": 15,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 102,
+              "fp": 0,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 49,
+              "fp": 0,
+              "fn": 0,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.7833333333333333,
+              "recall": 0.9215686274509803,
+              "f1": 0.8468468468468469,
+              "tp": 47,
+              "fp": 13,
+              "fn": 4,
+              "support": 51
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.5,
+      "transitionWeight": 0.1,
+      "selectionScore": 0.8998005982053838,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.8849574632637278,
+            "recall": 0.9198151125401929,
+            "f1": 0.9020496649586125,
+            "tp": 4577,
+            "fp": 595,
+            "fn": 399,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.8872701845261176,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8812838360402165,
+            "recall": 0.9159967845659164,
+            "f1": 0.8983050847457628,
+            "tp": 4558,
+            "fp": 614,
+            "fn": 418,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.7592592592592593,
+              "recall": 0.8817204301075269,
+              "f1": 0.8159203980099502,
+              "tp": 82,
+              "fp": 26,
+              "fn": 11,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.9401805869074492,
+              "recall": 0.9759812536613942,
+              "f1": 0.9577464788732394,
+              "tp": 1666,
+              "fp": 106,
+              "fn": 41,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8271028037383178,
+              "recall": 0.8188126445643793,
+              "f1": 0.8229368461836497,
+              "tp": 1062,
+              "fp": 222,
+              "fn": 235,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.7159090909090909,
+              "recall": 0.8513513513513513,
+              "f1": 0.7777777777777778,
+              "tp": 126,
+              "fp": 50,
+              "fn": 22,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.8584905660377359,
+              "recall": 0.8878048780487805,
+              "f1": 0.8729016786570744,
+              "tp": 182,
+              "fp": 30,
+              "fn": 23,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.8421052631578947,
+              "recall": 0.9808429118773946,
+              "f1": 0.9061946902654867,
+              "tp": 256,
+              "fp": 48,
+              "fn": 5,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.9669117647058824,
+              "recall": 0.9887218045112782,
+              "f1": 0.9776951672862454,
+              "tp": 263,
+              "fp": 9,
+              "fn": 3,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.9110787172011662,
+              "recall": 0.9342301943198804,
+              "f1": 0.922509225092251,
+              "tp": 625,
+              "fp": 61,
+              "fn": 44,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 0.9647058823529412,
+              "recall": 1.0,
+              "f1": 0.9820359281437125,
+              "tp": 164,
+              "fp": 6,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 0.9875,
+              "recall": 0.9875,
+              "f1": 0.9875,
+              "tp": 79,
+              "fp": 1,
+              "fn": 1,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.6601941747572816,
+              "recall": 0.8292682926829268,
+              "f1": 0.7351351351351352,
+              "tp": 68,
+              "fp": 35,
+              "fn": 14,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.8876080691642652,
+            "recall": 0.9200132758048457,
+            "f1": 0.9035202086049544,
+            "tp": 2772,
+            "fp": 351,
+            "fn": 241,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.8924121666455376,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8860070445084854,
+            "recall": 0.918353800199137,
+            "f1": 0.901890482398957,
+            "tp": 2767,
+            "fp": 356,
+            "fn": 246,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "tp": 3,
+              "fp": 1,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.8214285714285714,
+              "recall": 0.9019607843137255,
+              "f1": 0.8598130841121495,
+              "tp": 46,
+              "fp": 10,
+              "fn": 5,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.9314420803782506,
+              "recall": 0.9752475247524752,
+              "f1": 0.9528415961305925,
+              "tp": 1182,
+              "fp": 87,
+              "fn": 30,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.8067114093959732,
+              "recall": 0.794973544973545,
+              "f1": 0.8007994670219853,
+              "tp": 601,
+              "fp": 144,
+              "fn": 155,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8181818181818182,
+              "recall": 0.9642857142857143,
+              "f1": 0.8852459016393442,
+              "tp": 27,
+              "fp": 6,
+              "fn": 1,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.8725490196078431,
+              "recall": 0.8557692307692307,
+              "f1": 0.8640776699029126,
+              "tp": 89,
+              "fp": 13,
+              "fn": 15,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.8170212765957446,
+              "recall": 0.9846153846153847,
+              "f1": 0.8930232558139535,
+              "tp": 192,
+              "fp": 43,
+              "fn": 3,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.9850746268656716,
+              "recall": 1.0,
+              "f1": 0.9924812030075187,
+              "tp": 198,
+              "fp": 3,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.9161849710982659,
+              "recall": 0.9269005847953217,
+              "f1": 0.9215116279069767,
+              "tp": 317,
+              "fp": 29,
+              "fn": 25,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 0.9841269841269841,
+              "recall": 1.0,
+              "f1": 0.992,
+              "tp": 62,
+              "fp": 1,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 0.96875,
+              "recall": 1.0,
+              "f1": 0.9841269841269841,
+              "tp": 31,
+              "fp": 1,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.6486486486486487,
+              "recall": 0.7741935483870968,
+              "f1": 0.7058823529411765,
+              "tp": 24,
+              "fp": 13,
+              "fn": 7,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 0,
+          "exactSpan": {
+            "precision": 0.8809175207418253,
+            "recall": 0.9195109526235354,
+            "f1": 0.8998005982053838,
+            "tp": 1805,
+            "fp": 244,
+            "fn": 158,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.8957342946150076,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8740849194729137,
+            "recall": 0.9123790117167601,
+            "f1": 0.8928215353938186,
+            "tp": 1791,
+            "fp": 258,
+            "fn": 172,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.6923076923076923,
+              "recall": 0.8571428571428571,
+              "f1": 0.7659574468085106,
+              "tp": 36,
+              "fp": 16,
+              "fn": 6,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.9622266401590457,
+              "recall": 0.9777777777777777,
+              "f1": 0.969939879759519,
+              "tp": 484,
+              "fp": 19,
+              "fn": 11,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.8552875695732839,
+              "recall": 0.8521256931608133,
+              "f1": 0.8537037037037037,
+              "tp": 461,
+              "fp": 78,
+              "fn": 80,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.6923076923076923,
+              "recall": 0.825,
+              "f1": 0.752851711026616,
+              "tp": 99,
+              "fp": 44,
+              "fn": 21,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8454545454545455,
+              "recall": 0.9207920792079208,
+              "f1": 0.8815165876777251,
+              "tp": 93,
+              "fp": 17,
+              "fn": 8,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.927536231884058,
+              "recall": 0.9696969696969697,
+              "f1": 0.9481481481481482,
+              "tp": 64,
+              "fp": 5,
+              "fn": 2,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9154929577464789,
+              "recall": 0.9558823529411765,
+              "f1": 0.935251798561151,
+              "tp": 65,
+              "fp": 6,
+              "fn": 3,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.9058823529411765,
+              "recall": 0.9418960244648318,
+              "f1": 0.9235382308845578,
+              "tp": 308,
+              "fp": 32,
+              "fn": 19,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 0.9532710280373832,
+              "recall": 1.0,
+              "f1": 0.9760765550239234,
+              "tp": 102,
+              "fp": 5,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 0.9795918367346939,
+              "f1": 0.9896907216494846,
+              "tp": 48,
+              "fp": 0,
+              "fn": 1,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.6666666666666666,
+              "recall": 0.8627450980392157,
+              "f1": 0.7521367521367521,
+              "tp": 44,
+              "fp": 22,
+              "fn": 7,
+              "support": 51
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.5,
+      "transitionWeight": 0.3,
+      "selectionScore": 0.91260862436465,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.90575299430591,
+            "recall": 0.9270498392282959,
+            "f1": 0.9162776839805343,
+            "tp": 4613,
+            "fp": 480,
+            "fn": 363,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.9076311213229961,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9016296878067936,
+            "recall": 0.9228295819935691,
+            "f1": 0.9121064653888171,
+            "tp": 4592,
+            "fp": 501,
+            "fn": 384,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.7843137254901961,
+              "recall": 0.8602150537634409,
+              "f1": 0.8205128205128205,
+              "tp": 80,
+              "fp": 22,
+              "fn": 13,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.93542953396968,
+              "recall": 0.9759812536613942,
+              "f1": 0.9552752293577982,
+              "tp": 1666,
+              "fp": 115,
+              "fn": 41,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8653386454183267,
+              "recall": 0.8373168851195065,
+              "f1": 0.8510971786833855,
+              "tp": 1086,
+              "fp": 169,
+              "fn": 211,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.8625,
+              "recall": 0.9324324324324325,
+              "f1": 0.8961038961038961,
+              "tp": 138,
+              "fp": 22,
+              "fn": 10,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.8846153846153846,
+              "recall": 0.8975609756097561,
+              "f1": 0.8910411622276029,
+              "tp": 184,
+              "fp": 24,
+              "fn": 21,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.8732876712328768,
+              "recall": 0.9770114942528736,
+              "f1": 0.9222423146473779,
+              "tp": 255,
+              "fp": 37,
+              "fn": 6,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.9777777777777777,
+              "recall": 0.9924812030075187,
+              "f1": 0.9850746268656716,
+              "tp": 264,
+              "fp": 6,
+              "fn": 2,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.9269746646795827,
+              "recall": 0.929745889387145,
+              "f1": 0.9283582089552239,
+              "tp": 622,
+              "fp": 49,
+              "fn": 47,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 0.9761904761904762,
+              "recall": 1.0,
+              "f1": 0.9879518072289156,
+              "tp": 164,
+              "fp": 4,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 80,
+              "fp": 0,
+              "fn": 0,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.693069306930693,
+              "recall": 0.8536585365853658,
+              "f1": 0.7650273224043715,
+              "tp": 70,
+              "fp": 31,
+              "fn": 12,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.9018146467919637,
+            "recall": 0.9236641221374046,
+            "f1": 0.91260862436465,
+            "tp": 2783,
+            "fp": 303,
+            "fn": 230,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.9001063610155366,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9001944264419961,
+            "recall": 0.922004646531696,
+            "f1": 0.9109690113133301,
+            "tp": 2778,
+            "fp": 308,
+            "fn": 235,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "tp": 3,
+              "fp": 1,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.8333333333333334,
+              "recall": 0.8823529411764706,
+              "f1": 0.8571428571428571,
+              "tp": 45,
+              "fp": 9,
+              "fn": 6,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.9255485893416928,
+              "recall": 0.9744224422442245,
+              "f1": 0.9493569131832797,
+              "tp": 1181,
+              "fp": 95,
+              "fn": 31,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.8510344827586207,
+              "recall": 0.8161375661375662,
+              "f1": 0.8332207967589467,
+              "tp": 617,
+              "fp": 108,
+              "fn": 139,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8125,
+              "recall": 0.9285714285714286,
+              "f1": 0.8666666666666667,
+              "tp": 26,
+              "fp": 6,
+              "fn": 2,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.89,
+              "recall": 0.8557692307692307,
+              "f1": 0.8725490196078431,
+              "tp": 89,
+              "fp": 11,
+              "fn": 15,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.8565022421524664,
+              "recall": 0.9794871794871794,
+              "f1": 0.9138755980861244,
+              "tp": 191,
+              "fp": 32,
+              "fn": 4,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.99,
+              "recall": 1.0,
+              "f1": 0.9949748743718593,
+              "tp": 198,
+              "fp": 2,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.9210526315789473,
+              "recall": 0.9210526315789473,
+              "f1": 0.9210526315789473,
+              "tp": 315,
+              "fp": 27,
+              "fn": 27,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 62,
+              "fp": 0,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.6756756756756757,
+              "recall": 0.8064516129032258,
+              "f1": 0.7352941176470589,
+              "tp": 25,
+              "fp": 12,
+              "fn": 6,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 0,
+          "exactSpan": {
+            "precision": 0.9118086696562033,
+            "recall": 0.9322465613856342,
+            "f1": 0.9219143576826196,
+            "tp": 1830,
+            "fp": 177,
+            "fn": 133,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.9199945758533697,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9038365719980069,
+            "recall": 0.9240957717778909,
+            "f1": 0.9138539042821159,
+            "tp": 1814,
+            "fp": 193,
+            "fn": 149,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.7291666666666666,
+              "recall": 0.8333333333333334,
+              "f1": 0.7777777777777778,
+              "tp": 35,
+              "fp": 13,
+              "fn": 7,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.9603960396039604,
+              "recall": 0.9797979797979798,
+              "f1": 0.97,
+              "tp": 485,
+              "fp": 20,
+              "fn": 10,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.8849056603773585,
+              "recall": 0.866913123844732,
+              "f1": 0.8758169934640523,
+              "tp": 469,
+              "fp": 61,
+              "fn": 72,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.875,
+              "recall": 0.9333333333333333,
+              "f1": 0.9032258064516129,
+              "tp": 112,
+              "fp": 16,
+              "fn": 8,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8796296296296297,
+              "recall": 0.9405940594059405,
+              "f1": 0.9090909090909091,
+              "tp": 95,
+              "fp": 13,
+              "fn": 6,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.927536231884058,
+              "recall": 0.9696969696969697,
+              "f1": 0.9481481481481482,
+              "tp": 64,
+              "fp": 5,
+              "fn": 2,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9428571428571428,
+              "recall": 0.9705882352941176,
+              "f1": 0.9565217391304348,
+              "tp": 66,
+              "fp": 4,
+              "fn": 2,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.9331306990881459,
+              "recall": 0.9388379204892966,
+              "f1": 0.9359756097560976,
+              "tp": 307,
+              "fp": 22,
+              "fn": 20,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 0.9622641509433962,
+              "recall": 1.0,
+              "f1": 0.9807692307692307,
+              "tp": 102,
+              "fp": 4,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 49,
+              "fp": 0,
+              "fn": 0,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.703125,
+              "recall": 0.8823529411764706,
+              "f1": 0.782608695652174,
+              "tp": 45,
+              "fp": 19,
+              "fn": 6,
+              "support": 51
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.5,
+      "transitionWeight": 0.5,
+      "selectionScore": 0.9175156095957936,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 3,
+          "exactSpan": {
+            "precision": 0.914561957379637,
+            "recall": 0.9314710610932476,
+            "f1": 0.9229390681003584,
+            "tp": 4635,
+            "fp": 433,
+            "fn": 341,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.9124296673046272,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9102209944751382,
+            "recall": 0.9270498392282959,
+            "f1": 0.9185583432895261,
+            "tp": 4613,
+            "fp": 455,
+            "fn": 363,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.7722772277227723,
+              "recall": 0.8387096774193549,
+              "f1": 0.8041237113402062,
+              "tp": 78,
+              "fp": 23,
+              "fn": 15,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.9359910162829871,
+              "recall": 0.9765670767428236,
+              "f1": 0.955848623853211,
+              "tp": 1667,
+              "fp": 114,
+              "fn": 40,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8817891373801917,
+              "recall": 0.851195065535852,
+              "f1": 0.8662220478619066,
+              "tp": 1104,
+              "fp": 148,
+              "fn": 193,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.879746835443038,
+              "recall": 0.9391891891891891,
+              "f1": 0.9084967320261438,
+              "tp": 139,
+              "fp": 19,
+              "fn": 9,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.8985507246376812,
+              "recall": 0.9073170731707317,
+              "f1": 0.9029126213592233,
+              "tp": 186,
+              "fp": 21,
+              "fn": 19,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.8982456140350877,
+              "recall": 0.9808429118773946,
+              "f1": 0.9377289377289377,
+              "tp": 256,
+              "fp": 29,
+              "fn": 5,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.9812734082397003,
+              "recall": 0.9849624060150376,
+              "f1": 0.9831144465290806,
+              "tp": 262,
+              "fp": 5,
+              "fn": 4,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.9370314842578711,
+              "recall": 0.9342301943198804,
+              "f1": 0.9356287425149701,
+              "tp": 625,
+              "fp": 42,
+              "fn": 44,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 0.9939393939393939,
+              "recall": 1.0,
+              "f1": 0.9969604863221885,
+              "tp": 164,
+              "fp": 1,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 80,
+              "fp": 0,
+              "fn": 0,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.7,
+              "recall": 0.8536585365853658,
+              "f1": 0.7692307692307693,
+              "tp": 70,
+              "fp": 30,
+              "fn": 12,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.9085584119752684,
+            "recall": 0.9266511782276801,
+            "f1": 0.9175156095957936,
+            "tp": 2792,
+            "fp": 281,
+            "fn": 221,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.9014649519150013,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9069313374552554,
+            "recall": 0.9249917026219715,
+            "f1": 0.9158724942490963,
+            "tp": 2787,
+            "fp": 286,
+            "fn": 226,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "tp": 3,
+              "fp": 1,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.8113207547169812,
+              "recall": 0.8431372549019608,
+              "f1": 0.8269230769230769,
+              "tp": 43,
+              "fp": 10,
+              "fn": 8,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.9277864992150706,
+              "recall": 0.9752475247524752,
+              "f1": 0.9509251810136766,
+              "tp": 1182,
+              "fp": 92,
+              "fn": 30,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.8658367911479945,
+              "recall": 0.828042328042328,
+              "f1": 0.8465179175118324,
+              "tp": 626,
+              "fp": 97,
+              "fn": 130,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8125,
+              "recall": 0.9285714285714286,
+              "f1": 0.8666666666666667,
+              "tp": 26,
+              "fp": 6,
+              "fn": 2,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.9090909090909091,
+              "recall": 0.8653846153846154,
+              "f1": 0.8866995073891626,
+              "tp": 90,
+              "fp": 9,
+              "fn": 14,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.8888888888888888,
+              "recall": 0.9846153846153847,
+              "f1": 0.9343065693430657,
+              "tp": 192,
+              "fp": 24,
+              "fn": 3,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.99,
+              "recall": 1.0,
+              "f1": 0.9949748743718593,
+              "tp": 198,
+              "fp": 2,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.9181286549707602,
+              "recall": 0.9181286549707602,
+              "f1": 0.9181286549707602,
+              "tp": 314,
+              "fp": 28,
+              "fn": 28,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 62,
+              "fp": 0,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.6756756756756757,
+              "recall": 0.8064516129032258,
+              "f1": 0.7352941176470589,
+              "tp": 25,
+              "fp": 12,
+              "fn": 6,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.9238095238095239,
+            "recall": 0.9388690779419256,
+            "f1": 0.9312784234461849,
+            "tp": 1843,
+            "fp": 152,
+            "fn": 120,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.925961560818283,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9152882205513785,
+            "recall": 0.9302088639836984,
+            "f1": 0.922688226376958,
+            "tp": 1826,
+            "fp": 169,
+            "fn": 137,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.7291666666666666,
+              "recall": 0.8333333333333334,
+              "f1": 0.7777777777777778,
+              "tp": 35,
+              "fp": 13,
+              "fn": 7,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.9566074950690335,
+              "recall": 0.9797979797979798,
+              "f1": 0.9680638722554891,
+              "tp": 485,
+              "fp": 22,
+              "fn": 10,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.9035916824196597,
+              "recall": 0.8835489833641405,
+              "f1": 0.8934579439252337,
+              "tp": 478,
+              "fp": 51,
+              "fn": 63,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.8968253968253969,
+              "recall": 0.9416666666666667,
+              "f1": 0.9186991869918699,
+              "tp": 113,
+              "fp": 13,
+              "fn": 7,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8888888888888888,
+              "recall": 0.9504950495049505,
+              "f1": 0.9186602870813397,
+              "tp": 96,
+              "fp": 12,
+              "fn": 5,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.927536231884058,
+              "recall": 0.9696969696969697,
+              "f1": 0.9481481481481482,
+              "tp": 64,
+              "fp": 5,
+              "fn": 2,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9552238805970149,
+              "recall": 0.9411764705882353,
+              "f1": 0.9481481481481482,
+              "tp": 64,
+              "fp": 3,
+              "fn": 4,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.9569230769230769,
+              "recall": 0.9510703363914373,
+              "f1": 0.9539877300613497,
+              "tp": 311,
+              "fp": 14,
+              "fn": 16,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 0.9902912621359223,
+              "recall": 1.0,
+              "f1": 0.9951219512195122,
+              "tp": 102,
+              "fp": 1,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 49,
+              "fp": 0,
+              "fn": 0,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.7142857142857143,
+              "recall": 0.8823529411764706,
+              "f1": 0.7894736842105263,
+              "tp": 45,
+              "fp": 18,
+              "fn": 6,
+              "support": 51
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 1.0,
+      "transitionWeight": 0.1,
+      "selectionScore": 0.8963460104399702,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.8785370548604428,
+            "recall": 0.9172025723472669,
+            "f1": 0.8974535443909153,
+            "tp": 4564,
+            "fp": 631,
+            "fn": 412,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.8805932240919798,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8748796920115496,
+            "recall": 0.9133842443729904,
+            "f1": 0.893717431914266,
+            "tp": 4545,
+            "fp": 650,
+            "fn": 431,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.7339449541284404,
+              "recall": 0.8602150537634409,
+              "f1": 0.7920792079207921,
+              "tp": 80,
+              "fp": 29,
+              "fn": 13,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.9460227272727273,
+              "recall": 0.9753954305799648,
+              "f1": 0.9604845687914624,
+              "tp": 1665,
+              "fp": 95,
+              "fn": 42,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8121632024634334,
+              "recall": 0.8134155744024673,
+              "f1": 0.812788906009245,
+              "tp": 1055,
+              "fp": 244,
+              "fn": 242,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.7175141242937854,
+              "recall": 0.8581081081081081,
+              "f1": 0.7815384615384615,
+              "tp": 127,
+              "fp": 50,
+              "fn": 21,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.8450704225352113,
+              "recall": 0.8780487804878049,
+              "f1": 0.861244019138756,
+              "tp": 180,
+              "fp": 33,
+              "fn": 25,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.8366013071895425,
+              "recall": 0.9808429118773946,
+              "f1": 0.9029982363315696,
+              "tp": 256,
+              "fp": 50,
+              "fn": 5,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.9563636363636364,
+              "recall": 0.9887218045112782,
+              "f1": 0.9722735674676525,
+              "tp": 263,
+              "fp": 12,
+              "fn": 3,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.9015918958031838,
+              "recall": 0.9312406576980568,
+              "f1": 0.9161764705882353,
+              "tp": 623,
+              "fp": 68,
+              "fn": 46,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 0.9590643274853801,
+              "recall": 1.0,
+              "f1": 0.9791044776119403,
+              "tp": 164,
+              "fp": 7,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 0.9875,
+              "recall": 0.9875,
+              "f1": 0.9875,
+              "tp": 79,
+              "fp": 1,
+              "fn": 1,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.6238532110091743,
+              "recall": 0.8292682926829268,
+              "f1": 0.7120418848167539,
+              "tp": 68,
+              "fp": 41,
+              "fn": 14,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.8807017543859649,
+            "recall": 0.9163624294722867,
+            "f1": 0.8981782693558881,
+            "tp": 2761,
+            "fp": 374,
+            "fn": 252,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.8835535446237506,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8794258373205741,
+            "recall": 0.9150348489877199,
+            "f1": 0.8968770331815225,
+            "tp": 2757,
+            "fp": 378,
+            "fn": 256,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "tp": 3,
+              "fp": 1,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.8035714285714286,
+              "recall": 0.8823529411764706,
+              "f1": 0.8411214953271028,
+              "tp": 45,
+              "fp": 11,
+              "fn": 6,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.939538583929992,
+              "recall": 0.9744224422442245,
+              "f1": 0.9566626164439044,
+              "tp": 1181,
+              "fp": 76,
+              "fn": 31,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.7849604221635884,
+              "recall": 0.7870370370370371,
+              "f1": 0.7859973579920739,
+              "tp": 595,
+              "fp": 163,
+              "fn": 161,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8181818181818182,
+              "recall": 0.9642857142857143,
+              "f1": 0.8852459016393442,
+              "tp": 27,
+              "fp": 6,
+              "fn": 1,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.8446601941747572,
+              "recall": 0.8365384615384616,
+              "f1": 0.8405797101449275,
+              "tp": 87,
+              "fp": 16,
+              "fn": 17,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.8135593220338984,
+              "recall": 0.9846153846153847,
+              "f1": 0.8909512761020881,
+              "tp": 192,
+              "fp": 44,
+              "fn": 3,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.9753694581280788,
+              "recall": 1.0,
+              "f1": 0.9875311720698254,
+              "tp": 198,
+              "fp": 5,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.9054441260744985,
+              "recall": 0.9239766081871345,
+              "f1": 0.914616497829233,
+              "tp": 316,
+              "fp": 33,
+              "fn": 26,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 0.9841269841269841,
+              "recall": 1.0,
+              "f1": 0.992,
+              "tp": 62,
+              "fp": 1,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 0.96875,
+              "recall": 1.0,
+              "f1": 0.9841269841269841,
+              "tp": 31,
+              "fp": 1,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.5853658536585366,
+              "recall": 0.7741935483870968,
+              "f1": 0.6666666666666666,
+              "tp": 24,
+              "fp": 17,
+              "fn": 7,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 0,
+          "exactSpan": {
+            "precision": 0.875242718446602,
+            "recall": 0.9184921039225675,
+            "f1": 0.8963460104399702,
+            "tp": 1803,
+            "fp": 257,
+            "fn": 160,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.8903585273381984,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8679611650485437,
+            "recall": 0.9108507386653082,
+            "f1": 0.8888888888888888,
+            "tp": 1788,
+            "fp": 272,
+            "fn": 175,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.660377358490566,
+              "recall": 0.8333333333333334,
+              "f1": 0.7368421052631579,
+              "tp": 35,
+              "fp": 18,
+              "fn": 7,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.9622266401590457,
+              "recall": 0.9777777777777777,
+              "f1": 0.969939879759519,
+              "tp": 484,
+              "fp": 19,
+              "fn": 11,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.8502772643253235,
+              "recall": 0.8502772643253235,
+              "f1": 0.8502772643253235,
+              "tp": 460,
+              "fp": 81,
+              "fn": 81,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.6944444444444444,
+              "recall": 0.8333333333333334,
+              "f1": 0.7575757575757576,
+              "tp": 100,
+              "fp": 44,
+              "fn": 20,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8454545454545455,
+              "recall": 0.9207920792079208,
+              "f1": 0.8815165876777251,
+              "tp": 93,
+              "fp": 17,
+              "fn": 8,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.9142857142857143,
+              "recall": 0.9696969696969697,
+              "f1": 0.9411764705882353,
+              "tp": 64,
+              "fp": 6,
+              "fn": 2,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9027777777777778,
+              "recall": 0.9558823529411765,
+              "f1": 0.9285714285714286,
+              "tp": 65,
+              "fp": 7,
+              "fn": 3,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.8976608187134503,
+              "recall": 0.9388379204892966,
+              "f1": 0.9177877428998505,
+              "tp": 307,
+              "fp": 35,
+              "fn": 20,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 0.9444444444444444,
+              "recall": 1.0,
+              "f1": 0.9714285714285714,
+              "tp": 102,
+              "fp": 6,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 0.9795918367346939,
+              "f1": 0.9896907216494846,
+              "tp": 48,
+              "fp": 0,
+              "fn": 1,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.6470588235294118,
+              "recall": 0.8627450980392157,
+              "f1": 0.7394957983193278,
+              "tp": 44,
+              "fp": 24,
+              "fn": 7,
+              "support": 51
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 1.0,
+      "transitionWeight": 0.3,
+      "selectionScore": 0.9133858267716536,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.9041176470588236,
+            "recall": 0.9266479099678456,
+            "f1": 0.9152441445017864,
+            "tp": 4611,
+            "fp": 489,
+            "fn": 365,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.901835712186568,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9001960784313725,
+            "recall": 0.922628617363344,
+            "f1": 0.9112743152044462,
+            "tp": 4591,
+            "fp": 509,
+            "fn": 385,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.75,
+              "recall": 0.8387096774193549,
+              "f1": 0.7918781725888325,
+              "tp": 78,
+              "fp": 26,
+              "fn": 15,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.9413092550790068,
+              "recall": 0.9771528998242531,
+              "f1": 0.958896234550158,
+              "tp": 1668,
+              "fp": 104,
+              "fn": 39,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8675179569034318,
+              "recall": 0.8380878951426368,
+              "f1": 0.8525490196078431,
+              "tp": 1087,
+              "fp": 166,
+              "fn": 210,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.8695652173913043,
+              "recall": 0.9459459459459459,
+              "f1": 0.9061488673139159,
+              "tp": 140,
+              "fp": 21,
+              "fn": 8,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.8666666666666667,
+              "recall": 0.8878048780487805,
+              "f1": 0.8771084337349397,
+              "tp": 182,
+              "fp": 28,
+              "fn": 23,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.8557046979865772,
+              "recall": 0.9770114942528736,
+              "f1": 0.9123434704830053,
+              "tp": 255,
+              "fp": 43,
+              "fn": 6,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.9705882352941176,
+              "recall": 0.9924812030075187,
+              "f1": 0.9814126394052045,
+              "tp": 264,
+              "fp": 8,
+              "fn": 2,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.92,
+              "recall": 0.9282511210762332,
+              "f1": 0.9241071428571429,
+              "tp": 621,
+              "fp": 54,
+              "fn": 48,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 0.9704142011834319,
+              "recall": 1.0,
+              "f1": 0.984984984984985,
+              "tp": 164,
+              "fp": 5,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 0.9875,
+              "f1": 0.9937106918238994,
+              "tp": 79,
+              "fp": 0,
+              "fn": 1,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.6764705882352942,
+              "recall": 0.8414634146341463,
+              "f1": 0.75,
+              "tp": 69,
+              "fp": 33,
+              "fn": 13,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.9030165423289004,
+            "recall": 0.9239960172585463,
+            "f1": 0.9133858267716536,
+            "tp": 2784,
+            "fp": 299,
+            "fn": 229,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.8960644857891165,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.901719104768083,
+            "recall": 0.9226684367739795,
+            "f1": 0.9120734908136483,
+            "tp": 2780,
+            "fp": 303,
+            "fn": 233,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "tp": 3,
+              "fp": 1,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.8148148148148148,
+              "recall": 0.8627450980392157,
+              "f1": 0.8380952380952381,
+              "tp": 44,
+              "fp": 10,
+              "fn": 7,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.9343873517786562,
+              "recall": 0.9752475247524752,
+              "f1": 0.9543802987484861,
+              "tp": 1182,
+              "fp": 83,
+              "fn": 30,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.8599167822468793,
+              "recall": 0.8201058201058201,
+              "f1": 0.8395396073121192,
+              "tp": 620,
+              "fp": 101,
+              "fn": 136,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8181818181818182,
+              "recall": 0.9642857142857143,
+              "f1": 0.8852459016393442,
+              "tp": 27,
+              "fp": 6,
+              "fn": 1,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.8529411764705882,
+              "recall": 0.8365384615384616,
+              "f1": 0.8446601941747572,
+              "tp": 87,
+              "fp": 15,
+              "fn": 17,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.834061135371179,
+              "recall": 0.9794871794871794,
+              "f1": 0.9009433962264151,
+              "tp": 191,
+              "fp": 38,
+              "fn": 4,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.9801980198019802,
+              "recall": 1.0,
+              "f1": 0.99,
+              "tp": 198,
+              "fp": 4,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.9181286549707602,
+              "recall": 0.9181286549707602,
+              "f1": 0.9181286549707602,
+              "tp": 314,
+              "fp": 28,
+              "fn": 28,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 62,
+              "fp": 0,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.6578947368421053,
+              "recall": 0.8064516129032258,
+              "f1": 0.7246376811594203,
+              "tp": 25,
+              "fp": 13,
+              "fn": 6,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 0,
+          "exactSpan": {
+            "precision": 0.9058006941001487,
+            "recall": 0.9307182883341824,
+            "f1": 0.9180904522613065,
+            "tp": 1827,
+            "fp": 190,
+            "fn": 136,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.913832149651097,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.8978681209717402,
+            "recall": 0.9225674987264392,
+            "f1": 0.9100502512562814,
+            "tp": 1811,
+            "fp": 206,
+            "fn": 152,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.68,
+              "recall": 0.8095238095238095,
+              "f1": 0.7391304347826086,
+              "tp": 34,
+              "fp": 16,
+              "fn": 8,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.9585798816568047,
+              "recall": 0.9818181818181818,
+              "f1": 0.9700598802395209,
+              "tp": 486,
+              "fp": 21,
+              "fn": 9,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.8778195488721805,
+              "recall": 0.8632162661737524,
+              "f1": 0.8704566635601119,
+              "tp": 467,
+              "fp": 65,
+              "fn": 74,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.8828125,
+              "recall": 0.9416666666666667,
+              "f1": 0.9112903225806451,
+              "tp": 113,
+              "fp": 15,
+              "fn": 7,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8796296296296297,
+              "recall": 0.9405940594059405,
+              "f1": 0.9090909090909091,
+              "tp": 95,
+              "fp": 13,
+              "fn": 6,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.927536231884058,
+              "recall": 0.9696969696969697,
+              "f1": 0.9481481481481482,
+              "tp": 64,
+              "fp": 5,
+              "fn": 2,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9428571428571428,
+              "recall": 0.9705882352941176,
+              "f1": 0.9565217391304348,
+              "tp": 66,
+              "fp": 4,
+              "fn": 2,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.9219219219219219,
+              "recall": 0.9388379204892966,
+              "f1": 0.9303030303030303,
+              "tp": 307,
+              "fp": 26,
+              "fn": 20,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 0.9532710280373832,
+              "recall": 1.0,
+              "f1": 0.9760765550239234,
+              "tp": 102,
+              "fp": 5,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 0.9795918367346939,
+              "f1": 0.9896907216494846,
+              "tp": 48,
+              "fp": 0,
+              "fn": 1,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.6875,
+              "recall": 0.8627450980392157,
+              "f1": 0.7652173913043478,
+              "tp": 44,
+              "fp": 20,
+              "fn": 7,
+              "support": 51
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 1.0,
+      "transitionWeight": 0.5,
+      "selectionScore": 0.9148306478132193,
+      "metrics": {
+        "all": {
+          "documents": 23,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.9102917981072555,
+            "recall": 0.9278536977491961,
+            "f1": 0.9189888535031847,
+            "tp": 4617,
+            "fp": 455,
+            "fn": 359,
+            "support": 4976
+          },
+          "exactSpanMacroF1": 0.9039032569472831,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9059542586750788,
+            "recall": 0.9234324758842444,
+            "f1": 0.914609872611465,
+            "tp": 4595,
+            "fp": 477,
+            "fn": 381,
+            "support": 4976
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "tp": 4,
+              "fp": 1,
+              "fn": 0,
+              "support": 4
+            },
+            "string": {
+              "precision": 0.7378640776699029,
+              "recall": 0.8172043010752689,
+              "f1": 0.7755102040816326,
+              "tp": 76,
+              "fp": 27,
+              "fn": 17,
+              "support": 93
+            },
+            "punctuation": {
+              "precision": 0.9413092550790068,
+              "recall": 0.9771528998242531,
+              "f1": 0.958896234550158,
+              "tp": 1668,
+              "fp": 104,
+              "fn": 39,
+              "support": 1707
+            },
+            "text": {
+              "precision": 0.8810289389067524,
+              "recall": 0.8450269853508096,
+              "f1": 0.8626524990161354,
+              "tp": 1096,
+              "fp": 148,
+              "fn": 201,
+              "support": 1297
+            },
+            "entity": {
+              "precision": 0.879746835443038,
+              "recall": 0.9391891891891891,
+              "f1": 0.9084967320261438,
+              "tp": 139,
+              "fp": 19,
+              "fn": 9,
+              "support": 148
+            },
+            "heading": {
+              "precision": 0.8798076923076923,
+              "recall": 0.8926829268292683,
+              "f1": 0.8861985472154964,
+              "tp": 183,
+              "fp": 25,
+              "fn": 22,
+              "support": 205
+            },
+            "link": {
+              "precision": 0.8614864864864865,
+              "recall": 0.9770114942528736,
+              "f1": 0.9156193895870736,
+              "tp": 255,
+              "fp": 41,
+              "fn": 6,
+              "support": 261
+            },
+            "link-destination": {
+              "precision": 0.9777777777777777,
+              "recall": 0.9924812030075187,
+              "f1": 0.9850746268656716,
+              "tp": 264,
+              "fp": 6,
+              "fn": 2,
+              "support": 266
+            },
+            "code": {
+              "precision": 0.9267563527653214,
+              "recall": 0.9267563527653214,
+              "f1": 0.9267563527653214,
+              "tp": 620,
+              "fp": 49,
+              "fn": 49,
+              "support": 669
+            },
+            "code-fence": {
+              "precision": 0.9820359281437125,
+              "recall": 1.0,
+              "f1": 0.9909365558912386,
+              "tp": 164,
+              "fp": 3,
+              "fn": 0,
+              "support": 164
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 0.9875,
+              "f1": 0.9937106918238994,
+              "tp": 79,
+              "fp": 0,
+              "fn": 1,
+              "support": 80
+            },
+            "embedded-code": {
+              "precision": 0.6831683168316832,
+              "recall": 0.8414634146341463,
+              "f1": 0.7540983606557377,
+              "tp": 69,
+              "fp": 32,
+              "fn": 13,
+              "support": 82
+            }
+          }
+        },
+        "fresh": {
+          "documents": 11,
+          "exactDocumentsIncludingModifiers": 2,
+          "exactSpan": {
+            "precision": 0.9064841968067775,
+            "recall": 0.9233322270162628,
+            "f1": 0.9148306478132193,
+            "tp": 2782,
+            "fp": 287,
+            "fn": 231,
+            "support": 3013
+          },
+          "exactSpanMacroF1": 0.8951406882952568,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9048550016291952,
+            "recall": 0.9216727514105543,
+            "f1": 0.9131864518250575,
+            "tp": 2777,
+            "fp": 292,
+            "fn": 236,
+            "support": 3013
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "tp": 3,
+              "fp": 1,
+              "fn": 0,
+              "support": 3
+            },
+            "string": {
+              "precision": 0.7924528301886793,
+              "recall": 0.8235294117647058,
+              "f1": 0.8076923076923077,
+              "tp": 42,
+              "fp": 11,
+              "fn": 9,
+              "support": 51
+            },
+            "punctuation": {
+              "precision": 0.933649289099526,
+              "recall": 0.9752475247524752,
+              "f1": 0.9539951573849879,
+              "tp": 1182,
+              "fp": 84,
+              "fn": 30,
+              "support": 1212
+            },
+            "text": {
+              "precision": 0.8699300699300699,
+              "recall": 0.8227513227513228,
+              "f1": 0.8456832087015635,
+              "tp": 622,
+              "fp": 93,
+              "fn": 134,
+              "support": 756
+            },
+            "entity": {
+              "precision": 0.8125,
+              "recall": 0.9285714285714286,
+              "f1": 0.8666666666666667,
+              "tp": 26,
+              "fp": 6,
+              "fn": 2,
+              "support": 28
+            },
+            "heading": {
+              "precision": 0.88,
+              "recall": 0.8461538461538461,
+              "f1": 0.8627450980392157,
+              "tp": 88,
+              "fp": 12,
+              "fn": 16,
+              "support": 104
+            },
+            "link": {
+              "precision": 0.8414096916299559,
+              "recall": 0.9794871794871794,
+              "f1": 0.9052132701421801,
+              "tp": 191,
+              "fp": 36,
+              "fn": 4,
+              "support": 195
+            },
+            "link-destination": {
+              "precision": 0.99,
+              "recall": 1.0,
+              "f1": 0.9949748743718593,
+              "tp": 198,
+              "fp": 2,
+              "fn": 0,
+              "support": 198
+            },
+            "code": {
+              "precision": 0.9122807017543859,
+              "recall": 0.9122807017543859,
+              "f1": 0.9122807017543859,
+              "tp": 312,
+              "fp": 30,
+              "fn": 30,
+              "support": 342
+            },
+            "code-fence": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 62,
+              "fp": 0,
+              "fn": 0,
+              "support": 62
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "support": 31
+            },
+            "embedded-code": {
+              "precision": 0.6756756756756757,
+              "recall": 0.8064516129032258,
+              "f1": 0.7352941176470589,
+              "tp": 25,
+              "fp": 12,
+              "fn": 6,
+              "support": 31
+            }
+          }
+        },
+        "legacy": {
+          "documents": 12,
+          "exactDocumentsIncludingModifiers": 0,
+          "exactSpan": {
+            "precision": 0.9161258112830754,
+            "recall": 0.934793683138054,
+            "f1": 0.9253656076651539,
+            "tp": 1835,
+            "fp": 168,
+            "fn": 128,
+            "support": 1963
+          },
+          "exactSpanMacroF1": 0.9175760067816361,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9076385421867199,
+            "recall": 0.9261334691798268,
+            "f1": 0.9167927382753404,
+            "tp": 1818,
+            "fp": 185,
+            "fn": 145,
+            "support": 1963
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            },
+            "string": {
+              "precision": 0.68,
+              "recall": 0.8095238095238095,
+              "f1": 0.7391304347826086,
+              "tp": 34,
+              "fp": 16,
+              "fn": 8,
+              "support": 42
+            },
+            "punctuation": {
+              "precision": 0.9604743083003953,
+              "recall": 0.9818181818181818,
+              "f1": 0.971028971028971,
+              "tp": 486,
+              "fp": 20,
+              "fn": 9,
+              "support": 495
+            },
+            "text": {
+              "precision": 0.8960302457466919,
+              "recall": 0.8761552680221811,
+              "f1": 0.8859813084112149,
+              "tp": 474,
+              "fp": 55,
+              "fn": 67,
+              "support": 541
+            },
+            "entity": {
+              "precision": 0.8968253968253969,
+              "recall": 0.9416666666666667,
+              "f1": 0.9186991869918699,
+              "tp": 113,
+              "fp": 13,
+              "fn": 7,
+              "support": 120
+            },
+            "heading": {
+              "precision": 0.8796296296296297,
+              "recall": 0.9405940594059405,
+              "f1": 0.9090909090909091,
+              "tp": 95,
+              "fp": 13,
+              "fn": 6,
+              "support": 101
+            },
+            "link": {
+              "precision": 0.927536231884058,
+              "recall": 0.9696969696969697,
+              "f1": 0.9481481481481482,
+              "tp": 64,
+              "fp": 5,
+              "fn": 2,
+              "support": 66
+            },
+            "link-destination": {
+              "precision": 0.9428571428571428,
+              "recall": 0.9705882352941176,
+              "f1": 0.9565217391304348,
+              "tp": 66,
+              "fp": 4,
+              "fn": 2,
+              "support": 68
+            },
+            "code": {
+              "precision": 0.9418960244648318,
+              "recall": 0.9418960244648318,
+              "f1": 0.9418960244648318,
+              "tp": 308,
+              "fp": 19,
+              "fn": 19,
+              "support": 327
+            },
+            "code-fence": {
+              "precision": 0.9714285714285714,
+              "recall": 1.0,
+              "f1": 0.9855072463768116,
+              "tp": 102,
+              "fp": 3,
+              "fn": 0,
+              "support": 102
+            },
+            "code-language": {
+              "precision": 1.0,
+              "recall": 0.9795918367346939,
+              "f1": 0.9896907216494846,
+              "tp": 48,
+              "fp": 0,
+              "fn": 1,
+              "support": 49
+            },
+            "embedded-code": {
+              "precision": 0.6875,
+              "recall": 0.8627450980392157,
+              "f1": 0.7652173913043478,
+              "tp": 44,
+              "fp": 20,
+              "fn": 7,
+              "support": 51
+            }
+          }
+        }
+      }
+    }
+  ],
+  "selected": {
+    "typeWeight": 0.5,
+    "transitionWeight": 0.5,
+    "selectionScore": 0.9175156095957936,
+    "metrics": {
+      "all": {
+        "documents": 23,
+        "exactDocumentsIncludingModifiers": 3,
+        "exactSpan": {
+          "precision": 0.914561957379637,
+          "recall": 0.9314710610932476,
+          "f1": 0.9229390681003584,
+          "tp": 4635,
+          "fp": 433,
+          "fn": 341,
+          "support": 4976
+        },
+        "exactSpanMacroF1": 0.9124296673046272,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9102209944751382,
+          "recall": 0.9270498392282959,
+          "f1": 0.9185583432895261,
+          "tp": 4613,
+          "fp": 455,
+          "fn": 363,
+          "support": 4976
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.8888888888888888,
+            "tp": 4,
+            "fp": 1,
+            "fn": 0,
+            "support": 4
+          },
+          "string": {
+            "precision": 0.7722772277227723,
+            "recall": 0.8387096774193549,
+            "f1": 0.8041237113402062,
+            "tp": 78,
+            "fp": 23,
+            "fn": 15,
+            "support": 93
+          },
+          "punctuation": {
+            "precision": 0.9359910162829871,
+            "recall": 0.9765670767428236,
+            "f1": 0.955848623853211,
+            "tp": 1667,
+            "fp": 114,
+            "fn": 40,
+            "support": 1707
+          },
+          "text": {
+            "precision": 0.8817891373801917,
+            "recall": 0.851195065535852,
+            "f1": 0.8662220478619066,
+            "tp": 1104,
+            "fp": 148,
+            "fn": 193,
+            "support": 1297
+          },
+          "entity": {
+            "precision": 0.879746835443038,
+            "recall": 0.9391891891891891,
+            "f1": 0.9084967320261438,
+            "tp": 139,
+            "fp": 19,
+            "fn": 9,
+            "support": 148
+          },
+          "heading": {
+            "precision": 0.8985507246376812,
+            "recall": 0.9073170731707317,
+            "f1": 0.9029126213592233,
+            "tp": 186,
+            "fp": 21,
+            "fn": 19,
+            "support": 205
+          },
+          "link": {
+            "precision": 0.8982456140350877,
+            "recall": 0.9808429118773946,
+            "f1": 0.9377289377289377,
+            "tp": 256,
+            "fp": 29,
+            "fn": 5,
+            "support": 261
+          },
+          "link-destination": {
+            "precision": 0.9812734082397003,
+            "recall": 0.9849624060150376,
+            "f1": 0.9831144465290806,
+            "tp": 262,
+            "fp": 5,
+            "fn": 4,
+            "support": 266
+          },
+          "code": {
+            "precision": 0.9370314842578711,
+            "recall": 0.9342301943198804,
+            "f1": 0.9356287425149701,
+            "tp": 625,
+            "fp": 42,
+            "fn": 44,
+            "support": 669
+          },
+          "code-fence": {
+            "precision": 0.9939393939393939,
+            "recall": 1.0,
+            "f1": 0.9969604863221885,
+            "tp": 164,
+            "fp": 1,
+            "fn": 0,
+            "support": 164
+          },
+          "code-language": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 80,
+            "fp": 0,
+            "fn": 0,
+            "support": 80
+          },
+          "embedded-code": {
+            "precision": 0.7,
+            "recall": 0.8536585365853658,
+            "f1": 0.7692307692307693,
+            "tp": 70,
+            "fp": 30,
+            "fn": 12,
+            "support": 82
+          }
+        }
+      },
+      "fresh": {
+        "documents": 11,
+        "exactDocumentsIncludingModifiers": 2,
+        "exactSpan": {
+          "precision": 0.9085584119752684,
+          "recall": 0.9266511782276801,
+          "f1": 0.9175156095957936,
+          "tp": 2792,
+          "fp": 281,
+          "fn": 221,
+          "support": 3013
+        },
+        "exactSpanMacroF1": 0.9014649519150013,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9069313374552554,
+          "recall": 0.9249917026219715,
+          "f1": 0.9158724942490963,
+          "tp": 2787,
+          "fp": 286,
+          "fn": 226,
+          "support": 3013
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "tp": 3,
+            "fp": 1,
+            "fn": 0,
+            "support": 3
+          },
+          "string": {
+            "precision": 0.8113207547169812,
+            "recall": 0.8431372549019608,
+            "f1": 0.8269230769230769,
+            "tp": 43,
+            "fp": 10,
+            "fn": 8,
+            "support": 51
+          },
+          "punctuation": {
+            "precision": 0.9277864992150706,
+            "recall": 0.9752475247524752,
+            "f1": 0.9509251810136766,
+            "tp": 1182,
+            "fp": 92,
+            "fn": 30,
+            "support": 1212
+          },
+          "text": {
+            "precision": 0.8658367911479945,
+            "recall": 0.828042328042328,
+            "f1": 0.8465179175118324,
+            "tp": 626,
+            "fp": 97,
+            "fn": 130,
+            "support": 756
+          },
+          "entity": {
+            "precision": 0.8125,
+            "recall": 0.9285714285714286,
+            "f1": 0.8666666666666667,
+            "tp": 26,
+            "fp": 6,
+            "fn": 2,
+            "support": 28
+          },
+          "heading": {
+            "precision": 0.9090909090909091,
+            "recall": 0.8653846153846154,
+            "f1": 0.8866995073891626,
+            "tp": 90,
+            "fp": 9,
+            "fn": 14,
+            "support": 104
+          },
+          "link": {
+            "precision": 0.8888888888888888,
+            "recall": 0.9846153846153847,
+            "f1": 0.9343065693430657,
+            "tp": 192,
+            "fp": 24,
+            "fn": 3,
+            "support": 195
+          },
+          "link-destination": {
+            "precision": 0.99,
+            "recall": 1.0,
+            "f1": 0.9949748743718593,
+            "tp": 198,
+            "fp": 2,
+            "fn": 0,
+            "support": 198
+          },
+          "code": {
+            "precision": 0.9181286549707602,
+            "recall": 0.9181286549707602,
+            "f1": 0.9181286549707602,
+            "tp": 314,
+            "fp": 28,
+            "fn": 28,
+            "support": 342
+          },
+          "code-fence": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 62,
+            "fp": 0,
+            "fn": 0,
+            "support": 62
+          },
+          "code-language": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 31,
+            "fp": 0,
+            "fn": 0,
+            "support": 31
+          },
+          "embedded-code": {
+            "precision": 0.6756756756756757,
+            "recall": 0.8064516129032258,
+            "f1": 0.7352941176470589,
+            "tp": 25,
+            "fp": 12,
+            "fn": 6,
+            "support": 31
+          }
+        }
+      },
+      "legacy": {
+        "documents": 12,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 0.9238095238095239,
+          "recall": 0.9388690779419256,
+          "f1": 0.9312784234461849,
+          "tp": 1843,
+          "fp": 152,
+          "fn": 120,
+          "support": 1963
+        },
+        "exactSpanMacroF1": 0.925961560818283,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9152882205513785,
+          "recall": 0.9302088639836984,
+          "f1": 0.922688226376958,
+          "tp": 1826,
+          "fp": 169,
+          "fn": 137,
+          "support": 1963
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "string": {
+            "precision": 0.7291666666666666,
+            "recall": 0.8333333333333334,
+            "f1": 0.7777777777777778,
+            "tp": 35,
+            "fp": 13,
+            "fn": 7,
+            "support": 42
+          },
+          "punctuation": {
+            "precision": 0.9566074950690335,
+            "recall": 0.9797979797979798,
+            "f1": 0.9680638722554891,
+            "tp": 485,
+            "fp": 22,
+            "fn": 10,
+            "support": 495
+          },
+          "text": {
+            "precision": 0.9035916824196597,
+            "recall": 0.8835489833641405,
+            "f1": 0.8934579439252337,
+            "tp": 478,
+            "fp": 51,
+            "fn": 63,
+            "support": 541
+          },
+          "entity": {
+            "precision": 0.8968253968253969,
+            "recall": 0.9416666666666667,
+            "f1": 0.9186991869918699,
+            "tp": 113,
+            "fp": 13,
+            "fn": 7,
+            "support": 120
+          },
+          "heading": {
+            "precision": 0.8888888888888888,
+            "recall": 0.9504950495049505,
+            "f1": 0.9186602870813397,
+            "tp": 96,
+            "fp": 12,
+            "fn": 5,
+            "support": 101
+          },
+          "link": {
+            "precision": 0.927536231884058,
+            "recall": 0.9696969696969697,
+            "f1": 0.9481481481481482,
+            "tp": 64,
+            "fp": 5,
+            "fn": 2,
+            "support": 66
+          },
+          "link-destination": {
+            "precision": 0.9552238805970149,
+            "recall": 0.9411764705882353,
+            "f1": 0.9481481481481482,
+            "tp": 64,
+            "fp": 3,
+            "fn": 4,
+            "support": 68
+          },
+          "code": {
+            "precision": 0.9569230769230769,
+            "recall": 0.9510703363914373,
+            "f1": 0.9539877300613497,
+            "tp": 311,
+            "fp": 14,
+            "fn": 16,
+            "support": 327
+          },
+          "code-fence": {
+            "precision": 0.9902912621359223,
+            "recall": 1.0,
+            "f1": 0.9951219512195122,
+            "tp": 102,
+            "fp": 1,
+            "fn": 0,
+            "support": 102
+          },
+          "code-language": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 49,
+            "fp": 0,
+            "fn": 0,
+            "support": 49
+          },
+          "embedded-code": {
+            "precision": 0.7142857142857143,
+            "recall": 0.8823529411764706,
+            "f1": 0.7894736842105263,
+            "tp": 45,
+            "fp": 18,
+            "fn": 6,
+            "support": 51
+          }
+        }
+      }
+    }
+  }
+}

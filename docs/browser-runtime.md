@@ -760,15 +760,20 @@ and independent package checks.
   APIs, six preset/mode pairs, heading CSS overrides and nested modifier styles.
   No repository aliases, Python provider, parser, new server or port is used.
 - Playground adds a verified pinned Devicon icon, eight examples, source switching
-  and light/dark styles. Full `make check` passes **173** frontend tests and all
+  and light/dark styles. Full `make check` passes **175** frontend tests and all
   earlier language checks, including **14** new teacher checks against **48**
-  hand-marked Golden cases. All **69** prior weight files remain byte-identical.
+  hand-marked Golden cases. All **71** prior weight files remain preserved:
+  69 retain their paths and both v1 Markdown artifacts have dated archives.
 
-This is an **initial bounded Markdown baseline**. Natural test exact-span F1 is
-**77.24%** on 14 files; eight visible displays aggregate
-**87.05%**, and strict neural Golden agreement is
-**15/48**. Visible code-body/info predictions match **5/7**
-original top-level bodies. These base/region metrics do not establish complete
+The optimized Markdown model reaches **95.10%** exact-span F1 on **20 new
+independent real documents**. The unchanged 14-file exposed v1 regression improves
+from **77.24% to 95.99%** and is reported separately. Eight visible displays
+aggregate **95.65%**, strict neural Golden agreement is **21/48**, and visible
+code-body/info predictions match **7/7** original top-level bodies.
+The 894,227-parameter backbone is unchanged; an optional train-fitted joint
+BIO/role decoder consumes the same neural logits in browser and Python.
+Other packs retain their historical greedy decoder.
+These base/region metrics do not establish complete
 child semantic accuracy. [Evaluation](../packs/markdown/model/BENCHMARKS.md) and
 [known limits](../packs/markdown/model/KNOWN_ISSUES.md) preserve long prose,
 heading, nested-formatting and fenced-body errors. No further training follows

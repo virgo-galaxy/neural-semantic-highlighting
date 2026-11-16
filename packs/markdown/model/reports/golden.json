@@ -24,7 +24,7 @@
           "start": 0,
           "end": 3,
           "text": " \r\n",
-          "tokenType": "string",
+          "tokenType": "embedded-code",
           "modifiers": []
         }
       ]
@@ -43,41 +43,34 @@
       "profile": "markdown",
       "documentKind": "markdown",
       "source": "# Heading",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
-    },
-    {
-      "id": "heading-six",
-      "profile": "markdown",
-      "documentKind": "markdown",
-      "source": "###### Small heading",
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 0,
-          "end": 6,
-          "text": "######",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
-          "start": 7,
-          "end": 20,
-          "text": "Small heading",
+          "start": 2,
+          "end": 9,
+          "text": "Heading",
           "tokenType": "heading",
           "modifiers": []
         }
       ],
       "unexpected": [
         {
-          "start": 0,
-          "end": 20,
-          "text": "###### Small heading",
-          "tokenType": "punctuation",
+          "start": 2,
+          "end": 9,
+          "text": "Heading",
+          "tokenType": "code",
           "modifiers": []
         }
       ]
+    },
+    {
+      "id": "heading-six",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "###### Small heading",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "heading-closing",
@@ -92,21 +85,14 @@
           "text": "Heading",
           "tokenType": "heading",
           "modifiers": []
-        },
-        {
-          "start": 11,
-          "end": 13,
-          "text": "##",
-          "tokenType": "punctuation",
-          "modifiers": []
         }
       ],
       "unexpected": [
         {
           "start": 3,
-          "end": 13,
-          "text": "Heading ##",
-          "tokenType": "code",
+          "end": 11,
+          "text": "Heading ",
+          "tokenType": "heading",
           "modifiers": []
         }
       ]
@@ -170,7 +156,7 @@
           "start": 0,
           "end": 15,
           "text": "Heading\n-------",
-          "tokenType": "string",
+          "tokenType": "code",
           "modifiers": []
         }
       ]
@@ -252,9 +238,25 @@
       "unexpected": [
         {
           "start": 0,
-          "end": 8,
-          "text": "__bold__",
+          "end": 1,
+          "text": "_",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 7,
+          "text": "_bold_",
           "tokenType": "link",
+          "modifiers": [
+            "strong"
+          ]
+        },
+        {
+          "start": 7,
+          "end": 8,
+          "text": "_",
+          "tokenType": "punctuation",
           "modifiers": []
         }
       ]
@@ -297,13 +299,6 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 0,
-          "end": 1,
-          "text": "_",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
           "start": 1,
           "end": 5,
           "text": "soft",
@@ -322,11 +317,13 @@
       ],
       "unexpected": [
         {
-          "start": 0,
+          "start": 1,
           "end": 6,
-          "text": "_soft_",
-          "tokenType": "string",
-          "modifiers": []
+          "text": "soft_",
+          "tokenType": "link",
+          "modifiers": [
+            "strong"
+          ]
         }
       ]
     },
@@ -364,8 +361,15 @@
       "unexpected": [
         {
           "start": 0,
+          "end": 2,
+          "text": "~~",
+          "tokenType": "code-fence",
+          "modifiers": []
+        },
+        {
+          "start": 2,
           "end": 5,
-          "text": "~~old",
+          "text": "old",
           "tokenType": "code-language",
           "modifiers": []
         },
@@ -386,6 +390,16 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
+          "start": 8,
+          "end": 12,
+          "text": "both",
+          "tokenType": "text",
+          "modifiers": [
+            "strong",
+            "emphasis"
+          ]
+        },
+        {
           "start": 12,
           "end": 13,
           "text": "*",
@@ -401,6 +415,15 @@
         }
       ],
       "unexpected": [
+        {
+          "start": 8,
+          "end": 12,
+          "text": "both",
+          "tokenType": "text",
+          "modifiers": [
+            "strong"
+          ]
+        },
         {
           "start": 12,
           "end": 15,
@@ -440,27 +463,9 @@
       "profile": "markdown",
       "documentKind": "markdown",
       "source": "\\*literal\\*",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 2,
-          "end": 9,
-          "text": "literal",
-          "tokenType": "text",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 2,
-          "end": 9,
-          "text": "literal",
-          "tokenType": "entity",
-          "modifiers": [
-            "strong"
-          ]
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "entities",
@@ -521,7 +526,7 @@
           "start": 0,
           "end": 9,
           "text": "&unknown;",
-          "tokenType": "entity",
+          "tokenType": "embedded-code",
           "modifiers": []
         }
       ]
@@ -531,12 +536,21 @@
       "profile": "markdown",
       "documentKind": "markdown",
       "source": "`a < b`",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "double-backtick",
+      "profile": "markdown",
+      "documentKind": "markdown",
+      "source": "`` a ` b ``",
       "exactIncludingModifiers": false,
       "missing": [
         {
           "start": 0,
-          "end": 7,
-          "text": "`a < b`",
+          "end": 11,
+          "text": "`` a ` b ``",
           "tokenType": "code",
           "modifiers": []
         }
@@ -544,28 +558,14 @@
       "unexpected": [
         {
           "start": 0,
-          "end": 3,
-          "text": "`a ",
+          "end": 11,
+          "text": "`` a ` b ``",
           "tokenType": "code",
-          "modifiers": []
-        },
-        {
-          "start": 3,
-          "end": 7,
-          "text": "< b`",
-          "tokenType": "code",
-          "modifiers": []
+          "modifiers": [
+            "strong"
+          ]
         }
       ]
-    },
-    {
-      "id": "double-backtick",
-      "profile": "markdown",
-      "documentKind": "markdown",
-      "source": "`` a ` b ``",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
     },
     {
       "id": "link",
@@ -584,6 +584,13 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
+          "start": 13,
+          "end": 24,
+          "text": "\"Read docs\"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
           "start": 24,
           "end": 25,
           "text": ")",
@@ -593,9 +600,9 @@
       ],
       "unexpected": [
         {
-          "start": 24,
+          "start": 13,
           "end": 25,
-          "text": ")",
+          "text": "\"Read docs\")",
           "tokenType": "string",
           "modifiers": []
         }
@@ -606,46 +613,9 @@
       "profile": "markdown",
       "documentKind": "markdown",
       "source": "[docs](<https://example.test/a%20b>)",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 7,
-          "end": 35,
-          "text": "<https://example.test/a%20b>",
-          "tokenType": "link-destination",
-          "modifiers": []
-        },
-        {
-          "start": 35,
-          "end": 36,
-          "text": ")",
-          "tokenType": "punctuation",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 7,
-          "end": 8,
-          "text": "<",
-          "tokenType": "link-destination",
-          "modifiers": []
-        },
-        {
-          "start": 8,
-          "end": 35,
-          "text": "https://example.test/a%20b>",
-          "tokenType": "link-destination",
-          "modifiers": []
-        },
-        {
-          "start": 35,
-          "end": 36,
-          "text": ")",
-          "tokenType": "link-destination",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "autolink",
@@ -681,7 +651,7 @@
           "start": 0,
           "end": 22,
           "text": "<https://example.test>",
-          "tokenType": "link",
+          "tokenType": "string",
           "modifiers": []
         }
       ]
@@ -716,39 +686,9 @@
       "profile": "markdown",
       "documentKind": "markdown",
       "source": "![Preview](preview.svg)",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 0,
-          "end": 2,
-          "text": "![",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
-          "start": 22,
-          "end": 23,
-          "text": ")",
-          "tokenType": "punctuation",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 0,
-          "end": 2,
-          "text": "![",
-          "tokenType": "code-fence",
-          "modifiers": []
-        },
-        {
-          "start": 22,
-          "end": 23,
-          "text": ")",
-          "tokenType": "link-destination",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "reference",
@@ -758,54 +698,19 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 0,
-          "end": 1,
-          "text": "[",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
           "start": 8,
           "end": 13,
           "text": "/docs",
           "tokenType": "link-destination",
           "modifiers": []
-        },
-        {
-          "start": 15,
-          "end": 16,
-          "text": "[",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
-          "start": 16,
-          "end": 20,
-          "text": "docs",
-          "tokenType": "link",
-          "modifiers": []
         }
       ],
       "unexpected": [
-        {
-          "start": 0,
-          "end": 1,
-          "text": "[",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
         {
           "start": 8,
           "end": 13,
           "text": "/docs",
           "tokenType": "string",
-          "modifiers": []
-        },
-        {
-          "start": 15,
-          "end": 20,
-          "text": "[docs",
-          "tokenType": "link",
           "modifiers": []
         }
       ]
@@ -818,10 +723,10 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 19,
-          "end": 21,
-          "text": "][",
-          "tokenType": "punctuation",
+          "start": 7,
+          "end": 12,
+          "text": "/docs",
+          "tokenType": "link-destination",
           "modifiers": []
         },
         {
@@ -834,17 +739,10 @@
       ],
       "unexpected": [
         {
-          "start": 19,
-          "end": 20,
-          "text": "]",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
-          "start": 20,
-          "end": 21,
-          "text": "[",
-          "tokenType": "punctuation",
+          "start": 7,
+          "end": 12,
+          "text": "/docs",
+          "tokenType": "string",
           "modifiers": []
         },
         {
@@ -864,40 +762,19 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 0,
-          "end": 1,
-          "text": "-",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
           "start": 2,
           "end": 7,
           "text": "First",
-          "tokenType": "text",
-          "modifiers": []
-        },
-        {
-          "start": 8,
-          "end": 9,
-          "text": "-",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
-          "start": 10,
-          "end": 16,
-          "text": "Second",
           "tokenType": "text",
           "modifiers": []
         }
       ],
       "unexpected": [
         {
-          "start": 0,
-          "end": 16,
-          "text": "- First\n- Second",
-          "tokenType": "string",
+          "start": 2,
+          "end": 7,
+          "text": "First",
+          "tokenType": "heading",
           "modifiers": []
         }
       ]
@@ -910,47 +787,19 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 0,
-          "end": 2,
-          "text": "1.",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
           "start": 3,
           "end": 8,
           "text": "First",
-          "tokenType": "text",
-          "modifiers": []
-        },
-        {
-          "start": 12,
-          "end": 18,
-          "text": "Second",
           "tokenType": "text",
           "modifiers": []
         }
       ],
       "unexpected": [
         {
-          "start": 0,
-          "end": 2,
-          "text": "1.",
-          "tokenType": "heading",
-          "modifiers": []
-        },
-        {
           "start": 3,
           "end": 8,
           "text": "First",
           "tokenType": "heading",
-          "modifiers": []
-        },
-        {
-          "start": 12,
-          "end": 18,
-          "text": "Second",
-          "tokenType": "string",
           "modifiers": []
         }
       ]
@@ -989,20 +838,13 @@
           "start": 0,
           "end": 2,
           "text": "- ",
-          "tokenType": "link",
+          "tokenType": "code",
           "modifiers": []
         },
         {
           "start": 2,
-          "end": 5,
-          "text": "[x]",
-          "tokenType": "link",
-          "modifiers": []
-        },
-        {
-          "start": 6,
           "end": 10,
-          "text": "Done",
+          "text": "[x] Done",
           "tokenType": "link",
           "modifiers": []
         }
@@ -1016,13 +858,6 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 0,
-          "end": 1,
-          "text": "-",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
           "start": 6,
           "end": 13,
           "text": "Pending",
@@ -1031,13 +866,6 @@
         }
       ],
       "unexpected": [
-        {
-          "start": 0,
-          "end": 2,
-          "text": "- ",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
         {
           "start": 6,
           "end": 13,
@@ -1067,7 +895,7 @@
           "start": 1,
           "end": 15,
           "text": " Quoted source",
-          "tokenType": "link",
+          "tokenType": "text",
           "modifiers": []
         }
       ]
@@ -1095,78 +923,18 @@
       "profile": "markdown",
       "documentKind": "markdown",
       "source": "```\nordinary code\n```",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 4,
-          "end": 18,
-          "text": "ordinary code\n",
-          "tokenType": "embedded-code",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 4,
-          "end": 17,
-          "text": "ordinary code",
-          "tokenType": "embedded-code",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "unknown-fence",
       "profile": "markdown",
       "documentKind": "markdown",
       "source": "```unknown-language\noriginal text\n```",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 0,
-          "end": 3,
-          "text": "```",
-          "tokenType": "code-fence",
-          "modifiers": []
-        },
-        {
-          "start": 3,
-          "end": 19,
-          "text": "unknown-language",
-          "tokenType": "code-language",
-          "modifiers": []
-        },
-        {
-          "start": 34,
-          "end": 37,
-          "text": "```",
-          "tokenType": "code-fence",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 0,
-          "end": 19,
-          "text": "```unknown-language",
-          "tokenType": "code-language",
-          "modifiers": []
-        },
-        {
-          "start": 34,
-          "end": 35,
-          "text": "`",
-          "tokenType": "code-fence",
-          "modifiers": []
-        },
-        {
-          "start": 35,
-          "end": 37,
-          "text": "``",
-          "tokenType": "code-fence",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "empty-fence",
@@ -1246,6 +1014,13 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
+          "start": 0,
+          "end": 22,
+          "text": "---\ntitle: Preview\n---",
+          "tokenType": "code",
+          "modifiers": []
+        },
+        {
           "start": 24,
           "end": 25,
           "text": "#",
@@ -1261,6 +1036,13 @@
         }
       ],
       "unexpected": [
+        {
+          "start": 0,
+          "end": 23,
+          "text": "---\ntitle: Preview\n---\n",
+          "tokenType": "code",
+          "modifiers": []
+        },
         {
           "start": 24,
           "end": 31,
@@ -1284,64 +1066,41 @@
       "profile": "markdown",
       "documentKind": "markdown",
       "source": "\ufeff# \u661f\u7a7a \ud83c\udf0c\r\n\r\n\u539f\u6587 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 12,
-          "end": 22,
-          "text": "\u539f\u6587 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
-          "tokenType": "text",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 12,
-          "end": 14,
-          "text": "\u539f\u6587",
-          "tokenType": "text",
-          "modifiers": []
-        },
-        {
-          "start": 15,
-          "end": 22,
-          "text": "\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
-          "tokenType": "heading",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     }
   ],
   "profiles": {
     "markdown": {
       "documents": 48,
-      "exactDocumentsIncludingModifiers": 15,
+      "exactDocumentsIncludingModifiers": 21,
       "exactSpan": {
-        "precision": 0.635036496350365,
-        "recall": 0.5838926174496645,
-        "f1": 0.6083916083916084,
-        "tp": 87,
-        "fp": 50,
-        "fn": 62,
+        "precision": 0.7659574468085106,
+        "recall": 0.7248322147651006,
+        "f1": 0.7448275862068966,
+        "tp": 108,
+        "fp": 33,
+        "fn": 41,
         "support": 149
       },
-      "exactSpanMacroF1": 0.5740289909520679,
+      "exactSpanMacroF1": 0.6741769603432134,
       "exactSpanIncludingModifiers": {
-        "precision": 0.6277372262773723,
-        "recall": 0.5771812080536913,
-        "f1": 0.6013986013986014,
-        "tp": 86,
-        "fp": 51,
-        "fn": 63,
+        "precision": 0.7446808510638298,
+        "recall": 0.7046979865771812,
+        "f1": 0.7241379310344828,
+        "tp": 105,
+        "fp": 36,
+        "fn": 44,
         "support": 149
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.3333333333333333,
+          "precision": 1.0,
           "recall": 0.5,
-          "f1": 0.4,
+          "f1": 0.6666666666666666,
           "tp": 1,
-          "fp": 2,
+          "fp": 0,
           "fn": 1,
           "support": 2
         },
@@ -1355,38 +1114,38 @@
           "support": 1
         },
         "string": {
-          "precision": 0.2727272727272727,
-          "recall": 1.0,
-          "f1": 0.42857142857142855,
-          "tp": 3,
-          "fp": 8,
-          "fn": 0,
+          "precision": 0.2857142857142857,
+          "recall": 0.6666666666666666,
+          "f1": 0.4,
+          "tp": 2,
+          "fp": 5,
+          "fn": 1,
           "support": 3
         },
         "punctuation": {
-          "precision": 0.8947368421052632,
-          "recall": 0.5483870967741935,
-          "f1": 0.68,
-          "tp": 34,
-          "fp": 4,
-          "fn": 28,
+          "precision": 0.94,
+          "recall": 0.7580645161290323,
+          "f1": 0.8392857142857143,
+          "tp": 47,
+          "fp": 3,
+          "fn": 15,
           "support": 62
         },
         "text": {
-          "precision": 0.8571428571428571,
-          "recall": 0.3,
-          "f1": 0.4444444444444444,
-          "tp": 6,
+          "precision": 0.9090909090909091,
+          "recall": 0.5,
+          "f1": 0.6451612903225806,
+          "tp": 10,
           "fp": 1,
-          "fn": 14,
+          "fn": 10,
           "support": 20
         },
         "entity": {
-          "precision": 0.42857142857142855,
+          "precision": 0.6,
           "recall": 0.6,
-          "f1": 0.5,
+          "f1": 0.6,
           "tp": 3,
-          "fp": 4,
+          "fp": 2,
           "fn": 2,
           "support": 5
         },
@@ -1400,57 +1159,57 @@
           "support": 9
         },
         "link": {
-          "precision": 0.4117647058823529,
-          "recall": 0.7,
-          "f1": 0.5185185185185185,
-          "tp": 7,
-          "fp": 10,
-          "fn": 3,
+          "precision": 0.5714285714285714,
+          "recall": 0.8,
+          "f1": 0.6666666666666666,
+          "tp": 8,
+          "fp": 6,
+          "fn": 2,
           "support": 10
         },
         "link-destination": {
-          "precision": 0.4444444444444444,
+          "precision": 0.8,
           "recall": 0.5714285714285714,
-          "f1": 0.5,
+          "f1": 0.6666666666666666,
           "tp": 4,
-          "fp": 5,
+          "fp": 1,
           "fn": 3,
           "support": 7
         },
         "code": {
-          "precision": 0.42857142857142855,
+          "precision": 0.375,
           "recall": 0.6,
-          "f1": 0.5,
+          "f1": 0.46153846153846156,
           "tp": 3,
-          "fp": 4,
+          "fp": 5,
           "fn": 2,
           "support": 5
         },
         "code-fence": {
-          "precision": 0.7333333333333333,
-          "recall": 0.8461538461538461,
-          "f1": 0.7857142857142857,
-          "tp": 11,
-          "fp": 4,
-          "fn": 2,
+          "precision": 0.8666666666666667,
+          "recall": 1.0,
+          "f1": 0.9285714285714286,
+          "tp": 13,
+          "fp": 2,
+          "fn": 0,
           "support": 13
         },
         "code-language": {
-          "precision": 0.7142857142857143,
-          "recall": 0.8333333333333334,
-          "f1": 0.7692307692307693,
-          "tp": 5,
-          "fp": 2,
-          "fn": 1,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
           "support": 6
         },
         "embedded-code": {
-          "precision": 0.7142857142857143,
-          "recall": 0.8333333333333334,
-          "f1": 0.7692307692307693,
-          "tp": 5,
-          "fp": 2,
-          "fn": 1,
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 6,
+          "fp": 3,
+          "fn": 0,
           "support": 6
         }
       }
@@ -1459,33 +1218,33 @@
   "documentKinds": {
     "markdown": {
       "documents": 48,
-      "exactDocumentsIncludingModifiers": 15,
+      "exactDocumentsIncludingModifiers": 21,
       "exactSpan": {
-        "precision": 0.635036496350365,
-        "recall": 0.5838926174496645,
-        "f1": 0.6083916083916084,
-        "tp": 87,
-        "fp": 50,
-        "fn": 62,
+        "precision": 0.7659574468085106,
+        "recall": 0.7248322147651006,
+        "f1": 0.7448275862068966,
+        "tp": 108,
+        "fp": 33,
+        "fn": 41,
         "support": 149
       },
-      "exactSpanMacroF1": 0.5740289909520679,
+      "exactSpanMacroF1": 0.6741769603432134,
       "exactSpanIncludingModifiers": {
-        "precision": 0.6277372262773723,
-        "recall": 0.5771812080536913,
-        "f1": 0.6013986013986014,
-        "tp": 86,
-        "fp": 51,
-        "fn": 63,
+        "precision": 0.7446808510638298,
+        "recall": 0.7046979865771812,
+        "f1": 0.7241379310344828,
+        "tp": 105,
+        "fp": 36,
+        "fn": 44,
         "support": 149
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.3333333333333333,
+          "precision": 1.0,
           "recall": 0.5,
-          "f1": 0.4,
+          "f1": 0.6666666666666666,
           "tp": 1,
-          "fp": 2,
+          "fp": 0,
           "fn": 1,
           "support": 2
         },
@@ -1499,38 +1258,38 @@
           "support": 1
         },
         "string": {
-          "precision": 0.2727272727272727,
-          "recall": 1.0,
-          "f1": 0.42857142857142855,
-          "tp": 3,
-          "fp": 8,
-          "fn": 0,
+          "precision": 0.2857142857142857,
+          "recall": 0.6666666666666666,
+          "f1": 0.4,
+          "tp": 2,
+          "fp": 5,
+          "fn": 1,
           "support": 3
         },
         "punctuation": {
-          "precision": 0.8947368421052632,
-          "recall": 0.5483870967741935,
-          "f1": 0.68,
-          "tp": 34,
-          "fp": 4,
-          "fn": 28,
+          "precision": 0.94,
+          "recall": 0.7580645161290323,
+          "f1": 0.8392857142857143,
+          "tp": 47,
+          "fp": 3,
+          "fn": 15,
           "support": 62
         },
         "text": {
-          "precision": 0.8571428571428571,
-          "recall": 0.3,
-          "f1": 0.4444444444444444,
-          "tp": 6,
+          "precision": 0.9090909090909091,
+          "recall": 0.5,
+          "f1": 0.6451612903225806,
+          "tp": 10,
           "fp": 1,
-          "fn": 14,
+          "fn": 10,
           "support": 20
         },
         "entity": {
-          "precision": 0.42857142857142855,
+          "precision": 0.6,
           "recall": 0.6,
-          "f1": 0.5,
+          "f1": 0.6,
           "tp": 3,
-          "fp": 4,
+          "fp": 2,
           "fn": 2,
           "support": 5
         },
@@ -1544,63 +1303,63 @@
           "support": 9
         },
         "link": {
-          "precision": 0.4117647058823529,
-          "recall": 0.7,
-          "f1": 0.5185185185185185,
-          "tp": 7,
-          "fp": 10,
-          "fn": 3,
+          "precision": 0.5714285714285714,
+          "recall": 0.8,
+          "f1": 0.6666666666666666,
+          "tp": 8,
+          "fp": 6,
+          "fn": 2,
           "support": 10
         },
         "link-destination": {
-          "precision": 0.4444444444444444,
+          "precision": 0.8,
           "recall": 0.5714285714285714,
-          "f1": 0.5,
+          "f1": 0.6666666666666666,
           "tp": 4,
-          "fp": 5,
+          "fp": 1,
           "fn": 3,
           "support": 7
         },
         "code": {
-          "precision": 0.42857142857142855,
+          "precision": 0.375,
           "recall": 0.6,
-          "f1": 0.5,
+          "f1": 0.46153846153846156,
           "tp": 3,
-          "fp": 4,
+          "fp": 5,
           "fn": 2,
           "support": 5
         },
         "code-fence": {
-          "precision": 0.7333333333333333,
-          "recall": 0.8461538461538461,
-          "f1": 0.7857142857142857,
-          "tp": 11,
-          "fp": 4,
-          "fn": 2,
+          "precision": 0.8666666666666667,
+          "recall": 1.0,
+          "f1": 0.9285714285714286,
+          "tp": 13,
+          "fp": 2,
+          "fn": 0,
           "support": 13
         },
         "code-language": {
-          "precision": 0.7142857142857143,
-          "recall": 0.8333333333333334,
-          "f1": 0.7692307692307693,
-          "tp": 5,
-          "fp": 2,
-          "fn": 1,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
           "support": 6
         },
         "embedded-code": {
-          "precision": 0.7142857142857143,
-          "recall": 0.8333333333333334,
-          "f1": 0.7692307692307693,
-          "tp": 5,
-          "fp": 2,
-          "fn": 1,
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 6,
+          "fp": 3,
+          "fn": 0,
           "support": 6
         }
       }
     }
   },
-  "checkpointHash": "a242673a7a0f39619fca26c2232806854e05d1f40bb98f5cc30d17b619624ce1",
-  "checkpointEpoch": 5,
-  "device": "mps"
+  "checkpointHash": "6b6d7d4447172dc9c7aeafebe4ee08b1b89d16b4685cbc8635410d3a8b264401",
+  "checkpointEpoch": 3,
+  "device": "cpu"
 }

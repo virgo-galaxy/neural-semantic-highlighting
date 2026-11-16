@@ -752,7 +752,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [.env](packs/dotenv/model/README.md)                        | Common .env/.env.* dotenv configuration, variable declarations, export, plain/single/double/backtick and multiline string values, hash comments, empty values and opaque references | [98.25%](packs/dotenv/model/BENCHMARKS.md) — natural test, 3 files                                                                             | Browser + local; [measured scalar/structure roles and boundaries](packs/dotenv/model/KNOWN_ISSUES.md) remain limited                                 |
 | [XML](packs/xml/model/README.md)                            | .xml, .xsd, .xsl/.xslt, .plist, .csproj/.props/.targets; XML 1.0 source                                                                                                             | [85.87%](packs/xml/model/BENCHMARKS.md) — natural test, 7 files                                                                                | Browser + local; one shared XML/SVG model; [CDATA/long boundaries and embedded-source limits](packs/xml/model/KNOWN_ISSUES.md)                       |
 | [SVG](packs/xml/model/README.md)                            | .svg; paths, shapes, groups, gradients, filters, animation and accessible text; XML 1.0 source                                                                                      | [100.00%](packs/xml/model/BENCHMARKS.md) — natural test, 6 files                                                                               | Browser + local; one shared XML/SVG model; [CDATA/long boundaries and embedded-source limits](packs/xml/model/KNOWN_ISSUES.md)                       |
-| [Markdown](packs/markdown/model/README.md)                  | Markdown/GFM source, headings, lists/tasks, tables, links/references, nested emphasis, code, opaque HTML/front matter and predicted top-level fenced regions                        | [77.24%](packs/markdown/model/BENCHMARKS.md) — natural test, 14 files                                                                          | Initial browser/local baseline; [long prose, modifiers and fenced bodies](packs/markdown/model/KNOWN_ISSUES.md) remain weaker                        |
+| [Markdown](packs/markdown/model/README.md)                  | Markdown/GFM source, headings, lists/tasks, tables, links/references, nested emphasis, code, opaque HTML/front matter and predicted top-level fenced regions                        | [95.10%](packs/markdown/model/BENCHMARKS.md) — new independent natural test, 20 files                                                          | Optimized browser/local model; [strict edge cases and long fenced bodies](packs/markdown/model/KNOWN_ISSUES.md) remain weaker                        |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -989,6 +989,14 @@ The result displays escaped Markdown source. Headings/links/code use shared
 `--nsh-strong-font-weight`, `--nsh-emphasis-font-style` and
 `--nsh-strikethrough-text-decoration`. All three presets and light/dark modes
 include these roles. Code-fence child spans retain their own language colors.
+The optimized Markdown model reaches **95.10% exact-span F1 on 20 new independent
+real documents**. The same 14-file v1 regression improves from **77.24% to 95.99%**.
+The 894,227-parameter backbone and semantic contract are unchanged; a train-fitted
+joint decoder improves boundary/role consistency in both browser and Python.
+All seven visible top-level code-body/info ranges now match. Strict edge cases
+and some long fenced bodies remain weaker; detailed per-role results and the
+complete previous model bundles are retained in the evaluation links above.
+
 Base Markdown F1 measures source-role/region predictions; it does not establish
 complete accuracy for composed code. See the recorded limits before relying on
 long prose/fence boundaries. MDX remains a separate unsupported format.

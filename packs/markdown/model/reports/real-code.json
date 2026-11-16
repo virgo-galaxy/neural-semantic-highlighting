@@ -1,7 +1,7 @@
 {
-  "checkpointHash": "a242673a7a0f39619fca26c2232806854e05d1f40bb98f5cc30d17b619624ce1",
+  "checkpointHash": "6b6d7d4447172dc9c7aeafebe4ee08b1b89d16b4685cbc8635410d3a8b264401",
   "split": "validation",
-  "purpose": "Inspected actual natural validation sources, not test selection",
+  "purpose": "Actual natural validation review before freeze; no test selection",
   "cases": [
     {
       "repository": "tanstack-query-markdown-v1",
@@ -12,22 +12,22 @@
         "documents": 1,
         "exactDocumentsIncludingModifiers": 0,
         "exactSpan": {
-          "precision": 0.5733333333333334,
-          "recall": 0.5512820512820513,
-          "f1": 0.5620915032679739,
-          "tp": 172,
-          "fp": 128,
-          "fn": 140,
+          "precision": 0.890282131661442,
+          "recall": 0.9102564102564102,
+          "f1": 0.9001584786053882,
+          "tp": 284,
+          "fp": 35,
+          "fn": 28,
           "support": 312
         },
-        "exactSpanMacroF1": 0.6608591196957653,
+        "exactSpanMacroF1": 0.8285230085673544,
         "exactSpanIncludingModifiers": {
-          "precision": 0.5333333333333333,
-          "recall": 0.5128205128205128,
-          "f1": 0.5228758169934641,
-          "tp": 160,
-          "fp": 140,
-          "fn": 152,
+          "precision": 0.8463949843260188,
+          "recall": 0.8653846153846154,
+          "f1": 0.8557844690966719,
+          "tp": 270,
+          "fp": 49,
+          "fn": 42,
           "support": 312
         },
         "byTokenType": {
@@ -54,52 +54,52 @@
             "recall": 0.0,
             "f1": 0.0,
             "tp": 0,
-            "fp": 3,
+            "fp": 1,
             "fn": 0,
             "support": 0
           },
           "punctuation": {
-            "precision": 0.9333333333333333,
-            "recall": 0.6829268292682927,
-            "f1": 0.7887323943661971,
-            "tp": 28,
-            "fp": 2,
-            "fn": 13,
+            "precision": 0.975,
+            "recall": 0.9512195121951219,
+            "f1": 0.9629629629629629,
+            "tp": 39,
+            "fp": 1,
+            "fn": 2,
             "support": 41
           },
           "text": {
-            "precision": 0.6229508196721312,
-            "recall": 0.4470588235294118,
-            "f1": 0.5205479452054794,
-            "tp": 38,
-            "fp": 23,
-            "fn": 47,
+            "precision": 0.8192771084337349,
+            "recall": 0.8,
+            "f1": 0.8095238095238095,
+            "tp": 68,
+            "fp": 15,
+            "fn": 17,
             "support": 85
           },
           "entity": {
-            "precision": 0.5555555555555556,
-            "recall": 0.4166666666666667,
-            "f1": 0.47619047619047616,
-            "tp": 40,
-            "fp": 32,
-            "fn": 56,
+            "precision": 0.8725490196078431,
+            "recall": 0.9270833333333334,
+            "f1": 0.898989898989899,
+            "tp": 89,
+            "fp": 13,
+            "fn": 7,
             "support": 96
           },
           "heading": {
-            "precision": 0.6,
-            "recall": 0.75,
-            "f1": 0.6666666666666666,
-            "tp": 6,
-            "fp": 4,
-            "fn": 2,
-            "support": 8
-          },
-          "link": {
             "precision": 1.0,
             "recall": 1.0,
             "f1": 1.0,
-            "tp": 2,
+            "tp": 8,
             "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "link": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "tp": 2,
+            "fp": 1,
             "fn": 0,
             "support": 2
           },
@@ -113,20 +113,20 @@
             "support": 3
           },
           "code": {
-            "precision": 0.41414141414141414,
-            "recall": 0.6721311475409836,
-            "f1": 0.5125,
-            "tp": 41,
-            "fp": 58,
-            "fn": 20,
+            "precision": 0.967741935483871,
+            "recall": 0.9836065573770492,
+            "f1": 0.975609756097561,
+            "tp": 60,
+            "fp": 2,
+            "fn": 1,
             "support": 61
           },
           "code-fence": {
-            "precision": 0.8888888888888888,
+            "precision": 1.0,
             "recall": 1.0,
-            "f1": 0.9411764705882353,
+            "f1": 1.0,
             "tp": 8,
-            "fp": 1,
+            "fp": 0,
             "fn": 0,
             "support": 8
           },
@@ -140,24 +140,17 @@
             "support": 4
           },
           "embedded-code": {
-            "precision": 0.2857142857142857,
-            "recall": 0.5,
-            "f1": 0.36363636363636365,
-            "tp": 2,
-            "fp": 5,
-            "fn": 2,
+            "precision": 0.6,
+            "recall": 0.75,
+            "f1": 0.6666666666666666,
+            "tp": 3,
+            "fp": 2,
+            "fn": 1,
             "support": 4
           }
         }
       },
       "missing": [
-        {
-          "start": 496,
-          "end": 501,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`ref`"
-        },
         {
           "start": 501,
           "end": 682,
@@ -167,20 +160,6 @@
           "excerptTruncated": true
         },
         {
-          "start": 921,
-          "end": 1081,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " option can be used to combine the results of the queries into a single value. The result will\nbe structurally shared to be as referentially stable as possible."
-        },
-        {
-          "start": 1274,
-          "end": 1289,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "Type Parameters"
-        },
-        {
           "start": 1303,
           "end": 1310,
           "tokenType": "text",
@@ -188,34 +167,6 @@
             "emphasis"
           ],
           "text": "extends"
-        },
-        {
-          "start": 1317,
-          "end": 1319,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "[]"
-        },
-        {
-          "start": 1342,
-          "end": 1359,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`TCombinedResult`"
-        },
-        {
-          "start": 1359,
-          "end": 1362,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " = "
-        },
-        {
-          "start": 1366,
-          "end": 1367,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "*"
         },
         {
           "start": 1367,
@@ -227,43 +178,8 @@
           "text": "extends"
         },
         {
-          "start": 1374,
-          "end": 1375,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "*"
-        },
-        {
-          "start": 1380,
-          "end": 1383,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " ? "
-        },
-        {
-          "start": 1385,
-          "end": 1387,
-          "tokenType": "entity",
-          "modifiers": [],
-          "text": "\\]"
-        },
-        {
-          "start": 1387,
-          "end": 1390,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " : "
-        },
-        {
-          "start": 1394,
-          "end": 1395,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "*"
-        },
-        {
-          "start": 1395,
-          "end": 1402,
+          "start": 1458,
+          "end": 1465,
           "tokenType": "text",
           "modifiers": [
             "emphasis"
@@ -271,153 +187,216 @@
           "text": "extends"
         },
         {
-          "start": 1402,
-          "end": 1403,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "*"
+          "start": 1512,
+          "end": 1519,
+          "tokenType": "text",
+          "modifiers": [
+            "emphasis"
+          ],
+          "text": "extends"
         },
         {
-          "start": 1414,
-          "end": 1417,
+          "start": 1553,
+          "end": 1560,
+          "tokenType": "text",
+          "modifiers": [
+            "emphasis"
+          ],
+          "text": "extends"
+        },
+        {
+          "start": 1572,
+          "end": 1575,
           "tokenType": "text",
           "modifiers": [],
           "text": " ? "
         },
         {
-          "start": 1438,
-          "end": 1440,
-          "tokenType": "entity",
-          "modifiers": [],
-          "text": "\\<"
-        },
-        {
-          "start": 1440,
-          "end": 1446,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`Head`"
-        },
-        {
-          "start": 1446,
-          "end": 1448,
-          "tokenType": "entity",
-          "modifiers": [],
-          "text": "\\>"
-        },
-        {
-          "start": 1448,
-          "end": 1450,
-          "tokenType": "entity",
-          "modifiers": [],
-          "text": "\\]"
-        },
-        {
-          "start": 1450,
-          "end": 1453,
+          "start": 1639,
+          "end": 1642,
           "tokenType": "text",
           "modifiers": [],
           "text": " : "
         },
         {
-          "start": 1457,
-          "end": 1458,
+          "start": 1693,
+          "end": 1696,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " ? "
+        },
+        {
+          "start": 1713,
+          "end": 1714,
           "tokenType": "punctuation",
           "modifiers": [],
           "text": "*"
+        },
+        {
+          "start": 1714,
+          "end": 1721,
+          "tokenType": "text",
+          "modifiers": [
+            "emphasis"
+          ],
+          "text": "extends"
+        },
+        {
+          "start": 1727,
+          "end": 1730,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " ? "
+        },
+        {
+          "start": 1755,
+          "end": 1762,
+          "tokenType": "text",
+          "modifiers": [
+            "emphasis"
+          ],
+          "text": "extends"
+        },
+        {
+          "start": 1774,
+          "end": 1777,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " ? "
+        },
+        {
+          "start": 1872,
+          "end": 1875,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " : "
+        },
+        {
+          "start": 1892,
+          "end": 1893,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "*"
+        },
+        {
+          "start": 1893,
+          "end": 1900,
+          "tokenType": "text",
+          "modifiers": [
+            "emphasis"
+          ],
+          "text": "extends"
+        },
+        {
+          "start": 1947,
+          "end": 1954,
+          "tokenType": "text",
+          "modifiers": [
+            "emphasis"
+          ],
+          "text": "extends"
+        },
+        {
+          "start": 1960,
+          "end": 1963,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " ? "
+        },
+        {
+          "start": 1967,
+          "end": 1974,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " : ... "
+        },
+        {
+          "start": 1975,
+          "end": 1982,
+          "tokenType": "text",
+          "modifiers": [
+            "emphasis"
+          ],
+          "text": "extends"
+        },
+        {
+          "start": 2002,
+          "end": 2004,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "\\["
+        },
+        {
+          "start": 2004,
+          "end": 2034,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`...{ [K in (...)]: (...) }[]`"
+        },
+        {
+          "start": 2044,
+          "end": 2046,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "\\{"
         }
       ],
       "unexpected": [
         {
-          "start": 496,
+          "start": 501,
           "end": 510,
-          "tokenType": "code",
+          "tokenType": "link",
           "modifiers": [],
-          "text": "`ref`/reactive"
+          "text": "/reactive"
         },
         {
-          "start": 511,
+          "start": 510,
           "end": 682,
           "tokenType": "text",
           "modifiers": [],
-          "textExcerpt": "array (each entry tracked individually), or a getter function — pass a getter\nif the array itself (its length, or which queries are in it) depends on other reac",
+          "textExcerpt": " array (each entry tracked individually), or a getter function — pass a getter\nif the array itself (its length, or which queries are in it) depends on other rea",
           "excerptTruncated": true
-        },
-        {
-          "start": 921,
-          "end": 1015,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " option can be used to combine the results of the queries into a single value. The result will"
-        },
-        {
-          "start": 1016,
-          "end": 1020,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "be s"
-        },
-        {
-          "start": 1020,
-          "end": 1081,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "tructurally shared to be as referentially stable as possible."
-        },
-        {
-          "start": 1274,
-          "end": 1279,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "Type "
-        },
-        {
-          "start": 1279,
-          "end": 1289,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "Parameters"
         },
         {
           "start": 1303,
           "end": 1310,
           "tokenType": "text",
           "modifiers": [
-            "strong"
+            "strong",
+            "emphasis"
           ],
           "text": "extends"
         },
         {
-          "start": 1317,
-          "end": 1319,
-          "tokenType": "code-fence",
-          "modifiers": [],
-          "text": "[]"
+          "start": 1367,
+          "end": 1374,
+          "tokenType": "text",
+          "modifiers": [
+            "strong",
+            "emphasis"
+          ],
+          "text": "extends"
         },
         {
-          "start": 1342,
-          "end": 1362,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`TCombinedResult` = "
+          "start": 1458,
+          "end": 1465,
+          "tokenType": "text",
+          "modifiers": [
+            "strong",
+            "emphasis"
+          ],
+          "text": "extends"
         },
         {
-          "start": 1365,
-          "end": 1366,
-          "tokenType": "code",
+          "start": 1510,
+          "end": 1511,
+          "tokenType": "text",
           "modifiers": [],
           "text": " "
         },
         {
-          "start": 1366,
-          "end": 1367,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "*"
-        },
-        {
-          "start": 1367,
-          "end": 1374,
+          "start": 1512,
+          "end": 1519,
           "tokenType": "text",
           "modifiers": [
             "strong"
@@ -425,83 +404,1109 @@
           "text": "extends"
         },
         {
-          "start": 1374,
-          "end": 1375,
+          "start": 1520,
+          "end": 1521,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 1553,
+          "end": 1560,
+          "tokenType": "text",
+          "modifiers": [
+            "strong"
+          ],
+          "text": "extends"
+        },
+        {
+          "start": 1572,
+          "end": 1574,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " ?"
+        },
+        {
+          "start": 1640,
+          "end": 1641,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1694,
+          "end": 1695,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "?"
+        },
+        {
+          "start": 1712,
+          "end": 1714,
           "tokenType": "entity",
-          "modifiers": [],
-          "text": "*"
-        },
-        {
-          "start": 1381,
-          "end": 1383,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "? "
-        },
-        {
-          "start": 1385,
-          "end": 1390,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "\\] : "
-        },
-        {
-          "start": 1393,
-          "end": 1395,
-          "tokenType": "code",
           "modifiers": [],
           "text": " *"
         },
         {
-          "start": 1395,
-          "end": 1402,
+          "start": 1714,
+          "end": 1721,
+          "tokenType": "text",
+          "modifiers": [
+            "strong"
+          ],
+          "text": "extends"
+        },
+        {
+          "start": 1727,
+          "end": 1728,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 1728,
+          "end": 1730,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "? "
+        },
+        {
+          "start": 1753,
+          "end": 1754,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 1755,
+          "end": 1762,
           "tokenType": "text",
           "modifiers": [],
           "text": "extends"
         },
         {
-          "start": 1402,
-          "end": 1403,
-          "tokenType": "entity",
-          "modifiers": [],
-          "text": "*"
-        },
-        {
-          "start": 1403,
-          "end": 1404,
+          "start": 1775,
+          "end": 1776,
           "tokenType": "text",
-          "modifiers": [],
-          "text": " "
-        },
-        {
-          "start": 1415,
-          "end": 1416,
-          "tokenType": "code",
           "modifiers": [],
           "text": "?"
         },
         {
-          "start": 1438,
-          "end": 1446,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "\\<`Head`"
-        },
-        {
-          "start": 1446,
-          "end": 1453,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "\\>\\] : "
-        },
-        {
-          "start": 1456,
-          "end": 1457,
+          "start": 1873,
+          "end": 1874,
           "tokenType": "text",
           "modifiers": [],
-          "text": " "
+          "text": ":"
+        },
+        {
+          "start": 1891,
+          "end": 1893,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": " *"
+        },
+        {
+          "start": 1893,
+          "end": 1900,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "extends"
+        },
+        {
+          "start": 1947,
+          "end": 1954,
+          "tokenType": "text",
+          "modifiers": [
+            "strong",
+            "emphasis"
+          ],
+          "text": "extends"
+        },
+        {
+          "start": 1960,
+          "end": 1963,
+          "tokenType": "text",
+          "modifiers": [
+            "strong"
+          ],
+          "text": " ? "
         }
       ]
+    },
+    {
+      "repository": "ant-design-markdown-v1",
+      "path": "components/config-provider/index.zh-CN.md",
+      "sourceGroup": "ant-design-markdown-v1:components/config-provider",
+      "contentHash": "1512b43ddf5ebfcb0631d93b9e3ed0a2d5c3794ccf9215c86fd180c836bb42ff",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9188069594034797,
+          "recall": 0.918046357615894,
+          "f1": 0.9184265010351967,
+          "tp": 1109,
+          "fp": 98,
+          "fn": 99,
+          "support": 1208
+        },
+        "exactSpanMacroF1": 0.8914064861344011,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9188069594034797,
+          "recall": 0.918046357615894,
+          "f1": 0.9184265010351967,
+          "tp": 1109,
+          "fp": 98,
+          "fn": 99,
+          "support": 1208
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "string": {
+            "precision": 0.8,
+            "recall": 0.8333333333333334,
+            "f1": 0.8163265306122449,
+            "tp": 20,
+            "fp": 5,
+            "fn": 4,
+            "support": 24
+          },
+          "punctuation": {
+            "precision": 0.9542857142857143,
+            "recall": 0.9728155339805825,
+            "f1": 0.9634615384615385,
+            "tp": 501,
+            "fp": 24,
+            "fn": 14,
+            "support": 515
+          },
+          "text": {
+            "precision": 0.9423076923076923,
+            "recall": 0.8249158249158249,
+            "f1": 0.8797127468581688,
+            "tp": 245,
+            "fp": 15,
+            "fn": 52,
+            "support": 297
+          },
+          "entity": {
+            "precision": 0.8125,
+            "recall": 1.0,
+            "f1": 0.896551724137931,
+            "tp": 13,
+            "fp": 3,
+            "fn": 0,
+            "support": 13
+          },
+          "heading": {
+            "precision": 0.8787878787878788,
+            "recall": 0.8285714285714286,
+            "f1": 0.8529411764705882,
+            "tp": 29,
+            "fp": 4,
+            "fn": 6,
+            "support": 35
+          },
+          "link": {
+            "precision": 0.7927927927927928,
+            "recall": 0.9887640449438202,
+            "f1": 0.88,
+            "tp": 88,
+            "fp": 23,
+            "fn": 1,
+            "support": 89
+          },
+          "link-destination": {
+            "precision": 0.9887640449438202,
+            "recall": 1.0,
+            "f1": 0.9943502824858758,
+            "tp": 88,
+            "fp": 1,
+            "fn": 0,
+            "support": 88
+          },
+          "code": {
+            "precision": 0.8524590163934426,
+            "recall": 0.832,
+            "f1": 0.8421052631578947,
+            "tp": 104,
+            "fp": 18,
+            "fn": 21,
+            "support": 125
+          },
+          "code-fence": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "code-language": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "embedded-code": {
+            "precision": 0.4444444444444444,
+            "recall": 0.8,
+            "f1": 0.5714285714285714,
+            "tp": 4,
+            "fp": 5,
+            "fn": 1,
+            "support": 5
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 1214,
+          "end": 1221,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "</code>"
+        },
+        {
+          "start": 1582,
+          "end": 1586,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|  |"
+        },
+        {
+          "start": 1678,
+          "end": 1681,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " 配置"
+        },
+        {
+          "start": 1706,
+          "end": 1710,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|  |"
+        },
+        {
+          "start": 1725,
+          "end": 1735,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "设置文本展示方向。 "
+        },
+        {
+          "start": 1798,
+          "end": 1802,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|  |"
+        },
+        {
+          "start": 1876,
+          "end": 1930,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`(trigger?: HTMLElement) => HTMLElement \\| ShadowRoot`"
+        },
+        {
+          "start": 1953,
+          "end": 1957,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|  |"
+        },
+        {
+          "start": 2007,
+          "end": 2050,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`() => HTMLElement \\| Window \\| ShadowRoot`"
+        },
+        {
+          "start": 2225,
+          "end": 2229,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|  |"
+        },
+        {
+          "start": 2319,
+          "end": 2327,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "boolean "
+        },
+        {
+          "start": 2329,
+          "end": 2336,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " number"
+        },
+        {
+          "start": 2407,
+          "end": 2408,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 2409,
+          "end": 2420,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "'viewport' "
+        },
+        {
+          "start": 2432,
+          "end": 2561,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "<InlinePopover previewURL=\"https://user-images.githubusercontent.com/5378891/230344474-5b9f7e09-0a5d-49e8-bae8-7d2abed6c837.png\">"
+        },
+        {
+          "start": 2561,
+          "end": 2577,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "</InlinePopover>"
+        },
+        {
+          "start": 2641,
+          "end": 2645,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|  |"
+        },
+        {
+          "start": 2662,
+          "end": 2674,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "自定义组件空状态。参考 "
+        },
+        {
+          "start": 2704,
+          "end": 2746,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "function(componentName: string): ReactNode"
+        },
+        {
+          "start": 2751,
+          "end": 2755,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|  |"
+        },
+        {
+          "start": 3208,
+          "end": 3209,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "-"
+        },
+        {
+          "start": 3295,
+          "end": 3302,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "boolean"
+        },
+        {
+          "start": 3305,
+          "end": 3306,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "-"
+        },
+        {
+          "start": 3309,
+          "end": 3310,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "-"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 1214,
+          "end": 1222,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "</code>\n"
+        },
+        {
+          "start": 1582,
+          "end": 1583,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 1585,
+          "end": 1586,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 1679,
+          "end": 1681,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "配置"
+        },
+        {
+          "start": 1706,
+          "end": 1707,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 1709,
+          "end": 1710,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 1725,
+          "end": 1734,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "设置文本展示方向。"
+        },
+        {
+          "start": 1798,
+          "end": 1799,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 1801,
+          "end": 1802,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 1876,
+          "end": 1903,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`(trigger?: HTMLElement) =>"
+        },
+        {
+          "start": 1903,
+          "end": 1916,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " HTMLElement "
+        },
+        {
+          "start": 1916,
+          "end": 1918,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "\\|"
+        },
+        {
+          "start": 1918,
+          "end": 1930,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": " ShadowRoot`"
+        },
+        {
+          "start": 1953,
+          "end": 1954,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 1956,
+          "end": 1957,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 2007,
+          "end": 2014,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`() => "
+        },
+        {
+          "start": 2014,
+          "end": 2026,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "HTMLElement "
+        },
+        {
+          "start": 2026,
+          "end": 2028,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "\\|"
+        },
+        {
+          "start": 2028,
+          "end": 2036,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " Window "
+        },
+        {
+          "start": 2036,
+          "end": 2038,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "\\|"
+        },
+        {
+          "start": 2038,
+          "end": 2050,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " ShadowRoot`"
+        },
+        {
+          "start": 2225,
+          "end": 2226,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 2228,
+          "end": 2229,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 2319,
+          "end": 2326,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "boolean"
+        }
+      ]
+    },
+    {
+      "repository": "vite-markdown-v1",
+      "path": "packages/vite/README.md",
+      "sourceGroup": "vite-markdown-v1:packages/vite",
+      "contentHash": "01cebf4365cd21396688c4dcb0dc8d360ccbafb3a36735d3849c5d8efd3cd060",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9452054794520548,
+          "recall": 0.9857142857142858,
+          "f1": 0.965034965034965,
+          "tp": 69,
+          "fp": 4,
+          "fn": 1,
+          "support": 70
+        },
+        "exactSpanMacroF1": 0.844083452779105,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9452054794520548,
+          "recall": 0.9857142857142858,
+          "f1": 0.965034965034965,
+          "tp": 69,
+          "fp": 4,
+          "fn": 1,
+          "support": 70
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 0.9714285714285714,
+            "recall": 1.0,
+            "f1": 0.9855072463768116,
+            "tp": 34,
+            "fp": 1,
+            "fn": 0,
+            "support": 34
+          },
+          "text": {
+            "precision": 0.9,
+            "recall": 0.9473684210526315,
+            "f1": 0.9230769230769231,
+            "tp": 18,
+            "fp": 2,
+            "fn": 1,
+            "support": 19
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "link": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "link-destination": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "code": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "code-fence": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code-language": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 311,
+          "end": 462,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": ", like \"veet\") is a build tool that aims to provide a faster and leaner development experience for modern web projects. It consists of two major parts:"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 311,
+          "end": 318,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": ", like "
+        },
+        {
+          "start": 318,
+          "end": 324,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"veet\""
+        },
+        {
+          "start": 324,
+          "end": 325,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 325,
+          "end": 462,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " is a build tool that aims to provide a faster and leaner development experience for modern web projects. It consists of two major parts:"
+        }
+      ]
+    },
+    {
+      "repository": "typescript-markdown-v1",
+      "path": "packages/vscode-typescript-nightly/README.md",
+      "sourceGroup": "typescript-markdown-v1:packages/vscode-typescript-nightly",
+      "contentHash": "c7f8abed70e5516309a3b7d4ad72a34482ca9fca6135f53af77f5d6555bb3d01",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 35,
+          "fp": 0,
+          "fn": 0,
+          "support": 35
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 35,
+          "fp": 0,
+          "fn": 0,
+          "support": 35
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 14,
+            "fp": 0,
+            "fn": 0,
+            "support": 14
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "link": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "link-destination": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "code-fence": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code-language": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "embedded-code": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "repository": "tanstack-query-markdown-v1",
+      "path": "docs/framework/vue/reference/type-aliases/UseQueryReturnType.md",
+      "sourceGroup": "tanstack-query-markdown-v1:docs/framework/vue/reference",
+      "contentHash": "bdba2a5afa951c2ed118096d03d8ac2bd1cb8d3768c297fe74a56915a3bc2457",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 19,
+          "fp": 0,
+          "fn": 0,
+          "support": 19
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 19,
+          "fp": 0,
+          "fn": 0,
+          "support": 19
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "link": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "link-destination": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "code": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "code-fence": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "code-language": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "embedded-code": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
     },
     {
       "repository": "ant-design-markdown-v1",
@@ -512,22 +1517,22 @@
         "documents": 1,
         "exactDocumentsIncludingModifiers": 0,
         "exactSpan": {
-          "precision": 0.8362068965517241,
-          "recall": 0.8818181818181818,
-          "f1": 0.8584070796460177,
-          "tp": 97,
-          "fp": 19,
-          "fn": 13,
+          "precision": 0.9464285714285714,
+          "recall": 0.9636363636363636,
+          "f1": 0.954954954954955,
+          "tp": 106,
+          "fp": 6,
+          "fn": 4,
           "support": 110
         },
-        "exactSpanMacroF1": 0.9007396988047873,
+        "exactSpanMacroF1": 0.9404761904761905,
         "exactSpanIncludingModifiers": {
-          "precision": 0.8362068965517241,
-          "recall": 0.8818181818181818,
-          "f1": 0.8584070796460177,
-          "tp": 97,
-          "fp": 19,
-          "fn": 13,
+          "precision": 0.9464285714285714,
+          "recall": 0.9636363636363636,
+          "f1": 0.954954954954955,
+          "tp": 106,
+          "fp": 6,
+          "fn": 4,
           "support": 110
         },
         "byTokenType": {
@@ -550,30 +1555,30 @@
             "support": 0
           },
           "string": {
-            "precision": 0.5833333333333334,
+            "precision": 0.5384615384615384,
             "recall": 0.6363636363636364,
-            "f1": 0.6086956521739131,
+            "f1": 0.5833333333333334,
             "tp": 7,
-            "fp": 5,
+            "fp": 6,
             "fn": 4,
             "support": 11
           },
           "punctuation": {
-            "precision": 0.9166666666666666,
+            "precision": 1.0,
             "recall": 1.0,
-            "f1": 0.9565217391304348,
+            "f1": 1.0,
             "tp": 11,
-            "fp": 1,
+            "fp": 0,
             "fn": 0,
             "support": 11
           },
           "text": {
-            "precision": 0.82,
-            "recall": 0.8541666666666666,
-            "f1": 0.8367346938775511,
-            "tp": 41,
-            "fp": 9,
-            "fn": 7,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 48,
+            "fp": 0,
+            "fn": 0,
             "support": 48
           },
           "entity": {
@@ -613,12 +1618,12 @@
             "support": 1
           },
           "code": {
-            "precision": 0.875,
-            "recall": 0.9333333333333333,
-            "f1": 0.9032258064516129,
-            "tp": 28,
-            "fp": 4,
-            "fn": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 30,
+            "fp": 0,
+            "fn": 0,
             "support": 30
           },
           "code-fence": {
@@ -652,74 +1657,18 @@
       },
       "missing": [
         {
-          "start": 195,
-          "end": 329,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "In the Tree or similar components (such as TreeSelect, Cascader), needs check function. It's unambiguous most of the time, but when a "
-        },
-        {
-          "start": 2438,
-          "end": 2570,
+          "start": 1280,
+          "end": 1412,
           "tokenType": "string",
           "modifiers": [],
-          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*xTqPQbdX6B0AAAAAAAAAAAAADrJ8AQ/original\" />"
+          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*QQp-R4EMteAAAAAAAAAAAAAADrJ8AQ/original\" />"
         },
         {
-          "start": 3406,
-          "end": 3476,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "Note: We only introduce simple conduction logic here. Please refer to "
-        },
-        {
-          "start": 3832,
-          "end": 3855,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ". We iterate over each "
-        },
-        {
-          "start": 3993,
-          "end": 3998,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`0-0`"
-        },
-        {
-          "start": 3998,
-          "end": 4000,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "):"
-        },
-        {
-          "start": 4002,
-          "end": 4134,
+          "start": 2186,
+          "end": 2318,
           "tokenType": "string",
           "modifiers": [],
-          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*30UnR60SSD8AAAAAAAAAAAAADrJ8AQ/original\" />"
-        },
-        {
-          "start": 4196,
-          "end": 4201,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " and "
-        },
-        {
-          "start": 4201,
-          "end": 4208,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`0-0-1`"
-        },
-        {
-          "start": 4208,
-          "end": 4209,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ":"
+          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*3mHLQZvTgWsAAAAAAAAAAAAADrJ8AQ/original\" />"
         },
         {
           "start": 4211,
@@ -734,854 +1683,50 @@
           "tokenType": "string",
           "modifiers": [],
           "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*k5hoSKM1OMYAAAAAAAAAAAAADrJ8AQ/original\" />"
-        },
-        {
-          "start": 5040,
-          "end": 5074,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ". Therefore no further repetition."
         }
       ],
       "unexpected": [
         {
-          "start": 195,
-          "end": 259,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "In the Tree or similar components (such as TreeSelect, Cascader)"
-        },
-        {
-          "start": 259,
-          "end": 329,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ", needs check function. It's unambiguous most of the time, but when a "
-        },
-        {
-          "start": 2438,
-          "end": 2571,
+          "start": 1280,
+          "end": 1413,
           "tokenType": "string",
           "modifiers": [],
-          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*xTqPQbdX6B0AAAAAAAAAAAAADrJ8AQ/original\" />\n"
+          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*QQp-R4EMteAAAAAAAAAAAAAADrJ8AQ/original\" />\n"
         },
         {
-          "start": 3406,
-          "end": 3411,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "Note:"
-        },
-        {
-          "start": 3412,
-          "end": 3476,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "We only introduce simple conduction logic here. Please refer to "
-        },
-        {
-          "start": 3832,
-          "end": 3834,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ". "
-        },
-        {
-          "start": 3834,
-          "end": 3855,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "We iterate over each "
-        },
-        {
-          "start": 3993,
-          "end": 3994,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`"
-        },
-        {
-          "start": 3994,
-          "end": 3998,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "0-0`"
-        },
-        {
-          "start": 3998,
-          "end": 3999,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": ")"
-        },
-        {
-          "start": 3999,
-          "end": 4000,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ":"
-        },
-        {
-          "start": 4002,
-          "end": 4135,
+          "start": 2186,
+          "end": 2271,
           "tokenType": "string",
           "modifiers": [],
-          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*30UnR60SSD8AAAAAAAAAAAAADrJ8AQ/original\" />\n"
+          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/im"
         },
         {
-          "start": 4196,
-          "end": 4201,
-          "tokenType": "code",
+          "start": 2271,
+          "end": 2318,
+          "tokenType": "string",
           "modifiers": [],
-          "text": " and "
-        },
-        {
-          "start": 4201,
-          "end": 4209,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`0-0-1`:"
+          "text": "g/A*3mHLQZvTgWsAAAAAAAAAAAAADrJ8AQ/original\" />"
         },
         {
           "start": 4211,
-          "end": 4345,
+          "end": 4344,
           "tokenType": "string",
           "modifiers": [],
-          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*jo7wQZVX9S0AAAAAAAAAAAAADrJ8AQ/original\" />\n\n"
+          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*jo7wQZVX9S0AAAAAAAAAAAAADrJ8AQ/original\" />\n"
         },
         {
           "start": 4406,
-          "end": 4512,
+          "end": 4513,
           "tokenType": "string",
           "modifiers": [],
-          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*k5hoSKM1OMYAAAAAA"
+          "text": "<img alt=\"Tree\" height=\"300\" src=\"https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*k5hoSKM1OMYAAAAAAA"
         },
         {
-          "start": 4512,
+          "start": 4513,
           "end": 4538,
           "tokenType": "string",
           "modifiers": [],
-          "text": "AAAAAAADrJ8AQ/original\" />"
-        },
-        {
-          "start": 5040,
-          "end": 5042,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ". "
-        },
-        {
-          "start": 5042,
-          "end": 5074,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "Therefore no further repetition."
-        }
-      ]
-    },
-    {
-      "repository": "tanstack-query-markdown-v1",
-      "path": "docs/framework/vue/reference/type-aliases/UseQueryReturnType.md",
-      "sourceGroup": "tanstack-query-markdown-v1:docs/framework/vue/reference",
-      "contentHash": "bdba2a5afa951c2ed118096d03d8ac2bd1cb8d3768c297fe74a56915a3bc2457",
-      "metrics": {
-        "documents": 1,
-        "exactDocumentsIncludingModifiers": 0,
-        "exactSpan": {
-          "precision": 0.7272727272727273,
-          "recall": 0.8421052631578947,
-          "f1": 0.7804878048780488,
-          "tp": 16,
-          "fp": 6,
-          "fn": 3,
-          "support": 19
-        },
-        "exactSpanMacroF1": 0.8412698412698413,
-        "exactSpanIncludingModifiers": {
-          "precision": 0.7272727272727273,
-          "recall": 0.8421052631578947,
-          "f1": 0.7804878048780488,
-          "tp": 16,
-          "fp": 6,
-          "fn": 3,
-          "support": 19
-        },
-        "byTokenType": {
-          "keyword": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "comment": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "string": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "punctuation": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 6,
-            "fp": 0,
-            "fn": 0,
-            "support": 6
-          },
-          "text": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 1,
-            "fp": 0,
-            "fn": 0,
-            "support": 1
-          },
-          "entity": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "heading": {
-            "precision": 0.5,
-            "recall": 0.6666666666666666,
-            "f1": 0.5714285714285714,
-            "tp": 2,
-            "fp": 2,
-            "fn": 1,
-            "support": 3
-          },
-          "link": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 1,
-            "fp": 0,
-            "fn": 0,
-            "support": 1
-          },
-          "link-destination": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 1,
-            "fp": 0,
-            "fn": 0,
-            "support": 1
-          },
-          "code": {
-            "precision": 0.3333333333333333,
-            "recall": 0.3333333333333333,
-            "f1": 0.3333333333333333,
-            "tp": 1,
-            "fp": 2,
-            "fn": 2,
-            "support": 3
-          },
-          "code-fence": {
-            "precision": 0.5,
-            "recall": 1.0,
-            "f1": 0.6666666666666666,
-            "tp": 2,
-            "fp": 2,
-            "fn": 0,
-            "support": 2
-          },
-          "code-language": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 1,
-            "fp": 0,
-            "fn": 0,
-            "support": 1
-          },
-          "embedded-code": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 1,
-            "fp": 0,
-            "fn": 0,
-            "support": 1
-          }
-        }
-      },
-      "missing": [
-        {
-          "start": 280,
-          "end": 295,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "Type Parameters"
-        },
-        {
-          "start": 308,
-          "end": 315,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`TData`"
-        },
-        {
-          "start": 329,
-          "end": 337,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`TError`"
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 280,
-          "end": 285,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "Type "
-        },
-        {
-          "start": 285,
-          "end": 295,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "Parameters"
-        },
-        {
-          "start": 308,
-          "end": 309,
-          "tokenType": "code-fence",
-          "modifiers": [],
-          "text": "`"
-        },
-        {
-          "start": 309,
-          "end": 315,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "TData`"
-        },
-        {
-          "start": 329,
-          "end": 330,
-          "tokenType": "code-fence",
-          "modifiers": [],
-          "text": "`"
-        },
-        {
-          "start": 330,
-          "end": 337,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "TError`"
-        }
-      ]
-    },
-    {
-      "repository": "ant-design-markdown-v1",
-      "path": "docs/blog/button-loading-animation.zh-CN.md",
-      "sourceGroup": "ant-design-markdown-v1:docs/blog",
-      "contentHash": "b354a18b585a5ed0f5c7aa59877b3dd6534f052f1f48fd991e197ae632067ab5",
-      "metrics": {
-        "documents": 1,
-        "exactDocumentsIncludingModifiers": 0,
-        "exactSpan": {
-          "precision": 0.671875,
-          "recall": 0.7166666666666667,
-          "f1": 0.6935483870967742,
-          "tp": 129,
-          "fp": 63,
-          "fn": 51,
-          "support": 180
-        },
-        "exactSpanMacroF1": 0.6791240838859887,
-        "exactSpanIncludingModifiers": {
-          "precision": 0.671875,
-          "recall": 0.7166666666666667,
-          "f1": 0.6935483870967742,
-          "tp": 129,
-          "fp": 63,
-          "fn": 51,
-          "support": 180
-        },
-        "byTokenType": {
-          "keyword": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "comment": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "string": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "punctuation": {
-            "precision": 0.875,
-            "recall": 1.0,
-            "f1": 0.9333333333333333,
-            "tp": 14,
-            "fp": 2,
-            "fn": 0,
-            "support": 14
-          },
-          "text": {
-            "precision": 0.5945945945945946,
-            "recall": 0.5945945945945946,
-            "f1": 0.5945945945945946,
-            "tp": 44,
-            "fp": 30,
-            "fn": 30,
-            "support": 74
-          },
-          "entity": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "heading": {
-            "precision": 0.6666666666666666,
-            "recall": 0.8,
-            "f1": 0.7272727272727273,
-            "tp": 4,
-            "fp": 2,
-            "fn": 1,
-            "support": 5
-          },
-          "link": {
-            "precision": 0.4,
-            "recall": 0.6666666666666666,
-            "f1": 0.5,
-            "tp": 2,
-            "fp": 3,
-            "fn": 1,
-            "support": 3
-          },
-          "link-destination": {
-            "precision": 0.16666666666666666,
-            "recall": 0.3333333333333333,
-            "f1": 0.2222222222222222,
-            "tp": 1,
-            "fp": 5,
-            "fn": 2,
-            "support": 3
-          },
-          "code": {
-            "precision": 0.7346938775510204,
-            "recall": 0.7346938775510204,
-            "f1": 0.7346938775510204,
-            "tp": 36,
-            "fp": 13,
-            "fn": 13,
-            "support": 49
-          },
-          "code-fence": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 16,
-            "fp": 0,
-            "fn": 0,
-            "support": 16
-          },
-          "code-language": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 8,
-            "fp": 0,
-            "fn": 0,
-            "support": 8
-          },
-          "embedded-code": {
-            "precision": 0.3333333333333333,
-            "recall": 0.5,
-            "f1": 0.4,
-            "tp": 4,
-            "fp": 8,
-            "fn": 4,
-            "support": 8
-          }
-        }
-      },
-      "missing": [
-        {
-          "start": 59,
-          "end": 104,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "最近我们把 Button、Form、Slider、Upload 中重复的延迟逻辑统一到了 "
-        },
-        {
-          "start": 104,
-          "end": 119,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`useDelayState`"
-        },
-        {
-          "start": 119,
-          "end": 156,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "。代码看起来清爽了一些，Button 的 Loading 动画却跳了一下。"
-        },
-        {
-          "start": 160,
-          "end": 179,
-          "tokenType": "link",
-          "modifiers": [],
-          "text": "Button Loading 动画跳变"
-        },
-        {
-          "start": 181,
-          "end": 267,
-          "tokenType": "link-destination",
-          "modifiers": [],
-          "text": "https://mdn.alipayobjects.com/huamei_ktaqcm/afts/file/A*BiMUQ6EGJ1IAAAAATgAAAAgAeuN6AQ"
-        },
-        {
-          "start": 297,
-          "end": 352,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 进行重置与清理，切换为 Hook 后，理论上时序并没有发生变化。但是仍然需要排查这个问题是否由 PR 引起。"
-        },
-        {
-          "start": 357,
-          "end": 366,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "是 Hook 吗？"
-        },
-        {
-          "start": 464,
-          "end": 777,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "textExcerpt": "const [innerLoading, setInnerLoading] = useDelayState(loadingOrDelay.loading);\n\nuseLayoutEffect(() => {\n  if (loadingOrDelay.delay > 0) {\n    setInnerLoading(tr",
-          "excerptTruncated": true
-        },
-        {
-          "start": 845,
-          "end": 905,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "不过把这里临时恢复成原来的调用方式后，跳动依旧存在。看来只是刚好在这个 PR 里发现了问题，和 Hook 本身没有关系。"
-        },
-        {
-          "start": 1103,
-          "end": 1123,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 保持距离。每次点击都会创建这个额外的 "
-        },
-        {
-          "start": 1150,
-          "end": 1153,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "这个 "
-        },
-        {
-          "start": 1158,
-          "end": 1201,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 来自 Wave。每次点击时，Wave 都会创建一个 holder，再将波纹渲染进去："
-        },
-        {
-          "start": 1407,
-          "end": 1437,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 是通过绝对定位，本来就脱离了正常布局，自然也不会创建新的 "
-        },
-        {
-          "start": 1437,
-          "end": 1442,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`gap`"
-        },
-        {
-          "start": 1442,
-          "end": 1462,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "。临时去除 Wave 后，发现问题依旧。"
-        },
-        {
-          "start": 1616,
-          "end": 1734,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "// start\n{\n  width: 0,\n  marginInlineEnd: -iconGap,\n}\n\n// active\n{\n  width: node.scrollWidth,\n  marginInlineEnd: 0,\n}\n"
-        },
-        {
-          "start": 1858,
-          "end": 2043,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "textExcerpt": " const onAppearActive = (node: HTMLElement): React.CSSProperties => {\n+   console.log('scrollWidth:', node.scrollWidth);\n   return {\n     width: node.scrollWidt",
-          "excerptTruncated": true
-        },
-        {
-          "start": 2048,
-          "end": 2058,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "结果 icon 是 "
-        },
-        {
-          "start": 2058,
-          "end": 2064,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`14px`"
-        },
-        {
-          "start": 2064,
-          "end": 2065,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "，"
-        },
-        {
-          "start": 2114,
-          "end": 2200,
-          "tokenType": "link-destination",
-          "modifiers": [],
-          "text": "https://mdn.alipayobjects.com/huamei_ktaqcm/afts/file/A*5lVQSLI_GZ0AAAAAQIAAAAgAeuN6AQ"
-        },
-        {
-          "start": 2262,
-          "end": 2307,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 之间切换，这是因为内部的 Loading 图标仍在旋转。临时去掉旋转动画后，数值稳定在 "
-        },
-        {
-          "start": 2367,
-          "end": 2372,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`8px`"
-        },
-        {
-          "start": 2372,
-          "end": 2388,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "。等 Motion 结束、内联 "
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 59,
-          "end": 104,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "最近我们把 Button、Form、Slider、Upload 中重复的延迟逻辑统一到了 "
-        },
-        {
-          "start": 104,
-          "end": 156,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "`useDelayState`。代码看起来清爽了一些，Button 的 Loading 动画却跳了一下。"
-        },
-        {
-          "start": 160,
-          "end": 167,
-          "tokenType": "link",
-          "modifiers": [],
-          "text": "Button "
-        },
-        {
-          "start": 167,
-          "end": 179,
-          "tokenType": "link",
-          "modifiers": [],
-          "text": "Loading 动画跳变"
-        },
-        {
-          "start": 181,
-          "end": 236,
-          "tokenType": "link-destination",
-          "modifiers": [],
-          "text": "https://mdn.alipayobjects.com/huamei_ktaqcm/afts/file/A"
-        },
-        {
-          "start": 236,
-          "end": 267,
-          "tokenType": "link-destination",
-          "modifiers": [],
-          "text": "*BiMUQ6EGJ1IAAAAATgAAAAgAeuN6AQ"
-        },
-        {
-          "start": 298,
-          "end": 338,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "进行重置与清理，切换为 Hook 后，理论上时序并没有发生变化。但是仍然需要排查"
-        },
-        {
-          "start": 338,
-          "end": 352,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "这个问题是否由 PR 引起。"
-        },
-        {
-          "start": 357,
-          "end": 359,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "是 "
-        },
-        {
-          "start": 359,
-          "end": 366,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "Hook 吗？"
-        },
-        {
-          "start": 464,
-          "end": 470,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "const "
-        },
-        {
-          "start": 470,
-          "end": 471,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "["
-        },
-        {
-          "start": 471,
-          "end": 500,
-          "tokenType": "link",
-          "modifiers": [],
-          "text": "innerLoading, setInnerLoading"
-        },
-        {
-          "start": 500,
-          "end": 777,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "textExcerpt": "] = useDelayState(loadingOrDelay.loading);\n\nuseLayoutEffect(() => {\n  if (loadingOrDelay.delay > 0) {\n    setInnerLoading(true, { ms: loadingOrDelay.delay });\n ",
-          "excerptTruncated": true
-        },
-        {
-          "start": 845,
-          "end": 846,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "不"
-        },
-        {
-          "start": 846,
-          "end": 905,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "过把这里临时恢复成原来的调用方式后，跳动依旧存在。看来只是刚好在这个 PR 里发现了问题，和 Hook 本身没有关系。"
-        },
-        {
-          "start": 1103,
-          "end": 1104,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " "
-        },
-        {
-          "start": 1104,
-          "end": 1123,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "保持距离。每次点击都会创建这个额外的 "
-        },
-        {
-          "start": 1150,
-          "end": 1152,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "这个"
-        },
-        {
-          "start": 1158,
-          "end": 1159,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " "
-        },
-        {
-          "start": 1159,
-          "end": 1162,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "来自 "
-        },
-        {
-          "start": 1162,
-          "end": 1198,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "Wave。每次点击时，Wave 都会创建一个 holder，再将波纹渲染"
-        },
-        {
-          "start": 1198,
-          "end": 1201,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "进去："
-        },
-        {
-          "start": 1407,
-          "end": 1408,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": " "
+          "text": "AAAAAADrJ8AQ/original\" />"
         }
       ]
     },
@@ -1594,22 +1739,22 @@
         "documents": 1,
         "exactDocumentsIncludingModifiers": 0,
         "exactSpan": {
-          "precision": 0.7650602409638554,
-          "recall": 0.7888198757763976,
-          "f1": 0.7767584097859327,
-          "tp": 127,
-          "fp": 39,
-          "fn": 34,
+          "precision": 0.9329268292682927,
+          "recall": 0.9503105590062112,
+          "f1": 0.9415384615384615,
+          "tp": 153,
+          "fp": 11,
+          "fn": 8,
           "support": 161
         },
-        "exactSpanMacroF1": 0.7530784132798979,
+        "exactSpanMacroF1": 0.847337401554269,
         "exactSpanIncludingModifiers": {
-          "precision": 0.7650602409638554,
-          "recall": 0.7888198757763976,
-          "f1": 0.7767584097859327,
-          "tp": 127,
-          "fp": 39,
-          "fn": 34,
+          "precision": 0.9329268292682927,
+          "recall": 0.9503105590062112,
+          "f1": 0.9415384615384615,
+          "tp": 153,
+          "fp": 11,
+          "fn": 8,
           "support": 161
         },
         "byTokenType": {
@@ -1636,44 +1781,44 @@
             "recall": 0.0,
             "f1": 0.0,
             "tp": 0,
-            "fp": 4,
+            "fp": 2,
             "fn": 0,
             "support": 0
           },
           "punctuation": {
-            "precision": 0.9354838709677419,
+            "precision": 1.0,
             "recall": 1.0,
-            "f1": 0.9666666666666667,
+            "f1": 1.0,
             "tp": 29,
-            "fp": 2,
+            "fp": 0,
             "fn": 0,
             "support": 29
           },
           "text": {
-            "precision": 0.631578947368421,
-            "recall": 0.5714285714285714,
-            "f1": 0.6,
-            "tp": 24,
-            "fp": 14,
-            "fn": 18,
+            "precision": 0.9512195121951219,
+            "recall": 0.9285714285714286,
+            "f1": 0.9397590361445783,
+            "tp": 39,
+            "fp": 2,
+            "fn": 3,
             "support": 42
           },
           "entity": {
             "precision": 1.0,
-            "recall": 0.75,
-            "f1": 0.8571428571428571,
-            "tp": 3,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
             "fp": 0,
-            "fn": 1,
+            "fn": 0,
             "support": 4
           },
           "heading": {
-            "precision": 0.8333333333333334,
-            "recall": 0.9090909090909091,
-            "f1": 0.8695652173913043,
-            "tp": 10,
-            "fp": 2,
-            "fn": 1,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
             "support": 11
           },
           "link": {
@@ -1695,20 +1840,20 @@
             "support": 6
           },
           "code": {
-            "precision": 0.8,
-            "recall": 0.7619047619047619,
-            "f1": 0.7804878048780488,
-            "tp": 32,
-            "fp": 8,
-            "fn": 10,
+            "precision": 0.9523809523809523,
+            "recall": 0.9523809523809523,
+            "f1": 0.9523809523809523,
+            "tp": 40,
+            "fp": 2,
+            "fn": 2,
             "support": 42
           },
           "code-fence": {
-            "precision": 0.9230769230769231,
+            "precision": 1.0,
             "recall": 1.0,
-            "f1": 0.96,
+            "f1": 1.0,
             "tp": 12,
-            "fp": 1,
+            "fp": 0,
             "fn": 0,
             "support": 12
           },
@@ -1722,12 +1867,12 @@
             "support": 6
           },
           "embedded-code": {
-            "precision": 0.2,
-            "recall": 0.3333333333333333,
-            "f1": 0.25,
-            "tp": 2,
-            "fp": 8,
-            "fn": 4,
+            "precision": 0.375,
+            "recall": 0.5,
+            "f1": 0.42857142857142855,
+            "tp": 3,
+            "fp": 5,
+            "fn": 3,
             "support": 6
           }
         }
@@ -1739,104 +1884,6 @@
           "tokenType": "text",
           "modifiers": [],
           "text": "Unlike queries, mutations are typically used to create/update/delete data or perform server side-effects.\n"
-        },
-        {
-          "start": 531,
-          "end": 536,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`ref`"
-        },
-        {
-          "start": 536,
-          "end": 560,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ", or a reactive getter ("
-        },
-        {
-          "start": 560,
-          "end": 577,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`() => ({ ... })`"
-        },
-        {
-          "start": 577,
-          "end": 652,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ") — pass a getter\nif the options themselves depend on other reactive state."
-        },
-        {
-          "start": 657,
-          "end": 672,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "Type Parameters"
-        },
-        {
-          "start": 692,
-          "end": 695,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " = "
-        },
-        {
-          "start": 726,
-          "end": 729,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " = "
-        },
-        {
-          "start": 766,
-          "end": 769,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " = "
-        },
-        {
-          "start": 798,
-          "end": 815,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`TOnMutateResult`"
-        },
-        {
-          "start": 815,
-          "end": 818,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " = "
-        },
-        {
-          "start": 918,
-          "end": 920,
-          "tokenType": "entity",
-          "modifiers": [],
-          "text": "\\<"
-        },
-        {
-          "start": 920,
-          "end": 927,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`TData`"
-        },
-        {
-          "start": 1190,
-          "end": 1223,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ". Otherwise, the one provided by "
-        },
-        {
-          "start": 1239,
-          "end": 1253,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "\nwill be used."
         },
         {
           "start": 1390,
@@ -1860,47 +1907,35 @@
           "text": "`mutateAsync`"
         },
         {
-          "start": 1434,
-          "end": 1445,
-          "tokenType": "code",
+          "start": 1974,
+          "end": 2438,
+          "tokenType": "embedded-code",
           "modifiers": [],
-          "text": "`onSuccess`"
-        },
-        {
-          "start": 1445,
-          "end": 1446,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "/"
-        },
-        {
-          "start": 1446,
-          "end": 1455,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`onError`"
-        },
-        {
-          "start": 1455,
-          "end": 1456,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "/"
-        },
-        {
-          "start": 1456,
-          "end": 1467,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`onSettled`"
-        },
-        {
-          "start": 1467,
-          "end": 1652,
-          "tokenType": "text",
-          "modifiers": [],
-          "textExcerpt": " callbacks as a second\nargument, useful for triggering call-site side effects (e.g. navigation) without coupling them to the shared\nmutation definition. Hook-le",
+          "textExcerpt": "<script setup lang=\"ts\">\nimport { useMutation, useQueryClient } from '@tanstack/vue-query'\n\nconst queryClient = useQueryClient()\n\nconst addMutation = useMutatio",
           "excerptTruncated": true
+        },
+        {
+          "start": 2518,
+          "end": 3070,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "textExcerpt": "<script setup lang=\"ts\">\nimport { useMutation, useQueryClient } from '@tanstack/vue-query'\n\nconst queryClient = useQueryClient()\n\nconst addMutation = useMutatio",
+          "excerptTruncated": true
+        },
+        {
+          "start": 3143,
+          "end": 4031,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "textExcerpt": "<script setup lang=\"ts\">\nimport { useMutation, useQueryClient } from '@tanstack/vue-query'\n\nconst queryClient = useQueryClient()\n\nconst addMutation = useMutatio",
+          "excerptTruncated": true
+        },
+        {
+          "start": 5005,
+          "end": 5010,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " for\n"
         }
       ],
       "unexpected": [
@@ -1912,97 +1947,6 @@
           "text": "Unlike queries, mutations are typically used to create/update/delete data or perform server side-effects."
         },
         {
-          "start": 531,
-          "end": 578,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`ref`, or a reactive getter (`() => ({ ... })`)"
-        },
-        {
-          "start": 578,
-          "end": 652,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " — pass a getter\nif the options themselves depend on other reactive state."
-        },
-        {
-          "start": 657,
-          "end": 662,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "Type "
-        },
-        {
-          "start": 662,
-          "end": 672,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "Parameters"
-        },
-        {
-          "start": 693,
-          "end": 694,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "="
-        },
-        {
-          "start": 727,
-          "end": 729,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "= "
-        },
-        {
-          "start": 767,
-          "end": 769,
-          "tokenType": "string",
-          "modifiers": [],
-          "text": "= "
-        },
-        {
-          "start": 798,
-          "end": 818,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`TOnMutateResult` = "
-        },
-        {
-          "start": 918,
-          "end": 927,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "\\<`TData`"
-        },
-        {
-          "start": 1190,
-          "end": 1191,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "."
-        },
-        {
-          "start": 1191,
-          "end": 1192,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " "
-        },
-        {
-          "start": 1192,
-          "end": 1223,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "Otherwise, the one provided by "
-        },
-        {
-          "start": 1240,
-          "end": 1253,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "will be used."
-        },
-        {
           "start": 1390,
           "end": 1412,
           "tokenType": "code",
@@ -2010,96 +1954,101 @@
           "text": "`mutate`/`mutateAsync`"
         },
         {
-          "start": 1434,
-          "end": 1467,
+          "start": 1974,
+          "end": 1975,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "<"
+        },
+        {
+          "start": 1975,
+          "end": 2438,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "textExcerpt": "script setup lang=\"ts\">\nimport { useMutation, useQueryClient } from '@tanstack/vue-query'\n\nconst queryClient = useQueryClient()\n\nconst addMutation = useMutation",
+          "excerptTruncated": true
+        },
+        {
+          "start": 2518,
+          "end": 2794,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "textExcerpt": "<script setup lang=\"ts\">\nimport { useMutation, useQueryClient } from '@tanstack/vue-query'\n\nconst queryClient = useQueryClient()\n\nconst addMutation = useMutatio",
+          "excerptTruncated": true
+        },
+        {
+          "start": 2794,
+          "end": 2992,
+          "tokenType": "string",
+          "modifiers": [],
+          "textExcerpt": "<template>\n  <div v-if=\"addMutation.isPending.value\">Adding todo...</div>\n  <div v-else>\n    <div v-if=\"addMutation.isError.value\">An error occurred: {{ addMuta",
+          "excerptTruncated": true
+        },
+        {
+          "start": 2992,
+          "end": 3070,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "text": "<button @click=\"addMutation.mutate('Item')\">Add</button>\n  </div>\n</template>\n"
+        },
+        {
+          "start": 3143,
+          "end": 3638,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "textExcerpt": "<script setup lang=\"ts\">\nimport { useMutation, useQueryClient } from '@tanstack/vue-query'\n\nconst queryClient = useQueryClient()\n\nconst addMutation = useMutatio",
+          "excerptTruncated": true
+        },
+        {
+          "start": 3638,
+          "end": 3667,
           "tokenType": "code",
           "modifiers": [],
-          "text": "`onSuccess`/`onError`/`onSettled`"
+          "text": "`onError` as `onMutateResult`"
         },
         {
-          "start": 1467,
-          "end": 1489,
+          "start": 3667,
+          "end": 4031,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "textExcerpt": " if the mutation fails.\n    return { previousTodos }\n  },\n  onError: (_err, _newTodo, onMutateResult) => {\n    queryClient.setQueryData(['todos'], onMutateResul",
+          "excerptTruncated": true
+        },
+        {
+          "start": 5005,
+          "end": 5009,
           "tokenType": "text",
           "modifiers": [],
-          "text": " callbacks as a second"
-        },
-        {
-          "start": 1490,
-          "end": 1508,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "argument, useful f"
-        },
-        {
-          "start": 1508,
-          "end": 1561,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "or triggering call-site side effects (e.g. navigation"
-        },
-        {
-          "start": 1561,
-          "end": 1562,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ")"
-        },
-        {
-          "start": 1562,
-          "end": 1652,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " without coupling them to the shared\nmutation definition. Hook-level callbacks (passed to "
-        },
-        {
-          "start": 1661,
-          "end": 1662,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": ")"
-        },
-        {
-          "start": 1662,
-          "end": 1749,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " fire for every mutation; per-call\ncallbacks fire only for the latest call you've made."
-        },
-        {
-          "start": 1950,
-          "end": 1951,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": ")"
+          "text": " for"
         }
       ]
     },
     {
       "repository": "ant-design-markdown-v1",
-      "path": "docs/blog/render-times.zh-CN.md",
-      "sourceGroup": "ant-design-markdown-v1:docs/blog",
-      "contentHash": "c495096a1833d80a6d98cf7db1cf66ed263190b4ad542ac83ab35f26f2e8c03b",
+      "path": "components/config-provider/index.en-US.md",
+      "sourceGroup": "ant-design-markdown-v1:components/config-provider",
+      "contentHash": "9d817fbc78d6a1e9dcfac1b2bdb48608bfc4f079a6d64aa79fb4ee0e59b8a415",
       "metrics": {
         "documents": 1,
         "exactDocumentsIncludingModifiers": 0,
         "exactSpan": {
-          "precision": 0.8042328042328042,
-          "recall": 0.8685714285714285,
-          "f1": 0.8351648351648352,
-          "tp": 152,
-          "fp": 37,
-          "fn": 23,
-          "support": 175
+          "precision": 0.8756841282251759,
+          "recall": 0.9127954360228199,
+          "f1": 0.8938547486033519,
+          "tp": 1120,
+          "fp": 159,
+          "fn": 107,
+          "support": 1227
         },
-        "exactSpanMacroF1": 0.7476768968456948,
+        "exactSpanMacroF1": 0.8893423601715021,
         "exactSpanIncludingModifiers": {
-          "precision": 0.8042328042328042,
-          "recall": 0.8685714285714285,
-          "f1": 0.8351648351648352,
-          "tp": 152,
-          "fp": 37,
-          "fn": 23,
-          "support": 175
+          "precision": 0.8756841282251759,
+          "recall": 0.9127954360228199,
+          "f1": 0.8938547486033519,
+          "tp": 1120,
+          "fp": 159,
+          "fn": 107,
+          "support": 1227
         },
         "byTokenType": {
           "keyword": {
@@ -2112,1972 +2061,859 @@
             "support": 0
           },
           "comment": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "string": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 2,
-            "fn": 0,
-            "support": 0
-          },
-          "punctuation": {
-            "precision": 0.9090909090909091,
-            "recall": 0.975609756097561,
-            "f1": 0.9411764705882353,
-            "tp": 40,
-            "fp": 4,
-            "fn": 1,
-            "support": 41
-          },
-          "text": {
-            "precision": 0.7068965517241379,
-            "recall": 0.7192982456140351,
-            "f1": 0.7130434782608696,
-            "tp": 41,
-            "fp": 17,
-            "fn": 16,
-            "support": 57
-          },
-          "entity": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "heading": {
-            "precision": 0.6,
-            "recall": 0.8571428571428571,
-            "f1": 0.7058823529411765,
-            "tp": 6,
-            "fp": 4,
-            "fn": 1,
-            "support": 7
-          },
-          "link": {
-            "precision": 0.6666666666666666,
-            "recall": 0.8571428571428571,
-            "f1": 0.75,
-            "tp": 6,
-            "fp": 3,
-            "fn": 1,
-            "support": 7
-          },
-          "link-destination": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 9,
-            "fp": 0,
-            "fn": 0,
-            "support": 9
-          },
-          "code": {
-            "precision": 0.9666666666666667,
-            "recall": 0.9666666666666667,
-            "f1": 0.9666666666666667,
-            "tp": 29,
-            "fp": 1,
-            "fn": 1,
-            "support": 30
-          },
-          "code-fence": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 12,
-            "fp": 0,
-            "fn": 0,
-            "support": 12
-          },
-          "code-language": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 6,
-            "fp": 0,
-            "fn": 0,
-            "support": 6
-          },
-          "embedded-code": {
-            "precision": 0.3333333333333333,
-            "recall": 0.5,
-            "f1": 0.4,
-            "tp": 3,
-            "fp": 6,
-            "fn": 3,
-            "support": 6
-          }
-        }
-      },
-      "missing": [
-        {
-          "start": 233,
-          "end": 357,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "对于重型组件而言，随着时间推移，一些 BUG Fix 或者新增 Feature 很容易不经意间将原本的性能优化给破坏掉。而最近，我们在对 Table 进行重构将一些历史更新导致的性能损失进行排查并恢复。在此，我们介绍一些常用的排查技巧以及常见问题。"
-        },
-        {
-          "start": 817,
-          "end": 859,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "诸如此类的问题在重型组件循环往复，因而我们需要一些辅助方式来确定渲染次数。在最新的 "
-        },
-        {
-          "start": 924,
-          "end": 935,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 中，我们封装了一个 "
-        },
-        {
-          "start": 1108,
-          "end": 1139,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 将监听的渲染次数标注在 React Dev Tools 上："
-        },
-        {
-          "start": 1141,
-          "end": 1143,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "!["
-        },
-        {
-          "start": 1835,
-          "end": 1852,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "一般在组件的根节点上，我们会根据 "
-        },
-        {
-          "start": 2554,
-          "end": 2563,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 进行 Memo："
-        },
-        {
-          "start": 2572,
-          "end": 2749,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "textExcerpt": "// pseudocode\nconst context = React.useMemo(() => ({ prop1, prop2 }), [prop1, prop2]);\n\nreturn (\n  <MyContext.Provider value={context}>\n    <Child />\n  </MyCont",
-          "excerptTruncated": true
-        },
-        {
-          "start": 3005,
-          "end": 3011,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 没有变化，"
-        },
-        {
-          "start": 3011,
-          "end": 3018,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`prop2`"
-        },
-        {
-          "start": 3079,
-          "end": 3425,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "textExcerpt": "// pseudocode\nconst MyContext1 = React.createContext<{ prop1: string }>();\nconst MyContext2 = React.createContext<{ prop2: string }>();\n\n// Child\nconst { prop1 ",
-          "excerptTruncated": true
-        },
-        {
-          "start": 3430,
-          "end": 3432,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "在 "
-        },
-        {
-          "start": 3573,
-          "end": 3585,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "TableContext"
-        },
-        {
-          "start": 3646,
-          "end": 3695,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 比较熟悉，它只会在需要消费的数据变更时才会触发更新。在 React 中，也同样有相关的 RFC("
-        },
-        {
-          "start": 3743,
-          "end": 3745,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ")("
-        },
-        {
-          "start": 3793,
-          "end": 3813,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ")，未来在 React 18 也将实装："
-        },
-        {
-          "start": 3817,
-          "end": 3825,
-          "tokenType": "link",
-          "modifiers": [],
-          "text": "React 18"
-        },
-        {
-          "start": 3924,
-          "end": 3976,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "在 API 正式落地之前，业界也有不少三方库实现该 API（当然，你也可以直接使用 redux）。通过 "
-        },
-        {
-          "start": 4044,
-          "end": 4193,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "// pseudocode\nconst Child = React.memo(() => {\n  const prop1 = useContextSelector(MyContext, (context) => context.prop1);\n  return <>{prop1}</>;\n});\n"
-        },
-        {
-          "start": 4208,
-          "end": 4273,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "在通过各种方式优化过后，我们还不得不面对一个问题。如果某些渲染需要通过外界的 render 方式，并且碰巧该方式使用了闭包。那么 "
-        },
-        {
-          "start": 4871,
-          "end": 4983,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 方法之前我们无法确定组件最终形态是否发生变化，这也是为何在 antd v4 早期我们通过 memo 对 Table 进行了优化而随着时间推移又将一部分移除的原因（实际上，Table 仍然有一些场景会遇到这个问题需要解决）。"
-        },
-        {
-          "start": 5017,
-          "end": 5108,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 方法，我们准备未来调整 Table 渲染逻辑。当 Parent 节点渲染时，Table 会完整的重新渲染，而当 Table 内部更新时（例如水平滚动位置同步），则会命中缓存而跳过。"
-        },
-        {
-          "start": 5114,
-          "end": 5116,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "最后"
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 233,
-          "end": 234,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "对"
-        },
-        {
-          "start": 234,
-          "end": 357,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "于重型组件而言，随着时间推移，一些 BUG Fix 或者新增 Feature 很容易不经意间将原本的性能优化给破坏掉。而最近，我们在对 Table 进行重构将一些历史更新导致的性能损失进行排查并恢复。在此，我们介绍一些常用的排查技巧以及常见问题。"
-        },
-        {
-          "start": 817,
-          "end": 858,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "诸如此类的问题在重型组件循环往复，因而我们需要一些辅助方式来确定渲染次数。在最新的"
-        },
-        {
-          "start": 924,
-          "end": 925,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " "
-        },
-        {
-          "start": 925,
-          "end": 935,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "中，我们封装了一个 "
-        },
-        {
-          "start": 1108,
-          "end": 1138,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 将监听的渲染次数标注在 React Dev Tools 上"
-        },
-        {
-          "start": 1138,
-          "end": 1139,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "："
-        },
-        {
-          "start": 1141,
-          "end": 1142,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "!"
-        },
-        {
-          "start": 1142,
-          "end": 1143,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "["
-        },
-        {
-          "start": 1835,
-          "end": 1852,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "一般在组件的根节点上，我们会根据 "
-        },
-        {
-          "start": 2555,
-          "end": 2563,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "进行 Memo："
-        },
-        {
-          "start": 2572,
-          "end": 2585,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "// pseudocode"
-        },
-        {
-          "start": 2586,
-          "end": 2749,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "textExcerpt": "const context = React.useMemo(() => ({ prop1, prop2 }), [prop1, prop2]);\n\nreturn (\n  <MyContext.Provider value={context}>\n    <Child />\n  </MyContext.Provider>\n",
-          "excerptTruncated": true
-        },
-        {
-          "start": 3005,
-          "end": 3018,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": " 没有变化，`prop2`"
-        },
-        {
-          "start": 3079,
-          "end": 3092,
-          "tokenType": "string",
-          "modifiers": [],
-          "text": "// pseudocode"
-        },
-        {
-          "start": 3093,
-          "end": 3425,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "textExcerpt": "const MyContext1 = React.createContext<{ prop1: string }>();\nconst MyContext2 = React.createContext<{ prop2: string }>();\n\n// Child\nconst { prop1 } = React.useC",
-          "excerptTruncated": true
-        },
-        {
-          "start": 3430,
-          "end": 3431,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "在"
-        },
-        {
-          "start": 3573,
-          "end": 3585,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "TableContext"
-        },
-        {
-          "start": 3646,
-          "end": 3691,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " 比较熟悉，它只会在需要消费的数据变更时才会触发更新。在 React 中，也同样有相关的 "
-        },
-        {
-          "start": 3691,
-          "end": 3695,
-          "tokenType": "link",
-          "modifiers": [],
-          "text": "RFC("
-        },
-        {
-          "start": 3743,
-          "end": 3745,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": ")("
-        },
-        {
-          "start": 3793,
-          "end": 3794,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": ")"
-        },
-        {
-          "start": 3794,
-          "end": 3813,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "，未来在 React 18 也将实装："
-        },
-        {
-          "start": 3817,
-          "end": 3823,
-          "tokenType": "link",
-          "modifiers": [],
-          "text": "React "
-        }
-      ]
-    },
-    {
-      "repository": "tanstack-query-markdown-v1",
-      "path": "docs/framework/react/guides/suspense.md",
-      "sourceGroup": "tanstack-query-markdown-v1:docs/framework/react/guides",
-      "contentHash": "6231e1336365466568458f1b28e9f81094e76cf55ecfec2f27baca03e6321d07",
-      "metrics": {
-        "documents": 1,
-        "exactDocumentsIncludingModifiers": 0,
-        "exactSpan": {
-          "precision": 0.8110599078341014,
-          "recall": 0.8341232227488151,
-          "f1": 0.822429906542056,
-          "tp": 176,
-          "fp": 41,
-          "fn": 35,
-          "support": 211
-        },
-        "exactSpanMacroF1": 0.7706254962350767,
-        "exactSpanIncludingModifiers": {
-          "precision": 0.8018433179723502,
-          "recall": 0.8246445497630331,
-          "f1": 0.8130841121495327,
-          "tp": 174,
-          "fp": 43,
-          "fn": 37,
-          "support": 211
-        },
-        "byTokenType": {
-          "keyword": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "comment": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "string": {
             "precision": 0.5,
-            "recall": 0.5714285714285714,
-            "f1": 0.5333333333333333,
-            "tp": 4,
-            "fp": 4,
-            "fn": 3,
-            "support": 7
-          },
-          "punctuation": {
-            "precision": 0.90625,
-            "recall": 0.90625,
-            "f1": 0.90625,
-            "tp": 58,
-            "fp": 6,
-            "fn": 6,
-            "support": 64
-          },
-          "text": {
-            "precision": 0.7627118644067796,
-            "recall": 0.8035714285714286,
-            "f1": 0.782608695652174,
-            "tp": 45,
-            "fp": 14,
-            "fn": 11,
-            "support": 56
-          },
-          "entity": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "heading": {
-            "precision": 0.6666666666666666,
             "recall": 1.0,
-            "f1": 0.8,
-            "tp": 4,
-            "fp": 2,
-            "fn": 0,
-            "support": 4
-          },
-          "link": {
-            "precision": 0.8333333333333334,
-            "recall": 0.7894736842105263,
-            "f1": 0.8108108108108109,
-            "tp": 15,
-            "fp": 3,
-            "fn": 4,
-            "support": 19
-          },
-          "link-destination": {
-            "precision": 0.8333333333333334,
-            "recall": 0.625,
-            "f1": 0.7142857142857143,
-            "tp": 10,
-            "fp": 2,
-            "fn": 6,
-            "support": 16
-          },
-          "code": {
-            "precision": 1.0,
-            "recall": 0.9545454545454546,
-            "f1": 0.9767441860465116,
-            "tp": 21,
-            "fp": 0,
-            "fn": 1,
-            "support": 22
-          },
-          "code-fence": {
-            "precision": 0.9230769230769231,
-            "recall": 1.0,
-            "f1": 0.96,
-            "tp": 12,
+            "f1": 0.6666666666666666,
+            "tp": 1,
             "fp": 1,
             "fn": 0,
-            "support": 12
-          },
-          "code-language": {
-            "precision": 1.0,
-            "recall": 0.8,
-            "f1": 0.8888888888888888,
-            "tp": 4,
-            "fp": 0,
-            "fn": 1,
-            "support": 5
-          },
-          "embedded-code": {
-            "precision": 0.25,
-            "recall": 0.5,
-            "f1": 0.3333333333333333,
-            "tp": 3,
-            "fp": 9,
-            "fn": 3,
-            "support": 6
-          }
-        }
-      },
-      "missing": [
-        {
-          "start": 371,
-          "end": 372,
-          "tokenType": "link-destination",
-          "modifiers": [],
-          "text": "#"
-        },
-        {
-          "start": 744,
-          "end": 798,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " for more information on how to set up suspense mode.\n"
-        },
-        {
-          "start": 801,
-          "end": 802,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "]"
-        },
-        {
-          "start": 802,
-          "end": 812,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ": # 'Info'"
-        },
-        {
-          "start": 1006,
-          "end": 1009,
-          "tokenType": "code-language",
-          "modifiers": [],
-          "text": "tsx"
-        },
-        {
-          "start": 1010,
-          "end": 1125,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "import { useSuspenseQuery } from '@tanstack/react-query'\n\nconst { data } = useSuspenseQuery({ queryKey, queryFn })\n"
-        },
-        {
-          "start": 1515,
-          "end": 1516,
-          "tokenType": "link-destination",
-          "modifiers": [],
-          "text": "#"
-        },
-        {
-          "start": 1798,
-          "end": 1800,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ".\n"
-        },
-        {
-          "start": 1803,
-          "end": 1804,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "]"
-        },
-        {
-          "start": 1804,
-          "end": 1825,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ": # 'PlaceholderData'"
-        },
-        {
-          "start": 1853,
-          "end": 2091,
-          "tokenType": "text",
-          "modifiers": [],
-          "textExcerpt": "Not all errors are thrown to the nearest Error Boundary per default - we're only throwing errors if there is no other data to show. That means if a Query ever s",
-          "excerptTruncated": true
-        },
-        {
-          "start": 2329,
-          "end": 2423,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "), you have to throw errors manually if you want all errors to be handled by Error Boundaries:"
-        },
-        {
-          "start": 2699,
-          "end": 2707,
-          "tokenType": "text",
-          "modifiers": [
-            "strong"
-          ],
-          "text": "suspense"
-        },
-        {
-          "start": 3082,
-          "end": 3083,
-          "tokenType": "link-destination",
-          "modifiers": [],
-          "text": "#"
-        },
-        {
-          "start": 3116,
-          "end": 3641,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "textExcerpt": "import { QueryErrorResetBoundary } from '@tanstack/react-query'\nimport { ErrorBoundary } from 'react-error-boundary'\n\nconst App = () => (\n  <QueryErrorResetBoun",
-          "excerptTruncated": true
-        },
-        {
-          "start": 3647,
-          "end": 3649,
-          "tokenType": "link",
-          "modifiers": [],
-          "text": "//"
-        },
-        {
-          "start": 3649,
-          "end": 3651,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "]:"
-        },
-        {
-          "start": 3652,
-          "end": 3653,
-          "tokenType": "link-destination",
-          "modifiers": [],
-          "text": "#"
-        },
-        {
-          "start": 3654,
-          "end": 3677,
-          "tokenType": "string",
-          "modifiers": [],
-          "text": "'ExampleResetComponent'"
-        },
-        {
-          "start": 3749,
-          "end": 3774,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`QueryErrorResetBoundary`"
-        },
-        {
-          "start": 3774,
-          "end": 3836,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ". If there is no boundary defined it will reset them globally:"
-        },
-        {
-          "start": 3838,
-          "end": 3839,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "["
-        },
-        {
-          "start": 3839,
-          "end": 3841,
-          "tokenType": "link",
-          "modifiers": [],
-          "text": "//"
-        },
-        {
-          "start": 3841,
-          "end": 3843,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "]:"
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 371,
-          "end": 372,
-          "tokenType": "code-fence",
-          "modifiers": [],
-          "text": "#"
-        },
-        {
-          "start": 744,
-          "end": 797,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " for more information on how to set up suspense mode."
-        },
-        {
-          "start": 801,
-          "end": 803,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "]:"
-        },
-        {
-          "start": 804,
-          "end": 805,
-          "tokenType": "string",
-          "modifiers": [],
-          "text": "#"
-        },
-        {
-          "start": 806,
-          "end": 812,
-          "tokenType": "string",
-          "modifiers": [],
-          "text": "'Info'"
-        },
-        {
-          "start": 1006,
-          "end": 1125,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "tsx\nimport { useSuspenseQuery } from '@tanstack/react-query'\n\nconst { data } = useSuspenseQuery({ queryKey, queryFn })\n"
-        },
-        {
-          "start": 1515,
-          "end": 1516,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "#"
-        },
-        {
-          "start": 1798,
-          "end": 1799,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "."
-        },
-        {
-          "start": 1803,
-          "end": 1805,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "]:"
-        },
-        {
-          "start": 1806,
-          "end": 1807,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "#"
-        },
-        {
-          "start": 1808,
-          "end": 1825,
-          "tokenType": "string",
-          "modifiers": [],
-          "text": "'PlaceholderData'"
-        },
-        {
-          "start": 1853,
-          "end": 1921,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "Not all errors are thrown to the nearest Error Boundary per default "
-        },
-        {
-          "start": 1921,
-          "end": 1922,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "-"
-        },
-        {
-          "start": 1923,
-          "end": 2091,
-          "tokenType": "text",
-          "modifiers": [],
-          "textExcerpt": "we're only throwing errors if there is no other data to show. That means if a Query ever successfully got data in the cache, the component will render, even if ",
-          "excerptTruncated": true
-        },
-        {
-          "start": 2329,
-          "end": 2330,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ")"
-        },
-        {
-          "start": 2330,
-          "end": 2423,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ", you have to throw errors manually if you want all errors to be handled by Error Boundaries:"
-        },
-        {
-          "start": 2699,
-          "end": 2707,
-          "tokenType": "text",
-          "modifiers": [
-            "strong",
-            "emphasis"
-          ],
-          "text": "suspense"
-        },
-        {
-          "start": 3082,
-          "end": 3083,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "#"
-        },
-        {
-          "start": 3116,
-          "end": 3640,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "textExcerpt": "import { QueryErrorResetBoundary } from '@tanstack/react-query'\nimport { ErrorBoundary } from 'react-error-boundary'\n\nconst App = () => (\n  <QueryErrorResetBoun",
-          "excerptTruncated": true
-        },
-        {
-          "start": 3647,
-          "end": 3651,
-          "tokenType": "link",
-          "modifiers": [],
-          "text": "//]:"
-        },
-        {
-          "start": 3652,
-          "end": 3653,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "#"
-        },
-        {
-          "start": 3654,
-          "end": 3677,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "'ExampleResetComponent'"
-        },
-        {
-          "start": 3749,
-          "end": 3836,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "`QueryErrorResetBoundary`. If there is no boundary defined it will reset them globally:"
-        },
-        {
-          "start": 3838,
-          "end": 3843,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "[//]:"
-        }
-      ]
-    },
-    {
-      "repository": "ant-design-markdown-v1",
-      "path": "docs/blog/type-util.zh-CN.md",
-      "sourceGroup": "ant-design-markdown-v1:docs/blog",
-      "contentHash": "f94c24b3f34805f6ffa2d41ef2575e0b7dd5f0842061c85e404eb4260f1d04b7",
-      "metrics": {
-        "documents": 1,
-        "exactDocumentsIncludingModifiers": 0,
-        "exactSpan": {
-          "precision": 0.8363636363636363,
-          "recall": 0.8518518518518519,
-          "f1": 0.8440366972477065,
-          "tp": 46,
-          "fp": 9,
-          "fn": 8,
-          "support": 54
-        },
-        "exactSpanMacroF1": 0.8471195471195472,
-        "exactSpanIncludingModifiers": {
-          "precision": 0.8363636363636363,
-          "recall": 0.8518518518518519,
-          "f1": 0.8440366972477065,
-          "tp": 46,
-          "fp": 9,
-          "fn": 8,
-          "support": 54
-        },
-        "byTokenType": {
-          "keyword": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "comment": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
+            "support": 1
           },
           "string": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "punctuation": {
-            "precision": 1.0,
+            "precision": 0.9545454545454546,
             "recall": 0.875,
-            "f1": 0.9333333333333333,
-            "tp": 7,
-            "fp": 0,
-            "fn": 1,
-            "support": 8
-          },
-          "text": {
-            "precision": 0.7692307692307693,
-            "recall": 0.7692307692307693,
-            "f1": 0.7692307692307693,
-            "tp": 10,
-            "fp": 3,
+            "f1": 0.9130434782608695,
+            "tp": 21,
+            "fp": 1,
             "fn": 3,
-            "support": 13
-          },
-          "entity": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "heading": {
-            "precision": 0.6666666666666666,
-            "recall": 0.8,
-            "f1": 0.7272727272727273,
-            "tp": 4,
-            "fp": 2,
-            "fn": 1,
-            "support": 5
-          },
-          "link": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "link-destination": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "code": {
-            "precision": 0.7142857142857143,
-            "recall": 0.625,
-            "f1": 0.6666666666666666,
-            "tp": 5,
-            "fp": 2,
-            "fn": 3,
-            "support": 8
-          },
-          "code-fence": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 10,
-            "fp": 0,
-            "fn": 0,
-            "support": 10
-          },
-          "code-language": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 5,
-            "fp": 0,
-            "fn": 0,
-            "support": 5
-          },
-          "embedded-code": {
-            "precision": 0.7142857142857143,
-            "recall": 1.0,
-            "f1": 0.8333333333333334,
-            "tp": 5,
-            "fp": 2,
-            "fn": 0,
-            "support": 5
-          }
-        }
-      },
-      "missing": [
-        {
-          "start": 800,
-          "end": 854,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`GetProp<ComponentTypeOrComponentPropsType, PropName>`"
-        },
-        {
-          "start": 855,
-          "end": 856,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "-"
-        },
-        {
-          "start": 857,
-          "end": 880,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`GetRef<ComponentType>`"
-        },
-        {
-          "start": 955,
-          "end": 970,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "GetProps 获取属性定义"
-        },
-        {
-          "start": 972,
-          "end": 1006,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "antd 中，对于一些组件的子组件定义不一定被导出。你可以直接通过 "
-        },
-        {
-          "start": 1487,
-          "end": 1490,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "通过 "
-        },
-        {
-          "start": 1490,
-          "end": 1498,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`GetRef`"
-        },
-        {
-          "start": 1498,
-          "end": 1548,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "，你不用再记忆组件的 ref 类型到底是 HTMLElement 或者什么特别的定义。直接用就完了："
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 800,
-          "end": 808,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`GetProp"
-        },
-        {
-          "start": 808,
-          "end": 854,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "<ComponentTypeOrComponentPropsType, PropName>`"
-        },
-        {
-          "start": 855,
-          "end": 880,
-          "tokenType": "embedded-code",
-          "modifiers": [],
-          "text": "- `GetRef<ComponentType>`"
-        },
-        {
-          "start": 955,
-          "end": 969,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "GetProps 获取属性定"
-        },
-        {
-          "start": 969,
-          "end": 970,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "义"
-        },
-        {
-          "start": 972,
-          "end": 978,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "antd 中"
-        },
-        {
-          "start": 978,
-          "end": 1006,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "，对于一些组件的子组件定义不一定被导出。你可以直接通过 "
-        },
-        {
-          "start": 1487,
-          "end": 1490,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "通过 "
-        },
-        {
-          "start": 1490,
-          "end": 1548,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`GetRef`，你不用再记忆组件的 ref 类型到底是 HTMLElement 或者什么特别的定义。直接用就完了："
-        }
-      ]
-    },
-    {
-      "repository": "tanstack-query-markdown-v1",
-      "path": "docs/framework/vue/reference/type-aliases/UseMutationReturnType.md",
-      "sourceGroup": "tanstack-query-markdown-v1:docs/framework/vue/reference",
-      "contentHash": "754ca88828830c7405605d1c50b8c7d6cad93971a259c7d729eb5894939f6666",
-      "metrics": {
-        "documents": 1,
-        "exactDocumentsIncludingModifiers": 0,
-        "exactSpan": {
-          "precision": 0.8412698412698413,
-          "recall": 0.8983050847457628,
-          "f1": 0.8688524590163934,
-          "tp": 53,
-          "fp": 10,
-          "fn": 6,
-          "support": 59
-        },
-        "exactSpanMacroF1": 0.9133333333333333,
-        "exactSpanIncludingModifiers": {
-          "precision": 0.8412698412698413,
-          "recall": 0.8983050847457628,
-          "f1": 0.8688524590163934,
-          "tp": 53,
-          "fp": 10,
-          "fn": 6,
-          "support": 59
-        },
-        "byTokenType": {
-          "keyword": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "comment": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "string": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "punctuation": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 13,
-            "fp": 0,
-            "fn": 0,
-            "support": 13
-          },
-          "text": {
-            "precision": 1.0,
-            "recall": 0.6,
-            "f1": 0.75,
-            "tp": 3,
-            "fp": 0,
-            "fn": 2,
-            "support": 5
-          },
-          "entity": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 2,
-            "fp": 0,
-            "fn": 0,
-            "support": 2
-          },
-          "heading": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 10,
-            "fp": 0,
-            "fn": 0,
-            "support": 10
-          },
-          "link": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 1,
-            "fp": 0,
-            "fn": 0,
-            "support": 1
-          },
-          "link-destination": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 1,
-            "fp": 0,
-            "fn": 0,
-            "support": 1
-          },
-          "code": {
-            "precision": 0.5384615384615384,
-            "recall": 0.6363636363636364,
-            "f1": 0.5833333333333334,
-            "tp": 7,
-            "fp": 6,
-            "fn": 4,
-            "support": 11
-          },
-          "code-fence": {
-            "precision": 0.6666666666666666,
-            "recall": 1.0,
-            "f1": 0.8,
-            "tp": 8,
-            "fp": 4,
-            "fn": 0,
-            "support": 8
-          },
-          "code-language": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 4,
-            "fp": 0,
-            "fn": 0,
-            "support": 4
-          },
-          "embedded-code": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 4,
-            "fp": 0,
-            "fn": 0,
-            "support": 4
-          }
-        }
-      },
-      "missing": [
-        {
-          "start": 681,
-          "end": 688,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`TData`"
-        },
-        {
-          "start": 702,
-          "end": 710,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`TError`"
-        },
-        {
-          "start": 728,
-          "end": 740,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`TVariables`"
-        },
-        {
-          "start": 763,
-          "end": 780,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "`TOnMutateResult`"
-        },
-        {
-          "start": 804,
-          "end": 807,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " = "
-        },
-        {
-          "start": 856,
-          "end": 858,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": ", "
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 681,
-          "end": 682,
-          "tokenType": "code-fence",
-          "modifiers": [],
-          "text": "`"
-        },
-        {
-          "start": 682,
-          "end": 688,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "TData`"
-        },
-        {
-          "start": 702,
-          "end": 703,
-          "tokenType": "code-fence",
-          "modifiers": [],
-          "text": "`"
-        },
-        {
-          "start": 703,
-          "end": 710,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "TError`"
-        },
-        {
-          "start": 728,
-          "end": 729,
-          "tokenType": "code-fence",
-          "modifiers": [],
-          "text": "`"
-        },
-        {
-          "start": 729,
-          "end": 740,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "TVariables`"
-        },
-        {
-          "start": 763,
-          "end": 764,
-          "tokenType": "code-fence",
-          "modifiers": [],
-          "text": "`"
-        },
-        {
-          "start": 764,
-          "end": 780,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": "TOnMutateResult`"
-        },
-        {
-          "start": 804,
-          "end": 807,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": " = "
-        },
-        {
-          "start": 856,
-          "end": 858,
-          "tokenType": "code",
-          "modifiers": [],
-          "text": ", "
-        }
-      ]
-    },
-    {
-      "repository": "ant-design-markdown-v1",
-      "path": "components/avatar/index.zh-CN.md",
-      "sourceGroup": "ant-design-markdown-v1:components/avatar",
-      "contentHash": "3ab003a76f0beee98f809aa4c04276bae9e3423611308f3930864eee8bb5a76f",
-      "metrics": {
-        "documents": 1,
-        "exactDocumentsIncludingModifiers": 0,
-        "exactSpan": {
-          "precision": 0.7922437673130194,
-          "recall": 0.8362573099415205,
-          "f1": 0.813655761024182,
-          "tp": 286,
-          "fp": 75,
-          "fn": 56,
-          "support": 342
-        },
-        "exactSpanMacroF1": 0.769398085529713,
-        "exactSpanIncludingModifiers": {
-          "precision": 0.7922437673130194,
-          "recall": 0.8362573099415205,
-          "f1": 0.813655761024182,
-          "tp": 286,
-          "fp": 75,
-          "fn": 56,
-          "support": 342
-        },
-        "byTokenType": {
-          "keyword": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
-          },
-          "comment": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 1,
-            "fp": 0,
-            "fn": 0,
-            "support": 1
-          },
-          "string": {
-            "precision": 0.8214285714285714,
-            "recall": 0.9583333333333334,
-            "f1": 0.8846153846153846,
-            "tp": 23,
-            "fp": 5,
-            "fn": 1,
             "support": 24
           },
           "punctuation": {
-            "precision": 0.8625,
-            "recall": 0.9387755102040817,
-            "f1": 0.8990228013029316,
-            "tp": 138,
-            "fp": 22,
-            "fn": 9,
-            "support": 147
+            "precision": 0.890652557319224,
+            "recall": 0.9805825242718447,
+            "f1": 0.933456561922366,
+            "tp": 505,
+            "fp": 62,
+            "fn": 10,
+            "support": 515
           },
           "text": {
-            "precision": 0.7397260273972602,
-            "recall": 0.5806451612903226,
-            "f1": 0.6506024096385542,
-            "tp": 54,
-            "fp": 19,
-            "fn": 39,
-            "support": 93
+            "precision": 0.7401315789473685,
+            "recall": 0.75,
+            "f1": 0.7450331125827815,
+            "tp": 225,
+            "fp": 79,
+            "fn": 75,
+            "support": 300
           },
           "entity": {
-            "precision": 0.625,
-            "recall": 0.8333333333333334,
-            "f1": 0.7142857142857143,
-            "tp": 15,
-            "fp": 9,
-            "fn": 3,
-            "support": 18
+            "precision": 0.8125,
+            "recall": 0.8666666666666667,
+            "f1": 0.8387096774193549,
+            "tp": 13,
+            "fp": 3,
+            "fn": 2,
+            "support": 15
           },
           "heading": {
-            "precision": 0.5185185185185185,
-            "recall": 0.8235294117647058,
-            "f1": 0.6363636363636364,
-            "tp": 14,
-            "fp": 13,
-            "fn": 3,
-            "support": 17
+            "precision": 0.9090909090909091,
+            "recall": 0.7894736842105263,
+            "f1": 0.8450704225352113,
+            "tp": 30,
+            "fp": 3,
+            "fn": 8,
+            "support": 38
           },
           "link": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1": 1.0,
-            "tp": 3,
-            "fp": 0,
-            "fn": 0,
-            "support": 3
+            "precision": 0.9886363636363636,
+            "recall": 0.9775280898876404,
+            "f1": 0.9830508474576272,
+            "tp": 87,
+            "fp": 1,
+            "fn": 2,
+            "support": 89
           },
           "link-destination": {
+            "precision": 0.9887640449438202,
+            "recall": 1.0,
+            "f1": 0.9943502824858758,
+            "tp": 88,
+            "fp": 1,
+            "fn": 0,
+            "support": 88
+          },
+          "code": {
+            "precision": 0.9492753623188406,
+            "recall": 0.9562043795620438,
+            "f1": 0.9527272727272728,
+            "tp": 131,
+            "fp": 7,
+            "fn": 6,
+            "support": 137
+          },
+          "code-fence": {
             "precision": 1.0,
             "recall": 1.0,
             "f1": 1.0,
-            "tp": 3,
+            "tp": 10,
             "fp": 0,
             "fn": 0,
-            "support": 3
-          },
-          "code": {
-            "precision": 0.8536585365853658,
-            "recall": 0.9722222222222222,
-            "f1": 0.9090909090909091,
-            "tp": 35,
-            "fp": 6,
-            "fn": 1,
-            "support": 36
-          },
-          "code-fence": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 0,
-            "fn": 0,
-            "support": 0
+            "support": 10
           },
           "code-language": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
-            "fp": 1,
-            "fn": 0,
-            "support": 0
-          },
-          "embedded-code": {
-            "precision": 0.0,
-            "recall": 0.0,
-            "f1": 0.0,
-            "tp": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
             "fp": 0,
             "fn": 0,
-            "support": 0
+            "support": 5
+          },
+          "embedded-code": {
+            "precision": 0.8,
+            "recall": 0.8,
+            "f1": 0.8,
+            "tp": 4,
+            "fp": 1,
+            "fn": 1,
+            "support": 5
           }
         }
       },
       "missing": [
         {
-          "start": 527,
-          "end": 529,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "基本"
-        },
-        {
-          "start": 714,
-          "end": 747,
-          "tokenType": "string",
-          "modifiers": [],
-          "text": "<code src=\"./demo/max-count.tsx\">"
-        },
-        {
-          "start": 916,
-          "end": 922,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "图片不存在时"
-        },
-        {
-          "start": 1000,
-          "end": 1007,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "通用属性参考："
-        },
-        {
-          "start": 1065,
-          "end": 1067,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "类型"
-        },
-        {
-          "start": 1139,
-          "end": 1176,
+          "start": 1902,
+          "end": 1906,
           "tokenType": "punctuation",
           "modifiers": [],
-          "text": "| --- | --- | --- | --- | --- | --- |"
+          "text": "|  |"
         },
         {
-          "start": 1179,
-          "end": 1182,
+          "start": 1915,
+          "end": 1919,
           "tokenType": "text",
           "modifiers": [],
-          "text": "alt"
+          "text": "Set "
         },
         {
-          "start": 1209,
-          "end": 1210,
-          "tokenType": "text",
+          "start": 2031,
+          "end": 2035,
+          "tokenType": "punctuation",
           "modifiers": [],
-          "text": "-"
+          "text": "|  |"
         },
         {
-          "start": 1274,
-          "end": 1278,
-          "tokenType": "text",
+          "start": 2144,
+          "end": 2148,
+          "tokenType": "punctuation",
           "modifiers": [],
-          "text": "icon"
+          "text": "|  |"
         },
         {
-          "start": 1306,
-          "end": 1307,
-          "tokenType": "text",
+          "start": 2267,
+          "end": 2321,
+          "tokenType": "code",
           "modifiers": [],
-          "text": "-"
+          "text": "`(trigger?: HTMLElement) => HTMLElement \\| ShadowRoot`"
         },
         {
-          "start": 1346,
-          "end": 1348,
-          "tokenType": "entity",
+          "start": 2344,
+          "end": 2348,
+          "tokenType": "punctuation",
           "modifiers": [],
-          "text": "\\|"
+          "text": "|  |"
         },
         {
-          "start": 1380,
-          "end": 1384,
-          "tokenType": "text",
+          "start": 2419,
+          "end": 2462,
+          "tokenType": "code",
           "modifiers": [],
-          "text": "size"
+          "text": "`() => HTMLElement \\| Window \\| ShadowRoot`"
         },
         {
-          "start": 1397,
-          "end": 1404,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "number "
-        },
-        {
-          "start": 1440,
-          "end": 1471,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " { xs: number, sm: number, ...}"
-        },
-        {
-          "start": 1499,
-          "end": 1502,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "src"
-        },
-        {
-          "start": 1524,
-          "end": 1531,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "string "
-        },
-        {
-          "start": 1533,
-          "end": 1543,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": " ReactNode"
-        },
-        {
-          "start": 1546,
-          "end": 1547,
+          "start": 2687,
+          "end": 2688,
           "tokenType": "text",
           "modifiers": [],
           "text": "-"
         },
         {
-          "start": 1550,
-          "end": 1566,
-          "tokenType": "text",
+          "start": 2689,
+          "end": 2693,
+          "tokenType": "punctuation",
           "modifiers": [],
-          "text": "ReactNode: 4.8.0"
+          "text": "|  |"
         },
         {
-          "start": 1610,
-          "end": 1611,
-          "tokenType": "text",
-          "modifiers": [],
-          "text": "-"
-        },
-        {
-          "start": 1646,
-          "end": 1654,
+          "start": 2921,
+          "end": 2929,
           "tokenType": "text",
           "modifiers": [],
           "text": "boolean "
         },
         {
-          "start": 1770,
-          "end": 1771,
+          "start": 3083,
+          "end": 3212,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "<InlinePopover previewURL=\"https://user-images.githubusercontent.com/5378891/230344474-5b9f7e09-0a5d-49e8-bae8-7d2abed6c837.png\">"
+        },
+        {
+          "start": 3212,
+          "end": 3228,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "</InlinePopover>"
+        },
+        {
+          "start": 3304,
+          "end": 3308,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|  |"
+        },
+        {
+          "start": 3325,
+          "end": 3362,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "Set empty content of components. Ref "
+        },
+        {
+          "start": 3392,
+          "end": 3434,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "function(componentName: string): ReactNode"
+        },
+        {
+          "start": 3439,
+          "end": 3443,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|  |"
+        },
+        {
+          "start": 4213,
+          "end": 4220,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "boolean"
+        },
+        {
+          "start": 4223,
+          "end": 4224,
           "tokenType": "text",
           "modifiers": [],
           "text": "-"
         },
         {
-          "start": 1799,
-          "end": 1838,
+          "start": 4227,
+          "end": 4228,
           "tokenType": "text",
           "modifiers": [],
-          "text": "图片加载失败的事件，返回 false 会关闭组件默认的 fallback 行为"
+          "text": "-"
         },
         {
-          "start": 1841,
-          "end": 1854,
+          "start": 4648,
+          "end": 4654,
+          "tokenType": "heading",
+          "modifiers": [],
+          "text": "5.3.0+"
+        },
+        {
+          "start": 4654,
+          "end": 4662,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "</Badge>"
+        },
+        {
+          "start": 4662,
+          "end": 4675,
+          "tokenType": "heading",
+          "modifiers": [],
+          "text": " {#useconfig}"
+        },
+        {
+          "start": 5127,
+          "end": 5128,
           "tokenType": "text",
           "modifiers": [],
-          "text": "() => boolean"
+          "text": "-"
+        },
+        {
+          "start": 5430,
+          "end": 5432,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": ": "
         }
       ],
       "unexpected": [
         {
-          "start": 527,
-          "end": 529,
-          "tokenType": "string",
-          "modifiers": [],
-          "text": "基本"
-        },
-        {
-          "start": 714,
-          "end": 746,
-          "tokenType": "string",
-          "modifiers": [],
-          "text": "<code src=\"./demo/max-count.tsx\""
-        },
-        {
-          "start": 746,
-          "end": 747,
-          "tokenType": "string",
-          "modifiers": [],
-          "text": ">"
-        },
-        {
-          "start": 916,
-          "end": 922,
-          "tokenType": "string",
-          "modifiers": [],
-          "text": "图片不存在时"
-        },
-        {
-          "start": 1000,
-          "end": 1007,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "通用属性参考："
-        },
-        {
-          "start": 1065,
-          "end": 1066,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "类"
-        },
-        {
-          "start": 1066,
-          "end": 1067,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "型"
-        },
-        {
-          "start": 1139,
-          "end": 1174,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "| --- | --- | --- | --- | --- | ---"
-        },
-        {
-          "start": 1175,
-          "end": 1176,
+          "start": 1902,
+          "end": 1903,
           "tokenType": "punctuation",
           "modifiers": [],
           "text": "|"
         },
         {
-          "start": 1179,
-          "end": 1182,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "alt"
-        },
-        {
-          "start": 1209,
-          "end": 1210,
+          "start": 1905,
+          "end": 1906,
           "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "-"
-        },
-        {
-          "start": 1274,
-          "end": 1278,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "icon"
-        },
-        {
-          "start": 1306,
-          "end": 1307,
-          "tokenType": "punctuation",
-          "modifiers": [],
-          "text": "-"
-        },
-        {
-          "start": 1346,
-          "end": 1347,
-          "tokenType": "entity",
-          "modifiers": [],
-          "text": "\\"
-        },
-        {
-          "start": 1347,
-          "end": 1348,
-          "tokenType": "entity",
           "modifiers": [],
           "text": "|"
         },
         {
-          "start": 1380,
-          "end": 1384,
-          "tokenType": "heading",
-          "modifiers": [],
-          "text": "size"
-        },
-        {
-          "start": 1397,
-          "end": 1403,
+          "start": 1915,
+          "end": 1918,
           "tokenType": "text",
           "modifiers": [],
-          "text": "number"
+          "text": "Set"
         },
         {
-          "start": 1441,
-          "end": 1471,
+          "start": 2031,
+          "end": 2032,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 2034,
+          "end": 2035,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 2144,
+          "end": 2145,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 2147,
+          "end": 2148,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 2267,
+          "end": 2294,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`(trigger?: HTMLElement) =>"
+        },
+        {
+          "start": 2294,
+          "end": 2307,
           "tokenType": "text",
           "modifiers": [],
-          "text": "{ xs: number, sm: number, ...}"
+          "text": " HTMLElement "
         },
         {
-          "start": 1499,
-          "end": 1502,
-          "tokenType": "heading",
+          "start": 2307,
+          "end": 2309,
+          "tokenType": "entity",
           "modifiers": [],
-          "text": "src"
+          "text": "\\|"
         },
         {
-          "start": 1524,
-          "end": 1530,
+          "start": 2309,
+          "end": 2321,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": " ShadowRoot`"
+        },
+        {
+          "start": 2344,
+          "end": 2345,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 2347,
+          "end": 2348,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 2419,
+          "end": 2425,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "`() =>"
+        },
+        {
+          "start": 2425,
+          "end": 2438,
           "tokenType": "text",
           "modifiers": [],
-          "text": "string"
+          "text": " HTMLElement "
         },
         {
-          "start": 1534,
-          "end": 1543,
+          "start": 2438,
+          "end": 2440,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "\\|"
+        },
+        {
+          "start": 2440,
+          "end": 2448,
           "tokenType": "text",
           "modifiers": [],
-          "text": "ReactNode"
+          "text": " Window "
         },
         {
-          "start": 1546,
-          "end": 1547,
+          "start": 2448,
+          "end": 2450,
+          "tokenType": "entity",
+          "modifiers": [],
+          "text": "\\|"
+        },
+        {
+          "start": 2450,
+          "end": 2451,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 2451,
+          "end": 2462,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "ShadowRoot`"
+        },
+        {
+          "start": 2687,
+          "end": 2688,
           "tokenType": "punctuation",
           "modifiers": [],
           "text": "-"
         },
         {
-          "start": 1550,
-          "end": 1560,
-          "tokenType": "text",
+          "start": 2689,
+          "end": 2690,
+          "tokenType": "punctuation",
           "modifiers": [],
-          "text": "ReactNode:"
+          "text": "|"
         },
         {
-          "start": 1561,
-          "end": 1566,
+          "start": 2692,
+          "end": 2693,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 2921,
+          "end": 2928,
           "tokenType": "text",
-          "modifiers": [
-            "strong"
-          ],
-          "text": "4.8.0"
+          "modifiers": [],
+          "text": "boolean"
+        }
+      ]
+    },
+    {
+      "repository": "tanstack-query-markdown-v1",
+      "path": "packages/lit-query/README.md",
+      "sourceGroup": "tanstack-query-markdown-v1:packages/lit-query",
+      "contentHash": "d34773bd2af05620559792fe4238d8762727899bc81e17bef0b53dbf5e347aa0",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9238095238095239,
+          "recall": 0.9603960396039604,
+          "f1": 0.941747572815534,
+          "tp": 97,
+          "fp": 8,
+          "fn": 4,
+          "support": 101
+        },
+        "exactSpanMacroF1": 0.8194334487877288,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9238095238095239,
+          "recall": 0.9603960396039604,
+          "f1": 0.941747572815534,
+          "tp": 97,
+          "fp": 8,
+          "fn": 4,
+          "support": 101
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 3,
+            "fn": 1,
+            "support": 1
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 20,
+            "fp": 0,
+            "fn": 0,
+            "support": 20
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 0.9583333333333334,
+            "f1": 0.9787234042553191,
+            "tp": 23,
+            "fp": 0,
+            "fn": 1,
+            "support": 24
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 0.875,
+            "recall": 1.0,
+            "f1": 0.9333333333333333,
+            "tp": 7,
+            "fp": 1,
+            "fn": 0,
+            "support": 7
+          },
+          "link": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "link-destination": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code": {
+            "precision": 0.9545454545454546,
+            "recall": 1.0,
+            "f1": 0.9767441860465116,
+            "tp": 21,
+            "fp": 1,
+            "fn": 0,
+            "support": 21
+          },
+          "code-fence": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 14,
+            "fp": 0,
+            "fn": 0,
+            "support": 14
+          },
+          "code-language": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "embedded-code": {
+            "precision": 0.625,
+            "recall": 0.7142857142857143,
+            "f1": 0.6666666666666666,
+            "tp": 5,
+            "fp": 3,
+            "fn": 2,
+            "support": 7
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 0,
+          "end": 485,
+          "tokenType": "string",
+          "modifiers": [],
+          "textExcerpt": "<div align=\"center\">\n  <picture>\n    <source\n      media=\"(prefers-color-scheme: dark)\"\n      srcset=\"https://tanstack.com/api/readme/query.png?framework=lit&th",
+          "excerptTruncated": true
+        },
+        {
+          "start": 2903,
+          "end": 3153,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "textExcerpt": "DEMO_PORT=4180 pnpm --dir examples/lit/basic run dev\nPAGINATION_DEMO_PORT=4181 PAGINATION_API_PORT=4182 pnpm --dir examples/lit/pagination run dev\nSSR_PORT=4180",
+          "excerptTruncated": true
+        },
+        {
+          "start": 3332,
+          "end": 3505,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "textExcerpt": "pnpm --dir packages/lit-query run test:types\npnpm --dir packages/lit-query run test:lib\npnpm --dir packages/lit-query run build\npnpm --dir packages/lit-query ru",
+          "excerptTruncated": true
+        },
+        {
+          "start": 3522,
+          "end": 3525,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "MIT"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 463,
+          "tokenType": "string",
+          "modifiers": [],
+          "textExcerpt": "<div align=\"center\">\n  <picture>\n    <source\n      media=\"(prefers-color-scheme: dark)\"\n      srcset=\"https://tanstack.com/api/readme/query.png?framework=lit&th",
+          "excerptTruncated": true
+        },
+        {
+          "start": 464,
+          "end": 485,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "# @tanstack/lit-query"
+        },
+        {
+          "start": 2903,
+          "end": 3054,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "DEMO_PORT=4180 pnpm --dir examples/lit/basic run dev\nPAGINATION_DEMO_PORT=4181 PAGINATION_API_PORT=4182 pnpm --dir examples/lit/pagination run dev\nSSR_"
+        },
+        {
+          "start": 3054,
+          "end": 3153,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "text": "PORT=4180 pnpm --dir examples/lit/ssr run dev\nSSR_HOST=0.0.0.0 pnpm --dir examples/lit/ssr run dev\n"
+        },
+        {
+          "start": 3332,
+          "end": 3337,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "text": "pnpm "
+        },
+        {
+          "start": 3337,
+          "end": 3388,
+          "tokenType": "code",
+          "modifiers": [],
+          "text": "--dir packages/lit-query run test:types\npnpm --dir "
+        },
+        {
+          "start": 3388,
+          "end": 3505,
+          "tokenType": "embedded-code",
+          "modifiers": [],
+          "text": "packages/lit-query run test:lib\npnpm --dir packages/lit-query run build\npnpm --dir packages/lit-query run test:build\n"
+        },
+        {
+          "start": 3522,
+          "end": 3525,
+          "tokenType": "heading",
+          "modifiers": [],
+          "text": "MIT"
+        }
+      ]
+    },
+    {
+      "repository": "ant-design-markdown-v1",
+      "path": "components/_util/index.zh-CN.md",
+      "sourceGroup": "ant-design-markdown-v1:components/_util",
+      "contentHash": "02abb40917f4fd6c5e8d9b46dbeb3c08ec34fa68f48467114501bfe6eb9f8622",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9841269841269841,
+          "recall": 0.9841269841269841,
+          "f1": 0.9841269841269841,
+          "tp": 62,
+          "fp": 1,
+          "fn": 1,
+          "support": 63
+        },
+        "exactSpanMacroF1": 0.9831519831519832,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9841269841269841,
+          "recall": 0.9841269841269841,
+          "f1": 0.9841269841269841,
+          "tp": 62,
+          "fp": 1,
+          "fn": 1,
+          "support": 63
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 0.9473684210526315,
+            "f1": 0.972972972972973,
+            "tp": 18,
+            "fp": 0,
+            "fn": 1,
+            "support": 19
+          },
+          "entity": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "tp": 5,
+            "fp": 1,
+            "fn": 0,
+            "support": 5
+          },
+          "link": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "link-destination": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "code": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 15,
+            "fp": 0,
+            "fn": 0,
+            "support": 15
+          },
+          "code-fence": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "code-language": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "embedded-code": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 611,
+          "end": 617,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " 属性定义："
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 611,
+          "end": 617,
+          "tokenType": "heading",
+          "modifiers": [],
+          "text": " 属性定义："
         }
       ]
     }

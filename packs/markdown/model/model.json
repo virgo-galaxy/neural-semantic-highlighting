@@ -3,16 +3,19 @@
   "artifact": {
     "file": "model.pt",
     "format": "nsh-markdown-model-v1",
-    "sha256": "9ce68a8f7093cc2d6cddb1f0020f11cfcce58675ba78035b307e2d12d23911be",
-    "bytes": 3632629,
+    "sha256": "ac6d3d429bc19d558036fa1ac00cb20eb8c93d4d6c48d26231a7adc14c81ff60",
+    "bytes": 3638133,
     "parameterCount": 894227,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "selection": {
-    "epoch": 5,
-    "metric": "mean per-profile natural real-source validation exact-span macro F1",
-    "score": 0.7237389978208757
+    "epoch": 3,
+    "metric": "Maximum minimum exact-span F1 of all/fresh/legacy natural VALIDATION; macro F1 breaks ties",
+    "score": 0.9175156095957936,
+    "validationReportSha256": "98fb7e47fb3618dcbfba53034ec707afdc68bb06a6eee1695e71be285a05caba",
+    "trainingBestEpoch": 2,
+    "trainingBestFixedMacroF1": 0.8487946938267096
   },
   "checkpointConfig": {
     "context_bytes": 512,
@@ -67,7 +70,7 @@
   },
   "inference": {
     "windowing": "predicted-adaptive-cursor",
-    "decoder": "greedy-mean-logit",
+    "decoder": "joint-bio-viterbi",
     "packPolicy": {
       "coalesce_types": [
         "embedded-code"
@@ -109,18 +112,19 @@
     "sha256": "2bd9226467873b61740a6187ef1694f18452b9cf039110b7d9b3e91adff3d00c"
   },
   "dataset": {
-    "snapshot": "13bcb693a1ee75a032f8dbd7655367381ac2447a3f3e56fd4ae2c52ff00f7af2",
-    "manifestHash": "c9778b82a6313cc1238eebd3d6fa95ce6d090f833e549b542e4a97dfa8dcff50"
+    "snapshot": "55885990c801a91c3b328e1b00fb91668bd6eb4e83e8b0f62330391498754f26",
+    "manifestHash": "e1b2447a5d435c48089135f69a46461ac8fb2ceb400f04d059128cae2a360352"
   },
   "provenance": {
-    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/markdown/context512-mixed-20261116-01/candidates/epoch-0005.pt",
-    "sourceCheckpointSha256": "a242673a7a0f39619fca26c2232806854e05d1f40bb98f5cc30d17b619624ce1",
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/markdown/optimization-20261116/calibrated-fences-e3.pt",
+    "sourceCheckpointSha256": "6b6d7d4447172dc9c7aeafebe4ee08b1b89d16b4685cbc8635410d3a8b264401",
     "training": {
       "codeHashes": {
         "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
         "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
         "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
         "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/markdown/calibrate.py": "58b5b2715560f1932231ec1d0c948ef97c214af628bac1825b92508fa1bb5e9a",
         "training/markdown/challenge.py": "6fc28defbf1bd12eb02cf036143a45e991525fab433d46fec00c64a1e3d23c75",
         "training/markdown/evaluate.py": "cec1e0d85be3e3660f4004d39c6e69c3faf9d0847b4ac7ab789d183ac87139cb",
         "training/markdown/export_model.py": "e09abdd2d7be1716d5b9502e065fba5fbecf2cf63a662be067d3b040dfc56809",
@@ -129,26 +133,27 @@
         "training/markdown/review.py": "d8bd6850f7f4052eb0f2cdf012056e2be9c4166b7676dc01295ce08fad66bdd2",
         "training/markdown/train.py": "ee63c9eb913cabe9800e43982dcfc3154def94a5505af0a5d3e6b232ebbebc19",
         "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
-        "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+        "training/shared/checkpoints.py": "56b83e9a391b9162625c3c662bd12649ef48c74809fca8cdfa9e688f2c268564",
         "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
         "training/shared/encoding.py": "998536a816ea0fe135e9a6c2c61c6a213d20207f9bd80c69eff01b7ae272a1b6",
-        "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
-        "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+        "training/shared/evaluate.py": "804f489c91b63342eb278b0d6e5e0825cb6787f365f95ac9a358a4691176f764",
+        "training/shared/export_model.py": "6999b1a5c6b00b720c208a5b5a43c05111565551c397fe68b9793348e44e1b08",
         "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
-        "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+        "training/shared/inference.py": "fcbecc3b8ea443f631198d641d4a07bfbf72773b16d035fced5ac49b50d204f2",
         "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
         "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
         "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
-        "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+        "training/shared/metrics.py": "4f4e93230e9ec0620896d3607d2e5a0263b3247cb900f21ebc86166b6ca684a8",
         "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
         "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
         "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
         "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
         "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
         "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
-        "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+        "training/shared/runtime.py": "c36728b98f1e7ae2068a21bf71b9c19b04ab9398acd0988d95b2ba0013074fca",
         "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
-        "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+        "training/shared/structured.py": "617d9dd571111b41fd3988e6c88f2f359e747cf1f11286bdf1a20c2428c830a1",
+        "training/shared/train.py": "29c6aeaea2097d8f8bf2e29ae21fc422f653fd03099f1412b1873f76a8dfe128",
         "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
       },
       "semanticsHash": "288af6d245a2609dd213061fda6a60b3f65b96fa947473ffa9bbf0429f198ac1",
@@ -183,17 +188,17 @@
       },
       "pythonTorch": "2.14.0",
       "repositoryDirty": true,
-      "repositoryCommit": "b16418bd58705f57e12a5ae587845e826fe8d2be"
+      "repositoryCommit": "65ecb2172367bd9198cbc44cbd801d9ce02e8604"
     },
     "initialization": {
       "mode": "markdown-weights-only-transfer",
-      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/markdown/context512-20261116-01/candidates/epoch-0006.pt",
-      "checkpointHash": "11c4f122e5f34a9635f8b2acb682c173122ce9683b28088cabb7c0d17bd68ac6",
-      "sourceEpoch": 6,
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/markdown/context512-real-control-20261117-01/candidates/epoch-0009.pt",
+      "checkpointHash": "59d4d5ef4ff37b2f42c19ef83c6954b56738fce4a840ad8a7046f4e67425268f",
+      "sourceEpoch": 9,
       "sourceDataset": {
-        "snapshot": "783b3af44daf8728e7d151bb49cebd5f7bd8ac5a9c08205acff2db870d1a67f4",
-        "manifestHash": "4fcefb49f21f27bc525294315ccda83b87cd2a40629b08681354d6cdac79cb6d",
-        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/markdown/prepared/783b3af44daf8728e7d151bb49cebd5f7bd8ac5a9c08205acff2db870d1a67f4"
+        "snapshot": "e8532009b207db9a6be5f9b5ade2db2c39cf912612771dcff1eea0c4ca7eecff",
+        "manifestHash": "9d35df9dcebb3701603682f3a47f91106cbcbc5a2f20314690c676fb1e185fb8",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/markdown/prepared/e8532009b207db9a6be5f9b5ade2db2c39cf912612771dcff1eea0c4ca7eecff"
       },
       "copiedTokenTypes": [
         "keyword",
@@ -219,24 +224,23 @@
       ],
       "optimizerAndTrainingState": "fresh pack run"
     },
-    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+    "exporterSha256": "38674e566783f403fd461133d38f4764251001cdf8883f9b079701a4be368ade",
+    "decoderCalibration": {
+      "sourceCheckpointHash": "4791bd8e77b4e9e3666ee9b6739651e2bdf7085a462fdf962592c48c6487a5e5",
+      "validationReport": "artifacts/markdown/optimization-20261116/calibrated-fences-e3.calibration.json",
+      "validationReportHash": "98fb7e47fb3618dcbfba53034ec707afdc68bb06a6eee1695e71be285a05caba",
+      "protocolHash": "ec79a8138b01bb8e5ce1940a7503ff047d862aaf75ee6dc01ee2dce6d84bd43f",
+      "selection": "Maximum minimum exact-span F1 of all/fresh/legacy natural VALIDATION; macro F1 breaks ties",
+      "primaryTestUsed": false
+    }
   },
   "reports": {
     "test-metrics.json": {
       "file": "reports/test-metrics.json",
-      "sha256": "61bb17863f686619afeb7f166610aa511f8cec52fbeb723762e6ffc27587bcd3",
-      "checkpointHash": "a242673a7a0f39619fca26c2232806854e05d1f40bb98f5cc30d17b619624ce1",
+      "sha256": "09a16943acea23bab75e9c8e3e22f7eb378be8403d5068457402b3712ffd5e41",
+      "checkpointHash": "6b6d7d4447172dc9c7aeafebe4ee08b1b89d16b4685cbc8635410d3a8b264401",
       "split": "test",
       "inference": "predicted-adaptive-cursor"
     }
-  },
-  "composition": {
-    "browserDefault": "Predicted top-level code-fence/code-language/embedded-code regions; explicit info IDs only; registered children only",
-    "selectiveImport": "Markdown alone has no child dependencies; register desired child descriptors explicitly",
-    "unknownOrUnregistered": "Predicted body remains code",
-    "recursiveMarkdown": false,
-    "runtimeParser": false,
-    "nativeArtifactScope": "base Markdown; use core/composition/markdown for composed Node/browser use",
-    "qualityScope": "Base metrics do not measure complete composed child semantic accuracy"
   }
 }

@@ -1,26 +1,23 @@
 # Markdown neural model
 
-Markdown/GFM source, headings, lists/tasks, tables, links/references, nested emphasis, code, opaque HTML/front matter and predicted top-level fenced regions.
+Markdown/GFM source highlighting, with explicit registered child models for
+predicted top-level fenced code. The November 17 optimization reaches **95.10%
+exact-span F1 on 20 new independent real documents**. The unchanged 14-file v1
+regression improves from 77.24% to 95.99%.
 
 ```ts
 const { html } = await highlighter.highlight(source, { language: "markdown" });
 ```
 
-markdown, md, mdown and mkd (case normalized) share one model and canonical markdown output. Source language is explicit; content detection and MDX are not supported. Default browser registration can reuse existing code models inside predicted top-level fences; selective Markdown imports require explicit registration of desired child descriptors and otherwise retain code text.
-Selective import: `@nsh/highlighter/languages/markdown`. Case-normalized IDs share one
-model. Browser/Playground consumers require no language SDK, interpreter/compiler,
-parser, dependency environment or Python process. Offline Gold uses Existing pinned Prettier 3.9.6 Markdown/remark/GFM parse-only assets, entities and Node, all file-hashed; no dependency or SDK installation.
-Collected configurations are never executed or built.
+Aliases `md`, `mdown`, `mkd` share this model. Selective import:
+`@nsh/highlighter/languages/markdown`. Browser/Playground use no Python or parser.
+The same 894,227-parameter, 512-byte Transformer now uses a train-fitted joint
+BIO/role decoder. Its probabilities and all neural outputs are shared by browser
+and Python; source spelling never repairs predictions.
 
-[Evaluation](BENCHMARKS.md) separates natural, focus and visible evidence;
-[known limits](KNOWN_ISSUES.md) retain measured errors and source-local scope.
-Selected .pt/ONNX are inference-only. Resume full artifacts/markdown checkpoints only.
-All previous data, experiments and formal models remain preserved.
-
-The Python artifact returns base Markdown roles and predicted code regions.
-The browser highlighter composes registered child models automatically; Node
-consumers can use `@nsh/core/composition/markdown`. A selective Markdown descriptor
-has no child dependencies: register desired languages explicitly. Unknown or
-unregistered predicted bodies stay code. Nested/container code, HTML and front
-matter remain opaque. Source rendering, child-model quality and base F1 are
-separate scopes. This is an initial baseline with measured boundary weaknesses.
+[Evaluation](BENCHMARKS.md) separates independent test, exposed regression,
+authored curriculum and visible probes. [Known limits](KNOWN_ISSUES.md) include
+remaining embedded-code and edge-case errors. The complete prior native bundle
+remains in [model-20261116-v1](../model-20261116-v1/README.md), with its paired
+[browser bundle](../browser-20261116-v1/model.json). Existing data and full
+artifacts checkpoints remain untouched. Resume full training checkpoints only.
