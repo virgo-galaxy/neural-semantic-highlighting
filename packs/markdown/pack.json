@@ -1,0 +1,29 @@
+{
+  "label": "Markdown",
+  "profiles": ["markdown"],
+  "scope": "markdown-source-semantic-spans",
+  "contextBytes": 512,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": ["embedded-code"],
+    "modifierRoles": {
+      "strong": ["text", "heading", "link", "entity", "code"],
+      "emphasis": ["text", "heading", "link", "entity", "code"],
+      "strikethrough": ["text", "heading", "link", "entity", "code"]
+    }
+  },
+  "requiredTrainingFeatures": {
+    "markdown": [
+      "headings",
+      "lists",
+      "links",
+      "emphasis",
+      "inline-code",
+      "fenced-code",
+      "tables",
+      "tasks",
+      "quotes",
+      "strikethrough"
+    ]
+  },
+  "minimumTrainingFeatureGroups": 2
+}

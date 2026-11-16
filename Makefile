@@ -172,6 +172,7 @@ check:
 	$(MAKE) test-labeling-ini
 	$(MAKE) test-labeling-dotenv
 	$(MAKE) test-labeling-xml
+	$(MAKE) test-labeling-markdown
 	$(PYTHON) -m compileall -q training/kotlin packs/kotlin/runtime
 	$(PYTHON) -m compileall -q training/r packs/r/runtime
 	$(PYTHON) -m compileall -q training/scala packs/scala/runtime
@@ -183,6 +184,7 @@ check:
 	$(PYTHON) -m compileall -q training/ini packs/ini/runtime
 	$(PYTHON) -m compileall -q training/dotenv packs/dotenv/runtime
 	$(PYTHON) -m compileall -q training/xml packs/xml/runtime
+	$(PYTHON) -m compileall -q training/markdown packs/markdown/runtime
 	$(PYTHON) -c 'import packs.kotlin.runtime.local'
 	$(MAKE) test-labeling-swift
 	$(PYTHON) -m compileall -q training/swift packs/swift/runtime

@@ -113,7 +113,7 @@ def encode(record: dict[str, Any], schema: Schema) -> Encoded:
         lexical.append(text)
         if role in identifier_roles and "default-library" not in modifiers:
             text = role + ":identifier:" + str(names.setdefault(text, len(names)))
-        elif role in {"number", "string", "text", "entity"} or role.startswith("embedded-"):
+        elif role in {"number", "string", "text", "entity", "heading", "link", "link-destination", "code", "code-language"} or role.startswith("embedded-"):
             text = "literal:" + role
         shape.append(text)
     if raw[previous_end:].decode("utf-8").strip():

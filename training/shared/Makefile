@@ -1942,3 +1942,70 @@ challenge-xml:
 export-xml-model:
 	@test -n "$(XML_CHECKPOINT)" -a -n "$(XML_TEST_REPORT)" || (echo 'Set XML_CHECKPOINT and XML_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.xml.export_model --checkpoint "$(XML_CHECKPOINT)" --test-report "$(XML_TEST_REPORT)"
+
+MARKDOWN_DEVICE ?= auto
+MARKDOWN_EPOCHS ?= 3
+MARKDOWN_BATCH_SIZE ?= 32
+MARKDOWN_LEARNING_RATE ?=
+MARKDOWN_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-markdown dataset-markdown-tools dataset-markdown-sources dataset-markdown-curriculum dataset-markdown-collect dataset-markdown-label dataset-markdown-validate dataset-markdown-prepare test-labeling-markdown train-markdown-smoke train-markdown continue-markdown predict-markdown evaluate-markdown challenge-markdown export-markdown-model
+
+dataset-markdown-tools:
+	$(PYTHON) -m packs.markdown.labeling.tools
+
+dataset-markdown-sources:
+	$(PYTHON) -m packs.markdown.dataset.fetch_sources
+
+dataset-markdown:
+	$(MAKE) dataset-markdown-tools
+	$(MAKE) dataset-markdown-sources
+	$(MAKE) dataset-markdown-curriculum
+	$(MAKE) dataset-markdown-collect
+	$(MAKE) dataset-markdown-label
+	$(MAKE) dataset-markdown-validate
+	$(MAKE) dataset-markdown-prepare
+
+dataset-markdown-curriculum:
+	$(PYTHON) -m packs.markdown.dataset.generate_curriculum
+
+dataset-markdown-collect:
+	$(PYTHON) -m packs.markdown.dataset.pipeline collect
+
+dataset-markdown-label:
+	$(PYTHON) -m packs.markdown.dataset.pipeline label
+
+dataset-markdown-validate:
+	$(PYTHON) -m packs.markdown.dataset.pipeline validate
+
+dataset-markdown-prepare:
+	$(PYTHON) -m training.markdown.prepare
+
+test-labeling-markdown:
+	$(PYTHON) -m unittest discover -s packs/markdown/tests -v
+
+train-markdown-smoke:
+	$(PYTHON) -m training.markdown.train --smoke --epochs 1 --device $(MARKDOWN_DEVICE) $(if $(MARKDOWN_RUN),--output-dir "$(MARKDOWN_RUN)") $(if $(MARKDOWN_INIT_FROM),--init-from "$(MARKDOWN_INIT_FROM)")
+
+train-markdown:
+	$(PYTHON) -m training.markdown.train --epochs $(MARKDOWN_EPOCHS) --device $(MARKDOWN_DEVICE) --batch-size $(MARKDOWN_BATCH_SIZE) $(if $(MARKDOWN_LEARNING_RATE),--learning-rate $(MARKDOWN_LEARNING_RATE)) $(if $(MARKDOWN_RUN),--output-dir "$(MARKDOWN_RUN)") $(if $(MARKDOWN_INIT_FROM),--init-from "$(MARKDOWN_INIT_FROM)")
+
+continue-markdown:
+	@test -n "$(MARKDOWN_CHECKPOINT)" || (echo 'Set MARKDOWN_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.markdown.train --resume "$(MARKDOWN_CHECKPOINT)" --epochs $(MARKDOWN_EPOCHS) --device $(MARKDOWN_DEVICE)
+
+predict-markdown:
+	@test -n "$(MARKDOWN_SOURCE)" || (echo 'Set MARKDOWN_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.markdown.predict --device $(MARKDOWN_DEVICE) --file "$(MARKDOWN_SOURCE)" $(if $(MARKDOWN_CHECKPOINT),--checkpoint "$(MARKDOWN_CHECKPOINT)")
+
+evaluate-markdown:
+	@test -n "$(MARKDOWN_CHECKPOINT)" || (echo 'Set MARKDOWN_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.markdown.evaluate --checkpoint "$(MARKDOWN_CHECKPOINT)" --device $(MARKDOWN_DEVICE) --split $(MARKDOWN_EVAL_SPLIT)
+
+challenge-markdown:
+	@test -n "$(MARKDOWN_CHECKPOINT)" || (echo 'Set MARKDOWN_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.markdown.challenge --checkpoint "$(MARKDOWN_CHECKPOINT)" --device $(MARKDOWN_DEVICE)
+
+export-markdown-model:
+	@test -n "$(MARKDOWN_CHECKPOINT)" -a -n "$(MARKDOWN_TEST_REPORT)" || (echo 'Set MARKDOWN_CHECKPOINT and MARKDOWN_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.markdown.export_model --checkpoint "$(MARKDOWN_CHECKPOINT)" --test-report "$(MARKDOWN_TEST_REPORT)"
