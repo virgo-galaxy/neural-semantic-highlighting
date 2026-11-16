@@ -15,6 +15,16 @@ New prose/link/code roles normalize their literal payloads in the shared copy
 audit, preserving prior-role behavior. Freeze retained families before training.
 Golden and eight display probes never enter collection roots.
 
+The November 17 optimization adds 156 bounded original documents from the same
+pinned clones, without changing the teacher or semantic contract. All earlier
+family assignments and immutable captures remain intact. After copy exclusion,
+the real-source splits contain 200 training, 23 validation and 34 test documents.
+The test split includes the 14 exposed v1 regressions and **20 new independent
+documents** from entirely reserved families. They must be reported separately.
+[optimization-protocol.json](optimization-protocol.json) fixes these families
+before training; the 11 new validation documents may guide selection, the new
+test cohort may not. Authored curriculum counts remain 1,272 / 144 / 120.
+
 `make dataset-markdown-tools` fingerprints existing parse-only Prettier/remark/GFM,
 entity-decoder and Node assets; all remain offline tools. Source, code fences,
 HTML, templates, links and front matter never execute. Unknown AST extensions are

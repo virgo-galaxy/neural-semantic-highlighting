@@ -22,7 +22,7 @@ def main():
             name = item['path']; path = root / name
             if not path.resolve().is_relative_to(root.resolve()): raise ValueError('Unsafe upstream source path')
             url = f"https://raw.githubusercontent.com/{entry['repository']}/{entry['revision']}/{quote(name, safe='/')}"
-            cache = REPOSITORY / 'artifacts/markdown/capture-cache' / entry['id'] / name
+            cache = REPOSITORY / ('artifacts/markdown/optimization-20261116/capture-cache' if entry['id'].endswith('-v2') else 'artifacts/markdown/capture-cache') / entry['id'] / name
             raw = path.read_bytes() if path.exists() else cache.read_bytes() if cache.exists() else subprocess.check_output(['curl','--fail','--silent','--show-error','--location','--http1.1','--retry','3','--retry-all-errors',url])
             blob = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
             if blob != item['gitBlob']: raise ValueError('Pinned Git blob changed: ' + name)
@@ -34,8 +34,14 @@ def main():
         files['LICENSES.txt'] = {'sha256': hashlib.sha256(combined).hexdigest()}
         lock = {'format':'nsh-markdown-source-lock-v1','upstream':entry,'collectorHash':file_hash(Path(__file__)),'files':files}
         path = root / 'source.lock.json'
-        if path.exists() and json.loads(path.read_text()) != lock: raise ValueError('Preserve previous Markdown capture lock')
-        path.write_text(json.dumps(lock,indent=2)+'\n')
+        if path.exists():
+            previous = json.loads(path.read_text())
+            # A newer collector may reuse an immutable capture, but must never
+            # rewrite its original provenance or accept different source bytes.
+            if any(previous.get(key) != lock[key] for key in ('format', 'upstream', 'files')):
+                raise ValueError('Preserve previous Markdown capture lock')
+        else:
+            path.write_text(json.dumps(lock,indent=2)+'\n')
         print(entry['id'],sum(not x['license'] for x in entry['files']),'original Markdown files',flush=True)
 
 if __name__ == '__main__': main()
