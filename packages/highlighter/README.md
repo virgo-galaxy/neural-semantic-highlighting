@@ -29,7 +29,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
 include their JS/TS/CSS dependencies automatically; PHP includes HTML and its
-child dependencies. Default registration covers 34 packs, including Swift,
+child dependencies. Default registration covers 35 packs, including Swift,
 Kotlin, R, Scala, Ruby and Lua. Flutter shares Dart's model. Weights are fetched
 lazily. Models are about 3.7 MB each, with a shared 14.8 MB uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -198,3 +198,19 @@ Use `{ language: "svg" }` for SVG. Selective imports from either
 kinds; combining them still emits one model asset. Returned `language` and
 `data-language` preserve `xml` versus `svg`. SVG is escaped source, never inserted
 as live graphic markup; embedded CSS/JS and SVG path commands remain opaque.
+
+Markdown uses `{ language: "markdown" }`. markdown, md, mdown and mkd (case normalized) share one model and canonical markdown output. Source language is explicit; content detection and MDX are not supported. Default browser registration can reuse existing code models inside predicted top-level fences; selective Markdown imports require explicit registration of desired child descriptors and otherwise retain code text.
+Markdown/GFM source, headings, lists/tasks, tables, links/references, nested emphasis, code, opaque HTML/front matter and predicted top-level fenced regions. Selective `@nsh/highlighter/languages/markdown` emits one model asset,
+without a language SDK, parser or Python provider. All existing themes/custom CSS
+apply. See [evaluation](../../packs/markdown/model/BENCHMARKS.md) and
+[known limits](../../packs/markdown/model/KNOWN_ISSUES.md).
+
+The Markdown descriptor has no automatic child dependencies. Register additional
+language descriptors beside `markdown` for desired top-level fenced code; the
+existing default factory already registers them. `markdown` alone emits one
+model, and Markdown + TypeScript + JSON emits three. Explicit predicted info
+words select registered children. Unknown/unregistered/recursive Markdown regions
+remain code. Container/indented code, HTML and front matter stay opaque. Returned
+HTML is escaped source; Markdown document rendering and MDX are outside scope.
+Shared heading/link/code variables and nested strong/emphasis/strikethrough styles
+are described in the [theme package](../themes/web/README.md).

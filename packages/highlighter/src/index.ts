@@ -19,6 +19,7 @@ import java from "./languages/java.js";
 import json from "./languages/json.js";
 import kotlin from "./languages/kotlin.js";
 import lua from "./languages/lua.js";
+import markdown from "./languages/markdown.js";
 import perl from "./languages/perl.js";
 import php from "./languages/php.js";
 import powershell from "./languages/powershell.js";
@@ -76,6 +77,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       ini,
       dotenv,
       xml,
+      markdown,
     ],
   });
 }

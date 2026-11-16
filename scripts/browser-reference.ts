@@ -1,8 +1,14 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-import type { HighlightRequest, PackManifest, SemanticPack } from "@nsh/core";
+import {
+  type HighlightRequest,
+  normalizeLanguageId,
+  type PackManifest,
+  type SemanticPack,
+} from "@nsh/core";
 import { createCompositeHtmlPack } from "@nsh/core/composition/html";
+import { createCompositeMarkdownPack } from "@nsh/core/composition/markdown";
 import { createCompositePhpPack } from "@nsh/core/composition/php";
 import { createCompositeSveltePack } from "@nsh/core/composition/svelte";
 import { createCompositeVuePack } from "@nsh/core/composition/vue";
@@ -44,6 +50,7 @@ const ids = [
   "ini",
   "dotenv",
   "xml",
+  "markdown",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -66,15 +73,27 @@ function getPack(kind: string): SemanticPack {
   const highlightEmbedded = (request: HighlightRequest) =>
     getPack(request.documentKind).highlight(request);
   const pack =
-    manifest.id === "php"
-      ? createCompositePhpPack({ base, highlightEmbedded })
-      : manifest.id === "html"
-        ? createCompositeHtmlPack({ base, highlightEmbedded })
-        : manifest.id === "vue"
-          ? createCompositeVuePack({ base, highlightEmbedded })
-          : manifest.id === "svelte"
-            ? createCompositeSveltePack({ base, highlightEmbedded })
-            : base;
+    manifest.id === "markdown"
+      ? createCompositeMarkdownPack({
+          base,
+          highlightEmbedded,
+          resolveLanguage: (name) => {
+            const kind = normalizeLanguageId(name);
+            return kind !== "markdown" &&
+              manifests.some((m) => m.documentKinds.some((k) => k.id === kind))
+              ? kind
+              : undefined;
+          },
+        })
+      : manifest.id === "php"
+        ? createCompositePhpPack({ base, highlightEmbedded })
+        : manifest.id === "html"
+          ? createCompositeHtmlPack({ base, highlightEmbedded })
+          : manifest.id === "vue"
+            ? createCompositeVuePack({ base, highlightEmbedded })
+            : manifest.id === "svelte"
+              ? createCompositeSveltePack({ base, highlightEmbedded })
+              : base;
   packs.set(manifest.id, pack);
   return pack;
 }
@@ -294,6 +313,23 @@ for (const kind of ["xml", "svg"]) {
       documentKind: kind,
       result: await getPack(kind).highlight({ source, documentKind: kind }),
     });
+}
+for (const [index, source] of [
+  "",
+  "\r\n",
+  "\ufeff# 星空 🌌\r\n\r\n原文 **粗体** and `code`\r\n",
+  "# Long original source\n\n" +
+    "Original 🌌 prose with ordinary words. ".repeat(70) +
+    "\n\n```unknown-example\n" +
+    "Original 🌌 body with [] {} and markers. ".repeat(90) +
+    "\n```\n",
+].entries()) {
+  cases.push({
+    filename: `edge/markdown-${index}.md`,
+    source,
+    documentKind: "markdown",
+    result: await getPack("markdown").highlight({ source, documentKind: "markdown" }),
+  });
 }
 await Promise.all([...models.values()].map((model) => model.close()));
 if (new Set(cases.map((item) => item.filename)).size !== cases.length) {

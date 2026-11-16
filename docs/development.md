@@ -458,3 +458,21 @@ See [training](../training/xml/README.md), [semantics](../packs/xml/SEMANTICS.md
 and [selected evaluation](../packs/xml/model/BENCHMARKS.md). Resume full artifacts
 checkpoints only, never inference .pt/ONNX. Frontend and Playground inference use
 the selected ONNX asset in the existing browser Worker without a Python bridge.
+
+## Markdown offline workflow
+
+`make dataset-markdown` follows the existing external dataset/checkpoint paths,
+immutable revisions, copy audits and frozen source families. `make dataset-markdown-tools`
+prepares Existing pinned Prettier 3.9.6 Markdown/remark/GFM parse-only assets, entities and Node, all file-hashed; no dependency or SDK installation. No language SDK/global package is installed; collected source,
+configuration commands and schemas never execute. `make test-labeling-markdown` checks
+14 focused tests and 48 independently marked Golden cases.
+See [training](../training/markdown/README.md), [semantics](../packs/markdown/SEMANTICS.md)
+and [selected evaluation](../packs/markdown/model/BENCHMARKS.md). Resume full artifacts
+checkpoints only, never inference .pt/ONNX. Frontend and Playground inference use
+the selected ONNX asset in the existing browser Worker without a Python bridge.
+
+Markdown Node composition is available at `@nsh/core/composition/markdown`.
+The Python artifact returns base roles/regions; the frontend factory composes
+registered children. `normalizeLanguageId` normalizes explicit IDs and aliases,
+without source-language detection. Selective builds register desired child
+models explicitly, keeping bundle size under consumer control.

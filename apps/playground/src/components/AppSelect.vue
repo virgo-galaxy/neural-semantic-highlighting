@@ -164,6 +164,8 @@ function handleValueChange(value: unknown): void {
 }
 
 html:has(.app-page[data-nsh-theme="dark"]) .app-select-trigger-icon[data-icon-name="rust"],
+html:has(.app-page[data-nsh-theme="dark"]) .app-select-trigger-icon[data-icon-name="markdown"],
+html:has(.app-page[data-nsh-theme="dark"]) .app-select-item-icon[data-icon-name="markdown"],
 html:has(.app-page[data-nsh-theme="dark"]) .app-select-item-icon[data-icon-name="rust"] {
   filter: invert(1);
 }

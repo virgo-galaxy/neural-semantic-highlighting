@@ -41,5 +41,5 @@ const aliases: Readonly<Record<string, string>> = {
 /** Normalize an explicitly supplied language ID; never examines source content. */
 export function normalizeLanguageId(language: string): string {
   const id = language.toLowerCase();
-  return aliases[id] ?? id;
+  return Object.hasOwn(aliases, id) ? aliases[id]! : id;
 }

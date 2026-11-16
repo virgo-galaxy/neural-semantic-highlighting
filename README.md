@@ -472,7 +472,7 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`, `ini`, `dotenv`, `xml`, `svg`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`, `ini`, `dotenv`, `xml`, `svg`, `markdown`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
@@ -701,11 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **34 model packs**, with browser inference and Playground examples.
+There are **35 model packs**, with browser inference and Playground examples.
 Some source kinds share weights, including XML/SVG and JSON/JSONC; Flutter shares Dart.
 The browser conversion preserves the selected weights without retraining or
-quantization. The latest [verification record](docs/xml-browser-verification.json)
-retains **323/323** exact browser/native comparisons and **163** passing frontend
+quantization. The latest [verification record](docs/markdown-browser-verification.json)
+retains **335/335** exact browser/native comparisons and **173** passing frontend
 tests. Independent local-package checks cover public imports, original source
 text, themes and custom CSS. [Browser verification](docs/browser-runtime.md)
 keeps the earlier rollout results separately. These are runtime/packaging checks,
@@ -752,6 +752,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [.env](packs/dotenv/model/README.md)                        | Common .env/.env.* dotenv configuration, variable declarations, export, plain/single/double/backtick and multiline string values, hash comments, empty values and opaque references | [98.25%](packs/dotenv/model/BENCHMARKS.md) — natural test, 3 files                                                                             | Browser + local; [measured scalar/structure roles and boundaries](packs/dotenv/model/KNOWN_ISSUES.md) remain limited                                 |
 | [XML](packs/xml/model/README.md)                            | .xml, .xsd, .xsl/.xslt, .plist, .csproj/.props/.targets; XML 1.0 source                                                                                                             | [85.87%](packs/xml/model/BENCHMARKS.md) — natural test, 7 files                                                                                | Browser + local; one shared XML/SVG model; [CDATA/long boundaries and embedded-source limits](packs/xml/model/KNOWN_ISSUES.md)                       |
 | [SVG](packs/xml/model/README.md)                            | .svg; paths, shapes, groups, gradients, filters, animation and accessible text; XML 1.0 source                                                                                      | [100.00%](packs/xml/model/BENCHMARKS.md) — natural test, 6 files                                                                               | Browser + local; one shared XML/SVG model; [CDATA/long boundaries and embedded-source limits](packs/xml/model/KNOWN_ISSUES.md)                       |
+| [Markdown](packs/markdown/model/README.md)                  | Markdown/GFM source, headings, lists/tasks, tables, links/references, nested emphasis, code, opaque HTML/front matter and predicted top-level fenced regions                        | [77.24%](packs/markdown/model/BENCHMARKS.md) — natural test, 14 files                                                                          | Initial browser/local baseline; [long prose, modifiers and fenced bodies](packs/markdown/model/KNOWN_ISSUES.md) remain weaker                        |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -952,3 +953,42 @@ const markupHighlighter = createMarkupHighlighter({ languages: [xml, svg] });
 SVG source is rendered as escaped code, not inserted as executable SVG markup.
 CDATA and style/script/path attribute values remain opaque in this XML/SVG
 baseline; it does not add embedded CSS/JavaScript or SVG path-command highlighting.
+
+Markdown uses `{ language: "markdown" }`. markdown, md, mdown and mkd (case normalized) share one model and canonical markdown output. Source language is explicit; content detection and MDX are not supported. Default browser registration can reuse existing code models inside predicted top-level fences; selective Markdown imports require explicit registration of desired child descriptors and otherwise retain code text.
+Selective `@nsh/highlighter/languages/markdown` emits one model asset. Markdown/GFM source, headings, lists/tasks, tables, links/references, nested emphasis, code, opaque HTML/front matter and predicted top-level fenced regions.
+Browser applications require no language SDK, parser or Python provider. The
+Playground adds eight independent examples and the pinned Devicon Markdown icon; all theme
+presets, light/dark mode and custom CSS apply. See
+[Markdown evaluation](packs/markdown/model/BENCHMARKS.md) and
+[known limits](packs/markdown/model/KNOWN_ISSUES.md).
+
+For a selective Markdown build with TS/JS/JSX/TSX fences:
+
+````ts
+import { createHighlighter } from "@nsh/highlighter/core";
+import markdown from "@nsh/highlighter/languages/markdown";
+import typescript from "@nsh/highlighter/languages/typescript";
+import "@nsh/highlighter/themes.css";
+
+const highlighter = createHighlighter({ languages: [markdown, typescript] });
+const code = "# Example\n\n```tsx\nexport const App = () => <button>Open</button>;\n```";
+const { html } = await highlighter.highlight(code, { language: "md" });
+document.querySelector("#example")!.innerHTML = html;
+````
+
+Importing only `markdown` emits one model asset and keeps predicted code bodies
+opaque. Register additional descriptors for the fence languages your application
+needs; Markdown plus TypeScript emits two model assets. Default registration
+already includes all supported children. Unknown/unregistered languages and
+recursive Markdown fences stay code when their region is predicted. No source
+language is guessed. Nested/indented code, raw HTML and front matter stay opaque.
+
+The result displays escaped Markdown source. Headings/links/code use shared
+`--nsh-heading`, `--nsh-link`, `--nsh-link-destination`, `--nsh-code`,
+`--nsh-code-fence` and `--nsh-code-language` variables. Nested formatting uses
+`--nsh-strong-font-weight`, `--nsh-emphasis-font-style` and
+`--nsh-strikethrough-text-decoration`. All three presets and light/dark modes
+include these roles. Code-fence child spans retain their own language colors.
+Base Markdown F1 measures source-role/region predictions; it does not establish
+complete accuracy for composed code. See the recorded limits before relying on
+long prose/fence boundaries. MDX remains a separate unsupported format.

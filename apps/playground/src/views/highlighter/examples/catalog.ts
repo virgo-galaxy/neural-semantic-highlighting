@@ -18,6 +18,7 @@ import jsonIcon from "@/assets/document-kinds/json.svg";
 import kotlinIcon from "@/assets/document-kinds/kotlin.svg";
 import lessIcon from "@/assets/document-kinds/less.svg";
 import luaIcon from "@/assets/document-kinds/lua.svg";
+import markdownIcon from "@/assets/document-kinds/markdown.svg";
 import perlIcon from "@/assets/document-kinds/perl.svg";
 import phpIcon from "@/assets/document-kinds/php.svg";
 import powershellIcon from "@/assets/document-kinds/powershell.svg";
@@ -122,6 +123,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   dotenv: { label: ".env", icon: dotenvIcon },
   xml: { label: "XML", icon: xmlIcon },
   svg: { label: "SVG", icon: svgIcon },
+  markdown: { label: "Markdown", icon: markdownIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -231,6 +233,10 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".props", "xml"],
   [".targets", "xml"],
   [".svg", "svg"],
+  [".md", "markdown"],
+  [".markdown", "markdown"],
+  [".mdown", "markdown"],
+  [".mkd", "markdown"],
   [".yaml", "yaml"],
   [".yml", "yaml"],
 ] as const;

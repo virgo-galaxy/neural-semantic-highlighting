@@ -23,6 +23,12 @@ function base(output = result): SemanticPack {
   };
 }
 describe("Markdown predicted-region composition", () => {
+  it("normalizes explicit IDs without treating inherited object keys as aliases", () => {
+    expect(normalizeLanguageId("JS")).toBe("javascript");
+    expect(normalizeLanguageId("MD")).toBe("markdown");
+    expect(normalizeLanguageId("__proto__")).toBe("__proto__");
+    expect(normalizeLanguageId("constructor")).toBe("constructor");
+  });
   it("routes explicit info aliases and preserves original CRLF/Unicode child offsets", async () => {
     const highlightEmbedded = vi.fn(async () => ({
       offsetEncoding: "utf-16" as const,

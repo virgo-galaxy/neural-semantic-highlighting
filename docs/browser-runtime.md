@@ -2,12 +2,12 @@
 
 ## Current verified state
 
-The latest [XML / SVG addition record](xml-browser-verification.json), dated 2026-11-16,
-covers **34 selected model packs** and **323/323** exact Chromium/native
-span/role/modifier comparisons, with **163** passing frontend tests. Its independent
-local-package consumer passes **24/24** XML / SVG comparisons plus the element/tokens API,
+The latest [Markdown addition record](markdown-browser-verification.json), dated 2026-11-16,
+covers **35 selected model packs** and **335/335** exact Chromium/native
+span/role/modifier comparisons, with **173** passing frontend tests. Its independent
+local-package consumer passes **24/24** Markdown comparisons across Markdown-only and selected-child modes plus the element/tokens API,
 six preset/mode combinations and custom CSS. Earlier language-specific consumer
-checks remain in their own records below. XML and SVG share one model, as do JSON and JSONC;
+checks remain in their own records below. XML/SVG and JSON/JSONC each share one model;
 Flutter uses the Dart model.
 
 The Playground and frontend package run the selected ONNX models in a browser
@@ -742,3 +742,41 @@ Natural held-out F1 is **92.20%** on
 keep these evidence sets distinct. Natural XML test comment and string exact-span F1 are only 51.28% (15 reference comment spans) and 70.93% (69 string spans), so the aggregate must not hide difficult comment/quoted-content boundaries. The instruction-plus-nested-code CDATA display remains weak (xml/cdata.xml 78.26% exact-span F1): a processing instruction can split into keyword fragments, quoted markup inside CDATA can receive tag/text roles, and escaped closing-tag text can merge entity boundaries. Atom text/whitespace and public-doctype boundaries also remain approximate (feed.xml 97.48%, preferences.plist 97.30%). All eight authored SVG displays reach 100%, which is visible development evidence rather than unseen generalization. Long strings/comments/CDATA and closing modifiers across 512 bytes remain approximate. UTF-8 XML 1.0 is the bounded profile; no XML 1.1, custom entity expansion, DTD/schema validation, SVGZ, SVG path/CSS/JS parsing, template syntax, automatic detection or runtime parser/spelling repair is provided. Offline tools are
 Existing CPython 3.12 Expat raw-event and namespace-aware validation with binary/source hashes; no downloads, SDKs or packages; no language SDK/global package is installed and collected projects
 never execute. Frontend consumers require no language toolchain or Python process.
+
+## Markdown addition
+
+Markdown is selected model **35**. Its [verification record](markdown-browser-verification.json)
+retains float32 ONNX comparisons at eight lengths, complete browser/native parity
+and independent package checks.
+
+- Chromium matches **335/335** original UTF-16 span/role/modifier references,
+  including all earlier cases, eight Markdown displays and four empty/CRLF/
+  Unicode/long-source probes. Markdown references include predicted-region
+  composition with already registered children; these are consistency checks.
+- An independent temporary Vite consumer installs four private local tarballs
+  offline. Its Markdown-only build emits **one** model; Markdown + TypeScript +
+  JSON emits **three**. Both builds pass **12/12** comparisons against their own
+  native references, preserve original text, and exercise aliases, element/tokens
+  APIs, six preset/mode pairs, heading CSS overrides and nested modifier styles.
+  No repository aliases, Python provider, parser, new server or port is used.
+- Playground adds a verified pinned Devicon icon, eight examples, source switching
+  and light/dark styles. Full `make check` passes **173** frontend tests and all
+  earlier language checks, including **14** new teacher checks against **48**
+  hand-marked Golden cases. All **69** prior weight files remain byte-identical.
+
+This is an **initial bounded Markdown baseline**. Natural test exact-span F1 is
+**77.24%** on 14 files; eight visible displays aggregate
+**87.05%**, and strict neural Golden agreement is
+**15/48**. Visible code-body/info predictions match **5/7**
+original top-level bodies. These base/region metrics do not establish complete
+child semantic accuracy. [Evaluation](../packs/markdown/model/BENCHMARKS.md) and
+[known limits](../packs/markdown/model/KNOWN_ISSUES.md) preserve long prose,
+heading, nested-formatting and fenced-body errors. No further training follows
+the first test.
+
+Composition uses only model-predicted delimiters/info/body spans and explicit
+registered IDs. Unknown/unregistered/recursive Markdown regions remain code;
+container/indented code, front matter and raw HTML stay opaque. No runtime source
+parser, regex repair, language guessing, code execution, Markdown document
+rendering or MDX support is claimed. Existing parse-only Prettier/remark assets
+remain offline with source/binary hashes; no new SDK/parser is installed.

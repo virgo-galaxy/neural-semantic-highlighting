@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 
 import { type BrowserModel, BrowserRuntime } from "@nsh/browser";
+import type { HighlightResult } from "@nsh/core";
 import { createHighlighter } from "@nsh/highlighter/core";
 import dart from "@nsh/highlighter/languages/dart";
 import dotenv from "@nsh/highlighter/languages/dotenv";
@@ -10,9 +11,11 @@ import ini from "@nsh/highlighter/languages/ini";
 import json from "@nsh/highlighter/languages/json";
 import jsonc from "@nsh/highlighter/languages/jsonc";
 import kotlin from "@nsh/highlighter/languages/kotlin";
+import markdown from "@nsh/highlighter/languages/markdown";
 import ruby from "@nsh/highlighter/languages/ruby";
 import svg from "@nsh/highlighter/languages/svg";
 import toml from "@nsh/highlighter/languages/toml";
+import typescript from "@nsh/highlighter/languages/typescript";
 import xml from "@nsh/highlighter/languages/xml";
 import yaml from "@nsh/highlighter/languages/yaml";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -43,7 +46,7 @@ class FakeWorker extends EventTarget {
   terminate() {
     this.terminated = true;
   }
-  reply(id: number, result = empty) {
+  reply(id: number, result: HighlightResult = empty) {
     this.dispatchEvent(new MessageEvent("message", { data: { id, result } }));
   }
 }
@@ -89,6 +92,42 @@ describe("browser decoder", () => {
 });
 
 describe("browser runtime lifecycle", () => {
+  it("routes Markdown aliases and reuses only a registered predicted fence language", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [markdown, typescript] });
+    for (const name of ["markdown", "Markdown", "md", "MD", "mdown", "mkd"])
+      expect(highlighter.supports(name)).toBe(true);
+    const source = "```JS\nconst x = 1;\n```";
+    const pending = highlighter.highlight(source, { language: "MD" });
+    const worker = FakeWorker.instances[0]!;
+    expect(worker.messages[0].model).toMatchObject({ id: "markdown" });
+    worker.reply(worker.messages[0].id, {
+      offsetEncoding: "utf-16",
+      spans: [
+        { start: 0, end: 3, tokenType: "code-fence" },
+        { start: 3, end: 5, tokenType: "code-language" },
+        { start: 6, end: 19, tokenType: "embedded-code" },
+        { start: 19, end: 22, tokenType: "code-fence" },
+      ],
+    });
+    await vi.waitFor(() => expect(worker.messages).toHaveLength(2));
+    expect(worker.messages[1].model).toMatchObject({ id: "typescript" });
+    expect(worker.messages[1].source).toBe("const x = 1;\n");
+    worker.reply(worker.messages[1].id, {
+      offsetEncoding: "utf-16",
+      spans: [{ start: 0, end: 5, tokenType: "keyword" }],
+    });
+    const output = await pending;
+    expect(output.language).toBe("markdown");
+    expect(output.result.spans).toContainEqual({
+      start: 6,
+      end: 11,
+      tokenType: "keyword",
+      documentKind: "javascript",
+    });
+    expect(output.html).toContain('data-nsh-language="javascript"');
+    highlighter.close();
+  });
   it("preserves XML and SVG kinds through one shared model and escapes graphic source", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [xml, svg] });
@@ -364,6 +403,7 @@ describe("shipped browser artifacts", () => {
       "ini",
       "dotenv",
       "xml",
+      "markdown",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(
