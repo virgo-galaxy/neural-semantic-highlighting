@@ -1,0 +1,208 @@
+{
+  "id": "dockerfile",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-dockerfile-model-v1",
+    "sha256": "7a35a9cd71927863fe78e586f952bd12c7c09773748661f870e354e36f132796",
+    "bytes": 3625973,
+    "parameterCount": 893969,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 1,
+    "metric": "mean per-profile natural real-source validation exact-span macro F1",
+    "score": 0.8569661637733649
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1,
+    "local_kernel": 1
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "function",
+      "variable",
+      "parameter",
+      "namespace",
+      "property",
+      "label"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "documentKinds": [
+    "dockerfile"
+  ],
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy-mean-logit",
+    "packPolicy": {
+      "coalesce_types": [
+        "string"
+      ],
+      "modifier_roles": {
+        "declaration": [
+          "variable",
+          "property",
+          "label",
+          "function"
+        ],
+        "default-library": [
+          "function"
+        ]
+      }
+    },
+    "modifierThreshold": 0.6,
+    "parserRequired": false
+  },
+  "scope": "dockerfile-source-semantic-spans",
+  "modelSchema": {
+    "file": "../schema.json",
+    "sha256": "06b82699ce9b1e667860e1fce92610c753d65537a6118c2f22b2c0afaa3661d3"
+  },
+  "publicSchema": {
+    "file": "../schema.json",
+    "sha256": "06b82699ce9b1e667860e1fce92610c753d65537a6118c2f22b2c0afaa3661d3"
+  },
+  "dataset": {
+    "snapshot": "0844cc2a8d7af15a0d435b3c39701c66d812c99690d84c03c2786fb6db8e15bf",
+    "manifestHash": "f339732daef2b514f47669c449baf9313053fa394afde8034cebe76c5e5fcdb9"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/dockerfile/context512-canonical-20261117-01/candidates/epoch-0001.pt",
+    "sourceCheckpointSha256": "1346dfa64f159568ac2410ff1fd97a82813b8bd8614452b0624dcceeda99d116",
+    "training": {
+      "codeHashes": {
+        "training/dockerfile/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "training/dockerfile/calibrate.py": "f86dbab3680fa9380641c91f6dfb56ea96c426d49f192d53b41423f162167821",
+        "training/dockerfile/challenge.py": "f2a99c93376395156ed9204372635b5af1709e90fd226fb432139eabdd24b526",
+        "training/dockerfile/evaluate.py": "9ce93a3ea04930fc1d4a1ba880579cfc42e5af35347d962128dd5c0cf43740b0",
+        "training/dockerfile/export_model.py": "4dc0943c856e426e4fbe9ca3017fb2e33b094faf26b3f65aa147c6b9c4699ae1",
+        "training/dockerfile/predict.py": "dfac47654df7c354183053700587a5a7ad558e5f6d93ba0dab21855e62fe7aea",
+        "training/dockerfile/prepare.py": "c53841fae370b81d5a59d6d578cfa5964988c6e2a29a1f26ce0c739c167e44d1",
+        "training/dockerfile/review.py": "db7c925772a2ec763c6dfeb59a9b0893d73fce124f25762c72db223099ad104d",
+        "training/dockerfile/train.py": "20dd315da719fd9401a694e9c4995c2c8a0582c6c2168f7c2e59486c3eab9aaf",
+        "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+        "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+        "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+        "training/shared/checkpoints.py": "56b83e9a391b9162625c3c662bd12649ef48c74809fca8cdfa9e688f2c268564",
+        "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+        "training/shared/encoding.py": "998536a816ea0fe135e9a6c2c61c6a213d20207f9bd80c69eff01b7ae272a1b6",
+        "training/shared/evaluate.py": "804f489c91b63342eb278b0d6e5e0825cb6787f365f95ac9a358a4691176f764",
+        "training/shared/export_model.py": "38674e566783f403fd461133d38f4764251001cdf8883f9b079701a4be368ade",
+        "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+        "training/shared/inference.py": "fcbecc3b8ea443f631198d641d4a07bfbf72773b16d035fced5ac49b50d204f2",
+        "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+        "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+        "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+        "training/shared/metrics.py": "4f4e93230e9ec0620896d3607d2e5a0263b3247cb900f21ebc86166b6ca684a8",
+        "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+        "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+        "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+        "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+        "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+        "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+        "training/shared/runtime.py": "c36728b98f1e7ae2068a21bf71b9c19b04ab9398acd0988d95b2ba0013074fca",
+        "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+        "training/shared/structured.py": "617d9dd571111b41fd3988e6c88f2f359e747cf1f11286bdf1a20c2428c830a1",
+        "training/shared/train.py": "1cde7e8437461643637b1388ca9d7d77412d863bd0bfb9b327fc4628a2e9bf09",
+        "training/shared/trainer_data.py": "6b2fac9d5ce910cbcf131bee29818ce9b38f88cffd060cfbcf6baebc259b8fbc"
+      },
+      "semanticsHash": "1c0c98bfb06f1044bc118076eae272122f64d30e3f2afa8f4adbd91fa195dc37",
+      "packConfigHash": "8aeee656d58ff9e119aa4844d4bc3ebea2dde75f0dd07072c0be425dbfa36df1",
+      "decoderPolicy": {
+        "coalesce_types": [
+          "string"
+        ],
+        "modifier_roles": {
+          "declaration": [
+            "variable",
+            "property",
+            "label",
+            "function"
+          ],
+          "default-library": [
+            "function"
+          ]
+        }
+      },
+      "pythonTorch": "2.14.0",
+      "repositoryDirty": true,
+      "repositoryCommit": "67766d546e102dc6069361c141119b7c6a028836"
+    },
+    "initialization": {
+      "mode": "dockerfile-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/dockerfile/context512-natural-weights-20261117-01/candidates/epoch-0015.pt",
+      "checkpointHash": "af7771c6204025c1ec09ee5e6ab31c08c6b317e5711958e9a86598f495d646fe",
+      "sourceEpoch": 15,
+      "sourceDataset": {
+        "snapshot": "0806ba2d4331917eb6e768efc2e13b71d9cee3b8182161effc20d970808379b6",
+        "manifestHash": "7058def99a5f47eb25c681c0f28d22c94ab08e7c1010b7966519b4f21d112e2c",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/dockerfile/prepared/0806ba2d4331917eb6e768efc2e13b71d9cee3b8182161effc20d970808379b6"
+      },
+      "copiedTokenTypes": [
+        "keyword",
+        "comment",
+        "string",
+        "number",
+        "operator",
+        "punctuation",
+        "function",
+        "variable",
+        "parameter",
+        "namespace",
+        "property",
+        "label"
+      ],
+      "newTokenTypes": [],
+      "newTensors": [],
+      "copiedModifiers": [
+        "declaration",
+        "default-library"
+      ],
+      "optimizerAndTrainingState": "fresh pack run"
+    },
+    "exporterSha256": "38674e566783f403fd461133d38f4764251001cdf8883f9b079701a4be368ade"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "d2ed724b38569bc35b1195ef208d9df6d56266ca447d7a8e42c6b7084c2505bc",
+      "checkpointHash": "1346dfa64f159568ac2410ff1fd97a82813b8bd8614452b0624dcceeda99d116",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    }
+  }
+}

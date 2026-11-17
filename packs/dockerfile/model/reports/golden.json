@@ -1,0 +1,1124 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "aff2de35e29d4b3ccc2a301637543c4ddb411effe7143e564681ea29840cdc61",
+  "cases": [
+    {
+      "id": "image",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "FROM alpine:3.22\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "mixed-case",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "fRoM scratch\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 12,
+          "text": "scratch",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 12,
+          "text": "scratch",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "stage",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "FROM node:24 AS build\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "build",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "build",
+          "tokenType": "label",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "stage-named-as",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "FROM alpine AS as\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 15,
+          "end": 17,
+          "text": "as",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 15,
+          "end": 17,
+          "text": "as",
+          "tokenType": "label",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "platform",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "FROM --platform=$BUILDPLATFORM golang:1.27 AS compile\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "image-reference",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "FROM ${BASE_IMAGE}\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 18,
+          "text": "${BASE_IMAGE}",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 17,
+          "text": "${BASE_IMAGE",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 18,
+          "text": "}",
+          "tokenType": "operator",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "arg-default",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "ARG VERSION=stable\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "arg-empty",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "ARG OPTION=\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "arg-unset",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "ARG BUILDPLATFORM\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "arg-reference",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "ARG TAG=${CHANNEL:-stable}\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 26,
+          "text": "${CHANNEL:-stable}",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 10,
+          "text": "${",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 10,
+          "end": 25,
+          "text": "CHANNEL:-stable",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "text": "}",
+          "tokenType": "operator",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "env",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "ENV MODE=production PORT=8080\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 9,
+          "end": 19,
+          "text": "production",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 9,
+          "end": 19,
+          "text": "production",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "env-quoted-hash",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "ENV TITLE=\"a # literal\"\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "env-legacy",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "ENV TITLE a literal value\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 9,
+          "text": "TITLE",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 9,
+          "text": "TITLE",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "label",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "LABEL org.example.title=\"Source preview\"\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "label-legacy",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "LABEL description Original container source\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 17,
+          "text": "description",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 18,
+          "end": 43,
+          "text": "Original container source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 27,
+          "text": "description Original ",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 43,
+          "text": "container source",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "copy",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "COPY --from=build --chown=1000:1000 /out/app /usr/local/bin/app\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "add",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "ADD --checksum=sha256:abc123 https://example.test/archive.tar /src/\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "workdir-reference",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "WORKDIR /srv/${APP}\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "user",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "USER app:app\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 12,
+          "text": "app:app",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 12,
+          "text": "app:app",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "ports",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "EXPOSE 8080 9090/tcp\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "signal",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "STOPSIGNAL SIGTERM\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "cmd-json",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "CMD [\"node\", \"app.js\"]\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "entrypoint-json",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "ENTRYPOINT [\"/bin/app\"]\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "run-json",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "RUN [\"printf\", \"hello\"]\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "copy-json",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "COPY [\"source file\", \"/srv/\"]\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "volume-json",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "VOLUME [\"/data\", \"/cache\"]\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "shell-json",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "SHELL [\"/bin/bash\", \"-c\"]\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "shell-command",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "RUN echo hello\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 8,
+          "text": "echo",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 9,
+          "text": "echo ",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shell-pipeline",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "RUN curl --fail https://example.test && echo ready\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "shell-variable",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "RUN echo $HOME\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "continuation",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "RUN echo one \\\n  && echo two\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "continuation-comment",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "COPY one \\\n  # retained source comment\n  two /srv/\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 41,
+          "end": 44,
+          "text": "two",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 41,
+          "end": 44,
+          "text": "two",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "directive",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "# syntax=docker/dockerfile:1\nFROM scratch\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 34,
+          "end": 41,
+          "text": "scratch",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 34,
+          "end": 41,
+          "text": "scratch",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "late-directive",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "FROM scratch\n# syntax=docker/dockerfile:1\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "onbuild",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "ONBUILD COPY . /srv/\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 12,
+          "text": "COPY",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 12,
+          "text": "COPY",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "healthcheck",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "HEALTHCHECK --interval=20s CMD curl -f http://localhost/\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "healthcheck-none",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "HEALTHCHECK NONE\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 16,
+          "text": "NONE",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 16,
+          "text": "NONE",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "heredoc-copy",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "COPY <<CONF /etc/app.conf\nname=source\n\nready=true\nCONF\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 26,
+          "end": 50,
+          "text": "name=source\n\nready=true\n",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 50,
+          "end": 54,
+          "text": "CONF",
+          "tokenType": "label",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 26,
+          "end": 55,
+          "text": "name=source\n\nready=true\nCONF\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "heredoc-run",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "RUN <<SCRIPT\necho ready\n\necho done\nSCRIPT\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "RUN",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 13,
+          "end": 17,
+          "text": "echo",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        },
+        {
+          "start": 18,
+          "end": 23,
+          "text": "ready",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 25,
+          "end": 29,
+          "text": "echo",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        },
+        {
+          "start": 30,
+          "end": 34,
+          "text": "done",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 41,
+          "text": "SCRIPT",
+          "tokenType": "label",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "RUN",
+          "tokenType": "label",
+          "modifiers": []
+        },
+        {
+          "start": 13,
+          "end": 42,
+          "text": "echo ready\n\necho done\nSCRIPT\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "heredoc-quoted",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "COPY <<'LITERAL' /tmp/data\n$NAME # remains source\nLITERAL\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 16,
+          "text": "'LITERAL'",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 27,
+          "end": 50,
+          "text": "$NAME # remains source\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 16,
+          "text": "'LITERAL'",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 32,
+          "text": "$NAME",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 33,
+          "end": 49,
+          "text": "# remains source",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "heredoc-tabs",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "COPY <<-TEXT /tmp/data\n\tcontent\n\tTEXT\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 8,
+          "text": "<<-",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 12,
+          "text": "TEXT",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 23,
+          "end": 32,
+          "text": "\tcontent\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 7,
+          "text": "<<",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 7,
+          "end": 12,
+          "text": "-TEXT",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 24,
+          "end": 31,
+          "text": "content",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf",
+      "profile": "dockerfile",
+      "documentKind": "dockerfile",
+      "source": "\ufeff# \u661f\u7a7a \ud83c\udf0c\r\nENV TITLE=\"\u4f60\u597d \ud83c\udf0c\"\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 1,
+          "end": 8,
+          "text": "# \u661f\u7a7a \ud83c\udf0c",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 1,
+          "end": 5,
+          "text": "# \u661f\u7a7a",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 8,
+          "text": "\ud83c\udf0c",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "dockerfile": {
+      "documents": 42,
+      "exactDocumentsIncludingModifiers": 23,
+      "exactSpan": {
+        "precision": 0.8540540540540541,
+        "recall": 0.8540540540540541,
+        "f1": 0.8540540540540541,
+        "tp": 158,
+        "fp": 27,
+        "fn": 27,
+        "support": 185
+      },
+      "exactSpanMacroF1": 0.802046171710629,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8432432432432433,
+        "recall": 0.8432432432432433,
+        "f1": 0.8432432432432433,
+        "tp": 156,
+        "fp": 29,
+        "fn": 29,
+        "support": 185
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9583333333333334,
+          "recall": 0.9387755102040817,
+          "f1": 0.9484536082474226,
+          "tp": 46,
+          "fp": 2,
+          "fn": 3,
+          "support": 49
+        },
+        "comment": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285714,
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "support": 3
+        },
+        "string": {
+          "precision": 0.8409090909090909,
+          "recall": 0.8043478260869565,
+          "f1": 0.8222222222222222,
+          "tp": 37,
+          "fp": 7,
+          "fn": 9,
+          "support": 46
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "operator": {
+          "precision": 0.8235294117647058,
+          "recall": 0.9333333333333333,
+          "f1": 0.875,
+          "tp": 14,
+          "fp": 3,
+          "fn": 1,
+          "support": 15
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 21,
+          "fp": 0,
+          "fn": 0,
+          "support": 21
+        },
+        "function": {
+          "precision": 0.6666666666666666,
+          "recall": 0.6666666666666666,
+          "f1": 0.6666666666666666,
+          "tp": 6,
+          "fp": 3,
+          "fn": 3,
+          "support": 9
+        },
+        "variable": {
+          "precision": 0.625,
+          "recall": 0.7692307692307693,
+          "f1": 0.6896551724137931,
+          "tp": 10,
+          "fp": 6,
+          "fn": 3,
+          "support": 13
+        },
+        "parameter": {
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333333333333333,
+          "tp": 7,
+          "fp": 1,
+          "fn": 0,
+          "support": 7
+        },
+        "namespace": {
+          "precision": 0.7142857142857143,
+          "recall": 0.7142857142857143,
+          "f1": 0.7142857142857143,
+          "tp": 5,
+          "fp": 2,
+          "fn": 2,
+          "support": 7
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "support": 2
+        },
+        "label": {
+          "precision": 0.875,
+          "recall": 0.6363636363636364,
+          "f1": 0.7368421052631579,
+          "tp": 7,
+          "fp": 1,
+          "fn": 4,
+          "support": 11
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "dockerfile": {
+      "documents": 42,
+      "exactDocumentsIncludingModifiers": 23,
+      "exactSpan": {
+        "precision": 0.8540540540540541,
+        "recall": 0.8540540540540541,
+        "f1": 0.8540540540540541,
+        "tp": 158,
+        "fp": 27,
+        "fn": 27,
+        "support": 185
+      },
+      "exactSpanMacroF1": 0.802046171710629,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8432432432432433,
+        "recall": 0.8432432432432433,
+        "f1": 0.8432432432432433,
+        "tp": 156,
+        "fp": 29,
+        "fn": 29,
+        "support": 185
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9583333333333334,
+          "recall": 0.9387755102040817,
+          "f1": 0.9484536082474226,
+          "tp": 46,
+          "fp": 2,
+          "fn": 3,
+          "support": 49
+        },
+        "comment": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285714,
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "support": 3
+        },
+        "string": {
+          "precision": 0.8409090909090909,
+          "recall": 0.8043478260869565,
+          "f1": 0.8222222222222222,
+          "tp": 37,
+          "fp": 7,
+          "fn": 9,
+          "support": 46
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "operator": {
+          "precision": 0.8235294117647058,
+          "recall": 0.9333333333333333,
+          "f1": 0.875,
+          "tp": 14,
+          "fp": 3,
+          "fn": 1,
+          "support": 15
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 21,
+          "fp": 0,
+          "fn": 0,
+          "support": 21
+        },
+        "function": {
+          "precision": 0.6666666666666666,
+          "recall": 0.6666666666666666,
+          "f1": 0.6666666666666666,
+          "tp": 6,
+          "fp": 3,
+          "fn": 3,
+          "support": 9
+        },
+        "variable": {
+          "precision": 0.625,
+          "recall": 0.7692307692307693,
+          "f1": 0.6896551724137931,
+          "tp": 10,
+          "fp": 6,
+          "fn": 3,
+          "support": 13
+        },
+        "parameter": {
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333333333333333,
+          "tp": 7,
+          "fp": 1,
+          "fn": 0,
+          "support": 7
+        },
+        "namespace": {
+          "precision": 0.7142857142857143,
+          "recall": 0.7142857142857143,
+          "f1": 0.7142857142857143,
+          "tp": 5,
+          "fp": 2,
+          "fn": 2,
+          "support": 7
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "support": 2
+        },
+        "label": {
+          "precision": 0.875,
+          "recall": 0.6363636363636364,
+          "f1": 0.7368421052631579,
+          "tp": 7,
+          "fp": 1,
+          "fn": 4,
+          "support": 11
+        }
+      }
+    }
+  },
+  "checkpointHash": "1346dfa64f159568ac2410ff1fd97a82813b8bd8614452b0624dcceeda99d116",
+  "checkpointEpoch": 1,
+  "device": "cpu"
+}
