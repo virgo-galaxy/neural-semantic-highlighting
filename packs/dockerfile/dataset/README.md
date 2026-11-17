@@ -30,3 +30,12 @@ are **456 / 48 / 72**. Two exact duplicates are merged and two cross-family
 copy documents are excluded before training. All 83 original natural/focus
 family assignments remain recorded; the independent test is never used for
 selection. Prepared snapshot: `7241426774990042762de173e11340d3a6b295327696246187d978b8a316fb4e`.
+
+A bounded 12-family/288-task mixed extension follows actual validation/display
+review: USER names, literal COPY paths, shell option values, BOM/CRLF comments
+and Unicode/markup/instruction-looking opaque heredoc bodies. All 83 previous
+assignments and all natural records remain unchanged. Final authored splits are
+**672 / 72 / 120**, with 95 frozen families in total. Protocol v2 declares the
+existing source-blind canonical union of touching equal string spans; an audit
+proves every prepared source/reference/label/window byte remains identical. The
+old protocol configuration and every experiment are retained under artifacts.

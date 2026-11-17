@@ -44,13 +44,15 @@ class TrainingConfig:
     sampling: str = "natural-plus-curriculum"
     focus_every: int = 1
     focus_batch_size: int = 16
+    loss_weight_stream: str = 'all'
 
     def validate(self):
         if min(self.batch_size, self.smoke_batches, self.smoke_eval_windows, self.focus_every, self.focus_batch_size) < 1 or self.patience < 0:
             raise ValueError("Invalid training budget")
         if (not all(math.isfinite(x) and x > 0 for x in (self.learning_rate, self.modifier_loss_weight))
                 or not math.isfinite(self.weight_decay) or self.weight_decay < 0
-                or not 0 < self.modifier_threshold < 1 or self.sampling not in {"shuffled-windows", "natural-plus-curriculum"}):
+                or not 0 < self.modifier_threshold < 1 or self.sampling not in {"shuffled-windows", "natural-plus-curriculum"}
+                or self.loss_weight_stream not in {'all', 'natural'}):
             raise ValueError("Invalid optimizer, decoder or sampler configuration")
 
 
@@ -128,10 +130,10 @@ def run(args) -> Path:
     checkpoint = load_checkpoint(args.resume.resolve()) if args.resume else None
     if checkpoint:current().verify_config(checkpoint.get('provenance',{}))
     values = checkpoint["trainingConfig"].copy() if checkpoint else asdict(TrainingConfig())
-    for name in ("batch_size", "learning_rate", "patience", "smoke", "focus_batch_size", "focus_every"):
+    for name in ("batch_size", "learning_rate", "patience", "smoke", "focus_batch_size", "focus_every", "loss_weight_stream"):
         value = getattr(args, name)
         if value is not None:
-            if checkpoint and values[name] != value:
+            if checkpoint and values.get(name, getattr(TrainingConfig(), name)) != value:
                 raise ValueError("Resume must preserve training configuration: " + name)
             values[name] = value
     config = TrainingConfig(**values)
@@ -175,7 +177,7 @@ def run(args) -> Path:
                 optimizer.load_state_dict(checkpoint["optimizer"])
                 restore_rng(checkpoint["rng"], device)
             else:
-                weights = {name: value.to(device) for name, value in training_weights(train).items()}
+                weights = {name: value.to(device) for name, value in training_weights(train, stream=config.loss_weight_stream).items()}
             provenance = {"codeHashes": code_hashes(),
                 "semanticsHash": file_hash(current().semantics_path),
                 "packConfigHash": file_hash(current().directory/'pack.json'),
@@ -278,6 +280,8 @@ def main():
     parser.add_argument("--patience", type=int)
     parser.add_argument("--focus-batch-size", type=int)
     parser.add_argument("--focus-every", type=int)
+    parser.add_argument('--loss-weight-stream', choices=['all', 'natural'],
+                        help='Fresh experiment: fit class weights on all or only real-source training windows')
     parser.add_argument("--local-kernel", type=int, choices=[1, 3, 5],
                         help="Fresh bounded experiment: optional learned adjacent-byte residual; default historical backbone")
     parser.add_argument("--smoke", action="store_true", default=None)

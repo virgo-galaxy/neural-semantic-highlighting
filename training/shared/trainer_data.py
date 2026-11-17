@@ -137,12 +137,18 @@ class WindowSplit:
         self.rows.close()
 
 
-def training_weights(split: WindowSplit) -> dict[str, torch.Tensor]:
+def training_weights(split: WindowSplit, *, stream: str = 'all') -> dict[str, torch.Tensor]:
+    if stream not in {'all', 'natural'}:
+        raise ValueError('Loss weights require all or natural training windows')
     boundary = torch.zeros(3)
     token = torch.zeros(len(split.snapshot.schema["tokenTypes"]))
     positive = torch.zeros(len(split.snapshot.schema["modifiers"]))
     beginnings = 0
+    selected = 0
     for index in range(len(split.rows)):
+        if stream == 'natural' and split.refs[index].get('stream', 'natural') != 'natural':
+            continue
+        selected += 1
         row = split.rows[index]
         for values, counts in ((row["boundary_labels"], boundary), (row["token_type_labels"], token)):
             valid = torch.tensor([value for value in values if value != IGNORE], dtype=torch.long)
@@ -152,6 +158,8 @@ def training_weights(split: WindowSplit) -> dict[str, torch.Tensor]:
                 beginnings += 1
                 for bit in range(len(positive)):
                     positive[bit] += bool(bits & (1 << bit))
+    if not selected:
+        raise ValueError('No selected training windows for loss weights')
     def weights(counts):
         active = counts > 0
         result = torch.ones_like(counts)

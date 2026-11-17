@@ -65,7 +65,7 @@ class DockerfileLabelingTests(unittest.TestCase):
         self.assertIn('"你好 🌌"',[raw[s['start']*2:s['end']*2].decode('utf-16-le')for s in result['spans']])
 
     def test_invalid_source_is_rejected(self):
-        for source in ['RUN <<EOF\nunclosed\n','FROM alpine\x00','FROM alpine\rRUN echo no','NOT_DOCKER source\n','# syntax=one\n# syntax=two\nFROM alpine\n']:
+        for source in ['RUN <<EOF\nunclosed\n','FROM alpine\x00','FROM alpine\rRUN echo no','NOT_DOCKER source\n','# syntax=one\n# syntax=two\nFROM alpine\n','SHELL []\n','SHELL [""]\n']:
             with self.subTest(source=source), self.assertRaises(ValueError): label(source=source)
 
     def test_wrong_kind_and_profile_are_rejected(self):

@@ -30,3 +30,14 @@ native/ONNX numerics, full browser/native original-source parity, an independent
 private-tarball consumer, themes/custom CSS and the complete `make check` suite.
 Keep the repository/packages private; commit short English stages, publish only
 when explicitly authorized. No language SDK or Docker installation is required.
+
+A fresh experiment may use `--loss-weight-stream natural` to fit class balance
+on real training windows, while retaining bounded curriculum presentations. This
+prevents long authored bodies from over-weighting rare image-name roles; default
+behavior for all earlier packs stays unchanged. Resume preserves the chosen
+weights/configuration. The optional `training.dockerfile.calibrate` command is a
+validation-only joint BIO diagnostic; it was not selected because the small
+validation gain regressed visible Unicode regions. Canonical greedy inference
+uses only the existing touching-string policy, without inspecting spelling.
+Protocol changes start a new bound run; preserve old configs/checkpoints rather
+than rewriting provenance. The v2 prepared reference bytes are all unchanged.

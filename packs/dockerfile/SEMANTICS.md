@@ -52,6 +52,13 @@ carry default-library. These validity rules are shared by Gold and neural decodi
 no source-dependent repair, regex/parser fallback or source spelling runs at
 inference. The runtime does not load BuildKit, Go, Shell tooling or a JSON parser.
 
+Touching string spans with identical modifiers have one canonical union span,
+using the existing source-blind pack decoder policy. No whitespace gap is bridged,
+no role is changed and no text is inspected. All original v1 reference spans
+already obey this form; the v2 protocol retains byte-identical prepared reference
+records/arrays and starts a new bound experiment instead of reinterpreting old
+checkpoints. Older data, configurations and trials remain preserved.
+
 ## Offline evidence and limits
 
 The independent structural oracle is official BuildKit v0.35.0's parse-only AST,

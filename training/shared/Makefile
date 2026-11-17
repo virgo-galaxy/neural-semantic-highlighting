@@ -2016,6 +2016,7 @@ DOCKERFILE_DEVICE ?= auto
 DOCKERFILE_EPOCHS ?= 3
 DOCKERFILE_BATCH_SIZE ?= 32
 DOCKERFILE_FOCUS_BATCH_SIZE ?= 64
+DOCKERFILE_LOSS_WEIGHT_STREAM ?=
 DOCKERFILE_LEARNING_RATE ?=
 DOCKERFILE_EVAL_SPLIT ?= validation
 
@@ -2038,6 +2039,7 @@ dataset-dockerfile:
 
 dataset-dockerfile-curriculum:
 	$(PYTHON) -m packs.dockerfile.dataset.generate_curriculum
+	$(PYTHON) -m packs.dockerfile.dataset.generate_mixed
 
 dataset-dockerfile-collect:
 	$(PYTHON) -m packs.dockerfile.dataset.pipeline collect
@@ -2058,7 +2060,7 @@ train-dockerfile-smoke:
 	$(PYTHON) -m training.dockerfile.train --smoke --epochs 1 --device $(DOCKERFILE_DEVICE) $(if $(DOCKERFILE_RUN),--output-dir "$(DOCKERFILE_RUN)") $(if $(DOCKERFILE_INIT_FROM),--init-from "$(DOCKERFILE_INIT_FROM)")
 
 train-dockerfile:
-	$(PYTHON) -m training.dockerfile.train --epochs $(DOCKERFILE_EPOCHS) --device $(DOCKERFILE_DEVICE) --batch-size $(DOCKERFILE_BATCH_SIZE) --focus-batch-size $(DOCKERFILE_FOCUS_BATCH_SIZE) $(if $(DOCKERFILE_LEARNING_RATE),--learning-rate $(DOCKERFILE_LEARNING_RATE)) $(if $(DOCKERFILE_RUN),--output-dir "$(DOCKERFILE_RUN)") $(if $(DOCKERFILE_INIT_FROM),--init-from "$(DOCKERFILE_INIT_FROM)")
+	$(PYTHON) -m training.dockerfile.train --epochs $(DOCKERFILE_EPOCHS) --device $(DOCKERFILE_DEVICE) --batch-size $(DOCKERFILE_BATCH_SIZE) --focus-batch-size $(DOCKERFILE_FOCUS_BATCH_SIZE) $(if $(DOCKERFILE_LOSS_WEIGHT_STREAM),--loss-weight-stream $(DOCKERFILE_LOSS_WEIGHT_STREAM)) $(if $(DOCKERFILE_LEARNING_RATE),--learning-rate $(DOCKERFILE_LEARNING_RATE)) $(if $(DOCKERFILE_RUN),--output-dir "$(DOCKERFILE_RUN)") $(if $(DOCKERFILE_INIT_FROM),--init-from "$(DOCKERFILE_INIT_FROM)")
 
 continue-dockerfile:
 	@test -n "$(DOCKERFILE_CHECKPOINT)" || (echo 'Set DOCKERFILE_CHECKPOINT to the run last.pt'; exit 1)

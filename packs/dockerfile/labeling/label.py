@@ -205,7 +205,9 @@ def label(*, source, document_kind='dockerfile', profile=None):
         elif args.startswith('['):
             foreign(args,start,'json');features.add('json-form')
             if keyword=='shell':
-                command=json.loads(args)[0].replace('\\','/').rsplit('/',1)[-1].lower()
+                shell=json.loads(args)
+                if not shell or not shell[0]:raise ValueError('SHELL requires a nonempty command')
+                command=shell[0].replace('\\','/').rsplit('/',1)[-1].lower()
                 shell_kind={'sh':'posix','bash':'bash','ash':'posix','zsh':'zsh','csh':'csh','tcsh':'csh'}.get(command,'opaque')
         elif keyword in {'arg','env','label'}:
             role='property' if keyword=='label' else 'variable'
@@ -266,4 +268,10 @@ def label(*, source, document_kind='dockerfile', profile=None):
     if '\r\n' in source:features.add('crlf')
     if any(ord(c)>127 for c in source):features.add('unicode')
     spans.sort(key=lambda s:(s['start'],s['end']))
-    return dict(offsetEncoding='utf-16',spans=spans,features=sorted(features))
+    canonical=[]
+    for span in spans:
+        if (canonical and span['tokenType']=='string' and canonical[-1]['tokenType']=='string'
+                and canonical[-1]['end']==span['start'] and canonical[-1].get('modifiers',[])==span.get('modifiers',[])):
+            canonical[-1]['end']=span['end']
+        else:canonical.append(span)
+    return dict(offsetEncoding='utf-16',spans=canonical,features=sorted(features))
