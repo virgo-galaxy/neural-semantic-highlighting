@@ -2,13 +2,14 @@
 
 ## Current verified state
 
-The latest [Markdown addition record](markdown-browser-verification.json), dated 2026-11-16,
-covers **35 selected model packs** and **335/335** exact Chromium/native
-span/role/modifier comparisons, with **173** passing frontend tests. Its independent
-local-package consumer passes **24/24** Markdown comparisons across Markdown-only and selected-child modes plus the element/tokens API,
-six preset/mode combinations and custom CSS. Earlier language-specific consumer
-checks remain in their own records below. XML/SVG and JSON/JSONC each share one model;
-Flutter uses the Dart model.
+The latest [Dockerfile record](dockerfile-browser-verification.json), dated
+2026-11-17, covers **36 selected model packs** and **348/348** exact
+Chromium/native span/role/modifier comparisons, with **176** passing frontend
+tests. The independent Dockerfile-only consumer passes **12/12** comparisons,
+the element/tokens APIs, six preset/mode combinations and custom CSS, emitting
+one model asset. All 335 previous reference cases remain unchanged. Earlier
+language-specific records remain below; XML/SVG and JSON/JSONC each share one
+model, and Flutter uses Dart.
 
 The Playground and frontend package run the selected ONNX models in a browser
 Worker, without a Python provider or language SDK. Packages remain private and
@@ -785,3 +786,30 @@ container/indented code, front matter and raw HTML stay opaque. No runtime sourc
 parser, regex repair, language guessing, code execution, Markdown document
 rendering or MDX support is claimed. Existing parse-only Prettier/remark assets
 remain offline with source/binary hashes; no new SDK/parser is installed.
+
+## Dockerfile addition
+
+Model 36 adds Dockerfile/Containerfile with one standalone ONNX asset. It learns
+instructions, directives, stages/bindings, flags, Shell/JSON forms, continuations
+and heredocs from offline supervision. Browser consumers do not load Go,
+BuildKit, Python, a Docker service or nested Shell/JSON models. Aliases and
+filenames use explicit language selection; Docker Compose stays YAML.
+
+The [verification record](dockerfile-browser-verification.json) retains eight
+numeric export lengths, 348 exact browser/native cases (all 335 prior cases,
+eight Dockerfile displays, four edge probes and Markdown/Dockerfile reuse), and
+an independent private-tarball consumer with public imports. That consumer emits
+one model and checks 12 cases, original text/XSS escaping, aliases, element/token
+APIs, six theme/mode palettes and CSS overrides. No new app, server or port is
+introduced. All 73 previous weight files remain byte-identical.
+
+First independent real-source F1 is **96.33% on 14 documents**. Validation is
+**88.00% on 12 different documents**, authored test **91.96% on 120 tasks**,
+eight visible displays **96.62%**, and strict neural Golden **23/42** whole cases
+exact including modifiers. These are distinct evidence sets, not guarantees for
+every project or platform. Two visible opaque English/Unicode heredoc bodies are
+complete; Unicode comments and long/distant context remain weaker. See
+[evaluation](../packs/dockerfile/model/BENCHMARKS.md) and
+[known limits](../packs/dockerfile/model/KNOWN_ISSUES.md). Training stops before
+the first independent adaptive test; no runtime parser/regex/spelling repair is
+provided. Canonical touching-string union preserves roles and bridges no gaps.

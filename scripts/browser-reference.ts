@@ -51,6 +51,7 @@ const ids = [
   "dotenv",
   "xml",
   "markdown",
+  "dockerfile",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -106,22 +107,27 @@ const suffixes = manifests
   .sort((a, b) => b.extension.length - a.extension.length);
 const cases = [];
 const folder = resolve(root, "apps/playground/src/views/highlighter/examples");
-for (const entry of readdirSync(folder, { withFileTypes: true }).filter((entry) =>
-  entry.isDirectory(),
-)) {
-  for (const filename of readdirSync(resolve(folder, entry.name))) {
-    const source = readFileSync(resolve(folder, entry.name, filename), "utf8");
+async function appendExamples(directory: string) {
+  for (const filename of readdirSync(resolve(folder, directory))) {
+    const source = readFileSync(resolve(folder, directory, filename), "utf8");
     const kind =
-      entry.name === "jsonc"
+      directory === "jsonc"
         ? "jsonc"
-        : suffixes.find((item) => filename.endsWith(item.extension))?.kind;
+        : directory === "dockerfile"
+          ? "dockerfile"
+          : suffixes.find((item) => filename.endsWith(item.extension))?.kind;
     if (!kind) throw new Error(`Unknown example suffix: ${filename}`);
     const result = await getPack(kind).highlight({ source, documentKind: kind });
-    cases.push({ filename: entry.name + "/" + filename, source, documentKind: kind, result });
+    cases.push({ filename: directory + "/" + filename, source, documentKind: kind, result });
   }
   await Promise.all([...models.values()].map((model) => model.close()));
   models.clear();
   packs.clear();
+}
+for (const entry of readdirSync(folder, { withFileTypes: true }).filter(
+  (entry) => entry.isDirectory() && entry.name !== "dockerfile",
+)) {
+  await appendExamples(entry.name);
 }
 for (const source of [
   "",
@@ -326,6 +332,31 @@ for (const [index, source] of [
 ].entries()) {
   cases.push({
     filename: `edge/markdown-${index}.md`,
+    source,
+    documentKind: "markdown",
+    result: await getPack("markdown").highlight({ source, documentKind: "markdown" }),
+  });
+}
+await appendExamples("dockerfile");
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '\ufeff# 星空 🌌\r\nFROM alpine:3\r\nENV TITLE="你好 🌌"\r\n',
+  "FROM alpine:3\nCOPY <<'TEXT' /tmp/source\n" +
+    "Original 🌌 source with FROM and RUN words. ".repeat(80) +
+    '\nTEXT\nCMD ["cat","/tmp/source"]\n',
+].entries()) {
+  cases.push({
+    filename: `edge/dockerfile-${index}.dockerfile`,
+    source,
+    documentKind: "dockerfile",
+    result: await getPack("dockerfile").highlight({ source, documentKind: "dockerfile" }),
+  });
+}
+{
+  const source = "# Container source\n\n```dockerfile\nFROM alpine:3\nRUN echo ready\n```\n";
+  cases.push({
+    filename: "edge/markdown-dockerfile.md",
     source,
     documentKind: "markdown",
     result: await getPack("markdown").highlight({ source, documentKind: "markdown" }),

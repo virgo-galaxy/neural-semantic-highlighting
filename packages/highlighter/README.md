@@ -29,7 +29,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
 include their JS/TS/CSS dependencies automatically; PHP includes HTML and its
-child dependencies. Default registration covers 35 packs, including Swift,
+child dependencies. Default registration covers 36 packs, including Swift,
 Kotlin, R, Scala, Ruby and Lua. Flutter shares Dart's model. Weights are fetched
 lazily. Models are about 3.7 MB each, with a shared 14.8 MB uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -214,3 +214,11 @@ remain code. Container/indented code, HTML and front matter stay opaque. Returne
 HTML is escaped source; Markdown document rendering and MDX are outside scope.
 Shared heading/link/code variables and nested strong/emphasis/strikethrough styles
 are described in the [theme package](../themes/web/README.md).
+
+Dockerfile uses `language: "dockerfile"`; `docker` and `containerfile` share the
+same descriptor. Selective import `@nsh/highlighter/languages/dockerfile` emits
+one model asset, including learned Shell/JSON roles. No Docker Engine, language
+SDK, Python or parser runs in the browser. All themes and custom CSS apply.
+Register it beside Markdown for predicted explicit Dockerfile fences. See
+[evaluation](../../packs/dockerfile/model/BENCHMARKS.md) and
+[known limits](../../packs/dockerfile/model/KNOWN_ISSUES.md).

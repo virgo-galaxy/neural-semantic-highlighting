@@ -11,6 +11,7 @@ import cpp from "./languages/cpp.js";
 import csharp from "./languages/csharp.js";
 import css from "./languages/css.js";
 import dart from "./languages/dart.js";
+import dockerfile from "./languages/dockerfile.js";
 import dotenv from "./languages/dotenv.js";
 import go from "./languages/go.js";
 import html from "./languages/html.js";
@@ -78,6 +79,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       dotenv,
       xml,
       markdown,
+      dockerfile,
     ],
   });
 }

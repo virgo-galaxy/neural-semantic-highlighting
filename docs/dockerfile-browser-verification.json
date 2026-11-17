@@ -1,0 +1,2217 @@
+{
+  "date": "2026-11-17",
+  "scope": "dockerfile-source-semantic-spans",
+  "modelsAvailable": 36,
+  "selectedModel": {
+    "file": "model.pt",
+    "format": "nsh-dockerfile-model-v1",
+    "sha256": "7a35a9cd71927863fe78e586f952bd12c7c09773748661f870e354e36f132796",
+    "bytes": 3625973,
+    "parameterCount": 893969,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "browserModel": {
+    "file": "model.onnx",
+    "sha256": "951183564984ef37ccd1dbf5808762bd038171d238f9ce4806f8abb8258cbac1",
+    "bytes": 3704507
+  },
+  "conversion": {
+    "reference": "selected PyTorch CPU inference",
+    "torch": "2.14.0",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "sourceSha256": "7a35a9cd71927863fe78e586f952bd12c7c09773748661f870e354e36f132796",
+    "modelSha256": "951183564984ef37ccd1dbf5808762bd038171d238f9ce4806f8abb8258cbac1",
+    "comparisons": [
+      {
+        "bytes": 1,
+        "maxAbsoluteErrors": [3.337860107421875e-6, 3.814697265625e-6, 3.814697265625e-6]
+      },
+      {
+        "bytes": 2,
+        "maxAbsoluteErrors": [3.814697265625e-6, 8.106231689453125e-6, 4.76837158203125e-6]
+      },
+      {
+        "bytes": 7,
+        "maxAbsoluteErrors": [7.62939453125e-6, 9.2238187789917e-6, 1.1444091796875e-5]
+      },
+      {
+        "bytes": 31,
+        "maxAbsoluteErrors": [7.62939453125e-6, 1.33514404296875e-5, 1.239776611328125e-5]
+      },
+      {
+        "bytes": 64,
+        "maxAbsoluteErrors": [2.0742416381835938e-5, 3.600120544433594e-5, 2.384185791015625e-5]
+      },
+      {
+        "bytes": 127,
+        "maxAbsoluteErrors": [1.52587890625e-5, 2.8133392333984375e-5, 2.574920654296875e-5]
+      },
+      {
+        "bytes": 511,
+        "maxAbsoluteErrors": [2.8371810913085938e-5, 3.7670135498046875e-5, 3.719329833984375e-5]
+      },
+      {
+        "bytes": 512,
+        "maxAbsoluteErrors": [2.47955322265625e-5, 4.863739013671875e-5, 2.956390380859375e-5]
+      }
+    ]
+  },
+  "parity": {
+    "total": 348,
+    "passed": 348,
+    "failures": [],
+    "timings": [
+      {
+        "filename": "assembly/aarch64.S",
+        "ms": 338.89999997615814
+      },
+      {
+        "filename": "assembly/att.s",
+        "ms": 18.700000047683716
+      },
+      {
+        "filename": "assembly/intel.s",
+        "ms": 12.899999976158142
+      },
+      {
+        "filename": "assembly/macros.asm",
+        "ms": 12.699999928474426
+      },
+      {
+        "filename": "assembly/masm.asm",
+        "ms": 14.799999952316284
+      },
+      {
+        "filename": "assembly/nasm.asm",
+        "ms": 19
+      },
+      {
+        "filename": "awk/counts.awk",
+        "ms": 56.89999997615814
+      },
+      {
+        "filename": "awk/files.awk",
+        "ms": 10.199999928474426
+      },
+      {
+        "filename": "awk/normalize.awk",
+        "ms": 14.100000023841858
+      },
+      {
+        "filename": "awk/report.awk",
+        "ms": 17.200000047683716
+      },
+      {
+        "filename": "bash/build.sh",
+        "ms": 57.5
+      },
+      {
+        "filename": "bash/files.csh",
+        "ms": 10.700000047683716
+      },
+      {
+        "filename": "bash/files.zsh",
+        "ms": 9.5
+      },
+      {
+        "filename": "bash/functions.sh",
+        "ms": 12.600000023841858
+      },
+      {
+        "filename": "bash/heredoc.sh",
+        "ms": 16.399999976158142
+      },
+      {
+        "filename": "bash/portable.sh",
+        "ms": 12.600000023841858
+      },
+      {
+        "filename": "bat/arguments.bat",
+        "ms": 50.299999952316284
+      },
+      {
+        "filename": "bat/build.bat",
+        "ms": 13.399999976158142
+      },
+      {
+        "filename": "bat/functions.cmd",
+        "ms": 6.100000023841858
+      },
+      {
+        "filename": "bat/records.cmd",
+        "ms": 16.700000047683716
+      },
+      {
+        "filename": "c/callbacks.c",
+        "ms": 63.200000047683716
+      },
+      {
+        "filename": "c/file-reader.c",
+        "ms": 16.5
+      },
+      {
+        "filename": "c/hello.c",
+        "ms": 10.5
+      },
+      {
+        "filename": "c/linked-list.c",
+        "ms": 16.899999976158142
+      },
+      {
+        "filename": "c/literals.c",
+        "ms": 21.799999952316284
+      },
+      {
+        "filename": "c/macros.h",
+        "ms": 21.699999928474426
+      },
+      {
+        "filename": "c/modern-c.c",
+        "ms": 32.300000071525574
+      },
+      {
+        "filename": "c/points.c",
+        "ms": 21
+      },
+      {
+        "filename": "cpp/algorithms.cpp",
+        "ms": 60.39999997615814
+      },
+      {
+        "filename": "cpp/bindings.cpp",
+        "ms": 24.800000071525574
+      },
+      {
+        "filename": "cpp/classes.cpp",
+        "ms": 27.200000047683716
+      },
+      {
+        "filename": "cpp/concepts.cpp",
+        "ms": 17.899999976158142
+      },
+      {
+        "filename": "cpp/hello.cpp",
+        "ms": 21
+      },
+      {
+        "filename": "cpp/raw-strings.cpp",
+        "ms": 22.699999928474426
+      },
+      {
+        "filename": "cpp/smart-pointers.cpp",
+        "ms": 22.100000023841858
+      },
+      {
+        "filename": "cpp/templates.hpp",
+        "ms": 23.299999952316284
+      },
+      {
+        "filename": "csharp/AsyncStream.cs",
+        "ms": 72.70000004768372
+      },
+      {
+        "filename": "csharp/Collections.cs",
+        "ms": 28.600000023841858
+      },
+      {
+        "filename": "csharp/GenericStore.cs",
+        "ms": 27.399999976158142
+      },
+      {
+        "filename": "csharp/Hello.cs",
+        "ms": 27.5
+      },
+      {
+        "filename": "csharp/Options.cs",
+        "ms": 26.199999928474426
+      },
+      {
+        "filename": "csharp/Queries.cs",
+        "ms": 35.90000009536743
+      },
+      {
+        "filename": "csharp/Records.cs",
+        "ms": 29.800000071525574
+      },
+      {
+        "filename": "csharp/StringTemplates.cs",
+        "ms": 29.600000023841858
+      },
+      {
+        "filename": "css/hello.css",
+        "ms": 68
+      },
+      {
+        "filename": "css/responsive-grid.css",
+        "ms": 15
+      },
+      {
+        "filename": "dart/async.dart",
+        "ms": 89.70000004768372
+      },
+      {
+        "filename": "dart/classes.dart",
+        "ms": 57
+      },
+      {
+        "filename": "dart/collections.dart",
+        "ms": 49.5
+      },
+      {
+        "filename": "dart/hello.dart",
+        "ms": 32.300000071525574
+      },
+      {
+        "filename": "dart/modern.dart",
+        "ms": 50.300000071525574
+      },
+      {
+        "filename": "dart/patterns.dart",
+        "ms": 53.39999997615814
+      },
+      {
+        "filename": "dart/strings.dart",
+        "ms": 40
+      },
+      {
+        "filename": "dart/widgets.dart",
+        "ms": 57.89999997615814
+      },
+      {
+        "filename": "dotenv/comments.env",
+        "ms": 57.60000002384186
+      },
+      {
+        "filename": "dotenv/export.env",
+        "ms": 11.899999976158142
+      },
+      {
+        "filename": "dotenv/frontend.env",
+        "ms": 17.600000023841858
+      },
+      {
+        "filename": "dotenv/hello.env",
+        "ms": 7.699999928474426
+      },
+      {
+        "filename": "dotenv/multiline.env",
+        "ms": 16
+      },
+      {
+        "filename": "dotenv/production.env",
+        "ms": 21.899999976158142
+      },
+      {
+        "filename": "dotenv/quotes.env",
+        "ms": 17.700000047683716
+      },
+      {
+        "filename": "dotenv/references.env",
+        "ms": 13.799999952316284
+      },
+      {
+        "filename": "flutter/animation.dart",
+        "ms": 70.70000004768372
+      },
+      {
+        "filename": "flutter/builders.dart",
+        "ms": 68.30000007152557
+      },
+      {
+        "filename": "flutter/forms.dart",
+        "ms": 89.10000002384186
+      },
+      {
+        "filename": "flutter/hello.dart",
+        "ms": 85.59999990463257
+      },
+      {
+        "filename": "flutter/inherited.dart",
+        "ms": 78.80000007152557
+      },
+      {
+        "filename": "flutter/lists.dart",
+        "ms": 67.19999992847443
+      },
+      {
+        "filename": "flutter/navigation.dart",
+        "ms": 69.29999995231628
+      },
+      {
+        "filename": "flutter/stateful.dart",
+        "ms": 52.5
+      },
+      {
+        "filename": "go/generics.go",
+        "ms": 72.39999997615814
+      },
+      {
+        "filename": "go/hello.go",
+        "ms": 10.200000047683716
+      },
+      {
+        "filename": "go/long-raw-string.go",
+        "ms": 84.80000007152557
+      },
+      {
+        "filename": "go/selectors.go",
+        "ms": 22.5
+      },
+      {
+        "filename": "go/struct-methods.go",
+        "ms": 26
+      },
+      {
+        "filename": "html/embedded.html",
+        "ms": 132.10000002384186
+      },
+      {
+        "filename": "html/forms-and-dialog.html",
+        "ms": 48.89999997615814
+      },
+      {
+        "filename": "html/hello.html",
+        "ms": 36.699999928474426
+      },
+      {
+        "filename": "html/raw-text.html",
+        "ms": 38.300000071525574
+      },
+      {
+        "filename": "html/tailwind-card.html",
+        "ms": 50.60000002384186
+      },
+      {
+        "filename": "html/web-components.html",
+        "ms": 34.89999997615814
+      },
+      {
+        "filename": "ini/.editorconfig",
+        "ms": 60.10000002384186
+      },
+      {
+        "filename": "ini/continuations.ini",
+        "ms": 26.600000023841858
+      },
+      {
+        "filename": "ini/hello.ini",
+        "ms": 12.799999952316284
+      },
+      {
+        "filename": "ini/logging.ini",
+        "ms": 21
+      },
+      {
+        "filename": "ini/paths.ini",
+        "ms": 21.800000071525574
+      },
+      {
+        "filename": "ini/server.ini",
+        "ms": 14.599999904632568
+      },
+      {
+        "filename": "ini/setup.cfg",
+        "ms": 19.399999976158142
+      },
+      {
+        "filename": "ini/tox.ini",
+        "ms": 19.600000023841858
+      },
+      {
+        "filename": "java/Annotations.java",
+        "ms": 59.10000002384186
+      },
+      {
+        "filename": "java/AsyncTasks.java",
+        "ms": 28
+      },
+      {
+        "filename": "java/Hello.java",
+        "ms": 40.299999952316284
+      },
+      {
+        "filename": "java/PatternRouting.java",
+        "ms": 39
+      },
+      {
+        "filename": "java/Result.java",
+        "ms": 23.5
+      },
+      {
+        "filename": "java/TextTemplates.java",
+        "ms": 23.800000071525574
+      },
+      {
+        "filename": "java/module-info.java",
+        "ms": 20.399999976158142
+      },
+      {
+        "filename": "javascript/async-cache.js",
+        "ms": 59.60000002384186
+      },
+      {
+        "filename": "javascript/data-pipeline.js",
+        "ms": 58.40000009536743
+      },
+      {
+        "filename": "javascript/event-bus.js",
+        "ms": 62
+      },
+      {
+        "filename": "javascript/hello.js",
+        "ms": 15.100000023841858
+      },
+      {
+        "filename": "javascript/react-hooks.jsx",
+        "ms": 133.39999997615814
+      },
+      {
+        "filename": "javascript/tailwind-profile-card.jsx",
+        "ms": 179.39999997615814
+      },
+      {
+        "filename": "json/hello.json",
+        "ms": 44.89999997615814
+      },
+      {
+        "filename": "json/numbers.json",
+        "ms": 13.600000023841858
+      },
+      {
+        "filename": "json/package.json",
+        "ms": 14.899999976158142
+      },
+      {
+        "filename": "json/response.json",
+        "ms": 27.200000047683716
+      },
+      {
+        "filename": "json/schema.json",
+        "ms": 32.700000047683716
+      },
+      {
+        "filename": "json/strings.json",
+        "ms": 18
+      },
+      {
+        "filename": "json/theme.json",
+        "ms": 22.100000023841858
+      },
+      {
+        "filename": "json/unicode.json",
+        "ms": 12.899999976158142
+      },
+      {
+        "filename": "jsonc/comments.jsonc",
+        "ms": 30.09999990463257
+      },
+      {
+        "filename": "jsonc/extensions.json",
+        "ms": 11.400000095367432
+      },
+      {
+        "filename": "jsonc/hello.jsonc",
+        "ms": 15.5
+      },
+      {
+        "filename": "jsonc/launch.json",
+        "ms": 25.5
+      },
+      {
+        "filename": "jsonc/strings.jsonc",
+        "ms": 21.40000009536743
+      },
+      {
+        "filename": "jsonc/tasks.json",
+        "ms": 22.300000071525574
+      },
+      {
+        "filename": "jsonc/tsconfig.json",
+        "ms": 26.699999928474426
+      },
+      {
+        "filename": "jsonc/workspace.code-workspace",
+        "ms": 22.100000023841858
+      },
+      {
+        "filename": "kotlin/build.gradle.kts",
+        "ms": 62.09999990463257
+      },
+      {
+        "filename": "kotlin/collections.kt",
+        "ms": 48.90000009536743
+      },
+      {
+        "filename": "kotlin/compose.kt",
+        "ms": 48.700000047683716
+      },
+      {
+        "filename": "kotlin/coroutines.kt",
+        "ms": 39.5
+      },
+      {
+        "filename": "kotlin/generics.kt",
+        "ms": 43.5
+      },
+      {
+        "filename": "kotlin/hello.kt",
+        "ms": 24.90000009536743
+      },
+      {
+        "filename": "kotlin/models.kt",
+        "ms": 47
+      },
+      {
+        "filename": "kotlin/strings.kt",
+        "ms": 34.39999997615814
+      },
+      {
+        "filename": "less/hello.less",
+        "ms": 12.899999976158142
+      },
+      {
+        "filename": "less/responsive.less",
+        "ms": 10.5
+      },
+      {
+        "filename": "lua/closures.lua",
+        "ms": 65.10000002384186
+      },
+      {
+        "filename": "lua/hello.lua",
+        "ms": 16.5
+      },
+      {
+        "filename": "lua/loops.lua",
+        "ms": 25.5
+      },
+      {
+        "filename": "lua/modern.lua",
+        "ms": 27.5
+      },
+      {
+        "filename": "lua/modules.lua",
+        "ms": 30.100000023841858
+      },
+      {
+        "filename": "lua/neovim.lua",
+        "ms": 38.09999990463257
+      },
+      {
+        "filename": "lua/strings.lua",
+        "ms": 34.60000002384186
+      },
+      {
+        "filename": "lua/tables.lua",
+        "ms": 23.5
+      },
+      {
+        "filename": "markdown/code.md",
+        "ms": 118.89999997615814
+      },
+      {
+        "filename": "markdown/formatting.md",
+        "ms": 35.60000002384186
+      },
+      {
+        "filename": "markdown/hello.md",
+        "ms": 25.09999990463257
+      },
+      {
+        "filename": "markdown/links.md",
+        "ms": 42.200000047683716
+      },
+      {
+        "filename": "markdown/lists.md",
+        "ms": 27.09999990463257
+      },
+      {
+        "filename": "markdown/mixed.md",
+        "ms": 50.89999997615814
+      },
+      {
+        "filename": "markdown/tables.md",
+        "ms": 28.899999976158142
+      },
+      {
+        "filename": "markdown/unicode.md",
+        "ms": 63.60000002384186
+      },
+      {
+        "filename": "perl/counter.pm",
+        "ms": 91.5
+      },
+      {
+        "filename": "perl/heredoc.pl",
+        "ms": 9.100000023841858
+      },
+      {
+        "filename": "perl/indented-heredoc.pl",
+        "ms": 6.399999976158142
+      },
+      {
+        "filename": "perl/normalize.pl",
+        "ms": 18.699999928474426
+      },
+      {
+        "filename": "perl/records.pl",
+        "ms": 19.100000023841858
+      },
+      {
+        "filename": "php/closures.php",
+        "ms": 85.60000002384186
+      },
+      {
+        "filename": "php/collections.php",
+        "ms": 18.899999976158142
+      },
+      {
+        "filename": "php/embedded.phtml",
+        "ms": 39.5
+      },
+      {
+        "filename": "php/enums.php",
+        "ms": 17.799999952316284
+      },
+      {
+        "filename": "php/hello.php",
+        "ms": 11.200000047683716
+      },
+      {
+        "filename": "php/heredoc.php",
+        "ms": 13.300000071525574
+      },
+      {
+        "filename": "php/records.php",
+        "ms": 19.100000023841858
+      },
+      {
+        "filename": "php/template.phtml",
+        "ms": 22.300000071525574
+      },
+      {
+        "filename": "powershell/functions.ps1",
+        "ms": 54.199999928474426
+      },
+      {
+        "filename": "powershell/here-strings.ps1",
+        "ms": 14.600000023841858
+      },
+      {
+        "filename": "powershell/pipeline.ps1",
+        "ms": 13.699999928474426
+      },
+      {
+        "filename": "powershell/records.ps1",
+        "ms": 16.100000023841858
+      },
+      {
+        "filename": "python/async-stream.py",
+        "ms": 29.299999952316284
+      },
+      {
+        "filename": "python/generics.py",
+        "ms": 31
+      },
+      {
+        "filename": "python/records.py",
+        "ms": 25.300000071525574
+      },
+      {
+        "filename": "python/strings.py",
+        "ms": 17.5
+      },
+      {
+        "filename": "r/frames.R",
+        "ms": 162.90000009536743
+      },
+      {
+        "filename": "r/functions.R",
+        "ms": 37.60000002384186
+      },
+      {
+        "filename": "r/hello.R",
+        "ms": 18
+      },
+      {
+        "filename": "r/models.R",
+        "ms": 41.5
+      },
+      {
+        "filename": "r/objects.R",
+        "ms": 40.5
+      },
+      {
+        "filename": "r/pipeline.R",
+        "ms": 38
+      },
+      {
+        "filename": "r/plot.R",
+        "ms": 25.700000047683716
+      },
+      {
+        "filename": "r/strings.R",
+        "ms": 37.699999928474426
+      },
+      {
+        "filename": "ruby/blocks.rb",
+        "ms": 67.5
+      },
+      {
+        "filename": "ruby/classes.rb",
+        "ms": 33.200000047683716
+      },
+      {
+        "filename": "ruby/collections.rb",
+        "ms": 36.5
+      },
+      {
+        "filename": "ruby/hello.rb",
+        "ms": 15.700000047683716
+      },
+      {
+        "filename": "ruby/heredoc.rb",
+        "ms": 24.09999990463257
+      },
+      {
+        "filename": "ruby/patterns.rb",
+        "ms": 35.40000009536743
+      },
+      {
+        "filename": "ruby/rails.rb",
+        "ms": 57.90000009536743
+      },
+      {
+        "filename": "ruby/strings.rb",
+        "ms": 38.800000071525574
+      },
+      {
+        "filename": "rust/async.rs",
+        "ms": 76.29999995231628
+      },
+      {
+        "filename": "rust/edition2024.rs",
+        "ms": 35.10000002384186
+      },
+      {
+        "filename": "rust/hello.rs",
+        "ms": 30.59999990463257
+      },
+      {
+        "filename": "rust/macros.rs",
+        "ms": 31.90000009536743
+      },
+      {
+        "filename": "rust/ownership.rs",
+        "ms": 33.299999952316284
+      },
+      {
+        "filename": "rust/patterns.rs",
+        "ms": 49.200000047683716
+      },
+      {
+        "filename": "rust/raw-strings.rs",
+        "ms": 36.299999952316284
+      },
+      {
+        "filename": "rust/traits-generics.rs",
+        "ms": 38.199999928474426
+      },
+      {
+        "filename": "scala/async.scala",
+        "ms": 83.39999997615814
+      },
+      {
+        "filename": "scala/collections.scala",
+        "ms": 33.5
+      },
+      {
+        "filename": "scala/contextual.scala",
+        "ms": 38
+      },
+      {
+        "filename": "scala/generics.scala",
+        "ms": 43.10000002384186
+      },
+      {
+        "filename": "scala/hello.scala",
+        "ms": 23.100000023841858
+      },
+      {
+        "filename": "scala/models.scala",
+        "ms": 29.200000047683716
+      },
+      {
+        "filename": "scala/scala2.scala",
+        "ms": 33.800000071525574
+      },
+      {
+        "filename": "scala/strings.scala",
+        "ms": 36.09999990463257
+      },
+      {
+        "filename": "scss/hello.scss",
+        "ms": 13.300000071525574
+      },
+      {
+        "filename": "scss/surface-layout.scss",
+        "ms": 12.300000071525574
+      },
+      {
+        "filename": "sql/mysql.sql",
+        "ms": 51.59999990463257
+      },
+      {
+        "filename": "sql/oracle.sql",
+        "ms": 18.600000023841858
+      },
+      {
+        "filename": "sql/postgres.sql",
+        "ms": 17.600000023841858
+      },
+      {
+        "filename": "sql/queries.sql",
+        "ms": 21.799999952316284
+      },
+      {
+        "filename": "svelte/async-content.svelte",
+        "ms": 64.29999995231628
+      },
+      {
+        "filename": "svelte/control-flow.svelte",
+        "ms": 44.200000047683716
+      },
+      {
+        "filename": "svelte/counter.svelte",
+        "ms": 44.800000071525574
+      },
+      {
+        "filename": "svelte/directives.svelte",
+        "ms": 47.199999928474426
+      },
+      {
+        "filename": "svelte/legacy-component.svelte",
+        "ms": 35
+      },
+      {
+        "filename": "svelte/module-less.svelte",
+        "ms": 40.800000071525574
+      },
+      {
+        "filename": "svelte/snippets.svelte",
+        "ms": 53.300000071525574
+      },
+      {
+        "filename": "svelte/typed-scss.svelte",
+        "ms": 48
+      },
+      {
+        "filename": "svg/accessible.svg",
+        "ms": 30.600000023841858
+      },
+      {
+        "filename": "svg/animation.svg",
+        "ms": 25.700000047683716
+      },
+      {
+        "filename": "svg/cdata.svg",
+        "ms": 29.5
+      },
+      {
+        "filename": "svg/filters.svg",
+        "ms": 44.89999997615814
+      },
+      {
+        "filename": "svg/gradients.svg",
+        "ms": 30.100000023841858
+      },
+      {
+        "filename": "svg/hello.svg",
+        "ms": 28.299999952316284
+      },
+      {
+        "filename": "svg/mask.svg",
+        "ms": 26.5
+      },
+      {
+        "filename": "svg/symbols.svg",
+        "ms": 29.5
+      },
+      {
+        "filename": "swift/bindings.swift",
+        "ms": 83.89999997615814
+      },
+      {
+        "filename": "swift/collections.swift",
+        "ms": 44.59999990463257
+      },
+      {
+        "filename": "swift/concurrency.swift",
+        "ms": 48.10000002384186
+      },
+      {
+        "filename": "swift/generics.swift",
+        "ms": 41
+      },
+      {
+        "filename": "swift/hello.swift",
+        "ms": 24.59999990463257
+      },
+      {
+        "filename": "swift/patterns.swift",
+        "ms": 44
+      },
+      {
+        "filename": "swift/strings.swift",
+        "ms": 41
+      },
+      {
+        "filename": "swift/swiftui.swift",
+        "ms": 41.299999952316284
+      },
+      {
+        "filename": "toml/Cargo.toml",
+        "ms": 55.799999952316284
+      },
+      {
+        "filename": "toml/hello.toml",
+        "ms": 15.5
+      },
+      {
+        "filename": "toml/inline.toml",
+        "ms": 24.600000023841858
+      },
+      {
+        "filename": "toml/keys.toml",
+        "ms": 20.199999928474426
+      },
+      {
+        "filename": "toml/literals.toml",
+        "ms": 26
+      },
+      {
+        "filename": "toml/pyproject.toml",
+        "ms": 28.399999976158142
+      },
+      {
+        "filename": "toml/services.toml",
+        "ms": 15.900000095367432
+      },
+      {
+        "filename": "toml/strings.toml",
+        "ms": 24.300000071525574
+      },
+      {
+        "filename": "typescript/async-api-client.ts",
+        "ms": 112.5
+      },
+      {
+        "filename": "typescript/event-pipeline.ts",
+        "ms": 114.89999997615814
+      },
+      {
+        "filename": "typescript/hello.ts",
+        "ms": 20.299999952316284
+      },
+      {
+        "filename": "typescript/react-hooks.tsx",
+        "ms": 169
+      },
+      {
+        "filename": "typescript/tailwind-profile-card.tsx",
+        "ms": 202.10000002384186
+      },
+      {
+        "filename": "typescript/typed-cache.ts",
+        "ms": 55.699999928474426
+      },
+      {
+        "filename": "vue/hello.vue",
+        "ms": 80.10000002384186
+      },
+      {
+        "filename": "vue/scoped-styles.vue",
+        "ms": 47.39999997615814
+      },
+      {
+        "filename": "vue/tsx-render.vue",
+        "ms": 45.699999928474426
+      },
+      {
+        "filename": "vue/vue2-options.vue",
+        "ms": 104
+      },
+      {
+        "filename": "vue/vue3-composition.vue",
+        "ms": 76.5
+      },
+      {
+        "filename": "vue/vue32-typed-setup.vue",
+        "ms": 85.60000002384186
+      },
+      {
+        "filename": "xml/catalog.xsl",
+        "ms": 24.799999952316284
+      },
+      {
+        "filename": "xml/cdata.xml",
+        "ms": 22
+      },
+      {
+        "filename": "xml/feed.xml",
+        "ms": 27.699999928474426
+      },
+      {
+        "filename": "xml/hello.xml",
+        "ms": 19.800000071525574
+      },
+      {
+        "filename": "xml/namespaces.xml",
+        "ms": 26.5
+      },
+      {
+        "filename": "xml/pom.xml",
+        "ms": 42.699999928474426
+      },
+      {
+        "filename": "xml/preferences.plist",
+        "ms": 26.299999952316284
+      },
+      {
+        "filename": "xml/schema.xsd",
+        "ms": 29.700000047683716
+      },
+      {
+        "filename": "yaml/anchors.yaml",
+        "ms": 56.699999928474426
+      },
+      {
+        "filename": "yaml/blocks.yaml",
+        "ms": 28
+      },
+      {
+        "filename": "yaml/compose.yaml",
+        "ms": 34.299999952316284
+      },
+      {
+        "filename": "yaml/documents.yaml",
+        "ms": 20
+      },
+      {
+        "filename": "yaml/hello.yaml",
+        "ms": 12.899999976158142
+      },
+      {
+        "filename": "yaml/kubernetes.yaml",
+        "ms": 32.200000047683716
+      },
+      {
+        "filename": "yaml/monitoring.yml",
+        "ms": 24.5
+      },
+      {
+        "filename": "yaml/workflow.yml",
+        "ms": 32.09999990463257
+      },
+      {
+        "filename": "zig/captures.zig",
+        "ms": 80.10000002384186
+      },
+      {
+        "filename": "zig/comptime.zig",
+        "ms": 37.799999952316284
+      },
+      {
+        "filename": "zig/containers.zig",
+        "ms": 29.899999976158142
+      },
+      {
+        "filename": "zig/errors-optionals.zig",
+        "ms": 37.700000047683716
+      },
+      {
+        "filename": "zig/hello.zig",
+        "ms": 31.899999976158142
+      },
+      {
+        "filename": "zig/memory.zig",
+        "ms": 31.700000047683716
+      },
+      {
+        "filename": "zig/reflection.zig",
+        "ms": 28.699999928474426
+      },
+      {
+        "filename": "zig/strings.zig",
+        "ms": 26.299999952316284
+      },
+      {
+        "filename": "edge/271.ts",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/272.ts",
+        "ms": 0.6000000238418579
+      },
+      {
+        "filename": "edge/273.ts",
+        "ms": 3.299999952316284
+      },
+      {
+        "filename": "edge/274.ts",
+        "ms": 187.10000002384186
+      },
+      {
+        "filename": "edge/swift-0.swift",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/swift-1.swift",
+        "ms": 0.5
+      },
+      {
+        "filename": "edge/swift-2.swift",
+        "ms": 2.5999999046325684
+      },
+      {
+        "filename": "edge/swift-3.swift",
+        "ms": 321.3000000715256
+      },
+      {
+        "filename": "edge/kotlin-0.kt",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/kotlin-1.kt",
+        "ms": 0.5999999046325684
+      },
+      {
+        "filename": "edge/kotlin-2.kt",
+        "ms": 2.700000047683716
+      },
+      {
+        "filename": "edge/kotlin-3.kt",
+        "ms": 403.5
+      },
+      {
+        "filename": "edge/r-0.R",
+        "ms": 0
+      },
+      {
+        "filename": "edge/r-1.R",
+        "ms": 0.5
+      },
+      {
+        "filename": "edge/r-2.R",
+        "ms": 2
+      },
+      {
+        "filename": "edge/r-3.R",
+        "ms": 360
+      },
+      {
+        "filename": "edge/scala-0.scala",
+        "ms": 0.09999990463256836
+      },
+      {
+        "filename": "edge/scala-1.scala",
+        "ms": 0.5
+      },
+      {
+        "filename": "edge/scala-2.scala",
+        "ms": 2.4000000953674316
+      },
+      {
+        "filename": "edge/scala-3.scala",
+        "ms": 317.40000009536743
+      },
+      {
+        "filename": "edge/ruby-0.rb",
+        "ms": 0
+      },
+      {
+        "filename": "edge/ruby-1.rb",
+        "ms": 1.5999999046325684
+      },
+      {
+        "filename": "edge/ruby-2.rb",
+        "ms": 2.200000047683716
+      },
+      {
+        "filename": "edge/ruby-3.rb",
+        "ms": 450.60000002384186
+      },
+      {
+        "filename": "edge/lua-0.lua",
+        "ms": 0
+      },
+      {
+        "filename": "edge/lua-1.lua",
+        "ms": 0.5999999046325684
+      },
+      {
+        "filename": "edge/lua-2.lua",
+        "ms": 2.200000047683716
+      },
+      {
+        "filename": "edge/lua-3.lua",
+        "ms": 360
+      },
+      {
+        "filename": "edge/json-0.json",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/json-1.json",
+        "ms": 0.3999999761581421
+      },
+      {
+        "filename": "edge/json-2.json",
+        "ms": 2.799999952316284
+      },
+      {
+        "filename": "edge/json-3.json",
+        "ms": 401.7999999523163
+      },
+      {
+        "filename": "edge/jsonc-0.jsonc",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/jsonc-1.jsonc",
+        "ms": 0.3999999761581421
+      },
+      {
+        "filename": "edge/jsonc-2.jsonc",
+        "ms": 2.200000047683716
+      },
+      {
+        "filename": "edge/jsonc-3.jsonc",
+        "ms": 324.39999997615814
+      },
+      {
+        "filename": "edge/yaml-0.yaml",
+        "ms": 0
+      },
+      {
+        "filename": "edge/yaml-1.yaml",
+        "ms": 0.6000000238418579
+      },
+      {
+        "filename": "edge/yaml-2.yaml",
+        "ms": 2.600000023841858
+      },
+      {
+        "filename": "edge/yaml-3.yaml",
+        "ms": 546.6999999284744
+      },
+      {
+        "filename": "edge/toml-0.toml",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/toml-1.toml",
+        "ms": 0.6000000238418579
+      },
+      {
+        "filename": "edge/toml-2.toml",
+        "ms": 2.399999976158142
+      },
+      {
+        "filename": "edge/toml-3.toml",
+        "ms": 412
+      },
+      {
+        "filename": "edge/ini-0.ini",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/ini-1.ini",
+        "ms": 0.5
+      },
+      {
+        "filename": "edge/ini-2.ini",
+        "ms": 3.5
+      },
+      {
+        "filename": "edge/ini-3.ini",
+        "ms": 501.60000002384186
+      },
+      {
+        "filename": "edge/dotenv-0.env",
+        "ms": 0
+      },
+      {
+        "filename": "edge/dotenv-1.env",
+        "ms": 0.3999999761581421
+      },
+      {
+        "filename": "edge/dotenv-2.env",
+        "ms": 3.600000023841858
+      },
+      {
+        "filename": "edge/dotenv-3.env",
+        "ms": 415.2999999523163
+      },
+      {
+        "filename": "edge/xml-0.xml",
+        "ms": 0
+      },
+      {
+        "filename": "edge/xml-1.xml",
+        "ms": 0.7000000476837158
+      },
+      {
+        "filename": "edge/xml-2.xml",
+        "ms": 4
+      },
+      {
+        "filename": "edge/xml-3.xml",
+        "ms": 667.7999999523163
+      },
+      {
+        "filename": "edge/svg-0.svg",
+        "ms": 0
+      },
+      {
+        "filename": "edge/svg-1.svg",
+        "ms": 0.6000000238418579
+      },
+      {
+        "filename": "edge/svg-2.svg",
+        "ms": 3.299999952316284
+      },
+      {
+        "filename": "edge/svg-3.svg",
+        "ms": 637.8000000715256
+      },
+      {
+        "filename": "edge/markdown-0.md",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/markdown-1.md",
+        "ms": 0.6000000238418579
+      },
+      {
+        "filename": "edge/markdown-2.md",
+        "ms": 3.399999976158142
+      },
+      {
+        "filename": "edge/markdown-3.md",
+        "ms": 656
+      },
+      {
+        "filename": "dockerfile/Dockerfile",
+        "ms": 34.89999997615814
+      },
+      {
+        "filename": "dockerfile/Dockerfile.production",
+        "ms": 22.600000023841858
+      },
+      {
+        "filename": "dockerfile/cache.dockerfile",
+        "ms": 31.199999928474426
+      },
+      {
+        "filename": "dockerfile/exec.dockerfile",
+        "ms": 23.5
+      },
+      {
+        "filename": "dockerfile/heredoc.dockerfile",
+        "ms": 22.200000047683716
+      },
+      {
+        "filename": "dockerfile/metadata.dockerfile",
+        "ms": 32.40000009536743
+      },
+      {
+        "filename": "dockerfile/unicode.dockerfile",
+        "ms": 17.200000047683716
+      },
+      {
+        "filename": "dockerfile/variables.dockerfile",
+        "ms": 30.399999976158142
+      },
+      {
+        "filename": "edge/dockerfile-0.dockerfile",
+        "ms": 0.10000002384185791
+      },
+      {
+        "filename": "edge/dockerfile-1.dockerfile",
+        "ms": 0.6000000238418579
+      },
+      {
+        "filename": "edge/dockerfile-2.dockerfile",
+        "ms": 3.899999976158142
+      },
+      {
+        "filename": "edge/dockerfile-3.dockerfile",
+        "ms": 406.39999997615814
+      },
+      {
+        "filename": "edge/markdown-dockerfile.md",
+        "ms": 6.600000023841858
+      }
+    ]
+  },
+  "priorReferenceCasesUnchanged": 335,
+  "markdownReuse": {
+    "case": "edge/markdown-dockerfile.md",
+    "predictedChildSpans": 5,
+    "scope": "Browser/native consistency, not independent child accuracy"
+  },
+  "independentPackages": {
+    "status": "passed",
+    "language": ["dockerfile"],
+    "aliases": ["dockerfile", "Dockerfile", "docker", "Docker", "containerfile", "Containerfile"],
+    "cases": [
+      {
+        "filename": "dockerfile/Dockerfile",
+        "spans": 35,
+        "equal": true,
+        "alias": "dockerfile"
+      },
+      {
+        "filename": "dockerfile/Dockerfile.production",
+        "spans": 47,
+        "equal": true,
+        "alias": "Dockerfile"
+      },
+      {
+        "filename": "dockerfile/cache.dockerfile",
+        "spans": 46,
+        "equal": true,
+        "alias": "docker"
+      },
+      {
+        "filename": "dockerfile/exec.dockerfile",
+        "spans": 47,
+        "equal": true,
+        "alias": "Docker"
+      },
+      {
+        "filename": "dockerfile/heredoc.dockerfile",
+        "spans": 30,
+        "equal": true,
+        "alias": "containerfile"
+      },
+      {
+        "filename": "dockerfile/metadata.dockerfile",
+        "spans": 44,
+        "equal": true,
+        "alias": "Containerfile"
+      },
+      {
+        "filename": "dockerfile/unicode.dockerfile",
+        "spans": 20,
+        "equal": true,
+        "alias": "dockerfile"
+      },
+      {
+        "filename": "dockerfile/variables.dockerfile",
+        "spans": 42,
+        "equal": true,
+        "alias": "Dockerfile"
+      },
+      {
+        "filename": "edge/dockerfile-0.dockerfile",
+        "spans": 0,
+        "equal": true,
+        "alias": "docker"
+      },
+      {
+        "filename": "edge/dockerfile-1.dockerfile",
+        "spans": 0,
+        "equal": true,
+        "alias": "Docker"
+      },
+      {
+        "filename": "edge/dockerfile-2.dockerfile",
+        "spans": 10,
+        "equal": true,
+        "alias": "containerfile"
+      },
+      {
+        "filename": "edge/dockerfile-3.dockerfile",
+        "spans": 10,
+        "equal": true,
+        "alias": "Containerfile"
+      }
+    ],
+    "palettes": [
+      {
+        "preset": "default",
+        "mode": "light",
+        "background": "rgb(251, 252, 255)"
+      },
+      {
+        "preset": "default",
+        "mode": "dark",
+        "background": "rgb(21, 27, 41)"
+      },
+      {
+        "preset": "muted",
+        "mode": "light",
+        "background": "rgb(246, 245, 241)"
+      },
+      {
+        "preset": "muted",
+        "mode": "dark",
+        "background": "rgb(38, 40, 35)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "light",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "preset": "contrast",
+        "mode": "dark",
+        "background": "rgb(0, 0, 0)"
+      }
+    ],
+    "highlightElement": true,
+    "highlightTokens": true,
+    "customColor": "rgb(18, 52, 86)"
+  },
+  "consumerBuild": {
+    "offlineCacheOnly": true,
+    "publicImports": true,
+    "noRepositoryAliases": true,
+    "assets": ["dockerfile-CIPngouu.onnx"],
+    "referenceSha256": "d6350708f6d5fcb4b6d1003f99aa371b559e0a4ee7185350ea0a130aa1fa000c",
+    "servedUsing": "Existing Playground filesystem route; no new app/server/port"
+  },
+  "playground": {
+    "url": "http://127.0.0.1:3000/",
+    "language": "Dockerfile",
+    "examples": 8,
+    "observedExample": "variables.dockerfile",
+    "browserInference": true,
+    "lightDark": true,
+    "shuffle": true,
+    "screenshot": "artifacts/dockerfile/playground.png",
+    "consoleErrors": {
+      "playground": [],
+      "parity": [],
+      "consumer": []
+    }
+  },
+  "checks": {
+    "makeCheckPassed": true,
+    "frontendTests": 176,
+    "sharedTests": 17,
+    "teacherTests": 12,
+    "independentMarkedGoldenCases": 42
+  },
+  "quality": {
+    "naturalIndependentTest": {
+      "documents": 14,
+      "exactDocumentsIncludingModifiers": 6,
+      "exactSpan": {
+        "precision": 0.9580674567000912,
+        "recall": 0.9686635944700461,
+        "f1": 0.9633363886342805,
+        "tp": 1051,
+        "fp": 46,
+        "fn": 34,
+        "support": 1085
+      },
+      "exactSpanMacroF1": 0.956199819669493,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9553327256153145,
+        "recall": 0.9658986175115207,
+        "f1": 0.9605866177818515,
+        "tp": 1048,
+        "fp": 49,
+        "fn": 37,
+        "support": 1085
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9817351598173516,
+          "recall": 0.9953703703703703,
+          "f1": 0.9885057471264368,
+          "tp": 215,
+          "fp": 4,
+          "fn": 1,
+          "support": 216
+        },
+        "comment": {
+          "precision": 0.9166666666666666,
+          "recall": 0.9565217391304348,
+          "f1": 0.9361702127659575,
+          "tp": 44,
+          "fp": 4,
+          "fn": 2,
+          "support": 46
+        },
+        "string": {
+          "precision": 0.9444444444444444,
+          "recall": 0.9532710280373832,
+          "f1": 0.9488372093023256,
+          "tp": 306,
+          "fp": 18,
+          "fn": 15,
+          "support": 321
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526315,
+          "tp": 9,
+          "fp": 0,
+          "fn": 1,
+          "support": 10
+        },
+        "operator": {
+          "precision": 0.9473684210526315,
+          "recall": 0.972972972972973,
+          "f1": 0.96,
+          "tp": 72,
+          "fp": 4,
+          "fn": 2,
+          "support": 74
+        },
+        "punctuation": {
+          "precision": 0.9743589743589743,
+          "recall": 0.9827586206896551,
+          "f1": 0.9785407725321889,
+          "tp": 114,
+          "fp": 3,
+          "fn": 2,
+          "support": 116
+        },
+        "function": {
+          "precision": 0.9411764705882353,
+          "recall": 0.9411764705882353,
+          "f1": 0.9411764705882353,
+          "tp": 80,
+          "fp": 5,
+          "fn": 5,
+          "support": 85
+        },
+        "variable": {
+          "precision": 0.9,
+          "recall": 1.0,
+          "f1": 0.9473684210526315,
+          "tp": 18,
+          "fp": 2,
+          "fn": 0,
+          "support": 18
+        },
+        "parameter": {
+          "precision": 0.9519230769230769,
+          "recall": 0.9801980198019802,
+          "f1": 0.9658536585365853,
+          "tp": 99,
+          "fp": 5,
+          "fn": 2,
+          "support": 101
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 0.8823529411764706,
+          "f1": 0.9375,
+          "tp": 30,
+          "fp": 0,
+          "fn": 4,
+          "support": 34
+        },
+        "property": {
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
+          "support": 6
+        },
+        "label": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 58,
+          "fp": 0,
+          "fn": 0,
+          "support": 58
+        }
+      }
+    },
+    "naturalValidation": {
+      "documents": 12,
+      "exactDocumentsIncludingModifiers": 0,
+      "exactSpan": {
+        "precision": 0.8629232039636664,
+        "recall": 0.897766323024055,
+        "f1": 0.88,
+        "tp": 1045,
+        "fp": 166,
+        "fn": 119,
+        "support": 1164
+      },
+      "exactSpanMacroF1": 0.8784392480175413,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8513625103220479,
+        "recall": 0.8857388316151202,
+        "f1": 0.8682105263157894,
+        "tp": 1031,
+        "fp": 180,
+        "fn": 133,
+        "support": 1164
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9842931937172775,
+          "recall": 0.9894736842105263,
+          "f1": 0.9868766404199475,
+          "tp": 188,
+          "fp": 3,
+          "fn": 2,
+          "support": 190
+        },
+        "comment": {
+          "precision": 0.72,
+          "recall": 0.782608695652174,
+          "f1": 0.75,
+          "tp": 54,
+          "fp": 21,
+          "fn": 15,
+          "support": 69
+        },
+        "string": {
+          "precision": 0.901685393258427,
+          "recall": 0.8359375,
+          "f1": 0.8675675675675676,
+          "tp": 321,
+          "fp": 35,
+          "fn": 63,
+          "support": 384
+        },
+        "number": {
+          "precision": 0.875,
+          "recall": 0.875,
+          "f1": 0.875,
+          "tp": 14,
+          "fp": 2,
+          "fn": 2,
+          "support": 16
+        },
+        "operator": {
+          "precision": 0.8850574712643678,
+          "recall": 0.8850574712643678,
+          "f1": 0.8850574712643678,
+          "tp": 77,
+          "fp": 10,
+          "fn": 10,
+          "support": 87
+        },
+        "punctuation": {
+          "precision": 0.640625,
+          "recall": 1.0,
+          "f1": 0.780952380952381,
+          "tp": 82,
+          "fp": 46,
+          "fn": 0,
+          "support": 82
+        },
+        "function": {
+          "precision": 0.9166666666666666,
+          "recall": 0.9263157894736842,
+          "f1": 0.9214659685863874,
+          "tp": 88,
+          "fp": 8,
+          "fn": 7,
+          "support": 95
+        },
+        "variable": {
+          "precision": 0.7857142857142857,
+          "recall": 0.7719298245614035,
+          "f1": 0.7787610619469026,
+          "tp": 44,
+          "fp": 12,
+          "fn": 13,
+          "support": 57
+        },
+        "parameter": {
+          "precision": 0.8297872340425532,
+          "recall": 0.9669421487603306,
+          "f1": 0.8931297709923665,
+          "tp": 117,
+          "fp": 24,
+          "fn": 4,
+          "support": 121
+        },
+        "namespace": {
+          "precision": 0.8636363636363636,
+          "recall": 0.95,
+          "f1": 0.9047619047619048,
+          "tp": 19,
+          "fp": 3,
+          "fn": 1,
+          "support": 20
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 0.8888888888888888,
+          "f1": 0.9411764705882353,
+          "tp": 8,
+          "fp": 0,
+          "fn": 1,
+          "support": 9
+        },
+        "label": {
+          "precision": 0.9428571428571428,
+          "recall": 0.9705882352941176,
+          "f1": 0.9565217391304348,
+          "tp": 33,
+          "fp": 2,
+          "fn": 1,
+          "support": 34
+        }
+      }
+    },
+    "authoredFocusTest": {
+      "documents": 120,
+      "exactDocumentsIncludingModifiers": 39,
+      "exactSpan": {
+        "precision": 0.8781781518499036,
+        "recall": 0.9650272171106508,
+        "f1": 0.9195565858024833,
+        "tp": 20033,
+        "fp": 2779,
+        "fn": 726,
+        "support": 20759
+      },
+      "exactSpanMacroF1": 0.9018685610965979,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8770822374189023,
+        "recall": 0.9638229201791993,
+        "f1": 0.9184090335314774,
+        "tp": 20008,
+        "fp": 2804,
+        "fn": 751,
+        "support": 20759
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9062950504565113,
+          "recall": 0.9994700582935877,
+          "f1": 0.9506048387096774,
+          "tp": 3772,
+          "fp": 390,
+          "fn": 2,
+          "support": 3774
+        },
+        "comment": {
+          "precision": 0.6086956521739131,
+          "recall": 1.0,
+          "f1": 0.7567567567567568,
+          "tp": 252,
+          "fp": 162,
+          "fn": 0,
+          "support": 252
+        },
+        "string": {
+          "precision": 0.8099070348272512,
+          "recall": 0.9408446163765313,
+          "f1": 0.8704794571620311,
+          "tp": 5837,
+          "fp": 1370,
+          "fn": 367,
+          "support": 6204
+        },
+        "number": {
+          "precision": 0.9950657894736842,
+          "recall": 0.988562091503268,
+          "f1": 0.9918032786885246,
+          "tp": 605,
+          "fp": 3,
+          "fn": 7,
+          "support": 612
+        },
+        "operator": {
+          "precision": 0.9430324276950044,
+          "recall": 0.9196581196581196,
+          "f1": 0.9311986153180442,
+          "tp": 2152,
+          "fp": 130,
+          "fn": 188,
+          "support": 2340
+        },
+        "punctuation": {
+          "precision": 0.9663686675180928,
+          "recall": 1.0,
+          "f1": 0.9828967308941329,
+          "tp": 2270,
+          "fp": 79,
+          "fn": 0,
+          "support": 2270
+        },
+        "function": {
+          "precision": 0.8528428093645485,
+          "recall": 1.0,
+          "f1": 0.9205776173285198,
+          "tp": 1275,
+          "fp": 220,
+          "fn": 0,
+          "support": 1275
+        },
+        "variable": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1284,
+          "fp": 0,
+          "fn": 0,
+          "support": 1284
+        },
+        "parameter": {
+          "precision": 0.8248125426039536,
+          "recall": 0.8845029239766082,
+          "f1": 0.8536155202821869,
+          "tp": 1210,
+          "fp": 257,
+          "fn": 158,
+          "support": 1368
+        },
+        "namespace": {
+          "precision": 0.4061302681992337,
+          "recall": 0.9814814814814815,
+          "f1": 0.5745257452574526,
+          "tp": 106,
+          "fp": 155,
+          "fn": 2,
+          "support": 108
+        },
+        "property": {
+          "precision": 0.993103448275862,
+          "recall": 1.0,
+          "f1": 0.9965397923875432,
+          "tp": 288,
+          "fp": 2,
+          "fn": 0,
+          "support": 288
+        },
+        "label": {
+          "precision": 0.9889224572004028,
+          "recall": 0.9979674796747967,
+          "f1": 0.9934243803743045,
+          "tp": 982,
+          "fp": 11,
+          "fn": 2,
+          "support": 984
+        }
+      }
+    },
+    "visibleDisplays": {
+      "documents": 8,
+      "exactDocumentsIncludingModifiers": 3,
+      "exactSpan": {
+        "precision": 0.9646302250803859,
+        "recall": 0.967741935483871,
+        "f1": 0.966183574879227,
+        "tp": 300,
+        "fp": 11,
+        "fn": 10,
+        "support": 310
+      },
+      "exactSpanMacroF1": 0.9380694106870126,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9646302250803859,
+        "recall": 0.967741935483871,
+        "f1": 0.966183574879227,
+        "tp": 300,
+        "fp": 11,
+        "fn": 10,
+        "support": 310
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 70,
+          "fp": 0,
+          "fn": 0,
+          "support": 70
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.956989247311828,
+          "recall": 0.9468085106382979,
+          "f1": 0.9518716577540107,
+          "tp": 89,
+          "fp": 4,
+          "fn": 5,
+          "support": 94
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.9565217391304348,
+          "f1": 0.9777777777777777,
+          "tp": 22,
+          "fp": 0,
+          "fn": 1,
+          "support": 23
+        },
+        "punctuation": {
+          "precision": 0.9807692307692307,
+          "recall": 1.0,
+          "f1": 0.9902912621359223,
+          "tp": 51,
+          "fp": 1,
+          "fn": 0,
+          "support": 51
+        },
+        "function": {
+          "precision": 0.8461538461538461,
+          "recall": 0.9166666666666666,
+          "f1": 0.88,
+          "tp": 11,
+          "fp": 2,
+          "fn": 1,
+          "support": 12
+        },
+        "variable": {
+          "precision": 0.9285714285714286,
+          "recall": 0.9285714285714286,
+          "f1": 0.9285714285714286,
+          "tp": 13,
+          "fp": 1,
+          "fn": 1,
+          "support": 14
+        },
+        "parameter": {
+          "precision": 0.8421052631578947,
+          "recall": 1.0,
+          "f1": 0.9142857142857143,
+          "tp": 16,
+          "fp": 3,
+          "fn": 0,
+          "support": 16
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526315,
+          "tp": 9,
+          "fp": 0,
+          "fn": 1,
+          "support": 10
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "label": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 9,
+          "fp": 0,
+          "fn": 0,
+          "support": 9
+        }
+      }
+    },
+    "strictNeuralGoldenExact": 23,
+    "strictNeuralGoldenTotal": 42,
+    "visibleOpaqueMultilineRegions": {
+      "scope": "Visible opaque multiline string regions; not independent test evidence",
+      "cases": [
+        {
+          "filename": "heredoc.dockerfile",
+          "start": 169,
+          "end": 252,
+          "exact": true
+        },
+        {
+          "filename": "unicode.dockerfile",
+          "start": 82,
+          "end": 138,
+          "exact": true
+        }
+      ]
+    },
+    "noTrainingAfterFirstIndependentTest": true
+  },
+  "selection": {
+    "checkpoint": "artifacts/dockerfile/context512-canonical-20261117-01/candidates/epoch-0001.pt",
+    "checkpointHash": "1346dfa64f159568ac2410ff1fd97a82813b8bd8614452b0624dcceeda99d116",
+    "checkpointEpoch": 1,
+    "frozenAtUTC": "2026-11-17T05:23:24.637710+00:00",
+    "selectedBeforeFirstTest": true,
+    "trainingComplete": true,
+    "primaryTestUsedForSelection": false,
+    "selection": "Highest fixed natural real-source validation macro F1 within the bound canonical protocol, with actual display/opaque-string review before test",
+    "decision": "Use canonical greedy output: 96.62% visible F1 and both opaque English/Unicode heredoc ranges exact. Joint decoding was not selected because it regressed visible Unicode despite a small validation gain. Validation is bounded at 88%; remaining limits are documented rather than tuning the independent test.",
+    "goldenExact": 23,
+    "goldenCases": 42,
+    "visibleF1": 0.966183574879227,
+    "reviewSha256": "d945ee7e1d5e679cee1fe81cd47effac904bfe17f3c73f55ac67587099ee0120",
+    "goldenSha256": "1569a7e7dd18638070ea4a6fadefb4cebde3088b0e0412205f512f2b9c19126f",
+    "validationSha256": "b969ef302de9ca4fcb844ae5b376a2f87139b5353aebe4ae5759ef5d2b523fdc",
+    "multilineVisibleExact": 2,
+    "multilineVisibleTotal": 2,
+    "protocolAuditSha256": "02bc5db59ab3d8230caf2a144ff560e38fe10f2f1214931a78df896a1570ee5c"
+  },
+  "dataset": {
+    "snapshot": "0844cc2a8d7af15a0d435b3c39701c66d812c99690d84c03c2786fb6db8e15bf",
+    "manifestHash": "f339732daef2b514f47669c449baf9313053fa394afde8034cebe76c5e5fcdb9"
+  },
+  "inferencePolicy": {
+    "sourceBlindCanonicalTouchingStringUnion": true,
+    "whitespaceGapsBridged": false,
+    "sourceInspectionOrRoleRepair": false,
+    "runtimeParserRequired": false
+  },
+  "environment": {
+    "languageSDKOrGlobalDependencyInstalled": false,
+    "dockerEngineRequired": false,
+    "offlineTeacher": "Official BuildKit v0.35.0 parser; existing Shell/JSON teachers",
+    "existingGo": "1.27.1",
+    "toolchainAutoDownload": false,
+    "isolatedBuildAndModuleCache": true,
+    "sourceExecution": false,
+    "frontendPythonOrParserRequired": false
+  },
+  "preservation": {
+    "priorWeightFilesChecked": 73,
+    "allByteIdentical": true,
+    "currentGoldMatchesPrepared": true,
+    "allPreparedChecksumsVerified": true,
+    "sourceLabelWindowBytesIdenticalAcrossCanonicalProtocol": true,
+    "allSnapshotsAndRunsRetained": true
+  },
+  "distribution": {
+    "repositoryPrivate": true,
+    "packagesPrivate": true,
+    "npmPublished": false
+  }
+}

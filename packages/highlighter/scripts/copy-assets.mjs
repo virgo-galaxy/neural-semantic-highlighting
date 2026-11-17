@@ -38,6 +38,7 @@ for (const id of [
   "dotenv",
   "xml",
   "markdown",
+  "dockerfile",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

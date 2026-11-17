@@ -5,6 +5,7 @@ import { type BrowserModel, BrowserRuntime } from "@nsh/browser";
 import type { HighlightResult } from "@nsh/core";
 import { createHighlighter } from "@nsh/highlighter/core";
 import dart from "@nsh/highlighter/languages/dart";
+import dockerfile from "@nsh/highlighter/languages/dockerfile";
 import dotenv from "@nsh/highlighter/languages/dotenv";
 import flutter from "@nsh/highlighter/languages/flutter";
 import ini from "@nsh/highlighter/languages/ini";
@@ -92,6 +93,29 @@ describe("browser decoder", () => {
 });
 
 describe("browser runtime lifecycle", () => {
+  it("routes Dockerfile and Containerfile aliases to one standalone model", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [dockerfile] });
+    expect(highlighter.languages()).toEqual(["dockerfile"]);
+    for (const name of [
+      "dockerfile",
+      "Dockerfile",
+      "docker",
+      "Docker",
+      "containerfile",
+      "Containerfile",
+    ]) {
+      expect(highlighter.supports(name)).toBe(true);
+      const pending = highlighter.highlight("FROM scratch\n", { language: name });
+      const worker = FakeWorker.instances[0]!;
+      const request = worker.messages.at(-1)!;
+      expect(request.model).toMatchObject({ id: "dockerfile" });
+      worker.reply(request.id);
+      expect((await pending).language).toBe("dockerfile");
+    }
+    expect(highlighter.supports("compose")).toBe(false);
+    highlighter.close();
+  });
   it("routes Markdown aliases and reuses only a registered predicted fence language", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [markdown, typescript] });
@@ -404,6 +428,7 @@ describe("shipped browser artifacts", () => {
       "dotenv",
       "xml",
       "markdown",
+      "dockerfile",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(
@@ -419,6 +444,7 @@ describe("shipped browser artifacts", () => {
       expect(descriptor.sha256).toBe(metadata.model.sha256);
       expect(descriptor.schema).toEqual(metadata.schema);
       expect(descriptor.decoder).toEqual(metadata.decoder);
+      expect(descriptor.structuredDecoder).toEqual(metadata.structuredDecoder);
       expect(descriptor.manifest).toEqual(metadata.manifest);
       expect(descriptor.modifierThreshold).toBe(metadata.modifierThreshold);
       expect(verification.sourceSha256).toBe(metadata.source.sha256);

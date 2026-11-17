@@ -486,3 +486,25 @@ review and stop training before the first new independent test. The test report
 binds the calibrated decoder as well as weights/snapshot. See the reproducible
 [calibration and cohort commands](../training/markdown/README.md). Both v1
 native/browser bundles remain in dated Markdown pack directories.
+
+## Dockerfile offline workflow
+
+`make dataset-dockerfile` uses the established immutable external data and
+artifacts paths, pinned public Git sources/licenses and frozen complete families.
+The official BuildKit v0.35.0 parse-only helper compiles with existing Go in an
+isolated cache (`GOTOOLCHAIN=local`); no Docker Engine or SDK is installed.
+Existing Shell/JSON tools provide offline nested supervision. Twelve tests cover
+42 independent hand-marked Golden cases; eight display sources stay excluded.
+
+Natural-only class balance is an optional fresh experiment flag; earlier packs
+retain all-window defaults. Resume preserves its stored choice and weights.
+Source-blind canonical touching-string policy changes bind a new protocol/run;
+the audit retains byte-identical prepared source/Gold/label/window data and old
+configs/checkpoints. Review natural validation/displays, freeze, then run the
+first adaptive independent test and stop training. Native/browser exports retain
+matching evidence. `python -m training.browser.generate_descriptors --pack dockerfile`
+updates one descriptor and preserves optional structured-decoder metadata.
+See [training](../training/dockerfile/README.md),
+[semantics](../packs/dockerfile/SEMANTICS.md) and
+[evaluation](../packs/dockerfile/model/BENCHMARKS.md). Pure browser inference and
+Playground use the selected ONNX model, with no offline helper or Python bridge.

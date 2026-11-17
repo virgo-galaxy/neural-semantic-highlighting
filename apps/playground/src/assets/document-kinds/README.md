@@ -117,3 +117,7 @@ Markdown uses `markdown.svg`, from `icons/markdown/markdown-original.svg` at the
 same pinned Devicon revision under the preserved MIT license. Its verified Git
 blob is `0d0a31f62d621645cdcc6292cffce8721d402aa1`. The monochrome mark uses the
 existing dark-theme icon treatment and stays outside the training corpus.
+
+Dockerfile uses `docker.svg`, from `icons/docker/docker-original.svg` at the same
+pinned Devicon revision and preserved MIT license. The verified Git blob is
+`bbeaed2effdc1f6840aff73491a5faa2a585885b`. The icon and displays never enter training collection.

@@ -472,7 +472,7 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`, `ini`, `dotenv`, `xml`, `svg`, `markdown`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`, `ini`, `dotenv`, `xml`, `svg`, `markdown`, `dockerfile`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
@@ -701,11 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **35 model packs**, with browser inference and Playground examples.
+There are **36 model packs**, with browser inference and Playground examples.
 Some source kinds share weights, including XML/SVG and JSON/JSONC; Flutter shares Dart.
 The browser conversion preserves the selected weights without retraining or
-quantization. The latest [verification record](docs/markdown-browser-verification.json)
-retains **335/335** exact browser/native comparisons and **173** passing frontend
+quantization. The latest [verification record](docs/dockerfile-browser-verification.json)
+retains **348/348** exact browser/native comparisons and **176** passing frontend
 tests. Independent local-package checks cover public imports, original source
 text, themes and custom CSS. [Browser verification](docs/browser-runtime.md)
 keeps the earlier rollout results separately. These are runtime/packaging checks,
@@ -753,6 +753,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [XML](packs/xml/model/README.md)                            | .xml, .xsd, .xsl/.xslt, .plist, .csproj/.props/.targets; XML 1.0 source                                                                                                             | [85.87%](packs/xml/model/BENCHMARKS.md) — natural test, 7 files                                                                                | Browser + local; one shared XML/SVG model; [CDATA/long boundaries and embedded-source limits](packs/xml/model/KNOWN_ISSUES.md)                       |
 | [SVG](packs/xml/model/README.md)                            | .svg; paths, shapes, groups, gradients, filters, animation and accessible text; XML 1.0 source                                                                                      | [100.00%](packs/xml/model/BENCHMARKS.md) — natural test, 6 files                                                                               | Browser + local; one shared XML/SVG model; [CDATA/long boundaries and embedded-source limits](packs/xml/model/KNOWN_ISSUES.md)                       |
 | [Markdown](packs/markdown/model/README.md)                  | Markdown/GFM source, headings, lists/tasks, tables, links/references, nested emphasis, code, opaque HTML/front matter and predicted top-level fenced regions                        | [95.10%](packs/markdown/model/BENCHMARKS.md) — new independent natural test, 20 files                                                          | Optimized browser/local model; [strict edge cases and long fenced bodies](packs/markdown/model/KNOWN_ISSUES.md) remain weaker                        |
+| [Dockerfile](packs/dockerfile/model/README.md)              | Dockerfile/Containerfile, multistage names, ARG/ENV/LABEL, flags, Shell/JSON forms, continuations and heredocs                                                                      | [96.33%](packs/dockerfile/model/BENCHMARKS.md) — independent natural test, 14 files                                                            | Browser + local; [Unicode comments, long strings and source-local shell roles](packs/dockerfile/model/KNOWN_ISSUES.md) remain limited                |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -1000,3 +1001,26 @@ complete previous model bundles are retained in the evaluation links above.
 Base Markdown F1 measures source-role/region predictions; it does not establish
 complete accuracy for composed code. See the recorded limits before relying on
 long prose/fence boundaries. MDX remains a separate unsupported format.
+
+Dockerfile uses `{ language: "dockerfile" }`; `docker` and `containerfile` are
+case-normalized aliases for the same model. `Dockerfile`, `Dockerfile.production`
+and `build.dockerfile` contents use the same explicit language selection. Docker
+Compose remains YAML; it does not require another Dockerfile model.
+
+```ts
+import { createHighlighter } from "@nsh/highlighter/core";
+import dockerfile from "@nsh/highlighter/languages/dockerfile";
+import "@nsh/highlighter/themes.css";
+
+const highlighter = createHighlighter({ languages: [dockerfile] });
+const { html } = await highlighter.highlight(source, { language: "dockerfile" });
+document.querySelector("#example")!.innerHTML = html;
+```
+
+The selective Dockerfile import emits **one** model asset. Shell/JSON roles are
+learned within this standalone model from offline supervision; consumers need no
+Docker Engine, Go, Python or parser. All presets, light/dark modes and custom
+`--nsh-*` CSS apply. Register `markdown` beside `dockerfile` to reuse it in
+model-predicted explicit Dockerfile fences; default registration already includes
+both. See [evaluation](packs/dockerfile/model/BENCHMARKS.md) and
+[known limits](packs/dockerfile/model/KNOWN_ISSUES.md).

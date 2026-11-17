@@ -1,0 +1,71 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "dockerfile",
+  "manifest": {
+    "id": "dockerfile",
+    "documentKinds": [
+      {
+        "id": "dockerfile",
+        "extensions": [
+          "Dockerfile",
+          ".dockerfile",
+          "Containerfile",
+          ".containerfile"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "951183564984ef37ccd1dbf5808762bd038171d238f9ce4806f8abb8258cbac1",
+    "bytes": 3704507
+  },
+  "source": {
+    "file": "packs/dockerfile/model/model.pt",
+    "sha256": "7a35a9cd71927863fe78e586f952bd12c7c09773748661f870e354e36f132796"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "function",
+      "variable",
+      "parameter",
+      "namespace",
+      "property",
+      "label"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {
+    "modifierRoles": {
+      "declaration": [
+        "variable",
+        "property",
+        "label",
+        "function"
+      ],
+      "default-library": [
+        "function"
+      ]
+    },
+    "coalesceAdjacentTokenTypes": [
+      "string"
+    ]
+  },
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "2e81ab4df2e2bc9328f5bcd529a3b8c85f11257bc42a819ae544ad9270670ab9",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}

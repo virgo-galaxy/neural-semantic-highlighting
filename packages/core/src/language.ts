@@ -1,4 +1,6 @@
 const aliases: Readonly<Record<string, string>> = {
+  docker: "dockerfile",
+  containerfile: "dockerfile",
   md: "markdown",
   mdown: "markdown",
   mkd: "markdown",
