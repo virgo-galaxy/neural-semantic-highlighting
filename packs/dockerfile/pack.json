@@ -1,0 +1,25 @@
+{
+  "label": "Dockerfile",
+  "profiles": ["dockerfile"],
+  "scope": "dockerfile-source-semantic-spans",
+  "contextBytes": 512,
+  "decoder": {
+    "modifierRoles": {
+      "declaration": ["variable", "property", "label", "function"],
+      "default-library": ["function"]
+    }
+  },
+  "requiredTrainingFeatures": {
+    "dockerfile": [
+      "instructions",
+      "stages",
+      "variables",
+      "flags",
+      "json-form",
+      "shell-form",
+      "continuations",
+      "heredocs"
+    ]
+  },
+  "minimumTrainingFeatureGroups": 2
+}

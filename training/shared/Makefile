@@ -2011,3 +2011,71 @@ challenge-markdown:
 export-markdown-model:
 	@test -n "$(MARKDOWN_CHECKPOINT)" -a -n "$(MARKDOWN_TEST_REPORT)" || (echo 'Set MARKDOWN_CHECKPOINT and MARKDOWN_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.markdown.export_model --checkpoint "$(MARKDOWN_CHECKPOINT)" --test-report "$(MARKDOWN_TEST_REPORT)"
+
+DOCKERFILE_DEVICE ?= auto
+DOCKERFILE_EPOCHS ?= 3
+DOCKERFILE_BATCH_SIZE ?= 32
+DOCKERFILE_FOCUS_BATCH_SIZE ?= 64
+DOCKERFILE_LEARNING_RATE ?=
+DOCKERFILE_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-dockerfile dataset-dockerfile-tools dataset-dockerfile-sources dataset-dockerfile-curriculum dataset-dockerfile-collect dataset-dockerfile-label dataset-dockerfile-validate dataset-dockerfile-prepare test-labeling-dockerfile train-dockerfile-smoke train-dockerfile continue-dockerfile predict-dockerfile evaluate-dockerfile challenge-dockerfile export-dockerfile-model
+
+dataset-dockerfile-tools:
+	$(PYTHON) -m packs.dockerfile.labeling.tools
+
+dataset-dockerfile-sources:
+	$(PYTHON) -m packs.dockerfile.dataset.fetch_sources
+
+dataset-dockerfile:
+	$(MAKE) dataset-dockerfile-tools
+	$(MAKE) dataset-dockerfile-sources
+	$(MAKE) dataset-dockerfile-curriculum
+	$(MAKE) dataset-dockerfile-collect
+	$(MAKE) dataset-dockerfile-label
+	$(MAKE) dataset-dockerfile-validate
+	$(MAKE) dataset-dockerfile-prepare
+
+dataset-dockerfile-curriculum:
+	$(PYTHON) -m packs.dockerfile.dataset.generate_curriculum
+
+dataset-dockerfile-collect:
+	$(PYTHON) -m packs.dockerfile.dataset.pipeline collect
+
+dataset-dockerfile-label:
+	$(PYTHON) -m packs.dockerfile.dataset.pipeline label
+
+dataset-dockerfile-validate:
+	$(PYTHON) -m packs.dockerfile.dataset.pipeline validate
+
+dataset-dockerfile-prepare:
+	$(PYTHON) -m training.dockerfile.prepare
+
+test-labeling-dockerfile:
+	$(PYTHON) -m unittest discover -s packs/dockerfile/tests -v
+
+train-dockerfile-smoke:
+	$(PYTHON) -m training.dockerfile.train --smoke --epochs 1 --device $(DOCKERFILE_DEVICE) $(if $(DOCKERFILE_RUN),--output-dir "$(DOCKERFILE_RUN)") $(if $(DOCKERFILE_INIT_FROM),--init-from "$(DOCKERFILE_INIT_FROM)")
+
+train-dockerfile:
+	$(PYTHON) -m training.dockerfile.train --epochs $(DOCKERFILE_EPOCHS) --device $(DOCKERFILE_DEVICE) --batch-size $(DOCKERFILE_BATCH_SIZE) --focus-batch-size $(DOCKERFILE_FOCUS_BATCH_SIZE) $(if $(DOCKERFILE_LEARNING_RATE),--learning-rate $(DOCKERFILE_LEARNING_RATE)) $(if $(DOCKERFILE_RUN),--output-dir "$(DOCKERFILE_RUN)") $(if $(DOCKERFILE_INIT_FROM),--init-from "$(DOCKERFILE_INIT_FROM)")
+
+continue-dockerfile:
+	@test -n "$(DOCKERFILE_CHECKPOINT)" || (echo 'Set DOCKERFILE_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.dockerfile.train --resume "$(DOCKERFILE_CHECKPOINT)" --epochs $(DOCKERFILE_EPOCHS) --device $(DOCKERFILE_DEVICE)
+
+predict-dockerfile:
+	@test -n "$(DOCKERFILE_SOURCE)" || (echo 'Set DOCKERFILE_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.dockerfile.predict --device $(DOCKERFILE_DEVICE) --file "$(DOCKERFILE_SOURCE)" $(if $(DOCKERFILE_CHECKPOINT),--checkpoint "$(DOCKERFILE_CHECKPOINT)")
+
+evaluate-dockerfile:
+	@test -n "$(DOCKERFILE_CHECKPOINT)" || (echo 'Set DOCKERFILE_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.dockerfile.evaluate --checkpoint "$(DOCKERFILE_CHECKPOINT)" --device $(DOCKERFILE_DEVICE) --split $(DOCKERFILE_EVAL_SPLIT)
+
+challenge-dockerfile:
+	@test -n "$(DOCKERFILE_CHECKPOINT)" || (echo 'Set DOCKERFILE_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.dockerfile.challenge --checkpoint "$(DOCKERFILE_CHECKPOINT)" --device $(DOCKERFILE_DEVICE)
+
+export-dockerfile-model:
+	@test -n "$(DOCKERFILE_CHECKPOINT)" -a -n "$(DOCKERFILE_TEST_REPORT)" || (echo 'Set DOCKERFILE_CHECKPOINT and DOCKERFILE_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.dockerfile.export_model --checkpoint "$(DOCKERFILE_CHECKPOINT)" --test-report "$(DOCKERFILE_TEST_REPORT)"

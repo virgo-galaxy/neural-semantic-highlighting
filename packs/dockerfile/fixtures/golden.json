@@ -1,0 +1,254 @@
+[
+  {
+    "id": "image",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|FROM⟧ ⟦namespace|alpine:3.22⟧\n"
+  },
+  {
+    "id": "mixed-case",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|fRoM⟧ ⟦namespace|scratch⟧\n"
+  },
+  {
+    "id": "stage",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|FROM⟧ ⟦namespace|node:24⟧ ⟦keyword|AS⟧ ⟦label+declaration|build⟧\n"
+  },
+  {
+    "id": "stage-named-as",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|FROM⟧ ⟦namespace|alpine⟧ ⟦keyword|AS⟧ ⟦label+declaration|as⟧\n"
+  },
+  {
+    "id": "platform",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|FROM⟧ ⟦parameter|--platform=$BUILDPLATFORM⟧ ⟦namespace|golang:1.27⟧ ⟦keyword|AS⟧ ⟦label+declaration|compile⟧\n"
+  },
+  {
+    "id": "image-reference",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|FROM⟧ ⟦variable|${BASE_IMAGE}⟧\n"
+  },
+  {
+    "id": "arg-default",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|ARG⟧ ⟦variable+declaration|VERSION⟧⟦operator|=⟧⟦string|stable⟧\n"
+  },
+  {
+    "id": "arg-empty",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|ARG⟧ ⟦variable+declaration|OPTION⟧⟦operator|=⟧\n"
+  },
+  {
+    "id": "arg-unset",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|ARG⟧ ⟦variable+declaration|BUILDPLATFORM⟧\n"
+  },
+  {
+    "id": "arg-reference",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|ARG⟧ ⟦variable+declaration|TAG⟧⟦operator|=⟧⟦variable|${CHANNEL:-stable}⟧\n"
+  },
+  {
+    "id": "env",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|ENV⟧ ⟦variable+declaration|MODE⟧⟦operator|=⟧⟦string|production⟧ ⟦variable+declaration|PORT⟧⟦operator|=⟧⟦number|8080⟧\n"
+  },
+  {
+    "id": "env-quoted-hash",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|ENV⟧ ⟦variable+declaration|TITLE⟧⟦operator|=⟧⟦string|\"a # literal\"⟧\n"
+  },
+  {
+    "id": "env-legacy",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|ENV⟧ ⟦variable+declaration|TITLE⟧ ⟦string|a literal value⟧\n"
+  },
+  {
+    "id": "label",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|LABEL⟧ ⟦property+declaration|org.example.title⟧⟦operator|=⟧⟦string|\"Source preview\"⟧\n"
+  },
+  {
+    "id": "label-legacy",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|LABEL⟧ ⟦property+declaration|description⟧ ⟦string|Original container source⟧\n"
+  },
+  {
+    "id": "copy",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|COPY⟧ ⟦parameter|--from=build⟧ ⟦parameter|--chown=1000:1000⟧ ⟦string|/out/app⟧ ⟦string|/usr/local/bin/app⟧\n"
+  },
+  {
+    "id": "add",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|ADD⟧ ⟦parameter|--checksum=sha256:abc123⟧ ⟦string|https://example.test/archive.tar⟧ ⟦string|/src/⟧\n"
+  },
+  {
+    "id": "workdir-reference",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|WORKDIR⟧ ⟦string|/srv/⟧⟦variable|${APP}⟧\n"
+  },
+  {
+    "id": "user",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|USER⟧ ⟦string|app:app⟧\n"
+  },
+  {
+    "id": "ports",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|EXPOSE⟧ ⟦number|8080⟧ ⟦string|9090/tcp⟧\n"
+  },
+  {
+    "id": "signal",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|STOPSIGNAL⟧ ⟦string|SIGTERM⟧\n"
+  },
+  {
+    "id": "cmd-json",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|CMD⟧ ⟦punctuation|[⟧⟦string|\"node\"⟧⟦punctuation|,⟧ ⟦string|\"app.js\"⟧⟦punctuation|]⟧\n"
+  },
+  {
+    "id": "entrypoint-json",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|ENTRYPOINT⟧ ⟦punctuation|[⟧⟦string|\"/bin/app\"⟧⟦punctuation|]⟧\n"
+  },
+  {
+    "id": "run-json",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|RUN⟧ ⟦punctuation|[⟧⟦string|\"printf\"⟧⟦punctuation|,⟧ ⟦string|\"hello\"⟧⟦punctuation|]⟧\n"
+  },
+  {
+    "id": "copy-json",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|COPY⟧ ⟦punctuation|[⟧⟦string|\"source file\"⟧⟦punctuation|,⟧ ⟦string|\"/srv/\"⟧⟦punctuation|]⟧\n"
+  },
+  {
+    "id": "volume-json",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|VOLUME⟧ ⟦punctuation|[⟧⟦string|\"/data\"⟧⟦punctuation|,⟧ ⟦string|\"/cache\"⟧⟦punctuation|]⟧\n"
+  },
+  {
+    "id": "shell-json",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|SHELL⟧ ⟦punctuation|[⟧⟦string|\"/bin/bash\"⟧⟦punctuation|,⟧ ⟦string|\"-c\"⟧⟦punctuation|]⟧\n"
+  },
+  {
+    "id": "shell-command",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|RUN⟧ ⟦function+default-library|echo⟧ ⟦string|hello⟧\n"
+  },
+  {
+    "id": "shell-pipeline",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|RUN⟧ ⟦function|curl⟧ ⟦parameter|--fail⟧ ⟦string|https://example.test⟧ ⟦operator|&&⟧ ⟦function+default-library|echo⟧ ⟦string|ready⟧\n"
+  },
+  {
+    "id": "shell-variable",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|RUN⟧ ⟦function+default-library|echo⟧ ⟦variable|$HOME⟧\n"
+  },
+  {
+    "id": "continuation",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|RUN⟧ ⟦function+default-library|echo⟧ ⟦string|one⟧ ⟦punctuation|\\⟧\n  ⟦operator|&&⟧ ⟦function+default-library|echo⟧ ⟦string|two⟧\n"
+  },
+  {
+    "id": "continuation-comment",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|COPY⟧ ⟦string|one⟧ ⟦punctuation|\\⟧\n  ⟦comment|# retained source comment⟧\n  ⟦string|two⟧ ⟦string|/srv/⟧\n"
+  },
+  {
+    "id": "directive",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦punctuation|#⟧ ⟦keyword|syntax⟧⟦operator|=⟧⟦string|docker/dockerfile:1⟧\n⟦keyword|FROM⟧ ⟦namespace|scratch⟧\n"
+  },
+  {
+    "id": "late-directive",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|FROM⟧ ⟦namespace|scratch⟧\n⟦comment|# syntax=docker/dockerfile:1⟧\n"
+  },
+  {
+    "id": "onbuild",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|ONBUILD⟧ ⟦keyword|COPY⟧ ⟦string|.⟧ ⟦string|/srv/⟧\n"
+  },
+  {
+    "id": "healthcheck",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|HEALTHCHECK⟧ ⟦parameter|--interval=20s⟧ ⟦keyword|CMD⟧ ⟦function|curl⟧ ⟦parameter|-f⟧ ⟦string|http://localhost/⟧\n"
+  },
+  {
+    "id": "healthcheck-none",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|HEALTHCHECK⟧ ⟦keyword|NONE⟧\n"
+  },
+  {
+    "id": "heredoc-copy",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|COPY⟧ ⟦operator|<<⟧⟦label+declaration|CONF⟧ ⟦string|/etc/app.conf⟧\n⟦string|name=source\n\nready=true\n⟧⟦label|CONF⟧\n"
+  },
+  {
+    "id": "heredoc-run",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|RUN⟧ ⟦operator|<<⟧⟦label+declaration|SCRIPT⟧\n⟦function+default-library|echo⟧ ⟦string|ready⟧\n\n⟦function+default-library|echo⟧ ⟦string|done⟧\n⟦label|SCRIPT⟧\n"
+  },
+  {
+    "id": "heredoc-quoted",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|COPY⟧ ⟦operator|<<⟧⟦label+declaration|'LITERAL'⟧ ⟦string|/tmp/data⟧\n⟦string|$NAME # remains source\n⟧⟦label|LITERAL⟧\n"
+  },
+  {
+    "id": "heredoc-tabs",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦keyword|COPY⟧ ⟦operator|<<-⟧⟦label+declaration|TEXT⟧ ⟦string|/tmp/data⟧\n⟦string|\tcontent\n⟧\t⟦label|TEXT⟧\n"
+  },
+  {
+    "id": "unicode-crlf",
+    "documentKind": "dockerfile",
+    "profile": "dockerfile",
+    "markedSource": "⟦punctuation|﻿⟧⟦comment|# 星空 🌌⟧\r\n⟦keyword|ENV⟧ ⟦variable+declaration|TITLE⟧⟦operator|=⟧⟦string|\"你好 🌌\"⟧\r\n"
+  }
+]
