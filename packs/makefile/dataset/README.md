@@ -60,3 +60,10 @@ unchanged; added copies of older source are quarantined as declared in advance.
 Primary fresh test families stay separate from both training and validation. The
 legacy cohort never becomes new independent accuracy. Validation and visible
 source review select a frozen candidate before its first new independent test.
+
+A bounded original 16-family/320-task context extension follows validation-only
+review of banner comments, aligned quoted help text, assignment versus recipe
+flags, nested references and continuations. It reads no source/Golden/test files;
+actual rule and binding counts define distinct families. Natural documents and
+all existing labels/groups remain byte-identical. Final focus counts for this
+revision are **824 / 180 / 180**; the immutable earlier revision remains retained.

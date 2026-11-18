@@ -2112,6 +2112,7 @@ dataset-makefile-curriculum:
 	$(PYTHON) -m packs.makefile.dataset.generate_curriculum
 	$(PYTHON) -m packs.makefile.dataset.generate_mixed
 	$(PYTHON) -m packs.makefile.dataset.generate_mixed_v2
+	$(PYTHON) -m packs.makefile.dataset.generate_contexts
 
 dataset-makefile-collect:
 	$(PYTHON) -m packs.makefile.dataset.pipeline collect
