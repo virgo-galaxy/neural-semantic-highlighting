@@ -11,6 +11,7 @@ import cpp from "./languages/cpp.js";
 import csharp from "./languages/csharp.js";
 import css from "./languages/css.js";
 import dart from "./languages/dart.js";
+import diff from "./languages/diff.js";
 import dockerfile from "./languages/dockerfile.js";
 import dotenv from "./languages/dotenv.js";
 import go from "./languages/go.js";
@@ -86,6 +87,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       makefile,
       graphql,
       protobuf,
+      diff,
     ],
   });
 }

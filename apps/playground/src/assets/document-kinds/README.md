@@ -133,3 +133,8 @@ the training corpus.
 Protocol Buffers uses an original repository-authored `protobuf.svg`
 document/structured-field mark. The pinned Devicon inventory has no protobuf
 entry; no unrelated language logo or extra third-party license is introduced.
+
+Diff/Patch uses an original repository-authored `diff.svg` document/change mark.
+The pinned Devicon revision has no unified-diff language entry; original plus and
+minus geometry represents both Git and non-Git unified patches, without another
+language's logo or additional third-party assets.

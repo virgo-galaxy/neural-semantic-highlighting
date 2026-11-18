@@ -3,7 +3,7 @@ from pathlib import Path
 import argparse
 import json
 
-IDS=['typescript','go','css','html','vue','python','bash','perl','awk','sql','powershell','bat','assembly','java','csharp','c','cpp','php','svelte','rust','zig','dart','swift','kotlin','r','scala','ruby','lua','json','yaml','toml','ini','dotenv','xml','markdown','dockerfile','makefile','graphql','protobuf']
+IDS=['typescript','go','css','html','vue','python','bash','perl','awk','sql','powershell','bat','assembly','java','csharp','c','cpp','php','svelte','rust','zig','dart','swift','kotlin','r','scala','ruby','lua','json','yaml','toml','ini','dotenv','xml','markdown','dockerfile','makefile','graphql','protobuf','diff']
 
 
 def generate(pack_id):
@@ -30,7 +30,7 @@ def main():
     if args.pack:return
     imports=''.join(f'import {pack_id} from "./languages/{pack_id}.js";\n'for pack_id in IDS)
     Path('packages/highlighter/src/index.ts').write_text(imports+'import { createHighlighter as createConfiguredHighlighter, type HighlighterOptions } from "./highlighter.js";\n\nexport type { BrowserHighlighter, HighlightedCode, HighlighterOptions } from "./highlighter.js";\nexport function createHighlighter(options: HighlighterOptions = {}) {\n  return createConfiguredHighlighter({ ...options, languages: options.languages ?? ['+', '.join(IDS)+'] });\n}\n')
-    for alias,parent,description in [('proto','protobuf','Protocol Buffers source aliases share one selected model and asset.'),('flutter','dart','Flutter source shares the selected Dart model and its single model asset.'),('jsonc','json','JSONC shares the selected JSON-family model and its single asset.'),('svg','xml','SVG shares the selected XML model and its single asset.')]:
+    for alias,parent,description in [('patch','diff','Unified Diff and Patch source share one selected model and asset.'),('proto','protobuf','Protocol Buffers source aliases share one selected model and asset.'),('flutter','dart','Flutter source shares the selected Dart model and its single model asset.'),('jsonc','json','JSONC shares the selected JSON-family model and its single asset.'),('svg','xml','SVG shares the selected XML model and its single asset.')]:
         Path('packages/highlighter/src/languages/'+alias+'.ts').write_text('/** '+description+' */\nexport { default } from "./'+parent+'.js";\n')
 
 

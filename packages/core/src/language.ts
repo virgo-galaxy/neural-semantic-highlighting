@@ -1,4 +1,8 @@
 const aliases: Readonly<Record<string, string>> = {
+  patch: "diff",
+  udiff: "diff",
+  "unified-diff": "diff",
+  "git-diff": "diff",
   proto: "protobuf",
   "protocol-buffers": "protobuf",
   gql: "graphql",

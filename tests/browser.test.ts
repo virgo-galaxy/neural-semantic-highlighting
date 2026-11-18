@@ -5,6 +5,7 @@ import { type BrowserModel, BrowserRuntime } from "@nsh/browser";
 import type { HighlightResult } from "@nsh/core";
 import { createHighlighter } from "@nsh/highlighter/core";
 import dart from "@nsh/highlighter/languages/dart";
+import diff from "@nsh/highlighter/languages/diff";
 import dockerfile from "@nsh/highlighter/languages/dockerfile";
 import dotenv from "@nsh/highlighter/languages/dotenv";
 import flutter from "@nsh/highlighter/languages/flutter";
@@ -15,6 +16,7 @@ import jsonc from "@nsh/highlighter/languages/jsonc";
 import kotlin from "@nsh/highlighter/languages/kotlin";
 import makefile from "@nsh/highlighter/languages/makefile";
 import markdown from "@nsh/highlighter/languages/markdown";
+import patch from "@nsh/highlighter/languages/patch";
 import proto from "@nsh/highlighter/languages/proto";
 import protobuf from "@nsh/highlighter/languages/protobuf";
 import ruby from "@nsh/highlighter/languages/ruby";
@@ -97,6 +99,23 @@ describe("browser decoder", () => {
 });
 
 describe("browser runtime lifecycle", () => {
+  it("routes Diff and Patch source aliases to one standalone model", async () => {
+    expect(patch).toBe(diff);
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [diff] });
+    expect(highlighter.languages()).toEqual(["diff"]);
+    for (const name of ["diff", "Diff", "patch", "Patch", "udiff", "unified-diff", "git-diff"]) {
+      expect(highlighter.supports(name)).toBe(true);
+      const pending = highlighter.highlight("-old\n+new\n", { language: name });
+      const worker = FakeWorker.instances[0]!;
+      const request = worker.messages.at(-1)!;
+      expect(request.model).toMatchObject({ id: "diff" });
+      worker.reply(request.id);
+      expect((await pending).language).toBe("diff");
+    }
+    expect(highlighter.supports("wdiff")).toBe(false);
+    highlighter.close();
+  });
   it("routes Protocol Buffers source aliases to one standalone model", async () => {
     expect(proto).toBe(protobuf);
     vi.stubGlobal("Worker", FakeWorker);
@@ -485,6 +504,7 @@ describe("shipped browser artifacts", () => {
       "makefile",
       "graphql",
       "protobuf",
+      "diff",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

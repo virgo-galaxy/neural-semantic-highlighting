@@ -55,6 +55,7 @@ const ids = [
   "makefile",
   "graphql",
   "protobuf",
+  "diff",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -133,7 +134,8 @@ for (const entry of readdirSync(folder, { withFileTypes: true }).filter(
     entry.name !== "dockerfile" &&
     entry.name !== "makefile" &&
     entry.name !== "graphql" &&
-    entry.name !== "protobuf",
+    entry.name !== "protobuf" &&
+    entry.name !== "diff",
 )) {
   await appendExamples(entry.name);
 }
@@ -455,6 +457,33 @@ for (const [index, source] of [
   const source = '# Schema\n\n```proto\nsyntax="proto3";\nmessage Item { string name=1; }\n```\n';
   cases.push({
     filename: "edge/markdown-protobuf.md",
+    source,
+    documentKind: "markdown",
+    result: await getPack("markdown").highlight({ source, documentKind: "markdown" }),
+  });
+}
+await appendExamples("diff");
+for (const [index, source] of [
+  "",
+  "\r\n",
+  "-old 星空 🌌\r\n+new 宇宙 👩🏽‍💻\r\n",
+  "--- a/source\n+++ b/source\n@@ -1 +1 @@\n---- header-like payload\n++++ header-like payload\n",
+  "--- a/long\n+++ b/long\n@@ -1 +1 @@\n-old\n+" +
+    "Original <script> & 🌌 source. ".repeat(55) +
+    "\n",
+  "diff --git a/run.sh b/run.sh\nold mode 100644\nnew mode 100755\n",
+].entries()) {
+  cases.push({
+    filename: `edge/diff-${index}.patch`,
+    source,
+    documentKind: "diff",
+    result: await getPack("diff").highlight({ source, documentKind: "diff" }),
+  });
+}
+{
+  const source = "# Change\n\n```patch\n-old title\n+new title\n```\n";
+  cases.push({
+    filename: "edge/markdown-diff.md",
     source,
     documentKind: "markdown",
     result: await getPack("markdown").highlight({ source, documentKind: "markdown" }),

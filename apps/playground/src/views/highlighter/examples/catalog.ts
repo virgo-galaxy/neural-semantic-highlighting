@@ -7,6 +7,7 @@ import cppIcon from "@/assets/document-kinds/cpp.svg";
 import csharpIcon from "@/assets/document-kinds/csharp.svg";
 import cssIcon from "@/assets/document-kinds/css.svg";
 import dartIcon from "@/assets/document-kinds/dart.svg";
+import diffIcon from "@/assets/document-kinds/diff.svg";
 import dockerIcon from "@/assets/document-kinds/docker.svg";
 import dotenvIcon from "@/assets/document-kinds/dotenv.svg";
 import flutterIcon from "@/assets/document-kinds/flutter.svg";
@@ -132,6 +133,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   makefile: { label: "Makefile", icon: makefileIcon },
   graphql: { label: "GraphQL", icon: graphqlIcon },
   protobuf: { label: "Protobuf", icon: protobufIcon },
+  diff: { label: "Diff/Patch", icon: diffIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -245,6 +247,8 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".containerfile", "dockerfile"],
   ["Dockerfile", "dockerfile"],
   ["Containerfile", "dockerfile"],
+  [".diff", "diff"],
+  [".patch", "diff"],
   [".proto", "protobuf"],
   [".graphql", "graphql"],
   [".gql", "graphql"],

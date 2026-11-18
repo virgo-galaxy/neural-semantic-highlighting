@@ -2,19 +2,21 @@
 
 ## Current verified state
 
-The latest [Protocol Buffers rollout record](protobuf-browser-verification.json),
-dated 2026-11-19, covers **39 selected model packs**, **395/395** exact Chromium/native
-span/role/modifier comparisons and **179** passing frontend tests. All 380 earlier
-native outputs are unchanged. Separate independent GraphQL and protobuf consumers
-each pass **14/14** cases with one model asset, public aliases, original text,
-safe markup, element/tokens APIs, six preset/mode pairs and custom CSS.
+The latest [Diff/Patch rollout record](diff-browser-verification.json), dated
+2026-11-19, covers **40 selected model packs**, **410/410** exact Chromium/native
+span/role/modifier comparisons and **180** passing frontend tests. All 395 earlier
+native outputs remain unchanged. The independent private-package Diff consumer
+passes **14/14** cases with one ONNX asset, shared Diff/Patch exports, aliases,
+original source, safe markup, element/tokens APIs, six theme/mode pairs and
+custom CSS. Added/deleted lines retain original signs and their new semantic
+colors meet 4.5:1 text contrast in all six supplied palettes. Every earlier
+palette value is unchanged, and all 83 preceding weight files remain byte-identical.
 
-The available complete repository suite passes. Two historical Go dataset checks
-still explicitly require Go 1.27.1 while the host has 1.27.4; their guards are
-unchanged and no SDK is installed. The verification record distinguishes this
-limitation from passing runtime/packaging checks. Earlier language-specific
-rollouts remain below; XML/SVG and JSON/JSONC each share one model, and Flutter
-uses Dart.
+The available repository suite passes. Two historical Go dataset checks still
+require Go 1.27.1 while the host has 1.27.4; guards stay unchanged and no SDK is
+installed. The verification record separates that limitation from passing
+runtime/packaging checks. Earlier language-specific rollouts remain below;
+XML/SVG and JSON/JSONC share models, and Flutter uses Dart.
 
 The Playground and frontend package run the selected ONNX models in a browser
 Worker, without a Python provider or language SDK. Packages remain private and
@@ -919,3 +921,24 @@ from the consumer runtime. The [record](protobuf-browser-verification.json) bind
 native/browser hashes, primary natural test evidence, runtime comparisons,
 private installation and available regression results. All 79 pre-task weight
 files stay byte-identical. No visibility change or npm publication occurs.
+
+## Diff/Patch rollout — 2026-11-19
+
+One standalone line-semantic model covers `.diff`/`.patch` unified and Git source.
+The Playground adds eight examples; `languages/patch` re-exports `languages/diff`
+with one asset. Complete changed lines use addition/deletion roles with original
+signs intact; body code stays opaque Diff content. All six theme/mode palettes
+supply readable shared colors and public CSS overrides. No prefix parser, Git
+process, SDK, Python provider or patch application participates in inference.
+
+Eight numerical lengths preserve float32 native logits within `1e-4`; full
+browser/native comparison passes **410/410**, preserving all prior 395 results.
+The independent installed consumer passes 14 inputs, source/escaping checks,
+aliases, element/tokens APIs, six themes and custom CSS. Console errors are empty.
+The [record](diff-browser-verification.json) binds model/checkpoint/test hashes,
+actual runtime results, palette invariance/contrast and available regression
+checks. The 390px initial view has no page overflow; source scrolls horizontally.
+A later label-only refinement is confirmed on desktop; later viewport attempts
+kept desktop dimensions and are not represented as final mobile proofs.
+Long single lines remain an explicitly measured model limit. Repository/packages
+stay private and unpublished; no further format additions are included.
