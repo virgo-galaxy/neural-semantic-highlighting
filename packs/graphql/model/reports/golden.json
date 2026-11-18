@@ -1,0 +1,923 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "1783be04a8ad981558e19b105b24db1fb3ce7d4722a2d4fbe6cac682828880b5",
+  "cases": [
+    {
+      "id": "anonymous",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "{ viewer { id name } }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "query",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "query ListStars { stars }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "variables",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "query Find($key: ID!) { node(id: $key) { id } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 17,
+          "end": 19,
+          "text": "ID",
+          "tokenType": "type",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 17,
+          "end": 19,
+          "text": "ID",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "alias",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "{ current: viewer { name } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 2,
+          "end": 9,
+          "text": "current",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 2,
+          "end": 9,
+          "text": "current",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "keyword-field",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "{ query type true }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "mutation",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "mutation Publish { publish(title: \"Night sky\") }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "subscription",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "subscription Watch { events { id } }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "fragment",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "fragment Card on Person { name }\n{ viewer { ...Card } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 17,
+          "end": 23,
+          "text": "Person",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 17,
+          "end": 23,
+          "text": "Person",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "inline-fragment",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "{ node { ... on Photo { url } } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "Photo",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "Photo",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "directive",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "{ name @skip(if: false) }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 13,
+          "end": 15,
+          "text": "if",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 22,
+          "text": "false",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 15,
+          "text": "if",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 22,
+          "text": "false",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "values",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "{ search(n: -2.5e+3, state: READY, after: null) }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 19,
+          "text": "-2.5e+3",
+          "tokenType": "number",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 26,
+          "text": "state",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 42,
+          "end": 46,
+          "text": "null",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 17,
+          "text": "-2.5e",
+          "tokenType": "number",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 19,
+          "text": "+3",
+          "tokenType": "number",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 26,
+          "text": "state",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 42,
+          "end": 46,
+          "text": "null",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "input-value",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "{ find(input: {tags: [\"a\", \"b\"]}) }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 12,
+          "text": "input",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 12,
+          "text": "input",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "type",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "type Planet { title: String! }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "schema",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "schema { query: Root }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 9,
+          "end": 14,
+          "text": "query",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 20,
+          "text": "Root",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 9,
+          "end": 14,
+          "text": "query",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 16,
+          "end": 20,
+          "text": "Root",
+          "tokenType": "type",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "interface",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "interface Node { id: ID! }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "enum",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "enum State { OPEN CLOSED }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "union",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "union Result = Post | Person",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 12,
+          "text": "Result",
+          "tokenType": "type",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 15,
+          "end": 19,
+          "text": "Post",
+          "tokenType": "type",
+          "modifiers": []
+        },
+        {
+          "start": 22,
+          "end": 28,
+          "text": "Person",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 12,
+          "text": "Result",
+          "tokenType": "type",
+          "modifiers": [
+            "declaration",
+            "default-library"
+          ]
+        },
+        {
+          "start": 15,
+          "end": 19,
+          "text": "Post",
+          "tokenType": "type",
+          "modifiers": [
+            "default-library"
+          ]
+        },
+        {
+          "start": 22,
+          "end": 28,
+          "text": "Person",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "input",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "input Filter @oneOf { name: String }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 14,
+          "end": 19,
+          "text": "oneOf",
+          "tokenType": "decorator",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 14,
+          "end": 19,
+          "text": "oneOf",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "extension",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "extend type Person { age: Int }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 18,
+          "text": "Person",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 18,
+          "text": "Person",
+          "tokenType": "type",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "description",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "\"\"\"A \ud83c\udf0c description\n# literal\"\"\"\nscalar Date",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 32,
+          "text": "\"\"\"A \ud83c\udf0c description\n# literal\"\"\"",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 33,
+          "end": 39,
+          "text": "scalar",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 40,
+          "end": 44,
+          "text": "Date",
+          "tokenType": "type",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 44,
+          "text": "\"\"\"A \ud83c\udf0c description\n# literal\"\"\"\nscalar Date",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "comment",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "# \u661f\u7a7a \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb\r\n{__typename}",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "unicode-escape",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "{ find(q: \"\\u{1F30C}\\n\") }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "bom",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "\ufeff{id}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "\ufeff",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 2,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 4,
+          "text": "id",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 4,
+          "end": 5,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 5,
+          "text": "\ufeff{id}",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "directive-definition",
+      "profile": "graphql",
+      "documentKind": "graphql",
+      "source": "directive @audit(level: Int = 2) repeatable on FIELD | OBJECT",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 47,
+          "end": 52,
+          "text": "FIELD",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 47,
+          "end": 52,
+          "text": "FIELD",
+          "tokenType": "enum-member",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "graphql": {
+      "documents": 24,
+      "exactDocumentsIncludingModifiers": 10,
+      "exactSpan": {
+        "precision": 0.9339622641509434,
+        "recall": 0.9166666666666666,
+        "f1": 0.9252336448598131,
+        "tp": 198,
+        "fp": 14,
+        "fn": 18,
+        "support": 216
+      },
+      "exactSpanMacroF1": 0.8715144165759762,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9009433962264151,
+        "recall": 0.8842592592592593,
+        "f1": 0.8925233644859814,
+        "tp": 191,
+        "fp": 21,
+        "fn": 25,
+        "support": 216
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 0.7916666666666666,
+          "f1": 0.8837209302325582,
+          "tp": 19,
+          "fp": 0,
+          "fn": 5,
+          "support": 24
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.6666666666666666,
+          "recall": 0.8,
+          "f1": 0.7272727272727273,
+          "tp": 4,
+          "fp": 2,
+          "fn": 1,
+          "support": 5
+        },
+        "number": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "support": 2
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 14,
+          "fp": 0,
+          "fn": 0,
+          "support": 14
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9696969696969697,
+          "f1": 0.9846153846153847,
+          "tp": 96,
+          "fp": 0,
+          "fn": 3,
+          "support": 99
+        },
+        "type": {
+          "precision": 0.9230769230769231,
+          "recall": 0.7058823529411765,
+          "f1": 0.8,
+          "tp": 12,
+          "fp": 1,
+          "fn": 5,
+          "support": 17
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 1,
+          "fn": 0,
+          "support": 3
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 0.8888888888888888,
+          "f1": 0.9411764705882353,
+          "tp": 8,
+          "fp": 0,
+          "fn": 1,
+          "support": 9
+        },
+        "variable": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "support": 2
+        },
+        "property": {
+          "precision": 0.8055555555555556,
+          "recall": 0.9666666666666667,
+          "f1": 0.8787878787878788,
+          "tp": 29,
+          "fp": 7,
+          "fn": 1,
+          "support": 30
+        },
+        "label": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 0,
+          "fn": 1,
+          "support": 3
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "graphql": {
+      "documents": 24,
+      "exactDocumentsIncludingModifiers": 10,
+      "exactSpan": {
+        "precision": 0.9339622641509434,
+        "recall": 0.9166666666666666,
+        "f1": 0.9252336448598131,
+        "tp": 198,
+        "fp": 14,
+        "fn": 18,
+        "support": 216
+      },
+      "exactSpanMacroF1": 0.8715144165759762,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9009433962264151,
+        "recall": 0.8842592592592593,
+        "f1": 0.8925233644859814,
+        "tp": 191,
+        "fp": 21,
+        "fn": 25,
+        "support": 216
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 0.7916666666666666,
+          "f1": 0.8837209302325582,
+          "tp": 19,
+          "fp": 0,
+          "fn": 5,
+          "support": 24
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.6666666666666666,
+          "recall": 0.8,
+          "f1": 0.7272727272727273,
+          "tp": 4,
+          "fp": 2,
+          "fn": 1,
+          "support": 5
+        },
+        "number": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "support": 2
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 14,
+          "fp": 0,
+          "fn": 0,
+          "support": 14
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9696969696969697,
+          "f1": 0.9846153846153847,
+          "tp": 96,
+          "fp": 0,
+          "fn": 3,
+          "support": 99
+        },
+        "type": {
+          "precision": 0.9230769230769231,
+          "recall": 0.7058823529411765,
+          "f1": 0.8,
+          "tp": 12,
+          "fp": 1,
+          "fn": 5,
+          "support": 17
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 3,
+          "fp": 1,
+          "fn": 0,
+          "support": 3
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "parameter": {
+          "precision": 1.0,
+          "recall": 0.8888888888888888,
+          "f1": 0.9411764705882353,
+          "tp": 8,
+          "fp": 0,
+          "fn": 1,
+          "support": 9
+        },
+        "variable": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "support": 2
+        },
+        "property": {
+          "precision": 0.8055555555555556,
+          "recall": 0.9666666666666667,
+          "f1": 0.8787878787878788,
+          "tp": 29,
+          "fp": 7,
+          "fn": 1,
+          "support": 30
+        },
+        "label": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 0,
+          "fn": 1,
+          "support": 3
+        }
+      }
+    }
+  },
+  "checkpointHash": "38695bf08512023e5275bac081b94de83ffc5f0deaff219264298f411d364a59",
+  "checkpointEpoch": 10,
+  "device": "mps"
+}

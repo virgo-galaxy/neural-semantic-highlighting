@@ -1,0 +1,223 @@
+{
+  "id": "graphql",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-graphql-model-v1",
+    "sha256": "8ec11fa25b8ea41c2739936a3fba81c0ced6e58e956fd88e9a942596f86303b4",
+    "bytes": 3638895,
+    "parameterCount": 895124,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 10,
+    "metric": "mean per-profile natural real-source validation exact-span macro F1",
+    "score": 0.7910009375720402
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1,
+    "local_kernel": 5
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "type",
+      "enum",
+      "enum-member",
+      "function",
+      "parameter",
+      "variable",
+      "property",
+      "label",
+      "decorator"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "documentKinds": [
+    "graphql"
+  ],
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy-mean-logit",
+    "packPolicy": {
+      "coalesce_types": [
+        "string",
+        "comment"
+      ],
+      "modifier_roles": {
+        "declaration": [
+          "type",
+          "enum",
+          "enum-member",
+          "property",
+          "parameter",
+          "function",
+          "label",
+          "decorator"
+        ],
+        "default-library": [
+          "type"
+        ]
+      }
+    },
+    "modifierThreshold": 0.6,
+    "parserRequired": false
+  },
+  "scope": "graphql-source-semantic-spans",
+  "modelSchema": {
+    "file": "../schema.json",
+    "sha256": "bd19b917bee8fcb2b5cbe70880fe719f5b00d9490bb4de7b6d113cd6fc6d868a"
+  },
+  "publicSchema": {
+    "file": "../schema.json",
+    "sha256": "bd19b917bee8fcb2b5cbe70880fe719f5b00d9490bb4de7b6d113cd6fc6d868a"
+  },
+  "dataset": {
+    "snapshot": "56ea1170250b7974d75bb815b499cc015280d8a9f7830ee29f8a8038fdf5c924",
+    "manifestHash": "a8c7cfbdfbd2c85d4782df4f1195266619cfbf7ca686c65aa2ef9fcbf9a0c91f"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/graphql/context512-20261119-03/candidates/epoch-0010-best.pt",
+    "sourceCheckpointSha256": "38695bf08512023e5275bac081b94de83ffc5f0deaff219264298f411d364a59",
+    "training": {
+      "codeHashes": {
+        "training/graphql/calibrate.py": "d4e52a1f7cd40081e49b7beaf3c61f68e8d9f7d148dbb02c38b095063c852312",
+        "training/graphql/challenge.py": "771125c0c9da9f263166b406190ee3bf13f1a86e5678538deeef9bd60bcd3ff2",
+        "training/graphql/evaluate.py": "560472c05046fcd1cc0e08c721f873254546a93371a1c5c7997577af110f0dbc",
+        "training/graphql/export_model.py": "57f3e6043ec0e61a02fda20443d75ebfa85ccf326a8326e40bd3dc78c2645b8b",
+        "training/graphql/predict.py": "af6663a594d9d5179847cacbe61abafe3fb9910f1164db31f01532feda62662e",
+        "training/graphql/prepare.py": "903f2b9b05ddd601b0425f8a040ca1e09aaabc85d65cdac8741048c64cb275fc",
+        "training/graphql/review.py": "50ae1c2e592585e55f6fe3fbd3ebc977ba98e988ba9ace6f3bbc9530dadf15af",
+        "training/graphql/train.py": "dea12220649aa666f20e357e7be9fcc0df761e4c84b8b72f636f50783ce2b777",
+        "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+        "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+        "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+        "training/shared/checkpoints.py": "56b83e9a391b9162625c3c662bd12649ef48c74809fca8cdfa9e688f2c268564",
+        "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+        "training/shared/encoding.py": "998536a816ea0fe135e9a6c2c61c6a213d20207f9bd80c69eff01b7ae272a1b6",
+        "training/shared/evaluate.py": "804f489c91b63342eb278b0d6e5e0825cb6787f365f95ac9a358a4691176f764",
+        "training/shared/export_model.py": "38674e566783f403fd461133d38f4764251001cdf8883f9b079701a4be368ade",
+        "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+        "training/shared/inference.py": "fcbecc3b8ea443f631198d641d4a07bfbf72773b16d035fced5ac49b50d204f2",
+        "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+        "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+        "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+        "training/shared/metrics.py": "4f4e93230e9ec0620896d3607d2e5a0263b3247cb900f21ebc86166b6ca684a8",
+        "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+        "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+        "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+        "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+        "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+        "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+        "training/shared/runtime.py": "c36728b98f1e7ae2068a21bf71b9c19b04ab9398acd0988d95b2ba0013074fca",
+        "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+        "training/shared/structured.py": "617d9dd571111b41fd3988e6c88f2f359e747cf1f11286bdf1a20c2428c830a1",
+        "training/shared/train.py": "1cde7e8437461643637b1388ca9d7d77412d863bd0bfb9b327fc4628a2e9bf09",
+        "training/shared/trainer_data.py": "6b2fac9d5ce910cbcf131bee29818ce9b38f88cffd060cfbcf6baebc259b8fbc"
+      },
+      "semanticsHash": "5f1cad82019dde3a467e1edee6cc5240da865e01c43bde5700b6ebb2138d2664",
+      "packConfigHash": "9890e383592a2fc8d12751489bd0868a3e58f7232522ec3b3b8d60cfac56f0ed",
+      "decoderPolicy": {
+        "coalesce_types": [
+          "string",
+          "comment"
+        ],
+        "modifier_roles": {
+          "declaration": [
+            "type",
+            "enum",
+            "enum-member",
+            "property",
+            "parameter",
+            "function",
+            "label",
+            "decorator"
+          ],
+          "default-library": [
+            "type"
+          ]
+        }
+      },
+      "pythonTorch": "2.14.0",
+      "repositoryDirty": true,
+      "repositoryCommit": "9f7398adeecfa430ea2742a417edaac73afccd8b"
+    },
+    "initialization": {
+      "mode": "graphql-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/graphql/context512-20261119-02/candidates/epoch-0011-best.pt",
+      "checkpointHash": "30cd50af5affc4c504e7ac8c5ad746d25a43efcc1a947f285facf50038f35493",
+      "sourceEpoch": 11,
+      "sourceDataset": {
+        "snapshot": "56ea1170250b7974d75bb815b499cc015280d8a9f7830ee29f8a8038fdf5c924",
+        "manifestHash": "a8c7cfbdfbd2c85d4782df4f1195266619cfbf7ca686c65aa2ef9fcbf9a0c91f",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/graphql/prepared/56ea1170250b7974d75bb815b499cc015280d8a9f7830ee29f8a8038fdf5c924"
+      },
+      "copiedTokenTypes": [
+        "keyword",
+        "comment",
+        "string",
+        "number",
+        "operator",
+        "punctuation",
+        "type",
+        "enum",
+        "enum-member",
+        "function",
+        "parameter",
+        "variable",
+        "property",
+        "label",
+        "decorator"
+      ],
+      "newTokenTypes": [],
+      "newTensors": [],
+      "copiedModifiers": [
+        "declaration",
+        "default-library"
+      ],
+      "optimizerAndTrainingState": "fresh pack run"
+    },
+    "exporterSha256": "38674e566783f403fd461133d38f4764251001cdf8883f9b079701a4be368ade"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "79cffedbf8bd2f5acdce3e30cd54b84d9904400533e9e52e0f76721658ecd70a",
+      "checkpointHash": "38695bf08512023e5275bac081b94de83ffc5f0deaff219264298f411d364a59",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    }
+  }
+}

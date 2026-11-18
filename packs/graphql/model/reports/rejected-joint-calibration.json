@@ -1,0 +1,2186 @@
+{
+  "sourceCheckpoint": "artifacts/graphql/context512-20261119-02/candidates/epoch-0011-best.pt",
+  "sourceCheckpointHash": "30cd50af5affc4c504e7ac8c5ad746d25a43efcc1a947f285facf50038f35493",
+  "dataset": {
+    "snapshot": "56ea1170250b7974d75bb815b499cc015280d8a9f7830ee29f8a8038fdf5c924",
+    "manifestHash": "a8c7cfbdfbd2c85d4782df4f1195266619cfbf7ca686c65aa2ef9fcbf9a0c91f",
+    "path": "/Users/mystic/Datasets/neural-semantic-highlighting/graphql/prepared/56ea1170250b7974d75bb815b499cc015280d8a9f7830ee29f8a8038fdf5c924"
+  },
+  "frozenGroupsHash": "f151312a81ae523010079018d87bf9e4ba48dec686ab67ed0c34e3fe93591100",
+  "fit": "Laplace-smoothed legal BIO/role transitions on natural TRAIN Gold only",
+  "selection": "Natural real-source adaptive validation role macro F1; exact-span micro F1 breaks ties",
+  "primaryTestUsed": false,
+  "trials": [
+    {
+      "typeWeight": 0.1,
+      "transitionWeight": 0.1,
+      "selectionScore": 0.7954165854168893,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.970487302676733,
+            "recall": 0.9731589814177564,
+            "f1": 0.9718213058419244,
+            "tp": 1414,
+            "fp": 43,
+            "fn": 39,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.7954165854168893,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9478380233356212,
+            "recall": 0.9504473503097041,
+            "f1": 0.9491408934707903,
+            "tp": 1381,
+            "fp": 76,
+            "fn": 72,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9411764705882353,
+              "recall": 0.9696969696969697,
+              "f1": 0.9552238805970149,
+              "tp": 32,
+              "fp": 2,
+              "fn": 1,
+              "support": 33
+            },
+            "comment": {
+              "precision": 0.9411764705882353,
+              "recall": 1.0,
+              "f1": 0.9696969696969697,
+              "tp": 16,
+              "fp": 1,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.3333333333333333,
+              "recall": 0.6666666666666666,
+              "f1": 0.4444444444444444,
+              "tp": 2,
+              "fp": 4,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 13,
+              "fp": 0,
+              "fn": 0,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 139,
+              "fp": 0,
+              "fn": 0,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 623,
+              "fp": 0,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.7424242424242424,
+              "recall": 0.9074074074074074,
+              "f1": 0.8166666666666667,
+              "tp": 49,
+              "fp": 17,
+              "fn": 5,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 3,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 1.0,
+              "recall": 0.17391304347826086,
+              "f1": 0.2962962962962963,
+              "tp": 4,
+              "fp": 0,
+              "fn": 19,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.9139784946236559,
+              "recall": 0.9883720930232558,
+              "f1": 0.9497206703910615,
+              "tp": 85,
+              "fp": 8,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 0.9895833333333334,
+              "recall": 1.0,
+              "f1": 0.9947643979057592,
+              "tp": 95,
+              "fp": 1,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.982089552238806,
+              "recall": 0.9791666666666666,
+              "f1": 0.9806259314456036,
+              "tp": 329,
+              "fp": 6,
+              "fn": 7,
+              "support": 336
+            },
+            "label": {
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571,
+              "tp": 15,
+              "fp": 0,
+              "fn": 5,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666,
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.1,
+      "transitionWeight": 0.3,
+      "selectionScore": 0.8059561403721988,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.967741935483871,
+            "recall": 0.9704060564349621,
+            "f1": 0.9690721649484536,
+            "tp": 1410,
+            "fp": 47,
+            "fn": 43,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.8059561403721988,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9450926561427591,
+            "recall": 0.9476944253269098,
+            "f1": 0.9463917525773196,
+            "tp": 1377,
+            "fp": 80,
+            "fn": 76,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9393939393939394,
+              "recall": 0.9393939393939394,
+              "f1": 0.9393939393939394,
+              "tp": 31,
+              "fp": 2,
+              "fn": 2,
+              "support": 33
+            },
+            "comment": {
+              "precision": 0.9411764705882353,
+              "recall": 1.0,
+              "f1": 0.9696969696969697,
+              "tp": 16,
+              "fp": 1,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.4,
+              "recall": 0.6666666666666666,
+              "f1": 0.5,
+              "tp": 2,
+              "fp": 3,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 13,
+              "fp": 0,
+              "fn": 0,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 139,
+              "fp": 0,
+              "fn": 0,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 623,
+              "fp": 0,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.8103448275862069,
+              "recall": 0.8703703703703703,
+              "f1": 0.8392857142857143,
+              "tp": 47,
+              "fp": 11,
+              "fn": 7,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 1,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 1.0,
+              "recall": 0.043478260869565216,
+              "f1": 0.08333333333333333,
+              "tp": 1,
+              "fp": 0,
+              "fn": 22,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.8854166666666666,
+              "recall": 0.9883720930232558,
+              "f1": 0.9340659340659341,
+              "tp": 85,
+              "fp": 11,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 95,
+              "fp": 0,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.9484240687679083,
+              "recall": 0.9851190476190477,
+              "f1": 0.9664233576642336,
+              "tp": 331,
+              "fp": 18,
+              "fn": 5,
+              "support": 336
+            },
+            "label": {
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571,
+              "tp": 15,
+              "fp": 0,
+              "fn": 5,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.1,
+      "transitionWeight": 0.5,
+      "selectionScore": 0.8401505914901384,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 0,
+          "exactSpan": {
+            "precision": 0.9608516483516484,
+            "recall": 0.9628355127322781,
+            "f1": 0.9618425575799243,
+            "tp": 1399,
+            "fp": 57,
+            "fn": 54,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.8401505914901384,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9381868131868132,
+            "recall": 0.9401238816242258,
+            "f1": 0.939154348573393,
+            "tp": 1366,
+            "fp": 90,
+            "fn": 87,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9393939393939394,
+              "recall": 0.9393939393939394,
+              "f1": 0.9393939393939394,
+              "tp": 31,
+              "fp": 2,
+              "fn": 2,
+              "support": 33
+            },
+            "comment": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 16,
+              "fp": 0,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.5,
+              "recall": 0.6666666666666666,
+              "f1": 0.5714285714285714,
+              "tp": 2,
+              "fp": 2,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 0.38461538461538464,
+              "f1": 0.5555555555555556,
+              "tp": 5,
+              "fp": 0,
+              "fn": 8,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 0.9784172661870504,
+              "f1": 0.9890909090909091,
+              "tp": 136,
+              "fp": 0,
+              "fn": 3,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 0.9952076677316294,
+              "recall": 1.0,
+              "f1": 0.9975980784627703,
+              "tp": 623,
+              "fp": 3,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.9215686274509803,
+              "recall": 0.8703703703703703,
+              "f1": 0.8952380952380953,
+              "tp": 47,
+              "fp": 4,
+              "fn": 7,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 1.0,
+              "recall": 0.043478260869565216,
+              "f1": 0.08333333333333333,
+              "tp": 1,
+              "fp": 0,
+              "fn": 22,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.8762886597938144,
+              "recall": 0.9883720930232558,
+              "f1": 0.9289617486338798,
+              "tp": 85,
+              "fp": 12,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 95,
+              "fp": 0,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.9068493150684932,
+              "recall": 0.9851190476190477,
+              "f1": 0.9443651925820257,
+              "tp": 331,
+              "fp": 34,
+              "fn": 5,
+              "support": 336
+            },
+            "label": {
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571,
+              "tp": 15,
+              "fp": 0,
+              "fn": 5,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.25,
+      "transitionWeight": 0.1,
+      "selectionScore": 0.7848576779309541,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.970487302676733,
+            "recall": 0.9731589814177564,
+            "f1": 0.9718213058419244,
+            "tp": 1414,
+            "fp": 43,
+            "fn": 39,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.7848576779309541,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9478380233356212,
+            "recall": 0.9504473503097041,
+            "f1": 0.9491408934707903,
+            "tp": 1381,
+            "fp": 76,
+            "fn": 72,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9411764705882353,
+              "recall": 0.9696969696969697,
+              "f1": 0.9552238805970149,
+              "tp": 32,
+              "fp": 2,
+              "fn": 1,
+              "support": 33
+            },
+            "comment": {
+              "precision": 0.9411764705882353,
+              "recall": 1.0,
+              "f1": 0.9696969696969697,
+              "tp": 16,
+              "fp": 1,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.3333333333333333,
+              "recall": 0.6666666666666666,
+              "f1": 0.4444444444444444,
+              "tp": 2,
+              "fp": 4,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 13,
+              "fp": 0,
+              "fn": 0,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 139,
+              "fp": 0,
+              "fn": 0,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 623,
+              "fp": 0,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.7352941176470589,
+              "recall": 0.9259259259259259,
+              "f1": 0.819672131147541,
+              "tp": 50,
+              "fp": 18,
+              "fn": 4,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 3,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 1.0,
+              "recall": 0.17391304347826086,
+              "f1": 0.2962962962962963,
+              "tp": 4,
+              "fp": 0,
+              "fn": 19,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.9239130434782609,
+              "recall": 0.9883720930232558,
+              "f1": 0.9550561797752809,
+              "tp": 85,
+              "fp": 7,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 0.9895833333333334,
+              "recall": 1.0,
+              "f1": 0.9947643979057592,
+              "tp": 95,
+              "fp": 1,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.984984984984985,
+              "recall": 0.9761904761904762,
+              "f1": 0.9805680119581465,
+              "tp": 328,
+              "fp": 5,
+              "fn": 8,
+              "support": 336
+            },
+            "label": {
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571,
+              "tp": 15,
+              "fp": 0,
+              "fn": 5,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "f1": 0.5,
+              "tp": 1,
+              "fp": 2,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.25,
+      "transitionWeight": 0.3,
+      "selectionScore": 0.8011394069183994,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.9711736444749485,
+            "recall": 0.973847212663455,
+            "f1": 0.9725085910652921,
+            "tp": 1415,
+            "fp": 42,
+            "fn": 38,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.8011394069183994,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9485243651338366,
+            "recall": 0.9511355815554026,
+            "f1": 0.949828178694158,
+            "tp": 1382,
+            "fp": 75,
+            "fn": 71,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9411764705882353,
+              "recall": 0.9696969696969697,
+              "f1": 0.9552238805970149,
+              "tp": 32,
+              "fp": 2,
+              "fn": 1,
+              "support": 33
+            },
+            "comment": {
+              "precision": 0.9411764705882353,
+              "recall": 1.0,
+              "f1": 0.9696969696969697,
+              "tp": 16,
+              "fp": 1,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.4,
+              "recall": 0.6666666666666666,
+              "f1": 0.5,
+              "tp": 2,
+              "fp": 3,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 13,
+              "fp": 0,
+              "fn": 0,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 139,
+              "fp": 0,
+              "fn": 0,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 623,
+              "fp": 0,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.7424242424242424,
+              "recall": 0.9074074074074074,
+              "f1": 0.8166666666666667,
+              "tp": 49,
+              "fp": 17,
+              "fn": 5,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 2,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 1.0,
+              "recall": 0.17391304347826086,
+              "f1": 0.2962962962962963,
+              "tp": 4,
+              "fp": 0,
+              "fn": 19,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.9139784946236559,
+              "recall": 0.9883720930232558,
+              "f1": 0.9497206703910615,
+              "tp": 85,
+              "fp": 8,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 0.9895833333333334,
+              "recall": 1.0,
+              "f1": 0.9947643979057592,
+              "tp": 95,
+              "fp": 1,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.9791666666666666,
+              "recall": 0.9791666666666666,
+              "f1": 0.9791666666666666,
+              "tp": 329,
+              "fp": 7,
+              "fn": 7,
+              "support": 336
+            },
+            "label": {
+              "precision": 1.0,
+              "recall": 0.8,
+              "f1": 0.8888888888888888,
+              "tp": 16,
+              "fp": 0,
+              "fn": 4,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666,
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.25,
+      "transitionWeight": 0.5,
+      "selectionScore": 0.8032642571708168,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.9718406593406593,
+            "recall": 0.973847212663455,
+            "f1": 0.9728429013406669,
+            "tp": 1415,
+            "fp": 41,
+            "fn": 38,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.8032642571708168,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9491758241758241,
+            "recall": 0.9511355815554026,
+            "f1": 0.9501546923341354,
+            "tp": 1382,
+            "fp": 74,
+            "fn": 71,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9411764705882353,
+              "recall": 0.9696969696969697,
+              "f1": 0.9552238805970149,
+              "tp": 32,
+              "fp": 2,
+              "fn": 1,
+              "support": 33
+            },
+            "comment": {
+              "precision": 0.9411764705882353,
+              "recall": 1.0,
+              "f1": 0.9696969696969697,
+              "tp": 16,
+              "fp": 1,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.5,
+              "recall": 0.6666666666666666,
+              "f1": 0.5714285714285714,
+              "tp": 2,
+              "fp": 2,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 13,
+              "fp": 0,
+              "fn": 0,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 139,
+              "fp": 0,
+              "fn": 0,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 623,
+              "fp": 0,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.8032786885245902,
+              "recall": 0.9074074074074074,
+              "f1": 0.8521739130434782,
+              "tp": 49,
+              "fp": 12,
+              "fn": 5,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 2,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 1.0,
+              "recall": 0.13043478260869565,
+              "f1": 0.23076923076923078,
+              "tp": 3,
+              "fp": 0,
+              "fn": 20,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.8947368421052632,
+              "recall": 0.9883720930232558,
+              "f1": 0.9392265193370166,
+              "tp": 85,
+              "fp": 10,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 95,
+              "fp": 0,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.967741935483871,
+              "recall": 0.9821428571428571,
+              "f1": 0.9748892171344166,
+              "tp": 330,
+              "fp": 11,
+              "fn": 6,
+              "support": 336
+            },
+            "label": {
+              "precision": 1.0,
+              "recall": 0.8,
+              "f1": 0.8888888888888888,
+              "tp": 16,
+              "fp": 0,
+              "fn": 4,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666,
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.5,
+      "transitionWeight": 0.1,
+      "selectionScore": 0.7830123342492555,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.9698009608785175,
+            "recall": 0.9724707501720579,
+            "f1": 0.9711340206185567,
+            "tp": 1413,
+            "fp": 44,
+            "fn": 40,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.7830123342492555,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9471516815374056,
+            "recall": 0.9497591190640055,
+            "f1": 0.9484536082474226,
+            "tp": 1380,
+            "fp": 77,
+            "fn": 73,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9393939393939394,
+              "recall": 0.9393939393939394,
+              "f1": 0.9393939393939394,
+              "tp": 31,
+              "fp": 2,
+              "fn": 2,
+              "support": 33
+            },
+            "comment": {
+              "precision": 0.9411764705882353,
+              "recall": 1.0,
+              "f1": 0.9696969696969697,
+              "tp": 16,
+              "fp": 1,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.3333333333333333,
+              "recall": 0.6666666666666666,
+              "f1": 0.4444444444444444,
+              "tp": 2,
+              "fp": 4,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 13,
+              "fp": 0,
+              "fn": 0,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 139,
+              "fp": 0,
+              "fn": 0,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 623,
+              "fp": 0,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.7246376811594203,
+              "recall": 0.9259259259259259,
+              "f1": 0.8130081300813008,
+              "tp": 50,
+              "fp": 19,
+              "fn": 4,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 3,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 0.8,
+              "recall": 0.17391304347826086,
+              "f1": 0.2857142857142857,
+              "tp": 4,
+              "fp": 1,
+              "fn": 19,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.9340659340659341,
+              "recall": 0.9883720930232558,
+              "f1": 0.96045197740113,
+              "tp": 85,
+              "fp": 6,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 0.9895833333333334,
+              "recall": 1.0,
+              "f1": 0.9947643979057592,
+              "tp": 95,
+              "fp": 1,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.984984984984985,
+              "recall": 0.9761904761904762,
+              "f1": 0.9805680119581465,
+              "tp": 328,
+              "fp": 5,
+              "fn": 8,
+              "support": 336
+            },
+            "label": {
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571,
+              "tp": 15,
+              "fp": 0,
+              "fn": 5,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "f1": 0.5,
+              "tp": 1,
+              "fp": 2,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.5,
+      "transitionWeight": 0.3,
+      "selectionScore": 0.7960702250607757,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.9711736444749485,
+            "recall": 0.973847212663455,
+            "f1": 0.9725085910652921,
+            "tp": 1415,
+            "fp": 42,
+            "fn": 38,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.7960702250607757,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9485243651338366,
+            "recall": 0.9511355815554026,
+            "f1": 0.949828178694158,
+            "tp": 1382,
+            "fp": 75,
+            "fn": 71,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9411764705882353,
+              "recall": 0.9696969696969697,
+              "f1": 0.9552238805970149,
+              "tp": 32,
+              "fp": 2,
+              "fn": 1,
+              "support": 33
+            },
+            "comment": {
+              "precision": 0.9411764705882353,
+              "recall": 1.0,
+              "f1": 0.9696969696969697,
+              "tp": 16,
+              "fp": 1,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.3333333333333333,
+              "recall": 0.6666666666666666,
+              "f1": 0.4444444444444444,
+              "tp": 2,
+              "fp": 4,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 13,
+              "fp": 0,
+              "fn": 0,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 139,
+              "fp": 0,
+              "fn": 0,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 623,
+              "fp": 0,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.7352941176470589,
+              "recall": 0.9259259259259259,
+              "f1": 0.819672131147541,
+              "tp": 50,
+              "fp": 18,
+              "fn": 4,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 3,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 1.0,
+              "recall": 0.17391304347826086,
+              "f1": 0.2962962962962963,
+              "tp": 4,
+              "fp": 0,
+              "fn": 19,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.9239130434782609,
+              "recall": 0.9883720930232558,
+              "f1": 0.9550561797752809,
+              "tp": 85,
+              "fp": 7,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 0.9895833333333334,
+              "recall": 1.0,
+              "f1": 0.9947643979057592,
+              "tp": 95,
+              "fp": 1,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.9850299401197605,
+              "recall": 0.9791666666666666,
+              "f1": 0.982089552238806,
+              "tp": 329,
+              "fp": 5,
+              "fn": 7,
+              "support": 336
+            },
+            "label": {
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571,
+              "tp": 15,
+              "fp": 0,
+              "fn": 5,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666,
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 0.5,
+      "transitionWeight": 0.5,
+      "selectionScore": 0.799120289120593,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.9711538461538461,
+            "recall": 0.9731589814177564,
+            "f1": 0.9721553798556205,
+            "tp": 1414,
+            "fp": 42,
+            "fn": 39,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.799120289120593,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.948489010989011,
+            "recall": 0.9504473503097041,
+            "f1": 0.949467170849089,
+            "tp": 1381,
+            "fp": 75,
+            "fn": 72,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9411764705882353,
+              "recall": 0.9696969696969697,
+              "f1": 0.9552238805970149,
+              "tp": 32,
+              "fp": 2,
+              "fn": 1,
+              "support": 33
+            },
+            "comment": {
+              "precision": 0.9411764705882353,
+              "recall": 1.0,
+              "f1": 0.9696969696969697,
+              "tp": 16,
+              "fp": 1,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.4,
+              "recall": 0.6666666666666666,
+              "f1": 0.5,
+              "tp": 2,
+              "fp": 3,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 13,
+              "fp": 0,
+              "fn": 0,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 139,
+              "fp": 0,
+              "fn": 0,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 623,
+              "fp": 0,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.7424242424242424,
+              "recall": 0.9074074074074074,
+              "f1": 0.8166666666666667,
+              "tp": 49,
+              "fp": 17,
+              "fn": 5,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 3,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 1.0,
+              "recall": 0.17391304347826086,
+              "f1": 0.2962962962962963,
+              "tp": 4,
+              "fp": 0,
+              "fn": 19,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.9139784946236559,
+              "recall": 0.9883720930232558,
+              "f1": 0.9497206703910615,
+              "tp": 85,
+              "fp": 8,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 0.9895833333333334,
+              "recall": 1.0,
+              "f1": 0.9947643979057592,
+              "tp": 95,
+              "fp": 1,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.982089552238806,
+              "recall": 0.9791666666666666,
+              "f1": 0.9806259314456036,
+              "tp": 329,
+              "fp": 6,
+              "fn": 7,
+              "support": 336
+            },
+            "label": {
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571,
+              "tp": 15,
+              "fp": 0,
+              "fn": 5,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666,
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 1.0,
+      "transitionWeight": 0.1,
+      "selectionScore": 0.7762995078379975,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.9657768651608487,
+            "recall": 0.9710942876806608,
+            "f1": 0.9684282772820865,
+            "tp": 1411,
+            "fp": 50,
+            "fn": 42,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.7762995078379975,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9431895961670089,
+            "recall": 0.9483826565726085,
+            "f1": 0.9457789979409746,
+            "tp": 1378,
+            "fp": 83,
+            "fn": 75,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9393939393939394,
+              "recall": 0.9393939393939394,
+              "f1": 0.9393939393939394,
+              "tp": 31,
+              "fp": 2,
+              "fn": 2,
+              "support": 33
+            },
+            "comment": {
+              "precision": 0.9411764705882353,
+              "recall": 1.0,
+              "f1": 0.9696969696969697,
+              "tp": 16,
+              "fp": 1,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.2857142857142857,
+              "recall": 0.6666666666666666,
+              "f1": 0.4,
+              "tp": 2,
+              "fp": 5,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 13,
+              "fp": 0,
+              "fn": 0,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 139,
+              "fp": 0,
+              "fn": 0,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 623,
+              "fp": 0,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.7246376811594203,
+              "recall": 0.9259259259259259,
+              "f1": 0.8130081300813008,
+              "tp": 50,
+              "fp": 19,
+              "fn": 4,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 4,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 0.8,
+              "recall": 0.17391304347826086,
+              "f1": 0.2857142857142857,
+              "tp": 4,
+              "fp": 1,
+              "fn": 19,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.9239130434782609,
+              "recall": 0.9883720930232558,
+              "f1": 0.9550561797752809,
+              "tp": 85,
+              "fp": 7,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 0.9895833333333334,
+              "recall": 1.0,
+              "f1": 0.9947643979057592,
+              "tp": 95,
+              "fp": 1,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.9819277108433735,
+              "recall": 0.9702380952380952,
+              "f1": 0.9760479041916168,
+              "tp": 326,
+              "fp": 6,
+              "fn": 10,
+              "support": 336
+            },
+            "label": {
+              "precision": 0.8823529411764706,
+              "recall": 0.75,
+              "f1": 0.8108108108108109,
+              "tp": 15,
+              "fp": 2,
+              "fn": 5,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "f1": 0.5,
+              "tp": 1,
+              "fp": 2,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 1.0,
+      "transitionWeight": 0.3,
+      "selectionScore": 0.7809545764909104,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.9677861549006168,
+            "recall": 0.9717825189263593,
+            "f1": 0.9697802197802198,
+            "tp": 1412,
+            "fp": 47,
+            "fn": 41,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.7809545764909104,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9451679232350926,
+            "recall": 0.949070887818307,
+            "f1": 0.9471153846153846,
+            "tp": 1379,
+            "fp": 80,
+            "fn": 74,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9393939393939394,
+              "recall": 0.9393939393939394,
+              "f1": 0.9393939393939394,
+              "tp": 31,
+              "fp": 2,
+              "fn": 2,
+              "support": 33
+            },
+            "comment": {
+              "precision": 0.9411764705882353,
+              "recall": 1.0,
+              "f1": 0.9696969696969697,
+              "tp": 16,
+              "fp": 1,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.3333333333333333,
+              "recall": 0.6666666666666666,
+              "f1": 0.4444444444444444,
+              "tp": 2,
+              "fp": 4,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 13,
+              "fp": 0,
+              "fn": 0,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 139,
+              "fp": 0,
+              "fn": 0,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 623,
+              "fp": 0,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.7352941176470589,
+              "recall": 0.9259259259259259,
+              "f1": 0.819672131147541,
+              "tp": 50,
+              "fp": 18,
+              "fn": 4,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 3,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 0.8,
+              "recall": 0.17391304347826086,
+              "f1": 0.2857142857142857,
+              "tp": 4,
+              "fp": 1,
+              "fn": 19,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.9139784946236559,
+              "recall": 0.9883720930232558,
+              "f1": 0.9497206703910615,
+              "tp": 85,
+              "fp": 8,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 0.9895833333333334,
+              "recall": 1.0,
+              "f1": 0.9947643979057592,
+              "tp": 95,
+              "fp": 1,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.9819819819819819,
+              "recall": 0.9732142857142857,
+              "f1": 0.9775784753363229,
+              "tp": 327,
+              "fp": 6,
+              "fn": 9,
+              "support": 336
+            },
+            "label": {
+              "precision": 0.9375,
+              "recall": 0.75,
+              "f1": 0.8333333333333334,
+              "tp": 15,
+              "fp": 1,
+              "fn": 5,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "f1": 0.5,
+              "tp": 1,
+              "fp": 2,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "typeWeight": 1.0,
+      "transitionWeight": 0.5,
+      "selectionScore": 0.7997739287644794,
+      "metrics": {
+        "natural": {
+          "documents": 18,
+          "exactDocumentsIncludingModifiers": 1,
+          "exactSpan": {
+            "precision": 0.9718406593406593,
+            "recall": 0.973847212663455,
+            "f1": 0.9728429013406669,
+            "tp": 1415,
+            "fp": 41,
+            "fn": 38,
+            "support": 1453
+          },
+          "exactSpanMacroF1": 0.7997739287644794,
+          "exactSpanIncludingModifiers": {
+            "precision": 0.9491758241758241,
+            "recall": 0.9511355815554026,
+            "f1": 0.9501546923341354,
+            "tp": 1382,
+            "fp": 74,
+            "fn": 71,
+            "support": 1453
+          },
+          "byTokenType": {
+            "keyword": {
+              "precision": 0.9411764705882353,
+              "recall": 0.9696969696969697,
+              "f1": 0.9552238805970149,
+              "tp": 32,
+              "fp": 2,
+              "fn": 1,
+              "support": 33
+            },
+            "comment": {
+              "precision": 0.9411764705882353,
+              "recall": 1.0,
+              "f1": 0.9696969696969697,
+              "tp": 16,
+              "fp": 1,
+              "fn": 0,
+              "support": 16
+            },
+            "string": {
+              "precision": 0.4,
+              "recall": 0.6666666666666666,
+              "f1": 0.5,
+              "tp": 2,
+              "fp": 3,
+              "fn": 1,
+              "support": 3
+            },
+            "number": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 13,
+              "fp": 0,
+              "fn": 0,
+              "support": 13
+            },
+            "operator": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 139,
+              "fp": 0,
+              "fn": 0,
+              "support": 139
+            },
+            "punctuation": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 623,
+              "fp": 0,
+              "fn": 0,
+              "support": 623
+            },
+            "type": {
+              "precision": 0.7352941176470589,
+              "recall": 0.9259259259259259,
+              "f1": 0.819672131147541,
+              "tp": 50,
+              "fp": 18,
+              "fn": 4,
+              "support": 54
+            },
+            "enum": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 3,
+              "fn": 0,
+              "support": 0
+            },
+            "enum-member": {
+              "precision": 1.0,
+              "recall": 0.17391304347826086,
+              "f1": 0.2962962962962963,
+              "tp": 4,
+              "fp": 0,
+              "fn": 19,
+              "support": 23
+            },
+            "function": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "support": 11
+            },
+            "parameter": {
+              "precision": 0.9239130434782609,
+              "recall": 0.9883720930232558,
+              "f1": 0.9550561797752809,
+              "tp": 85,
+              "fp": 7,
+              "fn": 1,
+              "support": 86
+            },
+            "variable": {
+              "precision": 0.9895833333333334,
+              "recall": 1.0,
+              "f1": 0.9947643979057592,
+              "tp": 95,
+              "fp": 1,
+              "fn": 0,
+              "support": 95
+            },
+            "property": {
+              "precision": 0.9850299401197605,
+              "recall": 0.9791666666666666,
+              "f1": 0.982089552238806,
+              "tp": 329,
+              "fp": 5,
+              "fn": 7,
+              "support": 336
+            },
+            "label": {
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571,
+              "tp": 15,
+              "fp": 0,
+              "fn": 5,
+              "support": 20
+            },
+            "decorator": {
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666,
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "support": 1
+            }
+          }
+        }
+      }
+    }
+  ],
+  "selected": {
+    "typeWeight": 0.1,
+    "transitionWeight": 0.5,
+    "selectionScore": 0.8401505914901384,
+    "metrics": {
+      "natural": {
+        "documents": 18,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9608516483516484,
+          "recall": 0.9628355127322781,
+          "f1": 0.9618425575799243,
+          "tp": 1399,
+          "fp": 57,
+          "fn": 54,
+          "support": 1453
+        },
+        "exactSpanMacroF1": 0.8401505914901384,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9381868131868132,
+          "recall": 0.9401238816242258,
+          "f1": 0.939154348573393,
+          "tp": 1366,
+          "fp": 90,
+          "fn": 87,
+          "support": 1453
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9393939393939394,
+            "recall": 0.9393939393939394,
+            "f1": 0.9393939393939394,
+            "tp": 31,
+            "fp": 2,
+            "fn": 2,
+            "support": 33
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "string": {
+            "precision": 0.5,
+            "recall": 0.6666666666666666,
+            "f1": 0.5714285714285714,
+            "tp": 2,
+            "fp": 2,
+            "fn": 1,
+            "support": 3
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 0.38461538461538464,
+            "f1": 0.5555555555555556,
+            "tp": 5,
+            "fp": 0,
+            "fn": 8,
+            "support": 13
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 0.9784172661870504,
+            "f1": 0.9890909090909091,
+            "tp": 136,
+            "fp": 0,
+            "fn": 3,
+            "support": 139
+          },
+          "punctuation": {
+            "precision": 0.9952076677316294,
+            "recall": 1.0,
+            "f1": 0.9975980784627703,
+            "tp": 623,
+            "fp": 3,
+            "fn": 0,
+            "support": 623
+          },
+          "type": {
+            "precision": 0.9215686274509803,
+            "recall": 0.8703703703703703,
+            "f1": 0.8952380952380953,
+            "tp": 47,
+            "fp": 4,
+            "fn": 7,
+            "support": 54
+          },
+          "enum": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "enum-member": {
+            "precision": 1.0,
+            "recall": 0.043478260869565216,
+            "f1": 0.08333333333333333,
+            "tp": 1,
+            "fp": 0,
+            "fn": 22,
+            "support": 23
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "parameter": {
+            "precision": 0.8762886597938144,
+            "recall": 0.9883720930232558,
+            "f1": 0.9289617486338798,
+            "tp": 85,
+            "fp": 12,
+            "fn": 1,
+            "support": 86
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 95,
+            "fp": 0,
+            "fn": 0,
+            "support": 95
+          },
+          "property": {
+            "precision": 0.9068493150684932,
+            "recall": 0.9851190476190477,
+            "f1": 0.9443651925820257,
+            "tp": 331,
+            "fp": 34,
+            "fn": 5,
+            "support": 336
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571,
+            "tp": 15,
+            "fp": 0,
+            "fn": 5,
+            "support": 20
+          },
+          "decorator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          }
+        }
+      }
+    }
+  }
+}
