@@ -1,7 +1,7 @@
 # Independent Makefile Golden
 
-Forty original hand-marked cases establish expected original UTF-16 roles before
-training. They cover rule forms, assignment flavors, references/automatic values,
+Forty-six original hand-marked cases establish expected original UTF-16 roles before
+training. They cover rule forms, assignment flavors/adjacent operators, references/automatic values,
 function/substitution nesting, Make versus Shell hashes/dollars, continuations,
 define opacity, recipe prefixes/reset, foreign shells, BOM/Unicode/CRLF and an
 absent final newline. Expected labels are authored independently of the teacher.

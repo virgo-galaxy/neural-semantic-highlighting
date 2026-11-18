@@ -106,6 +106,12 @@ def label(*, source, document_kind='makefile', profile='makefile'):
     def bounds(node):
         return byte_to_char[node.start], byte_to_char[node.end]
 
+    def adjacent_assignment(node):
+        name, operator = node.fields.get('name'), node.fields.get('operator')
+        if name is None or operator is None or node.kind != 'variable_assignment': return False
+        a,b = bounds(name); left,right = bounds(operator)
+        return b == left and source[left:right] == '=' and source[a:b].endswith(('?', '+')) and not source[a:b].endswith(('\\?', '\\+'))
+
     def add(a, b, role, mods=()):
         if a >= b: return
         span = dict(start=units[a], end=units[b], tokenType=role)
@@ -205,7 +211,9 @@ def label(*, source, document_kind='makefile', profile='makefile'):
             role, mods = 'label', ('declaration',)
         field = getattr(node, 'field_name', '')
         if field == 'name' and node.parent.kind in {'variable_assignment', 'shell_assignment', 'VPATH_assignment', 'RECIPEPREFIX_assignment', 'define_directive'}:
-            add(a, b, 'variable', ('declaration',)); features.add('variables'); return
+            add(a, b-1 if adjacent_assignment(node.parent) else b, 'variable', ('declaration',)); features.add('variables'); return
+        if field == 'operator' and adjacent_assignment(node.parent):
+            add(a-1,b,'operator'); return
         if field == 'function':
             add(a, b, 'function', ('default-library',)); return
         if field == 'variable' or (node.parent and node.parent.kind in {'export_directive', 'unexport_directive'} and node.kind == 'list'):

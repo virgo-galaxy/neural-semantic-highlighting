@@ -31,3 +31,12 @@ an independent private-tarball consumer, themes/custom CSS and `make check`.
 No runtime parser, regex/spelling repair, Make execution or child Shell model is
 added. Keep data/history and repository/packages private; use short English
 stage commits and publish/push only when explicitly requested.
+
+The reviewed refinement uses a fresh configuration-bound run after correcting
+adjacent assignment supervision and adding structurally separate original tasks.
+Initialize its compatible weights from a preserved complete Makefile candidate;
+use `MAKEFILE_LOSS_WEIGHT_STREAM=natural MAKEFILE_LEARNING_RATE=0.00015` for that
+fresh experiment. An earlier mixed task revision is rejected by existing
+structural-copy exclusion and remains retained; the later revision changes real
+rule structure instead of bypassing that safeguard. No independent test result
+participates in any correction, task generation or epoch selection.

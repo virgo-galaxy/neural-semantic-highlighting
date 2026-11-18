@@ -19,6 +19,10 @@ structure offline. Parser errors, controls and unsupported forms are quarantined
 - Assignment/define names are `variable+declaration`; assignment signs are
   operators. Ordinary values are literal strings or standalone numeric atoms.
   Make quotes remain original literal data; they do not suppress Make comments.
+  A checked original-adjacency correction handles the pinned grammar's greedy
+  name token in `NAME?=value`/`NAME+=value`: the final unescaped `?`/`+` belongs
+  to the assignment operator. This is offline supervision only. Old Gold and
+  checkpoints remain preserved under the earlier contract revision.
 - `$(NAME)`, `${NAME}`, single-character/automatic variables and substitution
   references are complete variable spans. Built-in Make function names are
   `function+default-library`, dollar introducers operators and delimiters/argument
