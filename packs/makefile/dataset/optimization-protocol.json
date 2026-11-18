@@ -883,8 +883,11 @@
     "architecture": "Same four-layer width-128 context-512 Transformer; optional existing zero-initialized five-byte depthwise residual",
     "decoderGrid": {
       "typeWeight": [0.1, 0.25, 0.5, 1.0],
-      "transitionWeight": [0.1, 0.3, 0.5]
+      "transitionWeight": [0.1, 0.3, 0.5, 1.0, 2.0]
     },
     "selection": "Natural validation only; guard old/fresh validation and visible source quality. First fresh test only after candidate freeze."
-  }
+  },
+  "decoderGridRefinement": "The first validation-only grid selected its upper transition boundary (0.5); extend the same source-blind penalty grid to 1.0/2.0 before any independent test. Retain initial grid evidence.",
+  "balancedSelection": "For unequal cohort difficulty, maximize the minimum exact-span F1 improvement over the frozen baseline validation on all/fresh/legacy. Preserve absolute scores and all earlier absolute-minimum trials. No test predictions used.",
+  "baselineValidationReport": "artifacts/makefile/optimization-20261118/baseline-validation.json"
 }

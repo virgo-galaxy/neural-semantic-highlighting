@@ -53,8 +53,15 @@ and learning rate 0.0001. No source parser/spelling rule is added to inference.
 
 `python -m training.makefile.calibrate --checkpoint FULL.pt --output CALIBRATED.pt`
 fits existing legal BIO/role transitions on natural **train** Gold only. A fixed
-12-point grid selects the maximum minimum original exact-span F1 of all, fresh
+20-point grid selects the maximum minimum original exact-span F1 of all, fresh
 and legacy **validation** cohorts. Every matrix/weight/report is bound to its
 source checkpoint and frozen protocol. Compare real-code/Golden/displays before
 selection. The first new independent test follows all training/calibration;
 report its 16 fresh documents separately from the exposed 17-file legacy cohort.
+
+For comparison on validation cohorts of unequal baseline difficulty, pass
+`--baseline-validation artifacts/makefile/optimization-20261118/baseline-validation.json`.
+The command verifies identical natural validation identities and maximizes the
+minimum F1 **gain** on all/fresh/legacy cohorts, retaining absolute metrics. The
+initial 12-point grid, its boundary-selected expansion and the prior absolute
+selection trials remain retained. All choices precede reading fresh test results.
