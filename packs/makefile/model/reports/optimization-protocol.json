@@ -1,0 +1,893 @@
+{
+  "format": "nsh-makefile-optimization-protocol-v1",
+  "date": "2026-11-18",
+  "baselineCommit": "447d9b3",
+  "target": 0.9,
+  "metric": "Unchanged original UTF-16 exact-span F1; modifiers separate",
+  "oldTestPurpose": "Exposed 17-file legacy regression only; not new independent accuracy or selection",
+  "oldSourceFamiliesPreserved": true,
+  "allocation": "Fixed metadata-only family/path hashes before opening any added source; complete related families, at most 8 candidate documents per project/cohort",
+  "priorSourceConfigSha256": "ab17b306dd2a30f286f38c9de3a6485275e1f7e51238baa613f921d5c2946ebd",
+  "primaryFreshTestSourceGroups": [
+    "facebook-zstd-makefile-opt-v1:contrib/diagnose_corruption",
+    "facebook-zstd-makefile-opt-v1:lib/dll",
+    "ffmpeg-ffmpeg-makefile-opt-v1:libavdevice",
+    "lz4-lz4-makefile-opt-v1:lib",
+    "ffmpeg-ffmpeg-makefile-opt-v1:libavcodec/mips",
+    "facebook-zstd-makefile-opt-v1:root",
+    "ffmpeg-ffmpeg-makefile-opt-v1:root",
+    "ffmpeg-ffmpeg-makefile-opt-v1:libpostproc",
+    "containerd-containerd-makefile-opt-v1:root",
+    "ffmpeg-ffmpeg-makefile-opt-v1:libavfilter/aarch64",
+    "postgres-postgres-makefile-opt-v1:contrib/pgcrypto",
+    "facebook-zstd-makefile-opt-v1:programs",
+    "git-git-makefile-opt-v1:Documentation",
+    "postgres-postgres-makefile-opt-v1:contrib/seg",
+    "facebook-zstd-makefile-opt-v1:contrib/linux-kernel",
+    "postgres-postgres-makefile-opt-v1:src/bin/pg_ctl",
+    "lz4-lz4-makefile-opt-v1:root",
+    "ffmpeg-ffmpeg-makefile-opt-v1:fftools",
+    "postgres-postgres-makefile-opt-v1:contrib/dblink",
+    "postgres-postgres-makefile-opt-v1:src/backend/optimizer",
+    "python-cpython-makefile-opt-v1:Doc",
+    "facebook-zstd-makefile-opt-v1:contrib/seqBench",
+    "psf-requests-makefile-opt-v1:root",
+    "postgres-postgres-makefile-opt-v1:src/backend/port",
+    "ffmpeg-ffmpeg-makefile-opt-v1:libavutil/arm",
+    "postgres-postgres-makefile-opt-v1:contrib/hstore",
+    "ffmpeg-ffmpeg-makefile-opt-v1:libavcodec/opus",
+    "psf-requests-makefile-opt-v1:docs",
+    "postgres-postgres-makefile-opt-v1:src/backend/main"
+  ],
+  "freshValidationSourceGroups": [
+    "ffmpeg-ffmpeg-makefile-opt-v1:libavfilter/riscv",
+    "postgres-postgres-makefile-opt-v1:contrib/dict_int",
+    "grpc-grpc-makefile-opt-v1:examples/cpp",
+    "facebook-zstd-makefile-opt-v1:zlibWrapper",
+    "lz4-lz4-makefile-opt-v1:examples",
+    "facebook-zstd-makefile-opt-v1:contrib/externalSequenceProducer",
+    "facebook-zstd-makefile-opt-v1:contrib/recovery",
+    "postgres-postgres-makefile-opt-v1:contrib/intarray",
+    "ffmpeg-ffmpeg-makefile-opt-v1:libavutil/x86",
+    "ffmpeg-ffmpeg-makefile-opt-v1:libswresample",
+    "helm-helm-makefile-opt-v1:root",
+    "postgres-postgres-makefile-opt-v1:src/backend/foreign",
+    "ffmpeg-ffmpeg-makefile-opt-v1:libavutil/aarch64",
+    "cli-cli-makefile-opt-v1:root",
+    "ffmpeg-ffmpeg-makefile-opt-v1:libavcodec/arm",
+    "postgres-postgres-makefile-opt-v1:contrib/lo",
+    "postgres-postgres-makefile-opt-v1:contrib/cube",
+    "facebook-zstd-makefile-opt-v1:examples"
+  ],
+  "primaryTestNeverUsedForSelection": true,
+  "metadataCohortCounts": {
+    "test": 32,
+    "validation": 20,
+    "train": 29
+  },
+  "documents": [
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavcodec/mips/Makefile",
+      "gitBlob": "fc1bc6b03f83e6d246fa2b8efde4ceaecd039d23",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavcodec/mips",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavcodec/mips",
+      "bytes": 6419,
+      "split": "test"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavcodec/arm/Makefile",
+      "gitBlob": "becf316eb66de256c764ac026e012f9a369b66ff",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavcodec/arm",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavcodec/arm",
+      "bytes": 8152,
+      "split": "validation"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavcodec/opus/Makefile",
+      "gitBlob": "53cb98e28defb16cfa671fead35ebab1ce7d0382",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavcodec/opus",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavcodec/opus",
+      "bytes": 798,
+      "split": "test"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libswresample/Makefile",
+      "gitBlob": "8b9a0fe6f555f1fc1b317d5bb71cdd744dfd9de9",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libswresample",
+      "canonicalFamily": "FFmpeg/FFmpeg:libswresample",
+      "bytes": 878,
+      "split": "validation"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavfilter/dnn/Makefile",
+      "gitBlob": "3d09927c98a91cc409173854d01cfaabe1f5c1d8",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavfilter/dnn",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavfilter/dnn",
+      "bytes": 614,
+      "split": "train"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libswresample/aarch64/Makefile",
+      "gitBlob": "5c34f8d94918bcc0083d244282ed672617c4e66a",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libswresample/aarch64",
+      "canonicalFamily": "FFmpeg/FFmpeg:libswresample/aarch64",
+      "bytes": 306,
+      "split": "train"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavutil/aarch64/Makefile",
+      "gitBlob": "eba01513379aaecc1322a16360c5a785820d897c",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavutil/aarch64",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavutil/aarch64",
+      "bytes": 361,
+      "split": "validation"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavutil/arm/Makefile",
+      "gitBlob": "5da44b05427ab677fa086339a8d6f227763170af",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavutil/arm",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavutil/arm",
+      "bytes": 446,
+      "split": "test"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libswresample/x86/Makefile",
+      "gitBlob": "fa0641f03fdfa7723d44e389d8ef322a3332e546",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libswresample/x86",
+      "canonicalFamily": "FFmpeg/FFmpeg:libswresample/x86",
+      "bytes": 385,
+      "split": "train"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavcodec/vvc/Makefile",
+      "gitBlob": "6a28d32bc25cc0544d5f7fe47db47197dec4952c",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavcodec/vvc",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavcodec/vvc",
+      "bytes": 920,
+      "split": "train"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavfilter/riscv/Makefile",
+      "gitBlob": "14a4470d966c0998e5a7b3240622b0e6517f8529",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavfilter/riscv",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavfilter/riscv",
+      "bytes": 170,
+      "split": "validation"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libswresample/arm/Makefile",
+      "gitBlob": "53ab4626f49a139d0f3c0b901d941182040b983a",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libswresample/arm",
+      "canonicalFamily": "FFmpeg/FFmpeg:libswresample/arm",
+      "bytes": 195,
+      "split": "train"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavfilter/aarch64/Makefile",
+      "gitBlob": "b68209bc94a63a49bffa9237d3891dcb441a8db3",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavfilter/aarch64",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavfilter/aarch64",
+      "bytes": 301,
+      "split": "test"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "fftools/Makefile",
+      "gitBlob": "083a1368ce66b64e98e8b21e166021203321364d",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:fftools",
+      "canonicalFamily": "FFmpeg/FFmpeg:fftools",
+      "bytes": 1824,
+      "split": "test"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavutil/x86/Makefile",
+      "gitBlob": "d66839e35d1cbe8578e228102eb54adf6fae7006",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavutil/x86",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavutil/x86",
+      "bytes": 1192,
+      "split": "validation"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavdevice/Makefile",
+      "gitBlob": "c30449201d47df0fdfdf2ff5a20d2ceb671b7e32",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavdevice",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavdevice",
+      "bytes": 4113,
+      "split": "test"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libpostproc/Makefile",
+      "gitBlob": "77c2b6b016087abb11f4c45932b8e51222b1c6d5",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libpostproc",
+      "canonicalFamily": "FFmpeg/FFmpeg:libpostproc",
+      "bytes": 308,
+      "split": "test"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "libavcodec/aac/Makefile",
+      "gitBlob": "70b1dca2740ce893a08503d30661ab2b20874bac",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:libavcodec/aac",
+      "canonicalFamily": "FFmpeg/FFmpeg:libavcodec/aac",
+      "bytes": 408,
+      "split": "train"
+    },
+    {
+      "repository": "FFmpeg/FFmpeg",
+      "revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+      "path": "Makefile",
+      "gitBlob": "b350d7748f5e977ca8f8042134d18752fe3b62ef",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-opt-v1:root",
+      "canonicalFamily": "FFmpeg/FFmpeg:root",
+      "bytes": 7338,
+      "split": "test"
+    },
+    {
+      "repository": "git/git",
+      "revision": "683c54c999c301c2cd6f715c411407c413b1d84e",
+      "path": "Documentation/Makefile",
+      "gitBlob": "671267a8ac7af6c298af716b4be1a0b4900be396",
+      "sourceGroup": "git-git-makefile-opt-v1:Documentation",
+      "canonicalFamily": "git/git:Documentation",
+      "bytes": 16870,
+      "split": "test"
+    },
+    {
+      "repository": "cli/cli",
+      "revision": "e1219499a578b69e3437adaa31cd60614e23c802",
+      "path": "Makefile",
+      "gitBlob": "2f43560732774c7c8770ae0cb57febccc0432cc0",
+      "sourceGroup": "cli-cli-makefile-opt-v1:root",
+      "canonicalFamily": "cli/cli:root",
+      "bytes": 4141,
+      "split": "validation"
+    },
+    {
+      "repository": "containerd/containerd",
+      "revision": "932058d3a973e0c099ba2f8619b8a2151cfff7f4",
+      "path": "Makefile.windows",
+      "gitBlob": "6e62a87cf83f623f4abaceb6a6b88f47c559147f",
+      "sourceGroup": "containerd-containerd-makefile-opt-v1:root",
+      "canonicalFamily": "containerd/containerd:root",
+      "bytes": 966,
+      "split": "test"
+    },
+    {
+      "repository": "containerd/containerd",
+      "revision": "932058d3a973e0c099ba2f8619b8a2151cfff7f4",
+      "path": "integration/images/volume-copy-up/Makefile",
+      "gitBlob": "8524f9b72a75ed1134c1c069980af05b7619891b",
+      "sourceGroup": "containerd-containerd-makefile-opt-v1:integration/images",
+      "canonicalFamily": "containerd/containerd:integration/images",
+      "bytes": 4168,
+      "split": "train"
+    },
+    {
+      "repository": "containerd/containerd",
+      "revision": "932058d3a973e0c099ba2f8619b8a2151cfff7f4",
+      "path": "Makefile",
+      "gitBlob": "765b8172e2fe27aaf23478ecbe4e671be8fa2cb3",
+      "sourceGroup": "containerd-containerd-makefile-opt-v1:root",
+      "canonicalFamily": "containerd/containerd:root",
+      "bytes": 18930,
+      "split": "test"
+    },
+    {
+      "repository": "containerd/containerd",
+      "revision": "932058d3a973e0c099ba2f8619b8a2151cfff7f4",
+      "path": "integration/images/volume-ownership/Makefile",
+      "gitBlob": "bb87362e977dfd23e232ebb69eae9c8bb4786e98",
+      "sourceGroup": "containerd-containerd-makefile-opt-v1:integration/images",
+      "canonicalFamily": "containerd/containerd:integration/images",
+      "bytes": 4370,
+      "split": "train"
+    },
+    {
+      "repository": "containerd/containerd",
+      "revision": "932058d3a973e0c099ba2f8619b8a2151cfff7f4",
+      "path": "Makefile.darwin",
+      "gitBlob": "4a12e88f28ad85f3c84e713f5b28a2afa09509e5",
+      "sourceGroup": "containerd-containerd-makefile-opt-v1:root",
+      "canonicalFamily": "containerd/containerd:root",
+      "bytes": 684,
+      "split": "test"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "contrib/seqBench/Makefile",
+      "gitBlob": "e7f08a42cc896ac5ea18db16b4e11d7cf59770e0",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/seqBench",
+      "canonicalFamily": "facebook/zstd:contrib/seqBench",
+      "bytes": 1602,
+      "split": "test"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "lib/install_oses.mk",
+      "gitBlob": "c2cdd1635e5385b46ec2460dbb70628213b65270",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:lib",
+      "canonicalFamily": "facebook/zstd:lib",
+      "bytes": 809,
+      "split": "train"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "examples/Makefile",
+      "gitBlob": "31f52d35763f991af04374ef0c800b33eb0b0c00",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:examples",
+      "canonicalFamily": "facebook/zstd:examples",
+      "bytes": 2834,
+      "split": "validation"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "contrib/externalSequenceProducer/Makefile",
+      "gitBlob": "0591ae01ba5368f74b66825a2f716cff4e9d3c17",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/externalSequenceProducer",
+      "canonicalFamily": "facebook/zstd:contrib/externalSequenceProducer",
+      "bytes": 1274,
+      "split": "validation"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "Makefile",
+      "gitBlob": "44ff3ad57cef7da07ac975cca475d2db572c8373",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:root",
+      "canonicalFamily": "facebook/zstd:root",
+      "bytes": 16558,
+      "split": "test"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "zlibWrapper/Makefile",
+      "gitBlob": "d635417ed0d4f21afd9ec5f4099e5f13ae35c5cb",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:zlibWrapper",
+      "canonicalFamily": "facebook/zstd:zlibWrapper",
+      "bytes": 4406,
+      "split": "validation"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "doc/educational_decoder/Makefile",
+      "gitBlob": "6b806385c936a5b5607a5038386d72bd8acc4f0c",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:doc/educational_decoder",
+      "canonicalFamily": "facebook/zstd:doc/educational_decoder",
+      "bytes": 3001,
+      "split": "train"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "programs/Makefile",
+      "gitBlob": "11dd93b7572733b36642fac5fa0b0e55beeb84b7",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:programs",
+      "canonicalFamily": "facebook/zstd:programs",
+      "bytes": 15491,
+      "split": "test"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "lib/dll/example/Makefile",
+      "gitBlob": "86cf6906e5c62a8bef13daa4d3c66b516b80cbf3",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:lib/dll",
+      "canonicalFamily": "facebook/zstd:lib/dll",
+      "bytes": 1473,
+      "split": "test"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "contrib/diagnose_corruption/Makefile",
+      "gitBlob": "ecc9e63952c5925715539fa632aa39c469ae8b3d",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/diagnose_corruption",
+      "canonicalFamily": "facebook/zstd:contrib/diagnose_corruption",
+      "bytes": 1361,
+      "split": "test"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "contrib/linux-kernel/linux.mk",
+      "gitBlob": "be218b5e0ed5946ced48ce6dce1ca2f65702f095",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/linux-kernel",
+      "canonicalFamily": "facebook/zstd:contrib/linux-kernel",
+      "bytes": 1483,
+      "split": "test"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "contrib/gen_html/Makefile",
+      "gitBlob": "f93669e023f13a76bc484e580159c4795e043091",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/gen_html",
+      "canonicalFamily": "facebook/zstd:contrib/gen_html",
+      "bytes": 1625,
+      "split": "train"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "contrib/recovery/Makefile",
+      "gitBlob": "be6ea4b0e9c9b89fae41c99a60383ea2e22b6004",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/recovery",
+      "canonicalFamily": "facebook/zstd:contrib/recovery",
+      "bytes": 1308,
+      "split": "validation"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "contrib/seekable_format/examples/Makefile",
+      "gitBlob": "f15a4a15a8044573daef4a178646441515f95c64",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/seekable_format",
+      "canonicalFamily": "facebook/zstd:contrib/seekable_format",
+      "bytes": 1880,
+      "split": "train"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "contrib/largeNbDicts/Makefile",
+      "gitBlob": "40734e62e474f6cf2ec3e58f401aadd2a67ddafc",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/largeNbDicts",
+      "canonicalFamily": "facebook/zstd:contrib/largeNbDicts",
+      "bytes": 1619,
+      "split": "train"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "contrib/pzstd/Makefile",
+      "gitBlob": "e4b3e8a21f281fc95609672179db9ebca7e597b2",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/pzstd",
+      "canonicalFamily": "facebook/zstd:contrib/pzstd",
+      "bytes": 7336,
+      "split": "train"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "lib/Makefile",
+      "gitBlob": "569bd6090c93cf71748fb0f187a20b5ecca871db",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:lib",
+      "canonicalFamily": "facebook/zstd:lib",
+      "bytes": 12014,
+      "split": "train"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "contrib/linux-kernel/Makefile",
+      "gitBlob": "63dd15d958f580579e03adf1841e05bd3a6da514",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/linux-kernel",
+      "canonicalFamily": "facebook/zstd:contrib/linux-kernel",
+      "bytes": 3592,
+      "split": "test"
+    },
+    {
+      "repository": "facebook/zstd",
+      "revision": "7763ed3a6eddd663424e7be0d12eb28c70249bfc",
+      "path": "lib/libzstd.mk",
+      "gitBlob": "835ef99f313ca35c54ac2b8cb5589e53b20aa179",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:lib",
+      "canonicalFamily": "facebook/zstd:lib",
+      "bytes": 8910,
+      "split": "train"
+    },
+    {
+      "repository": "grpc/grpc",
+      "revision": "7f3d97784206d35acd025cb861bf5f84f7bf2226",
+      "path": "examples/python/Makefile",
+      "gitBlob": "0603b52246ceaf0ac4f4e473f0251b92eac3be0b",
+      "sourceGroup": "grpc-grpc-makefile-opt-v1:examples/python",
+      "canonicalFamily": "grpc/grpc:examples/python",
+      "bytes": 8425,
+      "split": "train"
+    },
+    {
+      "repository": "grpc/grpc",
+      "revision": "7f3d97784206d35acd025cb861bf5f84f7bf2226",
+      "path": "examples/cpp/otel/ostream/Makefile",
+      "gitBlob": "fa521ef0686876247882616776b2de3389c28d19",
+      "sourceGroup": "grpc-grpc-makefile-opt-v1:examples/cpp",
+      "canonicalFamily": "grpc/grpc:examples/cpp",
+      "bytes": 5173,
+      "split": "validation"
+    },
+    {
+      "repository": "grpc/grpc",
+      "revision": "7f3d97784206d35acd025cb861bf5f84f7bf2226",
+      "path": "examples/cpp/load_balancing/Makefile",
+      "gitBlob": "c9a8048a62ff05a2a9d1563f561cc8a3cab66a60",
+      "sourceGroup": "grpc-grpc-makefile-opt-v1:examples/cpp",
+      "canonicalFamily": "grpc/grpc:examples/cpp",
+      "bytes": 3391,
+      "split": "validation"
+    },
+    {
+      "repository": "grpc/grpc",
+      "revision": "7f3d97784206d35acd025cb861bf5f84f7bf2226",
+      "path": "examples/cpp/metadata/Makefile",
+      "gitBlob": "38957b659b106abfff7c67af126aeefefbbd50c0",
+      "sourceGroup": "grpc-grpc-makefile-opt-v1:examples/cpp",
+      "canonicalFamily": "grpc/grpc:examples/cpp",
+      "bytes": 3391,
+      "split": "validation"
+    },
+    {
+      "repository": "hashicorp/terraform",
+      "revision": "a1246154d166f0647e398b823f0d9a3b9b64e920",
+      "path": "Makefile",
+      "gitBlob": "c1806e8dc0df9705d7615c24bf3f16e7dd8350ea",
+      "sourceGroup": "hashicorp-terraform-makefile-opt-v1:root",
+      "canonicalFamily": "hashicorp/terraform:root",
+      "bytes": 1414,
+      "split": "train"
+    },
+    {
+      "repository": "helm/helm",
+      "revision": "5a09b86219f949e5653eecac91e6bb8de930f0f9",
+      "path": "Makefile",
+      "gitBlob": "108e58d281747a946b9c1b87be84afa2af092a13",
+      "sourceGroup": "helm-helm-makefile-opt-v1:root",
+      "canonicalFamily": "helm/helm:root",
+      "bytes": 8954,
+      "split": "validation"
+    },
+    {
+      "repository": "lz4/lz4",
+      "revision": "3d3aa86f81ec74a0630944e95cb775e050f09dcf",
+      "path": "examples/Makefile",
+      "gitBlob": "f30544b700bc1bdbc4cf48604b360a186a66d02e",
+      "sourceGroup": "lz4-lz4-makefile-opt-v1:examples",
+      "canonicalFamily": "lz4/lz4:examples",
+      "bytes": 3469,
+      "split": "validation"
+    },
+    {
+      "repository": "lz4/lz4",
+      "revision": "3d3aa86f81ec74a0630944e95cb775e050f09dcf",
+      "path": "ossfuzz/Makefile",
+      "gitBlob": "48d6f61deb494f9264c5bd6d94279bbc5f12ad80",
+      "sourceGroup": "lz4-lz4-makefile-opt-v1:ossfuzz",
+      "canonicalFamily": "lz4/lz4:ossfuzz",
+      "bytes": 3157,
+      "split": "train"
+    },
+    {
+      "repository": "lz4/lz4",
+      "revision": "3d3aa86f81ec74a0630944e95cb775e050f09dcf",
+      "path": "contrib/djgpp/Makefile",
+      "gitBlob": "f6388b4aaf2a7022ddc53fafb8fd1ea533b6bda6",
+      "sourceGroup": "lz4-lz4-makefile-opt-v1:contrib/djgpp",
+      "canonicalFamily": "lz4/lz4:contrib/djgpp",
+      "bytes": 3591,
+      "split": "train"
+    },
+    {
+      "repository": "lz4/lz4",
+      "revision": "3d3aa86f81ec74a0630944e95cb775e050f09dcf",
+      "path": "Makefile",
+      "gitBlob": "44e6c1a851f4794262f4905024287d544310fee2",
+      "sourceGroup": "lz4-lz4-makefile-opt-v1:root",
+      "canonicalFamily": "lz4/lz4:root",
+      "bytes": 9203,
+      "split": "test"
+    },
+    {
+      "repository": "lz4/lz4",
+      "revision": "3d3aa86f81ec74a0630944e95cb775e050f09dcf",
+      "path": "lib/Makefile",
+      "gitBlob": "a82a248ad3fabf400eee88f5676e4eb768a11672",
+      "sourceGroup": "lz4-lz4-makefile-opt-v1:lib",
+      "canonicalFamily": "lz4/lz4:lib",
+      "bytes": 13430,
+      "split": "test"
+    },
+    {
+      "repository": "lz4/lz4",
+      "revision": "3d3aa86f81ec74a0630944e95cb775e050f09dcf",
+      "path": "programs/Makefile",
+      "gitBlob": "c24ea521e59e6161b981378763751e6abd811e21",
+      "sourceGroup": "lz4-lz4-makefile-opt-v1:programs",
+      "canonicalFamily": "lz4/lz4:programs",
+      "bytes": 8515,
+      "split": "train"
+    },
+    {
+      "repository": "lz4/lz4",
+      "revision": "3d3aa86f81ec74a0630944e95cb775e050f09dcf",
+      "path": "contrib/gen_manual/Makefile",
+      "gitBlob": "49daad49f59de22d4e6f35914eb5e850ffee8981",
+      "sourceGroup": "lz4-lz4-makefile-opt-v1:contrib/gen_manual",
+      "canonicalFamily": "lz4/lz4:contrib/gen_manual",
+      "bytes": 3075,
+      "split": "train"
+    },
+    {
+      "repository": "psf/requests",
+      "revision": "3c7baaa05ab4aa49cc819ce3a819d260de19c157",
+      "path": "docs/Makefile",
+      "gitBlob": "e51cdc0b538e694e4611d5ea767fe3b308df4a53",
+      "sourceGroup": "psf-requests-makefile-opt-v1:docs",
+      "canonicalFamily": "psf/requests:docs",
+      "bytes": 7669,
+      "split": "test"
+    },
+    {
+      "repository": "psf/requests",
+      "revision": "3c7baaa05ab4aa49cc819ce3a819d260de19c157",
+      "path": "Makefile",
+      "gitBlob": "5401f406d535b77f9492ecaaba9dc16f6c8ed683",
+      "sourceGroup": "psf-requests-makefile-opt-v1:root",
+      "canonicalFamily": "psf/requests:root",
+      "bytes": 834,
+      "split": "test"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "src/bin/Makefile",
+      "gitBlob": "ac50cf93cb67eb6f738c27a78be9bbf2c25c2da8",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:src/bin",
+      "canonicalFamily": "postgres/postgres:src/bin",
+      "bytes": 875,
+      "split": "train"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "src/backend/port/Makefile",
+      "gitBlob": "47338d99229576bf5cd12ec615ca59470d845120",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:src/backend/port",
+      "canonicalFamily": "postgres/postgres:src/backend/port",
+      "bytes": 1322,
+      "split": "test"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "src/backend/storage/Makefile",
+      "gitBlob": "eec03f6f2b4c5957ffd1f5d8604626f505998867",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:src/backend/storage",
+      "canonicalFamily": "postgres/postgres:src/backend/storage",
+      "bytes": 303,
+      "split": "train"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/btree_gin/Makefile",
+      "gitBlob": "0a1581151681944ab5f3f5ea545e10ca1e7b9cdc",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/btree_gin",
+      "canonicalFamily": "postgres/postgres:contrib/btree_gin",
+      "bytes": 745,
+      "split": "train"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/citext/Makefile",
+      "gitBlob": "fc990607bf2b406ea83b165a64eb507f0c5ea5db",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/citext",
+      "canonicalFamily": "postgres/postgres:contrib/citext",
+      "bytes": 630,
+      "split": "train"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/tcn/Makefile",
+      "gitBlob": "68132890005e8aeebce8ac9305fb93c37d644341",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/tcn",
+      "canonicalFamily": "postgres/postgres:contrib/tcn",
+      "bytes": 424,
+      "split": "train"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "src/backend/foreign/Makefile",
+      "gitBlob": "dfea028403b9df27fd46d4e65227921a3d63e93e",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:src/backend/foreign",
+      "canonicalFamily": "postgres/postgres:src/backend/foreign",
+      "bytes": 410,
+      "split": "validation"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/lo/Makefile",
+      "gitBlob": "8cfff63d882a29a93e5ddd3e72fdb939e131c780",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/lo",
+      "canonicalFamily": "postgres/postgres:contrib/lo",
+      "bytes": 403,
+      "split": "validation"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/ltree_plpython/Makefile",
+      "gitBlob": "406d2789c9c58852183448d02382fed6b07d5095",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/ltree_plpython",
+      "canonicalFamily": "postgres/postgres:contrib/ltree_plpython",
+      "bytes": 1088,
+      "split": "train"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "src/backend/main/Makefile",
+      "gitBlob": "6d34072624b731980795cb3b02b40db4bfa743d8",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:src/backend/main",
+      "canonicalFamily": "postgres/postgres:src/backend/main",
+      "bytes": 398,
+      "split": "test"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/dict_int/Makefile",
+      "gitBlob": "2ff1bdbbb7d95301a0402c655e224ccf2cd6d3f2",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/dict_int",
+      "canonicalFamily": "postgres/postgres:contrib/dict_int",
+      "bytes": 469,
+      "split": "validation"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "src/bin/pg_ctl/nls.mk",
+      "gitBlob": "27694a249ba529e52c5b142d0ffb02c32b83d86e",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:src/bin/pg_ctl",
+      "canonicalFamily": "postgres/postgres:src/bin/pg_ctl",
+      "bytes": 307,
+      "split": "test"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/intarray/Makefile",
+      "gitBlob": "3817c1669ab95380335a45977797d63e18a79551",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/intarray",
+      "canonicalFamily": "postgres/postgres:contrib/intarray",
+      "bytes": 676,
+      "split": "validation"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/dblink/Makefile",
+      "gitBlob": "fde0b49ddbbd4dbfad9c683b4a5fbb7155a68527",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/dblink",
+      "canonicalFamily": "postgres/postgres:contrib/dblink",
+      "bytes": 649,
+      "split": "test"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/hstore/Makefile",
+      "gitBlob": "48ee98f0d5c6f4ddb070586d458f84d4e22f6ae9",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/hstore",
+      "canonicalFamily": "postgres/postgres:contrib/hstore",
+      "bytes": 714,
+      "split": "test"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/pgcrypto/Makefile",
+      "gitBlob": "17d2b0c5ed1748628f23dfc2364f1e9fb1a752fe",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/pgcrypto",
+      "canonicalFamily": "postgres/postgres:contrib/pgcrypto",
+      "bytes": 1584,
+      "split": "test"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "src/backend/optimizer/path/Makefile",
+      "gitBlob": "1e199ff66f729df8180e3dbd31bbc46b66dbe547",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:src/backend/optimizer",
+      "canonicalFamily": "postgres/postgres:src/backend/optimizer",
+      "bytes": 549,
+      "split": "test"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/seg/Makefile",
+      "gitBlob": "b408f4049cbd7a99d5955b3227f262c57900125c",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/seg",
+      "canonicalFamily": "postgres/postgres:contrib/seg",
+      "bytes": 840,
+      "split": "test"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "contrib/cube/Makefile",
+      "gitBlob": "dfb0d806e4b97d870a93bf3bf024e819beb83220",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/cube",
+      "canonicalFamily": "postgres/postgres:contrib/cube",
+      "bytes": 919,
+      "split": "validation"
+    },
+    {
+      "repository": "postgres/postgres",
+      "revision": "1da6ddbdc32c5bf640429828bc0353ffcb40628e",
+      "path": "Makefile",
+      "gitBlob": "b363b2f24766b2a4873bf4f44e5935ecd7cfad0b",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:root",
+      "canonicalFamily": "postgres/postgres:root",
+      "bytes": 1822,
+      "split": "train"
+    },
+    {
+      "repository": "python/cpython",
+      "revision": "369d8bc4f6fe1f751de2512523a1acb95491a5eb",
+      "path": "Doc/Makefile",
+      "gitBlob": "0d5fd41627ff292202f8ac58a94093e8e7234384",
+      "sourceGroup": "python-cpython-makefile-opt-v1:Doc",
+      "canonicalFamily": "python/cpython:Doc",
+      "bytes": 12636,
+      "split": "test"
+    }
+  ],
+  "copyPolicy": "Keep existing exact/lexical/shape exclusion. New exact/lexical/shape copies of any old source are additionally quarantined to preserve old cohorts. No source/model metric used in capture or copy exclusion.",
+  "candidateModels": {
+    "initialization": "Full preserved Makefile epoch-12 artifacts checkpoint",
+    "architecture": "Same four-layer width-128 context-512 Transformer; optional existing zero-initialized five-byte depthwise residual",
+    "decoderGrid": {
+      "typeWeight": [0.1, 0.25, 0.5, 1.0],
+      "transitionWeight": [0.1, 0.3, 0.5, 1.0, 2.0]
+    },
+    "selection": "Natural validation only; guard old/fresh validation and visible source quality. First fresh test only after candidate freeze."
+  },
+  "decoderGridRefinement": "The first validation-only grid selected its upper transition boundary (0.5); extend the same source-blind penalty grid to 1.0/2.0 before any independent test. Retain initial grid evidence.",
+  "balancedSelection": "For unequal cohort difficulty, maximize the minimum exact-span F1 improvement over the frozen baseline validation on all/fresh/legacy. Preserve absolute scores and all earlier absolute-minimum trials. No test predictions used.",
+  "baselineValidationReport": "artifacts/makefile/optimization-20261118/baseline-validation.json"
+}

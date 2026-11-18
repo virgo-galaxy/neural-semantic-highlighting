@@ -1,79 +1,89 @@
-# Makefile baseline evaluation
+# Makefile optimized evaluation
 
-Exact-span F1 requires identical original UTF-16 start/end and role; modifiers
-are separate. This measures source display roles, not a correct build, expansion,
-resolved dependency graph or complete platform/shell behavior. The primary result
-is **89.14% on 17 independent natural documents**.
-Small bounded family cohorts are not a guarantee for every project or construct.
+The unchanged metric requires identical original UTF-16 start/end and role;
+modifiers are separate. No source text, labels, roles or old family assignments
+change. The original 17-file test is exposed **legacy regression**. Sixteen new
+source files, from complete families reserved before opening sources, provide
+the new independent test. Both models are frozen before these fresh predictions.
 
-| Evidence               | Stream  | Documents | Exact-span F1 | Role macro F1 | F1 with modifiers |
-| ---------------------- | ------- | --------: | ------------: | ------------: | ----------------: |
-| Validation             | natural |        11 |        86.94% |        89.51% |            86.19% |
-| Validation             | focus   |       120 |        98.30% |        98.79% |            98.23% |
-| First independent test | natural |        17 |        89.14% |        88.76% |            88.72% |
-| First independent test | focus   |       120 |        98.59% |        99.16% |            98.34% |
+| Evidence                  | Natural files | Baseline F1 | Optimized F1 | Optimized F1 with modifiers |
+| ------------------------- | ------------: | ----------: | -----------: | --------------------------: |
+| Fresh independent test    |            16 |      90.06% |       93.79% |                      93.27% |
+| Exposed legacy regression |            17 |      89.14% |       92.87% |                      92.35% |
 
-## Frozen source evidence
+The same-cohort legacy improvement is **3.73 percentage points**.
+Fresh baseline 90.06% and optimized
+93.79% use identical newly held-out source/Gold. Results,
+support and per-role counts are in [test metrics](reports/test-metrics.json) and
+[baseline comparison](reports/baseline-comparison.json). Combined natural F1 is
+93.39% on 33 files; it does not replace the fresh result.
 
-83 bounded filename candidates from 17 existing pinned public projects retain
-Git blobs, original bytes and licenses. Complete related-family assignments are
-fixed from metadata before parsing/training; 27 unsupported/dialect/false filename
-candidates remain quarantined. No file is renamed into a different language.
-Natural, authored, Golden and display evidence remain separate.
+## Validation and source review
 
-24 initial structural families / 576 original tasks vary block and binding counts.
-Actual natural validation exposes the pinned CST's greedy `NAME?=value`/`NAME+=value`
-names, so a checked offline original-adjacency correction creates a new Gold/run
-revision before any independent test. All natural bytes/groups remain unchanged;
-six documents receive corrected roles. A 12-family mixed-v1 extension is wholly
-excluded by the unchanged structural-copy safeguard; it and its intermediate run
-remain preserved. Mixed-v2 varies actual rule structure as well as bindings/body
-lengths; 12 families / 288 tasks pass the same safeguard. No holdout or exclusion
-rule is relaxed. [Revision audit](reports/data-revision-audit.json) retains details.
+| Natural validation | Files | Baseline F1 | Optimized F1 |
+| ------------------ | ----: | ----------: | -----------: |
+| all                |    25 |      82.66% |       86.39% |
+| fresh              |    14 |      79.11% |       83.03% |
+| legacy             |    11 |      86.94% |       90.44% |
 
-| Split      | Natural documents | Authored focus | Windows |
-| ---------- | ----------------: | -------------: | ------: |
-| train      |                28 |            624 |    1619 |
-| validation |                11 |            120 |     352 |
-| test       |                17 |            120 |     339 |
+Fresh validation is harder than the fresh test. In actual validation, zstd
+recovery improves 70.27% → 95.08%, external sequence producer 76.06% → 99.04%,
+and LZ4 examples 77.86% → 90.84%. Long banner comments, quote/space boundaries and
+recipe/assignment roles improve. The Helm source with a distant custom SHELL
+remains around 53%; bounded context and conservative opaque-shell supervision
+remain material limits. Detailed [validation review](reports/validation-review.json)
+retains every case and missing/unexpected spans.
 
-Selected prepared snapshot: `fff09b03abb21a941795220fcc83c61c01a8a710061407f4c60f08af6ccce661`;
-manifest SHA-256 `4101c01ad14ff2b717453040fe2f6cac0b994bb0af8f8933ca8e80360a51f641`. All older source, Gold,
-prepared, configuration and checkpoint revisions remain retained.
+Eight unchanged authored displays improve **95.54% → 96.90%**.
+Function examples reach 100%, recipes 97.96%. Some small edge probes regress:
+strict Golden **29/46 → 26/46**, base-span F1 **89.69% → 86.24%**;
+Unicode display 96.15% → 92.31%, define display 90.00% → 87.80%. These are
+retained limitations, not hidden by the aggregate real-source improvement.
+Authored focus test is 98.46% on 180 tasks and remains separate.
 
-## Small model and selection
+## Immutable data and bounded learning
 
-The **893,711-parameter** byte Transformer uses four layers, width 128, four
-heads, FFN 512, and 512 original UTF-8 bytes. Compatible weights initialize from
-the preserved full Dockerfile artifacts checkpoint, never an inference model.
-Later experiments transfer full Makefile candidates with a fresh optimizer/RNG
-and bind their own configuration/snapshot. Smoke verifies checkpoint reload and
-pure-neural inference. [Experiments](reports/experiments.json) preserve exact
-invocations, early stopping, **42 non-smoke epochs / 190.1 seconds**.
-Natural windows are fully presented; bounded focus windows rotate separately.
+The [protocol](reports/optimization-protocol.json) fixes metadata-only hashes,
+whole related families and the 90% target before opening added sources. Eight
+additional official project trees and existing pinned trees yield 81 bounded
+candidates from 12 projects; original blobs/licenses remain captured. Thirty
+unsupported originals are quarantined; unchanged exact/lexical/shape exclusion
+removes two further new copies. All prior retained documents/labels/assignments
+remain identical. Final natural splits are **47 / 25 / 33**, including **19 / 14 /
+16** new train/validation/test files. No holdout/exclusion rule is weakened.
 
-Highest fixed natural validation role macro F1 selects the epoch within each run;
-actual natural/visible review precedes [freeze](reports/selection.json). Selected
-checkpoint `artifacts/makefile/context512-structures-20261118-01/candidates/epoch-0012-best.pt`, epoch 12, SHA-256
-`ed61c5a8c22bf0fc14ad4523c77a9c761cdd11a0df958163a2f9f1b88dd0d273`. No training follows the first independent adaptive test.
-Native/browser exports bind checkpoint, test, schema, configuration and semantics;
-float32 conversion performs no retraining or quantization.
+A 16-family/320-task original context extension addresses validation error
+categories without reading Golden, displays or test source. Actual binding/rule
+counts define families; focus counts are **824 / 180 / 180**. Every earlier
+snapshot/run remains retained. Selected snapshot `911784b91ed91dbf16806122790a31f920b78a265dfe3eed11d4807ee6b011a8`;
+manifest SHA-256 `d500d36856f5ce21be8f91de09c61250a620ca0338d38039a2a6518bb844dc23`.
 
-## Golden, actual code and limits
+The four-layer width-128 backbone keeps context 512. Its existing zero-initialized
+five-byte depthwise residual adds 768 learned parameters, totaling **894,479**.
+Full `artifacts` checkpoints initialize short new runs; no inference model resumes
+training. [Experiments](reports/experiments.json) retain **22 non-smoke epochs /
+125.2 seconds**, smoke and all invocations. No optimizer update or fitting
+follows the first fresh test.
 
-The offline teacher passes **46 independent hand-marked Golden cases / 12 tests**.
-Selected neural whole-case agreement including modifiers is **29/46**,
-with **89.69%** base-span F1. Eight visible displays
-aggregate **95.54%**. Explicit missing/unexpected spans
-from ten actual natural validation files remain in [real-code review](reports/real-code.json).
-These visible diagnostics never substitute for independent natural accuracy.
+Legal BIO/role transition matrices are fitted on 47 natural **training** sources
+only. Validation selects a fixed grid, expanded at its validation-selected upper
+boundary. Absolute-minimum trials and later balanced **F1 gain** selection remain
+retained. Balanced selection guards all/fresh/legacy validation relative to the
+same frozen baseline, with exact source-identity checks. All absolute cohort
+scores stay visible. The selected source is `artifacts/makefile/optimization-20261118/contexts-e10-balanced.pt`, SHA-256
+`556be927b35f06b506d7aa92d3ae122af2038bb92a9ccf8a8f33ab90beec9cb6`. [Calibration](reports/calibration.json) binds parameters,
+protocol, source checkpoint, baseline validation and calibrator code. Optimizer
+code provenance is unchanged; its historical calibrator source is archived.
 
-Tree-sitter Make 1.1.1 at pinned commit `5e9e8f8ff3387b0edcaa90f46ddf3629f4cfeb1d`
-and runtime 0.25.10 compile with existing Clang in isolated artifacts, with locked
-source/binary/compiler/license hashes. Existing Bash/Pygments provides offline
-recipe supervision through checked original-coordinate projections. No SDK or
-global dependency is installed, and no collected Makefile, recipe, include,
-shell/eval/file expansion or dependency executes. [Semantics](../SEMANTICS.md)
-describes bounded literal prefix/comment/assignment handling and grammar limits.
-Runtime uses one neural model and the existing source-blind touching-string union,
-without source parsing, regex, spelling repair or gap bridging.
+The candidate/parameters and validation-only decision were fixed in the
+prelaunch invocation. A Python serialization error prevented that invocation
+from writing the selection record; it was corrected after evaluation launched
+without reading any test prediction. [Selection](reports/selection.json)
+explicitly preserves that recording issue; the candidate, weights and decision
+never change after fresh results. Native/browser exports bind the exact test and
+structured-decoder hashes; conversion is float32 without quantization/retraining.
+
+The existing pinned offline grammar/Bash tools and every older model/data asset
+remain preserved. No SDK/global dependency, Make execution, include loading or
+runtime source parser/regex/spelling repair is introduced. The
+[known limits](KNOWN_ISSUES.md) distinguish real accuracy from runtime parity.

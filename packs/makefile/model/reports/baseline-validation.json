@@ -1,0 +1,7702 @@
+{
+  "split": "validation",
+  "checkpoint": "artifacts/makefile/context512-structures-20261118-01/candidates/epoch-0012-best.pt",
+  "checkpointHash": "ed61c5a8c22bf0fc14ad4523c77a9c761cdd11a0df958163a2f9f1b88dd0d273",
+  "modelTrainingDataset": {
+    "snapshot": "fff09b03abb21a941795220fcc83c61c01a8a710061407f4c60f08af6ccce661",
+    "manifestHash": "4101c01ad14ff2b717453040fe2f6cac0b994bb0af8f8933ca8e80360a51f641",
+    "path": "/Users/mystic/Datasets/neural-semantic-highlighting/makefile/prepared/fff09b03abb21a941795220fcc83c61c01a8a710061407f4c60f08af6ccce661"
+  },
+  "evaluationSnapshot": {
+    "snapshot": "41e433a5779c7c8816a2a573310f66a661c800f0e76e168438f49ad8fea8c0f2",
+    "manifestHash": "7229ceb10399fa17e4e08aba6982b174171d5e005a187a25d9293afed05cb0f9",
+    "path": "/Users/mystic/Datasets/neural-semantic-highlighting/makefile/prepared/41e433a5779c7c8816a2a573310f66a661c800f0e76e168438f49ad8fea8c0f2",
+    "counts": {
+      "train": {
+        "natural": 47,
+        "freshNatural": 19,
+        "focus": 624,
+        "windows": 1727
+      },
+      "validation": {
+        "natural": 25,
+        "freshNatural": 14,
+        "focus": 120,
+        "windows": 438
+      },
+      "test": {
+        "natural": 33,
+        "freshNatural": 16,
+        "focus": 120,
+        "windows": 427
+      }
+    },
+    "allPriorDocumentsLabelsAndAssignmentsUnchanged": true,
+    "independentTestPredictionsRead": false,
+    "protocolHash": "4f60f543ff4058932df5d9263695d769c0771af830fba306e233e9ba9c04204a"
+  },
+  "protocolHash": "4f60f543ff4058932df5d9263695d769c0771af830fba306e233e9ba9c04204a",
+  "helperSha256": "f83b68849a2e491fd7e425ffb3041c323cf6556e7b9dc7337f5d57aafb05995c",
+  "cohorts": {
+    "all": {
+      "documents": 25,
+      "exactDocumentsIncludingModifiers": 2,
+      "exactSpan": {
+        "precision": 0.7784272790535839,
+        "recall": 0.8812037182921065,
+        "f1": 0.8266331658291457,
+        "tp": 5593,
+        "fp": 1592,
+        "fn": 754,
+        "support": 6347
+      },
+      "exactSpanMacroF1": 0.8292839867924735,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.7727209464161447,
+        "recall": 0.8747439735308019,
+        "f1": 0.8205734555128584,
+        "tp": 5552,
+        "fp": 1633,
+        "fn": 795,
+        "support": 6347
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8372093023255814,
+          "recall": 0.9290322580645162,
+          "f1": 0.8807339449541285,
+          "tp": 144,
+          "fp": 28,
+          "fn": 11,
+          "support": 155
+        },
+        "comment": {
+          "precision": 0.8526645768025078,
+          "recall": 0.9066666666666666,
+          "f1": 0.8788368336025848,
+          "tp": 272,
+          "fp": 47,
+          "fn": 28,
+          "support": 300
+        },
+        "string": {
+          "precision": 0.7170751973410885,
+          "recall": 0.8088097469540768,
+          "f1": 0.760184981281656,
+          "tp": 1726,
+          "fp": 681,
+          "fn": 408,
+          "support": 2134
+        },
+        "number": {
+          "precision": 0.5964912280701754,
+          "recall": 0.918918918918919,
+          "f1": 0.723404255319149,
+          "tp": 34,
+          "fp": 23,
+          "fn": 3,
+          "support": 37
+        },
+        "operator": {
+          "precision": 0.8173690932311622,
+          "recall": 0.9315866084425036,
+          "f1": 0.8707482993197279,
+          "tp": 640,
+          "fp": 143,
+          "fn": 47,
+          "support": 687
+        },
+        "punctuation": {
+          "precision": 0.8520263901979265,
+          "recall": 0.9205702647657841,
+          "f1": 0.8849730788056779,
+          "tp": 904,
+          "fp": 157,
+          "fn": 78,
+          "support": 982
+        },
+        "function": {
+          "precision": 0.8137254901960784,
+          "recall": 0.7830188679245284,
+          "f1": 0.7980769230769231,
+          "tp": 332,
+          "fp": 76,
+          "fn": 92,
+          "support": 424
+        },
+        "variable": {
+          "precision": 0.817838246409675,
+          "recall": 0.9449781659388646,
+          "f1": 0.8768233387358185,
+          "tp": 1082,
+          "fp": 241,
+          "fn": 63,
+          "support": 1145
+        },
+        "parameter": {
+          "precision": 0.514745308310992,
+          "recall": 0.927536231884058,
+          "f1": 0.6620689655172414,
+          "tp": 192,
+          "fp": 181,
+          "fn": 15,
+          "support": 207
+        },
+        "label": {
+          "precision": 0.9468085106382979,
+          "recall": 0.967391304347826,
+          "f1": 0.956989247311828,
+          "tp": 267,
+          "fp": 15,
+          "fn": 9,
+          "support": 276
+        }
+      }
+    },
+    "fresh": {
+      "documents": 14,
+      "exactDocumentsIncludingModifiers": 0,
+      "exactSpan": {
+        "precision": 0.7309327331832958,
+        "recall": 0.8619876142730758,
+        "f1": 0.7910690121786198,
+        "tp": 2923,
+        "fp": 1076,
+        "fn": 468,
+        "support": 3391
+      },
+      "exactSpanMacroF1": 0.7846564933110678,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.7264316079019755,
+        "recall": 0.856679445591271,
+        "f1": 0.7861975642760487,
+        "tp": 2905,
+        "fp": 1094,
+        "fn": 486,
+        "support": 3391
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.7983193277310925,
+          "recall": 0.95,
+          "f1": 0.867579908675799,
+          "tp": 95,
+          "fp": 24,
+          "fn": 5,
+          "support": 100
+        },
+        "comment": {
+          "precision": 0.7860696517412935,
+          "recall": 0.8633879781420765,
+          "f1": 0.8229166666666666,
+          "tp": 158,
+          "fp": 43,
+          "fn": 25,
+          "support": 183
+        },
+        "string": {
+          "precision": 0.6547717842323652,
+          "recall": 0.7443396226415094,
+          "f1": 0.6966887417218544,
+          "tp": 789,
+          "fp": 416,
+          "fn": 271,
+          "support": 1060
+        },
+        "number": {
+          "precision": 0.5,
+          "recall": 0.9047619047619048,
+          "f1": 0.6440677966101694,
+          "tp": 19,
+          "fp": 19,
+          "fn": 2,
+          "support": 21
+        },
+        "operator": {
+          "precision": 0.803030303030303,
+          "recall": 0.9658314350797267,
+          "f1": 0.8769389865563598,
+          "tp": 424,
+          "fp": 104,
+          "fn": 15,
+          "support": 439
+        },
+        "punctuation": {
+          "precision": 0.8220720720720721,
+          "recall": 0.9012345679012346,
+          "f1": 0.8598351001177856,
+          "tp": 365,
+          "fp": 79,
+          "fn": 40,
+          "support": 405
+        },
+        "function": {
+          "precision": 0.7372549019607844,
+          "recall": 0.7550200803212851,
+          "f1": 0.746031746031746,
+          "tp": 188,
+          "fp": 67,
+          "fn": 61,
+          "support": 249
+        },
+        "variable": {
+          "precision": 0.804177545691906,
+          "recall": 0.9520865533230294,
+          "f1": 0.8719037508846426,
+          "tp": 616,
+          "fp": 150,
+          "fn": 31,
+          "support": 647
+        },
+        "parameter": {
+          "precision": 0.3543307086614173,
+          "recall": 0.9,
+          "f1": 0.5084745762711864,
+          "tp": 90,
+          "fp": 164,
+          "fn": 10,
+          "support": 100
+        },
+        "label": {
+          "precision": 0.9470899470899471,
+          "recall": 0.9572192513368984,
+          "f1": 0.9521276595744681,
+          "tp": 179,
+          "fp": 10,
+          "fn": 8,
+          "support": 187
+        }
+      }
+    },
+    "legacy": {
+      "documents": 11,
+      "exactDocumentsIncludingModifiers": 2,
+      "exactSpan": {
+        "precision": 0.8380414312617702,
+        "recall": 0.9032476319350473,
+        "f1": 0.8694236405079778,
+        "tp": 2670,
+        "fp": 516,
+        "fn": 286,
+        "support": 2956
+      },
+      "exactSpanMacroF1": 0.895098079818738,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8308223477715003,
+        "recall": 0.895466847090663,
+        "f1": 0.8619342233800065,
+        "tp": 2647,
+        "fp": 539,
+        "fn": 309,
+        "support": 2956
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9245283018867925,
+          "recall": 0.8909090909090909,
+          "f1": 0.9074074074074074,
+          "tp": 49,
+          "fp": 4,
+          "fn": 6,
+          "support": 55
+        },
+        "comment": {
+          "precision": 0.9661016949152542,
+          "recall": 0.9743589743589743,
+          "f1": 0.9702127659574468,
+          "tp": 114,
+          "fp": 4,
+          "fn": 3,
+          "support": 117
+        },
+        "string": {
+          "precision": 0.7795341098169717,
+          "recall": 0.87243947858473,
+          "f1": 0.8233743409490334,
+          "tp": 937,
+          "fp": 265,
+          "fn": 137,
+          "support": 1074
+        },
+        "number": {
+          "precision": 0.7894736842105263,
+          "recall": 0.9375,
+          "f1": 0.8571428571428571,
+          "tp": 15,
+          "fp": 4,
+          "fn": 1,
+          "support": 16
+        },
+        "operator": {
+          "precision": 0.8470588235294118,
+          "recall": 0.8709677419354839,
+          "f1": 0.8588469184890656,
+          "tp": 216,
+          "fp": 39,
+          "fn": 32,
+          "support": 248
+        },
+        "punctuation": {
+          "precision": 0.873581847649919,
+          "recall": 0.9341421143847487,
+          "f1": 0.9028475711892797,
+          "tp": 539,
+          "fp": 78,
+          "fn": 38,
+          "support": 577
+        },
+        "function": {
+          "precision": 0.9411764705882353,
+          "recall": 0.8228571428571428,
+          "f1": 0.8780487804878049,
+          "tp": 144,
+          "fp": 9,
+          "fn": 31,
+          "support": 175
+        },
+        "variable": {
+          "precision": 0.8366247755834829,
+          "recall": 0.9357429718875502,
+          "f1": 0.8834123222748815,
+          "tp": 466,
+          "fp": 91,
+          "fn": 32,
+          "support": 498
+        },
+        "parameter": {
+          "precision": 0.8571428571428571,
+          "recall": 0.9532710280373832,
+          "f1": 0.9026548672566371,
+          "tp": 102,
+          "fp": 17,
+          "fn": 5,
+          "support": 107
+        },
+        "label": {
+          "precision": 0.946236559139785,
+          "recall": 0.9887640449438202,
+          "f1": 0.967032967032967,
+          "tp": 88,
+          "fp": 5,
+          "fn": 1,
+          "support": 89
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "repository": "postgres-postgres-makefile-opt-v1",
+      "path": "contrib/lo/Makefile",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/lo",
+      "contentHash": "bcf3bdfb1e25d2f3ae72aa66c0d0e032d52ed9182607ecb6505cef476854fcac",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9583333333333334,
+          "recall": 0.9787234042553191,
+          "f1": 0.968421052631579,
+          "tp": 46,
+          "fp": 2,
+          "fn": 1,
+          "support": 47
+        },
+        "exactSpanMacroF1": 0.9870689655172413,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9375,
+          "recall": 0.9574468085106383,
+          "f1": 0.9473684210526315,
+          "tp": 45,
+          "fp": 3,
+          "fn": 2,
+          "support": 47
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "variable": {
+            "precision": 0.8666666666666667,
+            "recall": 0.9285714285714286,
+            "f1": 0.896551724137931,
+            "tp": 13,
+            "fp": 2,
+            "fn": 1,
+            "support": 14
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 175,
+          "end": 183,
+          "role": "variable",
+          "modifiers": [],
+          "text": "USE_PGXS"
+        },
+        {
+          "start": 313,
+          "end": 328,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$(top_builddir)"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 175,
+          "end": 183,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "USE_PGXS"
+        },
+        {
+          "start": 313,
+          "end": 315,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$("
+        },
+        {
+          "start": 315,
+          "end": 328,
+          "role": "variable",
+          "modifiers": [],
+          "text": "top_builddir)"
+        }
+      ]
+    },
+    {
+      "repository": "grpc-grpc-makefile-opt-v1",
+      "path": "examples/cpp/otel/ostream/Makefile",
+      "sourceGroup": "grpc-grpc-makefile-opt-v1:examples/cpp",
+      "contentHash": "80d9ee22178cdcd88031acde1ec4c56580f1fc45919291da7dd5afd8d8cbdd63",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8914549653579676,
+          "recall": 0.9039812646370023,
+          "f1": 0.8976744186046511,
+          "tp": 386,
+          "fp": 47,
+          "fn": 41,
+          "support": 427
+        },
+        "exactSpanMacroF1": 0.9096768200567743,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8914549653579676,
+          "recall": 0.9039812646370023,
+          "f1": 0.8976744186046511,
+          "tp": 386,
+          "fp": 47,
+          "fn": 41,
+          "support": 427
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9411764705882353,
+            "recall": 1.0,
+            "f1": 0.9696969696969697,
+            "tp": 16,
+            "fp": 1,
+            "fn": 0,
+            "support": 16
+          },
+          "comment": {
+            "precision": 0.875,
+            "recall": 0.9545454545454546,
+            "f1": 0.9130434782608695,
+            "tp": 21,
+            "fp": 3,
+            "fn": 1,
+            "support": 22
+          },
+          "string": {
+            "precision": 0.8778625954198473,
+            "recall": 0.7986111111111112,
+            "f1": 0.8363636363636363,
+            "tp": 115,
+            "fp": 16,
+            "fn": 29,
+            "support": 144
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "operator": {
+            "precision": 0.9411764705882353,
+            "recall": 0.9696969696969697,
+            "f1": 0.9552238805970149,
+            "tp": 64,
+            "fp": 4,
+            "fn": 2,
+            "support": 66
+          },
+          "punctuation": {
+            "precision": 0.9777777777777777,
+            "recall": 0.8979591836734694,
+            "f1": 0.9361702127659575,
+            "tp": 44,
+            "fp": 1,
+            "fn": 5,
+            "support": 49
+          },
+          "function": {
+            "precision": 0.9210526315789473,
+            "recall": 0.9210526315789473,
+            "f1": 0.9210526315789473,
+            "tp": 35,
+            "fp": 3,
+            "fn": 3,
+            "support": 38
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 66,
+            "fp": 0,
+            "fn": 0,
+            "support": 66
+          },
+          "parameter": {
+            "precision": 0.40625,
+            "recall": 0.9285714285714286,
+            "f1": 0.5652173913043478,
+            "tp": 13,
+            "fp": 19,
+            "fn": 1,
+            "support": 14
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 709,
+          "end": 815,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# Hack: protobuf currently doesn't declare it's absl dependencies when protobuf.pc pkgconfig file is used."
+        },
+        {
+          "start": 1240,
+          "end": 1253,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_statusor"
+        },
+        {
+          "start": 1254,
+          "end": 1266,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_strings"
+        },
+        {
+          "start": 1267,
+          "end": 1287,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_synchronization"
+        },
+        {
+          "start": 1288,
+          "end": 1297,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_time"
+        },
+        {
+          "start": 1298,
+          "end": 1314,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_type_traits"
+        },
+        {
+          "start": 1315,
+          "end": 1327,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_utility"
+        },
+        {
+          "start": 1328,
+          "end": 1340,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_variant"
+        },
+        {
+          "start": 1692,
+          "end": 1707,
+          "role": "string",
+          "modifiers": [],
+          "text": "-lutf8_validity"
+        },
+        {
+          "start": 1734,
+          "end": 1757,
+          "role": "string",
+          "modifiers": [],
+          "text": "-lopentelemetry_metrics"
+        },
+        {
+          "start": 1758,
+          "end": 1798,
+          "role": "string",
+          "modifiers": [],
+          "text": "-lopentelemetry_exporter_ostream_metrics"
+        },
+        {
+          "start": 1837,
+          "end": 1858,
+          "role": "string",
+          "modifiers": [],
+          "text": "-lopentelemetry_trace"
+        },
+        {
+          "start": 1931,
+          "end": 1936,
+          "role": "function",
+          "modifiers": [],
+          "text": "uname"
+        },
+        {
+          "start": 1948,
+          "end": 1951,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-d_"
+        },
+        {
+          "start": 2012,
+          "end": 2020,
+          "role": "string",
+          "modifiers": [],
+          "text": "--cflags"
+        },
+        {
+          "start": 2151,
+          "end": 2157,
+          "role": "string",
+          "modifiers": [],
+          "text": "--libs"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 709,
+          "end": 806,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# Hack: protobuf currently doesn't declare it's absl dependencies when protobuf.pc pkgconfig file"
+        },
+        {
+          "start": 807,
+          "end": 809,
+          "role": "comment",
+          "modifiers": [],
+          "text": "is"
+        },
+        {
+          "start": 810,
+          "end": 815,
+          "role": "string",
+          "modifiers": [],
+          "text": "used."
+        },
+        {
+          "start": 1240,
+          "end": 1314,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_statusor absl_strings absl_synchronization absl_time absl_type_traits"
+        },
+        {
+          "start": 1315,
+          "end": 1340,
+          "role": "comment",
+          "modifiers": [],
+          "text": "absl_utility absl_variant"
+        },
+        {
+          "start": 1692,
+          "end": 1707,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-lutf8_validity"
+        },
+        {
+          "start": 1734,
+          "end": 1757,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-lopentelemetry_metrics"
+        },
+        {
+          "start": 1758,
+          "end": 1798,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-lopentelemetry_exporter_ostream_metrics"
+        },
+        {
+          "start": 1837,
+          "end": 1858,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-lopentelemetry_trace"
+        },
+        {
+          "start": 1931,
+          "end": 1936,
+          "role": "string",
+          "modifiers": [],
+          "text": "uname"
+        },
+        {
+          "start": 1948,
+          "end": 1951,
+          "role": "string",
+          "modifiers": [],
+          "text": "-d_"
+        },
+        {
+          "start": 2012,
+          "end": 2020,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--cflags"
+        },
+        {
+          "start": 2151,
+          "end": 2157,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--libs"
+        },
+        {
+          "start": 2158,
+          "end": 2166,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--static"
+        },
+        {
+          "start": 2253,
+          "end": 2255,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 2299,
+          "end": 2301,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        }
+      ]
+    },
+    {
+      "repository": "neovim-neovim-makefile-v1",
+      "path": "contrib/plugin_test.mk",
+      "sourceGroup": "neovim-neovim-makefile-v1:contrib",
+      "contentHash": "3018fb286189c41576a49348728c94effdbfbb5727ac0afa33a1452fa7161716",
+      "cohort": "legacy",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.7096774193548387,
+          "recall": 0.8943089430894309,
+          "f1": 0.7913669064748201,
+          "tp": 110,
+          "fp": 45,
+          "fn": 13,
+          "support": 123
+        },
+        "exactSpanMacroF1": 0.8607897402137034,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.7096774193548387,
+          "recall": 0.8943089430894309,
+          "f1": 0.7913669064748201,
+          "tp": 110,
+          "fp": 45,
+          "fn": 13,
+          "support": 123
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 13,
+            "fp": 0,
+            "fn": 0,
+            "support": 13
+          },
+          "string": {
+            "precision": 0.6111111111111112,
+            "recall": 0.8461538461538461,
+            "f1": 0.7096774193548387,
+            "tp": 33,
+            "fp": 21,
+            "fn": 6,
+            "support": 39
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.8,
+            "recall": 0.9230769230769231,
+            "f1": 0.8571428571428571,
+            "tp": 12,
+            "fp": 3,
+            "fn": 1,
+            "support": 13
+          },
+          "punctuation": {
+            "precision": 0.3333333333333333,
+            "recall": 0.75,
+            "f1": 0.46153846153846156,
+            "tp": 9,
+            "fp": 18,
+            "fn": 3,
+            "support": 12
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "variable": {
+            "precision": 0.88,
+            "recall": 0.9166666666666666,
+            "f1": 0.8979591836734694,
+            "tp": 22,
+            "fp": 3,
+            "fn": 2,
+            "support": 24
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 0.9230769230769231,
+            "f1": 0.96,
+            "tp": 12,
+            "fp": 0,
+            "fn": 1,
+            "support": 13
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 385,
+          "end": 387,
+          "role": "operator",
+          "modifiers": [],
+          "text": "?="
+        },
+        {
+          "start": 751,
+          "end": 756,
+          "role": "string",
+          "modifiers": [],
+          "text": ".tmp\""
+        },
+        {
+          "start": 875,
+          "end": 1141,
+          "role": "string",
+          "modifiers": [],
+          "text": "/{\\\n\tassert.lua,\\\n\tclient/rpc_stream.lua,\\\n\tclient/session.lua,\\\n\tclient/uv_stream.lua,\\\n\tfunctional/preload.lua,\\\n\tfunc"
+        },
+        {
+          "start": 1147,
+          "end": 1149,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$@"
+        },
+        {
+          "start": 1149,
+          "end": 1154,
+          "role": "string",
+          "modifiers": [],
+          "text": ".tmp\""
+        },
+        {
+          "start": 1325,
+          "end": 1337,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$(TEST_DEPS)"
+        },
+        {
+          "start": 1337,
+          "end": 1338,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 1408,
+          "end": 1410,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-X"
+        },
+        {
+          "start": 1410,
+          "end": 1411,
+          "role": "string",
+          "modifiers": [],
+          "text": "\""
+        },
+        {
+          "start": 1421,
+          "end": 1430,
+          "role": "string",
+          "modifiers": [],
+          "text": ".deps/xdg"
+        },
+        {
+          "start": 1430,
+          "end": 1431,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 1431,
+          "end": 1432,
+          "role": "string",
+          "modifiers": [],
+          "text": "\""
+        },
+        {
+          "start": 1497,
+          "end": 1498,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "("
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 385,
+          "end": 386,
+          "role": "operator",
+          "modifiers": [],
+          "text": "?"
+        },
+        {
+          "start": 386,
+          "end": 387,
+          "role": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 751,
+          "end": 755,
+          "role": "variable",
+          "modifiers": [],
+          "text": ".tmp"
+        },
+        {
+          "start": 755,
+          "end": 756,
+          "role": "string",
+          "modifiers": [],
+          "text": "\""
+        },
+        {
+          "start": 875,
+          "end": 879,
+          "role": "string",
+          "modifiers": [],
+          "text": "/{\\\n"
+        },
+        {
+          "start": 880,
+          "end": 890,
+          "role": "string",
+          "modifiers": [],
+          "text": "assert.lua"
+        },
+        {
+          "start": 890,
+          "end": 891,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ","
+        },
+        {
+          "start": 891,
+          "end": 892,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 894,
+          "end": 915,
+          "role": "string",
+          "modifiers": [],
+          "text": "client/rpc_stream.lua"
+        },
+        {
+          "start": 915,
+          "end": 916,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ","
+        },
+        {
+          "start": 916,
+          "end": 918,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 919,
+          "end": 937,
+          "role": "string",
+          "modifiers": [],
+          "text": "client/session.lua"
+        },
+        {
+          "start": 937,
+          "end": 938,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ","
+        },
+        {
+          "start": 938,
+          "end": 939,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 941,
+          "end": 961,
+          "role": "string",
+          "modifiers": [],
+          "text": "client/uv_stream.lua"
+        },
+        {
+          "start": 961,
+          "end": 962,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ","
+        }
+      ]
+    },
+    {
+      "repository": "ffmpeg-ffmpeg-makefile-v1",
+      "path": "libavutil/riscv/Makefile",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-v1:libavutil/riscv",
+      "contentHash": "57aface35660ca1b516dc722032ffa4cc8c928827d6e4d12da14a8f7b4217bed",
+      "cohort": "legacy",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "repository": "luarocks-luarocks-makefile-v1",
+      "path": "GNUmakefile",
+      "sourceGroup": "luarocks-luarocks-makefile-v1:root",
+      "contentHash": "4cdbf6571a4b4328e5d58bc2e8a7070aedb0927468c5115b65f1eeb1a2878d83",
+      "cohort": "legacy",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.7183856502242153,
+          "recall": 0.8449367088607594,
+          "f1": 0.7765390208434318,
+          "tp": 801,
+          "fp": 314,
+          "fn": 147,
+          "support": 948
+        },
+        "exactSpanMacroF1": 0.8019486741674247,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.7147982062780269,
+          "recall": 0.8407172995780591,
+          "f1": 0.7726611730489579,
+          "tp": 797,
+          "fp": 318,
+          "fn": 151,
+          "support": 948
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.7777777777777778,
+            "recall": 0.7777777777777778,
+            "f1": 0.7777777777777778,
+            "tp": 14,
+            "fp": 4,
+            "fn": 4,
+            "support": 18
+          },
+          "comment": {
+            "precision": 0.9523809523809523,
+            "recall": 0.9523809523809523,
+            "f1": 0.9523809523809523,
+            "tp": 20,
+            "fp": 1,
+            "fn": 1,
+            "support": 21
+          },
+          "string": {
+            "precision": 0.7046413502109705,
+            "recall": 0.8106796116504854,
+            "f1": 0.7539503386004515,
+            "tp": 334,
+            "fp": 140,
+            "fn": 78,
+            "support": 412
+          },
+          "number": {
+            "precision": 0.6,
+            "recall": 0.8571428571428571,
+            "f1": 0.7058823529411765,
+            "tp": 6,
+            "fp": 4,
+            "fn": 1,
+            "support": 7
+          },
+          "operator": {
+            "precision": 0.6666666666666666,
+            "recall": 0.759493670886076,
+            "f1": 0.7100591715976331,
+            "tp": 60,
+            "fp": 30,
+            "fn": 19,
+            "support": 79
+          },
+          "punctuation": {
+            "precision": 0.6356589147286822,
+            "recall": 0.9213483146067416,
+            "f1": 0.7522935779816514,
+            "tp": 82,
+            "fp": 47,
+            "fn": 7,
+            "support": 89
+          },
+          "function": {
+            "precision": 0.8867924528301887,
+            "recall": 0.8103448275862069,
+            "f1": 0.8468468468468469,
+            "tp": 47,
+            "fp": 6,
+            "fn": 11,
+            "support": 58
+          },
+          "variable": {
+            "precision": 0.7368421052631579,
+            "recall": 0.8921568627450981,
+            "f1": 0.8070953436807096,
+            "tp": 182,
+            "fp": 65,
+            "fn": 22,
+            "support": 204
+          },
+          "parameter": {
+            "precision": 0.6956521739130435,
+            "recall": 0.9142857142857143,
+            "f1": 0.7901234567901234,
+            "tp": 32,
+            "fp": 14,
+            "fn": 3,
+            "support": 35
+          },
+          "label": {
+            "precision": 0.8888888888888888,
+            "recall": 0.96,
+            "f1": 0.9230769230769231,
+            "tp": 24,
+            "fp": 3,
+            "fn": 1,
+            "support": 25
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 13,
+          "end": 21,
+          "role": "string",
+          "modifiers": [],
+          "text": "--jobs=1"
+        },
+        {
+          "start": 84,
+          "end": 93,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$(prefix)"
+        },
+        {
+          "start": 243,
+          "end": 257,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$(datarootdir)"
+        },
+        {
+          "start": 354,
+          "end": 358,
+          "role": "function",
+          "modifiers": [],
+          "text": "find"
+        },
+        {
+          "start": 373,
+          "end": 378,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-type"
+        },
+        {
+          "start": 379,
+          "end": 380,
+          "role": "string",
+          "modifiers": [],
+          "text": "f"
+        },
+        {
+          "start": 381,
+          "end": 386,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-name"
+        },
+        {
+          "start": 387,
+          "end": 394,
+          "role": "string",
+          "modifiers": [],
+          "text": "'*.lua'"
+        },
+        {
+          "start": 511,
+          "end": 524,
+          "role": "string",
+          "modifiers": [],
+          "text": "LUA_CPATH_5_4"
+        },
+        {
+          "start": 540,
+          "end": 559,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "luarockspackagepath"
+        },
+        {
+          "start": 587,
+          "end": 604,
+          "role": "variable",
+          "modifiers": [],
+          "text": "WITH_SYSTEM_ROCKS"
+        },
+        {
+          "start": 650,
+          "end": 651,
+          "role": "string",
+          "modifiers": [],
+          "text": ";"
+        },
+        {
+          "start": 733,
+          "end": 736,
+          "role": "number",
+          "modifiers": [],
+          "text": "5.1"
+        },
+        {
+          "start": 744,
+          "end": 761,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "vendored_compat53"
+        },
+        {
+          "start": 1032,
+          "end": 1045,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"./configure\""
+        },
+        {
+          "start": 1046,
+          "end": 1052,
+          "role": "string",
+          "modifiers": [],
+          "text": "script"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 20,
+          "role": "string",
+          "modifiers": [],
+          "text": "--jobs="
+        },
+        {
+          "start": 20,
+          "end": 21,
+          "role": "number",
+          "modifiers": [],
+          "text": "1"
+        },
+        {
+          "start": 84,
+          "end": 86,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$("
+        },
+        {
+          "start": 86,
+          "end": 93,
+          "role": "variable",
+          "modifiers": [],
+          "text": "prefix)"
+        },
+        {
+          "start": 243,
+          "end": 244,
+          "role": "operator",
+          "modifiers": [],
+          "text": "$"
+        },
+        {
+          "start": 244,
+          "end": 245,
+          "role": "variable",
+          "modifiers": [],
+          "text": "("
+        },
+        {
+          "start": 245,
+          "end": 257,
+          "role": "variable",
+          "modifiers": [],
+          "text": "datarootdir)"
+        },
+        {
+          "start": 354,
+          "end": 358,
+          "role": "string",
+          "modifiers": [],
+          "text": "find"
+        },
+        {
+          "start": 373,
+          "end": 394,
+          "role": "string",
+          "modifiers": [],
+          "text": "-type f -name '*.lua'"
+        },
+        {
+          "start": 511,
+          "end": 524,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "LUA_CPATH_5_4"
+        },
+        {
+          "start": 540,
+          "end": 559,
+          "role": "label",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "luarockspackagepath"
+        },
+        {
+          "start": 587,
+          "end": 604,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "WITH_SYSTEM_ROCKS"
+        },
+        {
+          "start": 650,
+          "end": 651,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ";"
+        },
+        {
+          "start": 733,
+          "end": 736,
+          "role": "string",
+          "modifiers": [],
+          "text": "5.1"
+        },
+        {
+          "start": 744,
+          "end": 761,
+          "role": "label",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "vendored_compat53"
+        },
+        {
+          "start": 1032,
+          "end": 1069,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"./configure\" script before building."
+        }
+      ]
+    },
+    {
+      "repository": "postgres-postgres-makefile-opt-v1",
+      "path": "contrib/dict_int/Makefile",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/dict_int",
+      "contentHash": "c6605c02c26e7bebc71c20f18fb6d84f868249cdc7457c3f3b6abf3f4854613d",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9607843137254902,
+          "recall": 0.9607843137254902,
+          "f1": 0.9607843137254902,
+          "tp": 49,
+          "fp": 2,
+          "fn": 2,
+          "support": 51
+        },
+        "exactSpanMacroF1": 0.9479166666666666,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9411764705882353,
+          "recall": 0.9411764705882353,
+          "f1": 0.9411764705882353,
+          "tp": 48,
+          "fp": 3,
+          "fn": 3,
+          "support": 51
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "string": {
+            "precision": 0.8461538461538461,
+            "recall": 1.0,
+            "f1": 0.9166666666666666,
+            "tp": 11,
+            "fp": 2,
+            "fn": 0,
+            "support": 11
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "tp": 2,
+            "fp": 0,
+            "fn": 2,
+            "support": 4
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 58,
+          "end": 59,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 73,
+          "end": 74,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 235,
+          "end": 243,
+          "role": "variable",
+          "modifiers": [],
+          "text": "USE_PGXS"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 58,
+          "end": 60,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 73,
+          "end": 74,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 235,
+          "end": 243,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "USE_PGXS"
+        }
+      ]
+    },
+    {
+      "repository": "kubernetes-examples-makefile-v1",
+      "path": "web/guestbook/php-redis/Makefile",
+      "sourceGroup": "kubernetes-examples-makefile-v1:web/guestbook",
+      "contentHash": "4a28256251da1e441aca85816dd571d314a709d1f15ce80854938708637d2a97",
+      "cohort": "legacy",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8892405063291139,
+          "recall": 0.9064516129032258,
+          "f1": 0.8977635782747604,
+          "tp": 281,
+          "fp": 35,
+          "fn": 29,
+          "support": 310
+        },
+        "exactSpanMacroF1": 0.9298173319924943,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.870253164556962,
+          "recall": 0.8870967741935484,
+          "f1": 0.8785942492012779,
+          "tp": 275,
+          "fp": 41,
+          "fn": 35,
+          "support": 310
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.9375,
+            "f1": 0.967741935483871,
+            "tp": 15,
+            "fp": 0,
+            "fn": 1,
+            "support": 16
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "string": {
+            "precision": 0.7605633802816901,
+            "recall": 0.7605633802816901,
+            "f1": 0.7605633802816901,
+            "tp": 54,
+            "fp": 17,
+            "fn": 17,
+            "support": 71
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.9375,
+            "recall": 0.8823529411764706,
+            "f1": 0.9090909090909091,
+            "tp": 30,
+            "fp": 2,
+            "fn": 4,
+            "support": 34
+          },
+          "punctuation": {
+            "precision": 0.8823529411764706,
+            "recall": 0.9782608695652174,
+            "f1": 0.9278350515463918,
+            "tp": 45,
+            "fp": 6,
+            "fn": 1,
+            "support": 46
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 0.8461538461538461,
+            "f1": 0.9166666666666666,
+            "tp": 22,
+            "fp": 0,
+            "fn": 4,
+            "support": 26
+          },
+          "variable": {
+            "precision": 0.8902439024390244,
+            "recall": 0.9733333333333334,
+            "f1": 0.9299363057324841,
+            "tp": 73,
+            "fp": 9,
+            "fn": 2,
+            "support": 75
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 15,
+            "fp": 0,
+            "fn": 0,
+            "support": 15
+          },
+          "label": {
+            "precision": 0.9166666666666666,
+            "recall": 1.0,
+            "f1": 0.9565217391304348,
+            "tp": 11,
+            "fp": 1,
+            "fn": 0,
+            "support": 11
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 667,
+          "end": 669,
+          "role": "function",
+          "modifiers": [],
+          "text": "go"
+        },
+        {
+          "start": 674,
+          "end": 680,
+          "role": "string",
+          "modifiers": [],
+          "text": "GOARCH"
+        },
+        {
+          "start": 680,
+          "end": 681,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 801,
+          "end": 802,
+          "role": "string",
+          "modifiers": [],
+          "text": "-"
+        },
+        {
+          "start": 1449,
+          "end": 1450,
+          "role": "string",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1484,
+          "end": 1487,
+          "role": "function",
+          "modifiers": [],
+          "text": "sed"
+        },
+        {
+          "start": 1491,
+          "end": 1500,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"s~[^ ]*~"
+        },
+        {
+          "start": 1553,
+          "end": 1559,
+          "role": "function",
+          "modifiers": [],
+          "text": "docker"
+        },
+        {
+          "start": 1585,
+          "end": 1588,
+          "role": "operator",
+          "modifiers": [],
+          "text": "$${"
+        },
+        {
+          "start": 1588,
+          "end": 1592,
+          "role": "variable",
+          "modifiers": [],
+          "text": "arch"
+        },
+        {
+          "start": 1592,
+          "end": 1593,
+          "role": "operator",
+          "modifiers": [],
+          "text": "}"
+        },
+        {
+          "start": 1619,
+          "end": 1622,
+          "role": "operator",
+          "modifiers": [],
+          "text": "$${"
+        },
+        {
+          "start": 1622,
+          "end": 1626,
+          "role": "variable",
+          "modifiers": [],
+          "text": "arch"
+        },
+        {
+          "start": 1626,
+          "end": 1627,
+          "role": "operator",
+          "modifiers": [],
+          "text": "}"
+        },
+        {
+          "start": 1636,
+          "end": 1640,
+          "role": "keyword",
+          "modifiers": [],
+          "text": "done"
+        },
+        {
+          "start": 1679,
+          "end": 1680,
+          "role": "string",
+          "modifiers": [],
+          "text": ":"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 667,
+          "end": 669,
+          "role": "string",
+          "modifiers": [],
+          "text": "go"
+        },
+        {
+          "start": 674,
+          "end": 681,
+          "role": "variable",
+          "modifiers": [],
+          "text": "GOARCH)"
+        },
+        {
+          "start": 801,
+          "end": 802,
+          "role": "variable",
+          "modifiers": [],
+          "text": "-"
+        },
+        {
+          "start": 1449,
+          "end": 1450,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1484,
+          "end": 1487,
+          "role": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "sed"
+        },
+        {
+          "start": 1491,
+          "end": 1496,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"s~[^"
+        },
+        {
+          "start": 1497,
+          "end": 1500,
+          "role": "string",
+          "modifiers": [],
+          "text": "]*~"
+        },
+        {
+          "start": 1553,
+          "end": 1559,
+          "role": "string",
+          "modifiers": [],
+          "text": "docker"
+        },
+        {
+          "start": 1585,
+          "end": 1586,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$"
+        },
+        {
+          "start": 1586,
+          "end": 1592,
+          "role": "variable",
+          "modifiers": [],
+          "text": "${arch"
+        },
+        {
+          "start": 1592,
+          "end": 1594,
+          "role": "string",
+          "modifiers": [],
+          "text": "} "
+        },
+        {
+          "start": 1609,
+          "end": 1610,
+          "role": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 1619,
+          "end": 1620,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$"
+        },
+        {
+          "start": 1620,
+          "end": 1627,
+          "role": "variable",
+          "modifiers": [],
+          "text": "${arch}"
+        },
+        {
+          "start": 1635,
+          "end": 1641,
+          "role": "string",
+          "modifiers": [],
+          "text": " done\n"
+        },
+        {
+          "start": 1679,
+          "end": 1680,
+          "role": "variable",
+          "modifiers": [],
+          "text": ":"
+        }
+      ]
+    },
+    {
+      "repository": "ffmpeg-ffmpeg-makefile-v1",
+      "path": "libswscale/riscv/Makefile",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-v1:libswscale/riscv",
+      "contentHash": "3ba7a8deede4f7c19749d1a8ae95ae8baa464443c8c129d9a22000cba68b3fbf",
+      "cohort": "legacy",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "repository": "git-git-makefile-v1",
+      "path": "contrib/contacts/Makefile",
+      "sourceGroup": "git-git-makefile-v1:contrib/contacts",
+      "contentHash": "a04a8134a625ec142bbeeada8bd21a4d52ed0b88501241ca0533e50c90ce86e5",
+      "cohort": "legacy",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9842105263157894,
+          "recall": 0.9894179894179894,
+          "f1": 0.9868073878627969,
+          "tp": 187,
+          "fp": 3,
+          "fn": 2,
+          "support": 189
+        },
+        "exactSpanMacroF1": 0.9921690921690922,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9789473684210527,
+          "recall": 0.9841269841269841,
+          "f1": 0.9815303430079155,
+          "tp": 186,
+          "fp": 4,
+          "fn": 3,
+          "support": 189
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 39,
+            "fp": 0,
+            "fn": 0,
+            "support": 39
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 21,
+            "fp": 0,
+            "fn": 0,
+            "support": 21
+          },
+          "punctuation": {
+            "precision": 0.9411764705882353,
+            "recall": 1.0,
+            "f1": 0.9696969696969697,
+            "tp": 16,
+            "fp": 1,
+            "fn": 0,
+            "support": 16
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "variable": {
+            "precision": 0.9722222222222222,
+            "recall": 0.9859154929577465,
+            "f1": 0.9790209790209791,
+            "tp": 70,
+            "fp": 2,
+            "fn": 1,
+            "support": 71
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 0.9473684210526315,
+            "f1": 0.972972972972973,
+            "tp": 18,
+            "fp": 0,
+            "fn": 1,
+            "support": 19
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 516,
+          "end": 526,
+          "role": "variable",
+          "modifiers": [],
+          "text": "SHELL_PATH"
+        },
+        {
+          "start": 1051,
+          "end": 1064,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$(gitexecdir)"
+        },
+        {
+          "start": 1524,
+          "end": 1537,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-agit_version"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 516,
+          "end": 526,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "SHELL_PATH"
+        },
+        {
+          "start": 1051,
+          "end": 1063,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$(gitexecdir"
+        },
+        {
+          "start": 1063,
+          "end": 1064,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 1524,
+          "end": 1537,
+          "role": "variable",
+          "modifiers": [],
+          "text": "-agit_version"
+        }
+      ]
+    },
+    {
+      "repository": "guzzle-guzzle-makefile-v1",
+      "path": "Makefile",
+      "sourceGroup": "guzzle-guzzle-makefile-v1:root",
+      "contentHash": "d4f28dd5654b657ff04bb822f5a131b5ae050dc2c992c6cfdc29c780db456f7a",
+      "cohort": "legacy",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8401486988847584,
+          "recall": 0.900398406374502,
+          "f1": 0.8692307692307693,
+          "tp": 226,
+          "fp": 43,
+          "fn": 25,
+          "support": 251
+        },
+        "exactSpanMacroF1": 0.9339444318140419,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8104089219330854,
+          "recall": 0.8685258964143426,
+          "f1": 0.8384615384615385,
+          "tp": 218,
+          "fp": 51,
+          "fn": 33,
+          "support": 251
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.6454545454545455,
+            "recall": 0.8452380952380952,
+            "f1": 0.7319587628865979,
+            "tp": 71,
+            "fp": 39,
+            "fn": 13,
+            "support": 84
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 0.9545454545454546,
+            "f1": 0.9767441860465116,
+            "tp": 42,
+            "fp": 0,
+            "fn": 2,
+            "support": 44
+          },
+          "punctuation": {
+            "precision": 0.9629629629629629,
+            "recall": 1.0,
+            "f1": 0.9811320754716981,
+            "tp": 26,
+            "fp": 1,
+            "fn": 0,
+            "support": 26
+          },
+          "function": {
+            "precision": 0.9761904761904762,
+            "recall": 0.803921568627451,
+            "f1": 0.8817204301075269,
+            "tp": 41,
+            "fp": 1,
+            "fn": 10,
+            "support": 51
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 17,
+            "fp": 0,
+            "fn": 0,
+            "support": 17
+          },
+          "parameter": {
+            "precision": 0.8181818181818182,
+            "recall": 1.0,
+            "f1": 0.9,
+            "tp": 9,
+            "fp": 2,
+            "fn": 0,
+            "support": 9
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 18,
+            "fp": 0,
+            "fn": 0,
+            "support": 18
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 13,
+          "end": 67,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"Please use \\`make <target>' where <target> is one of\""
+        },
+        {
+          "start": 75,
+          "end": 134,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  start-server                   to start the test server\""
+        },
+        {
+          "start": 142,
+          "end": 200,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  stop-server                    to stop the test server\""
+        },
+        {
+          "start": 440,
+          "end": 507,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  coverage-show                  to show the code coverage report\""
+        },
+        {
+          "start": 583,
+          "end": 642,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  docs                           to build the Sphinx docs\""
+        },
+        {
+          "start": 650,
+          "end": 708,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  docs-show                      to view the Sphinx docs\""
+        },
+        {
+          "start": 716,
+          "end": 798,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  static                         to run phpstan and php-cs-fixer on the codebase\""
+        },
+        {
+          "start": 961,
+          "end": 1052,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  static-codestyle-fix           to run php-cs-fixer on the codebase, writing the changes\""
+        },
+        {
+          "start": 1060,
+          "end": 1130,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  static-codestyle-check         to run php-cs-fixer on the codebase\""
+        },
+        {
+          "start": 1196,
+          "end": 1225,
+          "role": "function",
+          "modifiers": [],
+          "text": "./vendor/bin/http_test_server"
+        },
+        {
+          "start": 1276,
+          "end": 1287,
+          "role": "string",
+          "modifiers": [],
+          "text": "pid,command"
+        },
+        {
+          "start": 1295,
+          "end": 1299,
+          "role": "function",
+          "modifiers": [],
+          "text": "grep"
+        },
+        {
+          "start": 1325,
+          "end": 1329,
+          "role": "function",
+          "modifiers": [],
+          "text": "grep"
+        },
+        {
+          "start": 1357,
+          "end": 1362,
+          "role": "string",
+          "modifiers": [],
+          "text": "\" \"\\\n"
+        },
+        {
+          "start": 1370,
+          "end": 1372,
+          "role": "operator",
+          "modifiers": [],
+          "text": "-n"
+        },
+        {
+          "start": 1386,
+          "end": 1390,
+          "role": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "kill"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 68,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"Please use \\`make <target>' where <target> is one of\"\n"
+        },
+        {
+          "start": 75,
+          "end": 97,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  start-server       "
+        },
+        {
+          "start": 98,
+          "end": 99,
+          "role": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 102,
+          "end": 134,
+          "role": "string",
+          "modifiers": [],
+          "text": "       to start the test server\""
+        },
+        {
+          "start": 142,
+          "end": 156,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  stop-server"
+        },
+        {
+          "start": 163,
+          "end": 200,
+          "role": "string",
+          "modifiers": [],
+          "text": "             to stop the test server\""
+        },
+        {
+          "start": 440,
+          "end": 460,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  coverage-show    "
+        },
+        {
+          "start": 461,
+          "end": 462,
+          "role": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 463,
+          "end": 464,
+          "role": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 467,
+          "end": 507,
+          "role": "string",
+          "modifiers": [],
+          "text": "       to show the code coverage report\""
+        },
+        {
+          "start": 583,
+          "end": 606,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"  docs                "
+        },
+        {
+          "start": 608,
+          "end": 642,
+          "role": "string",
+          "modifiers": [],
+          "text": "         to build the Sphinx docs\""
+        },
+        {
+          "start": 650,
+          "end": 651,
+          "role": "string",
+          "modifiers": [],
+          "text": "\""
+        },
+        {
+          "start": 652,
+          "end": 664,
+          "role": "string",
+          "modifiers": [],
+          "text": " docs-show  "
+        },
+        {
+          "start": 671,
+          "end": 708,
+          "role": "string",
+          "modifiers": [],
+          "text": "             to view the Sphinx docs\""
+        },
+        {
+          "start": 716,
+          "end": 717,
+          "role": "string",
+          "modifiers": [],
+          "text": "\""
+        }
+      ]
+    },
+    {
+      "repository": "kubernetes-examples-makefile-v1",
+      "path": "web/guestbook-go/Makefile",
+      "sourceGroup": "kubernetes-examples-makefile-v1:web/guestbook-go",
+      "contentHash": "3dc62110c5f4b2255cc7d111de53761325ae2c0bcc526b6945692f4b50a33dd8",
+      "cohort": "legacy",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9305555555555556,
+          "recall": 0.9305555555555556,
+          "f1": 0.9305555555555556,
+          "tp": 67,
+          "fp": 5,
+          "fn": 5,
+          "support": 72
+        },
+        "exactSpanMacroF1": 0.939385108295757,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9305555555555556,
+          "recall": 0.9305555555555556,
+          "f1": 0.9305555555555556,
+          "tp": 67,
+          "fp": 5,
+          "fn": 5,
+          "support": 72
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.9473684210526315,
+            "recall": 0.9473684210526315,
+            "f1": 0.9473684210526315,
+            "tp": 18,
+            "fp": 1,
+            "fn": 1,
+            "support": 19
+          },
+          "string": {
+            "precision": 0.8636363636363636,
+            "recall": 0.9047619047619048,
+            "f1": 0.8837209302325582,
+            "tp": 19,
+            "fp": 3,
+            "fn": 2,
+            "support": 21
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571,
+            "tp": 3,
+            "fp": 0,
+            "fn": 1,
+            "support": 4
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571,
+            "tp": 3,
+            "fp": 0,
+            "fn": 1,
+            "support": 4
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "label": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "tp": 5,
+            "fp": 1,
+            "fn": 0,
+            "support": 5
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 766,
+          "end": 853,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# builds a docker image that builds the app and packages it into a minimal docker image"
+        },
+        {
+          "start": 1105,
+          "end": 1116,
+          "role": "string",
+          "modifiers": [],
+          "text": "/guestbook:"
+        },
+        {
+          "start": 1128,
+          "end": 1129,
+          "role": "operator",
+          "modifiers": [],
+          "text": ">"
+        },
+        {
+          "start": 1143,
+          "end": 1147,
+          "role": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "true"
+        },
+        {
+          "start": 1177,
+          "end": 1181,
+          "role": "string",
+          "modifiers": [],
+          "text": "push"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 766,
+          "end": 854,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# builds a docker image that builds the app and packages it into a minimal docker image\n"
+        },
+        {
+          "start": 1105,
+          "end": 1116,
+          "role": "label",
+          "modifiers": [],
+          "text": "/guestbook:"
+        },
+        {
+          "start": 1128,
+          "end": 1129,
+          "role": "string",
+          "modifiers": [],
+          "text": ">"
+        },
+        {
+          "start": 1143,
+          "end": 1147,
+          "role": "string",
+          "modifiers": [],
+          "text": "true"
+        },
+        {
+          "start": 1177,
+          "end": 1182,
+          "role": "string",
+          "modifiers": [],
+          "text": "push\n"
+        }
+      ]
+    },
+    {
+      "repository": "facebook-zstd-makefile-opt-v1",
+      "path": "contrib/recovery/Makefile",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/recovery",
+      "contentHash": "d33bdd6a0c6962c377f4d78c1718aec0c47f86b833f3f9bbe9d33f5807a8c369",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.6989247311827957,
+          "recall": 0.7065217391304348,
+          "f1": 0.7027027027027027,
+          "tp": 65,
+          "fp": 28,
+          "fn": 27,
+          "support": 92
+        },
+        "exactSpanMacroF1": 0.6516268713065051,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.6989247311827957,
+          "recall": 0.7065217391304348,
+          "f1": 0.7027027027027027,
+          "tp": 65,
+          "fp": 28,
+          "fn": 27,
+          "support": 92
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.6363636363636364,
+            "recall": 0.875,
+            "f1": 0.7368421052631579,
+            "tp": 7,
+            "fp": 4,
+            "fn": 1,
+            "support": 8
+          },
+          "string": {
+            "precision": 0.75,
+            "recall": 0.4,
+            "f1": 0.5217391304347826,
+            "tp": 12,
+            "fp": 4,
+            "fn": 18,
+            "support": 30
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.7777777777777778,
+            "recall": 1.0,
+            "f1": 0.875,
+            "tp": 7,
+            "fp": 2,
+            "fn": 0,
+            "support": 7
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.45454545454545453,
+            "f1": 0.625,
+            "tp": 5,
+            "fp": 0,
+            "fn": 6,
+            "support": 11
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 25,
+            "fp": 0,
+            "fn": 0,
+            "support": 25
+          },
+          "parameter": {
+            "precision": 0.15789473684210525,
+            "recall": 1.0,
+            "f1": 0.2727272727272727,
+            "tp": 3,
+            "fp": 16,
+            "fn": 0,
+            "support": 3
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 0.7142857142857143,
+            "f1": 0.8333333333333334,
+            "tp": 5,
+            "fp": 0,
+            "fn": 2,
+            "support": 7
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 368,
+          "end": 434,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# ################################################################"
+        },
+        {
+          "start": 436,
+          "end": 442,
+          "role": "label",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": ".PHONY"
+        },
+        {
+          "start": 442,
+          "end": 443,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 444,
+          "end": 447,
+          "role": "string",
+          "modifiers": [],
+          "text": "all"
+        },
+        {
+          "start": 448,
+          "end": 451,
+          "role": "label",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "all"
+        },
+        {
+          "start": 451,
+          "end": 452,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 453,
+          "end": 470,
+          "role": "string",
+          "modifiers": [],
+          "text": "recover_directory"
+        },
+        {
+          "start": 540,
+          "end": 543,
+          "role": "string",
+          "modifiers": [],
+          "text": "-O3"
+        },
+        {
+          "start": 558,
+          "end": 560,
+          "role": "string",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 574,
+          "end": 576,
+          "role": "string",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 604,
+          "end": 609,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wall"
+        },
+        {
+          "start": 610,
+          "end": 617,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wextra"
+        },
+        {
+          "start": 618,
+          "end": 629,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wcast-qual"
+        },
+        {
+          "start": 630,
+          "end": 642,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wcast-align"
+        },
+        {
+          "start": 643,
+          "end": 651,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wshadow"
+        },
+        {
+          "start": 668,
+          "end": 669,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 368,
+          "end": 370,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# "
+        },
+        {
+          "start": 370,
+          "end": 434,
+          "role": "comment",
+          "modifiers": [],
+          "text": "################################################################"
+        },
+        {
+          "start": 436,
+          "end": 447,
+          "role": "comment",
+          "modifiers": [],
+          "text": ".PHONY: all"
+        },
+        {
+          "start": 448,
+          "end": 470,
+          "role": "comment",
+          "modifiers": [],
+          "text": "all: recover_directory"
+        },
+        {
+          "start": 540,
+          "end": 543,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-O3"
+        },
+        {
+          "start": 558,
+          "end": 560,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 574,
+          "end": 576,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 604,
+          "end": 609,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wall"
+        },
+        {
+          "start": 610,
+          "end": 617,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wextra"
+        },
+        {
+          "start": 618,
+          "end": 629,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wcast-qual"
+        },
+        {
+          "start": 630,
+          "end": 642,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wcast-align"
+        },
+        {
+          "start": 643,
+          "end": 651,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wshadow"
+        },
+        {
+          "start": 668,
+          "end": 670,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 684,
+          "end": 701,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wstrict-aliasing"
+        },
+        {
+          "start": 701,
+          "end": 702,
+          "role": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 702,
+          "end": 703,
+          "role": "number",
+          "modifiers": [],
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "repository": "lz4-lz4-makefile-opt-v1",
+      "path": "examples/Makefile",
+      "sourceGroup": "lz4-lz4-makefile-opt-v1:examples",
+      "contentHash": "90e0ec15b79f87398d045bafbe9b1eaf0c5930fd529cc0ee0f44116ca84d9c03",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.734006734006734,
+          "recall": 0.8288973384030418,
+          "f1": 0.7785714285714286,
+          "tp": 218,
+          "fp": 79,
+          "fn": 45,
+          "support": 263
+        },
+        "exactSpanMacroF1": 0.8083462497573102,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.734006734006734,
+          "recall": 0.8288973384030418,
+          "f1": 0.7785714285714286,
+          "tp": 218,
+          "fp": 79,
+          "fn": 45,
+          "support": 263
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "comment": {
+            "precision": 0.7352941176470589,
+            "recall": 0.8620689655172413,
+            "f1": 0.7936507936507936,
+            "tp": 25,
+            "fp": 9,
+            "fn": 4,
+            "support": 29
+          },
+          "string": {
+            "precision": 0.49411764705882355,
+            "recall": 0.6885245901639344,
+            "f1": 0.5753424657534246,
+            "tp": 42,
+            "fp": 43,
+            "fn": 19,
+            "support": 61
+          },
+          "number": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "tp": 5,
+            "fp": 1,
+            "fn": 0,
+            "support": 5
+          },
+          "operator": {
+            "precision": 0.775,
+            "recall": 0.9393939393939394,
+            "f1": 0.8493150684931506,
+            "tp": 31,
+            "fp": 9,
+            "fn": 2,
+            "support": 33
+          },
+          "punctuation": {
+            "precision": 0.9629629629629629,
+            "recall": 0.8666666666666667,
+            "f1": 0.9122807017543859,
+            "tp": 26,
+            "fp": 1,
+            "fn": 4,
+            "support": 30
+          },
+          "function": {
+            "precision": 0.9375,
+            "recall": 0.5555555555555556,
+            "f1": 0.6976744186046512,
+            "tp": 15,
+            "fp": 1,
+            "fn": 12,
+            "support": 27
+          },
+          "variable": {
+            "precision": 0.8857142857142857,
+            "recall": 0.9393939393939394,
+            "f1": 0.9117647058823529,
+            "tp": 62,
+            "fp": 8,
+            "fn": 4,
+            "support": 66
+          },
+          "parameter": {
+            "precision": 0.375,
+            "recall": 1.0,
+            "f1": 0.5454545454545454,
+            "tp": 3,
+            "fp": 5,
+            "fn": 0,
+            "support": 3
+          },
+          "label": {
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.8888888888888888,
+            "tp": 8,
+            "fp": 2,
+            "fn": 0,
+            "support": 8
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 912,
+          "end": 967,
+          "role": "comment",
+          "modifiers": [],
+          "text": "#  - LZ4 source repository : https://github.com/lz4/lz4"
+        },
+        {
+          "start": 1036,
+          "end": 1112,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# ##########################################################################"
+        },
+        {
+          "start": 1243,
+          "end": 1319,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# ##########################################################################"
+        },
+        {
+          "start": 1321,
+          "end": 1327,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "LIBDIR"
+        },
+        {
+          "start": 1331,
+          "end": 1333,
+          "role": "operator",
+          "modifiers": [],
+          "text": ":="
+        },
+        {
+          "start": 1334,
+          "end": 1340,
+          "role": "string",
+          "modifiers": [],
+          "text": "../lib"
+        },
+        {
+          "start": 1342,
+          "end": 1354,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "MCM_CPPFLAGS"
+        },
+        {
+          "start": 1355,
+          "end": 1357,
+          "role": "operator",
+          "modifiers": [],
+          "text": "+="
+        },
+        {
+          "start": 1358,
+          "end": 1360,
+          "role": "string",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 1360,
+          "end": 1369,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$(LIBDIR)"
+        },
+        {
+          "start": 1372,
+          "end": 1414,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# flags the build needs : see lib/Makefile"
+        },
+        {
+          "start": 1462,
+          "end": 1467,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wall"
+        },
+        {
+          "start": 1468,
+          "end": 1475,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wextra"
+        },
+        {
+          "start": 1484,
+          "end": 1492,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wshadow"
+        },
+        {
+          "start": 1493,
+          "end": 1505,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wcast-align"
+        },
+        {
+          "start": 1506,
+          "end": 1525,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wstrict-prototypes"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 912,
+          "end": 963,
+          "role": "comment",
+          "modifiers": [],
+          "text": "#  - LZ4 source repository : https://github.com/lz4"
+        },
+        {
+          "start": 964,
+          "end": 966,
+          "role": "comment",
+          "modifiers": [],
+          "text": "lz"
+        },
+        {
+          "start": 1036,
+          "end": 1038,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# "
+        },
+        {
+          "start": 1038,
+          "end": 1112,
+          "role": "comment",
+          "modifiers": [],
+          "text": "##########################################################################"
+        },
+        {
+          "start": 1243,
+          "end": 1245,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# "
+        },
+        {
+          "start": 1245,
+          "end": 1252,
+          "role": "comment",
+          "modifiers": [],
+          "text": "#######"
+        },
+        {
+          "start": 1252,
+          "end": 1319,
+          "role": "comment",
+          "modifiers": [],
+          "text": "###################################################################"
+        },
+        {
+          "start": 1321,
+          "end": 1340,
+          "role": "comment",
+          "modifiers": [],
+          "text": "LIBDIR    := ../lib"
+        },
+        {
+          "start": 1342,
+          "end": 1343,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "M"
+        },
+        {
+          "start": 1343,
+          "end": 1355,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "CM_CPPFLAGS "
+        },
+        {
+          "start": 1355,
+          "end": 1414,
+          "role": "comment",
+          "modifiers": [],
+          "text": "+= -I$(LIBDIR)   # flags the build needs : see lib/Makefile"
+        },
+        {
+          "start": 1462,
+          "end": 1468,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wall "
+        },
+        {
+          "start": 1468,
+          "end": 1475,
+          "role": "function",
+          "modifiers": [],
+          "text": "-Wextra"
+        },
+        {
+          "start": 1484,
+          "end": 1492,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wshadow"
+        },
+        {
+          "start": 1493,
+          "end": 1505,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wcast-align"
+        },
+        {
+          "start": 1506,
+          "end": 1525,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wstrict-prototypes"
+        }
+      ]
+    },
+    {
+      "repository": "helm-helm-makefile-opt-v1",
+      "path": "Makefile",
+      "sourceGroup": "helm-helm-makefile-opt-v1:root",
+      "contentHash": "dc28d69697199c714103c7a7fcf9d94619653ecc491c15f639db22e31870e526",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.40812182741116754,
+          "recall": 0.8427672955974843,
+          "f1": 0.5499316005471956,
+          "tp": 402,
+          "fp": 583,
+          "fn": 75,
+          "support": 477
+        },
+        "exactSpanMacroF1": 0.5061872469692404,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.4071065989847716,
+          "recall": 0.8406708595387841,
+          "f1": 0.5485636114911081,
+          "tp": 401,
+          "fp": 584,
+          "fn": 76,
+          "support": 477
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.36666666666666664,
+            "recall": 1.0,
+            "f1": 0.5365853658536586,
+            "tp": 11,
+            "fp": 19,
+            "fn": 0,
+            "support": 11
+          },
+          "comment": {
+            "precision": 0.875,
+            "recall": 0.7777777777777778,
+            "f1": 0.8235294117647058,
+            "tp": 28,
+            "fp": 4,
+            "fn": 8,
+            "support": 36
+          },
+          "string": {
+            "precision": 0.2909090909090909,
+            "recall": 0.6114649681528662,
+            "f1": 0.3942505133470226,
+            "tp": 96,
+            "fp": 234,
+            "fn": 61,
+            "support": 157
+          },
+          "number": {
+            "precision": 0.08333333333333333,
+            "recall": 1.0,
+            "f1": 0.15384615384615385,
+            "tp": 1,
+            "fp": 11,
+            "fn": 0,
+            "support": 1
+          },
+          "operator": {
+            "precision": 0.5537190082644629,
+            "recall": 1.0,
+            "f1": 0.7127659574468085,
+            "tp": 67,
+            "fp": 54,
+            "fn": 0,
+            "support": 67
+          },
+          "punctuation": {
+            "precision": 0.5673758865248227,
+            "recall": 0.9523809523809523,
+            "f1": 0.7111111111111111,
+            "tp": 80,
+            "fp": 61,
+            "fn": 4,
+            "support": 84
+          },
+          "function": {
+            "precision": 0.13333333333333333,
+            "recall": 1.0,
+            "f1": 0.23529411764705882,
+            "tp": 8,
+            "fp": 52,
+            "fn": 0,
+            "support": 8
+          },
+          "variable": {
+            "precision": 0.3717948717948718,
+            "recall": 0.9830508474576272,
+            "f1": 0.5395348837209303,
+            "tp": 58,
+            "fp": 98,
+            "fn": 1,
+            "support": 59
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 46,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.9298245614035088,
+            "recall": 0.9814814814814815,
+            "f1": 0.954954954954955,
+            "tp": 53,
+            "fp": 4,
+            "fn": 1,
+            "support": 54
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 494,
+          "end": 519,
+          "role": "string",
+          "modifiers": [],
+          "text": "linux-arm64.tar.gz.sha256"
+        },
+        {
+          "start": 1050,
+          "end": 1062,
+          "role": "string",
+          "modifiers": [],
+          "text": "go env GOBIN"
+        },
+        {
+          "start": 1105,
+          "end": 1118,
+          "role": "string",
+          "modifiers": [],
+          "text": "go env GOPATH"
+        },
+        {
+          "start": 1118,
+          "end": 1119,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 1119,
+          "end": 1123,
+          "role": "string",
+          "modifiers": [],
+          "text": "/bin"
+        },
+        {
+          "start": 1225,
+          "end": 1238,
+          "role": "string",
+          "modifiers": [],
+          "text": "go env GOARCH"
+        },
+        {
+          "start": 1238,
+          "end": 1239,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 1459,
+          "end": 1470,
+          "role": "string",
+          "modifiers": [],
+          "text": "-shuffle=on"
+        },
+        {
+          "start": 1471,
+          "end": 1479,
+          "role": "string",
+          "modifiers": [],
+          "text": "-count=1"
+        },
+        {
+          "start": 1495,
+          "end": 1497,
+          "role": "string",
+          "modifiers": [],
+          "text": "-w"
+        },
+        {
+          "start": 1498,
+          "end": 1500,
+          "role": "string",
+          "modifiers": [],
+          "text": "-s"
+        },
+        {
+          "start": 1599,
+          "end": 1633,
+          "role": "string",
+          "modifiers": [],
+          "text": "find . -type f -name '*.go' -print"
+        },
+        {
+          "start": 1742,
+          "end": 1760,
+          "role": "string",
+          "modifiers": [],
+          "text": "git rev-parse HEAD"
+        },
+        {
+          "start": 1760,
+          "end": 1761,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 1783,
+          "end": 1809,
+          "role": "string",
+          "modifiers": [],
+          "text": "git rev-parse --short HEAD"
+        },
+        {
+          "start": 1809,
+          "end": 1810,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 494,
+          "end": 519,
+          "role": "label",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "linux-arm64.tar.gz.sha256"
+        },
+        {
+          "start": 1050,
+          "end": 1052,
+          "role": "string",
+          "modifiers": [],
+          "text": "go"
+        },
+        {
+          "start": 1053,
+          "end": 1056,
+          "role": "string",
+          "modifiers": [],
+          "text": "env"
+        },
+        {
+          "start": 1057,
+          "end": 1062,
+          "role": "string",
+          "modifiers": [],
+          "text": "GOBIN"
+        },
+        {
+          "start": 1105,
+          "end": 1107,
+          "role": "string",
+          "modifiers": [],
+          "text": "go"
+        },
+        {
+          "start": 1108,
+          "end": 1111,
+          "role": "string",
+          "modifiers": [],
+          "text": "env"
+        },
+        {
+          "start": 1112,
+          "end": 1123,
+          "role": "string",
+          "modifiers": [],
+          "text": "GOPATH)/bin"
+        },
+        {
+          "start": 1225,
+          "end": 1227,
+          "role": "function",
+          "modifiers": [],
+          "text": "go"
+        },
+        {
+          "start": 1228,
+          "end": 1231,
+          "role": "string",
+          "modifiers": [],
+          "text": "env"
+        },
+        {
+          "start": 1232,
+          "end": 1239,
+          "role": "string",
+          "modifiers": [],
+          "text": "GOARCH)"
+        },
+        {
+          "start": 1459,
+          "end": 1467,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-shuffle"
+        },
+        {
+          "start": 1467,
+          "end": 1468,
+          "role": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 1468,
+          "end": 1470,
+          "role": "string",
+          "modifiers": [],
+          "text": "on"
+        },
+        {
+          "start": 1471,
+          "end": 1477,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-count"
+        },
+        {
+          "start": 1477,
+          "end": 1478,
+          "role": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 1478,
+          "end": 1479,
+          "role": "number",
+          "modifiers": [],
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "repository": "postgres-postgres-makefile-opt-v1",
+      "path": "contrib/cube/Makefile",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/cube",
+      "contentHash": "cf3cc7a167c3bdb8078397882615a45e9fbcbf29d512acac881bd966fd00e778",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9270833333333334,
+          "recall": 0.9368421052631579,
+          "f1": 0.9319371727748691,
+          "tp": 89,
+          "fp": 7,
+          "fn": 6,
+          "support": 95
+        },
+        "exactSpanMacroF1": 0.8814292233057269,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8958333333333334,
+          "recall": 0.9052631578947369,
+          "f1": 0.900523560209424,
+          "tp": 86,
+          "fp": 10,
+          "fn": 9,
+          "support": 95
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "support": 6
+          },
+          "comment": {
+            "precision": 0.6666666666666666,
+            "recall": 0.6666666666666666,
+            "f1": 0.6666666666666666,
+            "tp": 2,
+            "fp": 1,
+            "fn": 1,
+            "support": 3
+          },
+          "string": {
+            "precision": 0.8387096774193549,
+            "recall": 0.9629629629629629,
+            "f1": 0.896551724137931,
+            "tp": 26,
+            "fp": 5,
+            "fn": 1,
+            "support": 27
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.9230769230769231,
+            "f1": 0.96,
+            "tp": 12,
+            "fp": 0,
+            "fn": 1,
+            "support": 13
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 0.9545454545454546,
+            "f1": 0.9767441860465116,
+            "tp": 21,
+            "fp": 0,
+            "fn": 1,
+            "support": 22
+          },
+          "parameter": {
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666,
+            "tp": 1,
+            "fp": 1,
+            "fn": 0,
+            "support": 1
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571,
+            "tp": 3,
+            "fp": 0,
+            "fn": 1,
+            "support": 4
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 50,
+          "end": 51,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 366,
+          "end": 369,
+          "role": "string",
+          "modifiers": [],
+          "text": "-lm"
+        },
+        {
+          "start": 437,
+          "end": 445,
+          "role": "variable",
+          "modifiers": [],
+          "text": "USE_PGXS"
+        },
+        {
+          "start": 505,
+          "end": 512,
+          "role": "keyword",
+          "modifiers": [],
+          "text": "include"
+        },
+        {
+          "start": 767,
+          "end": 772,
+          "role": "function",
+          "modifiers": [],
+          "text": "touch"
+        },
+        {
+          "start": 790,
+          "end": 800,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "BISONFLAGS"
+        },
+        {
+          "start": 808,
+          "end": 882,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# Force these dependencies to be known even without dependency info built:"
+        },
+        {
+          "start": 883,
+          "end": 894,
+          "role": "label",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "cubeparse.o"
+        },
+        {
+          "start": 895,
+          "end": 905,
+          "role": "label",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "cubescan.o"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 50,
+          "end": 52,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 366,
+          "end": 369,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-lm"
+        },
+        {
+          "start": 437,
+          "end": 445,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "USE_PGXS"
+        },
+        {
+          "start": 505,
+          "end": 512,
+          "role": "string",
+          "modifiers": [],
+          "text": "include"
+        },
+        {
+          "start": 767,
+          "end": 772,
+          "role": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "touch"
+        },
+        {
+          "start": 790,
+          "end": 800,
+          "role": "string",
+          "modifiers": [],
+          "text": "BISONFLAGS"
+        },
+        {
+          "start": 808,
+          "end": 881,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# Force these dependencies to be known even without dependency info built"
+        },
+        {
+          "start": 881,
+          "end": 882,
+          "role": "string",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 883,
+          "end": 894,
+          "role": "label",
+          "modifiers": [],
+          "text": "cubeparse.o"
+        },
+        {
+          "start": 895,
+          "end": 905,
+          "role": "string",
+          "modifiers": [],
+          "text": "cubescan.o"
+        }
+      ]
+    },
+    {
+      "repository": "kubernetes-examples-makefile-v1",
+      "path": "web/guestbook/redis-follower/Makefile",
+      "sourceGroup": "kubernetes-examples-makefile-v1:web/guestbook",
+      "contentHash": "d83461b21ba710c753345cdca3b0451c6df28f86ebb37197db5f1e083e01d751",
+      "cohort": "legacy",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8762886597938144,
+          "recall": 0.8916083916083916,
+          "f1": 0.8838821490467937,
+          "tp": 255,
+          "fp": 36,
+          "fn": 31,
+          "support": 286
+        },
+        "exactSpanMacroF1": 0.9235054535553768,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8625429553264605,
+          "recall": 0.8776223776223776,
+          "f1": 0.8700173310225303,
+          "tp": 251,
+          "fp": 40,
+          "fn": 35,
+          "support": 286
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.9375,
+            "f1": 0.967741935483871,
+            "tp": 15,
+            "fp": 0,
+            "fn": 1,
+            "support": 16
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 15,
+            "fp": 0,
+            "fn": 0,
+            "support": 15
+          },
+          "string": {
+            "precision": 0.7833333333333333,
+            "recall": 0.734375,
+            "f1": 0.7580645161290323,
+            "tp": 47,
+            "fp": 13,
+            "fn": 17,
+            "support": 64
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.875,
+            "recall": 0.875,
+            "f1": 0.875,
+            "tp": 28,
+            "fp": 4,
+            "fn": 4,
+            "support": 32
+          },
+          "punctuation": {
+            "precision": 0.9,
+            "recall": 0.9782608695652174,
+            "f1": 0.9375,
+            "tp": 45,
+            "fp": 5,
+            "fn": 1,
+            "support": 46
+          },
+          "function": {
+            "precision": 0.9090909090909091,
+            "recall": 0.8695652173913043,
+            "f1": 0.8888888888888888,
+            "tp": 20,
+            "fp": 2,
+            "fn": 3,
+            "support": 23
+          },
+          "variable": {
+            "precision": 0.8441558441558441,
+            "recall": 0.9285714285714286,
+            "f1": 0.8843537414965986,
+            "tp": 65,
+            "fp": 12,
+            "fn": 5,
+            "support": 70
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 674,
+          "end": 680,
+          "role": "string",
+          "modifiers": [],
+          "text": "GOARCH"
+        },
+        {
+          "start": 680,
+          "end": 681,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 787,
+          "end": 788,
+          "role": "string",
+          "modifiers": [],
+          "text": "-"
+        },
+        {
+          "start": 1249,
+          "end": 1251,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$*"
+        },
+        {
+          "start": 1439,
+          "end": 1440,
+          "role": "string",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1474,
+          "end": 1477,
+          "role": "function",
+          "modifiers": [],
+          "text": "sed"
+        },
+        {
+          "start": 1481,
+          "end": 1490,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"s~[^ ]*~"
+        },
+        {
+          "start": 1519,
+          "end": 1523,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "arch"
+        },
+        {
+          "start": 1543,
+          "end": 1549,
+          "role": "function",
+          "modifiers": [],
+          "text": "docker"
+        },
+        {
+          "start": 1575,
+          "end": 1578,
+          "role": "operator",
+          "modifiers": [],
+          "text": "$${"
+        },
+        {
+          "start": 1578,
+          "end": 1582,
+          "role": "variable",
+          "modifiers": [],
+          "text": "arch"
+        },
+        {
+          "start": 1582,
+          "end": 1583,
+          "role": "operator",
+          "modifiers": [],
+          "text": "}"
+        },
+        {
+          "start": 1600,
+          "end": 1608,
+          "role": "variable",
+          "modifiers": [],
+          "text": "${IMAGE}"
+        },
+        {
+          "start": 1609,
+          "end": 1612,
+          "role": "operator",
+          "modifiers": [],
+          "text": "$${"
+        },
+        {
+          "start": 1612,
+          "end": 1616,
+          "role": "variable",
+          "modifiers": [],
+          "text": "arch"
+        },
+        {
+          "start": 1616,
+          "end": 1617,
+          "role": "operator",
+          "modifiers": [],
+          "text": "}"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 674,
+          "end": 681,
+          "role": "variable",
+          "modifiers": [],
+          "text": "GOARCH)"
+        },
+        {
+          "start": 787,
+          "end": 788,
+          "role": "variable",
+          "modifiers": [],
+          "text": "-"
+        },
+        {
+          "start": 1249,
+          "end": 1251,
+          "role": "operator",
+          "modifiers": [],
+          "text": "$*"
+        },
+        {
+          "start": 1439,
+          "end": 1440,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1474,
+          "end": 1477,
+          "role": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "sed"
+        },
+        {
+          "start": 1481,
+          "end": 1486,
+          "role": "string",
+          "modifiers": [],
+          "text": "\"s~[^"
+        },
+        {
+          "start": 1487,
+          "end": 1490,
+          "role": "string",
+          "modifiers": [],
+          "text": "]*~"
+        },
+        {
+          "start": 1519,
+          "end": 1523,
+          "role": "string",
+          "modifiers": [],
+          "text": "arch"
+        },
+        {
+          "start": 1543,
+          "end": 1549,
+          "role": "string",
+          "modifiers": [],
+          "text": "docker"
+        },
+        {
+          "start": 1575,
+          "end": 1576,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$"
+        },
+        {
+          "start": 1576,
+          "end": 1582,
+          "role": "variable",
+          "modifiers": [],
+          "text": "${arch"
+        },
+        {
+          "start": 1582,
+          "end": 1584,
+          "role": "string",
+          "modifiers": [],
+          "text": "} "
+        },
+        {
+          "start": 1599,
+          "end": 1600,
+          "role": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 1600,
+          "end": 1607,
+          "role": "variable",
+          "modifiers": [],
+          "text": "${IMAGE"
+        },
+        {
+          "start": 1607,
+          "end": 1608,
+          "role": "variable",
+          "modifiers": [],
+          "text": "}"
+        },
+        {
+          "start": 1609,
+          "end": 1610,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$"
+        }
+      ]
+    },
+    {
+      "repository": "postgres-postgres-makefile-opt-v1",
+      "path": "contrib/intarray/Makefile",
+      "sourceGroup": "postgres-postgres-makefile-opt-v1:contrib/intarray",
+      "contentHash": "936f5d1886c2b96f81807b6785d88df69830d3748b418cfe11360270381a8cf2",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9166666666666666,
+          "recall": 0.9428571428571428,
+          "f1": 0.9295774647887324,
+          "tp": 66,
+          "fp": 6,
+          "fn": 4,
+          "support": 70
+        },
+        "exactSpanMacroF1": 0.9557079748895606,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9027777777777778,
+          "recall": 0.9285714285714286,
+          "f1": 0.9154929577464789,
+          "tp": 65,
+          "fp": 7,
+          "fn": 5,
+          "support": 70
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "support": 6
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "string": {
+            "precision": 0.9166666666666666,
+            "recall": 1.0,
+            "f1": 0.9565217391304348,
+            "tp": 22,
+            "fp": 2,
+            "fn": 0,
+            "support": 22
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 11,
+            "fp": 0,
+            "fn": 0,
+            "support": 11
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.9166666666666666,
+            "f1": 0.9565217391304348,
+            "tp": 11,
+            "fp": 0,
+            "fn": 1,
+            "support": 12
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "variable": {
+            "precision": 0.7777777777777778,
+            "recall": 0.875,
+            "f1": 0.8235294117647058,
+            "tp": 14,
+            "fp": 4,
+            "fn": 2,
+            "support": 16
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 54,
+          "end": 55,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 442,
+          "end": 450,
+          "role": "variable",
+          "modifiers": [],
+          "text": "USE_PGXS"
+        },
+        {
+          "start": 510,
+          "end": 517,
+          "role": "keyword",
+          "modifiers": [],
+          "text": "include"
+        },
+        {
+          "start": 586,
+          "end": 601,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$(top_builddir)"
+        },
+        {
+          "start": 630,
+          "end": 643,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$(top_srcdir)"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 54,
+          "end": 56,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 442,
+          "end": 450,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "USE_PGXS"
+        },
+        {
+          "start": 510,
+          "end": 517,
+          "role": "string",
+          "modifiers": [],
+          "text": "include"
+        },
+        {
+          "start": 586,
+          "end": 588,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$("
+        },
+        {
+          "start": 588,
+          "end": 601,
+          "role": "variable",
+          "modifiers": [],
+          "text": "top_builddir)"
+        },
+        {
+          "start": 630,
+          "end": 632,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$("
+        },
+        {
+          "start": 632,
+          "end": 643,
+          "role": "variable",
+          "modifiers": [],
+          "text": "top_srcdir)"
+        }
+      ]
+    },
+    {
+      "repository": "curl-curl-makefile-v1",
+      "path": "docs/cmdline-opts/Makefile.inc",
+      "sourceGroup": "curl-curl-makefile-v1:docs/cmdline-opts",
+      "contentHash": "824f762b85fa3a3cf1061059c90c8f13d7ba375fa62f6ec5e691bd5d506fcade",
+      "cohort": "legacy",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9834437086092715,
+          "recall": 0.9867109634551495,
+          "f1": 0.9850746268656716,
+          "tp": 594,
+          "fp": 10,
+          "fn": 8,
+          "support": 602
+        },
+        "exactSpanMacroF1": 0.9825519386920298,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9834437086092715,
+          "recall": 0.9867109634551495,
+          "f1": 0.9850746268656716,
+          "tp": 594,
+          "fp": 10,
+          "fn": 8,
+          "support": 602
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.92,
+            "recall": 0.9583333333333334,
+            "f1": 0.9387755102040817,
+            "tp": 23,
+            "fp": 2,
+            "fn": 1,
+            "support": 24
+          },
+          "string": {
+            "precision": 0.9726027397260274,
+            "recall": 0.9895470383275261,
+            "f1": 0.9810017271157168,
+            "tp": 284,
+            "fp": 8,
+            "fn": 3,
+            "support": 287
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.9860627177700348,
+            "f1": 0.9929824561403509,
+            "tp": 283,
+            "fp": 0,
+            "fn": 4,
+            "support": 287
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 945,
+          "end": 1020,
+          "role": "comment",
+          "modifiers": [],
+          "text": "###########################################################################"
+        },
+        {
+          "start": 1080,
+          "end": 1081,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1133,
+          "end": 1148,
+          "role": "string",
+          "modifiers": [],
+          "text": "_ENVIRONMENT.md"
+        },
+        {
+          "start": 1149,
+          "end": 1150,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1153,
+          "end": 1166,
+          "role": "string",
+          "modifiers": [],
+          "text": "_EXITCODES.md"
+        },
+        {
+          "start": 1281,
+          "end": 1296,
+          "role": "string",
+          "modifiers": [],
+          "text": "_PROXYPREFIX.md"
+        },
+        {
+          "start": 1398,
+          "end": 1399,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 4996,
+          "end": 4997,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 945,
+          "end": 946,
+          "role": "comment",
+          "modifiers": [],
+          "text": "#"
+        },
+        {
+          "start": 946,
+          "end": 1020,
+          "role": "comment",
+          "modifiers": [],
+          "text": "##########################################################################"
+        },
+        {
+          "start": 1080,
+          "end": 1082,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 1111,
+          "end": 1112,
+          "role": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 1133,
+          "end": 1150,
+          "role": "string",
+          "modifiers": [],
+          "text": "_ENVIRONMENT.md \\"
+        },
+        {
+          "start": 1153,
+          "end": 1167,
+          "role": "string",
+          "modifiers": [],
+          "text": "_EXITCODES.md "
+        },
+        {
+          "start": 1213,
+          "end": 1214,
+          "role": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 1281,
+          "end": 1297,
+          "role": "string",
+          "modifiers": [],
+          "text": "_PROXYPREFIX.md "
+        },
+        {
+          "start": 1398,
+          "end": 1400,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 4996,
+          "end": 4998,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        }
+      ]
+    },
+    {
+      "repository": "grpc-grpc-makefile-opt-v1",
+      "path": "examples/cpp/metadata/Makefile",
+      "sourceGroup": "grpc-grpc-makefile-opt-v1:examples/cpp",
+      "contentHash": "246ae6ce283d84b0527d2fe96dcc1eab142edd1f9efa73c99d808e90fbd2d6fd",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.868421052631579,
+          "recall": 0.8761061946902655,
+          "f1": 0.8722466960352423,
+          "tp": 297,
+          "fp": 45,
+          "fn": 42,
+          "support": 339
+        },
+        "exactSpanMacroF1": 0.8468858570770335,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8625730994152047,
+          "recall": 0.8702064896755162,
+          "f1": 0.8663729809104258,
+          "tp": 295,
+          "fp": 47,
+          "fn": 44,
+          "support": 339
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9375,
+            "recall": 0.9375,
+            "f1": 0.9375,
+            "tp": 15,
+            "fp": 1,
+            "fn": 1,
+            "support": 16
+          },
+          "comment": {
+            "precision": 0.85,
+            "recall": 1.0,
+            "f1": 0.918918918918919,
+            "tp": 17,
+            "fp": 3,
+            "fn": 0,
+            "support": 17
+          },
+          "string": {
+            "precision": 0.8192771084337349,
+            "recall": 0.7311827956989247,
+            "f1": 0.7727272727272727,
+            "tp": 68,
+            "fp": 15,
+            "fn": 25,
+            "support": 93
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "tp": 1,
+            "fp": 0,
+            "fn": 1,
+            "support": 2
+          },
+          "operator": {
+            "precision": 0.9365079365079365,
+            "recall": 0.9365079365079365,
+            "f1": 0.9365079365079365,
+            "tp": 59,
+            "fp": 4,
+            "fn": 4,
+            "support": 63
+          },
+          "punctuation": {
+            "precision": 0.9,
+            "recall": 0.9473684210526315,
+            "f1": 0.9230769230769231,
+            "tp": 36,
+            "fp": 4,
+            "fn": 2,
+            "support": 38
+          },
+          "function": {
+            "precision": 0.918918918918919,
+            "recall": 0.8947368421052632,
+            "f1": 0.9066666666666666,
+            "tp": 34,
+            "fp": 3,
+            "fn": 4,
+            "support": 38
+          },
+          "variable": {
+            "precision": 0.9807692307692307,
+            "recall": 0.9807692307692307,
+            "f1": 0.9807692307692307,
+            "tp": 51,
+            "fp": 1,
+            "fn": 1,
+            "support": 52
+          },
+          "parameter": {
+            "precision": 0.36363636363636365,
+            "recall": 0.7272727272727273,
+            "f1": 0.48484848484848486,
+            "tp": 8,
+            "fp": 14,
+            "fn": 3,
+            "support": 11
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 0.8888888888888888,
+            "f1": 0.9411764705882353,
+            "tp": 8,
+            "fp": 0,
+            "fn": 1,
+            "support": 9
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 582,
+          "end": 593,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "HOST_SYSTEM"
+        },
+        {
+          "start": 594,
+          "end": 595,
+          "role": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 596,
+          "end": 597,
+          "role": "operator",
+          "modifiers": [],
+          "text": "$"
+        },
+        {
+          "start": 597,
+          "end": 598,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "("
+        },
+        {
+          "start": 598,
+          "end": 603,
+          "role": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "shell"
+        },
+        {
+          "start": 604,
+          "end": 609,
+          "role": "function",
+          "modifiers": [],
+          "text": "uname"
+        },
+        {
+          "start": 610,
+          "end": 611,
+          "role": "operator",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 612,
+          "end": 615,
+          "role": "function",
+          "modifiers": [],
+          "text": "cut"
+        },
+        {
+          "start": 616,
+          "end": 618,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-f"
+        },
+        {
+          "start": 619,
+          "end": 620,
+          "role": "number",
+          "modifiers": [],
+          "text": "1"
+        },
+        {
+          "start": 621,
+          "end": 624,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-d_"
+        },
+        {
+          "start": 624,
+          "end": 625,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 673,
+          "end": 684,
+          "role": "string",
+          "modifiers": [],
+          "text": "`pkg-config"
+        },
+        {
+          "start": 685,
+          "end": 693,
+          "role": "string",
+          "modifiers": [],
+          "text": "--cflags"
+        },
+        {
+          "start": 796,
+          "end": 802,
+          "role": "string",
+          "modifiers": [],
+          "text": "--libs"
+        },
+        {
+          "start": 803,
+          "end": 811,
+          "role": "string",
+          "modifiers": [],
+          "text": "--static"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 581,
+          "end": 618,
+          "role": "comment",
+          "modifiers": [],
+          "text": " HOST_SYSTEM = $(shell uname | cut -f"
+        },
+        {
+          "start": 619,
+          "end": 621,
+          "role": "comment",
+          "modifiers": [],
+          "text": "1 "
+        },
+        {
+          "start": 621,
+          "end": 625,
+          "role": "comment",
+          "modifiers": [],
+          "text": "-d_)"
+        },
+        {
+          "start": 673,
+          "end": 674,
+          "role": "string",
+          "modifiers": [],
+          "text": "`"
+        },
+        {
+          "start": 674,
+          "end": 684,
+          "role": "function",
+          "modifiers": [],
+          "text": "pkg-config"
+        },
+        {
+          "start": 685,
+          "end": 693,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--cflags"
+        },
+        {
+          "start": 796,
+          "end": 802,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--libs"
+        },
+        {
+          "start": 803,
+          "end": 811,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--static"
+        },
+        {
+          "start": 828,
+          "end": 872,
+          "role": "string",
+          "modifiers": [],
+          "text": "grpc absl_flags_parse absl_log_initialize`\\\n"
+        },
+        {
+          "start": 883,
+          "end": 889,
+          "role": "string",
+          "modifiers": [],
+          "text": "-lgrpc"
+        },
+        {
+          "start": 889,
+          "end": 891,
+          "role": "operator",
+          "modifiers": [],
+          "text": "++"
+        },
+        {
+          "start": 891,
+          "end": 903,
+          "role": "string",
+          "modifiers": [],
+          "text": "_reflection\\"
+        },
+        {
+          "start": 965,
+          "end": 971,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--libs"
+        },
+        {
+          "start": 972,
+          "end": 980,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--static"
+        },
+        {
+          "start": 990,
+          "end": 994,
+          "role": "string",
+          "modifiers": [],
+          "text": "grpc"
+        },
+        {
+          "start": 994,
+          "end": 996,
+          "role": "operator",
+          "modifiers": [],
+          "text": "++"
+        }
+      ]
+    },
+    {
+      "repository": "facebook-zstd-makefile-opt-v1",
+      "path": "examples/Makefile",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:examples",
+      "contentHash": "2f7a83ef8f0be325a79e33ac38280630172789b6e2fbb3bf2e18e7f5189b97fd",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8165938864628821,
+          "recall": 0.8060344827586207,
+          "f1": 0.8112798264642083,
+          "tp": 187,
+          "fp": 42,
+          "fn": 45,
+          "support": 232
+        },
+        "exactSpanMacroF1": 0.7800447318550404,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8165938864628821,
+          "recall": 0.8060344827586207,
+          "f1": 0.8112798264642083,
+          "tp": 187,
+          "fp": 42,
+          "fn": 45,
+          "support": 232
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.631578947368421,
+            "recall": 0.9230769230769231,
+            "f1": 0.75,
+            "tp": 12,
+            "fp": 7,
+            "fn": 1,
+            "support": 13
+          },
+          "string": {
+            "precision": 0.8404255319148937,
+            "recall": 0.8144329896907216,
+            "f1": 0.8272251308900523,
+            "tp": 79,
+            "fp": 15,
+            "fn": 18,
+            "support": 97
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.65,
+            "recall": 0.9285714285714286,
+            "f1": 0.7647058823529411,
+            "tp": 13,
+            "fp": 7,
+            "fn": 1,
+            "support": 14
+          },
+          "punctuation": {
+            "precision": 0.8214285714285714,
+            "recall": 0.7419354838709677,
+            "f1": 0.7796610169491526,
+            "tp": 23,
+            "fp": 5,
+            "fn": 8,
+            "support": 31
+          },
+          "function": {
+            "precision": 0.9166666666666666,
+            "recall": 0.44,
+            "f1": 0.5945945945945946,
+            "tp": 11,
+            "fp": 1,
+            "fn": 14,
+            "support": 25
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 0.9473684210526315,
+            "f1": 0.972972972972973,
+            "tp": 18,
+            "fp": 0,
+            "fn": 1,
+            "support": 19
+          },
+          "parameter": {
+            "precision": 0.5,
+            "recall": 0.7142857142857143,
+            "f1": 0.5882352941176471,
+            "tp": 5,
+            "fp": 5,
+            "fn": 2,
+            "support": 7
+          },
+          "label": {
+            "precision": 0.9285714285714286,
+            "recall": 1.0,
+            "f1": 0.9629629629629629,
+            "tp": 26,
+            "fp": 2,
+            "fn": 0,
+            "support": 26
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 436,
+          "end": 502,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# ################################################################"
+        },
+        {
+          "start": 504,
+          "end": 510,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "LIBDIR"
+        },
+        {
+          "start": 511,
+          "end": 512,
+          "role": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 512,
+          "end": 518,
+          "role": "string",
+          "modifiers": [],
+          "text": "../lib"
+        },
+        {
+          "start": 661,
+          "end": 688,
+          "role": "string",
+          "modifiers": [],
+          "text": "multiple_simple_compression"
+        },
+        {
+          "start": 688,
+          "end": 690,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 1080,
+          "end": 1081,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1148,
+          "end": 1149,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1286,
+          "end": 1287,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1370,
+          "end": 1371,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1440,
+          "end": 1441,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1525,
+          "end": 1526,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1526,
+          "end": 1531,
+          "role": "string",
+          "modifiers": [],
+          "text": "clean"
+        },
+        {
+          "start": 1575,
+          "end": 1577,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 1625,
+          "end": 1627,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 1663,
+          "end": 1665,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 436,
+          "end": 438,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# "
+        },
+        {
+          "start": 438,
+          "end": 502,
+          "role": "comment",
+          "modifiers": [],
+          "text": "################################################################"
+        },
+        {
+          "start": 504,
+          "end": 511,
+          "role": "comment",
+          "modifiers": [],
+          "text": "LIBDIR "
+        },
+        {
+          "start": 511,
+          "end": 518,
+          "role": "string",
+          "modifiers": [],
+          "text": "=../lib"
+        },
+        {
+          "start": 661,
+          "end": 689,
+          "role": "string",
+          "modifiers": [],
+          "text": "multiple_simple_compression\\"
+        },
+        {
+          "start": 1080,
+          "end": 1081,
+          "role": "operator",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1148,
+          "end": 1149,
+          "role": "operator",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1286,
+          "end": 1287,
+          "role": "operator",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1370,
+          "end": 1371,
+          "role": "operator",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1440,
+          "end": 1441,
+          "role": "operator",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1525,
+          "end": 1531,
+          "role": "label",
+          "modifiers": [],
+          "text": ":clean"
+        },
+        {
+          "start": 1575,
+          "end": 1576,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1625,
+          "end": 1626,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1663,
+          "end": 1664,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1721,
+          "end": 1722,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1777,
+          "end": 1778,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        }
+      ]
+    },
+    {
+      "repository": "cli-cli-makefile-opt-v1",
+      "path": "Makefile",
+      "sourceGroup": "cli-cli-makefile-opt-v1:root",
+      "contentHash": "f9fdbd7186eb3aca34cb1f2df78206c4bbf98c89f3e5e4a6a32b1a33ccf2f8ab",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8245614035087719,
+          "recall": 0.8487584650112867,
+          "f1": 0.8364849833147943,
+          "tp": 376,
+          "fp": 80,
+          "fn": 67,
+          "support": 443
+        },
+        "exactSpanMacroF1": 0.7941196311619649,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8092105263157895,
+          "recall": 0.8329571106094809,
+          "f1": 0.8209121245828699,
+          "tp": 369,
+          "fp": 87,
+          "fn": 74,
+          "support": 443
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 0,
+            "support": 12
+          },
+          "comment": {
+            "precision": 0.8888888888888888,
+            "recall": 0.8888888888888888,
+            "f1": 0.8888888888888888,
+            "tp": 8,
+            "fp": 1,
+            "fn": 1,
+            "support": 9
+          },
+          "string": {
+            "precision": 0.7482517482517482,
+            "recall": 0.7925925925925926,
+            "f1": 0.7697841726618705,
+            "tp": 107,
+            "fp": 36,
+            "fn": 28,
+            "support": 135
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "support": 1
+          },
+          "operator": {
+            "precision": 0.7777777777777778,
+            "recall": 0.875,
+            "f1": 0.8235294117647058,
+            "tp": 28,
+            "fp": 8,
+            "fn": 4,
+            "support": 32
+          },
+          "punctuation": {
+            "precision": 0.94,
+            "recall": 0.9591836734693877,
+            "f1": 0.9494949494949495,
+            "tp": 47,
+            "fp": 3,
+            "fn": 2,
+            "support": 49
+          },
+          "function": {
+            "precision": 0.9473684210526315,
+            "recall": 0.7346938775510204,
+            "f1": 0.8275862068965517,
+            "tp": 36,
+            "fp": 2,
+            "fn": 13,
+            "support": 49
+          },
+          "variable": {
+            "precision": 0.7422680412371134,
+            "recall": 0.8181818181818182,
+            "f1": 0.7783783783783784,
+            "tp": 72,
+            "fp": 25,
+            "fn": 16,
+            "support": 88
+          },
+          "parameter": {
+            "precision": 0.8947368421052632,
+            "recall": 0.9444444444444444,
+            "f1": 0.918918918918919,
+            "tp": 34,
+            "fp": 4,
+            "fn": 2,
+            "support": 36
+          },
+          "label": {
+            "precision": 0.9696969696969697,
+            "recall": 1.0,
+            "f1": 0.9846153846153847,
+            "tp": 32,
+            "fp": 1,
+            "fn": 0,
+            "support": 32
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 102,
+          "end": 104,
+          "role": "operator",
+          "modifiers": [],
+          "text": "?="
+        },
+        {
+          "start": 114,
+          "end": 116,
+          "role": "string",
+          "modifiers": [],
+          "text": "-g"
+        },
+        {
+          "start": 117,
+          "end": 120,
+          "role": "string",
+          "modifiers": [],
+          "text": "-L%"
+        },
+        {
+          "start": 121,
+          "end": 124,
+          "role": "string",
+          "modifiers": [],
+          "text": "-l%"
+        },
+        {
+          "start": 181,
+          "end": 183,
+          "role": "function",
+          "modifiers": [],
+          "text": "go"
+        },
+        {
+          "start": 188,
+          "end": 192,
+          "role": "string",
+          "modifiers": [],
+          "text": "GOOS"
+        },
+        {
+          "start": 192,
+          "end": 193,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 331,
+          "end": 337,
+          "role": "label",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "bin/gh"
+        },
+        {
+          "start": 366,
+          "end": 378,
+          "role": "function",
+          "modifiers": [],
+          "text": "script/build"
+        },
+        {
+          "start": 389,
+          "end": 493,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# Builds bin/gh with the ghdebug build tag, which enables the GH_INTERNAL_* overrides in internal/debug."
+        },
+        {
+          "start": 557,
+          "end": 569,
+          "role": "function",
+          "modifiers": [],
+          "text": "script/build"
+        },
+        {
+          "start": 688,
+          "end": 693,
+          "role": "function",
+          "modifiers": [],
+          "text": "build"
+        },
+        {
+          "start": 1023,
+          "end": 1029,
+          "role": "function",
+          "modifiers": [],
+          "text": "bin/gh"
+        },
+        {
+          "start": 1097,
+          "end": 1103,
+          "role": "function",
+          "modifiers": [],
+          "text": "bin/gh"
+        },
+        {
+          "start": 1110,
+          "end": 1120,
+          "role": "string",
+          "modifiers": [],
+          "text": "completion"
+        },
+        {
+          "start": 1483,
+          "end": 1485,
+          "role": "function",
+          "modifiers": [],
+          "text": "cp"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 102,
+          "end": 103,
+          "role": "operator",
+          "modifiers": [],
+          "text": "?"
+        },
+        {
+          "start": 103,
+          "end": 104,
+          "role": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 114,
+          "end": 116,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-g"
+        },
+        {
+          "start": 117,
+          "end": 120,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-L%"
+        },
+        {
+          "start": 121,
+          "end": 124,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-l%"
+        },
+        {
+          "start": 181,
+          "end": 183,
+          "role": "string",
+          "modifiers": [],
+          "text": "go"
+        },
+        {
+          "start": 188,
+          "end": 193,
+          "role": "string",
+          "modifiers": [],
+          "text": "GOOS)"
+        },
+        {
+          "start": 331,
+          "end": 337,
+          "role": "label",
+          "modifiers": [],
+          "text": "bin/gh"
+        },
+        {
+          "start": 366,
+          "end": 378,
+          "role": "string",
+          "modifiers": [],
+          "text": "script/build"
+        },
+        {
+          "start": 389,
+          "end": 478,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# Builds bin/gh with the ghdebug build tag, which enables the GH_INTERNAL_* overrides in "
+        },
+        {
+          "start": 478,
+          "end": 493,
+          "role": "string",
+          "modifiers": [],
+          "text": "internal/debug."
+        },
+        {
+          "start": 557,
+          "end": 569,
+          "role": "string",
+          "modifiers": [],
+          "text": "script/build"
+        },
+        {
+          "start": 688,
+          "end": 693,
+          "role": "string",
+          "modifiers": [],
+          "text": "build"
+        },
+        {
+          "start": 1023,
+          "end": 1029,
+          "role": "string",
+          "modifiers": [],
+          "text": "bin/gh"
+        },
+        {
+          "start": 1097,
+          "end": 1103,
+          "role": "string",
+          "modifiers": [],
+          "text": "bin/gh"
+        },
+        {
+          "start": 1109,
+          "end": 1120,
+          "role": "string",
+          "modifiers": [],
+          "text": " completion"
+        }
+      ]
+    },
+    {
+      "repository": "ffmpeg-ffmpeg-makefile-v1",
+      "path": "doc/examples/Makefile.example",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-v1:doc/examples",
+      "contentHash": "e2a4f8f5829caaf9c0f1cf93d28d944d5c8c79e760d4ce64d2eaf89df9f1bf2d",
+      "cohort": "legacy",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8188405797101449,
+          "recall": 0.8129496402877698,
+          "f1": 0.8158844765342961,
+          "tp": 113,
+          "fp": 25,
+          "fn": 26,
+          "support": 139
+        },
+        "exactSpanMacroF1": 0.8637110591900311,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8188405797101449,
+          "recall": 0.8129496402877698,
+          "f1": 0.8158844765342961,
+          "tp": 113,
+          "fp": 25,
+          "fn": 26,
+          "support": 139
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "string": {
+            "precision": 0.6307692307692307,
+            "recall": 0.9761904761904762,
+            "f1": 0.7663551401869159,
+            "tp": 41,
+            "fp": 24,
+            "fn": 1,
+            "support": 42
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 0.9230769230769231,
+            "f1": 0.96,
+            "tp": 12,
+            "fp": 0,
+            "fn": 1,
+            "support": 13
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.4634146341463415,
+            "f1": 0.6333333333333333,
+            "tp": 19,
+            "fp": 0,
+            "fn": 22,
+            "support": 41
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 0.6,
+            "f1": 0.75,
+            "tp": 3,
+            "fp": 0,
+            "fn": 2,
+            "support": 5
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 21,
+            "fp": 0,
+            "fn": 0,
+            "support": 21
+          },
+          "parameter": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "tp": 2,
+            "fp": 1,
+            "fn": 0,
+            "support": 2
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 98,
+          "end": 99,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 151,
+          "end": 152,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 204,
+          "end": 205,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 257,
+          "end": 258,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 310,
+          "end": 311,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 416,
+          "end": 417,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 435,
+          "end": 437,
+          "role": "string",
+          "modifiers": [],
+          "text": "-g"
+        },
+        {
+          "start": 456,
+          "end": 466,
+          "role": "function",
+          "modifiers": [],
+          "text": "pkg-config"
+        },
+        {
+          "start": 520,
+          "end": 530,
+          "role": "function",
+          "modifiers": [],
+          "text": "pkg-config"
+        },
+        {
+          "start": 722,
+          "end": 723,
+          "role": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 723,
+          "end": 724,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 829,
+          "end": 830,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 882,
+          "end": 883,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 935,
+          "end": 936,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 988,
+          "end": 989,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1041,
+          "end": 1042,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 98,
+          "end": 100,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 151,
+          "end": 153,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 204,
+          "end": 206,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 257,
+          "end": 259,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 310,
+          "end": 312,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 416,
+          "end": 417,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 435,
+          "end": 437,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-g"
+        },
+        {
+          "start": 456,
+          "end": 466,
+          "role": "string",
+          "modifiers": [],
+          "text": "pkg-config"
+        },
+        {
+          "start": 520,
+          "end": 530,
+          "role": "string",
+          "modifiers": [],
+          "text": "pkg-config"
+        },
+        {
+          "start": 722,
+          "end": 725,
+          "role": "string",
+          "modifiers": [],
+          "text": "=\\\n"
+        },
+        {
+          "start": 829,
+          "end": 830,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 882,
+          "end": 884,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 935,
+          "end": 937,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 988,
+          "end": 989,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1041,
+          "end": 1042,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1094,
+          "end": 1096,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        }
+      ]
+    },
+    {
+      "repository": "grpc-grpc-makefile-opt-v1",
+      "path": "examples/cpp/load_balancing/Makefile",
+      "sourceGroup": "grpc-grpc-makefile-opt-v1:examples/cpp",
+      "contentHash": "c302b0be8a700454349333c139e79fefb90adae80b13fe89c1daf4e1c44ae56e",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8796561604584527,
+          "recall": 0.9056047197640118,
+          "f1": 0.8924418604651163,
+          "tp": 307,
+          "fp": 42,
+          "fn": 32,
+          "support": 339
+        },
+        "exactSpanMacroF1": 0.9019499052593802,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8739255014326648,
+          "recall": 0.8997050147492626,
+          "f1": 0.8866279069767442,
+          "tp": 305,
+          "fp": 44,
+          "fn": 34,
+          "support": 339
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.9375,
+            "recall": 0.9375,
+            "f1": 0.9375,
+            "tp": 15,
+            "fp": 1,
+            "fn": 1,
+            "support": 16
+          },
+          "comment": {
+            "precision": 0.8947368421052632,
+            "recall": 1.0,
+            "f1": 0.9444444444444444,
+            "tp": 17,
+            "fp": 2,
+            "fn": 0,
+            "support": 17
+          },
+          "string": {
+            "precision": 0.8292682926829268,
+            "recall": 0.7311827956989247,
+            "f1": 0.7771428571428571,
+            "tp": 68,
+            "fp": 14,
+            "fn": 25,
+            "support": 93
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "operator": {
+            "precision": 0.9538461538461539,
+            "recall": 0.9841269841269841,
+            "f1": 0.96875,
+            "tp": 62,
+            "fp": 3,
+            "fn": 1,
+            "support": 63
+          },
+          "punctuation": {
+            "precision": 0.9024390243902439,
+            "recall": 0.9736842105263158,
+            "f1": 0.9367088607594937,
+            "tp": 37,
+            "fp": 4,
+            "fn": 1,
+            "support": 38
+          },
+          "function": {
+            "precision": 0.9230769230769231,
+            "recall": 0.9473684210526315,
+            "f1": 0.935064935064935,
+            "tp": 36,
+            "fp": 3,
+            "fn": 2,
+            "support": 38
+          },
+          "variable": {
+            "precision": 0.9811320754716981,
+            "recall": 1.0,
+            "f1": 0.9904761904761905,
+            "tp": 52,
+            "fp": 1,
+            "fn": 0,
+            "support": 52
+          },
+          "parameter": {
+            "precision": 0.391304347826087,
+            "recall": 0.8181818181818182,
+            "f1": 0.5294117647058824,
+            "tp": 9,
+            "fp": 14,
+            "fn": 2,
+            "support": 11
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 604,
+          "end": 609,
+          "role": "function",
+          "modifiers": [],
+          "text": "uname"
+        },
+        {
+          "start": 621,
+          "end": 624,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-d_"
+        },
+        {
+          "start": 624,
+          "end": 625,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 673,
+          "end": 684,
+          "role": "string",
+          "modifiers": [],
+          "text": "`pkg-config"
+        },
+        {
+          "start": 685,
+          "end": 693,
+          "role": "string",
+          "modifiers": [],
+          "text": "--cflags"
+        },
+        {
+          "start": 796,
+          "end": 802,
+          "role": "string",
+          "modifiers": [],
+          "text": "--libs"
+        },
+        {
+          "start": 803,
+          "end": 811,
+          "role": "string",
+          "modifiers": [],
+          "text": "--static"
+        },
+        {
+          "start": 828,
+          "end": 832,
+          "role": "string",
+          "modifiers": [],
+          "text": "grpc"
+        },
+        {
+          "start": 833,
+          "end": 849,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_flags_parse"
+        },
+        {
+          "start": 850,
+          "end": 871,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_log_initialize`\\"
+        },
+        {
+          "start": 883,
+          "end": 903,
+          "role": "string",
+          "modifiers": [],
+          "text": "-lgrpc++_reflection\\"
+        },
+        {
+          "start": 965,
+          "end": 971,
+          "role": "string",
+          "modifiers": [],
+          "text": "--libs"
+        },
+        {
+          "start": 972,
+          "end": 980,
+          "role": "string",
+          "modifiers": [],
+          "text": "--static"
+        },
+        {
+          "start": 990,
+          "end": 996,
+          "role": "string",
+          "modifiers": [],
+          "text": "grpc++"
+        },
+        {
+          "start": 1019,
+          "end": 1040,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_log_initialize`\\"
+        },
+        {
+          "start": 1052,
+          "end": 1070,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wl,--no-as-needed"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 604,
+          "end": 609,
+          "role": "comment",
+          "modifiers": [],
+          "text": "uname"
+        },
+        {
+          "start": 621,
+          "end": 625,
+          "role": "comment",
+          "modifiers": [],
+          "text": "-d_)"
+        },
+        {
+          "start": 673,
+          "end": 674,
+          "role": "string",
+          "modifiers": [],
+          "text": "`"
+        },
+        {
+          "start": 674,
+          "end": 684,
+          "role": "function",
+          "modifiers": [],
+          "text": "pkg-config"
+        },
+        {
+          "start": 685,
+          "end": 693,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--cflags"
+        },
+        {
+          "start": 796,
+          "end": 802,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--libs"
+        },
+        {
+          "start": 803,
+          "end": 811,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--static"
+        },
+        {
+          "start": 828,
+          "end": 872,
+          "role": "string",
+          "modifiers": [],
+          "text": "grpc absl_flags_parse absl_log_initialize`\\\n"
+        },
+        {
+          "start": 883,
+          "end": 889,
+          "role": "string",
+          "modifiers": [],
+          "text": "-lgrpc"
+        },
+        {
+          "start": 889,
+          "end": 891,
+          "role": "operator",
+          "modifiers": [],
+          "text": "++"
+        },
+        {
+          "start": 891,
+          "end": 903,
+          "role": "string",
+          "modifiers": [],
+          "text": "_reflection\\"
+        },
+        {
+          "start": 965,
+          "end": 971,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--libs"
+        },
+        {
+          "start": 972,
+          "end": 980,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "--static"
+        },
+        {
+          "start": 990,
+          "end": 994,
+          "role": "string",
+          "modifiers": [],
+          "text": "grpc"
+        },
+        {
+          "start": 994,
+          "end": 996,
+          "role": "operator",
+          "modifiers": [],
+          "text": "++"
+        },
+        {
+          "start": 1019,
+          "end": 1039,
+          "role": "string",
+          "modifiers": [],
+          "text": "absl_log_initialize`"
+        }
+      ]
+    },
+    {
+      "repository": "facebook-zstd-makefile-opt-v1",
+      "path": "contrib/externalSequenceProducer/Makefile",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:contrib/externalSequenceProducer",
+      "contentHash": "77a7c44a54a529cc5375daa026e3d280db9044a89f73fb4589bf424b9acff72f",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.7431192660550459,
+          "recall": 0.7788461538461539,
+          "f1": 0.7605633802816901,
+          "tp": 81,
+          "fp": 28,
+          "fn": 23,
+          "support": 104
+        },
+        "exactSpanMacroF1": 0.6020041686708353,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.7431192660550459,
+          "recall": 0.7788461538461539,
+          "f1": 0.7605633802816901,
+          "tp": 81,
+          "fp": 28,
+          "fn": 23,
+          "support": 104
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.5833333333333334,
+            "recall": 0.875,
+            "f1": 0.7,
+            "tp": 7,
+            "fp": 5,
+            "fn": 1,
+            "support": 8
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 0.4864864864864865,
+            "f1": 0.6545454545454545,
+            "tp": 18,
+            "fp": 0,
+            "fn": 19,
+            "support": 37
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.8181818181818182,
+            "recall": 0.9,
+            "f1": 0.8571428571428571,
+            "tp": 9,
+            "fp": 2,
+            "fn": 1,
+            "support": 10
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "support": 10
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 0.90625,
+            "recall": 0.9354838709677419,
+            "f1": 0.9206349206349206,
+            "tp": 29,
+            "fp": 3,
+            "fn": 2,
+            "support": 31
+          },
+          "parameter": {
+            "precision": 0.16666666666666666,
+            "recall": 1.0,
+            "f1": 0.2857142857142857,
+            "tp": 3,
+            "fp": 15,
+            "fn": 0,
+            "support": 3
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 365,
+          "end": 431,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# ################################################################"
+        },
+        {
+          "start": 433,
+          "end": 440,
+          "role": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "PROGDIR"
+        },
+        {
+          "start": 441,
+          "end": 442,
+          "role": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 443,
+          "end": 457,
+          "role": "string",
+          "modifiers": [],
+          "text": "../../programs"
+        },
+        {
+          "start": 468,
+          "end": 477,
+          "role": "string",
+          "modifiers": [],
+          "text": "../../lib"
+        },
+        {
+          "start": 489,
+          "end": 498,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$(LIBDIR)"
+        },
+        {
+          "start": 521,
+          "end": 523,
+          "role": "string",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 544,
+          "end": 553,
+          "role": "string",
+          "modifiers": [],
+          "text": "/compress"
+        },
+        {
+          "start": 554,
+          "end": 556,
+          "role": "string",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 623,
+          "end": 628,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wall"
+        },
+        {
+          "start": 629,
+          "end": 636,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wextra"
+        },
+        {
+          "start": 637,
+          "end": 648,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wcast-qual"
+        },
+        {
+          "start": 649,
+          "end": 661,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wcast-align"
+        },
+        {
+          "start": 662,
+          "end": 670,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wshadow"
+        },
+        {
+          "start": 685,
+          "end": 704,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wstrict-aliasing=1"
+        },
+        {
+          "start": 705,
+          "end": 718,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wswitch-enum"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 365,
+          "end": 367,
+          "role": "comment",
+          "modifiers": [],
+          "text": "# "
+        },
+        {
+          "start": 367,
+          "end": 430,
+          "role": "comment",
+          "modifiers": [],
+          "text": "###############################################################"
+        },
+        {
+          "start": 430,
+          "end": 431,
+          "role": "comment",
+          "modifiers": [],
+          "text": "#"
+        },
+        {
+          "start": 433,
+          "end": 457,
+          "role": "comment",
+          "modifiers": [],
+          "text": "PROGDIR = ../../programs"
+        },
+        {
+          "start": 468,
+          "end": 477,
+          "role": "comment",
+          "modifiers": [],
+          "text": "../../lib"
+        },
+        {
+          "start": 489,
+          "end": 490,
+          "role": "variable",
+          "modifiers": [],
+          "text": "$"
+        },
+        {
+          "start": 490,
+          "end": 498,
+          "role": "variable",
+          "modifiers": [],
+          "text": "(LIBDIR)"
+        },
+        {
+          "start": 521,
+          "end": 523,
+          "role": "variable",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 544,
+          "end": 553,
+          "role": "function",
+          "modifiers": [],
+          "text": "/compress"
+        },
+        {
+          "start": 554,
+          "end": 556,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 623,
+          "end": 628,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wall"
+        },
+        {
+          "start": 629,
+          "end": 636,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wextra"
+        },
+        {
+          "start": 637,
+          "end": 648,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wcast-qual"
+        },
+        {
+          "start": 649,
+          "end": 661,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wcast-align"
+        },
+        {
+          "start": 662,
+          "end": 670,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wshadow"
+        },
+        {
+          "start": 685,
+          "end": 702,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wstrict-aliasing"
+        }
+      ]
+    },
+    {
+      "repository": "facebook-zstd-makefile-opt-v1",
+      "path": "zlibWrapper/Makefile",
+      "sourceGroup": "facebook-zstd-makefile-opt-v1:zlibWrapper",
+      "contentHash": "9812eb6556a7db5356535fe2a09dc8013a1a5ae4ed103ef62f545a6e01c38617",
+      "cohort": "fresh",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.806378132118451,
+          "recall": 0.8592233009708737,
+          "f1": 0.8319623971797885,
+          "tp": 354,
+          "fp": 85,
+          "fn": 58,
+          "support": 412
+        },
+        "exactSpanMacroF1": 0.7496733816319858,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.806378132118451,
+          "recall": 0.8592233009708737,
+          "f1": 0.8319623971797885,
+          "tp": 354,
+          "fp": 85,
+          "fn": 58,
+          "support": 412
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.6,
+            "recall": 0.75,
+            "f1": 0.6666666666666666,
+            "tp": 3,
+            "fp": 2,
+            "fn": 1,
+            "support": 4
+          },
+          "comment": {
+            "precision": 0.7333333333333333,
+            "recall": 0.6111111111111112,
+            "f1": 0.6666666666666666,
+            "tp": 11,
+            "fp": 4,
+            "fn": 7,
+            "support": 18
+          },
+          "string": {
+            "precision": 0.7902097902097902,
+            "recall": 0.8014184397163121,
+            "f1": 0.795774647887324,
+            "tp": 113,
+            "fp": 30,
+            "fn": 28,
+            "support": 141
+          },
+          "number": {
+            "precision": 0.7272727272727273,
+            "recall": 1.0,
+            "f1": 0.8421052631578947,
+            "tp": 8,
+            "fp": 3,
+            "fn": 0,
+            "support": 8
+          },
+          "operator": {
+            "precision": 0.7659574468085106,
+            "recall": 1.0,
+            "f1": 0.8674698795180723,
+            "tp": 36,
+            "fp": 11,
+            "fn": 0,
+            "support": 36
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.8823529411764706,
+            "f1": 0.9375,
+            "tp": 30,
+            "fp": 0,
+            "fn": 4,
+            "support": 34
+          },
+          "function": {
+            "precision": 0.8571428571428571,
+            "recall": 0.3157894736842105,
+            "f1": 0.46153846153846156,
+            "tp": 6,
+            "fp": 1,
+            "fn": 13,
+            "support": 19
+          },
+          "variable": {
+            "precision": 0.937007874015748,
+            "recall": 0.9834710743801653,
+            "f1": 0.9596774193548387,
+            "tp": 119,
+            "fp": 8,
+            "fn": 2,
+            "support": 121
+          },
+          "parameter": {
+            "precision": 0.24242424242424243,
+            "recall": 1.0,
+            "f1": 0.3902439024390244,
+            "tp": 8,
+            "fp": 25,
+            "fn": 0,
+            "support": 8
+          },
+          "label": {
+            "precision": 0.9523809523809523,
+            "recall": 0.8695652173913043,
+            "f1": 0.9090909090909091,
+            "tp": 20,
+            "fp": 1,
+            "fn": 3,
+            "support": 23
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 609,
+          "end": 614,
+          "role": "keyword",
+          "modifiers": [],
+          "text": "vpath"
+        },
+        {
+          "start": 686,
+          "end": 707,
+          "role": "string",
+          "modifiers": [],
+          "text": "-DXXH_NAMESPACE=ZSTD_"
+        },
+        {
+          "start": 708,
+          "end": 710,
+          "role": "string",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 723,
+          "end": 725,
+          "role": "string",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 748,
+          "end": 749,
+          "role": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 762,
+          "end": 764,
+          "role": "string",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 778,
+          "end": 780,
+          "role": "string",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 801,
+          "end": 803,
+          "role": "string",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 835,
+          "end": 843,
+          "role": "string",
+          "modifiers": [],
+          "text": "-std=c89"
+        },
+        {
+          "start": 844,
+          "end": 853,
+          "role": "string",
+          "modifiers": [],
+          "text": "-pedantic"
+        },
+        {
+          "start": 854,
+          "end": 868,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wno-long-long"
+        },
+        {
+          "start": 869,
+          "end": 889,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wno-variadic-macros"
+        },
+        {
+          "start": 890,
+          "end": 902,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wc++-compat"
+        },
+        {
+          "start": 1019,
+          "end": 1030,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wcast-qual"
+        },
+        {
+          "start": 1031,
+          "end": 1043,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wcast-align"
+        },
+        {
+          "start": 1044,
+          "end": 1052,
+          "role": "string",
+          "modifiers": [],
+          "text": "-Wshadow"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 609,
+          "end": 614,
+          "role": "function",
+          "modifiers": [],
+          "text": "vpath"
+        },
+        {
+          "start": 686,
+          "end": 701,
+          "role": "variable",
+          "modifiers": [],
+          "text": "-DXXH_NAMESPACE"
+        },
+        {
+          "start": 701,
+          "end": 702,
+          "role": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 702,
+          "end": 707,
+          "role": "string",
+          "modifiers": [],
+          "text": "ZSTD_"
+        },
+        {
+          "start": 708,
+          "end": 710,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 723,
+          "end": 725,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 748,
+          "end": 750,
+          "role": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 762,
+          "end": 764,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 778,
+          "end": 780,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 801,
+          "end": 803,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-I"
+        },
+        {
+          "start": 835,
+          "end": 839,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-std"
+        },
+        {
+          "start": 839,
+          "end": 840,
+          "role": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 840,
+          "end": 843,
+          "role": "string",
+          "modifiers": [],
+          "text": "c89"
+        },
+        {
+          "start": 844,
+          "end": 853,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-pedantic"
+        },
+        {
+          "start": 854,
+          "end": 868,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wno-long-long"
+        },
+        {
+          "start": 869,
+          "end": 889,
+          "role": "parameter",
+          "modifiers": [],
+          "text": "-Wno-variadic-macros"
+        }
+      ]
+    }
+  ],
+  "purpose": "Source-level validation review"
+}

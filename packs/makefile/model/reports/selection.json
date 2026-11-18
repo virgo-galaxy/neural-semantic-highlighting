@@ -1,19 +1,39 @@
 {
-  "checkpoint": "artifacts/makefile/context512-structures-20261118-01/candidates/epoch-0012-best.pt",
-  "checkpointHash": "ed61c5a8c22bf0fc14ad4523c77a9c761cdd11a0df958163a2f9f1b88dd0d273",
-  "checkpointEpoch": 12,
-  "frozenAtUTC": "2026-11-18T15:22:54.732892+00:00",
-  "selectedBeforeFirstTest": true,
+  "checkpoint": "artifacts/makefile/optimization-20261118/contexts-e10-balanced.pt",
+  "checkpointHash": "556be927b35f06b506d7aa92d3ae122af2038bb92a9ccf8a8f33ab90beec9cb6",
+  "rawCheckpoint": "artifacts/makefile/context512-opt-contexts-20261118-01/candidates/epoch-0010-last.pt",
+  "checkpointEpoch": 10,
+  "candidateParametersFrozenAtUTC": "2026-11-18T15:59:52.819081+00:00",
+  "selectionRecordedAtUTC": "2026-11-18T16:01:41.492837+00:00",
+  "decisionFixedBeforeFirstFreshTest": true,
   "trainingComplete": true,
   "primaryTestUsedForSelection": false,
-  "selection": "Highest fixed natural validation role macro F1 in the final protocol-bound run, reviewed with natural adaptive validation and actual displays before the first test",
-  "decision": "Controlled small-model baseline; retain remaining define/quoted-command/variable-boundary and strict edge-case limitations instead of tuning exposed test predictions",
-  "goldenExact": 29,
-  "goldenCases": 46,
-  "visibleF1": 0.9554317548746518,
-  "validationNaturalF1": 0.8694236405079778,
-  "reviewSha256": "a3bfb5ec10c7a724857127cbf097396da73f52c264386d3ad01f02fad6704f32",
-  "goldenSha256": "b653e0bf7c85d75aef60303a83813e83664c8f1752ef258dab4c33ffedac136a",
-  "validationSha256": "1bdebd7bfcc03c1bf1a1d61f4c2c534d5366509b9e50a3a563919a322eca2df3",
-  "dataAuditSha256": "07e22dc3e14f92facd02e44d153bd5f4dcab4b69b7b74a6b1487f29a69267c2d"
+  "selection": "Maximum minimum original exact-span F1 GAIN over the frozen baseline on all/fresh/legacy natural VALIDATION; role macro breaks ties",
+  "decision": "Choose e10 over e5 by larger balanced natural-validation gain (3.50 vs 3.38 points); actual validation/displays reviewed before launching test.",
+  "baselineCheckpointHash": "ed61c5a8c22bf0fc14ad4523c77a9c761cdd11a0df958163a2f9f1b88dd0d273",
+  "baselineValidationHash": "0232a1e085f1f10429612e9636802e99ea33d048d6193167d3657ef4ee1fe102",
+  "protocolHash": "572fef12a6eca9754cbbab0415388f7d64f309981c7deaf7d45bb42a260ea84f",
+  "dataAuditHash": "67ba89b24ccffd2407e693118160595125db04d1f55508c5827d3fbb39aeec68",
+  "goldenExact": 26,
+  "goldenTotal": 46,
+  "goldenF1": 0.8623853211009175,
+  "displayF1": 0.9690140845070423,
+  "validation": {
+    "all": {
+      "documents": 25,
+      "f1": 0.8638546982888021
+    },
+    "fresh": {
+      "documents": 14,
+      "f1": 0.8303179824561403
+    },
+    "legacy": {
+      "documents": 11,
+      "f1": 0.9044459190444591
+    }
+  },
+  "calibrationHash": "19cfee79c2f2638ab1ce4b76ae636bba7451d5600a782498337e3c4c5d7a0966",
+  "reviewHash": "9db0f5829401aedfcae8aed1d20c10114a273f41809c1a56fe39fe78835926d8",
+  "goldenHash": "558f1eb69a65eabeb8d3d678c590aef54480b07d2f98b2adfca2c260cee59f34",
+  "recordingIssue": "The prelaunch selection-record serialization had a Python syntax error. This record was corrected after evaluation launched, without reading any test prediction/result. The prelaunch invocation already fixed the identical candidate, hashes, validation-only decision and parameters; no model or selection changed."
 }

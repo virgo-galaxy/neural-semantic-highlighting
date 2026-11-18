@@ -108,15 +108,6 @@
           "modifiers": [
             "declaration"
           ]
-        },
-        {
-          "start": 4,
-          "end": 8,
-          "text": "tool",
-          "tokenType": "label",
-          "modifiers": [
-            "declaration"
-          ]
         }
       ],
       "unexpected": [
@@ -125,14 +116,9 @@
           "end": 3,
           "text": "app",
           "tokenType": "function",
-          "modifiers": []
-        },
-        {
-          "start": 4,
-          "end": 8,
-          "text": "tool",
-          "tokenType": "string",
-          "modifiers": []
+          "modifiers": [
+            "default-library"
+          ]
         }
       ]
     },
@@ -150,27 +136,9 @@
       "profile": "makefile",
       "documentKind": "makefile",
       "source": "%.o: %.c\n\t$(CC) -c $< -o $@\n",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 0,
-          "end": 3,
-          "text": "%.o",
-          "tokenType": "label",
-          "modifiers": [
-            "declaration"
-          ]
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 0,
-          "end": 3,
-          "text": "%.o",
-          "tokenType": "label",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "double-colon",
@@ -219,8 +187,10 @@
           "start": 0,
           "end": 3,
           "text": "one",
-          "tokenType": "string",
-          "modifiers": []
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
         },
         {
           "start": 4,
@@ -233,7 +203,7 @@
           "start": 7,
           "end": 8,
           "text": "&",
-          "tokenType": "operator",
+          "tokenType": "punctuation",
           "modifiers": []
         },
         {
@@ -250,27 +220,9 @@
       "profile": "makefile",
       "documentKind": "makefile",
       "source": "ready: ; echo ready\n",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 9,
-          "end": 13,
-          "text": "echo",
-          "tokenType": "function",
-          "modifiers": [
-            "default-library"
-          ]
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 9,
-          "end": 13,
-          "text": "echo",
-          "tokenType": "function",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "recipe-prefixes",
@@ -292,7 +244,7 @@
           "start": 9,
           "end": 10,
           "text": "-",
-          "tokenType": "parameter",
+          "tokenType": "string",
           "modifiers": []
         }
       ]
@@ -311,39 +263,9 @@
       "profile": "makefile",
       "documentKind": "makefile",
       "source": "OBJ = $(addprefix build/,$(SRC:.c=.o))\n",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 25,
-          "end": 37,
-          "text": "$(SRC:.c=.o)",
-          "tokenType": "variable",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 25,
-          "end": 33,
-          "text": "$(SRC:.c",
-          "tokenType": "variable",
-          "modifiers": []
-        },
-        {
-          "start": 33,
-          "end": 34,
-          "text": "=",
-          "tokenType": "operator",
-          "modifiers": []
-        },
-        {
-          "start": 34,
-          "end": 37,
-          "text": ".o)",
-          "tokenType": "string",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "shell-function",
@@ -448,6 +370,13 @@
           "modifiers": []
         },
         {
+          "start": 9,
+          "end": 15,
+          "text": "SECRET",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
           "start": 16,
           "end": 21,
           "text": "TOKEN",
@@ -460,6 +389,13 @@
           "start": 0,
           "end": 8,
           "text": "unexport",
+          "tokenType": "function",
+          "modifiers": []
+        },
+        {
+          "start": 9,
+          "end": 15,
+          "text": "SECRET",
           "tokenType": "string",
           "modifiers": []
         },
@@ -516,15 +452,6 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 7,
-          "end": 14,
-          "text": "MESSAGE",
-          "tokenType": "variable",
-          "modifiers": [
-            "declaration"
-          ]
-        },
-        {
           "start": 15,
           "end": 47,
           "text": "# literal comment\nhello $(NAME)\n",
@@ -533,13 +460,6 @@
         }
       ],
       "unexpected": [
-        {
-          "start": 7,
-          "end": 14,
-          "text": "MESSAGE",
-          "tokenType": "variable",
-          "modifiers": []
-        },
         {
           "start": 15,
           "end": 32,
@@ -571,6 +491,15 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
+          "start": 0,
+          "end": 13,
+          "text": ".RECIPEPREFIX",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
           "start": 16,
           "end": 17,
           "text": ">",
@@ -579,6 +508,13 @@
         }
       ],
       "unexpected": [
+        {
+          "start": 0,
+          "end": 13,
+          "text": ".RECIPEPREFIX",
+          "tokenType": "variable",
+          "modifiers": []
+        },
         {
           "start": 16,
           "end": 17,
@@ -661,9 +597,32 @@
       "profile": "makefile",
       "documentKind": "makefile",
       "source": "\ufeff# \u539f\u6587 \ud83c\udf0c\r\nNAME = \"\u4f60\u597d \ud83c\udf0c\"\r\n",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "\ufeff",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 8,
+          "text": "# \u539f\u6587 \ud83c\udf0c",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "\ufeff# \u539f\u6587 \ud83c\udf0c",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "no-final-newline",
@@ -729,9 +688,39 @@
       "profile": "makefile",
       "documentKind": "makefile",
       "source": "VALUE = $(subst #,x,$(INPUT))\n",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 16,
+          "end": 17,
+          "text": "#",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 18,
+          "text": ",",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 18,
+          "end": 19,
+          "text": "x",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 16,
+          "end": 19,
+          "text": "#,x",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "continued-comment",
@@ -757,16 +746,9 @@
           "modifiers": []
         },
         {
-          "start": 13,
-          "end": 19,
-          "text": " still",
-          "tokenType": "string",
-          "modifiers": []
-        },
-        {
-          "start": 20,
+          "start": 14,
           "end": 21,
-          "text": "a",
+          "text": "still a",
           "tokenType": "string",
           "modifiers": []
         },
@@ -802,36 +784,128 @@
       "profile": "makefile",
       "documentKind": "makefile",
       "source": "ITEM=source\n",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 5,
+          "text": "=",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 11,
+          "text": "source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 11,
+          "text": "=source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "adjacent-assignment-1",
       "profile": "makefile",
       "documentKind": "makefile",
       "source": "ITEM?=source\n",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 6,
+          "text": "?=",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 12,
+          "text": "source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 12,
+          "text": "?=source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "adjacent-assignment-2",
       "profile": "makefile",
       "documentKind": "makefile",
       "source": "ITEM+=source\n",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 6,
+          "text": "+=",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 12,
+          "text": "source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 12,
+          "text": "+=source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "adjacent-assignment-3",
       "profile": "makefile",
       "documentKind": "makefile",
       "source": "ITEM:=source\n",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 6,
+          "text": ":=",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 12,
+          "text": "source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 12,
+          "text": ":=source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "adjacent-assignment-4",
@@ -855,24 +929,24 @@
   "profiles": {
     "makefile": {
       "documents": 46,
-      "exactDocumentsIncludingModifiers": 29,
+      "exactDocumentsIncludingModifiers": 26,
       "exactSpan": {
-        "precision": 0.8810572687224669,
-        "recall": 0.91324200913242,
-        "f1": 0.8968609865470852,
-        "tp": 200,
-        "fp": 27,
-        "fn": 19,
+        "precision": 0.8663594470046083,
+        "recall": 0.8584474885844748,
+        "f1": 0.8623853211009175,
+        "tp": 188,
+        "fp": 29,
+        "fn": 31,
         "support": 219
       },
-      "exactSpanMacroF1": 0.8506987586178134,
+      "exactSpanMacroF1": 0.8299684902910709,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8634361233480177,
-        "recall": 0.8949771689497716,
-        "f1": 0.8789237668161435,
-        "tp": 196,
+        "precision": 0.8571428571428571,
+        "recall": 0.8493150684931506,
+        "f1": 0.8532110091743119,
+        "tp": 186,
         "fp": 31,
-        "fn": 23,
+        "fn": 33,
         "support": 219
       },
       "byTokenType": {
@@ -886,21 +960,21 @@
           "support": 10
         },
         "comment": {
-          "precision": 0.6666666666666666,
-          "recall": 0.6666666666666666,
-          "f1": 0.6666666666666666,
-          "tp": 4,
-          "fp": 2,
-          "fn": 2,
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5,
+          "tp": 3,
+          "fp": 3,
+          "fn": 3,
           "support": 6
         },
         "string": {
-          "precision": 0.7818181818181819,
-          "recall": 0.8958333333333334,
-          "f1": 0.8349514563106796,
-          "tp": 43,
-          "fp": 12,
-          "fn": 5,
+          "precision": 0.7254901960784313,
+          "recall": 0.7708333333333334,
+          "f1": 0.7474747474747475,
+          "tp": 37,
+          "fp": 14,
+          "fn": 11,
           "support": 48
         },
         "number": {
@@ -913,57 +987,57 @@
           "support": 2
         },
         "operator": {
-          "precision": 0.9523809523809523,
-          "recall": 0.975609756097561,
-          "f1": 0.963855421686747,
-          "tp": 40,
-          "fp": 2,
-          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.8780487804878049,
+          "f1": 0.935064935064935,
+          "tp": 36,
+          "fp": 0,
+          "fn": 5,
           "support": 41
         },
         "punctuation": {
-          "precision": 0.9375,
-          "recall": 0.967741935483871,
-          "f1": 0.9523809523809523,
-          "tp": 30,
-          "fp": 2,
-          "fn": 1,
+          "precision": 0.9032258064516129,
+          "recall": 0.9032258064516129,
+          "f1": 0.9032258064516129,
+          "tp": 28,
+          "fp": 3,
+          "fn": 3,
           "support": 31
         },
         "function": {
-          "precision": 0.7857142857142857,
+          "precision": 0.6875,
           "recall": 0.9166666666666666,
-          "f1": 0.8461538461538461,
+          "f1": 0.7857142857142857,
           "tp": 11,
-          "fp": 3,
+          "fp": 5,
           "fn": 1,
           "support": 12
         },
         "variable": {
-          "precision": 0.9433962264150944,
+          "precision": 0.9615384615384616,
           "recall": 0.9615384615384616,
-          "f1": 0.9523809523809523,
+          "f1": 0.9615384615384616,
           "tp": 50,
-          "fp": 3,
+          "fp": 2,
           "fn": 2,
           "support": 52
         },
         "parameter": {
-          "precision": 0.5,
+          "precision": 0.6666666666666666,
           "recall": 1.0,
-          "f1": 0.6666666666666666,
+          "f1": 0.8,
           "tp": 2,
-          "fp": 2,
+          "fp": 1,
           "fn": 0,
           "support": 2
         },
         "label": {
           "precision": 1.0,
-          "recall": 0.7333333333333333,
-          "f1": 0.8461538461538461,
-          "tp": 11,
+          "recall": 0.8,
+          "f1": 0.8888888888888888,
+          "tp": 12,
           "fp": 0,
-          "fn": 4,
+          "fn": 3,
           "support": 15
         }
       }
@@ -972,24 +1046,24 @@
   "documentKinds": {
     "makefile": {
       "documents": 46,
-      "exactDocumentsIncludingModifiers": 29,
+      "exactDocumentsIncludingModifiers": 26,
       "exactSpan": {
-        "precision": 0.8810572687224669,
-        "recall": 0.91324200913242,
-        "f1": 0.8968609865470852,
-        "tp": 200,
-        "fp": 27,
-        "fn": 19,
+        "precision": 0.8663594470046083,
+        "recall": 0.8584474885844748,
+        "f1": 0.8623853211009175,
+        "tp": 188,
+        "fp": 29,
+        "fn": 31,
         "support": 219
       },
-      "exactSpanMacroF1": 0.8506987586178134,
+      "exactSpanMacroF1": 0.8299684902910709,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8634361233480177,
-        "recall": 0.8949771689497716,
-        "f1": 0.8789237668161435,
-        "tp": 196,
+        "precision": 0.8571428571428571,
+        "recall": 0.8493150684931506,
+        "f1": 0.8532110091743119,
+        "tp": 186,
         "fp": 31,
-        "fn": 23,
+        "fn": 33,
         "support": 219
       },
       "byTokenType": {
@@ -1003,21 +1077,21 @@
           "support": 10
         },
         "comment": {
-          "precision": 0.6666666666666666,
-          "recall": 0.6666666666666666,
-          "f1": 0.6666666666666666,
-          "tp": 4,
-          "fp": 2,
-          "fn": 2,
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5,
+          "tp": 3,
+          "fp": 3,
+          "fn": 3,
           "support": 6
         },
         "string": {
-          "precision": 0.7818181818181819,
-          "recall": 0.8958333333333334,
-          "f1": 0.8349514563106796,
-          "tp": 43,
-          "fp": 12,
-          "fn": 5,
+          "precision": 0.7254901960784313,
+          "recall": 0.7708333333333334,
+          "f1": 0.7474747474747475,
+          "tp": 37,
+          "fp": 14,
+          "fn": 11,
           "support": 48
         },
         "number": {
@@ -1030,63 +1104,63 @@
           "support": 2
         },
         "operator": {
-          "precision": 0.9523809523809523,
-          "recall": 0.975609756097561,
-          "f1": 0.963855421686747,
-          "tp": 40,
-          "fp": 2,
-          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.8780487804878049,
+          "f1": 0.935064935064935,
+          "tp": 36,
+          "fp": 0,
+          "fn": 5,
           "support": 41
         },
         "punctuation": {
-          "precision": 0.9375,
-          "recall": 0.967741935483871,
-          "f1": 0.9523809523809523,
-          "tp": 30,
-          "fp": 2,
-          "fn": 1,
+          "precision": 0.9032258064516129,
+          "recall": 0.9032258064516129,
+          "f1": 0.9032258064516129,
+          "tp": 28,
+          "fp": 3,
+          "fn": 3,
           "support": 31
         },
         "function": {
-          "precision": 0.7857142857142857,
+          "precision": 0.6875,
           "recall": 0.9166666666666666,
-          "f1": 0.8461538461538461,
+          "f1": 0.7857142857142857,
           "tp": 11,
-          "fp": 3,
+          "fp": 5,
           "fn": 1,
           "support": 12
         },
         "variable": {
-          "precision": 0.9433962264150944,
+          "precision": 0.9615384615384616,
           "recall": 0.9615384615384616,
-          "f1": 0.9523809523809523,
+          "f1": 0.9615384615384616,
           "tp": 50,
-          "fp": 3,
+          "fp": 2,
           "fn": 2,
           "support": 52
         },
         "parameter": {
-          "precision": 0.5,
+          "precision": 0.6666666666666666,
           "recall": 1.0,
-          "f1": 0.6666666666666666,
+          "f1": 0.8,
           "tp": 2,
-          "fp": 2,
+          "fp": 1,
           "fn": 0,
           "support": 2
         },
         "label": {
           "precision": 1.0,
-          "recall": 0.7333333333333333,
-          "f1": 0.8461538461538461,
-          "tp": 11,
+          "recall": 0.8,
+          "f1": 0.8888888888888888,
+          "tp": 12,
           "fp": 0,
-          "fn": 4,
+          "fn": 3,
           "support": 15
         }
       }
     }
   },
-  "checkpointHash": "ed61c5a8c22bf0fc14ad4523c77a9c761cdd11a0df958163a2f9f1b88dd0d273",
-  "checkpointEpoch": 12,
+  "checkpointHash": "556be927b35f06b506d7aa92d3ae122af2038bb92a9ccf8a8f33ab90beec9cb6",
+  "checkpointEpoch": 10,
   "device": "cpu"
 }

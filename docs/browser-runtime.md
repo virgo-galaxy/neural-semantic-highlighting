@@ -2,12 +2,13 @@
 
 ## Current verified state
 
-The latest [Makefile record](makefile-browser-verification.json), dated
-2026-11-18, covers **37 selected model packs** and **361/361** exact
+The latest [Makefile optimization record](makefile-optimization-verification.json),
+dated 2026-11-19, covers **37 selected model packs** and **365/365** exact
 Chromium/native span/role/modifier comparisons, with **177** passing frontend
-tests. The independent Makefile-only consumer passes **12/12** comparisons,
+tests. The independent Makefile-only consumer passes **16/16** comparisons,
 element/tokens APIs, six preset/mode combinations and custom CSS, emitting one
-model asset. All 348 previous reference cases remain unchanged. Earlier
+model asset. All 348 non-Makefile reference outputs remain unchanged; prior
+Makefile source inputs stay identical and reflect its new model. Earlier
 language-specific records remain below; XML/SVG and JSON/JSONC each share one
 model, and Flutter uses Dart.
 
@@ -853,3 +854,39 @@ require exactly Go 1.27.1, while this host has 1.27.4. No older SDK is installed
 and no version protection is changed. The available-suite run uses the local Go
 and excludes only those two environment-blocked tests; all other checks run.
 The verification record distinguishes that result from a complete default pass.
+
+## Makefile optimization
+
+The same exposed 17-file cohort improves **89.14% → 92.87%** original exact-span
+F1. A separately reserved fresh 16-file cohort improves **90.06% → 93.79%**.
+Both models use identical original source/Gold; schemas, labels, semantic contract
+and earlier family assignments stay unchanged. New test predictions follow all
+training, decoder fitting and validation-only selection. The
+[selection record](../packs/makefile/model/reports/selection.json) explicitly
+records a late serialization repair of the already fixed prelaunch choice;
+no test result changes any candidate or selection.
+
+A bounded real-source/context extension, an existing learned five-byte residual
+(768 extra parameters) and existing train-fitted joint BIO decoding improve
+banner/comment, string and reference boundaries. Selected size is 894,479 neural
+parameters with the same four-layer width-128 backbone and 512-byte context.
+No runtime source parser, spelling rule, regex, Make/Python SDK or new service is
+introduced. The previous native and ONNX bundles remain byte-identical in
+`packs/makefile/model-20261118-v1` and `browser-20261118-v1`.
+
+Float32 export passes eight lengths. Full Chromium/native parity covers 365
+cases: the 361 prior original inputs and four additional banner/help-text/
+substitution/define stress probes. The independent private-tarball consumer
+matches 16 cases, original text/HTML escaping, aliases, element/token APIs,
+six theme/mode palettes and CSS overrides, emitting one model. Other models'
+348 outputs and all 77 earlier weight files (including archived Makefile v1)
+remain byte-identical. No package is published.
+
+Visible display F1 rises **95.54% → 96.90%**, while strict short Golden regresses
+**29/46 → 26/46** (89.69% → 86.24% base-span F1). Unicode and define displays
+remain weaker; all tradeoffs are retained in [evaluation](../packs/makefile/model/BENCHMARKS.md)
+and [known limits](../packs/makefile/model/KNOWN_ISSUES.md). Native/browser parity
+establishes consistency rather than semantic perfection. The two historical
+Go 1.27.1-locked checks remain blocked on this host's Go 1.27.4; the record keeps
+that separate from passing available regressions. No SDK/version protection is
+changed to satisfy those historical checks.

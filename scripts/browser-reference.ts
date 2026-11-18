@@ -388,6 +388,19 @@ for (const [index, source] of [
     result: await getPack("markdown").highlight({ source, documentKind: "markdown" }),
   });
 }
+for (const [index, source] of [
+  "# " + "#".repeat(64) + "\n# Original build notes\n.PHONY: all\nall:\n\t@echo ready\n",
+  'help:\n\t@printf "%s\\n" "  build                  compile original source"\n',
+  'ROOT:=out\nSRC=$(wildcard source/*.c)\nOBJ=$(addprefix $(ROOT)/,$(SRC:.c=.o))\nall:\n\t@echo "$$HOME $(OBJ)"\n',
+  "define NOTICE\nOriginal $(VALUE) body\n# Literal comment and <script>source only</script>\nendef\nall:\n\t@echo ready\n",
+].entries()) {
+  cases.push({
+    filename: `edge/makefile-structured-${index}.mk`,
+    source,
+    documentKind: "makefile",
+    result: await getPack("makefile").highlight({ source, documentKind: "makefile" }),
+  });
+}
 await Promise.all([...models.values()].map((model) => model.close()));
 if (new Set(cases.map((item) => item.filename)).size !== cases.length) {
   throw new Error("Native-reference filenames must be unique");

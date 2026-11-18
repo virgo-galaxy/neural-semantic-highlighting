@@ -1,0 +1,69 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "makefile",
+  "manifest": {
+    "id": "makefile",
+    "documentKinds": [
+      {
+        "id": "makefile",
+        "extensions": [
+          "Makefile",
+          "makefile",
+          "GNUmakefile",
+          ".mk",
+          ".mak"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "0281ad6e304099ab5e24ed3f60860c9e6f0ea257e7abf941047c420636c39ebd",
+    "bytes": 3703475
+  },
+  "source": {
+    "file": "packs/makefile/model/model.pt",
+    "sha256": "8cda482ce1a0285ecd9ac890bca40713de306d45a2a9f4a57031c9373a18acc8"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "function",
+      "variable",
+      "parameter",
+      "label"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": [
+      "string"
+    ],
+    "modifierRoles": {
+      "declaration": [
+        "variable",
+        "label",
+        "function"
+      ],
+      "default-library": [
+        "function"
+      ]
+    }
+  },
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "2e81ab4df2e2bc9328f5bcd529a3b8c85f11257bc42a819ae544ad9270670ab9",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}
