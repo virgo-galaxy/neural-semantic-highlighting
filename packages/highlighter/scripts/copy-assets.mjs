@@ -41,6 +41,7 @@ for (const id of [
   "dockerfile",
   "makefile",
   "graphql",
+  "protobuf",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

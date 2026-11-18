@@ -25,6 +25,7 @@ import markdownIcon from "@/assets/document-kinds/markdown.svg";
 import perlIcon from "@/assets/document-kinds/perl.svg";
 import phpIcon from "@/assets/document-kinds/php.svg";
 import powershellIcon from "@/assets/document-kinds/powershell.svg";
+import protobufIcon from "@/assets/document-kinds/protobuf.svg";
 import pythonIcon from "@/assets/document-kinds/python.svg";
 import rIcon from "@/assets/document-kinds/r.svg";
 import rubyIcon from "@/assets/document-kinds/ruby.svg";
@@ -130,6 +131,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   dockerfile: { label: "Dockerfile", icon: dockerIcon },
   makefile: { label: "Makefile", icon: makefileIcon },
   graphql: { label: "GraphQL", icon: graphqlIcon },
+  protobuf: { label: "Protobuf", icon: protobufIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -243,6 +245,7 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".containerfile", "dockerfile"],
   ["Dockerfile", "dockerfile"],
   ["Containerfile", "dockerfile"],
+  [".proto", "protobuf"],
   [".graphql", "graphql"],
   [".gql", "graphql"],
   [".mk", "makefile"],

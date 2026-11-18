@@ -2,15 +2,19 @@
 
 ## Current verified state
 
-The latest [Makefile optimization record](makefile-optimization-verification.json),
-dated 2026-11-19, covers **37 selected model packs** and **365/365** exact
-Chromium/native span/role/modifier comparisons, with **177** passing frontend
-tests. The independent Makefile-only consumer passes **16/16** comparisons,
-element/tokens APIs, six preset/mode combinations and custom CSS, emitting one
-model asset. All 348 non-Makefile reference outputs remain unchanged; prior
-Makefile source inputs stay identical and reflect its new model. Earlier
-language-specific records remain below; XML/SVG and JSON/JSONC each share one
-model, and Flutter uses Dart.
+The latest [Protocol Buffers rollout record](protobuf-browser-verification.json),
+dated 2026-11-19, covers **39 selected model packs**, **395/395** exact Chromium/native
+span/role/modifier comparisons and **179** passing frontend tests. All 380 earlier
+native outputs are unchanged. Separate independent GraphQL and protobuf consumers
+each pass **14/14** cases with one model asset, public aliases, original text,
+safe markup, element/tokens APIs, six preset/mode pairs and custom CSS.
+
+The available complete repository suite passes. Two historical Go dataset checks
+still explicitly require Go 1.27.1 while the host has 1.27.4; their guards are
+unchanged and no SDK is installed. The verification record distinguishes this
+limitation from passing runtime/packaging checks. Earlier language-specific
+rollouts remain below; XML/SVG and JSON/JSONC each share one model, and Flutter
+uses Dart.
 
 The Playground and frontend package run the selected ONNX models in a browser
 Worker, without a Python provider or language SDK. Packages remain private and
@@ -901,3 +905,17 @@ and tokens APIs, six theme/mode pairs and custom CSS. No Python/server/SDK is
 needed in consumers. The [verification record](graphql-browser-verification.json)
 keeps this rollout separate from later model additions. Full repository checks
 are recorded after the requested Protocol Buffers rollout.
+
+## Protocol Buffers rollout — 2026-11-19
+
+One standalone `.proto` model serves `protobuf`, `proto` and `protocol-buffers`.
+The Playground adds eight source examples and the public `languages/proto`
+descriptor re-exports `languages/protobuf` without another asset. Eight numerical
+length probes preserve float32 native logits within `1e-4`; full browser/native
+parity is **395/395**. An independent private-package consumer passes 14 protobuf
+cases with one ONNX model and all theme/custom-CSS and element/tokens checks.
+Browser and consumer console errors are empty; Python/protoc/SDK/server are absent
+from the consumer runtime. The [record](protobuf-browser-verification.json) binds
+native/browser hashes, primary natural test evidence, runtime comparisons,
+private installation and available regression results. All 79 pre-task weight
+files stay byte-identical. No visibility change or npm publication occurs.

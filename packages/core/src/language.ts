@@ -1,4 +1,6 @@
 const aliases: Readonly<Record<string, string>> = {
+  proto: "protobuf",
+  "protocol-buffers": "protobuf",
   gql: "graphql",
   make: "makefile",
   mk: "makefile",

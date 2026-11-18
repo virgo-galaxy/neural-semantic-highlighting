@@ -54,6 +54,7 @@ const ids = [
   "dockerfile",
   "makefile",
   "graphql",
+  "protobuf",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -131,7 +132,8 @@ for (const entry of readdirSync(folder, { withFileTypes: true }).filter(
     entry.isDirectory() &&
     entry.name !== "dockerfile" &&
     entry.name !== "makefile" &&
-    entry.name !== "graphql",
+    entry.name !== "graphql" &&
+    entry.name !== "protobuf",
 )) {
   await appendExamples(entry.name);
 }
@@ -426,6 +428,33 @@ for (const [index, source] of [
   const source = "# API\n\n```gql\n{ users { id name } }\n```\n";
   cases.push({
     filename: "edge/markdown-graphql.md",
+    source,
+    documentKind: "markdown",
+    result: await getPack("markdown").highlight({ source, documentKind: "markdown" }),
+  });
+}
+await appendExamples("protobuf");
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '// Unicode 星空 🌌\r\nsyntax="proto3";\r\nmessage Box { string name=1; }\r\n',
+  'edition="2024"; export message Record { string id=1; }',
+  "/* " +
+    "Long original comment 🌌 with { and ;. ".repeat(45) +
+    " */\nmessage Tail { int32 value=1; }",
+  'option note="' + "<script> original & 🌌 ".repeat(45) + '";\nmessage End {}',
+].entries()) {
+  cases.push({
+    filename: `edge/protobuf-${index}.proto`,
+    source,
+    documentKind: "protobuf",
+    result: await getPack("protobuf").highlight({ source, documentKind: "protobuf" }),
+  });
+}
+{
+  const source = '# Schema\n\n```proto\nsyntax="proto3";\nmessage Item { string name=1; }\n```\n';
+  cases.push({
+    filename: "edge/markdown-protobuf.md",
     source,
     documentKind: "markdown",
     result: await getPack("markdown").highlight({ source, documentKind: "markdown" }),

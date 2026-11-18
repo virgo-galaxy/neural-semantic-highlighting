@@ -15,6 +15,8 @@ import jsonc from "@nsh/highlighter/languages/jsonc";
 import kotlin from "@nsh/highlighter/languages/kotlin";
 import makefile from "@nsh/highlighter/languages/makefile";
 import markdown from "@nsh/highlighter/languages/markdown";
+import proto from "@nsh/highlighter/languages/proto";
+import protobuf from "@nsh/highlighter/languages/protobuf";
 import ruby from "@nsh/highlighter/languages/ruby";
 import svg from "@nsh/highlighter/languages/svg";
 import toml from "@nsh/highlighter/languages/toml";
@@ -95,6 +97,23 @@ describe("browser decoder", () => {
 });
 
 describe("browser runtime lifecycle", () => {
+  it("routes Protocol Buffers source aliases to one standalone model", async () => {
+    expect(proto).toBe(protobuf);
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [protobuf] });
+    expect(highlighter.languages()).toEqual(["protobuf"]);
+    for (const name of ["protobuf", "Protobuf", "proto", "Proto", "protocol-buffers"]) {
+      expect(highlighter.supports(name)).toBe(true);
+      const pending = highlighter.highlight('syntax="proto3"; message App {}', { language: name });
+      const worker = FakeWorker.instances[0]!;
+      const request = worker.messages.at(-1)!;
+      expect(request.model).toMatchObject({ id: "protobuf" });
+      worker.reply(request.id);
+      expect((await pending).language).toBe("protobuf");
+    }
+    expect(highlighter.supports("textproto")).toBe(false);
+    highlighter.close();
+  });
   it("routes GraphQL query and schema aliases to one standalone model", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [graphql] });
@@ -465,6 +484,7 @@ describe("shipped browser artifacts", () => {
       "dockerfile",
       "makefile",
       "graphql",
+      "protobuf",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

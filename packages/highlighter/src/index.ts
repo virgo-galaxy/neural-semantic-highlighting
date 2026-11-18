@@ -26,6 +26,7 @@ import markdown from "./languages/markdown.js";
 import perl from "./languages/perl.js";
 import php from "./languages/php.js";
 import powershell from "./languages/powershell.js";
+import protobuf from "./languages/protobuf.js";
 import python from "./languages/python.js";
 import r from "./languages/r.js";
 import ruby from "./languages/ruby.js";
@@ -84,6 +85,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       dockerfile,
       makefile,
       graphql,
+      protobuf,
     ],
   });
 }

@@ -129,3 +129,7 @@ or unrelated language logo or add a third-party asset/license.
 GraphQL uses `graphql.svg`, from `icons/graphql/graphql-plain.svg` at the same
 pinned Devicon revision under the preserved MIT license. The icon never enters
 the training corpus.
+
+Protocol Buffers uses an original repository-authored `protobuf.svg`
+document/structured-field mark. The pinned Devicon inventory has no protobuf
+entry; no unrelated language logo or extra third-party license is introduced.
