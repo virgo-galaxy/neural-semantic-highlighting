@@ -2087,6 +2087,7 @@ MAKEFILE_EPOCHS ?= 3
 MAKEFILE_BATCH_SIZE ?= 32
 MAKEFILE_FOCUS_BATCH_SIZE ?= 64
 MAKEFILE_LOSS_WEIGHT_STREAM ?=
+MAKEFILE_LOCAL_KERNEL ?=
 MAKEFILE_LEARNING_RATE ?=
 MAKEFILE_EVAL_SPLIT ?= validation
 
@@ -2131,7 +2132,7 @@ train-makefile-smoke:
 	$(PYTHON) -m training.makefile.train --smoke --epochs 1 --device $(MAKEFILE_DEVICE) $(if $(MAKEFILE_RUN),--output-dir "$(MAKEFILE_RUN)") $(if $(MAKEFILE_INIT_FROM),--init-from "$(MAKEFILE_INIT_FROM)")
 
 train-makefile:
-	$(PYTHON) -m training.makefile.train --epochs $(MAKEFILE_EPOCHS) --device $(MAKEFILE_DEVICE) --batch-size $(MAKEFILE_BATCH_SIZE) --focus-batch-size $(MAKEFILE_FOCUS_BATCH_SIZE) $(if $(MAKEFILE_LOSS_WEIGHT_STREAM),--loss-weight-stream $(MAKEFILE_LOSS_WEIGHT_STREAM)) $(if $(MAKEFILE_LEARNING_RATE),--learning-rate $(MAKEFILE_LEARNING_RATE)) $(if $(MAKEFILE_RUN),--output-dir "$(MAKEFILE_RUN)") $(if $(MAKEFILE_INIT_FROM),--init-from "$(MAKEFILE_INIT_FROM)")
+	$(PYTHON) -m training.makefile.train --epochs $(MAKEFILE_EPOCHS) --device $(MAKEFILE_DEVICE) --batch-size $(MAKEFILE_BATCH_SIZE) --focus-batch-size $(MAKEFILE_FOCUS_BATCH_SIZE) $(if $(MAKEFILE_LOSS_WEIGHT_STREAM),--loss-weight-stream $(MAKEFILE_LOSS_WEIGHT_STREAM)) $(if $(MAKEFILE_LEARNING_RATE),--learning-rate $(MAKEFILE_LEARNING_RATE)) $(if $(MAKEFILE_RUN),--output-dir "$(MAKEFILE_RUN)") $(if $(MAKEFILE_INIT_FROM),--init-from "$(MAKEFILE_INIT_FROM)") $(if $(MAKEFILE_LOCAL_KERNEL),--local-kernel $(MAKEFILE_LOCAL_KERNEL))
 
 continue-makefile:
 	@test -n "$(MAKEFILE_CHECKPOINT)" || (echo 'Set MAKEFILE_CHECKPOINT to the run last.pt'; exit 1)

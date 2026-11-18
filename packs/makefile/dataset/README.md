@@ -42,3 +42,21 @@ focus tasks**. The 288 excluded mixed-v1 copies remain visible in the audit.
 Final prepared snapshot:
 `fff09b03abb21a941795220fcc83c61c01a8a710061407f4c60f08af6ccce661`.
 All earlier revisions, configurations and checkpoints remain retained.
+
+## Bounded optimization after baseline review
+
+The 17-file first test is now an exposed **legacy regression cohort**. A fixed
+[optimization protocol](optimization-protocol.json) reserves new complete source
+families from existing pinned trees and eight additional official project trees
+before opening any added source. Original schemas/semantics, all earlier labels,
+text, assignments, snapshots and checkpoints remain unchanged. No metric is used
+to select source paths or quarantine parser/copy failures. All candidate bytes and
+licenses remain captured, including rejected originals.
+
+The bound optimized snapshot has **47 / 25 / 33 natural documents**: 19 new train,
+14 fresh validation and 16 fresh test documents beside the unchanged prior data.
+Focus remains **624 / 120 / 120**. Existing exact/lexical/shape copy exclusion is
+unchanged; added copies of older source are quarantined as declared in advance.
+Primary fresh test families stay separate from both training and validation. The
+legacy cohort never becomes new independent accuracy. Validation and visible
+source review select a frozen candidate before its first new independent test.

@@ -40,3 +40,21 @@ fresh experiment. An earlier mixed task revision is rejected by existing
 structural-copy exclusion and remains retained; the later revision changes real
 rule structure instead of bypassing that safeguard. No independent test result
 participates in any correction, task generation or epoch selection.
+
+## Bounded optimization
+
+Preserve the selected baseline and all full checkpoints. The optimization run
+initializes from `artifacts/makefile/context512-structures-20261118-01/candidates/epoch-0012-best.pt`,
+with a new immutable snapshot and fresh optimizer. Keep the same four-layer,
+width-128, context-512 backbone; `MAKEFILE_LOCAL_KERNEL=5` optionally enables the
+existing zero-initialized five-byte depthwise residual (768 extra parameters).
+Start with three/six epochs, `MAKEFILE_FOCUS_BATCH_SIZE=16`, natural class weights
+and learning rate 0.0001. No source parser/spelling rule is added to inference.
+
+`python -m training.makefile.calibrate --checkpoint FULL.pt --output CALIBRATED.pt`
+fits existing legal BIO/role transitions on natural **train** Gold only. A fixed
+12-point grid selects the maximum minimum original exact-span F1 of all, fresh
+and legacy **validation** cohorts. Every matrix/weight/report is bound to its
+source checkpoint and frozen protocol. Compare real-code/Golden/displays before
+selection. The first new independent test follows all training/calibration;
+report its 16 fresh documents separately from the exposed 17-file legacy cohort.
