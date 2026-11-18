@@ -1,0 +1,372 @@
+{
+  "protocol": "Metadata-only production patch roots; entire dependency/port/patch series families fixed before reading patch sources or predictions; original repository license/notice captured without asserting a blanket patch license",
+  "sources": [
+    {
+      "repository": "buildroot/buildroot",
+      "revision": "1ae4f84ae1803a6b5043833f0137f961b2db516f",
+      "documents": 24,
+      "groups": {
+        "package/ubus": {
+          "split": "train",
+          "files": ["package/ubus/0001-Install-server-and-client-examples.patch"]
+        },
+        "package/zsh": {
+          "split": "train",
+          "files": [
+            "package/zsh/0001-52383-Avoid-incompatible-pointer-types-in-terminfo-global-variable.patch",
+            "package/zsh/0002-50658-test-Enable-to-switch-between-C-UTF-8-locales-.patch"
+          ]
+        },
+        "package/curlftpfs": {
+          "split": "train",
+          "files": [
+            "package/curlftpfs/0001-fix-CURLOPT_INFILESIZE.patch",
+            "package/curlftpfs/0002-free_ftpfs_file-memleak-fix.patch"
+          ]
+        },
+        "package/rdesktop": {
+          "split": "validation",
+          "files": [
+            "package/rdesktop/0002-use-correct-modulus-and-exponent.patch",
+            "package/rdesktop/0001-Allow-8-bit-colors.patch"
+          ]
+        },
+        "package/casync": {
+          "split": "train",
+          "files": ["package/casync/0001-src-compressor.h-fix-build-with-gcc-13.patch"]
+        },
+        "package/setserial": {
+          "split": "train",
+          "files": [
+            "package/setserial/0002-tiocghayesesp-build-fix.patch",
+            "package/setserial/0001-build-system-fix.patch"
+          ]
+        },
+        "package/wget2": {
+          "split": "train",
+          "files": ["package/wget2/0001-Fix-compilation-of-legacy-TCP-Fast-Open-code-branch.patch"]
+        },
+        "package/mbpoll": {
+          "split": "train",
+          "files": [
+            "package/mbpoll/0002-cmake-Set-minimum-required-version-to-3.5.patch",
+            "package/mbpoll/0001-CMakeLists.txt-Add-LANGUAGES-option-to-project-varia.patch"
+          ]
+        },
+        "package/ibrcommon": {
+          "split": "test",
+          "files": [
+            "package/ibrcommon/0001-ibrcommon-Use-simplyfied-POSIX-method-to-get-the-bas.patch",
+            "package/ibrcommon/0002-ibrcommon-added-openssl-1.1-compatibility-264.patch"
+          ]
+        },
+        "package/libstrophe": {
+          "split": "validation",
+          "files": [
+            "package/libstrophe/0001-Use-void-to-store-function-pointer-when-compiled-as-.patch"
+          ]
+        },
+        "package/net-tools": {
+          "split": "train",
+          "files": [
+            "package/net-tools/0001-CVE-2025-46836-interface.c-Stack-based-Buffer-Overfl.patch",
+            "package/net-tools/0002-CVE-2025-46836-interface-statistic-regression.patch"
+          ]
+        },
+        "package/fbdump": {
+          "split": "train",
+          "files": ["package/fbdump/0001-fix-gcc14-compile-issue.patch"]
+        },
+        "package/emlog": {
+          "split": "train",
+          "files": [
+            "package/emlog/0002-emlog-Do-not-use-no_llseek-with-kernel-6.12.0.patch",
+            "package/emlog/0001-Fix-build-on-Linux-6.4.patch"
+          ]
+        },
+        "package/lighttpd": {
+          "split": "validation",
+          "files": [
+            "package/lighttpd/0001-Modify-the-default-lighttpd-configuration-file-to-ha.patch"
+          ]
+        },
+        "package/mono": {
+          "split": "train",
+          "files": [
+            "package/mono/0002-Ongoing-work-on-the-cmake-build.patch",
+            "package/mono/0001-Fix-linkage-with-a-system-libatomic_ops-shared-library.patch"
+          ]
+        }
+      }
+    },
+    {
+      "repository": "conda-forge/python-feedstock",
+      "revision": "aa3d279f76e5a4faabf8c08a4aeaaa138d96b639",
+      "documents": 5,
+      "groups": {
+        "python-build-series": {
+          "split": "test",
+          "files": [
+            "recipe/patches/0005-Unvendor-openssl.patch",
+            "recipe/patches/0014-Unvendor-tcltk.patch",
+            "recipe/patches/0018-Unvendor-expat.patch",
+            "recipe/patches/0012-Unvendor-bzip2.patch",
+            "recipe/patches/0025-Unvendor-zstd.patch"
+          ]
+        }
+      }
+    },
+    {
+      "repository": "electron/electron",
+      "revision": "ef8d809e433f60708df708db342214d2286de939",
+      "documents": 21,
+      "groups": {
+        "patches/libaddressinput": {
+          "split": "validation",
+          "files": [
+            "patches/libaddressinput/fix_include_format_element_h_for_formatelement_completeness.patch"
+          ]
+        },
+        "patches/ffmpeg": {
+          "split": "train",
+          "files": ["patches/ffmpeg/link_with_loader_path.patch"]
+        },
+        "patches/node": {
+          "split": "validation",
+          "files": [
+            "patches/node/chore_disable_deprecation_ftbfs_in_simdjson_header.patch",
+            "patches/node/fix_allow_electron_s_linked_bindings_under_the_permission_model.patch",
+            "patches/node/src_stop_using_deprecated_get_setprototypev2_and_holderv2.patch",
+            "patches/node/chore_expose_importmoduledynamically_and.patch",
+            "patches/node/fix_allow_passing_fileexists_fn_to_legacymainresolve.patch"
+          ]
+        },
+        "patches/v8": {
+          "split": "train",
+          "files": [
+            "patches/v8/build_warn_instead_of_abort_on_builtin_pgo_profile_mismatch.patch",
+            "patches/v8/fix_support_pending_trusted_objects_in_snapshot_serialization.patch",
+            "patches/v8/src_use_legacy_trace_macros_in_perfetto_to_support_all_phases.patch",
+            "patches/v8/fix_allow_embedder_slots_of_non-api_objects_in_snapshot.patch"
+          ]
+        },
+        "patches/webrtc": {
+          "split": "train",
+          "files": [
+            "patches/webrtc/fix_fall_back_to_the_x11_capturer_when_pipewire_fails_to_start.patch"
+          ]
+        },
+        "patches/boringssl": {
+          "split": "validation",
+          "files": [
+            "patches/boringssl/feat_expose_several_extra_cipher_functions.patch",
+            "patches/boringssl/expose_ripemd160.patch"
+          ]
+        },
+        "patches/nan": {
+          "split": "train",
+          "files": ["patches/nan/fix_callback_data_accessors_for_v8_15_6_and_later.patch"]
+        },
+        "patches/sqlite": {
+          "split": "train",
+          "files": [
+            "patches/sqlite/fix_rename_sqlite_win32_exports_to_avoid_conflicts_with_node_js.patch"
+          ]
+        },
+        "patches/chromium": {
+          "split": "train",
+          "files": [
+            "patches/chromium/fix_win32_synchronous_spellcheck.patch",
+            "patches/chromium/refactor_expose_hostimportmoduledynamically_and.patch",
+            "patches/chromium/proxy_config_monitor.patch",
+            "patches/chromium/feat_expose_raw_response_headers_from_urlloader.patch",
+            "patches/chromium/fix_crash_loading_non-standard_schemes_in_iframes.patch"
+          ]
+        }
+      }
+    },
+    {
+      "repository": "microsoft/vcpkg",
+      "revision": "ea49500a3353603af1190ca9a786a9015d638ea0",
+      "documents": 24,
+      "groups": {
+        "ports/parallelstl": {
+          "split": "train",
+          "files": ["ports/parallelstl/fix-cmakelist.patch"]
+        },
+        "ports/kholidays": {
+          "split": "test",
+          "files": [
+            "ports/kholidays/generate-flexlexer-header.patch",
+            "ports/kholidays/optional-qml.patch"
+          ]
+        },
+        "ports/capstone": {
+          "split": "test",
+          "files": [
+            "ports/capstone/002-force-exportname-capstone.patch",
+            "ports/capstone/001-silence-windows-crt-secure-warnings.patch"
+          ]
+        },
+        "ports/libdotconf": {
+          "split": "train",
+          "files": [
+            "ports/libdotconf/remove-docs-and-examples.patch",
+            "ports/libdotconf/no-undefined.patch"
+          ]
+        },
+        "ports/oboe": {
+          "split": "test",
+          "files": ["ports/oboe/fix-ndk-r30.patch", "ports/oboe/fix_install.patch"]
+        },
+        "ports/libftdi1": {
+          "split": "train",
+          "files": ["ports/libftdi1/libdir.diff", "ports/libftdi1/disable-config-script.diff"]
+        },
+        "ports/sdl3-mixer": {
+          "split": "validation",
+          "files": ["ports/sdl3-mixer/fluidsynth.diff"]
+        },
+        "ports/pxlib": {
+          "split": "test",
+          "files": [
+            "ports/pxlib/use_modern_find_iconv.patch",
+            "ports/pxlib/fix_iconv_handle_check.patch"
+          ]
+        },
+        "ports/libvhdi": {
+          "split": "train",
+          "files": ["ports/libvhdi/macos_fixes.patch"]
+        },
+        "ports/libass": {
+          "split": "train",
+          "files": ["ports/libass/arm64-windows-asm.patch"]
+        },
+        "ports/libcoap": {
+          "split": "train",
+          "files": [
+            "ports/libcoap/remove-hardcoded-tinydtls-path.patch",
+            "ports/libcoap/obgm-remove-self-configure-file.patch"
+          ]
+        },
+        "ports/poselib": {
+          "split": "train",
+          "files": ["ports/poselib/fatal-errors.patch"]
+        },
+        "ports/qtwebengine": {
+          "split": "test",
+          "files": [
+            "ports/qtwebengine/cross-build.diff",
+            "ports/qtwebengine/pkg-config-sorted-libs.diff"
+          ]
+        },
+        "ports/hpx": {
+          "split": "train",
+          "files": ["ports/hpx/fix-asio-resolver.patch"]
+        },
+        "ports/vc": {
+          "split": "train",
+          "files": ["ports/vc/correct_cmake_config_path.patch"]
+        },
+        "ports/eathread": {
+          "split": "test",
+          "files": ["ports/eathread/fix_cmake_install.patch"]
+        }
+      }
+    },
+    {
+      "repository": "openwrt/openwrt",
+      "revision": "2ccaccdb98f8d37eda9830e455e4a4d10834a369",
+      "documents": 24,
+      "groups": {
+        "package/devel/strace": {
+          "split": "train",
+          "files": ["package/devel/strace/patches/010-m4.patch"]
+        },
+        "package/system/ca-certificates": {
+          "split": "test",
+          "files": [
+            "package/system/ca-certificates/patches/0001-ca-certificates-fix-python3-cryptography-woes-in-cer.patch",
+            "package/system/ca-certificates/patches/0002-blacklist-certs.patch"
+          ]
+        },
+        "package/libs/sysfsutils": {
+          "split": "train",
+          "files": ["package/libs/sysfsutils/patches/200-mnt_path_check.patch"]
+        },
+        "package/kernel/cryptodev-linux": {
+          "split": "train",
+          "files": [
+            "package/kernel/cryptodev-linux/patches/001-Fix-cryptodev_verbosity-sysctl-for-Linux-6.11-rc1.patch",
+            "package/kernel/cryptodev-linux/patches/002-Fix-build-for-Linux-6.18-rc1.patch"
+          ]
+        },
+        "package/boot/uboot-at91": {
+          "split": "test",
+          "files": [
+            "package/boot/uboot-at91/patches/002-increase-max-SPL-size.patch",
+            "package/boot/uboot-at91/patches/001-fix-Wformat-security.patch"
+          ]
+        },
+        "package/utils/mdadm": {
+          "split": "train",
+          "files": [
+            "package/utils/mdadm/patches/200-reduce_size.patch",
+            "package/utils/mdadm/patches/100-cross_compile.patch"
+          ]
+        },
+        "package/libs/openssl": {
+          "split": "test",
+          "files": [
+            "package/libs/openssl/patches/130-dont-build-fuzz-docs.patch",
+            "package/libs/openssl/patches/110-openwrt_targets.patch"
+          ]
+        },
+        "package/libs/libbpf": {
+          "split": "train",
+          "files": ["package/libs/libbpf/patches/100-bpf_tc_classid.patch"]
+        },
+        "package/boot/uboot-qoriq": {
+          "split": "test",
+          "files": [
+            "package/boot/uboot-qoriq/patches/900-Revert-fsl-mxc-Drop-legacy-I2c.patch",
+            "package/boot/uboot-qoriq/patches/100-mpc85xx-adjust-T4240RDB-config-for-OpenWrt.patch"
+          ]
+        },
+        "package/libs/libjson-c": {
+          "split": "train",
+          "files": [
+            "package/libs/libjson-c/patches/004-clear-userdata-during-object-cleanup.patch",
+            "package/libs/libjson-c/patches/002-free-objects-outside-assert-in-json_object_put.patch"
+          ]
+        },
+        "package/utils/ravpower-mcu": {
+          "split": "test",
+          "files": ["package/utils/ravpower-mcu/patches/001-fix-compile-flags.patch"]
+        },
+        "package/boot/apboot-aruba-ipq806x": {
+          "split": "train",
+          "files": ["package/boot/apboot-aruba-ipq806x/patches/100-reproducible-timestamps.patch"]
+        },
+        "package/devel/binutils": {
+          "split": "validation",
+          "files": ["package/devel/binutils/patches/001-replace-attribute_const.patch"]
+        },
+        "package/kernel/mac80211": {
+          "split": "validation",
+          "files": [
+            "package/kernel/mac80211/patches/ath10k/975-ath10k-use-tpt-trigger-by-default.patch",
+            "package/kernel/mac80211/patches/ath9k/501-ath9k_ahb_init.patch"
+          ]
+        },
+        "package/boot/kobs-ng": {
+          "split": "train",
+          "files": [
+            "package/boot/kobs-ng/patches/004-fix-cal_nfc_geometry.patch",
+            "package/boot/kobs-ng/patches/002-add-init-size-param.patch"
+          ]
+        }
+      }
+    }
+  ]
+}

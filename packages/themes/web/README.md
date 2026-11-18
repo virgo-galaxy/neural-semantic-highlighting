@@ -95,3 +95,9 @@ and `strikethrough` modifiers additionally use `--nsh-strong-font-weight`,
 `--nsh-emphasis-font-style` and `--nsh-strikethrough-text-decoration` overrides.
 These are semantic styles shared across languages; code-fence child spans keep
 their actual `data-nsh-language` and existing language colors.
+
+Diff/Patch adds shared `addition` and `deletion` roles to all six preset/mode
+palettes. Original `+`/`-` prefixes remain visible as a non-color cue. Customize
+`--nsh-addition` and `--nsh-deletion` like other public semantic colors. These
+roles color the original complete changed line; the code within it stays Diff
+content. Existing roles, base surfaces and language accents keep their colors.

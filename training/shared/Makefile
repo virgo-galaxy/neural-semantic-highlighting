@@ -2294,3 +2294,74 @@ challenge-protobuf:
 export-protobuf-model:
 	@test -n "$(PROTOBUF_CHECKPOINT)" -a -n "$(PROTOBUF_TEST_REPORT)" || (echo 'Set PROTOBUF_CHECKPOINT and PROTOBUF_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.protobuf.export_model --checkpoint "$(PROTOBUF_CHECKPOINT)" --test-report "$(PROTOBUF_TEST_REPORT)"
+
+DIFF_DEVICE ?= auto
+DIFF_EPOCHS ?= 3
+DIFF_BATCH_SIZE ?= 32
+DIFF_FOCUS_BATCH_SIZE ?= 64
+DIFF_LOSS_WEIGHT_STREAM ?=
+DIFF_LOCAL_KERNEL ?=
+DIFF_LEARNING_RATE ?=
+DIFF_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-diff dataset-diff-tools dataset-diff-sources dataset-diff-curriculum dataset-diff-collect dataset-diff-label dataset-diff-validate dataset-diff-prepare test-labeling-diff train-diff-smoke train-diff continue-diff predict-diff evaluate-diff challenge-diff export-diff-model
+
+dataset-diff-tools:
+	$(PYTHON) -m packs.diff.labeling.tools
+
+dataset-diff-sources:
+	$(PYTHON) -m packs.diff.dataset.fetch_sources
+
+dataset-diff:
+	$(MAKE) dataset-diff-tools
+	$(MAKE) dataset-diff-sources
+	$(MAKE) dataset-diff-curriculum
+	$(MAKE) dataset-diff-collect
+	$(MAKE) dataset-diff-label
+	$(MAKE) dataset-diff-validate
+	$(MAKE) dataset-diff-prepare
+
+dataset-diff-curriculum:
+	$(PYTHON) -m packs.diff.dataset.generate_curriculum
+	$(PYTHON) -m packs.diff.dataset.generate_metadata_contexts
+
+dataset-diff-collect:
+	$(PYTHON) -m packs.diff.dataset.pipeline collect
+
+dataset-diff-label:
+	$(PYTHON) -m packs.diff.dataset.pipeline label
+
+dataset-diff-validate:
+	$(PYTHON) -m packs.diff.dataset.pipeline validate
+
+dataset-diff-prepare:
+	$(PYTHON) -m training.diff.prepare
+
+test-labeling-diff:
+	$(PYTHON) -m unittest discover -s packs/diff/tests -v
+
+train-diff-smoke:
+	$(PYTHON) -m training.diff.train --smoke --epochs 1 --device $(DIFF_DEVICE) $(if $(DIFF_RUN),--output-dir "$(DIFF_RUN)") $(if $(DIFF_INIT_FROM),--init-from "$(DIFF_INIT_FROM)") $(if $(DIFF_LOCAL_KERNEL),--local-kernel $(DIFF_LOCAL_KERNEL))
+
+train-diff:
+	$(PYTHON) -m training.diff.train --epochs $(DIFF_EPOCHS) --device $(DIFF_DEVICE) --batch-size $(DIFF_BATCH_SIZE) --focus-batch-size $(DIFF_FOCUS_BATCH_SIZE) $(if $(DIFF_LOSS_WEIGHT_STREAM),--loss-weight-stream $(DIFF_LOSS_WEIGHT_STREAM)) $(if $(DIFF_LEARNING_RATE),--learning-rate $(DIFF_LEARNING_RATE)) $(if $(DIFF_RUN),--output-dir "$(DIFF_RUN)") $(if $(DIFF_INIT_FROM),--init-from "$(DIFF_INIT_FROM)") $(if $(DIFF_LOCAL_KERNEL),--local-kernel $(DIFF_LOCAL_KERNEL))
+
+continue-diff:
+	@test -n "$(DIFF_CHECKPOINT)" || (echo 'Set DIFF_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.diff.train --resume "$(DIFF_CHECKPOINT)" --epochs $(DIFF_EPOCHS) --device $(DIFF_DEVICE)
+
+predict-diff:
+	@test -n "$(DIFF_SOURCE)" || (echo 'Set DIFF_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.diff.predict --device $(DIFF_DEVICE) --file "$(DIFF_SOURCE)" $(if $(DIFF_CHECKPOINT),--checkpoint "$(DIFF_CHECKPOINT)")
+
+evaluate-diff:
+	@test -n "$(DIFF_CHECKPOINT)" || (echo 'Set DIFF_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.diff.evaluate --checkpoint "$(DIFF_CHECKPOINT)" --device $(DIFF_DEVICE) --split $(DIFF_EVAL_SPLIT)
+
+challenge-diff:
+	@test -n "$(DIFF_CHECKPOINT)" || (echo 'Set DIFF_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.diff.challenge --checkpoint "$(DIFF_CHECKPOINT)" --device $(DIFF_DEVICE)
+
+export-diff-model:
+	@test -n "$(DIFF_CHECKPOINT)" -a -n "$(DIFF_TEST_REPORT)" || (echo 'Set DIFF_CHECKPOINT and DIFF_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.diff.export_model --checkpoint "$(DIFF_CHECKPOINT)" --test-report "$(DIFF_TEST_REPORT)"

@@ -1,0 +1,18 @@
+From 8fc62d178e320a49c156d2a998bf4323f14a76d1 Mon Sep 17 00:00:00 2001
+From: Example Developer <developer@example.test>
+Subject: [PATCH] Use the shared output directory
+
+Keep generated output under the shared build folder.
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/Makefile
++++ b/Makefile
+@@ -1,2 +1,2 @@
+ build:
+-	cc -o app main.c
++	$(CC) -o build/app main.c
+-- 
+2.39.5

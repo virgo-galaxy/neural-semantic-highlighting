@@ -1,0 +1,170 @@
+[
+  {
+    "id": "replace",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/example.txt⟧\n⟦heading|+++ b/example.txt⟧\n⟦label|@@ -1,1 +1,1 @@⟧\n⟦deletion|-previous⟧\n⟦addition|+updated⟧\n"
+  },
+  {
+    "id": "context",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/example.txt⟧\n⟦heading|+++ b/example.txt⟧\n⟦label|@@ -1,2 +1,2 @@ function name⟧\n⟦text| common⟧\n⟦deletion|-old⟧\n⟦addition|+new⟧\n"
+  },
+  {
+    "id": "add-file",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/example.txt⟧\n⟦heading|+++ b/example.txt⟧\n⟦label|@@ -1,0 +1,2 @@⟧\n⟦addition|+first⟧\n⟦addition|+second⟧\n"
+  },
+  {
+    "id": "delete-file",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/example.txt⟧\n⟦heading|+++ b/example.txt⟧\n⟦label|@@ -1,1 +1,0 @@⟧\n⟦deletion|-removed⟧\n"
+  },
+  {
+    "id": "blank-change",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/example.txt⟧\n⟦heading|+++ b/example.txt⟧\n⟦label|@@ -1,1 +1,1 @@⟧\n⟦deletion|-⟧\n⟦addition|+⟧\n"
+  },
+  {
+    "id": "spaces-tabs",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/example.txt⟧\n⟦heading|+++ b/example.txt⟧\n⟦label|@@ -1,1 +1,1 @@⟧\n⟦deletion|-\told  ⟧\n⟦addition|+  new\t⟧\n"
+  },
+  {
+    "id": "header-shaped-body",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/example.txt⟧\n⟦heading|+++ b/example.txt⟧\n⟦label|@@ -1,1 +1,1 @@⟧\n⟦deletion|---- not a file header⟧\n⟦addition|++++ not a file header⟧\n"
+  },
+  {
+    "id": "hunk-shaped-body",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/example.txt⟧\n⟦heading|+++ b/example.txt⟧\n⟦label|@@ -1,1 +1,1 @@⟧\n⟦deletion|-@@ -2 +2 @@⟧\n⟦addition|+diff --git a/x b/x⟧\n"
+  },
+  {
+    "id": "unicode",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/example.txt⟧\n⟦heading|+++ b/example.txt⟧\n⟦label|@@ -1,1 +1,1 @@⟧\n⟦deletion|-星空 🌌⟧\n⟦addition|+宇宙 👩🏽‍💻⟧\n"
+  },
+  {
+    "id": "unicode-line-separator",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/example.txt⟧\n⟦heading|+++ b/example.txt⟧\n⟦label|@@ -1,1 +1,1 @@⟧\n⟦deletion|-a b⟧\n⟦addition|+c d⟧\n"
+  },
+  {
+    "id": "short-hunk",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/x⟧\n⟦heading|+++ b/x⟧\n⟦label|@@ -1 +1 @@⟧\n⟦deletion|-one⟧\n⟦addition|+two⟧\n"
+  },
+  {
+    "id": "no-newline",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/x⟧\n⟦heading|+++ b/x⟧\n⟦label|@@ -1 +1 @@⟧\n⟦deletion|-old⟧\n⟦comment|\\ No newline at end of file⟧\n⟦addition|+new⟧\n⟦comment|\\ No newline at end of file⟧\n"
+  },
+  {
+    "id": "crlf",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/x⟧\r\n⟦heading|+++ b/x⟧\r\n⟦label|@@ -1 +1 @@⟧\r\n⟦deletion|-first⟧\r\n⟦addition|+second⟧\r\n"
+  },
+  {
+    "id": "git-header",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|diff --git a/x b/x⟧\n⟦comment|index 1234567..abcdef0 100644⟧\n⟦heading|--- a/x⟧\n⟦heading|+++ b/x⟧\n⟦label|@@ -1 +1 @@⟧\n⟦deletion|-before⟧\n⟦addition|+after⟧\n"
+  },
+  {
+    "id": "mode-only",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|diff --git a/run.sh b/run.sh⟧\n⟦comment|old mode 100644⟧\n⟦comment|new mode 100755⟧\n"
+  },
+  {
+    "id": "rename",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|diff --git a/old b/new⟧\n⟦comment|similarity index 100%⟧\n⟦comment|rename from old⟧\n⟦comment|rename to new⟧\n"
+  },
+  {
+    "id": "copy",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|diff --git a/original b/copy⟧\n⟦comment|similarity index 100%⟧\n⟦comment|copy from original⟧\n⟦comment|copy to copy⟧\n"
+  },
+  {
+    "id": "binary-notice",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|diff --git a/icon.png b/icon.png⟧\n⟦comment|Binary files a/icon.png and b/icon.png differ⟧\n"
+  },
+  {
+    "id": "new-file-null",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|diff --git a/new b/new⟧\n⟦comment|new file mode 100644⟧\n⟦heading|--- /dev/null⟧\n⟦heading|+++ b/new⟧\n⟦label|@@ -0,0 +1 @@⟧\n⟦addition|+created⟧\n"
+  },
+  {
+    "id": "delete-file-null",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|diff --git a/old b/old⟧\n⟦comment|deleted file mode 100644⟧\n⟦heading|--- a/old⟧\n⟦heading|+++ /dev/null⟧\n⟦label|@@ -1 +0,0 @@⟧\n⟦deletion|-gone⟧\n"
+  },
+  {
+    "id": "mail-preamble",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦comment|From 0123456789012345678901234567890123456789 Mon Sep 17 00:00:00 2001⟧\n⟦comment|From: Example Author <author@example.test>⟧\n⟦comment|Subject: [PATCH] update greeting⟧\n⟦text|A description with + and - in prose.⟧\n⟦comment|---⟧\n⟦text| file | 2 +-⟧\n⟦heading|--- a/file⟧\n⟦heading|+++ b/file⟧\n⟦label|@@ -1 +1 @@⟧\n⟦deletion|-old⟧\n⟦addition|+new⟧\n⟦comment|-- ⟧\n⟦text|2.39.5⟧\n"
+  },
+  {
+    "id": "index-header",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|Index: project/file⟧\n⟦comment|===================================================================⟧\n⟦heading|--- project/file⟧\n⟦heading|+++ project/file⟧\n⟦label|@@ -1 +1 @@⟧\n⟦deletion|-a⟧\n⟦addition|+b⟧\n"
+  },
+  {
+    "id": "fragment",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦deletion|-const count = 1;⟧\n⟦addition|+const count = 2;⟧\n⟦text| unchanged();⟧\n"
+  },
+  {
+    "id": "fragment-no-lf",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦deletion|-previous⟧\n⟦addition|+updated⟧"
+  },
+  {
+    "id": "plain-preamble",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦text|Patch description only.⟧\n"
+  },
+  {
+    "id": "bom",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦punctuation|﻿⟧⟦heading|--- a/x⟧\n⟦heading|+++ b/x⟧\n⟦label|@@ -1 +1 @@⟧\n⟦deletion|-old⟧\n⟦addition|+new⟧\n"
+  },
+  {
+    "id": "quoted-paths",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|diff --git \"a/a name\" \"b/a name\"⟧\n⟦heading|--- \"a/a name\"⟧\n⟦heading|+++ \"b/a name\"⟧\n⟦label|@@ -1 +1 @@⟧\n⟦deletion|-x⟧\n⟦addition|+y⟧\n"
+  },
+  {
+    "id": "two-hunks",
+    "profile": "diff",
+    "documentKind": "diff",
+    "markedSource": "⟦heading|--- a/x⟧\n⟦heading|+++ b/x⟧\n⟦label|@@ -1 +1 @@⟧\n⟦deletion|-a⟧\n⟦addition|+b⟧\n⟦label|@@ -9 +9 @@⟧\n⟦deletion|-c⟧\n⟦addition|+d⟧\n"
+  }
+]

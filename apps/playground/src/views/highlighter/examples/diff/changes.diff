@@ -1,0 +1,10 @@
+diff --git a/src/greeting.ts b/src/greeting.ts
+index 6d98c21..b412f03 100644
+--- a/src/greeting.ts
++++ b/src/greeting.ts
+@@ -1,3 +1,4 @@ export function greet(name: string) {
+ export function greet(name: string) {
+-  return "Hello " + name;
++  const title = name.trim() || "visitor";
++  return `Hello, ${title}!`;
+ }
