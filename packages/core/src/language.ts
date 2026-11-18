@@ -1,4 +1,5 @@
 const aliases: Readonly<Record<string, string>> = {
+  gql: "graphql",
   make: "makefile",
   mk: "makefile",
   mak: "makefile",

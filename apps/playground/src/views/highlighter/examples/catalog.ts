@@ -11,6 +11,7 @@ import dockerIcon from "@/assets/document-kinds/docker.svg";
 import dotenvIcon from "@/assets/document-kinds/dotenv.svg";
 import flutterIcon from "@/assets/document-kinds/flutter.svg";
 import goIcon from "@/assets/document-kinds/go.svg";
+import graphqlIcon from "@/assets/document-kinds/graphql.svg";
 import htmlIcon from "@/assets/document-kinds/html.svg";
 import iniIcon from "@/assets/document-kinds/ini.svg";
 import javaIcon from "@/assets/document-kinds/java.svg";
@@ -128,6 +129,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   markdown: { label: "Markdown", icon: markdownIcon },
   dockerfile: { label: "Dockerfile", icon: dockerIcon },
   makefile: { label: "Makefile", icon: makefileIcon },
+  graphql: { label: "GraphQL", icon: graphqlIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -241,6 +243,8 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".containerfile", "dockerfile"],
   ["Dockerfile", "dockerfile"],
   ["Containerfile", "dockerfile"],
+  [".graphql", "graphql"],
+  [".gql", "graphql"],
   [".mk", "makefile"],
   [".mak", "makefile"],
   ["GNUmakefile", "makefile"],

@@ -53,6 +53,7 @@ const ids = [
   "markdown",
   "dockerfile",
   "makefile",
+  "graphql",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -126,7 +127,11 @@ async function appendExamples(directory: string) {
   packs.clear();
 }
 for (const entry of readdirSync(folder, { withFileTypes: true }).filter(
-  (entry) => entry.isDirectory() && entry.name !== "dockerfile" && entry.name !== "makefile",
+  (entry) =>
+    entry.isDirectory() &&
+    entry.name !== "dockerfile" &&
+    entry.name !== "makefile" &&
+    entry.name !== "graphql",
 )) {
   await appendExamples(entry.name);
 }
@@ -399,6 +404,31 @@ for (const [index, source] of [
     source,
     documentKind: "makefile",
     result: await getPack("makefile").highlight({ source, documentKind: "makefile" }),
+  });
+}
+await appendExamples("graphql");
+for (const [index, source] of [
+  "",
+  "\r\n",
+  "# comment 星空 🌌\r\n{ viewer { name } }\r\n",
+  'query Unicode($term: String = "🌌") { lookup(term: $term) { id } }',
+  '"""' + "Long description with # and 🌌. ".repeat(50) + '"""\ntype Sample { value: String }',
+  "query End { items { " + "field ".repeat(160) + " } }",
+].entries()) {
+  cases.push({
+    filename: `edge/graphql-${index}.gql`,
+    source,
+    documentKind: "graphql",
+    result: await getPack("graphql").highlight({ source, documentKind: "graphql" }),
+  });
+}
+{
+  const source = "# API\n\n```gql\n{ users { id name } }\n```\n";
+  cases.push({
+    filename: "edge/markdown-graphql.md",
+    source,
+    documentKind: "markdown",
+    result: await getPack("markdown").highlight({ source, documentKind: "markdown" }),
   });
 }
 await Promise.all([...models.values()].map((model) => model.close()));

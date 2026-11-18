@@ -14,6 +14,7 @@ import dart from "./languages/dart.js";
 import dockerfile from "./languages/dockerfile.js";
 import dotenv from "./languages/dotenv.js";
 import go from "./languages/go.js";
+import graphql from "./languages/graphql.js";
 import html from "./languages/html.js";
 import ini from "./languages/ini.js";
 import java from "./languages/java.js";
@@ -82,6 +83,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       markdown,
       dockerfile,
       makefile,
+      graphql,
     ],
   });
 }

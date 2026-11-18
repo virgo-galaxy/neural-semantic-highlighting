@@ -125,3 +125,7 @@ pinned Devicon revision and preserved MIT license. The verified Git blob is
 Makefile uses an original repository-authored `makefile.svg` document/dependency
 mark. The pinned Devicon revision has no Makefile icon; it does not reuse a CMake
 or unrelated language logo or add a third-party asset/license.
+
+GraphQL uses `graphql.svg`, from `icons/graphql/graphql-plain.svg` at the same
+pinned Devicon revision under the preserved MIT license. The icon never enters
+the training corpus.

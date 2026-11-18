@@ -8,6 +8,7 @@ import dart from "@nsh/highlighter/languages/dart";
 import dockerfile from "@nsh/highlighter/languages/dockerfile";
 import dotenv from "@nsh/highlighter/languages/dotenv";
 import flutter from "@nsh/highlighter/languages/flutter";
+import graphql from "@nsh/highlighter/languages/graphql";
 import ini from "@nsh/highlighter/languages/ini";
 import json from "@nsh/highlighter/languages/json";
 import jsonc from "@nsh/highlighter/languages/jsonc";
@@ -94,6 +95,22 @@ describe("browser decoder", () => {
 });
 
 describe("browser runtime lifecycle", () => {
+  it("routes GraphQL query and schema aliases to one standalone model", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [graphql] });
+    expect(highlighter.languages()).toEqual(["graphql"]);
+    for (const name of ["graphql", "GraphQL", "gql", "GQL"]) {
+      expect(highlighter.supports(name)).toBe(true);
+      const pending = highlighter.highlight("query App { viewer { id } }", { language: name });
+      const worker = FakeWorker.instances[0]!;
+      const request = worker.messages.at(-1)!;
+      expect(request.model).toMatchObject({ id: "graphql" });
+      worker.reply(request.id);
+      expect((await pending).language).toBe("graphql");
+    }
+    expect(highlighter.supports("apollo")).toBe(false);
+    highlighter.close();
+  });
   it("routes Makefile filenames and aliases to one standalone model", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [makefile] });
@@ -447,6 +464,7 @@ describe("shipped browser artifacts", () => {
       "markdown",
       "dockerfile",
       "makefile",
+      "graphql",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

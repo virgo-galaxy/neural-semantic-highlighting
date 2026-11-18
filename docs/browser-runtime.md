@@ -890,3 +890,14 @@ establishes consistency rather than semantic perfection. The two historical
 Go 1.27.1-locked checks remain blocked on this host's Go 1.27.4; the record keeps
 that separate from passing available regressions. No SDK/version protection is
 changed to satisfy those historical checks.
+
+## GraphQL rollout — 2026-11-19
+
+GraphQL query and SDL source share one selected model and `.graphql`/`.gql`
+examples. Browser/native parity passes **380/380**, preserving all prior 365
+native outputs. An independently installed private-tarball consumer passes 14
+GraphQL inputs with one ONNX asset, aliases, original text, safe markup, element
+and tokens APIs, six theme/mode pairs and custom CSS. No Python/server/SDK is
+needed in consumers. The [verification record](graphql-browser-verification.json)
+keeps this rollout separate from later model additions. Full repository checks
+are recorded after the requested Protocol Buffers rollout.

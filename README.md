@@ -472,7 +472,7 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`, `ini`, `dotenv`, `xml`, `svg`, `markdown`, `dockerfile`, `makefile`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`, `ini`, `dotenv`, `xml`, `svg`, `markdown`, `dockerfile`, `makefile`, `graphql`, `gql`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
@@ -701,7 +701,7 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **37 model packs**, with browser inference and Playground examples.
+There are **38 model packs**, with browser inference and Playground examples.
 Some source kinds share weights, including XML/SVG and JSON/JSONC; Flutter shares Dart.
 The browser conversion preserves the selected weights without retraining or
 quantization. The latest [verification record](docs/makefile-optimization-verification.json)
@@ -755,6 +755,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [Markdown](packs/markdown/model/README.md)                  | Markdown/GFM source, headings, lists/tasks, tables, links/references, nested emphasis, code, opaque HTML/front matter and predicted top-level fenced regions                        | [95.10%](packs/markdown/model/BENCHMARKS.md) — new independent natural test, 20 files                                                          | Optimized browser/local model; [strict edge cases and long fenced bodies](packs/markdown/model/KNOWN_ISSUES.md) remain weaker                          |
 | [Dockerfile](packs/dockerfile/model/README.md)              | Dockerfile/Containerfile, multistage names, ARG/ENV/LABEL, flags, Shell/JSON forms, continuations and heredocs                                                                      | [96.33%](packs/dockerfile/model/BENCHMARKS.md) — independent natural test, 14 files                                                            | Browser + local; [Unicode comments, long strings and source-local shell roles](packs/dockerfile/model/KNOWN_ISSUES.md) remain limited                  |
 | [Makefile](packs/makefile/model/README.md)                  | Makefile/GNUmakefile, .mk/.mak; common GNU Make targets, variables/functions, directives, opaque define values and Shell recipes                                                    | [93.79%](packs/makefile/model/BENCHMARKS.md) — fresh independent test, 16 files; 92.87% on the same exposed 17-file legacy cohort              | Optimized browser + local; [short edge probes, define bodies, long commands and bounded dialects](packs/makefile/model/KNOWN_ISSUES.md) remain limited |
+| [GraphQL](packs/graphql/model/README.md)                    | Query/mutation/subscription and SDL; `.graphql`, `.gql`                                                                                                                             | [96.36%](packs/graphql/model/BENCHMARKS.md) — 14 natural test files                                                                            | Browser + local; [long descriptions, Unicode and semantic-role boundaries](packs/graphql/model/KNOWN_ISSUES.md) remain limited                         |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
