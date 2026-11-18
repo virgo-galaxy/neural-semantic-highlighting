@@ -121,3 +121,7 @@ existing dark-theme icon treatment and stays outside the training corpus.
 Dockerfile uses `docker.svg`, from `icons/docker/docker-original.svg` at the same
 pinned Devicon revision and preserved MIT license. The verified Git blob is
 `bbeaed2effdc1f6840aff73491a5faa2a585885b`. The icon and displays never enter training collection.
+
+Makefile uses an original repository-authored `makefile.svg` document/dependency
+mark. The pinned Devicon revision has no Makefile icon; it does not reuse a CMake
+or unrelated language logo or add a third-party asset/license.

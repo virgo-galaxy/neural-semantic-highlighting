@@ -19,6 +19,7 @@ import jsonIcon from "@/assets/document-kinds/json.svg";
 import kotlinIcon from "@/assets/document-kinds/kotlin.svg";
 import lessIcon from "@/assets/document-kinds/less.svg";
 import luaIcon from "@/assets/document-kinds/lua.svg";
+import makefileIcon from "@/assets/document-kinds/makefile.svg";
 import markdownIcon from "@/assets/document-kinds/markdown.svg";
 import perlIcon from "@/assets/document-kinds/perl.svg";
 import phpIcon from "@/assets/document-kinds/php.svg";
@@ -126,6 +127,7 @@ const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">
   svg: { label: "SVG", icon: svgIcon },
   markdown: { label: "Markdown", icon: markdownIcon },
   dockerfile: { label: "Dockerfile", icon: dockerIcon },
+  makefile: { label: "Makefile", icon: makefileIcon },
 };
 
 const DOCUMENT_KIND_SUFFIXES = [
@@ -239,6 +241,11 @@ const DOCUMENT_KIND_SUFFIXES = [
   [".containerfile", "dockerfile"],
   ["Dockerfile", "dockerfile"],
   ["Containerfile", "dockerfile"],
+  [".mk", "makefile"],
+  [".mak", "makefile"],
+  ["GNUmakefile", "makefile"],
+  ["Makefile", "makefile"],
+  ["makefile", "makefile"],
   [".md", "markdown"],
   [".markdown", "markdown"],
   [".mdown", "markdown"],

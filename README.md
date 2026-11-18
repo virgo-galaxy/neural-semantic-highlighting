@@ -472,7 +472,7 @@ source parser. Tailwind classes remain string values.
 
 Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scss`,
 `less`, `html`, `vue`, `python`, `bash`, `zsh`, `csh`, `tcsh`, `sql`, `powershell`,
-`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`, `ini`, `dotenv`, `xml`, `svg`, `markdown`, `dockerfile`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
+`bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`, `ini`, `dotenv`, `xml`, `svg`, `markdown`, `dockerfile`, `makefile`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
@@ -701,11 +701,11 @@ component's own `<pre class="nsh">` also works through variable inheritance.
 
 ## Supported languages and measured quality
 
-There are **36 model packs**, with browser inference and Playground examples.
+There are **37 model packs**, with browser inference and Playground examples.
 Some source kinds share weights, including XML/SVG and JSON/JSONC; Flutter shares Dart.
 The browser conversion preserves the selected weights without retraining or
-quantization. The latest [verification record](docs/dockerfile-browser-verification.json)
-retains **348/348** exact browser/native comparisons and **176** passing frontend
+quantization. The latest [verification record](docs/makefile-browser-verification.json)
+retains **361/361** exact browser/native comparisons and **177** passing frontend
 tests. Independent local-package checks cover public imports, original source
 text, themes and custom CSS. [Browser verification](docs/browser-runtime.md)
 keeps the earlier rollout results separately. These are runtime/packaging checks,
@@ -754,6 +754,7 @@ sets and sample sizes are not directly comparable. Reports retain known limits.
 | [SVG](packs/xml/model/README.md)                            | .svg; paths, shapes, groups, gradients, filters, animation and accessible text; XML 1.0 source                                                                                      | [100.00%](packs/xml/model/BENCHMARKS.md) — natural test, 6 files                                                                               | Browser + local; one shared XML/SVG model; [CDATA/long boundaries and embedded-source limits](packs/xml/model/KNOWN_ISSUES.md)                       |
 | [Markdown](packs/markdown/model/README.md)                  | Markdown/GFM source, headings, lists/tasks, tables, links/references, nested emphasis, code, opaque HTML/front matter and predicted top-level fenced regions                        | [95.10%](packs/markdown/model/BENCHMARKS.md) — new independent natural test, 20 files                                                          | Optimized browser/local model; [strict edge cases and long fenced bodies](packs/markdown/model/KNOWN_ISSUES.md) remain weaker                        |
 | [Dockerfile](packs/dockerfile/model/README.md)              | Dockerfile/Containerfile, multistage names, ARG/ENV/LABEL, flags, Shell/JSON forms, continuations and heredocs                                                                      | [96.33%](packs/dockerfile/model/BENCHMARKS.md) — independent natural test, 14 files                                                            | Browser + local; [Unicode comments, long strings and source-local shell roles](packs/dockerfile/model/KNOWN_ISSUES.md) remain limited                |
+| [Makefile](packs/makefile/model/README.md)                  | Makefile/GNUmakefile, .mk/.mak; common GNU Make targets, variables/functions, directives, opaque define values and Shell recipes                                                    | [89.14%](packs/makefile/model/BENCHMARKS.md) — independent natural test, 17 files                                                              | Browser + local; [define bodies, long commands, nested references and bounded dialects](packs/makefile/model/KNOWN_ISSUES.md) remain limited         |
 
 C++ uses `cpp` (`c++` and `cxx` aliases). Existing `.h` extension mapping stays C;
 pass `{ language: "cpp" }` explicitly for C++ header contents. C and C++ use
@@ -1024,3 +1025,26 @@ Docker Engine, Go, Python or parser. All presets, light/dark modes and custom
 model-predicted explicit Dockerfile fences; default registration already includes
 both. See [evaluation](packs/dockerfile/model/BENCHMARKS.md) and
 [known limits](packs/dockerfile/model/KNOWN_ISSUES.md).
+
+Makefile uses `{ language: "makefile" }`; `make`, `mk`, `mak`, `gnumake` and
+`gnumakefile` are case-normalized aliases for the same standalone model.
+`Makefile`, `GNUmakefile` and `.mk`/`.mak` contents use explicit language selection.
+CMake, NMake and complete BSD make remain separate unsupported dialects.
+
+```ts
+import { createHighlighter } from "@nsh/highlighter/core";
+import makefile from "@nsh/highlighter/languages/makefile";
+import "@nsh/highlighter/themes.css";
+
+const highlighter = createHighlighter({ languages: [makefile] });
+const { html } = await highlighter.highlight(source, { language: "makefile" });
+document.querySelector("#example")!.innerHTML = html;
+```
+
+Selective import emits **one** model asset, with learned Make and recipe roles.
+Consumers need no Make executable, language SDK, Python, parser or nested Shell
+model. All presets, light/dark modes and custom `--nsh-*` CSS apply. Register
+`markdown` beside `makefile` to reuse it in model-predicted explicit Makefile
+fences; default registration includes both. No Makefile, recipe, expansion or
+included file is executed or loaded. See [evaluation](packs/makefile/model/BENCHMARKS.md)
+and [known limits](packs/makefile/model/KNOWN_ISSUES.md).

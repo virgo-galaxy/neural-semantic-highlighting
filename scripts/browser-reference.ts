@@ -52,6 +52,7 @@ const ids = [
   "xml",
   "markdown",
   "dockerfile",
+  "makefile",
 ];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
@@ -125,7 +126,7 @@ async function appendExamples(directory: string) {
   packs.clear();
 }
 for (const entry of readdirSync(folder, { withFileTypes: true }).filter(
-  (entry) => entry.isDirectory() && entry.name !== "dockerfile",
+  (entry) => entry.isDirectory() && entry.name !== "dockerfile" && entry.name !== "makefile",
 )) {
   await appendExamples(entry.name);
 }
@@ -357,6 +358,31 @@ for (const [index, source] of [
   const source = "# Container source\n\n```dockerfile\nFROM alpine:3\nRUN echo ready\n```\n";
   cases.push({
     filename: "edge/markdown-dockerfile.md",
+    source,
+    documentKind: "markdown",
+    result: await getPack("markdown").highlight({ source, documentKind: "markdown" }),
+  });
+}
+await appendExamples("makefile");
+for (const [index, source] of [
+  "",
+  "\r\n",
+  '\ufeff# 原文 🌌\r\nTITLE = "<script>source only</script> 🌌"\r\nall:\r\n\t@echo "$$HOME $(TITLE)"',
+  "define MESSAGE\n" +
+    "Original 🌌 body with make targets and $(VALUE). ".repeat(80) +
+    "\nendef\nall:\n\t@echo ready\n",
+].entries()) {
+  cases.push({
+    filename: `edge/makefile-${index}.mk`,
+    source,
+    documentKind: "makefile",
+    result: await getPack("makefile").highlight({ source, documentKind: "makefile" }),
+  });
+}
+{
+  const source = "# Build source\n\n```makefile\nCC ?= cc\nall:\n\t@echo ready\n```\n";
+  cases.push({
+    filename: "edge/markdown-makefile.md",
     source,
     documentKind: "markdown",
     result: await getPack("markdown").highlight({ source, documentKind: "markdown" }),

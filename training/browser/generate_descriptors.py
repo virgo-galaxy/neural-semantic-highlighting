@@ -3,7 +3,7 @@ from pathlib import Path
 import argparse
 import json
 
-IDS=['typescript','go','css','html','vue','python','bash','perl','awk','sql','powershell','bat','assembly','java','csharp','c','cpp','php','svelte','rust','zig','dart','swift','kotlin','r','scala','ruby','lua','json','yaml','toml','ini','dotenv','xml','markdown','dockerfile']
+IDS=['typescript','go','css','html','vue','python','bash','perl','awk','sql','powershell','bat','assembly','java','csharp','c','cpp','php','svelte','rust','zig','dart','swift','kotlin','r','scala','ruby','lua','json','yaml','toml','ini','dotenv','xml','markdown','dockerfile','makefile']
 
 
 def generate(pack_id):

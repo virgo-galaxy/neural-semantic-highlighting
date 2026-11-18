@@ -39,6 +39,7 @@ for (const id of [
   "xml",
   "markdown",
   "dockerfile",
+  "makefile",
 ]) {
   copyFileSync(new URL(`packs/${id}/browser/model.onnx`, root), new URL(`models/${id}.onnx`, dist));
 }

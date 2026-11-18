@@ -1,4 +1,9 @@
 const aliases: Readonly<Record<string, string>> = {
+  make: "makefile",
+  mk: "makefile",
+  mak: "makefile",
+  gnumake: "makefile",
+  gnumakefile: "makefile",
   docker: "dockerfile",
   containerfile: "dockerfile",
   md: "markdown",

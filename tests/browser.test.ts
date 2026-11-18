@@ -12,6 +12,7 @@ import ini from "@nsh/highlighter/languages/ini";
 import json from "@nsh/highlighter/languages/json";
 import jsonc from "@nsh/highlighter/languages/jsonc";
 import kotlin from "@nsh/highlighter/languages/kotlin";
+import makefile from "@nsh/highlighter/languages/makefile";
 import markdown from "@nsh/highlighter/languages/markdown";
 import ruby from "@nsh/highlighter/languages/ruby";
 import svg from "@nsh/highlighter/languages/svg";
@@ -93,6 +94,22 @@ describe("browser decoder", () => {
 });
 
 describe("browser runtime lifecycle", () => {
+  it("routes Makefile filenames and aliases to one standalone model", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const highlighter = createHighlighter({ languages: [makefile] });
+    expect(highlighter.languages()).toEqual(["makefile"]);
+    for (const name of ["makefile", "Makefile", "make", "mk", "mak", "gnumake", "GNUmakefile"]) {
+      expect(highlighter.supports(name)).toBe(true);
+      const pending = highlighter.highlight("all:\n\t@echo ready\n", { language: name });
+      const worker = FakeWorker.instances[0]!;
+      const request = worker.messages.at(-1)!;
+      expect(request.model).toMatchObject({ id: "makefile" });
+      worker.reply(request.id);
+      expect((await pending).language).toBe("makefile");
+    }
+    expect(highlighter.supports("cmake")).toBe(false);
+    highlighter.close();
+  });
   it("routes Dockerfile and Containerfile aliases to one standalone model", async () => {
     vi.stubGlobal("Worker", FakeWorker);
     const highlighter = createHighlighter({ languages: [dockerfile] });
@@ -429,6 +446,7 @@ describe("shipped browser artifacts", () => {
       "xml",
       "markdown",
       "dockerfile",
+      "makefile",
     ]) {
       const metadata = JSON.parse(readFileSync(`packs/${id}/browser/model.json`, "utf8"));
       const verification = JSON.parse(

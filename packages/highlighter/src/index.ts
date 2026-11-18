@@ -20,6 +20,7 @@ import java from "./languages/java.js";
 import json from "./languages/json.js";
 import kotlin from "./languages/kotlin.js";
 import lua from "./languages/lua.js";
+import makefile from "./languages/makefile.js";
 import markdown from "./languages/markdown.js";
 import perl from "./languages/perl.js";
 import php from "./languages/php.js";
@@ -80,6 +81,7 @@ export function createHighlighter(options: HighlighterOptions = {}) {
       xml,
       markdown,
       dockerfile,
+      makefile,
     ],
   });
 }

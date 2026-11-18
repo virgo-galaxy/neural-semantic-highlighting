@@ -508,3 +508,24 @@ See [training](../training/dockerfile/README.md),
 [semantics](../packs/dockerfile/SEMANTICS.md) and
 [evaluation](../packs/dockerfile/model/BENCHMARKS.md). Pure browser inference and
 Playground use the selected ONNX model, with no offline helper or Python bridge.
+
+## Makefile offline workflow
+
+`make dataset-makefile` uses the established immutable external dataset and
+artifacts roots. Bounded original Git blobs/licenses and complete related-family
+holdouts are frozen before labeling/training. Tree-sitter Make 1.1.1 / runtime
+0.25.10 compile with existing Clang in isolated caches; the existing pinned Bash
+teacher supplies recipe supervision through checked original-coordinate maps.
+No Makefile, include or shell/eval/file expansion executes, and no SDK/global
+package is installed. Twelve checks cover 46 independently hand-marked cases.
+
+Preserve protocol/data/run identity when correcting supervision or extending
+structural tasks. Actual natural validation and eight visible probes precede
+model freeze; first independent adaptive test follows all training. Keep natural,
+focus, Golden and visible metrics separate. Do not weaken cross-family copy
+exclusion to retain authored tasks. Export only matching checkpoint/test evidence,
+then generate the one new descriptor with `--pack makefile`, verify browser/native
+consistency, an independent private-package consumer and complete `make check`.
+See [semantics](../packs/makefile/SEMANTICS.md),
+[training](../training/makefile/README.md) and
+[evaluation](../packs/makefile/model/BENCHMARKS.md).

@@ -2,12 +2,12 @@
 
 ## Current verified state
 
-The latest [Dockerfile record](dockerfile-browser-verification.json), dated
-2026-11-17, covers **36 selected model packs** and **348/348** exact
-Chromium/native span/role/modifier comparisons, with **176** passing frontend
-tests. The independent Dockerfile-only consumer passes **12/12** comparisons,
-the element/tokens APIs, six preset/mode combinations and custom CSS, emitting
-one model asset. All 335 previous reference cases remain unchanged. Earlier
+The latest [Makefile record](makefile-browser-verification.json), dated
+2026-11-18, covers **37 selected model packs** and **361/361** exact
+Chromium/native span/role/modifier comparisons, with **177** passing frontend
+tests. The independent Makefile-only consumer passes **12/12** comparisons,
+element/tokens APIs, six preset/mode combinations and custom CSS, emitting one
+model asset. All 348 previous reference cases remain unchanged. Earlier
 language-specific records remain below; XML/SVG and JSON/JSONC each share one
 model, and Flutter uses Dart.
 
@@ -813,3 +813,43 @@ complete; Unicode comments and long/distant context remain weaker. See
 [known limits](../packs/dockerfile/model/KNOWN_ISSUES.md). Training stops before
 the first independent adaptive test; no runtime parser/regex/spelling repair is
 provided. Canonical touching-string union preserves roles and bridges no gaps.
+
+## Makefile addition
+
+Model 37 adds common GNU Make source as one standalone ONNX asset. It learns
+targets/prerequisites, assignment/automatic/substitution variables, built-in
+functions, directives/conditionals, opaque define values and common Shell
+recipes, with dollar escaping, continuations and literal recipe prefixes.
+Browser consumers do not run Make, Tree-sitter, Bash, Python or a nested Shell
+model. Filenames and aliases use explicit language selection.
+
+The [verification record](makefile-browser-verification.json) retains float32
+comparisons at eight lengths, **361/361** browser/native cases (all 348 earlier
+cases, eight displays, four edge probes and Markdown/Makefile reuse), plus an
+independent private-tarball consumer. That consumer emits one model and checks
+12 cases, original text/HTML escaping, aliases, element/token APIs, six theme/mode
+palettes and custom CSS. The existing Playground/server/port is reused; no new
+app or Python bridge is introduced. All 75 prior weight files remain unchanged.
+
+First independent natural F1 is **89.14% on 17 files**; natural validation is
+**86.94% on 11 files**, authored focus test **98.59% on 120 tasks**, and eight
+visible displays **95.54%**. Strict neural Golden is **29/46** whole cases exact
+including modifiers. Define bodies, long quoted commands and nested references
+remain weaker. These distinct evidence sets do not guarantee complete semantic
+accuracy. See [evaluation](../packs/makefile/model/BENCHMARKS.md) and
+[known limits](../packs/makefile/model/KNOWN_ISSUES.md).
+
+The offline pinned grammar and existing Bash teacher provide source-only
+supervision; no collected Makefile, recipe, expansion or included file executes.
+Actual validation exposed adjacent assignment tokenization, corrected before any
+test under a new bound data/run revision. Original bytes/families and all old
+experiments remain retained. Structural-copy exclusions stay unchanged. Inference
+uses only neural predictions and source-blind touching-string union; no parser,
+regex, spelling repair or whitespace-gap bridging is added.
+
+The default complete regression currently stops at two unchanged historical Go
+corpus tests, `TestFocusedCorpusReplay` and `TestModulePipelineOffline`: they
+require exactly Go 1.27.1, while this host has 1.27.4. No older SDK is installed
+and no version protection is changed. The available-suite run uses the local Go
+and excludes only those two environment-blocked tests; all other checks run.
+The verification record distinguishes that result from a complete default pass.

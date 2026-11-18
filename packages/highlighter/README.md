@@ -29,7 +29,7 @@ const highlighter = createHighlighter({ languages: [typescript] });
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
 include their JS/TS/CSS dependencies automatically; PHP includes HTML and its
-child dependencies. Default registration covers 36 packs, including Swift,
+child dependencies. Default registration covers 37 packs, including Swift,
 Kotlin, R, Scala, Ruby and Lua. Flutter shares Dart's model. Weights are fetched
 lazily. Models are about 3.7 MB each, with a shared 14.8 MB uncompressed WASM asset. Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
@@ -222,3 +222,12 @@ SDK, Python or parser runs in the browser. All themes and custom CSS apply.
 Register it beside Markdown for predicted explicit Dockerfile fences. See
 [evaluation](../../packs/dockerfile/model/BENCHMARKS.md) and
 [known limits](../../packs/dockerfile/model/KNOWN_ISSUES.md).
+
+Makefile uses `language: "makefile"`; `make`, `mk`, `mak`, `gnumake` and
+`gnumakefile` are aliases. Import `@nsh/highlighter/languages/makefile` selectively
+for one model asset and learned Make/Shell source roles. Browser/Playground need
+no Make executable, SDK, Python, source parser or nested Shell model. All themes
+and custom CSS apply. Register it beside Markdown for predicted explicit Makefile
+fences. Complete BSD make, NMake and CMake are outside this bounded GNU Make
+baseline. See [evaluation](../../packs/makefile/model/BENCHMARKS.md) and
+[known limits](../../packs/makefile/model/KNOWN_ISSUES.md).
