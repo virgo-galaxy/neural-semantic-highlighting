@@ -1,0 +1,58 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "diff",
+  "manifest": {
+    "id": "diff",
+    "documentKinds": [
+      {
+        "id": "diff",
+        "extensions": [
+          ".diff",
+          ".patch"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "bedd7949793d33b6c8625706bfe1556e6ed95ee01b764f2f98dfe7ec1689b2ea",
+    "bytes": 3708482
+  },
+  "source": {
+    "file": "packs/diff/model/model.pt",
+    "sha256": "ea8c16986f47cd1df4ac55724cea37917b686dd39dd1b7832f820929e83cde98"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "addition",
+      "deletion",
+      "heading",
+      "label",
+      "comment",
+      "text",
+      "punctuation"
+    ],
+    "modifiers": [
+      "declaration"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": [
+      "addition",
+      "deletion",
+      "heading",
+      "label",
+      "comment",
+      "text",
+      "punctuation"
+    ]
+  },
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "2e81ab4df2e2bc9328f5bcd529a3b8c85f11257bc42a819ae544ad9270670ab9",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}

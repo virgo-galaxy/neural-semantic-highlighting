@@ -1,0 +1,904 @@
+{
+  "checkpointHash": "836ad91f84d652bd94b14901238f8bd9bec790f5370ebff6b71a3c54a6440065",
+  "purpose": "Visible authored probes, not independent test accuracy",
+  "metrics": {
+    "documents": 8,
+    "exactDocumentsIncludingModifiers": 7,
+    "exactSpan": {
+      "precision": 0.9315068493150684,
+      "recall": 0.9577464788732394,
+      "f1": 0.9444444444444444,
+      "tp": 68,
+      "fp": 5,
+      "fn": 3,
+      "support": 71
+    },
+    "exactSpanMacroF1": 0.9277056277056278,
+    "exactSpanIncludingModifiers": {
+      "precision": 0.9315068493150684,
+      "recall": 0.9577464788732394,
+      "f1": 0.9444444444444444,
+      "tp": 68,
+      "fp": 5,
+      "fn": 3,
+      "support": 71
+    },
+    "byTokenType": {
+      "addition": {
+        "precision": 0.9090909090909091,
+        "recall": 0.9090909090909091,
+        "f1": 0.9090909090909091,
+        "tp": 10,
+        "fp": 1,
+        "fn": 1,
+        "support": 11
+      },
+      "deletion": {
+        "precision": 0.75,
+        "recall": 0.8571428571428571,
+        "f1": 0.8,
+        "tp": 6,
+        "fp": 2,
+        "fn": 1,
+        "support": 7
+      },
+      "heading": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 21,
+        "fp": 0,
+        "fn": 0,
+        "support": 21
+      },
+      "label": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 8,
+        "fp": 0,
+        "fn": 0,
+        "support": 8
+      },
+      "comment": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 14,
+        "fp": 0,
+        "fn": 0,
+        "support": 14
+      },
+      "text": {
+        "precision": 0.8181818181818182,
+        "recall": 0.9,
+        "f1": 0.8571428571428571,
+        "tp": 9,
+        "fp": 2,
+        "fn": 1,
+        "support": 10
+      },
+      "punctuation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "support": 0
+      }
+    }
+  },
+  "cases": [
+    {
+      "filename": "changes.diff",
+      "sourceSha256": "7fb870b648c62f49832266c11ed6c2aaef0f114aa18f32f3070e5a224a982b2a",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 10,
+          "fp": 0,
+          "fn": 0,
+          "support": 10
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 10,
+          "fp": 0,
+          "fn": 0,
+          "support": 10
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "deletion": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "filename": "long-line.diff",
+      "sourceSha256": "5f724a88666013ace001b9eeab979c68bbe446295b2f5ea09bc5b50db9cc267c",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.375,
+          "recall": 0.5,
+          "f1": 0.42857142857142855,
+          "tp": 3,
+          "fp": 5,
+          "fn": 3,
+          "support": 6
+        },
+        "exactSpanMacroF1": 0.4,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.375,
+          "recall": 0.5,
+          "f1": 0.42857142857142855,
+          "tp": 3,
+          "fp": 5,
+          "fn": 3,
+          "support": 6
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 1,
+            "support": 1
+          },
+          "deletion": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 1,
+            "support": 1
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 1,
+            "support": 1
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 60,
+          "end": 1381,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": " Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. "
+        },
+        {
+          "start": 1382,
+          "end": 2615,
+          "tokenType": "deletion",
+          "modifiers": [],
+          "text": "-The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. "
+        },
+        {
+          "start": 2616,
+          "end": 3849,
+          "tokenType": "addition",
+          "modifiers": [],
+          "text": "+The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. "
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 60,
+          "end": 1381,
+          "tokenType": "addition",
+          "modifiers": [],
+          "text": " Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. Shared document description 🌌, with original spacing. "
+        },
+        {
+          "start": 1382,
+          "end": 2615,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "-The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. The previous configuration keeps source text unchanged. "
+        },
+        {
+          "start": 2616,
+          "end": 3127,
+          "tokenType": "deletion",
+          "modifiers": [],
+          "text": "+The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The up"
+        },
+        {
+          "start": 3127,
+          "end": 3638,
+          "tokenType": "text",
+          "modifiers": [],
+          "text": "dated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated c"
+        },
+        {
+          "start": 3638,
+          "end": 3849,
+          "tokenType": "deletion",
+          "modifiers": [],
+          "text": "onfiguration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. The updated configuration keeps <script> as plain text. "
+        }
+      ]
+    },
+    {
+      "filename": "mail.patch",
+      "sourceSha256": "962e5522ee45fc2a0f725bb9b6ddcec07aec2041c3246d8875e417548a8f0d88",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 15,
+          "fp": 0,
+          "fn": 0,
+          "support": 15
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 15,
+          "fp": 0,
+          "fn": 0,
+          "support": 15
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "deletion": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "filename": "multi-file.diff",
+      "sourceSha256": "9cd103ee097b6ea605e6a332bce61502eb908fbadf807c910da19a42504cb38f",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 13,
+          "fp": 0,
+          "fn": 0,
+          "support": 13
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 13,
+          "fp": 0,
+          "fn": 0,
+          "support": 13
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "deletion": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "filename": "new-file.patch",
+      "sourceSha256": "ff8eef8a34512455746acc25767eca3165c1c318219a976b8cb1d2cdb9367424",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 8,
+          "fp": 0,
+          "fn": 0,
+          "support": 8
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 8,
+          "fp": 0,
+          "fn": 0,
+          "support": 8
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "deletion": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "filename": "no-newline.patch",
+      "sourceSha256": "c9d70dcd5b27408d68fdf45503faabd5facc486f2c41384d754f7a7f7ea3d33e",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "deletion": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "filename": "rename.patch",
+      "sourceSha256": "4441f2441ae1b6c8e988fe917910e3044ba9e067307fc1b6194ee161f8330c67",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 6,
+          "fp": 0,
+          "fn": 0,
+          "support": 6
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 6,
+          "fp": 0,
+          "fn": 0,
+          "support": 6
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "deletion": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "text": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "filename": "unicode.diff",
+      "sourceSha256": "f80868d060560321a47804cd99879bc0995d897178d552170a4bc57ec82d2eca",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 6,
+          "fp": 0,
+          "fn": 0,
+          "support": 6
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 6,
+          "fp": 0,
+          "fn": 0,
+          "support": 6
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "deletion": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "text": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    }
+  ]
+}

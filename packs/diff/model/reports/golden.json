@@ -1,0 +1,705 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "ef04a8e7abd225c998993d61f34d771ff0998a35a48d33a6a079b3168bc10ace",
+  "cases": [
+    {
+      "id": "replace",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/example.txt\n+++ b/example.txt\n@@ -1,1 +1,1 @@\n-previous\n+updated\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "context",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/example.txt\n+++ b/example.txt\n@@ -1,2 +1,2 @@ function name\n common\n-old\n+new\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "add-file",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/example.txt\n+++ b/example.txt\n@@ -1,0 +1,2 @@\n+first\n+second\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "delete-file",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/example.txt\n+++ b/example.txt\n@@ -1,1 +1,0 @@\n-removed\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "blank-change",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/example.txt\n+++ b/example.txt\n@@ -1,1 +1,1 @@\n-\n+\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 54,
+          "end": 55,
+          "text": "+",
+          "tokenType": "addition",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 54,
+          "end": 55,
+          "text": "+",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "spaces-tabs",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/example.txt\n+++ b/example.txt\n@@ -1,1 +1,1 @@\n-\told  \n+  new\t\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "header-shaped-body",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/example.txt\n+++ b/example.txt\n@@ -1,1 +1,1 @@\n---- not a file header\n++++ not a file header\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 52,
+          "end": 74,
+          "text": "---- not a file header",
+          "tokenType": "deletion",
+          "modifiers": []
+        },
+        {
+          "start": 75,
+          "end": 97,
+          "text": "++++ not a file header",
+          "tokenType": "addition",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 52,
+          "end": 74,
+          "text": "---- not a file header",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 75,
+          "end": 97,
+          "text": "++++ not a file header",
+          "tokenType": "heading",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "hunk-shaped-body",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/example.txt\n+++ b/example.txt\n@@ -1,1 +1,1 @@\n-@@ -2 +2 @@\n+diff --git a/x b/x\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 52,
+          "end": 64,
+          "text": "-@@ -2 +2 @@",
+          "tokenType": "deletion",
+          "modifiers": []
+        },
+        {
+          "start": 65,
+          "end": 84,
+          "text": "+diff --git a/x b/x",
+          "tokenType": "addition",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 52,
+          "end": 64,
+          "text": "-@@ -2 +2 @@",
+          "tokenType": "label",
+          "modifiers": []
+        },
+        {
+          "start": 65,
+          "end": 84,
+          "text": "+diff --git a/x b/x",
+          "tokenType": "heading",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/example.txt\n+++ b/example.txt\n@@ -1,1 +1,1 @@\n-\u661f\u7a7a \ud83c\udf0c\n+\u5b87\u5b99 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "unicode-line-separator",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/example.txt\n+++ b/example.txt\n@@ -1,1 +1,1 @@\n-a\u2028b\n+c\u2029d\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "short-hunk",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/x\n+++ b/x\n@@ -1 +1 @@\n-one\n+two\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 28,
+          "end": 32,
+          "text": "-one",
+          "tokenType": "deletion",
+          "modifiers": []
+        },
+        {
+          "start": 33,
+          "end": 37,
+          "text": "+two",
+          "tokenType": "addition",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 28,
+          "end": 32,
+          "text": "-one",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 33,
+          "end": 37,
+          "text": "+two",
+          "tokenType": "heading",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "no-newline",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/x\n+++ b/x\n@@ -1 +1 @@\n-old\n\\ No newline at end of file\n+new\n\\ No newline at end of file\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 33,
+          "end": 60,
+          "text": "\\ No newline at end of file",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 33,
+          "end": 60,
+          "text": "\\ No newline at end of file",
+          "tokenType": "deletion",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "crlf",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/x\r\n+++ b/x\r\n@@ -1 +1 @@\r\n-first\r\n+second\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "git-header",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "diff --git a/x b/x\nindex 1234567..abcdef0 100644\n--- a/x\n+++ b/x\n@@ -1 +1 @@\n-before\n+after\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "mode-only",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "diff --git a/run.sh b/run.sh\nold mode 100644\nnew mode 100755\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "rename",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "diff --git a/old b/new\nsimilarity index 100%\nrename from old\nrename to new\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "copy",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "diff --git a/original b/copy\nsimilarity index 100%\ncopy from original\ncopy to copy\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "binary-notice",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "diff --git a/icon.png b/icon.png\nBinary files a/icon.png and b/icon.png differ\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "new-file-null",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "diff --git a/new b/new\nnew file mode 100644\n--- /dev/null\n+++ b/new\n@@ -0,0 +1 @@\n+created\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "delete-file-null",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "diff --git a/old b/old\ndeleted file mode 100644\n--- a/old\n+++ /dev/null\n@@ -1 +0,0 @@\n-gone\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "mail-preamble",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "From 0123456789012345678901234567890123456789 Mon Sep 17 00:00:00 2001\nFrom: Example Author <author@example.test>\nSubject: [PATCH] update greeting\nA description with + and - in prose.\n---\n file | 2 +-\n--- a/file\n+++ b/file\n@@ -1 +1 @@\n-old\n+new\n-- \n2.39.5\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 201,
+          "end": 211,
+          "text": "--- a/file",
+          "tokenType": "heading",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 201,
+          "end": 211,
+          "text": "--- a/file",
+          "tokenType": "deletion",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "index-header",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "Index: project/file\n===================================================================\n--- project/file\n+++ project/file\n@@ -1 +1 @@\n-a\n+b\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 19,
+          "text": "Index: project/file",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 88,
+          "end": 104,
+          "text": "--- project/file",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 122,
+          "end": 133,
+          "text": "@@ -1 +1 @@",
+          "tokenType": "label",
+          "modifiers": []
+        },
+        {
+          "start": 134,
+          "end": 136,
+          "text": "-a",
+          "tokenType": "deletion",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 19,
+          "text": "Index: project/file",
+          "tokenType": "deletion",
+          "modifiers": []
+        },
+        {
+          "start": 88,
+          "end": 104,
+          "text": "--- project/file",
+          "tokenType": "deletion",
+          "modifiers": []
+        },
+        {
+          "start": 122,
+          "end": 133,
+          "text": "@@ -1 +1 @@",
+          "tokenType": "addition",
+          "modifiers": []
+        },
+        {
+          "start": 134,
+          "end": 136,
+          "text": "-a",
+          "tokenType": "addition",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "fragment",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "-const count = 1;\n+const count = 2;\n unchanged();\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "fragment-no-lf",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "-previous\n+updated",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "plain-preamble",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "Patch description only.\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "bom",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "\ufeff--- a/x\n+++ b/x\n@@ -1 +1 @@\n-old\n+new\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "\ufeff",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 8,
+          "text": "--- a/x",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 34,
+          "end": 38,
+          "text": "+new",
+          "tokenType": "addition",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "\ufeff--- a/x",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 34,
+          "end": 38,
+          "text": "+new",
+          "tokenType": "heading",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "quoted-paths",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "diff --git \"a/a name\" \"b/a name\"\n--- \"a/a name\"\n+++ \"b/a name\"\n@@ -1 +1 @@\n-x\n+y\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "two-hunks",
+      "profile": "diff",
+      "documentKind": "diff",
+      "source": "--- a/x\n+++ b/x\n@@ -1 +1 @@\n-a\n+b\n@@ -9 +9 @@\n-c\n+d\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 28,
+          "end": 30,
+          "text": "-a",
+          "tokenType": "deletion",
+          "modifiers": []
+        },
+        {
+          "start": 31,
+          "end": 33,
+          "text": "+b",
+          "tokenType": "addition",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 28,
+          "end": 30,
+          "text": "-a",
+          "tokenType": "heading",
+          "modifiers": []
+        },
+        {
+          "start": 31,
+          "end": 33,
+          "text": "+b",
+          "tokenType": "heading",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "diff": {
+      "documents": 28,
+      "exactDocumentsIncludingModifiers": 19,
+      "exactSpan": {
+        "precision": 0.8819444444444444,
+        "recall": 0.8758620689655172,
+        "f1": 0.8788927335640139,
+        "tp": 127,
+        "fp": 17,
+        "fn": 18,
+        "support": 145
+      },
+      "exactSpanMacroF1": 0.7615296441172804,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8819444444444444,
+        "recall": 0.8758620689655172,
+        "f1": 0.8788927335640139,
+        "tp": 127,
+        "fp": 17,
+        "fn": 18,
+        "support": 145
+      },
+      "byTokenType": {
+        "addition": {
+          "precision": 0.8947368421052632,
+          "recall": 0.7391304347826086,
+          "f1": 0.8095238095238095,
+          "tp": 17,
+          "fp": 2,
+          "fn": 6,
+          "support": 23
+        },
+        "deletion": {
+          "precision": 0.8095238095238095,
+          "recall": 0.7727272727272727,
+          "f1": 0.7906976744186046,
+          "tp": 17,
+          "fp": 4,
+          "fn": 5,
+          "support": 22
+        },
+        "heading": {
+          "precision": 0.8392857142857143,
+          "recall": 0.9215686274509803,
+          "f1": 0.8785046728971962,
+          "tp": 47,
+          "fp": 9,
+          "fn": 4,
+          "support": 51
+        },
+        "label": {
+          "precision": 0.9545454545454546,
+          "recall": 0.9545454545454546,
+          "f1": 0.9545454545454546,
+          "tp": 21,
+          "fp": 1,
+          "fn": 1,
+          "support": 22
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 0.95,
+          "f1": 0.9743589743589743,
+          "tp": 19,
+          "fp": 0,
+          "fn": 1,
+          "support": 20
+        },
+        "text": {
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
+          "support": 6
+        },
+        "punctuation": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "diff": {
+      "documents": 28,
+      "exactDocumentsIncludingModifiers": 19,
+      "exactSpan": {
+        "precision": 0.8819444444444444,
+        "recall": 0.8758620689655172,
+        "f1": 0.8788927335640139,
+        "tp": 127,
+        "fp": 17,
+        "fn": 18,
+        "support": 145
+      },
+      "exactSpanMacroF1": 0.7615296441172804,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8819444444444444,
+        "recall": 0.8758620689655172,
+        "f1": 0.8788927335640139,
+        "tp": 127,
+        "fp": 17,
+        "fn": 18,
+        "support": 145
+      },
+      "byTokenType": {
+        "addition": {
+          "precision": 0.8947368421052632,
+          "recall": 0.7391304347826086,
+          "f1": 0.8095238095238095,
+          "tp": 17,
+          "fp": 2,
+          "fn": 6,
+          "support": 23
+        },
+        "deletion": {
+          "precision": 0.8095238095238095,
+          "recall": 0.7727272727272727,
+          "f1": 0.7906976744186046,
+          "tp": 17,
+          "fp": 4,
+          "fn": 5,
+          "support": 22
+        },
+        "heading": {
+          "precision": 0.8392857142857143,
+          "recall": 0.9215686274509803,
+          "f1": 0.8785046728971962,
+          "tp": 47,
+          "fp": 9,
+          "fn": 4,
+          "support": 51
+        },
+        "label": {
+          "precision": 0.9545454545454546,
+          "recall": 0.9545454545454546,
+          "f1": 0.9545454545454546,
+          "tp": 21,
+          "fp": 1,
+          "fn": 1,
+          "support": 22
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 0.95,
+          "f1": 0.9743589743589743,
+          "tp": 19,
+          "fp": 0,
+          "fn": 1,
+          "support": 20
+        },
+        "text": {
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
+          "support": 6
+        },
+        "punctuation": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        }
+      }
+    }
+  },
+  "checkpointHash": "836ad91f84d652bd94b14901238f8bd9bec790f5370ebff6b71a3c54a6440065",
+  "checkpointEpoch": 6,
+  "device": "mps"
+}

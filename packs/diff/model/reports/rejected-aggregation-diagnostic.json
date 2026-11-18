@@ -1,0 +1,539 @@
+{
+  "natural-validation": {
+    "metrics": {
+      "mean": {
+        "documents": 16,
+        "exactDocumentsIncludingModifiers": 2,
+        "exactSpan": {
+          "precision": 0.9760986892829607,
+          "recall": 0.9760986892829607,
+          "f1": 0.9760986892829607,
+          "tp": 1266,
+          "fp": 31,
+          "fn": 31,
+          "support": 1297
+        },
+        "exactSpanMacroF1": 0.9775554294037764,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9760986892829607,
+          "recall": 0.9760986892829607,
+          "f1": 0.9760986892829607,
+          "tp": 1266,
+          "fp": 31,
+          "fn": 31,
+          "support": 1297
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 0.9220183486238532,
+            "recall": 0.995049504950495,
+            "f1": 0.9571428571428572,
+            "tp": 201,
+            "fp": 17,
+            "fn": 1,
+            "support": 202
+          },
+          "deletion": {
+            "precision": 0.9879518072289156,
+            "recall": 0.9761904761904762,
+            "f1": 0.9820359281437125,
+            "tp": 82,
+            "fp": 1,
+            "fn": 2,
+            "support": 84
+          },
+          "heading": {
+            "precision": 0.9590163934426229,
+            "recall": 1.0,
+            "f1": 0.9790794979079498,
+            "tp": 117,
+            "fp": 5,
+            "fn": 0,
+            "support": 117
+          },
+          "label": {
+            "precision": 0.9882352941176471,
+            "recall": 1.0,
+            "f1": 0.9940828402366864,
+            "tp": 84,
+            "fp": 1,
+            "fn": 0,
+            "support": 84
+          },
+          "comment": {
+            "precision": 0.95,
+            "recall": 1.0,
+            "f1": 0.9743589743589743,
+            "tp": 95,
+            "fp": 5,
+            "fn": 0,
+            "support": 95
+          },
+          "text": {
+            "precision": 0.9970972423802612,
+            "recall": 0.9608391608391609,
+            "f1": 0.9786324786324786,
+            "tp": 687,
+            "fp": 2,
+            "fn": 28,
+            "support": 715
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "predicted-span-start": {
+        "documents": 16,
+        "exactDocumentsIncludingModifiers": 3,
+        "exactSpan": {
+          "precision": 0.9676175790285274,
+          "recall": 0.9676175790285274,
+          "f1": 0.9676175790285274,
+          "tp": 1255,
+          "fp": 42,
+          "fn": 42,
+          "support": 1297
+        },
+        "exactSpanMacroF1": 0.9644893157008069,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9676175790285274,
+          "recall": 0.9676175790285274,
+          "f1": 0.9676175790285274,
+          "tp": 1255,
+          "fp": 42,
+          "fn": 42,
+          "support": 1297
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 0.9308755760368663,
+            "recall": 1.0,
+            "f1": 0.964200477326969,
+            "tp": 202,
+            "fp": 15,
+            "fn": 0,
+            "support": 202
+          },
+          "deletion": {
+            "precision": 0.9876543209876543,
+            "recall": 0.9523809523809523,
+            "f1": 0.9696969696969697,
+            "tp": 80,
+            "fp": 1,
+            "fn": 4,
+            "support": 84
+          },
+          "heading": {
+            "precision": 0.9316239316239316,
+            "recall": 0.9316239316239316,
+            "f1": 0.9316239316239316,
+            "tp": 109,
+            "fp": 8,
+            "fn": 8,
+            "support": 117
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 0.9880952380952381,
+            "f1": 0.9940119760479041,
+            "tp": 83,
+            "fp": 0,
+            "fn": 1,
+            "support": 84
+          },
+          "comment": {
+            "precision": 0.9215686274509803,
+            "recall": 0.9894736842105263,
+            "f1": 0.9543147208121827,
+            "tp": 94,
+            "fp": 8,
+            "fn": 1,
+            "support": 95
+          },
+          "text": {
+            "precision": 0.9856527977044476,
+            "recall": 0.9608391608391609,
+            "f1": 0.9730878186968839,
+            "tp": 687,
+            "fp": 10,
+            "fn": 28,
+            "support": 715
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      }
+    },
+    "cases": [
+      {
+        "path": "ports/sdl3-mixer/fluidsynth.diff",
+        "scores": {
+          "mean": 1.0,
+          "predicted-span-start": 1.0
+        }
+      },
+      {
+        "path": "package/rdesktop/0002-use-correct-modulus-and-exponent.patch",
+        "scores": {
+          "mean": 1.0,
+          "predicted-span-start": 0.9615384615384616
+        }
+      },
+      {
+        "path": "patches/libaddressinput/fix_include_format_element_h_for_formatelement_completeness.patch",
+        "scores": {
+          "mean": 0.9545454545454546,
+          "predicted-span-start": 0.9545454545454546
+        }
+      },
+      {
+        "path": "package/lighttpd/0001-Modify-the-default-lighttpd-configuration-file-to-ha.patch",
+        "scores": {
+          "mean": 0.9662921348314607,
+          "predicted-span-start": 0.9438202247191011
+        }
+      },
+      {
+        "path": "patches/node/chore_disable_deprecation_ftbfs_in_simdjson_header.patch",
+        "scores": {
+          "mean": 0.9764705882352941,
+          "predicted-span-start": 0.9529411764705882
+        }
+      },
+      {
+        "path": "package/libstrophe/0001-Use-void-to-store-function-pointer-when-compiled-as-.patch",
+        "scores": {
+          "mean": 0.9622641509433962,
+          "predicted-span-start": 0.9245283018867925
+        }
+      },
+      {
+        "path": "patches/node/fix_allow_passing_fileexists_fn_to_legacymainresolve.patch",
+        "scores": {
+          "mean": 0.9830508474576272,
+          "predicted-span-start": 0.9745762711864406
+        }
+      },
+      {
+        "path": "patches/node/chore_expose_importmoduledynamically_and.patch",
+        "scores": {
+          "mean": 0.9703703703703703,
+          "predicted-span-start": 0.9851851851851852
+        }
+      },
+      {
+        "path": "patches/boringssl/feat_expose_several_extra_cipher_functions.patch",
+        "scores": {
+          "mean": 0.9908256880733946,
+          "predicted-span-start": 1.0
+        }
+      },
+      {
+        "path": "package/rdesktop/0001-Allow-8-bit-colors.patch",
+        "scores": {
+          "mean": 0.9714285714285714,
+          "predicted-span-start": 0.9428571428571428
+        }
+      },
+      {
+        "path": "patches/node/fix_allow_electron_s_linked_bindings_under_the_permission_model.patch",
+        "scores": {
+          "mean": 0.975609756097561,
+          "predicted-span-start": 0.975609756097561
+        }
+      },
+      {
+        "path": "package/devel/binutils/patches/001-replace-attribute_const.patch",
+        "scores": {
+          "mean": 0.8953488372093024,
+          "predicted-span-start": 0.8953488372093024
+        }
+      },
+      {
+        "path": "package/kernel/mac80211/patches/ath9k/501-ath9k_ahb_init.patch",
+        "scores": {
+          "mean": 0.9705882352941176,
+          "predicted-span-start": 1.0
+        }
+      },
+      {
+        "path": "patches/boringssl/expose_ripemd160.patch",
+        "scores": {
+          "mean": 0.9789473684210527,
+          "predicted-span-start": 0.968421052631579
+        }
+      },
+      {
+        "path": "package/kernel/mac80211/patches/ath10k/975-ath10k-use-tpt-trigger-by-default.patch",
+        "scores": {
+          "mean": 0.9787234042553191,
+          "predicted-span-start": 0.9787234042553191
+        }
+      },
+      {
+        "path": "patches/node/src_stop_using_deprecated_get_setprototypev2_and_holderv2.patch",
+        "scores": {
+          "mean": 0.9966216216216216,
+          "predicted-span-start": 0.9797297297297297
+        }
+      }
+    ]
+  },
+  "visible": {
+    "metrics": {
+      "mean": {
+        "documents": 8,
+        "exactDocumentsIncludingModifiers": 5,
+        "exactSpan": {
+          "precision": 0.9154929577464789,
+          "recall": 0.9154929577464789,
+          "f1": 0.9154929577464789,
+          "tp": 65,
+          "fp": 6,
+          "fn": 6,
+          "support": 71
+        },
+        "exactSpanMacroF1": 0.9012121212121212,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9154929577464789,
+          "recall": 0.9154929577464789,
+          "f1": 0.9154929577464789,
+          "tp": 65,
+          "fp": 6,
+          "fn": 6,
+          "support": 71
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 0.9090909090909091,
+            "recall": 0.9090909090909091,
+            "f1": 0.9090909090909091,
+            "tp": 10,
+            "fp": 1,
+            "fn": 1,
+            "support": 11
+          },
+          "deletion": {
+            "precision": 0.75,
+            "recall": 0.8571428571428571,
+            "f1": 0.8,
+            "tp": 6,
+            "fp": 2,
+            "fn": 1,
+            "support": 7
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 21,
+            "fp": 0,
+            "fn": 0,
+            "support": 21
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 0.7857142857142857,
+            "f1": 0.88,
+            "tp": 11,
+            "fp": 0,
+            "fn": 3,
+            "support": 14
+          },
+          "text": {
+            "precision": 0.75,
+            "recall": 0.9,
+            "f1": 0.8181818181818182,
+            "tp": 9,
+            "fp": 3,
+            "fn": 1,
+            "support": 10
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "predicted-span-start": {
+        "documents": 8,
+        "exactDocumentsIncludingModifiers": 4,
+        "exactSpan": {
+          "precision": 0.8648648648648649,
+          "recall": 0.9014084507042254,
+          "f1": 0.8827586206896552,
+          "tp": 64,
+          "fp": 10,
+          "fn": 7,
+          "support": 71
+        },
+        "exactSpanMacroF1": 0.8608324043106652,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8648648648648649,
+          "recall": 0.9014084507042254,
+          "f1": 0.8827586206896552,
+          "tp": 64,
+          "fp": 10,
+          "fn": 7,
+          "support": 71
+        },
+        "byTokenType": {
+          "addition": {
+            "precision": 0.8333333333333334,
+            "recall": 0.9090909090909091,
+            "f1": 0.8695652173913043,
+            "tp": 10,
+            "fp": 2,
+            "fn": 1,
+            "support": 11
+          },
+          "deletion": {
+            "precision": 0.625,
+            "recall": 0.7142857142857143,
+            "f1": 0.6666666666666666,
+            "tp": 5,
+            "fp": 3,
+            "fn": 2,
+            "support": 7
+          },
+          "heading": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 21,
+            "fp": 0,
+            "fn": 0,
+            "support": 21
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "comment": {
+            "precision": 0.9166666666666666,
+            "recall": 0.7857142857142857,
+            "f1": 0.8461538461538461,
+            "tp": 11,
+            "fp": 1,
+            "fn": 3,
+            "support": 14
+          },
+          "text": {
+            "precision": 0.6923076923076923,
+            "recall": 0.9,
+            "f1": 0.782608695652174,
+            "tp": 9,
+            "fp": 4,
+            "fn": 1,
+            "support": 10
+          },
+          "punctuation": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      }
+    },
+    "cases": [
+      {
+        "path": "changes.diff",
+        "scores": {
+          "mean": 1.0,
+          "predicted-span-start": 1.0
+        }
+      },
+      {
+        "path": "new-file.patch",
+        "scores": {
+          "mean": 1.0,
+          "predicted-span-start": 1.0
+        }
+      },
+      {
+        "path": "no-newline.patch",
+        "scores": {
+          "mean": 0.7142857142857143,
+          "predicted-span-start": 0.7142857142857143
+        }
+      },
+      {
+        "path": "multi-file.diff",
+        "scores": {
+          "mean": 1.0,
+          "predicted-span-start": 0.9230769230769231
+        }
+      },
+      {
+        "path": "unicode.diff",
+        "scores": {
+          "mean": 1.0,
+          "predicted-span-start": 1.0
+        }
+      },
+      {
+        "path": "rename.patch",
+        "scores": {
+          "mean": 0.8333333333333334,
+          "predicted-span-start": 0.8333333333333334
+        }
+      },
+      {
+        "path": "long-line.diff",
+        "scores": {
+          "mean": 0.5,
+          "predicted-span-start": 0.4
+        }
+      },
+      {
+        "path": "mail.patch",
+        "scores": {
+          "mean": 1.0,
+          "predicted-span-start": 1.0
+        }
+      }
+    ]
+  },
+  "checkpoint": "artifacts/diff/context512-20261119-02/candidates/epoch-0008-best.pt",
+  "checkpointHash": "daae28e2800148d0084fd91805965e0214575a2deda1cf39444d1dc3ca063843",
+  "sourceBlind": true,
+  "primaryTestUsed": false,
+  "diagnosticCodeSha256": "b8a2e909d88e62623a9e37be4e19260c95d75db1100ef73cb1b8253d12613fd8"
+}
