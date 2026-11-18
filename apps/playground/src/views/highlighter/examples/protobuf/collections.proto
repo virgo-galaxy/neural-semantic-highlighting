@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+message Workspace {
+  map<string, Member> members = 1;
+  repeated string tags = 2;
+  oneof avatar {
+    string image_url = 3;
+    bytes image_data = 4;
+  }
+  message Member {
+    string name = 1;
+    bool administrator = 2;
+  }
+}

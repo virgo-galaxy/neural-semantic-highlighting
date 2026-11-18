@@ -1,0 +1,389 @@
+{
+  "protocol": "Metadata-only bounded package/directory family assignments fixed before source capture; copies excluded by unchanged pipeline",
+  "sources": [
+    {
+      "repository": "bufbuild/protovalidate",
+      "revision": "804b6087217194c7827e0d63bf2f6ae70d01f41b",
+      "documents": 9,
+      "groups": {
+        "proto/protovalidate-testing/buf/validate/conformance": {
+          "split": "test",
+          "files": [
+            "proto/protovalidate-testing/buf/validate/conformance/cases/predefined_rules_proto_editions.proto",
+            "proto/protovalidate-testing/buf/validate/conformance/cases/maps.proto",
+            "proto/protovalidate-testing/buf/validate/conformance/cases/subdirectory/in_subdirectory.proto",
+            "proto/protovalidate-testing/buf/validate/conformance/cases/wkt_field_mask.proto"
+          ]
+        },
+        "e2e/bzlmod": {
+          "split": "test",
+          "files": ["e2e/bzlmod/example.proto"]
+        },
+        "examples": {
+          "split": "train",
+          "files": [
+            "examples/option_duration_allow_values.proto",
+            "examples/option_field_ignore_empty.proto",
+            "examples/option_string_allow_values.proto",
+            "examples/cel_enum_comparison.proto"
+          ]
+        }
+      }
+    },
+    {
+      "repository": "envoyproxy/data-plane-api",
+      "revision": "f47c53e03c364b07a1cb8304b803707cd9eba1e2",
+      "documents": 28,
+      "groups": {
+        "envoy/extensions/geoip_providers/maxmind": {
+          "split": "train",
+          "files": ["envoy/extensions/geoip_providers/maxmind/v3/maxmind.proto"]
+        },
+        "contrib/envoy/extensions/load_balancing_policies/per_worker_subset": {
+          "split": "train",
+          "files": [
+            "contrib/envoy/extensions/load_balancing_policies/per_worker_subset/v3alpha/per_worker_subset.proto"
+          ]
+        },
+        "envoy/extensions/filters/udp/udp_proxy": {
+          "split": "validation",
+          "files": [
+            "envoy/extensions/filters/udp/udp_proxy/session/ext_authz/v3/ext_authz.proto",
+            "envoy/extensions/filters/udp/udp_proxy/v3/route.proto",
+            "envoy/extensions/filters/udp/udp_proxy/session/dynamic_forward_proxy/v3/dynamic_forward_proxy.proto",
+            "envoy/extensions/filters/udp/udp_proxy/v3/udp_proxy.proto"
+          ]
+        },
+        "envoy/extensions/tracers/dynamic_modules": {
+          "split": "train",
+          "files": ["envoy/extensions/tracers/dynamic_modules/v3/dynamic_modules.proto"]
+        },
+        "envoy/extensions/filters/listener/set_filter_state": {
+          "split": "test",
+          "files": ["envoy/extensions/filters/listener/set_filter_state/v3/set_filter_state.proto"]
+        },
+        "envoy/config/filter/http/grpc_http1_bridge": {
+          "split": "train",
+          "files": ["envoy/config/filter/http/grpc_http1_bridge/v2/config.proto"]
+        },
+        "envoy/extensions/transport_sockets/dynamic_modules": {
+          "split": "train",
+          "files": ["envoy/extensions/transport_sockets/dynamic_modules/v3/dynamic_modules.proto"]
+        },
+        "envoy/extensions/access_loggers/filters/cel": {
+          "split": "train",
+          "files": ["envoy/extensions/access_loggers/filters/cel/v3/cel.proto"]
+        },
+        "envoy/extensions/filters/http/upstream_codec": {
+          "split": "train",
+          "files": ["envoy/extensions/filters/http/upstream_codec/v3/upstream_codec.proto"]
+        },
+        "envoy/extensions/http/ai_filters/schema_validation": {
+          "split": "train",
+          "files": ["envoy/extensions/http/ai_filters/schema_validation/v3/schema_validation.proto"]
+        },
+        "envoy/extensions/common/ratelimit": {
+          "split": "train",
+          "files": ["envoy/extensions/common/ratelimit/v3/ratelimit.proto"]
+        },
+        "envoy/extensions/quic/connection_debug_visitor": {
+          "split": "validation",
+          "files": [
+            "envoy/extensions/quic/connection_debug_visitor/v3/connection_debug_visitor_basic.proto"
+          ]
+        },
+        "envoy/extensions/filters/http/wasm": {
+          "split": "train",
+          "files": ["envoy/extensions/filters/http/wasm/v3/wasm.proto"]
+        },
+        "envoy/extensions/router/cluster_specifiers/matcher": {
+          "split": "train",
+          "files": ["envoy/extensions/router/cluster_specifiers/matcher/v3/matcher.proto"]
+        },
+        "envoy/config/upstream/local_address_selector": {
+          "split": "train",
+          "files": [
+            "envoy/config/upstream/local_address_selector/v3/default_local_address_selector.proto"
+          ]
+        },
+        "envoy/config/filter/network/thrift_proxy": {
+          "split": "train",
+          "files": [
+            "envoy/config/filter/network/thrift_proxy/v2alpha1/route.proto",
+            "envoy/config/filter/network/thrift_proxy/v2alpha1/thrift_proxy.proto"
+          ]
+        },
+        "envoy/extensions/filters/http/cdn_loop": {
+          "split": "train",
+          "files": ["envoy/extensions/filters/http/cdn_loop/v3/cdn_loop.proto"]
+        },
+        "envoy/extensions/filters/http/proto_message_extraction": {
+          "split": "validation",
+          "files": ["envoy/extensions/filters/http/proto_message_extraction/v3/config.proto"]
+        },
+        "envoy/extensions/transport_sockets/proxy_protocol": {
+          "split": "test",
+          "files": [
+            "envoy/extensions/transport_sockets/proxy_protocol/v3/upstream_proxy_protocol.proto"
+          ]
+        },
+        "envoy/extensions/early_data": {
+          "split": "train",
+          "files": ["envoy/extensions/early_data/v3/default_early_data_policy.proto"]
+        },
+        "envoy/config/filter/http/jwt_authn": {
+          "split": "train",
+          "files": ["envoy/config/filter/http/jwt_authn/v2alpha/config.proto"]
+        },
+        "contrib/envoy/extensions/compression/qatzstd": {
+          "split": "test",
+          "files": ["contrib/envoy/extensions/compression/qatzstd/compressor/v3alpha/qatzstd.proto"]
+        },
+        "envoy/extensions/filters/http/decompressor": {
+          "split": "validation",
+          "files": ["envoy/extensions/filters/http/decompressor/v3/decompressor.proto"]
+        },
+        "envoy/config/filter/listener/http_inspector": {
+          "split": "train",
+          "files": ["envoy/config/filter/listener/http_inspector/v2/http_inspector.proto"]
+        }
+      }
+    },
+    {
+      "repository": "grpc/grpc",
+      "revision": "7f3d97784206d35acd025cb861bf5f84f7bf2226",
+      "documents": 28,
+      "groups": {
+        "src/csharp/Grpc.Tools.Tests/IntegrationTests/TestSingleProto": {
+          "split": "train",
+          "files": ["src/csharp/Grpc.Tools.Tests/IntegrationTests/TestSingleProto/file.proto"]
+        },
+        "src/ruby/spec/pb/codegen": {
+          "split": "test",
+          "files": [
+            "src/ruby/spec/pb/codegen/grpc/testing/same_package_service_name.proto",
+            "src/ruby/spec/pb/codegen/grpc/testing/package_options_ruby_style.proto",
+            "src/ruby/spec/pb/codegen/grpc/testing/same_ruby_package_service_name.proto",
+            "src/ruby/spec/pb/codegen/grpc/testing/package_options_import.proto"
+          ]
+        },
+        "examples/php/echo": {
+          "split": "test",
+          "files": ["examples/php/echo/echo.proto"]
+        },
+        "src/proto/grpc/testing/proto2": {
+          "split": "train",
+          "files": [
+            "src/proto/grpc/testing/proto2/empty2_extensions.proto",
+            "src/proto/grpc/testing/proto2/empty2.proto"
+          ]
+        },
+        "src/csharp/Grpc.Tools.Tests/IntegrationTests/TestProtoOutsideProject": {
+          "split": "test",
+          "files": [
+            "src/csharp/Grpc.Tools.Tests/IntegrationTests/TestProtoOutsideProject/api/greet.proto"
+          ]
+        },
+        "examples/python/cancellation": {
+          "split": "test",
+          "files": ["examples/python/cancellation/hash_name.proto"]
+        },
+        "src/csharp/Grpc.Tools.Tests/IntegrationTests/TestGrpcServicesMetadata": {
+          "split": "validation",
+          "files": [
+            "src/csharp/Grpc.Tools.Tests/IntegrationTests/TestGrpcServicesMetadata/serveronly.proto",
+            "src/csharp/Grpc.Tools.Tests/IntegrationTests/TestGrpcServicesMetadata/clientonly.proto",
+            "src/csharp/Grpc.Tools.Tests/IntegrationTests/TestGrpcServicesMetadata/messages.proto",
+            "src/csharp/Grpc.Tools.Tests/IntegrationTests/TestGrpcServicesMetadata/clientandserver.proto"
+          ]
+        },
+        "src/proto/grpc/status": {
+          "split": "train",
+          "files": ["src/proto/grpc/status/status.proto"]
+        },
+        "src/ruby/end2end/protos/package_with_underscore": {
+          "split": "train",
+          "files": [
+            "src/ruby/end2end/protos/package_with_underscore/service.proto",
+            "src/ruby/end2end/protos/package_with_underscore/data.proto"
+          ]
+        },
+        "examples/csharp/AsyncSuffix": {
+          "split": "train",
+          "files": ["examples/csharp/AsyncSuffix/greet.proto"]
+        },
+        "src/proto/grpc/testing/xds": {
+          "split": "test",
+          "files": ["src/proto/grpc/testing/xds/v3/orca_service.proto"]
+        },
+        "examples/python/multiprocessing": {
+          "split": "train",
+          "files": ["examples/python/multiprocessing/prime.proto"]
+        },
+        "examples/python/retry": {
+          "split": "train",
+          "files": ["examples/python/retry/helloworld.proto"]
+        },
+        "src/proto/grpc/testing": {
+          "split": "test",
+          "files": [
+            "src/proto/grpc/testing/payloads.proto",
+            "src/proto/grpc/testing/echo.proto",
+            "src/proto/grpc/testing/metrics.proto",
+            "src/proto/grpc/testing/control.proto"
+          ]
+        },
+        "src/python/grpcio_health_checking/grpc_health": {
+          "split": "train",
+          "files": ["src/python/grpcio_health_checking/grpc_health/v1/health.proto"]
+        },
+        "src/proto/grpc/testing/duplicate": {
+          "split": "train",
+          "files": ["src/proto/grpc/testing/duplicate/echo_duplicate.proto"]
+        },
+        "src/python/grpcio_channelz/grpc_channelz": {
+          "split": "test",
+          "files": ["src/python/grpcio_channelz/grpc_channelz/v1/channelz.proto"]
+        }
+      }
+    },
+    {
+      "repository": "open-telemetry/opentelemetry-proto",
+      "revision": "ef480900f46e1f6ea3e75487eb552a75d11991d7",
+      "documents": 9,
+      "groups": {
+        "opentelemetry/proto/collector/trace": {
+          "split": "validation",
+          "files": ["opentelemetry/proto/collector/trace/v1/trace_service.proto"]
+        },
+        "opentelemetry/proto/resource": {
+          "split": "train",
+          "files": ["opentelemetry/proto/resource/v1/resource.proto"]
+        },
+        "opentelemetry/proto/logs": {
+          "split": "train",
+          "files": ["opentelemetry/proto/logs/v1/logs.proto"]
+        },
+        "opentelemetry/proto/processcontext": {
+          "split": "train",
+          "files": ["opentelemetry/proto/processcontext/v1development/process_context.proto"]
+        },
+        "opentelemetry/proto/collector/metrics": {
+          "split": "train",
+          "files": ["opentelemetry/proto/collector/metrics/v1/metrics_service.proto"]
+        },
+        "opentelemetry/proto/collector/profiles": {
+          "split": "train",
+          "files": ["opentelemetry/proto/collector/profiles/v1development/profiles_service.proto"]
+        },
+        "opentelemetry/proto/collector/logs": {
+          "split": "validation",
+          "files": ["opentelemetry/proto/collector/logs/v1/logs_service.proto"]
+        },
+        "opentelemetry/proto/common": {
+          "split": "test",
+          "files": ["opentelemetry/proto/common/v1/common.proto"]
+        },
+        "opentelemetry/proto/trace": {
+          "split": "train",
+          "files": ["opentelemetry/proto/trace/v1/trace.proto"]
+        }
+      }
+    },
+    {
+      "repository": "protocolbuffers/protobuf",
+      "revision": "1801d517672a1c4ead75331e925df232e2c0055d",
+      "documents": 28,
+      "groups": {
+        "src/google/protobuf/util": {
+          "split": "validation",
+          "files": [
+            "src/google/protobuf/util/json_format.proto",
+            "src/google/protobuf/util/json_format_proto3.proto"
+          ]
+        },
+        "editions/input/edition2023_transform": {
+          "split": "train",
+          "files": [
+            "editions/input/edition2023_transform/proto3_utf8_disabled.proto",
+            "editions/input/edition2023_transform/proto2.proto",
+            "editions/input/edition2023_transform/proto3.proto",
+            "editions/input/edition2023_transform/proto2_utf8_disabled.proto"
+          ]
+        },
+        "python/google/protobuf/internal": {
+          "split": "validation",
+          "files": [
+            "python/google/protobuf/internal/more_extensions.proto",
+            "python/google/protobuf/internal/no_package.proto",
+            "python/google/protobuf/internal/more_extensions_dynamic.proto",
+            "python/google/protobuf/internal/more_messages.proto"
+          ]
+        },
+        "csharp/google/protobuf": {
+          "split": "train",
+          "files": ["csharp/google/protobuf/c_sharp_features.proto"]
+        },
+        "java/core/src/main/resources": {
+          "split": "test",
+          "files": ["java/core/src/main/resources/google/protobuf/java_features.proto"]
+        },
+        "go/google/protobuf": {
+          "split": "train",
+          "files": ["go/google/protobuf/go_features.proto"]
+        },
+        "python/google/protobuf/pyext": {
+          "split": "validation",
+          "files": ["python/google/protobuf/pyext/python.proto"]
+        },
+        "examples": {
+          "split": "train",
+          "files": ["examples/addressbook.proto"]
+        },
+        "rust/release_crates/protobuf_example/proto/proto_example": {
+          "split": "train",
+          "files": [
+            "rust/release_crates/protobuf_example/proto/proto_example/foo.proto",
+            "rust/release_crates/protobuf_example/proto/proto_example/bar/bar.proto"
+          ]
+        },
+        "src/google/protobuf/json": {
+          "split": "validation",
+          "files": ["src/google/protobuf/json/json_enumval_custom_string.proto"]
+        },
+        "src/google/protobuf/bridge": {
+          "split": "train",
+          "files": ["src/google/protobuf/bridge/message_set.proto"]
+        },
+        "conformance": {
+          "split": "validation",
+          "files": ["conformance/conformance.proto"]
+        },
+        "editions/input/edition2024_transform": {
+          "split": "train",
+          "files": [
+            "editions/input/edition2024_transform/edition2023.proto",
+            "editions/input/edition2024_transform/noop.proto"
+          ]
+        },
+        "python/google/protobuf/internal/import_test_package": {
+          "split": "train",
+          "files": [
+            "python/google/protobuf/internal/import_test_package/outer.proto",
+            "python/google/protobuf/internal/import_test_package/import_public_nested.proto",
+            "python/google/protobuf/internal/import_test_package/import_public.proto",
+            "python/google/protobuf/internal/import_test_package/inner.proto"
+          ]
+        },
+        "benchmarks": {
+          "split": "train",
+          "files": ["benchmarks/empty.proto"]
+        },
+        "examples/examples_with_hyphen": {
+          "split": "test",
+          "files": ["examples/examples_with_hyphen/empty.proto"]
+        }
+      }
+    }
+  ]
+}

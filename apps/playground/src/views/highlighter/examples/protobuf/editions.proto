@@ -1,0 +1,16 @@
+edition = "2024";
+package collaboration.v1;
+
+import option "features.proto";
+option features.field_presence = EXPLICIT;
+
+export message Collaboration {
+  string id = 1;
+  string title = 2;
+  repeated string participants = 3;
+}
+
+local enum InternalMode {
+  INTERNAL_MODE_UNSPECIFIED = 0;
+  INTERNAL_MODE_ACTIVE = 1;
+}

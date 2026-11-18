@@ -1,0 +1,12 @@
+syntax = "proto2";
+package metadata.v1;
+
+message Metadata {
+  optional string title = 1 [default = "Untitled"];
+  extensions 1000 to 1999;
+}
+
+extend Metadata {
+  optional string category = 1000;
+  optional int64 revision = 1001 [default = 1];
+}

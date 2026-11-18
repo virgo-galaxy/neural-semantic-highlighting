@@ -2224,3 +2224,73 @@ challenge-graphql:
 export-graphql-model:
 	@test -n "$(GRAPHQL_CHECKPOINT)" -a -n "$(GRAPHQL_TEST_REPORT)" || (echo 'Set GRAPHQL_CHECKPOINT and GRAPHQL_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.graphql.export_model --checkpoint "$(GRAPHQL_CHECKPOINT)" --test-report "$(GRAPHQL_TEST_REPORT)"
+
+PROTOBUF_DEVICE ?= auto
+PROTOBUF_EPOCHS ?= 3
+PROTOBUF_BATCH_SIZE ?= 32
+PROTOBUF_FOCUS_BATCH_SIZE ?= 64
+PROTOBUF_LOSS_WEIGHT_STREAM ?=
+PROTOBUF_LOCAL_KERNEL ?=
+PROTOBUF_LEARNING_RATE ?=
+PROTOBUF_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-protobuf dataset-protobuf-tools dataset-protobuf-sources dataset-protobuf-curriculum dataset-protobuf-collect dataset-protobuf-label dataset-protobuf-validate dataset-protobuf-prepare test-labeling-protobuf train-protobuf-smoke train-protobuf continue-protobuf predict-protobuf evaluate-protobuf challenge-protobuf export-protobuf-model
+
+dataset-protobuf-tools:
+	$(PYTHON) -m packs.protobuf.labeling.tools
+
+dataset-protobuf-sources:
+	$(PYTHON) -m packs.protobuf.dataset.fetch_sources
+
+dataset-protobuf:
+	$(MAKE) dataset-protobuf-tools
+	$(MAKE) dataset-protobuf-sources
+	$(MAKE) dataset-protobuf-curriculum
+	$(MAKE) dataset-protobuf-collect
+	$(MAKE) dataset-protobuf-label
+	$(MAKE) dataset-protobuf-validate
+	$(MAKE) dataset-protobuf-prepare
+
+dataset-protobuf-curriculum:
+	$(PYTHON) -m packs.protobuf.dataset.generate_curriculum
+
+dataset-protobuf-collect:
+	$(PYTHON) -m packs.protobuf.dataset.pipeline collect
+
+dataset-protobuf-label:
+	$(PYTHON) -m packs.protobuf.dataset.pipeline label
+
+dataset-protobuf-validate:
+	$(PYTHON) -m packs.protobuf.dataset.pipeline validate
+
+dataset-protobuf-prepare:
+	$(PYTHON) -m training.protobuf.prepare
+
+test-labeling-protobuf:
+	$(PYTHON) -m unittest discover -s packs/protobuf/tests -v
+
+train-protobuf-smoke:
+	$(PYTHON) -m training.protobuf.train --smoke --epochs 1 --device $(PROTOBUF_DEVICE) $(if $(PROTOBUF_RUN),--output-dir "$(PROTOBUF_RUN)") $(if $(PROTOBUF_INIT_FROM),--init-from "$(PROTOBUF_INIT_FROM)") $(if $(PROTOBUF_LOCAL_KERNEL),--local-kernel $(PROTOBUF_LOCAL_KERNEL))
+
+train-protobuf:
+	$(PYTHON) -m training.protobuf.train --epochs $(PROTOBUF_EPOCHS) --device $(PROTOBUF_DEVICE) --batch-size $(PROTOBUF_BATCH_SIZE) --focus-batch-size $(PROTOBUF_FOCUS_BATCH_SIZE) $(if $(PROTOBUF_LOSS_WEIGHT_STREAM),--loss-weight-stream $(PROTOBUF_LOSS_WEIGHT_STREAM)) $(if $(PROTOBUF_LEARNING_RATE),--learning-rate $(PROTOBUF_LEARNING_RATE)) $(if $(PROTOBUF_RUN),--output-dir "$(PROTOBUF_RUN)") $(if $(PROTOBUF_INIT_FROM),--init-from "$(PROTOBUF_INIT_FROM)") $(if $(PROTOBUF_LOCAL_KERNEL),--local-kernel $(PROTOBUF_LOCAL_KERNEL))
+
+continue-protobuf:
+	@test -n "$(PROTOBUF_CHECKPOINT)" || (echo 'Set PROTOBUF_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.protobuf.train --resume "$(PROTOBUF_CHECKPOINT)" --epochs $(PROTOBUF_EPOCHS) --device $(PROTOBUF_DEVICE)
+
+predict-protobuf:
+	@test -n "$(PROTOBUF_SOURCE)" || (echo 'Set PROTOBUF_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.protobuf.predict --device $(PROTOBUF_DEVICE) --file "$(PROTOBUF_SOURCE)" $(if $(PROTOBUF_CHECKPOINT),--checkpoint "$(PROTOBUF_CHECKPOINT)")
+
+evaluate-protobuf:
+	@test -n "$(PROTOBUF_CHECKPOINT)" || (echo 'Set PROTOBUF_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.protobuf.evaluate --checkpoint "$(PROTOBUF_CHECKPOINT)" --device $(PROTOBUF_DEVICE) --split $(PROTOBUF_EVAL_SPLIT)
+
+challenge-protobuf:
+	@test -n "$(PROTOBUF_CHECKPOINT)" || (echo 'Set PROTOBUF_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.protobuf.challenge --checkpoint "$(PROTOBUF_CHECKPOINT)" --device $(PROTOBUF_DEVICE)
+
+export-protobuf-model:
+	@test -n "$(PROTOBUF_CHECKPOINT)" -a -n "$(PROTOBUF_TEST_REPORT)" || (echo 'Set PROTOBUF_CHECKPOINT and PROTOBUF_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.protobuf.export_model --checkpoint "$(PROTOBUF_CHECKPOINT)" --test-report "$(PROTOBUF_TEST_REPORT)"

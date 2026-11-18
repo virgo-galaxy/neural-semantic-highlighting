@@ -1,0 +1,13 @@
+{
+  "label": "Protocol Buffers",
+  "profiles": ["protobuf"],
+  "scope": "protobuf-source-semantic-spans",
+  "contextBytes": 512,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": ["string", "comment"],
+    "modifierRoles": {
+      "declaration": ["type", "enum", "enum-member", "property", "namespace", "method", "label"],
+      "default-library": ["type"]
+    }
+  }
+}

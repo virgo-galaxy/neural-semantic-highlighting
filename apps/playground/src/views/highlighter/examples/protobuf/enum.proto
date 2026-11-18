@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+enum TaskState {
+  TASK_STATE_UNSPECIFIED = 0;
+  TASK_STATE_PENDING = 1;
+  TASK_STATE_RUNNING = 2;
+  TASK_STATE_COMPLETE = 3;
+  TASK_STATE_LEGACY = 4 [deprecated = true];
+}
+
+message Task {
+  string id = 1;
+  TaskState state = 2;
+  reserved 5, 8 to 12;
+  reserved "old_status";
+}

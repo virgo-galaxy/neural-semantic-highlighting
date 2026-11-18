@@ -1,0 +1,12 @@
+syntax = "proto3";
+package accounts.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message Account {
+  string id = 1;
+  string display_name = 2;
+  optional string email = 3;
+  repeated string roles = 4;
+  google.protobuf.Timestamp created_at = 5;
+}

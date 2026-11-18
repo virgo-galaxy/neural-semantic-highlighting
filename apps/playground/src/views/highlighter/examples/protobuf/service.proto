@@ -1,0 +1,11 @@
+syntax = "proto3";
+package documents.v1;
+
+service DocumentService {
+  rpc GetDocument(GetDocumentRequest) returns (Document);
+  rpc ListDocuments(ListDocumentsRequest) returns (stream Document);
+  rpc SyncDocuments(stream DocumentChange) returns (stream DocumentChange);
+}
+
+message GetDocumentRequest { string id = 1; }
+message ListDocumentsRequest { int32 page_size = 1; }

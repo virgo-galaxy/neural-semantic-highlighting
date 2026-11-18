@@ -1,0 +1,15 @@
+syntax = "proto3";
+package catalog.v1;
+
+option java_package = "example.catalog.v1";
+option go_package = "example.test/catalog/v1;catalogpb";
+
+service CatalogService {
+  rpc Search(SearchRequest) returns (SearchResponse) {
+    option (google.api.http) = { get: "/v1/catalog:search" };
+  }
+}
+
+message SearchRequest {
+  string query = 1 [(buf.validate.field).string = { min_len: 1 max_len: 256 }];
+}
