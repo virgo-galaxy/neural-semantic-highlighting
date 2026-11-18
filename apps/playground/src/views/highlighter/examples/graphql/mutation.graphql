@@ -1,0 +1,6 @@
+mutation SaveNote($input: NoteInput!, $withHistory: Boolean!) {
+  saveNote(input: $input) {
+    note { id title history @include(if: $withHistory) { changedAt } }
+    errors { field message }
+  }
+}

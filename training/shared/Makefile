@@ -2154,3 +2154,73 @@ challenge-makefile:
 export-makefile-model:
 	@test -n "$(MAKEFILE_CHECKPOINT)" -a -n "$(MAKEFILE_TEST_REPORT)" || (echo 'Set MAKEFILE_CHECKPOINT and MAKEFILE_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.makefile.export_model --checkpoint "$(MAKEFILE_CHECKPOINT)" --test-report "$(MAKEFILE_TEST_REPORT)"
+
+GRAPHQL_DEVICE ?= auto
+GRAPHQL_EPOCHS ?= 3
+GRAPHQL_BATCH_SIZE ?= 32
+GRAPHQL_FOCUS_BATCH_SIZE ?= 64
+GRAPHQL_LOSS_WEIGHT_STREAM ?=
+GRAPHQL_LOCAL_KERNEL ?=
+GRAPHQL_LEARNING_RATE ?=
+GRAPHQL_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-graphql dataset-graphql-tools dataset-graphql-sources dataset-graphql-curriculum dataset-graphql-collect dataset-graphql-label dataset-graphql-validate dataset-graphql-prepare test-labeling-graphql train-graphql-smoke train-graphql continue-graphql predict-graphql evaluate-graphql challenge-graphql export-graphql-model
+
+dataset-graphql-tools:
+	$(PYTHON) -m packs.graphql.labeling.tools
+
+dataset-graphql-sources:
+	$(PYTHON) -m packs.graphql.dataset.fetch_sources
+
+dataset-graphql:
+	$(MAKE) dataset-graphql-tools
+	$(MAKE) dataset-graphql-sources
+	$(MAKE) dataset-graphql-curriculum
+	$(MAKE) dataset-graphql-collect
+	$(MAKE) dataset-graphql-label
+	$(MAKE) dataset-graphql-validate
+	$(MAKE) dataset-graphql-prepare
+
+dataset-graphql-curriculum:
+	$(PYTHON) -m packs.graphql.dataset.generate_curriculum
+
+dataset-graphql-collect:
+	$(PYTHON) -m packs.graphql.dataset.pipeline collect
+
+dataset-graphql-label:
+	$(PYTHON) -m packs.graphql.dataset.pipeline label
+
+dataset-graphql-validate:
+	$(PYTHON) -m packs.graphql.dataset.pipeline validate
+
+dataset-graphql-prepare:
+	$(PYTHON) -m training.graphql.prepare
+
+test-labeling-graphql:
+	$(PYTHON) -m unittest discover -s packs/graphql/tests -v
+
+train-graphql-smoke:
+	$(PYTHON) -m training.graphql.train --smoke --epochs 1 --device $(GRAPHQL_DEVICE) $(if $(GRAPHQL_RUN),--output-dir "$(GRAPHQL_RUN)") $(if $(GRAPHQL_INIT_FROM),--init-from "$(GRAPHQL_INIT_FROM)") $(if $(GRAPHQL_LOCAL_KERNEL),--local-kernel $(GRAPHQL_LOCAL_KERNEL))
+
+train-graphql:
+	$(PYTHON) -m training.graphql.train --epochs $(GRAPHQL_EPOCHS) --device $(GRAPHQL_DEVICE) --batch-size $(GRAPHQL_BATCH_SIZE) --focus-batch-size $(GRAPHQL_FOCUS_BATCH_SIZE) $(if $(GRAPHQL_LOSS_WEIGHT_STREAM),--loss-weight-stream $(GRAPHQL_LOSS_WEIGHT_STREAM)) $(if $(GRAPHQL_LEARNING_RATE),--learning-rate $(GRAPHQL_LEARNING_RATE)) $(if $(GRAPHQL_RUN),--output-dir "$(GRAPHQL_RUN)") $(if $(GRAPHQL_INIT_FROM),--init-from "$(GRAPHQL_INIT_FROM)") $(if $(GRAPHQL_LOCAL_KERNEL),--local-kernel $(GRAPHQL_LOCAL_KERNEL))
+
+continue-graphql:
+	@test -n "$(GRAPHQL_CHECKPOINT)" || (echo 'Set GRAPHQL_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.graphql.train --resume "$(GRAPHQL_CHECKPOINT)" --epochs $(GRAPHQL_EPOCHS) --device $(GRAPHQL_DEVICE)
+
+predict-graphql:
+	@test -n "$(GRAPHQL_SOURCE)" || (echo 'Set GRAPHQL_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.graphql.predict --device $(GRAPHQL_DEVICE) --file "$(GRAPHQL_SOURCE)" $(if $(GRAPHQL_CHECKPOINT),--checkpoint "$(GRAPHQL_CHECKPOINT)")
+
+evaluate-graphql:
+	@test -n "$(GRAPHQL_CHECKPOINT)" || (echo 'Set GRAPHQL_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.graphql.evaluate --checkpoint "$(GRAPHQL_CHECKPOINT)" --device $(GRAPHQL_DEVICE) --split $(GRAPHQL_EVAL_SPLIT)
+
+challenge-graphql:
+	@test -n "$(GRAPHQL_CHECKPOINT)" || (echo 'Set GRAPHQL_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.graphql.challenge --checkpoint "$(GRAPHQL_CHECKPOINT)" --device $(GRAPHQL_DEVICE)
+
+export-graphql-model:
+	@test -n "$(GRAPHQL_CHECKPOINT)" -a -n "$(GRAPHQL_TEST_REPORT)" || (echo 'Set GRAPHQL_CHECKPOINT and GRAPHQL_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.graphql.export_model --checkpoint "$(GRAPHQL_CHECKPOINT)" --test-report "$(GRAPHQL_TEST_REPORT)"

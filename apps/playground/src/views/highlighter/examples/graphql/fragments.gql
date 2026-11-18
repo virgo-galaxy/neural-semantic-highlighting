@@ -1,0 +1,10 @@
+fragment ArticleSummary on Article {
+  id
+  headline
+  author { displayName }
+}
+
+query HomeFeed {
+  featured: articles(limit: 3) { ...ArticleSummary }
+  recent: articles(limit: 8) { ...ArticleSummary }
+}

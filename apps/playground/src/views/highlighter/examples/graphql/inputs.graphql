@@ -1,0 +1,14 @@
+enum Visibility { PRIVATE TEAM PUBLIC }
+
+input DocumentInput {
+  title: String!
+  visibility: Visibility = PRIVATE
+  tags: [String!] = []
+}
+
+input DocumentSelector @oneOf {
+  id: ID
+  slug: String
+}
+
+union SearchResult = Document | Workspace

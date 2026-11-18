@@ -1,0 +1,13 @@
+directive @permission(scope: String!) repeatable
+  on OBJECT | FIELD_DEFINITION
+
+type Workspace @permission(scope: "workspace:read") {
+  name: String!
+  legacyTitle: String @deprecated(reason: "Use name instead")
+}
+
+query Search {
+  results(text: "nebula", filter: {active: true, score: -1.5e2}) {
+    __typename
+  }
+}

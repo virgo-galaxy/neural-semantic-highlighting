@@ -1,0 +1,10 @@
+# 保留原始文本与偏移 🌌
+query SearchNotes {
+  notes(text: "星空 👩🏽‍💻", prompt: """
+    # This is string content, not a comment.
+    Literal <section> and $variables stay inside the string.
+    """) {
+    id
+    title
+  }
+}

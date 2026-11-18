@@ -1,0 +1,11 @@
+"""A workspace document available to collaborators."""
+type Document implements Identified @key(fields: "id") {
+  id: ID!
+  title: String!
+  owner: User!
+  revisions(after: String, first: Int = 20): [Revision!]!
+}
+
+interface Identified { id: ID! }
+scalar Timestamp
+extend type Query { document(id: ID!): Document }

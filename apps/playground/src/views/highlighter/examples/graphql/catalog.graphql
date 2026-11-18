@@ -1,0 +1,10 @@
+# Browse a product collection
+query CatalogPage($slug: String!, $first: Int = 12) {
+  collection(slug: $slug) {
+    title
+    products(first: $first) {
+      edges { node { id title price { amount currency } } }
+      pageInfo { hasNextPage endCursor }
+    }
+  }
+}

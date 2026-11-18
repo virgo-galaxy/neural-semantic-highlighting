@@ -175,6 +175,7 @@ check:
 	$(MAKE) test-labeling-markdown
 	$(MAKE) test-labeling-dockerfile
 	$(MAKE) test-labeling-makefile
+	$(MAKE) test-labeling-graphql
 	$(PYTHON) -m compileall -q training/kotlin packs/kotlin/runtime
 	$(PYTHON) -m compileall -q training/r packs/r/runtime
 	$(PYTHON) -m compileall -q training/scala packs/scala/runtime
@@ -189,6 +190,7 @@ check:
 	$(PYTHON) -m compileall -q training/markdown packs/markdown/runtime
 	$(PYTHON) -m compileall -q training/dockerfile packs/dockerfile/runtime
 	$(PYTHON) -m compileall -q training/makefile packs/makefile/runtime
+	$(PYTHON) -m compileall -q training/graphql packs/graphql/runtime
 	$(PYTHON) -c 'import packs.kotlin.runtime.local'
 	$(MAKE) test-labeling-swift
 	$(PYTHON) -m compileall -q training/swift packs/swift/runtime

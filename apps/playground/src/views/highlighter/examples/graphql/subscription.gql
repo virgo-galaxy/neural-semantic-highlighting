@@ -1,0 +1,8 @@
+subscription RoomMessages($room: ID!) {
+  messageAdded(room: $room) {
+    id
+    body
+    sender { username }
+    ... on SystemMessage { category }
+  }
+}

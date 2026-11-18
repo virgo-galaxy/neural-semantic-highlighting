@@ -1,0 +1,22 @@
+{
+  "label": "GraphQL",
+  "profiles": ["graphql"],
+  "scope": "graphql-source-semantic-spans",
+  "contextBytes": 512,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": ["string", "comment"],
+    "modifierRoles": {
+      "declaration": [
+        "type",
+        "enum",
+        "enum-member",
+        "property",
+        "parameter",
+        "function",
+        "label",
+        "decorator"
+      ],
+      "default-library": ["type"]
+    }
+  }
+}
