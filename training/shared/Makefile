@@ -2324,6 +2324,7 @@ dataset-diff:
 dataset-diff-curriculum:
 	$(PYTHON) -m packs.diff.dataset.generate_curriculum
 	$(PYTHON) -m packs.diff.dataset.generate_metadata_contexts
+	$(PYTHON) -m packs.diff.dataset.generate_boundary_contexts
 
 dataset-diff-collect:
 	$(PYTHON) -m packs.diff.dataset.pipeline collect
