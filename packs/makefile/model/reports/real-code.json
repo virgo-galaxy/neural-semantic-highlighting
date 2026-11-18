@@ -1,0 +1,3138 @@
+{
+  "checkpointHash": "ed61c5a8c22bf0fc14ad4523c77a9c761cdd11a0df958163a2f9f1b88dd0d273",
+  "split": "validation",
+  "purpose": "Actual source review before model freeze; never test selection",
+  "cases": [
+    {
+      "repository": "neovim-neovim-makefile-v1",
+      "path": "contrib/plugin_test.mk",
+      "sourceGroup": "neovim-neovim-makefile-v1:contrib",
+      "contentHash": "3018fb286189c41576a49348728c94effdbfbb5727ac0afa33a1452fa7161716",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.7096774193548387,
+          "recall": 0.8943089430894309,
+          "f1": 0.7913669064748201,
+          "tp": 110,
+          "fp": 45,
+          "fn": 13,
+          "support": 123
+        },
+        "exactSpanMacroF1": 0.8607897402137034,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.7096774193548387,
+          "recall": 0.8943089430894309,
+          "f1": 0.7913669064748201,
+          "tp": 110,
+          "fp": 45,
+          "fn": 13,
+          "support": 123
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 13,
+            "fp": 0,
+            "fn": 0,
+            "support": 13
+          },
+          "string": {
+            "precision": 0.6111111111111112,
+            "recall": 0.8461538461538461,
+            "f1": 0.7096774193548387,
+            "tp": 33,
+            "fp": 21,
+            "fn": 6,
+            "support": 39
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.8,
+            "recall": 0.9230769230769231,
+            "f1": 0.8571428571428571,
+            "tp": 12,
+            "fp": 3,
+            "fn": 1,
+            "support": 13
+          },
+          "punctuation": {
+            "precision": 0.3333333333333333,
+            "recall": 0.75,
+            "f1": 0.46153846153846156,
+            "tp": 9,
+            "fp": 18,
+            "fn": 3,
+            "support": 12
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "variable": {
+            "precision": 0.88,
+            "recall": 0.9166666666666666,
+            "f1": 0.8979591836734694,
+            "tp": 22,
+            "fp": 3,
+            "fn": 2,
+            "support": 24
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 0.9230769230769231,
+            "f1": 0.96,
+            "tp": 12,
+            "fp": 0,
+            "fn": 1,
+            "support": 13
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 385,
+          "end": 387,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "?="
+        },
+        {
+          "start": 751,
+          "end": 756,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": ".tmp\""
+        },
+        {
+          "start": 875,
+          "end": 1141,
+          "tokenType": "string",
+          "modifiers": [],
+          "textExcerpt": "/{\\\n\tassert.lua,\\\n\tclient/rpc_stream.lua,\\\n\tclient/session.lua,\\\n\tclient/uv_stream.lua,\\\n\tfunctional/preload.lua,\\\n\tfunctional/testnvim.lua,\\\n\tfunctional/testnv",
+          "excerptTruncated": true
+        },
+        {
+          "start": 1147,
+          "end": 1149,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "$@"
+        },
+        {
+          "start": 1149,
+          "end": 1154,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": ".tmp\""
+        },
+        {
+          "start": 1325,
+          "end": 1337,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "$(TEST_DEPS)"
+        },
+        {
+          "start": 1337,
+          "end": 1338,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 1408,
+          "end": 1410,
+          "tokenType": "parameter",
+          "modifiers": [],
+          "text": "-X"
+        },
+        {
+          "start": 1410,
+          "end": 1411,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\""
+        },
+        {
+          "start": 1421,
+          "end": 1430,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": ".deps/xdg"
+        },
+        {
+          "start": 1430,
+          "end": 1431,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 1431,
+          "end": 1432,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\""
+        },
+        {
+          "start": 1497,
+          "end": 1498,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "("
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 385,
+          "end": 386,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "?"
+        },
+        {
+          "start": 386,
+          "end": 387,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 751,
+          "end": 755,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": ".tmp"
+        },
+        {
+          "start": 755,
+          "end": 756,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\""
+        },
+        {
+          "start": 875,
+          "end": 879,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "/{\\\n"
+        },
+        {
+          "start": 880,
+          "end": 890,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "assert.lua"
+        },
+        {
+          "start": 890,
+          "end": 891,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ","
+        },
+        {
+          "start": 891,
+          "end": 892,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 894,
+          "end": 915,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "client/rpc_stream.lua"
+        },
+        {
+          "start": 915,
+          "end": 916,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ","
+        },
+        {
+          "start": 916,
+          "end": 918,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 919,
+          "end": 937,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "client/session.lua"
+        },
+        {
+          "start": 937,
+          "end": 938,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ","
+        },
+        {
+          "start": 938,
+          "end": 939,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 941,
+          "end": 961,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "client/uv_stream.lua"
+        },
+        {
+          "start": 961,
+          "end": 962,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ","
+        },
+        {
+          "start": 962,
+          "end": 963,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 965,
+          "end": 987,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "functional/preload.lua"
+        },
+        {
+          "start": 987,
+          "end": 988,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ","
+        },
+        {
+          "start": 988,
+          "end": 990,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 991,
+          "end": 1014,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "functional/testnvim.lua"
+        },
+        {
+          "start": 1014,
+          "end": 1015,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ","
+        },
+        {
+          "start": 1015,
+          "end": 1017,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 1018,
+          "end": 1050,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "functional/testnvim/exec_lua.lua"
+        }
+      ]
+    },
+    {
+      "repository": "ffmpeg-ffmpeg-makefile-v1",
+      "path": "libavutil/riscv/Makefile",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-v1:libavutil/riscv",
+      "contentHash": "57aface35660ca1b516dc722032ffa4cc8c928827d6e4d12da14a8f7b4217bed",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "repository": "luarocks-luarocks-makefile-v1",
+      "path": "GNUmakefile",
+      "sourceGroup": "luarocks-luarocks-makefile-v1:root",
+      "contentHash": "4cdbf6571a4b4328e5d58bc2e8a7070aedb0927468c5115b65f1eeb1a2878d83",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.7183856502242153,
+          "recall": 0.8449367088607594,
+          "f1": 0.7765390208434318,
+          "tp": 801,
+          "fp": 314,
+          "fn": 147,
+          "support": 948
+        },
+        "exactSpanMacroF1": 0.8019486741674247,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.7147982062780269,
+          "recall": 0.8407172995780591,
+          "f1": 0.7726611730489579,
+          "tp": 797,
+          "fp": 318,
+          "fn": 151,
+          "support": 948
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.7777777777777778,
+            "recall": 0.7777777777777778,
+            "f1": 0.7777777777777778,
+            "tp": 14,
+            "fp": 4,
+            "fn": 4,
+            "support": 18
+          },
+          "comment": {
+            "precision": 0.9523809523809523,
+            "recall": 0.9523809523809523,
+            "f1": 0.9523809523809523,
+            "tp": 20,
+            "fp": 1,
+            "fn": 1,
+            "support": 21
+          },
+          "string": {
+            "precision": 0.7046413502109705,
+            "recall": 0.8106796116504854,
+            "f1": 0.7539503386004515,
+            "tp": 334,
+            "fp": 140,
+            "fn": 78,
+            "support": 412
+          },
+          "number": {
+            "precision": 0.6,
+            "recall": 0.8571428571428571,
+            "f1": 0.7058823529411765,
+            "tp": 6,
+            "fp": 4,
+            "fn": 1,
+            "support": 7
+          },
+          "operator": {
+            "precision": 0.6666666666666666,
+            "recall": 0.759493670886076,
+            "f1": 0.7100591715976331,
+            "tp": 60,
+            "fp": 30,
+            "fn": 19,
+            "support": 79
+          },
+          "punctuation": {
+            "precision": 0.6356589147286822,
+            "recall": 0.9213483146067416,
+            "f1": 0.7522935779816514,
+            "tp": 82,
+            "fp": 47,
+            "fn": 7,
+            "support": 89
+          },
+          "function": {
+            "precision": 0.8867924528301887,
+            "recall": 0.8103448275862069,
+            "f1": 0.8468468468468469,
+            "tp": 47,
+            "fp": 6,
+            "fn": 11,
+            "support": 58
+          },
+          "variable": {
+            "precision": 0.7368421052631579,
+            "recall": 0.8921568627450981,
+            "f1": 0.8070953436807096,
+            "tp": 182,
+            "fp": 65,
+            "fn": 22,
+            "support": 204
+          },
+          "parameter": {
+            "precision": 0.6956521739130435,
+            "recall": 0.9142857142857143,
+            "f1": 0.7901234567901234,
+            "tp": 32,
+            "fp": 14,
+            "fn": 3,
+            "support": 35
+          },
+          "label": {
+            "precision": 0.8888888888888888,
+            "recall": 0.96,
+            "f1": 0.9230769230769231,
+            "tp": 24,
+            "fp": 3,
+            "fn": 1,
+            "support": 25
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 13,
+          "end": 21,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "--jobs=1"
+        },
+        {
+          "start": 84,
+          "end": 93,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "$(prefix)"
+        },
+        {
+          "start": 243,
+          "end": 257,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "$(datarootdir)"
+        },
+        {
+          "start": 354,
+          "end": 358,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "find"
+        },
+        {
+          "start": 373,
+          "end": 378,
+          "tokenType": "parameter",
+          "modifiers": [],
+          "text": "-type"
+        },
+        {
+          "start": 379,
+          "end": 380,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "f"
+        },
+        {
+          "start": 381,
+          "end": 386,
+          "tokenType": "parameter",
+          "modifiers": [],
+          "text": "-name"
+        },
+        {
+          "start": 387,
+          "end": 394,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "'*.lua'"
+        },
+        {
+          "start": 511,
+          "end": 524,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "LUA_CPATH_5_4"
+        },
+        {
+          "start": 540,
+          "end": 559,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "luarockspackagepath"
+        },
+        {
+          "start": 587,
+          "end": 604,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "WITH_SYSTEM_ROCKS"
+        },
+        {
+          "start": 650,
+          "end": 651,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": ";"
+        },
+        {
+          "start": 733,
+          "end": 736,
+          "tokenType": "number",
+          "modifiers": [],
+          "text": "5.1"
+        },
+        {
+          "start": 744,
+          "end": 761,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "vendored_compat53"
+        },
+        {
+          "start": 1032,
+          "end": 1045,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"./configure\""
+        },
+        {
+          "start": 1046,
+          "end": 1052,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "script"
+        },
+        {
+          "start": 1053,
+          "end": 1059,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "before"
+        },
+        {
+          "start": 1060,
+          "end": 1069,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "building."
+        },
+        {
+          "start": 1087,
+          "end": 1098,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "$(builddir)"
+        },
+        {
+          "start": 1098,
+          "end": 1106,
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "/config-"
+        },
+        {
+          "start": 1168,
+          "end": 1201,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "'-- LuaRocks configuration\\n\\n'\\\n"
+        },
+        {
+          "start": 1224,
+          "end": 1280,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "'   { name = \"user\", root = home .. \"/.luarocks\" };\\n'\\\n"
+        },
+        {
+          "start": 1282,
+          "end": 1285,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "$$("
+        },
+        {
+          "start": 1285,
+          "end": 1286,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "["
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 20,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "--jobs="
+        },
+        {
+          "start": 20,
+          "end": 21,
+          "tokenType": "number",
+          "modifiers": [],
+          "text": "1"
+        },
+        {
+          "start": 84,
+          "end": 86,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "$("
+        },
+        {
+          "start": 86,
+          "end": 93,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "prefix)"
+        },
+        {
+          "start": 243,
+          "end": 244,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "$"
+        },
+        {
+          "start": 244,
+          "end": 245,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "("
+        },
+        {
+          "start": 245,
+          "end": 257,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "datarootdir)"
+        },
+        {
+          "start": 354,
+          "end": 358,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "find"
+        },
+        {
+          "start": 373,
+          "end": 394,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "-type f -name '*.lua'"
+        },
+        {
+          "start": 511,
+          "end": 524,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "LUA_CPATH_5_4"
+        },
+        {
+          "start": 540,
+          "end": 559,
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "luarockspackagepath"
+        },
+        {
+          "start": 587,
+          "end": 604,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "WITH_SYSTEM_ROCKS"
+        },
+        {
+          "start": 650,
+          "end": 651,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ";"
+        },
+        {
+          "start": 733,
+          "end": 736,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "5.1"
+        },
+        {
+          "start": 744,
+          "end": 761,
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "vendored_compat53"
+        },
+        {
+          "start": 1032,
+          "end": 1069,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"./configure\" script before building."
+        },
+        {
+          "start": 1087,
+          "end": 1089,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "$("
+        },
+        {
+          "start": 1089,
+          "end": 1098,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "builddir)"
+        },
+        {
+          "start": 1098,
+          "end": 1106,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "/config-"
+        },
+        {
+          "start": 1168,
+          "end": 1171,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "'--"
+        },
+        {
+          "start": 1172,
+          "end": 1200,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "LuaRocks configuration\\n\\n'\\"
+        },
+        {
+          "start": 1224,
+          "end": 1225,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "'"
+        },
+        {
+          "start": 1228,
+          "end": 1229,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "{"
+        },
+        {
+          "start": 1230,
+          "end": 1234,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "name"
+        }
+      ]
+    },
+    {
+      "repository": "kubernetes-examples-makefile-v1",
+      "path": "web/guestbook/php-redis/Makefile",
+      "sourceGroup": "kubernetes-examples-makefile-v1:web/guestbook",
+      "contentHash": "4a28256251da1e441aca85816dd571d314a709d1f15ce80854938708637d2a97",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8892405063291139,
+          "recall": 0.9064516129032258,
+          "f1": 0.8977635782747604,
+          "tp": 281,
+          "fp": 35,
+          "fn": 29,
+          "support": 310
+        },
+        "exactSpanMacroF1": 0.9298173319924943,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.870253164556962,
+          "recall": 0.8870967741935484,
+          "f1": 0.8785942492012779,
+          "tp": 275,
+          "fp": 41,
+          "fn": 35,
+          "support": 310
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 0.9375,
+            "f1": 0.967741935483871,
+            "tp": 15,
+            "fp": 0,
+            "fn": 1,
+            "support": 16
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "support": 16
+          },
+          "string": {
+            "precision": 0.7605633802816901,
+            "recall": 0.7605633802816901,
+            "f1": 0.7605633802816901,
+            "tp": 54,
+            "fp": 17,
+            "fn": 17,
+            "support": 71
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 0.9375,
+            "recall": 0.8823529411764706,
+            "f1": 0.9090909090909091,
+            "tp": 30,
+            "fp": 2,
+            "fn": 4,
+            "support": 34
+          },
+          "punctuation": {
+            "precision": 0.8823529411764706,
+            "recall": 0.9782608695652174,
+            "f1": 0.9278350515463918,
+            "tp": 45,
+            "fp": 6,
+            "fn": 1,
+            "support": 46
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 0.8461538461538461,
+            "f1": 0.9166666666666666,
+            "tp": 22,
+            "fp": 0,
+            "fn": 4,
+            "support": 26
+          },
+          "variable": {
+            "precision": 0.8902439024390244,
+            "recall": 0.9733333333333334,
+            "f1": 0.9299363057324841,
+            "tp": 73,
+            "fp": 9,
+            "fn": 2,
+            "support": 75
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 15,
+            "fp": 0,
+            "fn": 0,
+            "support": 15
+          },
+          "label": {
+            "precision": 0.9166666666666666,
+            "recall": 1.0,
+            "f1": 0.9565217391304348,
+            "tp": 11,
+            "fp": 1,
+            "fn": 0,
+            "support": 11
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 667,
+          "end": 669,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "go"
+        },
+        {
+          "start": 674,
+          "end": 680,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "GOARCH"
+        },
+        {
+          "start": 680,
+          "end": 681,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 801,
+          "end": 802,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "-"
+        },
+        {
+          "start": 1449,
+          "end": 1450,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1484,
+          "end": 1487,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "sed"
+        },
+        {
+          "start": 1491,
+          "end": 1500,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"s~[^ ]*~"
+        },
+        {
+          "start": 1553,
+          "end": 1559,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "docker"
+        },
+        {
+          "start": 1585,
+          "end": 1588,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "$${"
+        },
+        {
+          "start": 1588,
+          "end": 1592,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "arch"
+        },
+        {
+          "start": 1592,
+          "end": 1593,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "}"
+        },
+        {
+          "start": 1619,
+          "end": 1622,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "$${"
+        },
+        {
+          "start": 1622,
+          "end": 1626,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "arch"
+        },
+        {
+          "start": 1626,
+          "end": 1627,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "}"
+        },
+        {
+          "start": 1636,
+          "end": 1640,
+          "tokenType": "keyword",
+          "modifiers": [],
+          "text": "done"
+        },
+        {
+          "start": 1679,
+          "end": 1680,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1739,
+          "end": 1741,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "cp"
+        },
+        {
+          "start": 1800,
+          "end": 1803,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "sed"
+        },
+        {
+          "start": 1807,
+          "end": 1826,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"s|FROM php.*|FROM "
+        },
+        {
+          "start": 1838,
+          "end": 1850,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\nCOPY qemu-"
+        },
+        {
+          "start": 1861,
+          "end": 1882,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "-static /usr/bin\\n|g\""
+        },
+        {
+          "start": 1883,
+          "end": 1893,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "Dockerfile"
+        },
+        {
+          "start": 2053,
+          "end": 2057,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "curl"
+        },
+        {
+          "start": 2245,
+          "end": 2246,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": ":"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 667,
+          "end": 669,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "go"
+        },
+        {
+          "start": 674,
+          "end": 681,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "GOARCH)"
+        },
+        {
+          "start": 801,
+          "end": 802,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "-"
+        },
+        {
+          "start": 1449,
+          "end": 1450,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1484,
+          "end": 1487,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "sed"
+        },
+        {
+          "start": 1491,
+          "end": 1496,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"s~[^"
+        },
+        {
+          "start": 1497,
+          "end": 1500,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "]*~"
+        },
+        {
+          "start": 1553,
+          "end": 1559,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "docker"
+        },
+        {
+          "start": 1585,
+          "end": 1586,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "$"
+        },
+        {
+          "start": 1586,
+          "end": 1592,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "${arch"
+        },
+        {
+          "start": 1592,
+          "end": 1594,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "} "
+        },
+        {
+          "start": 1609,
+          "end": 1610,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 1619,
+          "end": 1620,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "$"
+        },
+        {
+          "start": 1620,
+          "end": 1627,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "${arch}"
+        },
+        {
+          "start": 1635,
+          "end": 1641,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": " done\n"
+        },
+        {
+          "start": 1679,
+          "end": 1680,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": ":"
+        },
+        {
+          "start": 1739,
+          "end": 1741,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "cp"
+        },
+        {
+          "start": 1800,
+          "end": 1803,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "sed"
+        },
+        {
+          "start": 1807,
+          "end": 1809,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"s"
+        },
+        {
+          "start": 1809,
+          "end": 1810,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 1810,
+          "end": 1814,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "FROM"
+        },
+        {
+          "start": 1815,
+          "end": 1820,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "php.*"
+        },
+        {
+          "start": 1820,
+          "end": 1821,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "|"
+        },
+        {
+          "start": 1821,
+          "end": 1825,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "FROM"
+        }
+      ]
+    },
+    {
+      "repository": "git-git-makefile-v1",
+      "path": "contrib/contacts/Makefile",
+      "sourceGroup": "git-git-makefile-v1:contrib/contacts",
+      "contentHash": "a04a8134a625ec142bbeeada8bd21a4d52ed0b88501241ca0533e50c90ce86e5",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9842105263157894,
+          "recall": 0.9894179894179894,
+          "f1": 0.9868073878627969,
+          "tp": 187,
+          "fp": 3,
+          "fn": 2,
+          "support": 189
+        },
+        "exactSpanMacroF1": 0.9921690921690922,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9789473684210527,
+          "recall": 0.9841269841269841,
+          "f1": 0.9815303430079155,
+          "tp": 186,
+          "fp": 4,
+          "fn": 3,
+          "support": 189
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 39,
+            "fp": 0,
+            "fn": 0,
+            "support": 39
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 21,
+            "fp": 0,
+            "fn": 0,
+            "support": 21
+          },
+          "punctuation": {
+            "precision": 0.9411764705882353,
+            "recall": 1.0,
+            "f1": 0.9696969696969697,
+            "tp": 16,
+            "fp": 1,
+            "fn": 0,
+            "support": 16
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "variable": {
+            "precision": 0.9722222222222222,
+            "recall": 0.9859154929577465,
+            "f1": 0.9790209790209791,
+            "tp": 70,
+            "fp": 2,
+            "fn": 1,
+            "support": 71
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 0.9473684210526315,
+            "f1": 0.972972972972973,
+            "tp": 18,
+            "fp": 0,
+            "fn": 1,
+            "support": 19
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "support": 9
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 516,
+          "end": 526,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "SHELL_PATH"
+        },
+        {
+          "start": 1051,
+          "end": 1064,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "$(gitexecdir)"
+        },
+        {
+          "start": 1524,
+          "end": 1537,
+          "tokenType": "parameter",
+          "modifiers": [],
+          "text": "-agit_version"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 516,
+          "end": 526,
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ],
+          "text": "SHELL_PATH"
+        },
+        {
+          "start": 1051,
+          "end": 1063,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "$(gitexecdir"
+        },
+        {
+          "start": 1063,
+          "end": 1064,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": ")"
+        },
+        {
+          "start": 1524,
+          "end": 1537,
+          "tokenType": "variable",
+          "modifiers": [],
+          "text": "-agit_version"
+        }
+      ]
+    },
+    {
+      "repository": "guzzle-guzzle-makefile-v1",
+      "path": "Makefile",
+      "sourceGroup": "guzzle-guzzle-makefile-v1:root",
+      "contentHash": "d4f28dd5654b657ff04bb822f5a131b5ae050dc2c992c6cfdc29c780db456f7a",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8401486988847584,
+          "recall": 0.900398406374502,
+          "f1": 0.8692307692307693,
+          "tp": 226,
+          "fp": 43,
+          "fn": 25,
+          "support": 251
+        },
+        "exactSpanMacroF1": 0.9339444318140419,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8104089219330854,
+          "recall": 0.8685258964143426,
+          "f1": 0.8384615384615385,
+          "tp": 218,
+          "fp": 51,
+          "fn": 33,
+          "support": 251
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 0.6454545454545455,
+            "recall": 0.8452380952380952,
+            "f1": 0.7319587628865979,
+            "tp": 71,
+            "fp": 39,
+            "fn": 13,
+            "support": 84
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 0.9545454545454546,
+            "f1": 0.9767441860465116,
+            "tp": 42,
+            "fp": 0,
+            "fn": 2,
+            "support": 44
+          },
+          "punctuation": {
+            "precision": 0.9629629629629629,
+            "recall": 1.0,
+            "f1": 0.9811320754716981,
+            "tp": 26,
+            "fp": 1,
+            "fn": 0,
+            "support": 26
+          },
+          "function": {
+            "precision": 0.9761904761904762,
+            "recall": 0.803921568627451,
+            "f1": 0.8817204301075269,
+            "tp": 41,
+            "fp": 1,
+            "fn": 10,
+            "support": 51
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 17,
+            "fp": 0,
+            "fn": 0,
+            "support": 17
+          },
+          "parameter": {
+            "precision": 0.8181818181818182,
+            "recall": 1.0,
+            "f1": 0.9,
+            "tp": 9,
+            "fp": 2,
+            "fn": 0,
+            "support": 9
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 18,
+            "fp": 0,
+            "fn": 0,
+            "support": 18
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 13,
+          "end": 67,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"Please use \\`make <target>' where <target> is one of\""
+        },
+        {
+          "start": 75,
+          "end": 134,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  start-server                   to start the test server\""
+        },
+        {
+          "start": 142,
+          "end": 200,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  stop-server                    to stop the test server\""
+        },
+        {
+          "start": 440,
+          "end": 507,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  coverage-show                  to show the code coverage report\""
+        },
+        {
+          "start": 583,
+          "end": 642,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  docs                           to build the Sphinx docs\""
+        },
+        {
+          "start": 650,
+          "end": 708,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  docs-show                      to view the Sphinx docs\""
+        },
+        {
+          "start": 716,
+          "end": 798,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  static                         to run phpstan and php-cs-fixer on the codebase\""
+        },
+        {
+          "start": 961,
+          "end": 1052,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  static-codestyle-fix           to run php-cs-fixer on the codebase, writing the changes\""
+        },
+        {
+          "start": 1060,
+          "end": 1130,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  static-codestyle-check         to run php-cs-fixer on the codebase\""
+        },
+        {
+          "start": 1196,
+          "end": 1225,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "./vendor/bin/http_test_server"
+        },
+        {
+          "start": 1276,
+          "end": 1287,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "pid,command"
+        },
+        {
+          "start": 1295,
+          "end": 1299,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "grep"
+        },
+        {
+          "start": 1325,
+          "end": 1329,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "grep"
+        },
+        {
+          "start": 1357,
+          "end": 1362,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\" \"\\\n"
+        },
+        {
+          "start": 1370,
+          "end": 1372,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "-n"
+        },
+        {
+          "start": 1386,
+          "end": 1390,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "kill"
+        },
+        {
+          "start": 1400,
+          "end": 1404,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "true"
+        },
+        {
+          "start": 1519,
+          "end": 1524,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\" \"\\\n"
+        },
+        {
+          "start": 1532,
+          "end": 1534,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "-n"
+        },
+        {
+          "start": 1548,
+          "end": 1552,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "kill"
+        },
+        {
+          "start": 1562,
+          "end": 1566,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "true"
+        },
+        {
+          "start": 1588,
+          "end": 1606,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "vendor/bin/phpunit"
+        },
+        {
+          "start": 1653,
+          "end": 1671,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "vendor/bin/phpunit"
+        },
+        {
+          "start": 1781,
+          "end": 1785,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "open"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 68,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"Please use \\`make <target>' where <target> is one of\"\n"
+        },
+        {
+          "start": 75,
+          "end": 97,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  start-server       "
+        },
+        {
+          "start": 98,
+          "end": 99,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 102,
+          "end": 134,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "       to start the test server\""
+        },
+        {
+          "start": 142,
+          "end": 156,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  stop-server"
+        },
+        {
+          "start": 163,
+          "end": 200,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "             to stop the test server\""
+        },
+        {
+          "start": 440,
+          "end": 460,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  coverage-show    "
+        },
+        {
+          "start": 461,
+          "end": 462,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 463,
+          "end": 464,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 467,
+          "end": 507,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "       to show the code coverage report\""
+        },
+        {
+          "start": 583,
+          "end": 606,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\"  docs                "
+        },
+        {
+          "start": 608,
+          "end": 642,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "         to build the Sphinx docs\""
+        },
+        {
+          "start": 650,
+          "end": 651,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\""
+        },
+        {
+          "start": 652,
+          "end": 664,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": " docs-show  "
+        },
+        {
+          "start": 671,
+          "end": 708,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "             to view the Sphinx docs\""
+        },
+        {
+          "start": 716,
+          "end": 717,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\""
+        },
+        {
+          "start": 718,
+          "end": 798,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": " static                         to run phpstan and php-cs-fixer on the codebase\""
+        },
+        {
+          "start": 961,
+          "end": 962,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\""
+        },
+        {
+          "start": 963,
+          "end": 984,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": " static-codestyle-fix"
+        },
+        {
+          "start": 993,
+          "end": 1052,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "  to run php-cs-fixer on the codebase, writing the changes\""
+        },
+        {
+          "start": 1060,
+          "end": 1061,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\""
+        },
+        {
+          "start": 1063,
+          "end": 1085,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "static-codestyle-check"
+        },
+        {
+          "start": 1094,
+          "end": 1130,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "to run php-cs-fixer on the codebase\""
+        },
+        {
+          "start": 1196,
+          "end": 1225,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "./vendor/bin/http_test_server"
+        }
+      ]
+    },
+    {
+      "repository": "curl-curl-makefile-v1",
+      "path": "docs/cmdline-opts/Makefile.inc",
+      "sourceGroup": "curl-curl-makefile-v1:docs/cmdline-opts",
+      "contentHash": "824f762b85fa3a3cf1061059c90c8f13d7ba375fa62f6ec5e691bd5d506fcade",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9834437086092715,
+          "recall": 0.9867109634551495,
+          "f1": 0.9850746268656716,
+          "tp": 594,
+          "fp": 10,
+          "fn": 8,
+          "support": 602
+        },
+        "exactSpanMacroF1": 0.9825519386920298,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9834437086092715,
+          "recall": 0.9867109634551495,
+          "f1": 0.9850746268656716,
+          "tp": 594,
+          "fp": 10,
+          "fn": 8,
+          "support": 602
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.92,
+            "recall": 0.9583333333333334,
+            "f1": 0.9387755102040817,
+            "tp": 23,
+            "fp": 2,
+            "fn": 1,
+            "support": 24
+          },
+          "string": {
+            "precision": 0.9726027397260274,
+            "recall": 0.9895470383275261,
+            "f1": 0.9810017271157168,
+            "tp": 284,
+            "fp": 8,
+            "fn": 3,
+            "support": 287
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.9860627177700348,
+            "f1": 0.9929824561403509,
+            "tp": 283,
+            "fp": 0,
+            "fn": 4,
+            "support": 287
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "support": 2
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 945,
+          "end": 1020,
+          "tokenType": "comment",
+          "modifiers": [],
+          "text": "###########################################################################"
+        },
+        {
+          "start": 1080,
+          "end": 1081,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1133,
+          "end": 1148,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "_ENVIRONMENT.md"
+        },
+        {
+          "start": 1149,
+          "end": 1150,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1153,
+          "end": 1166,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "_EXITCODES.md"
+        },
+        {
+          "start": 1281,
+          "end": 1296,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "_PROXYPREFIX.md"
+        },
+        {
+          "start": 1398,
+          "end": 1399,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 4996,
+          "end": 4997,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 945,
+          "end": 946,
+          "tokenType": "comment",
+          "modifiers": [],
+          "text": "#"
+        },
+        {
+          "start": 946,
+          "end": 1020,
+          "tokenType": "comment",
+          "modifiers": [],
+          "text": "##########################################################################"
+        },
+        {
+          "start": 1080,
+          "end": 1082,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 1111,
+          "end": 1112,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 1133,
+          "end": 1150,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "_ENVIRONMENT.md \\"
+        },
+        {
+          "start": 1153,
+          "end": 1167,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "_EXITCODES.md "
+        },
+        {
+          "start": 1213,
+          "end": 1214,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": " "
+        },
+        {
+          "start": 1281,
+          "end": 1297,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "_PROXYPREFIX.md "
+        },
+        {
+          "start": 1398,
+          "end": 1400,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 4996,
+          "end": 4998,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        }
+      ]
+    },
+    {
+      "repository": "ffmpeg-ffmpeg-makefile-v1",
+      "path": "libswscale/riscv/Makefile",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-v1:libswscale/riscv",
+      "contentHash": "3ba7a8deede4f7c19749d1a8ae95ae8baa464443c8c129d9a22000cba68b3fbf",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 1,
+        "exactSpan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "exactSpanMacroF1": 1.0,
+        "exactSpanIncludingModifiers": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 18,
+          "fp": 0,
+          "fn": 0,
+          "support": 18
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "string": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "support": 3
+          },
+          "function": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "support": 4
+          },
+          "parameter": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "label": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "repository": "kubernetes-examples-makefile-v1",
+      "path": "web/guestbook-go/Makefile",
+      "sourceGroup": "kubernetes-examples-makefile-v1:web/guestbook-go",
+      "contentHash": "3dc62110c5f4b2255cc7d111de53761325ae2c0bcc526b6945692f4b50a33dd8",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.9305555555555556,
+          "recall": 0.9305555555555556,
+          "f1": 0.9305555555555556,
+          "tp": 67,
+          "fp": 5,
+          "fn": 5,
+          "support": 72
+        },
+        "exactSpanMacroF1": 0.939385108295757,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.9305555555555556,
+          "recall": 0.9305555555555556,
+          "f1": 0.9305555555555556,
+          "tp": 67,
+          "fp": 5,
+          "fn": 5,
+          "support": 72
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 0.9473684210526315,
+            "recall": 0.9473684210526315,
+            "f1": 0.9473684210526315,
+            "tp": 18,
+            "fp": 1,
+            "fn": 1,
+            "support": 19
+          },
+          "string": {
+            "precision": 0.8636363636363636,
+            "recall": 0.9047619047619048,
+            "f1": 0.8837209302325582,
+            "tp": 19,
+            "fp": 3,
+            "fn": 2,
+            "support": 21
+          },
+          "number": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "support": 1
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571,
+            "tp": 3,
+            "fp": 0,
+            "fn": 1,
+            "support": 4
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571,
+            "tp": 3,
+            "fp": 0,
+            "fn": 1,
+            "support": 4
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          },
+          "parameter": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 5,
+            "fp": 0,
+            "fn": 0,
+            "support": 5
+          },
+          "label": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "tp": 5,
+            "fp": 1,
+            "fn": 0,
+            "support": 5
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 766,
+          "end": 853,
+          "tokenType": "comment",
+          "modifiers": [],
+          "text": "# builds a docker image that builds the app and packages it into a minimal docker image"
+        },
+        {
+          "start": 1105,
+          "end": 1116,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "/guestbook:"
+        },
+        {
+          "start": 1128,
+          "end": 1129,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": ">"
+        },
+        {
+          "start": 1143,
+          "end": 1147,
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ],
+          "text": "true"
+        },
+        {
+          "start": 1177,
+          "end": 1181,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "push"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 766,
+          "end": 854,
+          "tokenType": "comment",
+          "modifiers": [],
+          "text": "# builds a docker image that builds the app and packages it into a minimal docker image\n"
+        },
+        {
+          "start": 1105,
+          "end": 1116,
+          "tokenType": "label",
+          "modifiers": [],
+          "text": "/guestbook:"
+        },
+        {
+          "start": 1128,
+          "end": 1129,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": ">"
+        },
+        {
+          "start": 1143,
+          "end": 1147,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "true"
+        },
+        {
+          "start": 1177,
+          "end": 1182,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "push\n"
+        }
+      ]
+    },
+    {
+      "repository": "ffmpeg-ffmpeg-makefile-v1",
+      "path": "doc/examples/Makefile.example",
+      "sourceGroup": "ffmpeg-ffmpeg-makefile-v1:doc/examples",
+      "contentHash": "e2a4f8f5829caaf9c0f1cf93d28d944d5c8c79e760d4ce64d2eaf89df9f1bf2d",
+      "metrics": {
+        "documents": 1,
+        "exactDocumentsIncludingModifiers": 0,
+        "exactSpan": {
+          "precision": 0.8188405797101449,
+          "recall": 0.8129496402877698,
+          "f1": 0.8158844765342961,
+          "tp": 113,
+          "fp": 25,
+          "fn": 26,
+          "support": 139
+        },
+        "exactSpanMacroF1": 0.8637110591900311,
+        "exactSpanIncludingModifiers": {
+          "precision": 0.8188405797101449,
+          "recall": 0.8129496402877698,
+          "f1": 0.8158844765342961,
+          "tp": 113,
+          "fp": 25,
+          "fn": 26,
+          "support": 139
+        },
+        "byTokenType": {
+          "keyword": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "comment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "support": 7
+          },
+          "string": {
+            "precision": 0.6307692307692307,
+            "recall": 0.9761904761904762,
+            "f1": 0.7663551401869159,
+            "tp": 41,
+            "fp": 24,
+            "fn": 1,
+            "support": 42
+          },
+          "number": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "operator": {
+            "precision": 1.0,
+            "recall": 0.9230769230769231,
+            "f1": 0.96,
+            "tp": 12,
+            "fp": 0,
+            "fn": 1,
+            "support": 13
+          },
+          "punctuation": {
+            "precision": 1.0,
+            "recall": 0.4634146341463415,
+            "f1": 0.6333333333333333,
+            "tp": 19,
+            "fp": 0,
+            "fn": 22,
+            "support": 41
+          },
+          "function": {
+            "precision": 1.0,
+            "recall": 0.6,
+            "f1": 0.75,
+            "tp": 3,
+            "fp": 0,
+            "fn": 2,
+            "support": 5
+          },
+          "variable": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 21,
+            "fp": 0,
+            "fn": 0,
+            "support": 21
+          },
+          "parameter": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "tp": 2,
+            "fp": 1,
+            "fn": 0,
+            "support": 2
+          },
+          "label": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "support": 8
+          }
+        }
+      },
+      "missing": [
+        {
+          "start": 98,
+          "end": 99,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 151,
+          "end": 152,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 204,
+          "end": 205,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 257,
+          "end": 258,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 310,
+          "end": 311,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 416,
+          "end": 417,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 435,
+          "end": 437,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "-g"
+        },
+        {
+          "start": 456,
+          "end": 466,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "pkg-config"
+        },
+        {
+          "start": 520,
+          "end": 530,
+          "tokenType": "function",
+          "modifiers": [],
+          "text": "pkg-config"
+        },
+        {
+          "start": 722,
+          "end": 723,
+          "tokenType": "operator",
+          "modifiers": [],
+          "text": "="
+        },
+        {
+          "start": 723,
+          "end": 724,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 829,
+          "end": 830,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 882,
+          "end": 883,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 935,
+          "end": 936,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 988,
+          "end": 989,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1041,
+          "end": 1042,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1094,
+          "end": 1095,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1147,
+          "end": 1148,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1200,
+          "end": 1201,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1253,
+          "end": 1254,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1359,
+          "end": 1360,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1412,
+          "end": 1413,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1518,
+          "end": 1519,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1571,
+          "end": 1572,
+          "tokenType": "punctuation",
+          "modifiers": [],
+          "text": "\\"
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 98,
+          "end": 100,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 151,
+          "end": 153,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 204,
+          "end": 206,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 257,
+          "end": 259,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 310,
+          "end": 312,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 416,
+          "end": 417,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 435,
+          "end": 437,
+          "tokenType": "parameter",
+          "modifiers": [],
+          "text": "-g"
+        },
+        {
+          "start": 456,
+          "end": 466,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "pkg-config"
+        },
+        {
+          "start": 520,
+          "end": 530,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "pkg-config"
+        },
+        {
+          "start": 722,
+          "end": 725,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "=\\\n"
+        },
+        {
+          "start": 829,
+          "end": 830,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 882,
+          "end": 884,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 935,
+          "end": 937,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 988,
+          "end": 989,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1041,
+          "end": 1042,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1094,
+          "end": 1096,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 1147,
+          "end": 1149,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 1200,
+          "end": 1201,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1253,
+          "end": 1254,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1359,
+          "end": 1360,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1412,
+          "end": 1413,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\"
+        },
+        {
+          "start": 1518,
+          "end": 1520,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 1571,
+          "end": 1573,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        },
+        {
+          "start": 1624,
+          "end": 1626,
+          "tokenType": "string",
+          "modifiers": [],
+          "text": "\\\n"
+        }
+      ]
+    }
+  ]
+}
