@@ -1,0 +1,242 @@
+[
+  {
+    "id": "empty",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": ""
+  },
+  {
+    "id": "comment",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦comment|# Original build source⟧\n"
+  },
+  {
+    "id": "assignment-0",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|CC⟧ ⟦operator|=⟧ ⟦string|cc⟧\n"
+  },
+  {
+    "id": "assignment-1",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|CC⟧ ⟦operator|:=⟧ ⟦string|cc⟧\n"
+  },
+  {
+    "id": "assignment-2",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|CC⟧ ⟦operator|::=⟧ ⟦string|cc⟧\n"
+  },
+  {
+    "id": "assignment-3",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|CC⟧ ⟦operator|?=⟧ ⟦string|cc⟧\n"
+  },
+  {
+    "id": "assignment-4",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|CC⟧ ⟦operator|+=⟧ ⟦string|cc⟧\n"
+  },
+  {
+    "id": "numeric-value",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|JOBS⟧ ⟦operator|=⟧ ⟦number|4⟧\n"
+  },
+  {
+    "id": "references",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|FLAGS⟧ ⟦operator|=⟧ ⟦variable|$(BASE)⟧ ⟦variable|${MODE}⟧ ⟦variable|$X⟧\n"
+  },
+  {
+    "id": "automatic",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦label+declaration|all⟧⟦punctuation|:⟧\n\t⟦variable|$(CC)⟧ ⟦variable|$@⟧ ⟦variable|$<⟧ ⟦variable|$^⟧ ⟦variable|$?⟧ ⟦variable|$*⟧ ⟦variable|$(@D)⟧\n"
+  },
+  {
+    "id": "targets-order-only",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦label+declaration|app⟧ ⟦label+declaration|tool⟧⟦punctuation|:⟧ ⟦string|main.o⟧ ⟦operator||⟧ ⟦string|build⟧\n"
+  },
+  {
+    "id": "phony",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦label+declaration|.PHONY⟧⟦punctuation|:⟧ ⟦string|all⟧ ⟦string|clean⟧\n"
+  },
+  {
+    "id": "pattern",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦label+declaration|%.o⟧⟦punctuation|:⟧ ⟦string|%.c⟧\n\t⟦variable|$(CC)⟧ ⟦parameter|-c⟧ ⟦variable|$<⟧ ⟦parameter|-o⟧ ⟦variable|$@⟧\n"
+  },
+  {
+    "id": "double-colon",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦label+declaration|clean⟧⟦punctuation|::⟧\n\t⟦function+default-library|echo⟧ ⟦string|ready⟧\n"
+  },
+  {
+    "id": "grouped-targets",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦label+declaration|one⟧ ⟦label+declaration|two⟧⟦punctuation|&:⟧ ⟦string|source⟧\n"
+  },
+  {
+    "id": "inline-recipe",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦label+declaration|ready⟧⟦punctuation|:⟧ ⟦punctuation|;⟧ ⟦function+default-library|echo⟧ ⟦string|ready⟧\n"
+  },
+  {
+    "id": "recipe-prefixes",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦label+declaration|clean⟧⟦punctuation|:⟧\n\t⟦operator|@⟧⟦operator|-⟧⟦operator|+⟧⟦function+default-library|echo⟧ ⟦string|ready⟧\n"
+  },
+  {
+    "id": "make-function",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|SRC⟧ ⟦operator|:=⟧ ⟦operator|$⟧⟦punctuation|(⟧⟦function+default-library|wildcard⟧ ⟦string|src/*.c⟧⟦punctuation|)⟧\n"
+  },
+  {
+    "id": "nested-function",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|OBJ⟧ ⟦operator|=⟧ ⟦operator|$⟧⟦punctuation|(⟧⟦function+default-library|addprefix⟧ ⟦string|build/⟧⟦punctuation|,⟧⟦variable|$(SRC:.c=.o)⟧⟦punctuation|)⟧\n"
+  },
+  {
+    "id": "shell-function",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|VALUE⟧ ⟦operator|:=⟧ ⟦operator|$⟧⟦punctuation|(⟧⟦function+default-library|shell⟧ ⟦function+default-library|echo⟧ ⟦string|ready⟧⟦punctuation|)⟧\n"
+  },
+  {
+    "id": "shell-assignment",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|VALUE⟧ ⟦operator|!=⟧ ⟦function+default-library|echo⟧ ⟦string|ready⟧\n"
+  },
+  {
+    "id": "include",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦keyword|-include⟧ ⟦string|config.mk⟧ ⟦string|local.mk⟧\n"
+  },
+  {
+    "id": "export",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦keyword|export⟧ ⟦variable+declaration|MODE⟧ ⟦operator|=⟧ ⟦string|release⟧\n"
+  },
+  {
+    "id": "unexport",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦keyword|unexport⟧ ⟦variable|SECRET⟧ ⟦variable|TOKEN⟧\n"
+  },
+  {
+    "id": "ifdef",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦keyword|ifdef⟧ ⟦variable|DEBUG⟧\n⟦variable+declaration|FLAGS⟧ ⟦operator|+=⟧ ⟦string|-g⟧\n⟦keyword|else⟧\n⟦variable+declaration|FLAGS⟧ ⟦operator|+=⟧ ⟦string|-O2⟧\n⟦keyword|endif⟧\n"
+  },
+  {
+    "id": "ifeq",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦keyword|ifeq⟧ ⟦punctuation|(⟧⟦variable|$(MODE)⟧⟦punctuation|,⟧⟦string|debug⟧⟦punctuation|)⟧\n⟦variable+declaration|TRACE⟧ ⟦operator|=⟧ ⟦number|1⟧\n⟦keyword|endif⟧\n"
+  },
+  {
+    "id": "define",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦keyword|define⟧ ⟦variable+declaration|MESSAGE⟧\n⟦string|# literal comment\nhello $(NAME)\n⟧⟦keyword|endef⟧\n"
+  },
+  {
+    "id": "custom-recipe-prefix",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|.RECIPEPREFIX⟧ ⟦operator|=⟧ ⟦string|>⟧\n⟦label+declaration|all⟧⟦punctuation|:⟧\n⟦punctuation|>⟧ ⟦operator|@⟧⟦function+default-library|echo⟧ ⟦string|ready⟧\n"
+  },
+  {
+    "id": "escaped-shell-variable",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦label+declaration|all⟧⟦punctuation|:⟧\n\t⟦operator|@⟧⟦function+default-library|echo⟧ ⟦string|\"⟧⟦variable|$$HOME⟧⟦string|\"⟧\n"
+  },
+  {
+    "id": "escaped-make-value",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|LITERAL⟧ ⟦operator|=⟧ ⟦string|$$HOME⟧\n"
+  },
+  {
+    "id": "foreign-shell",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|SHELL⟧ ⟦operator|:=⟧ ⟦string|cmd.exe⟧\n⟦label+declaration|all⟧⟦punctuation|:⟧\n\t⟦string|echo %PATH%⟧\n"
+  },
+  {
+    "id": "unicode-crlf",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦punctuation|﻿⟧⟦comment|# 原文 🌌⟧\r\n⟦variable+declaration|NAME⟧ ⟦operator|=⟧ ⟦string|\"你好 🌌\"⟧\r\n"
+  },
+  {
+    "id": "no-final-newline",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|MODE⟧ ⟦operator|=⟧ ⟦string|release⟧"
+  },
+  {
+    "id": "make-inline-comment",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|FLAGS⟧ ⟦operator|=⟧ ⟦string|-O2⟧ ⟦comment|# release build⟧\n"
+  },
+  {
+    "id": "make-quoted-hash",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|TEXT⟧ ⟦operator|=⟧ ⟦string|\"literal⟧ ⟦comment|# Make comments ignore quotes\"⟧\n"
+  },
+  {
+    "id": "escaped-hash",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|TEXT⟧ ⟦operator|=⟧ ⟦string|one\\#two⟧\n"
+  },
+  {
+    "id": "hash-in-function",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|VALUE⟧ ⟦operator|=⟧ ⟦operator|$⟧⟦punctuation|(⟧⟦function+default-library|subst⟧ ⟦string|#⟧⟦punctuation|,⟧⟦string|x⟧⟦punctuation|,⟧⟦variable|$(INPUT)⟧⟦punctuation|)⟧\n"
+  },
+  {
+    "id": "continued-comment",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦comment|# original \\\n still a comment⟧\n"
+  },
+  {
+    "id": "continuation",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦variable+declaration|FILES⟧ ⟦operator|=⟧ ⟦string|one.c⟧ ⟦punctuation|\\⟧\n  ⟦string|two.c⟧\n"
+  },
+  {
+    "id": "recipe-comment",
+    "documentKind": "makefile",
+    "profile": "makefile",
+    "markedSource": "⟦label+declaration|all⟧⟦punctuation|:⟧\n\t⟦comment|# original recipe comment⟧\n\t⟦function+default-library|echo⟧ ⟦string|\"# literal\"⟧\n"
+  }
+]

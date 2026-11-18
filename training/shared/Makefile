@@ -2081,3 +2081,72 @@ challenge-dockerfile:
 export-dockerfile-model:
 	@test -n "$(DOCKERFILE_CHECKPOINT)" -a -n "$(DOCKERFILE_TEST_REPORT)" || (echo 'Set DOCKERFILE_CHECKPOINT and DOCKERFILE_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.dockerfile.export_model --checkpoint "$(DOCKERFILE_CHECKPOINT)" --test-report "$(DOCKERFILE_TEST_REPORT)"
+
+MAKEFILE_DEVICE ?= auto
+MAKEFILE_EPOCHS ?= 3
+MAKEFILE_BATCH_SIZE ?= 32
+MAKEFILE_FOCUS_BATCH_SIZE ?= 64
+MAKEFILE_LOSS_WEIGHT_STREAM ?=
+MAKEFILE_LEARNING_RATE ?=
+MAKEFILE_EVAL_SPLIT ?= validation
+
+.PHONY: dataset-makefile dataset-makefile-tools dataset-makefile-sources dataset-makefile-curriculum dataset-makefile-collect dataset-makefile-label dataset-makefile-validate dataset-makefile-prepare test-labeling-makefile train-makefile-smoke train-makefile continue-makefile predict-makefile evaluate-makefile challenge-makefile export-makefile-model
+
+dataset-makefile-tools:
+	$(PYTHON) -m packs.makefile.labeling.tools
+
+dataset-makefile-sources:
+	$(PYTHON) -m packs.makefile.dataset.fetch_sources
+
+dataset-makefile:
+	$(MAKE) dataset-makefile-tools
+	$(MAKE) dataset-makefile-sources
+	$(MAKE) dataset-makefile-curriculum
+	$(MAKE) dataset-makefile-collect
+	$(MAKE) dataset-makefile-label
+	$(MAKE) dataset-makefile-validate
+	$(MAKE) dataset-makefile-prepare
+
+dataset-makefile-curriculum:
+	$(PYTHON) -m packs.makefile.dataset.generate_curriculum
+
+dataset-makefile-collect:
+	$(PYTHON) -m packs.makefile.dataset.pipeline collect
+
+dataset-makefile-label:
+	$(PYTHON) -m packs.makefile.dataset.pipeline label
+
+dataset-makefile-validate:
+	$(PYTHON) -m packs.makefile.dataset.pipeline validate
+
+dataset-makefile-prepare:
+	$(PYTHON) -m training.makefile.prepare
+
+test-labeling-makefile:
+	$(PYTHON) -m unittest discover -s packs/makefile/tests -v
+
+train-makefile-smoke:
+	$(PYTHON) -m training.makefile.train --smoke --epochs 1 --device $(MAKEFILE_DEVICE) $(if $(MAKEFILE_RUN),--output-dir "$(MAKEFILE_RUN)") $(if $(MAKEFILE_INIT_FROM),--init-from "$(MAKEFILE_INIT_FROM)")
+
+train-makefile:
+	$(PYTHON) -m training.makefile.train --epochs $(MAKEFILE_EPOCHS) --device $(MAKEFILE_DEVICE) --batch-size $(MAKEFILE_BATCH_SIZE) --focus-batch-size $(MAKEFILE_FOCUS_BATCH_SIZE) $(if $(MAKEFILE_LOSS_WEIGHT_STREAM),--loss-weight-stream $(MAKEFILE_LOSS_WEIGHT_STREAM)) $(if $(MAKEFILE_LEARNING_RATE),--learning-rate $(MAKEFILE_LEARNING_RATE)) $(if $(MAKEFILE_RUN),--output-dir "$(MAKEFILE_RUN)") $(if $(MAKEFILE_INIT_FROM),--init-from "$(MAKEFILE_INIT_FROM)")
+
+continue-makefile:
+	@test -n "$(MAKEFILE_CHECKPOINT)" || (echo 'Set MAKEFILE_CHECKPOINT to the run last.pt'; exit 1)
+	$(PYTHON) -m training.makefile.train --resume "$(MAKEFILE_CHECKPOINT)" --epochs $(MAKEFILE_EPOCHS) --device $(MAKEFILE_DEVICE)
+
+predict-makefile:
+	@test -n "$(MAKEFILE_SOURCE)" || (echo 'Set MAKEFILE_SOURCE to a source file'; exit 1)
+	$(PYTHON) -m training.makefile.predict --device $(MAKEFILE_DEVICE) --file "$(MAKEFILE_SOURCE)" $(if $(MAKEFILE_CHECKPOINT),--checkpoint "$(MAKEFILE_CHECKPOINT)")
+
+evaluate-makefile:
+	@test -n "$(MAKEFILE_CHECKPOINT)" || (echo 'Set MAKEFILE_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.makefile.evaluate --checkpoint "$(MAKEFILE_CHECKPOINT)" --device $(MAKEFILE_DEVICE) --split $(MAKEFILE_EVAL_SPLIT)
+
+challenge-makefile:
+	@test -n "$(MAKEFILE_CHECKPOINT)" || (echo 'Set MAKEFILE_CHECKPOINT to a frozen candidate'; exit 1)
+	$(PYTHON) -m training.makefile.challenge --checkpoint "$(MAKEFILE_CHECKPOINT)" --device $(MAKEFILE_DEVICE)
+
+export-makefile-model:
+	@test -n "$(MAKEFILE_CHECKPOINT)" -a -n "$(MAKEFILE_TEST_REPORT)" || (echo 'Set MAKEFILE_CHECKPOINT and MAKEFILE_TEST_REPORT'; exit 1)
+	$(PYTHON) -m training.makefile.export_model --checkpoint "$(MAKEFILE_CHECKPOINT)" --test-report "$(MAKEFILE_TEST_REPORT)"

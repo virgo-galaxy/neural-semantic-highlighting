@@ -1,0 +1,26 @@
+{
+  "label": "Makefile",
+  "profiles": ["makefile"],
+  "scope": "makefile-source-semantic-spans",
+  "contextBytes": 512,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": ["string"],
+    "modifierRoles": {
+      "declaration": ["variable", "label", "function"],
+      "default-library": ["function"]
+    }
+  },
+  "requiredTrainingFeatures": {
+    "makefile": [
+      "rules",
+      "variables",
+      "recipes",
+      "functions",
+      "conditionals",
+      "directives",
+      "patterns",
+      "continuations"
+    ]
+  },
+  "minimumTrainingFeatureGroups": 2
+}
