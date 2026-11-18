@@ -1,0 +1,718 @@
+{
+  "format": "nsh-protobuf-byte-dataset-v1",
+  "snapshot": "9c016c154e6432ba20c88c10436ee9869d6c2f8c093849f6f8cf06d7801646d3",
+  "contextBytes": 512,
+  "identity": {
+    "format": "nsh-protobuf-byte-dataset-v1",
+    "gold": "b1d8157fc39a038c82d07f53ee3082103575d9582f8aa2dc0e6ddafb114e2940",
+    "schema": "0a1a88df54726ee10e21730134f342182f9be4abc8496d5d32a9a675c705afb2",
+    "packConfigHash": "5abfed06810208e396562ad2527eea0f6bf92353692eb943e48075781a4b8ed5",
+    "builders": {
+      "prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+      "encoding.py": "998536a816ea0fe135e9a6c2c61c6a213d20207f9bd80c69eff01b7ae272a1b6",
+      "spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595"
+    },
+    "fixedGroupsHash": "218d620a5f21bc90b830383d7d0c853ddca861c8aa1699f0ee99a55eedfe5c06",
+    "contextBytes": 512,
+    "seed": 1729,
+    "semanticContractHash": "1b40f740323901b6c47ca13636fe1bf81a59426e9ef9a4021330572c8edad2a9"
+  },
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "type",
+      "enum",
+      "enum-member",
+      "namespace",
+      "property",
+      "method",
+      "label",
+      "constant"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "labels": {
+    "padByteId": 256,
+    "ignoreId": -100,
+    "boundaryClasses": [
+      "outside",
+      "begin",
+      "inside"
+    ],
+    "modifierSupervision": "span-beginnings",
+    "continuationBytes": "ignored"
+  },
+  "policy": {
+    "split": "intact-source-directories-before-windowing",
+    "trainingWindowing": "gold-adaptive-cursor",
+    "evaluationWindowing": "character-safe-fixed-cursor",
+    "crossGroupCopies": "excluded",
+    "targetRatios": [
+      0.8,
+      0.1,
+      0.1
+    ],
+    "balanceAxes": "document-kind-stream-and-profile",
+    "fixedSourceGroupsHash": "218d620a5f21bc90b830383d7d0c853ddca861c8aa1699f0ee99a55eedfe5c06"
+  },
+  "inputDocuments": 923,
+  "uniqueDocuments": 923,
+  "exactDuplicateRecords": 0,
+  "excludedCopyDocuments": 49,
+  "retainedDocuments": 874,
+  "retainedSourceTexts": 874,
+  "trainingFeatureCoverage": {
+    "protobuf": {
+      "bom": {
+        "documents": 20,
+        "sourceGroups": [
+          "protobuf-focus-v1:bom"
+        ]
+      },
+      "comments": {
+        "documents": 77,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:contrib/envoy/extensions/load_balancing_policies/per_worker_subset",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/http/jwt_authn",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/network/thrift_proxy",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/access_loggers/filters/cel",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/common/ratelimit",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/early_data",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/cdn_loop",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/upstream_codec",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/wasm",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/geoip_providers/maxmind",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/http/ai_filters/schema_validation",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/router/cluster_specifiers/matcher",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/tracers/dynamic_modules",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/transport_sockets/dynamic_modules",
+          "grpc-grpc-protobuf-v2:examples/csharp/AsyncSuffix",
+          "grpc-grpc-protobuf-v2:examples/python/multiprocessing",
+          "grpc-grpc-protobuf-v2:src/core/ext/transport/chaotic_good",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/status",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_health_checking/grpc_health",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_reflection/grpc_reflection",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos/package_with_underscore",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/collector/profiles",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/logs",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/processcontext",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/resource",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/trace",
+          "protobuf-focus-v1:concatenated",
+          "protobuf-focus-v1:long-line-comment",
+          "protocolbuffers-protobuf-protobuf-v2:examples"
+        ]
+      },
+      "crlf": {
+        "documents": 156,
+        "sourceGroups": [
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/trace",
+          "protobuf-focus-v1:aggregate",
+          "protobuf-focus-v1:aggregate-any",
+          "protobuf-focus-v1:aggregate-list",
+          "protobuf-focus-v1:basic",
+          "protobuf-focus-v1:bom",
+          "protobuf-focus-v1:concatenated",
+          "protobuf-focus-v1:editions",
+          "protobuf-focus-v1:editions-2024",
+          "protobuf-focus-v1:editions-2026",
+          "protobuf-focus-v1:enum",
+          "protobuf-focus-v1:enum-options",
+          "protobuf-focus-v1:escapes",
+          "protobuf-focus-v1:extensions",
+          "protobuf-focus-v1:field-options",
+          "protobuf-focus-v1:group",
+          "protobuf-focus-v1:integer",
+          "protobuf-focus-v1:large-message",
+          "protobuf-focus-v1:long-line-comment",
+          "protobuf-focus-v1:long-string",
+          "protobuf-focus-v1:map",
+          "protobuf-focus-v1:negative-enum",
+          "protobuf-focus-v1:nested",
+          "protobuf-focus-v1:oneof",
+          "protobuf-focus-v1:optional",
+          "protobuf-focus-v1:proto2-default",
+          "protobuf-focus-v1:qualified",
+          "protobuf-focus-v1:radices",
+          "protobuf-focus-v1:repeated",
+          "protobuf-focus-v1:reserved-numbers",
+          "protobuf-focus-v1:stream-bidi",
+          "protobuf-focus-v1:stream-client"
+        ]
+      },
+      "edition": {
+        "documents": 60,
+        "sourceGroups": [
+          "protobuf-focus-v1:editions",
+          "protobuf-focus-v1:editions-2024",
+          "protobuf-focus-v1:editions-2026"
+        ]
+      },
+      "enum": {
+        "documents": 91,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:contrib/envoy/extensions/load_balancing_policies/per_worker_subset",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/network/thrift_proxy",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/common/ratelimit",
+          "grpc-grpc-protobuf-v2:src/core/ext/transport/chaotic_good",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_health_checking/grpc_health",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/logs",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/trace",
+          "protobuf-focus-v1:editions-2024",
+          "protobuf-focus-v1:enum",
+          "protobuf-focus-v1:enum-options",
+          "protobuf-focus-v1:negative-enum",
+          "protocolbuffers-protobuf-protobuf-v2:examples"
+        ]
+      },
+      "extend": {
+        "documents": 20,
+        "sourceGroups": [
+          "protobuf-focus-v1:extensions"
+        ]
+      },
+      "extensions": {
+        "documents": 20,
+        "sourceGroups": [
+          "protobuf-focus-v1:extensions"
+        ]
+      },
+      "group": {
+        "documents": 20,
+        "sourceGroups": [
+          "protobuf-focus-v1:group"
+        ]
+      },
+      "import": {
+        "documents": 49,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:contrib/envoy/extensions/load_balancing_policies/per_worker_subset",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/http/jwt_authn",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/network/thrift_proxy",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/access_loggers/filters/cel",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/common/ratelimit",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/early_data",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/cdn_loop",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/upstream_codec",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/wasm",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/geoip_providers/maxmind",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/http/ai_filters/schema_validation",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/router/cluster_specifiers/matcher",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/tracers/dynamic_modules",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/transport_sockets/dynamic_modules",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/status",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos/package_with_underscore",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/collector/profiles",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/logs",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/processcontext",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/resource",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/trace",
+          "protobuf-focus-v1:editions-2024",
+          "protocolbuffers-protobuf-protobuf-v2:examples"
+        ]
+      },
+      "map-field": {
+        "documents": 25,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/http/jwt_authn",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_health_checking/grpc_health",
+          "protobuf-focus-v1:map"
+        ]
+      },
+      "message": {
+        "documents": 596,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:contrib/envoy/extensions/load_balancing_policies/per_worker_subset",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/http/jwt_authn",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/network/thrift_proxy",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/access_loggers/filters/cel",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/common/ratelimit",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/early_data",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/cdn_loop",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/upstream_codec",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/wasm",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/geoip_providers/maxmind",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/http/ai_filters/schema_validation",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/router/cluster_specifiers/matcher",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/tracers/dynamic_modules",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/transport_sockets/dynamic_modules",
+          "grpc-grpc-protobuf-v2:examples/csharp/AsyncSuffix",
+          "grpc-grpc-protobuf-v2:examples/python/multiprocessing",
+          "grpc-grpc-protobuf-v2:src/core/ext/transport/chaotic_good",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/status",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_health_checking/grpc_health",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_reflection/grpc_reflection",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos/package_with_underscore",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/collector/profiles",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/logs",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/processcontext",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/resource",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/trace",
+          "protobuf-focus-v1:aggregate",
+          "protobuf-focus-v1:aggregate-any",
+          "protobuf-focus-v1:basic",
+          "protobuf-focus-v1:bom",
+          "protobuf-focus-v1:concatenated",
+          "protobuf-focus-v1:editions",
+          "protobuf-focus-v1:editions-2024",
+          "protobuf-focus-v1:editions-2026",
+          "protobuf-focus-v1:enum",
+          "protobuf-focus-v1:escapes",
+          "protobuf-focus-v1:extensions",
+          "protobuf-focus-v1:field-options",
+          "protobuf-focus-v1:group",
+          "protobuf-focus-v1:integer",
+          "protobuf-focus-v1:large-message",
+          "protobuf-focus-v1:long-line-comment",
+          "protobuf-focus-v1:long-string",
+          "protobuf-focus-v1:map",
+          "protobuf-focus-v1:nested",
+          "protobuf-focus-v1:oneof",
+          "protobuf-focus-v1:optional",
+          "protobuf-focus-v1:proto2-default",
+          "protobuf-focus-v1:qualified",
+          "protobuf-focus-v1:radices",
+          "protobuf-focus-v1:repeated",
+          "protobuf-focus-v1:reserved-numbers",
+          "protobuf-focus-v1:stream-bidi",
+          "protobuf-focus-v1:stream-client",
+          "protocolbuffers-protobuf-protobuf-v2:examples"
+        ]
+      },
+      "numbers": {
+        "documents": 613,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:contrib/envoy/extensions/load_balancing_policies/per_worker_subset",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/http/jwt_authn",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/network/thrift_proxy",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/access_loggers/filters/cel",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/common/ratelimit",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/cdn_loop",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/wasm",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/geoip_providers/maxmind",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/http/ai_filters/schema_validation",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/router/cluster_specifiers/matcher",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/tracers/dynamic_modules",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/transport_sockets/dynamic_modules",
+          "grpc-grpc-protobuf-v2:examples/csharp/AsyncSuffix",
+          "grpc-grpc-protobuf-v2:examples/python/multiprocessing",
+          "grpc-grpc-protobuf-v2:src/core/ext/transport/chaotic_good",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/status",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_health_checking/grpc_health",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_reflection/grpc_reflection",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/collector/profiles",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/logs",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/processcontext",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/resource",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/trace",
+          "protobuf-focus-v1:aggregate",
+          "protobuf-focus-v1:aggregate-list",
+          "protobuf-focus-v1:basic",
+          "protobuf-focus-v1:bom",
+          "protobuf-focus-v1:editions",
+          "protobuf-focus-v1:editions-2024",
+          "protobuf-focus-v1:editions-2026",
+          "protobuf-focus-v1:enum",
+          "protobuf-focus-v1:enum-options",
+          "protobuf-focus-v1:escapes",
+          "protobuf-focus-v1:extensions",
+          "protobuf-focus-v1:field-options",
+          "protobuf-focus-v1:group",
+          "protobuf-focus-v1:integer",
+          "protobuf-focus-v1:large-message",
+          "protobuf-focus-v1:long-line-comment",
+          "protobuf-focus-v1:long-string",
+          "protobuf-focus-v1:map",
+          "protobuf-focus-v1:negative-enum",
+          "protobuf-focus-v1:nested",
+          "protobuf-focus-v1:oneof",
+          "protobuf-focus-v1:optional",
+          "protobuf-focus-v1:proto2-default",
+          "protobuf-focus-v1:qualified",
+          "protobuf-focus-v1:radices",
+          "protobuf-focus-v1:repeated",
+          "protobuf-focus-v1:reserved-numbers",
+          "protobuf-focus-v1:stream-bidi",
+          "protobuf-focus-v1:stream-client",
+          "protocolbuffers-protobuf-protobuf-v2:examples"
+        ]
+      },
+      "oneof": {
+        "documents": 28,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/http/jwt_authn",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/network/thrift_proxy",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_reflection/grpc_reflection",
+          "protobuf-focus-v1:oneof"
+        ]
+      },
+      "option": {
+        "documents": 228,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:contrib/envoy/extensions/load_balancing_policies/per_worker_subset",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/http/jwt_authn",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/network/thrift_proxy",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/access_loggers/filters/cel",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/common/ratelimit",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/early_data",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/cdn_loop",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/upstream_codec",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/wasm",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/geoip_providers/maxmind",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/http/ai_filters/schema_validation",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/router/cluster_specifiers/matcher",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/tracers/dynamic_modules",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/transport_sockets/dynamic_modules",
+          "grpc-grpc-protobuf-v2:examples/csharp/AsyncSuffix",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/status",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_health_checking/grpc_health",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_reflection/grpc_reflection",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/collector/profiles",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/logs",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/processcontext",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/resource",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/trace",
+          "protobuf-focus-v1:aggregate",
+          "protobuf-focus-v1:aggregate-any",
+          "protobuf-focus-v1:aggregate-list",
+          "protobuf-focus-v1:concatenated",
+          "protobuf-focus-v1:editions",
+          "protobuf-focus-v1:editions-2024",
+          "protobuf-focus-v1:escapes",
+          "protobuf-focus-v1:long-string",
+          "protobuf-focus-v1:negative-enum",
+          "protobuf-focus-v1:radices",
+          "protocolbuffers-protobuf-protobuf-v2:examples"
+        ]
+      },
+      "package": {
+        "documents": 136,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:contrib/envoy/extensions/load_balancing_policies/per_worker_subset",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/http/jwt_authn",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/network/thrift_proxy",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/access_loggers/filters/cel",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/common/ratelimit",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/early_data",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/cdn_loop",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/upstream_codec",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/wasm",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/geoip_providers/maxmind",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/http/ai_filters/schema_validation",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/router/cluster_specifiers/matcher",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/tracers/dynamic_modules",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/transport_sockets/dynamic_modules",
+          "grpc-grpc-protobuf-v2:examples/python/multiprocessing",
+          "grpc-grpc-protobuf-v2:src/core/ext/transport/chaotic_good",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/status",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_health_checking/grpc_health",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_reflection/grpc_reflection",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos/package_with_underscore",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/collector/profiles",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/logs",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/processcontext",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/resource",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/trace",
+          "protobuf-focus-v1:basic",
+          "protobuf-focus-v1:bom",
+          "protobuf-focus-v1:editions",
+          "protobuf-focus-v1:editions-2026",
+          "protobuf-focus-v1:qualified",
+          "protocolbuffers-protobuf-protobuf-v2:examples"
+        ]
+      },
+      "reserved": {
+        "documents": 42,
+        "sourceGroups": [
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/logs",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/trace",
+          "protobuf-focus-v1:editions-2026",
+          "protobuf-focus-v1:reserved-numbers"
+        ]
+      },
+      "rpc": {
+        "documents": 50,
+        "sourceGroups": [
+          "grpc-grpc-protobuf-v2:examples/csharp/AsyncSuffix",
+          "grpc-grpc-protobuf-v2:examples/python/multiprocessing",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_health_checking/grpc_health",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_reflection/grpc_reflection",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos/package_with_underscore",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/collector/profiles",
+          "protobuf-focus-v1:stream-bidi",
+          "protobuf-focus-v1:stream-client"
+        ]
+      },
+      "service": {
+        "documents": 50,
+        "sourceGroups": [
+          "grpc-grpc-protobuf-v2:examples/csharp/AsyncSuffix",
+          "grpc-grpc-protobuf-v2:examples/python/multiprocessing",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_health_checking/grpc_health",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_reflection/grpc_reflection",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos/package_with_underscore",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/collector/profiles",
+          "protobuf-focus-v1:stream-bidi",
+          "protobuf-focus-v1:stream-client"
+        ]
+      },
+      "strings": {
+        "documents": 377,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:contrib/envoy/extensions/load_balancing_policies/per_worker_subset",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/http/jwt_authn",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/network/thrift_proxy",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/access_loggers/filters/cel",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/common/ratelimit",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/early_data",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/cdn_loop",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/upstream_codec",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/wasm",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/geoip_providers/maxmind",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/http/ai_filters/schema_validation",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/router/cluster_specifiers/matcher",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/tracers/dynamic_modules",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/transport_sockets/dynamic_modules",
+          "grpc-grpc-protobuf-v2:examples/csharp/AsyncSuffix",
+          "grpc-grpc-protobuf-v2:examples/python/multiprocessing",
+          "grpc-grpc-protobuf-v2:src/core/ext/transport/chaotic_good",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/status",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_health_checking/grpc_health",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_reflection/grpc_reflection",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos/package_with_underscore",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/collector/profiles",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/logs",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/processcontext",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/resource",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/trace",
+          "protobuf-focus-v1:aggregate",
+          "protobuf-focus-v1:aggregate-list",
+          "protobuf-focus-v1:basic",
+          "protobuf-focus-v1:bom",
+          "protobuf-focus-v1:concatenated",
+          "protobuf-focus-v1:editions",
+          "protobuf-focus-v1:editions-2024",
+          "protobuf-focus-v1:editions-2026",
+          "protobuf-focus-v1:escapes",
+          "protobuf-focus-v1:extensions",
+          "protobuf-focus-v1:field-options",
+          "protobuf-focus-v1:group",
+          "protobuf-focus-v1:large-message",
+          "protobuf-focus-v1:long-string",
+          "protobuf-focus-v1:optional",
+          "protobuf-focus-v1:proto2-default",
+          "protobuf-focus-v1:repeated",
+          "protocolbuffers-protobuf-protobuf-v2:examples"
+        ]
+      },
+      "syntax": {
+        "documents": 197,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:contrib/envoy/extensions/load_balancing_policies/per_worker_subset",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/http/jwt_authn",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/network/thrift_proxy",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/access_loggers/filters/cel",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/common/ratelimit",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/early_data",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/cdn_loop",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/upstream_codec",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/filters/http/wasm",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/geoip_providers/maxmind",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/http/ai_filters/schema_validation",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/router/cluster_specifiers/matcher",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/tracers/dynamic_modules",
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/extensions/transport_sockets/dynamic_modules",
+          "grpc-grpc-protobuf-v2:examples/csharp/AsyncSuffix",
+          "grpc-grpc-protobuf-v2:examples/python/multiprocessing",
+          "grpc-grpc-protobuf-v2:src/core/ext/transport/chaotic_good",
+          "grpc-grpc-protobuf-v2:src/core/tsi/alts/handshaker",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/status",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_health_checking/grpc_health",
+          "grpc-grpc-protobuf-v2:src/python/grpcio_reflection/grpc_reflection",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos",
+          "grpc-grpc-protobuf-v2:src/ruby/end2end/protos/package_with_underscore",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/collector/profiles",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/logs",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/processcontext",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/resource",
+          "open-telemetry-opentelemetry-proto-protobuf-v2:opentelemetry/proto/trace",
+          "protobuf-focus-v1:basic",
+          "protobuf-focus-v1:bom",
+          "protobuf-focus-v1:extensions",
+          "protobuf-focus-v1:group",
+          "protobuf-focus-v1:large-message",
+          "protobuf-focus-v1:optional",
+          "protobuf-focus-v1:proto2-default",
+          "protobuf-focus-v1:repeated",
+          "protocolbuffers-protobuf-protobuf-v2:examples"
+        ]
+      },
+      "unicode": {
+        "documents": 65,
+        "sourceGroups": [
+          "envoyproxy-data-plane-api-protobuf-v2:envoy/config/filter/network/thrift_proxy",
+          "grpc-grpc-protobuf-v2:src/proto/grpc/channelz",
+          "protobuf-focus-v1:bom",
+          "protobuf-focus-v1:long-line-comment",
+          "protobuf-focus-v1:long-string"
+        ]
+      }
+    }
+  },
+  "splits": {
+    "train": {
+      "documents": 657,
+      "windows": 1051,
+      "naturalWindows": 311,
+      "focusWindows": 740,
+      "documentKinds": {
+        "protobuf": {
+          "documents": 657,
+          "windows": 1051,
+          "spans": 27556
+        }
+      },
+      "tokenTypes": {
+        "protobuf": {
+          "keyword": 2748,
+          "namespace": 342,
+          "punctuation": 8384,
+          "type": 3322,
+          "property": 3382,
+          "operator": 3154,
+          "number": 2780,
+          "label": 33,
+          "string": 707,
+          "constant": 157,
+          "enum": 98,
+          "enum-member": 282,
+          "method": 61,
+          "comment": 2106
+        }
+      }
+    },
+    "validation": {
+      "documents": 113,
+      "windows": 221,
+      "naturalWindows": 121,
+      "focusWindows": 100,
+      "documentKinds": {
+        "protobuf": {
+          "documents": 113,
+          "windows": 221,
+          "spans": 6362
+        }
+      },
+      "tokenTypes": {
+        "protobuf": {
+          "keyword": 579,
+          "type": 667,
+          "punctuation": 2033,
+          "method": 62,
+          "property": 765,
+          "operator": 600,
+          "number": 454,
+          "string": 153,
+          "comment": 925,
+          "namespace": 52,
+          "enum": 9,
+          "enum-member": 48,
+          "label": 9,
+          "constant": 6
+        }
+      }
+    },
+    "test": {
+      "documents": 104,
+      "windows": 300,
+      "naturalWindows": 220,
+      "focusWindows": 80,
+      "documentKinds": {
+        "protobuf": {
+          "documents": 104,
+          "windows": 300,
+          "spans": 8452
+        }
+      },
+      "tokenTypes": {
+        "protobuf": {
+          "keyword": 892,
+          "operator": 855,
+          "string": 294,
+          "punctuation": 2336,
+          "property": 806,
+          "type": 1254,
+          "method": 50,
+          "number": 622,
+          "comment": 1212,
+          "namespace": 79,
+          "enum": 6,
+          "enum-member": 32,
+          "label": 11,
+          "constant": 3
+        }
+      }
+    }
+  },
+  "checksums": {
+    "cross-group-copies.jsonl": "cc1d1ad3bdff544ee1840737cfa30ac137781a9ec0ed720f1b2f0c2bf028099c",
+    "split-groups.json": "aaf9520b8a399c011fc7d769a8c5b7c647c316fdaae3471bea7c50aaf8f4248e",
+    "test/boundary_labels.bin": "805abddeb0c548223d56eb77593ac781e588b2f05c0e56f41cd5e53829225518",
+    "test/documents.jsonl": "9a899792e1be12551b88e446aa56d6c369014337e6b44212cffd9d8801a01cea",
+    "test/input_ids.bin": "b9ec587f1dc176646c35d76efb4953ce202cceaf1b88d015f4a8d5c226214fdd",
+    "test/modifier_bits.bin": "fb701ebab503f9d1df69b3eb5866773726b045c37a658196899ccebfb2d3db0c",
+    "test/token_type_labels.bin": "4d39215d349ed37f0348a69510b4376df4852d77afae63f121ef9de1db7eb423",
+    "test/windows.jsonl": "8d9f4f5318b9fc9747f87bf6119f9a6d4cc741ac130680d9ad6b77c501f48eff",
+    "train/boundary_labels.bin": "2ed4aee00e46fcd511a91e7d807f9ed76bb0d97ae893f8dbcecf103239b96aac",
+    "train/documents.jsonl": "ce4a9a4e58e080026c977cbd9ad0727c6734029d2d5d114a32a53756fcff7c3d",
+    "train/input_ids.bin": "023ea190ededcdaf083fcf3f719b752845237e3db00a2367f94d6acebed84406",
+    "train/modifier_bits.bin": "d695d29f794bbadcde28ae6f9b386450ee8faf432e78de3c617d4619e52fe537",
+    "train/token_type_labels.bin": "30da2f4936e937f50ef2f072bc6e150d2caf7d091af031915fa5e0e5357289cb",
+    "train/windows.jsonl": "918191180ed161f82a292930a589bb023ebce6e8ca02791e974666f67767fe7f",
+    "validation/boundary_labels.bin": "ad7bbb81222e65f2267ff0fe8af025f1e17c982efc7f4d77bfdebd71b15d372a",
+    "validation/documents.jsonl": "e9493bc0ef8326d3a3cf6097ea5789ad4568ec796b8f488e40ac9ae889d72ef6",
+    "validation/input_ids.bin": "5467e24411593722e58aeca5a8a48cada9dae3b2d96d6e0e6e8cba38054e8d2d",
+    "validation/modifier_bits.bin": "786d2f9e52327d0a0c614a36e55c6264b18a27ed2054efe44f8bf52c45a9e174",
+    "validation/token_type_labels.bin": "6bfd0a09fb6fe8e0c689ba2bbcd050cb0f82cfdf8f8a15c848f771de1ce1863c",
+    "validation/windows.jsonl": "f6ec1e4bd05ece9b7a4360b5bab0c882e525f24c6f5bc1c9c94d7ae11ae0ce6c"
+  }
+}

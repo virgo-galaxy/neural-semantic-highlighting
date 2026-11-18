@@ -1,0 +1,350 @@
+{
+  "protocol": "Production API definitions only; case-insensitive fixture guard; all previously trained/validation logical families retain same cohort; fresh Temporal API families are fixed test-only before opening new source",
+  "sources": [
+    {
+      "repository": "envoyproxy/data-plane-api",
+      "revision": "f47c53e03c364b07a1cb8304b803707cd9eba1e2",
+      "freshPrimaryTest": false,
+      "documents": 28,
+      "groups": {
+        "envoy/extensions/geoip_providers/maxmind": {
+          "split": "train",
+          "files": ["envoy/extensions/geoip_providers/maxmind/v3/maxmind.proto"]
+        },
+        "envoy/extensions/filters/listener/set_filter_state": {
+          "split": "test",
+          "files": ["envoy/extensions/filters/listener/set_filter_state/v3/set_filter_state.proto"]
+        },
+        "envoy/config/filter/listener/http_inspector": {
+          "split": "train",
+          "files": ["envoy/config/filter/listener/http_inspector/v2/http_inspector.proto"]
+        },
+        "envoy/config/filter/network/thrift_proxy": {
+          "split": "train",
+          "files": [
+            "envoy/config/filter/network/thrift_proxy/v2alpha1/route.proto",
+            "envoy/config/filter/network/thrift_proxy/v2alpha1/thrift_proxy.proto"
+          ]
+        },
+        "envoy/config/upstream/local_address_selector": {
+          "split": "train",
+          "files": [
+            "envoy/config/upstream/local_address_selector/v3/default_local_address_selector.proto"
+          ]
+        },
+        "envoy/extensions/filters/http/upstream_codec": {
+          "split": "train",
+          "files": ["envoy/extensions/filters/http/upstream_codec/v3/upstream_codec.proto"]
+        },
+        "envoy/extensions/tracers/dynamic_modules": {
+          "split": "train",
+          "files": ["envoy/extensions/tracers/dynamic_modules/v3/dynamic_modules.proto"]
+        },
+        "envoy/extensions/quic/connection_debug_visitor": {
+          "split": "validation",
+          "files": [
+            "envoy/extensions/quic/connection_debug_visitor/v3/connection_debug_visitor_basic.proto"
+          ]
+        },
+        "envoy/extensions/router/cluster_specifiers/matcher": {
+          "split": "train",
+          "files": ["envoy/extensions/router/cluster_specifiers/matcher/v3/matcher.proto"]
+        },
+        "envoy/extensions/access_loggers/filters/cel": {
+          "split": "train",
+          "files": ["envoy/extensions/access_loggers/filters/cel/v3/cel.proto"]
+        },
+        "envoy/config/filter/http/grpc_http1_bridge": {
+          "split": "train",
+          "files": ["envoy/config/filter/http/grpc_http1_bridge/v2/config.proto"]
+        },
+        "envoy/extensions/http/ai_filters/schema_validation": {
+          "split": "train",
+          "files": ["envoy/extensions/http/ai_filters/schema_validation/v3/schema_validation.proto"]
+        },
+        "envoy/extensions/early_data": {
+          "split": "train",
+          "files": ["envoy/extensions/early_data/v3/default_early_data_policy.proto"]
+        },
+        "envoy/config/filter/http/jwt_authn": {
+          "split": "train",
+          "files": ["envoy/config/filter/http/jwt_authn/v2alpha/config.proto"]
+        },
+        "contrib/envoy/extensions/load_balancing_policies/per_worker_subset": {
+          "split": "train",
+          "files": [
+            "contrib/envoy/extensions/load_balancing_policies/per_worker_subset/v3alpha/per_worker_subset.proto"
+          ]
+        },
+        "envoy/extensions/filters/udp/udp_proxy": {
+          "split": "validation",
+          "files": [
+            "envoy/extensions/filters/udp/udp_proxy/session/ext_authz/v3/ext_authz.proto",
+            "envoy/extensions/filters/udp/udp_proxy/v3/route.proto",
+            "envoy/extensions/filters/udp/udp_proxy/session/dynamic_forward_proxy/v3/dynamic_forward_proxy.proto",
+            "envoy/extensions/filters/udp/udp_proxy/v3/udp_proxy.proto"
+          ]
+        },
+        "envoy/extensions/filters/http/decompressor": {
+          "split": "validation",
+          "files": ["envoy/extensions/filters/http/decompressor/v3/decompressor.proto"]
+        },
+        "envoy/extensions/transport_sockets/proxy_protocol": {
+          "split": "test",
+          "files": [
+            "envoy/extensions/transport_sockets/proxy_protocol/v3/upstream_proxy_protocol.proto"
+          ]
+        },
+        "envoy/extensions/filters/http/proto_message_extraction": {
+          "split": "validation",
+          "files": ["envoy/extensions/filters/http/proto_message_extraction/v3/config.proto"]
+        },
+        "envoy/extensions/filters/http/cdn_loop": {
+          "split": "train",
+          "files": ["envoy/extensions/filters/http/cdn_loop/v3/cdn_loop.proto"]
+        },
+        "envoy/extensions/transport_sockets/dynamic_modules": {
+          "split": "train",
+          "files": ["envoy/extensions/transport_sockets/dynamic_modules/v3/dynamic_modules.proto"]
+        },
+        "envoy/extensions/filters/http/wasm": {
+          "split": "train",
+          "files": ["envoy/extensions/filters/http/wasm/v3/wasm.proto"]
+        },
+        "contrib/envoy/extensions/compression/qatzstd": {
+          "split": "test",
+          "files": ["contrib/envoy/extensions/compression/qatzstd/compressor/v3alpha/qatzstd.proto"]
+        },
+        "envoy/extensions/common/ratelimit": {
+          "split": "train",
+          "files": ["envoy/extensions/common/ratelimit/v3/ratelimit.proto"]
+        }
+      }
+    },
+    {
+      "repository": "grpc/grpc",
+      "revision": "7f3d97784206d35acd025cb861bf5f84f7bf2226",
+      "freshPrimaryTest": false,
+      "documents": 28,
+      "groups": {
+        "src/proto/grpc/channelz": {
+          "split": "train",
+          "files": [
+            "src/proto/grpc/channelz/v2/latent_see.proto",
+            "src/proto/grpc/channelz/v2/service.proto",
+            "src/proto/grpc/channelz/v2/channelz.proto",
+            "src/proto/grpc/channelz/v2/promise.proto"
+          ]
+        },
+        "examples/python/no_codegen": {
+          "split": "validation",
+          "files": ["examples/python/no_codegen/helloworld.proto"]
+        },
+        "src/python/grpcio_reflection/grpc_reflection": {
+          "split": "train",
+          "files": ["src/python/grpcio_reflection/grpc_reflection/v1alpha/reflection.proto"]
+        },
+        "examples/python/data_transmission": {
+          "split": "test",
+          "files": ["examples/python/data_transmission/demo.proto"]
+        },
+        "examples/python/async_streaming": {
+          "split": "validation",
+          "files": ["examples/python/async_streaming/phone.proto"]
+        },
+        "src/python/grpcio_health_checking/grpc_health": {
+          "split": "train",
+          "files": ["src/python/grpcio_health_checking/grpc_health/v1/health.proto"]
+        },
+        "examples/python/cancellation": {
+          "split": "test",
+          "files": ["examples/python/cancellation/hash_name.proto"]
+        },
+        "src/proto/grpc/status": {
+          "split": "train",
+          "files": ["src/proto/grpc/status/status.proto"]
+        },
+        "examples/php/echo": {
+          "split": "test",
+          "files": ["examples/php/echo/echo.proto"]
+        },
+        "examples/csharp/AsyncSuffix": {
+          "split": "train",
+          "files": ["examples/csharp/AsyncSuffix/greet.proto"]
+        },
+        "src/python/grpcio_channelz/grpc_channelz": {
+          "split": "test",
+          "files": ["src/python/grpcio_channelz/grpc_channelz/v1/channelz.proto"]
+        },
+        "src/core/ext/transport/chaotic_good": {
+          "split": "train",
+          "files": ["src/core/ext/transport/chaotic_good/chaotic_good_frame.proto"]
+        },
+        "examples/protos": {
+          "split": "test",
+          "files": [
+            "examples/protos/auth_sample.proto",
+            "examples/protos/hellostreamingworld.proto",
+            "examples/protos/helloworld.proto",
+            "examples/protos/route_guide.proto"
+          ]
+        },
+        "src/ruby/end2end/protos": {
+          "split": "train",
+          "files": [
+            "src/ruby/end2end/protos/echo.proto",
+            "src/ruby/end2end/protos/client_control.proto"
+          ]
+        },
+        "examples/python/multiprocessing": {
+          "split": "train",
+          "files": ["examples/python/multiprocessing/prime.proto"]
+        },
+        "src/core/tsi/alts/handshaker": {
+          "split": "train",
+          "files": [
+            "src/core/tsi/alts/handshaker/proto/handshaker.proto",
+            "src/core/tsi/alts/handshaker/proto/altscontext.proto",
+            "src/core/tsi/alts/handshaker/proto/transport_security_common.proto"
+          ]
+        },
+        "examples/python/retry": {
+          "split": "train",
+          "files": ["examples/python/retry/helloworld.proto"]
+        },
+        "src/ruby/end2end/protos/package_with_underscore": {
+          "split": "train",
+          "files": [
+            "src/ruby/end2end/protos/package_with_underscore/service.proto",
+            "src/ruby/end2end/protos/package_with_underscore/data.proto"
+          ]
+        }
+      }
+    },
+    {
+      "repository": "open-telemetry/opentelemetry-proto",
+      "revision": "ef480900f46e1f6ea3e75487eb552a75d11991d7",
+      "freshPrimaryTest": false,
+      "documents": 9,
+      "groups": {
+        "opentelemetry/proto/logs": {
+          "split": "train",
+          "files": ["opentelemetry/proto/logs/v1/logs.proto"]
+        },
+        "opentelemetry/proto/collector/logs": {
+          "split": "validation",
+          "files": ["opentelemetry/proto/collector/logs/v1/logs_service.proto"]
+        },
+        "opentelemetry/proto/collector/metrics": {
+          "split": "train",
+          "files": ["opentelemetry/proto/collector/metrics/v1/metrics_service.proto"]
+        },
+        "opentelemetry/proto/collector/trace": {
+          "split": "validation",
+          "files": ["opentelemetry/proto/collector/trace/v1/trace_service.proto"]
+        },
+        "opentelemetry/proto/processcontext": {
+          "split": "train",
+          "files": ["opentelemetry/proto/processcontext/v1development/process_context.proto"]
+        },
+        "opentelemetry/proto/resource": {
+          "split": "train",
+          "files": ["opentelemetry/proto/resource/v1/resource.proto"]
+        },
+        "opentelemetry/proto/collector/profiles": {
+          "split": "train",
+          "files": ["opentelemetry/proto/collector/profiles/v1development/profiles_service.proto"]
+        },
+        "opentelemetry/proto/common": {
+          "split": "test",
+          "files": ["opentelemetry/proto/common/v1/common.proto"]
+        },
+        "opentelemetry/proto/trace": {
+          "split": "train",
+          "files": ["opentelemetry/proto/trace/v1/trace.proto"]
+        }
+      }
+    },
+    {
+      "repository": "protocolbuffers/protobuf",
+      "revision": "1801d517672a1c4ead75331e925df232e2c0055d",
+      "freshPrimaryTest": false,
+      "documents": 6,
+      "groups": {
+        "src/google/protobuf": {
+          "split": "validation",
+          "files": [
+            "src/google/protobuf/type.proto",
+            "src/google/protobuf/struct.proto",
+            "src/google/protobuf/empty.proto",
+            "src/google/protobuf/field_mask.proto"
+          ]
+        },
+        "examples": {
+          "split": "train",
+          "files": ["examples/addressbook.proto"]
+        },
+        "conformance": {
+          "split": "validation",
+          "files": ["conformance/conformance.proto"]
+        }
+      }
+    },
+    {
+      "repository": "temporalio/api",
+      "revision": "f46ce490ff4ccca0814b25f2c263bff8c14ffa5b",
+      "freshPrimaryTest": true,
+      "documents": 12,
+      "groups": {
+        "temporal/api/nexusoperation": {
+          "split": "test",
+          "files": ["temporal/api/nexusoperation/v1/message.proto"]
+        },
+        "temporal/api/query": {
+          "split": "test",
+          "files": ["temporal/api/query/v1/message.proto"]
+        },
+        "temporal/api/errordetails": {
+          "split": "test",
+          "files": ["temporal/api/errordetails/v1/message.proto"]
+        },
+        "temporal/api/enums": {
+          "split": "test",
+          "files": ["temporal/api/enums/v1/reset.proto"]
+        },
+        "temporal/api/filter": {
+          "split": "test",
+          "files": ["temporal/api/filter/v1/message.proto"]
+        },
+        "google/protobuf": {
+          "split": "test",
+          "files": ["google/protobuf/duration.proto"]
+        },
+        "temporal/api/version": {
+          "split": "test",
+          "files": ["temporal/api/version/v1/message.proto"]
+        },
+        "temporal/api/nexus": {
+          "split": "test",
+          "files": ["temporal/api/nexus/v1/message.proto"]
+        },
+        "temporal/api/taskqueue": {
+          "split": "test",
+          "files": ["temporal/api/taskqueue/v1/message.proto"]
+        },
+        "temporal/api/namespace": {
+          "split": "test",
+          "files": ["temporal/api/namespace/v1/message.proto"]
+        },
+        "google/api": {
+          "split": "test",
+          "files": ["google/api/annotations.proto"]
+        },
+        "temporal/api/nexusservices/workerservice": {
+          "split": "test",
+          "files": ["temporal/api/nexusservices/workerservice/v1/request_response.proto"]
+        }
+      }
+    }
+  ]
+}

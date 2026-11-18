@@ -1,0 +1,635 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "73be702a1bf8bb48ac7d3e3fe2d4958cbbcdd2185ba7916410eba4f1fa0df879",
+  "cases": [
+    {
+      "id": "syntax",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "syntax = \"proto3\";",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "proto2",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "syntax=\"proto2\";\nmessage Archive { optional string title = 1; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "edition",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "edition = \"2024\";",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "package",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "package sky.v1;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "import",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "import public \"shared/types.proto\";",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "message",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "message Planet { int64 id=1; bytes data=2; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "repeated",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "message Batch { repeated Item items=7; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "map",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "message MapBox { map<string, Entry> rows=4; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "oneof",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "message Choice { oneof value { string text=1; } }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "enum",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "enum Phase { PHASE_UNKNOWN=0; PHASE_FAILED=-1; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "service",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "service Catalog { rpc Find(Request) returns (Response); }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "streaming",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "service Events { rpc Watch(stream Input) returns (stream Output); }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "option",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "option java_package=\"org.sky\";",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "custom-option",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "option (app.mode)=ACTIVE;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "aggregate",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "option (rule)={ min: -2.5 enabled: true };",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "field-option",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "message Flags { bool old=1 [deprecated=true]; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "reserved",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "message Record { reserved 2 to 5, 9; reserved \"old\"; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "qualified",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "message Wrapper { .sky.v1.Thing thing=1; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "visibility",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "edition=\"2024\";\nexport message Public {}",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "feature",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "edition=\"2023\"; option features.field_presence=EXPLICIT;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "concat",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "option note=\"first\" /* between */ \"second\";",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 20,
+          "end": 33,
+          "text": "/* between */",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 34,
+          "end": 42,
+          "text": "\"second\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 20,
+          "end": 42,
+          "text": "/* between */ \"second\"",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "// \u539f\u59cb \ud83c\udf0c\r\noption note=\"\u661f\u7a7a \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb\";",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "comment",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "/* Preserve\n# literal <script> */\nsyntax=\"proto3\";",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 33,
+          "text": "/* Preserve\n# literal <script> */",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 34,
+          "end": 40,
+          "text": "syntax",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 11,
+          "text": "/* Preserve",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 30,
+          "text": "# literal <script>",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 31,
+          "end": 33,
+          "text": "*/",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 34,
+          "end": 40,
+          "text": "syntax",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "bom",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "\ufeffsyntax=\"proto3\";",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "extensions",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "extend Base { optional string extra=100; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 11,
+          "text": "Base",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 11,
+          "text": "Base",
+          "tokenType": "type",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nested",
+      "profile": "protobuf",
+      "documentKind": "protobuf",
+      "source": "message Outer { message Inner {} Inner inner=1; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    }
+  ],
+  "profiles": {
+    "protobuf": {
+      "documents": 26,
+      "exactDocumentsIncludingModifiers": 23,
+      "exactSpan": {
+        "precision": 0.9808429118773946,
+        "recall": 0.9846153846153847,
+        "f1": 0.982725527831094,
+        "tp": 256,
+        "fp": 5,
+        "fn": 4,
+        "support": 260
+      },
+      "exactSpanMacroF1": 0.9411584193040741,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9770114942528736,
+        "recall": 0.9807692307692307,
+        "f1": 0.9788867562380038,
+        "tp": 255,
+        "fp": 6,
+        "fn": 5,
+        "support": 260
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 0.9791666666666666,
+          "f1": 0.9894736842105263,
+          "tp": 47,
+          "fp": 0,
+          "fn": 1,
+          "support": 48
+        },
+        "comment": {
+          "precision": 0.2,
+          "recall": 0.3333333333333333,
+          "f1": 0.25,
+          "tp": 1,
+          "fp": 4,
+          "fn": 2,
+          "support": 3
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 0.9230769230769231,
+          "f1": 0.96,
+          "tp": 12,
+          "fp": 0,
+          "fn": 1,
+          "support": 13
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 16,
+          "fp": 0,
+          "fn": 0,
+          "support": 16
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 26,
+          "fp": 0,
+          "fn": 0,
+          "support": 26
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 92,
+          "fp": 0,
+          "fn": 0,
+          "support": 92
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 31,
+          "fp": 0,
+          "fn": 0,
+          "support": 31
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "property": {
+          "precision": 0.9545454545454546,
+          "recall": 1.0,
+          "f1": 0.9767441860465116,
+          "tp": 21,
+          "fp": 1,
+          "fn": 0,
+          "support": 21
+        },
+        "method": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "label": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "constant": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "protobuf": {
+      "documents": 26,
+      "exactDocumentsIncludingModifiers": 23,
+      "exactSpan": {
+        "precision": 0.9808429118773946,
+        "recall": 0.9846153846153847,
+        "f1": 0.982725527831094,
+        "tp": 256,
+        "fp": 5,
+        "fn": 4,
+        "support": 260
+      },
+      "exactSpanMacroF1": 0.9411584193040741,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9770114942528736,
+        "recall": 0.9807692307692307,
+        "f1": 0.9788867562380038,
+        "tp": 255,
+        "fp": 6,
+        "fn": 5,
+        "support": 260
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 0.9791666666666666,
+          "f1": 0.9894736842105263,
+          "tp": 47,
+          "fp": 0,
+          "fn": 1,
+          "support": 48
+        },
+        "comment": {
+          "precision": 0.2,
+          "recall": 0.3333333333333333,
+          "f1": 0.25,
+          "tp": 1,
+          "fp": 4,
+          "fn": 2,
+          "support": 3
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 0.9230769230769231,
+          "f1": 0.96,
+          "tp": 12,
+          "fp": 0,
+          "fn": 1,
+          "support": 13
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 16,
+          "fp": 0,
+          "fn": 0,
+          "support": 16
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 26,
+          "fp": 0,
+          "fn": 0,
+          "support": 26
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 92,
+          "fp": 0,
+          "fn": 0,
+          "support": 92
+        },
+        "type": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 31,
+          "fp": 0,
+          "fn": 0,
+          "support": 31
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "property": {
+          "precision": 0.9545454545454546,
+          "recall": 1.0,
+          "f1": 0.9767441860465116,
+          "tp": 21,
+          "fp": 1,
+          "fn": 0,
+          "support": 21
+        },
+        "method": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "label": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "constant": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        }
+      }
+    }
+  },
+  "checkpointHash": "d7f0cd3bdfe9207e69abc955cf4c7ea8cd593a3b100e29fcee55e03f9964a511",
+  "checkpointEpoch": 8,
+  "device": "mps"
+}

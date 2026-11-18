@@ -1,0 +1,74 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "protobuf",
+  "manifest": {
+    "id": "protobuf",
+    "documentKinds": [
+      {
+        "id": "protobuf",
+        "extensions": [
+          ".proto"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "f5aebafb3faf5e00655c833028a51363332d3a75e6a377f0b27a8f1470fbe92e",
+    "bytes": 3712610
+  },
+  "source": {
+    "file": "packs/protobuf/model/model.pt",
+    "sha256": "91653611397e3f56831c6697be26b1f1281ba839fb83f2dbc6ad0d3250e097be"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "type",
+      "enum",
+      "enum-member",
+      "namespace",
+      "property",
+      "method",
+      "label",
+      "constant"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {
+    "coalesceAdjacentTokenTypes": [
+      "string",
+      "comment"
+    ],
+    "modifierRoles": {
+      "declaration": [
+        "type",
+        "enum",
+        "enum-member",
+        "property",
+        "namespace",
+        "method",
+        "label"
+      ],
+      "default-library": [
+        "type"
+      ]
+    }
+  },
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "2e81ab4df2e2bc9328f5bcd529a3b8c85f11257bc42a819ae544ad9270670ab9",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}
