@@ -15,6 +15,14 @@ optional train-fitted joint BIO/role decoding. Decoder transitions use natural
 training Gold; candidate selection uses natural validation by profile. The
 unchanged decoder is a candidate, so calibration can be rejected.
 
+Historical runs retain their mean profile role-macro selection. New targeted
+experiments explicitly record `profile-f1` or `minimum-profile-f1` in training
+configuration, so the 90/95% exact-span target and individual dialects participate
+directly in validation selection. Natural-only class weighting is another recorded
+experiment option. Roles, Gold, held-out membership and scoring do not change.
+Role macro F1, modifiers, Golden and actual failures are still reviewed before
+promotion; higher aggregate F1 alone is insufficient.
+
 Inspect remaining validation failures before adding narrowly targeted training
 coverage. Never put Golden, Playground or held-out test code into training.
 The already inspected natural tests are exposed regression evidence. New

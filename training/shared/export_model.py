@@ -5,6 +5,7 @@ from training.shared.spec import current
 
 import argparse
 import json
+import math
 from pathlib import Path
 
 import torch
@@ -12,6 +13,24 @@ import torch
 from training.shared.checkpoints import atomic_json, load_checkpoint, save_checkpoint
 from training.shared.prepare import REPOSITORY, file_hash
 from training.shared.structured import parameters_hash
+
+
+def calibration_selection(calibration: dict) -> float:
+    if calibration.get('primaryTestUsed', calibration.get('testUsed')) is not False:
+        raise ValueError('Decoder calibration must not use independent test predictions')
+    selected = calibration['selected']
+    if type(selected) is int:
+        trials = calibration['trials']
+        if not 0 <= selected < len(trials) or trials[selected].get('index') != selected:
+            raise ValueError('Invalid calibration trial index')
+        value = trials[selected]['selectionKey'][0]
+    elif isinstance(selected, dict):
+        value = selected['selectionScore']
+    else:
+        raise ValueError('Invalid calibration selection')
+    if type(value) not in (int, float) or not math.isfinite(value) or not 0 <= value <= 1:
+        raise ValueError('Invalid validation selection score')
+    return value
 
 
 
@@ -66,8 +85,7 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
                 or file_hash(calibration_path) != artifact['decoderCalibration']['validationReportHash']):
             raise ValueError('Calibrated export requires intact validation-only selection evidence')
         calibration = json.loads(calibration_path.read_text())
-        if calibration.get('primaryTestUsed') is not False:
-            raise ValueError('Decoder calibration must not use independent test predictions')
+        calibration_score = calibration_selection(calibration)
     save_checkpoint(output, artifact)
     # Verify the stored float32 tensors; export performs no quantization/retraining.
     reloaded = torch.load(output, map_location="cpu", weights_only=True)
@@ -84,7 +102,7 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
         "artifact": {"file": output.name, "format": current().model_format, "sha256": file_hash(output),
             "bytes": output.stat().st_size, "parameterCount": sum(value.numel() for value in checkpoint["model"].values()),
             "containsOptimizerState": False, "resumableTrainingCheckpoint": False},
-        "selection": {"epoch": checkpoint["epoch"], "metric": "mean per-profile natural real-source validation exact-span macro F1",
+        "selection": {"epoch": checkpoint["epoch"], "metric": checkpoint['trainingConfig'].get('selection_metric', 'profile-macro') + '; natural real-source validation',
                       "score": checkpoint["trainingState"]["bestScore"]},
         "checkpointConfig": checkpoint["modelConfig"],
         "orderedLabels": {"boundary": ["O", "B", "I"], "tokenTypes": checkpoint["schema"]["tokenTypes"],
@@ -108,10 +126,11 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
     if artifact.get('decoderCalibration'):
         metadata['provenance']['decoderCalibration'] = artifact['decoderCalibration']
         metadata['selection'] = dict(epoch=checkpoint['epoch'],
-            metric=calibration['selection'], score=calibration['selected']['selectionScore'],
+            metric=calibration['selection'], score=calibration_score,
             validationReportSha256=file_hash(calibration_path),
             trainingBestEpoch=checkpoint['trainingState']['bestEpoch'],
-            trainingBestFixedMacroF1=checkpoint['trainingState']['bestScore'])
+            trainingSelectionMetric=checkpoint['trainingConfig'].get('selection_metric', 'profile-macro'),
+            trainingBestFixedScore=checkpoint['trainingState']['bestScore'])
     atomic_json(output.with_name("model.json"), metadata)
     return metadata
 

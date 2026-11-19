@@ -45,6 +45,7 @@ class TrainingConfig:
     focus_every: int = 1
     focus_batch_size: int = 16
     loss_weight_stream: str = 'all'
+    selection_metric: str = 'profile-macro'
 
     def validate(self):
         if min(self.batch_size, self.smoke_batches, self.smoke_eval_windows, self.focus_every, self.focus_batch_size) < 1 or self.patience < 0:
@@ -52,7 +53,8 @@ class TrainingConfig:
         if (not all(math.isfinite(x) and x > 0 for x in (self.learning_rate, self.modifier_loss_weight))
                 or not math.isfinite(self.weight_decay) or self.weight_decay < 0
                 or not 0 < self.modifier_threshold < 1 or self.sampling not in {"shuffled-windows", "natural-plus-curriculum"}
-                or self.loss_weight_stream not in {'all', 'natural'}):
+                or self.loss_weight_stream not in {'all', 'natural'}
+                or self.selection_metric not in {'profile-macro', 'profile-f1', 'minimum-profile-f1'}):
             raise ValueError("Invalid optimizer, decoder or sampler configuration")
 
 
@@ -109,11 +111,14 @@ def train_epoch(model, split, optimizer, weights, config, device, epoch, log_eve
             "naturalPresentations": natural_presented, "focusPresentations": focus_presented}
 
 
-def selection_score(report: dict) -> float:
+def selection_score(report: dict, strategy: str = 'profile-macro') -> float:
     values = [report["profiles"][profile]["natural"] for profile in current().profiles]
     if any(not value["documents"] for value in values):
         raise ValueError("Selection requires real-source natural validation for all pack profiles")
-    return sum(value["exactSpanMacroF1"] for value in values) / len(values)
+    if strategy == 'minimum-profile-f1':
+        return min(value['exactSpan']['f1'] for value in values)
+    field = (lambda value: value['exactSpan']['f1']) if strategy == 'profile-f1' else (lambda value: value['exactSpanMacroF1'])
+    return sum(field(value) for value in values) / len(values)
 
 
 def run(args) -> Path:
@@ -130,7 +135,7 @@ def run(args) -> Path:
     checkpoint = load_checkpoint(args.resume.resolve()) if args.resume else None
     if checkpoint:current().verify_config(checkpoint.get('provenance',{}))
     values = checkpoint["trainingConfig"].copy() if checkpoint else asdict(TrainingConfig())
-    for name in ("batch_size", "learning_rate", "patience", "smoke", "focus_batch_size", "focus_every", "loss_weight_stream", "sampling"):
+    for name in ("batch_size", "learning_rate", "patience", "smoke", "focus_batch_size", "focus_every", "loss_weight_stream", "sampling", "selection_metric"):
         value = getattr(args, name)
         if value is not None:
             if checkpoint and values.get(name, getattr(TrainingConfig(), name)) != value:
@@ -188,7 +193,7 @@ def run(args) -> Path:
             invocation = {"device": device.type, "initialEpochBudget": args.epochs, "trainingConfig": asdict(config),
                 "modelConfig": model.config.to_dict(), "parameters": parameter_count(model),
                 "dataset": {**snapshot.identity(), "path": str(snapshot.path)},
-                "selection": "mean per-profile natural real-source validation exact-span macro F1; fixed-window logits reassembled",
+                "selection": config.selection_metric + "; natural real-source validation; fixed-window logits reassembled",
                 "initialization": initialization,
                 "provenance": provenance, "resumeCheckpoint": str(args.resume) if args.resume else None}
             if not checkpoint:
@@ -212,7 +217,7 @@ def run(args) -> Path:
                 report = evaluate_fixed(model, validation, device, batch_size=config.batch_size,
                     threshold=config.modifier_threshold,
                     max_windows_per_stream=config.smoke_eval_windows if config.smoke else 0, log_every=args.log_every)
-                score = selection_score(report)
+                score = selection_score(report, config.selection_metric)
                 improved = score > state["bestScore"]
                 state["optimizerSteps"] += trained["optimizerSteps"]
                 if improved:
@@ -282,6 +287,8 @@ def main():
     parser.add_argument("--focus-every", type=int)
     parser.add_argument('--sampling', choices=['shuffled-windows', 'natural-plus-curriculum'],
                         help='Fresh experiment: all windows once, or bounded rotating focus batches')
+    parser.add_argument('--selection-metric', choices=['profile-macro', 'profile-f1', 'minimum-profile-f1'],
+                        help='Fresh experiment: explicit profile-balanced natural validation selection policy')
     parser.add_argument('--loss-weight-stream', choices=['all', 'natural'],
                         help='Fresh experiment: fit class weights on all or only real-source training windows')
     parser.add_argument("--local-kernel", type=int, choices=[1, 3, 5],

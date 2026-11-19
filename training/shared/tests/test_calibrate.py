@@ -19,3 +19,5 @@ class CalibrationTests(unittest.TestCase):
         reports = {'bash': dict(exactSpanMacroF1=.9, exactSpan=dict(f1=.95)),
                    'zsh': dict(exactSpanMacroF1=.7, exactSpan=dict(f1=.8))}
         self.assertEqual(selection_key(reports), (.8, .8))
+        self.assertEqual(selection_key(reports, 'profile-f1'), (.875, .8))
+        self.assertEqual(selection_key(reports, 'minimum-profile-f1'), (.8, .8))

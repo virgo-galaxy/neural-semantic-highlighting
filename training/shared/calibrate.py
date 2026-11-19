@@ -25,8 +25,13 @@ def validate_partitions(train, validation, profiles):
         raise ValueError('Every profile needs natural validation evidence')
 
 
-def selection_key(reports):
+def selection_key(reports, strategy='profile-macro'):
     values = list(reports.values())
+    macro = sum(v['exactSpanMacroF1'] for v in values) / len(values)
+    if strategy == 'minimum-profile-f1':
+        return (min(v['exactSpan']['f1'] for v in values), macro)
+    if strategy == 'profile-f1':
+        return (sum(v['exactSpan']['f1'] for v in values) / len(values), macro)
     return (sum(v['exactSpanMacroF1'] for v in values) / len(values),
             min(v['exactSpan']['f1'] for v in values))
 
@@ -64,7 +69,7 @@ def calibrate(checkpoint_path: Path, output: Path, device: str):
             metrics[doc['profile']].add(doc['result'], predicted)
             aggregate.add(doc['result'], predicted)
         reports = {p: m.report() for p, m in metrics.items()}
-        key = selection_key(reports)
+        key = selection_key(reports, checkpoint['trainingConfig'].get('selection_metric', 'profile-macro'))
         trials.append(dict(index=index, parameters=candidate, selectionKey=list(key),
                            profiles=reports, natural=aggregate.report()))
         print(index, 'selection', [round(v, 5) for v in key],
@@ -73,8 +78,8 @@ def calibrate(checkpoint_path: Path, output: Path, device: str):
     report = dict(pack=current().id, sourceCheckpoint=str(checkpoint_path),
                   sourceCheckpointHash=source_hash, dataset=checkpoint['dataset'],
                   fit='Natural TRAIN Gold only; source-family disjoint VALIDATION selection',
-                  selection='Mean per-profile natural adaptive role macro F1; minimum profile micro F1 breaks ties',
-                  testUsed=False, trials=trials, selected=selected['index'])
+                  selection=checkpoint['trainingConfig'].get('selection_metric', 'profile-macro') + '; natural adaptive validation only',
+                  testUsed=False, primaryTestUsed=False, trials=trials, selected=selected['index'])
     if file_hash(checkpoint_path) != source_hash:
         raise ValueError('Source checkpoint changed during calibration')
     frozen = copy.deepcopy(checkpoint)
