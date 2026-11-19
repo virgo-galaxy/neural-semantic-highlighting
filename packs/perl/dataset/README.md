@@ -16,3 +16,12 @@ Indented Here Documents cross spaces/tabs, variable/code-like body openings and
 source prefixes independently;
 short POD, function and quote forms vary their starting positions. No Golden or
 Playground text is collected, and no existing source revision is overwritten.
+# Quality follow-up
+
+`make dataset-perl-sources` also captures a bounded additional set from the existing
+host Perl 5.34 core. `capture_quality.py` fixes namespace folds from path metadata
+before reading source. Original namespace assignments, source bytes and licenses
+stay intact; the preceding configuration is retained under `history/`.
+`quality-protocol.json` separates new natural family holdouts from the exposed
+original regression set. No Perl SDK or module dependency is installed, and no
+collected module is executed.

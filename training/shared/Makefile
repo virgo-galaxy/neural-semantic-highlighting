@@ -140,6 +140,7 @@ PERL_EVAL_SPLIT ?= validation
 
 dataset-perl-sources:
 	$(PYTHON) -m packs.perl.dataset.fetch_sources
+	$(PYTHON) -m packs.perl.dataset.capture_quality
 
 dataset-perl:
 	$(MAKE) dataset-perl-sources
