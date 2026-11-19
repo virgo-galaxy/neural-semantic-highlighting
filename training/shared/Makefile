@@ -5,7 +5,7 @@ PYTHON_EPOCHS ?= 3
 PYTHON_BATCH_SIZE ?= 32
 PYTHON_EVAL_SPLIT ?= validation
 
-.PHONY: dataset-python dataset-python-curriculum dataset-python-collect dataset-python-label dataset-python-validate dataset-python-prepare test-labeling-python test-training-data-shared train-python-smoke train-python continue-python predict-python evaluate-python challenge-python export-python-model
+.PHONY: dataset-python-quality-sources dataset-python dataset-python-curriculum dataset-python-collect dataset-python-label dataset-python-validate dataset-python-prepare test-labeling-python test-training-data-shared train-python-smoke train-python continue-python predict-python evaluate-python challenge-python export-python-model
 
 dataset-python:
 	$(MAKE) dataset-python-curriculum
@@ -13,6 +13,9 @@ dataset-python:
 	$(MAKE) dataset-python-label
 	$(MAKE) dataset-python-validate
 	$(MAKE) dataset-python-prepare
+
+dataset-python-quality-sources:
+	$(PYTHON) -m packs.python.dataset.capture_quality
 
 dataset-python-curriculum:
 	$(PYTHON) -m packs.python.dataset.generate_curriculum
