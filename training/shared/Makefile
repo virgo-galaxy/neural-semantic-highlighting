@@ -2373,3 +2373,11 @@ challenge-diff:
 export-diff-model:
 	@test -n "$(DIFF_CHECKPOINT)" -a -n "$(DIFF_TEST_REPORT)" || (echo 'Set DIFF_CHECKPOINT and DIFF_TEST_REPORT'; exit 1)
 	$(PYTHON) -m training.diff.export_model --checkpoint "$(DIFF_CHECKPOINT)" --test-report "$(DIFF_TEST_REPORT)"
+
+.PHONY: dataset-ruby-quality-sources dataset-xml-quality-curriculum
+
+dataset-ruby-quality-sources:
+	$(PYTHON) -m packs.ruby.dataset.capture_quality
+
+dataset-xml-quality-curriculum:
+	$(PYTHON) -m packs.xml.dataset.generate_quality

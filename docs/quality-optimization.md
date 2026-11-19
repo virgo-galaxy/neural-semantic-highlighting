@@ -89,3 +89,12 @@ source, changing labels, increasing model context or adding a parser. Its policy
 and report hashes travel with native/browser bundles. Short snippets retain the
 existing path; long documents require additional model windows. Original tests
 remain exposed regression evidence after this development review.
+
+Ruby's `make dataset-ruby-quality-sources` adds 64 metadata-selected files at the
+already pinned upstream commits, checking Git blobs and copying original licenses.
+The original family function and all 1,657 prepared documents retain their Gold
+and folds; duplicate exclusion leaves 40 additional training, three validation and
+11 held-out natural files. It installs no Ruby runtime. XML's
+`make dataset-xml-quality-curriculum` adds separately grouped long opaque-content
+tasks while preserving all 2,964 earlier prepared documents. These focus tasks do
+not substitute for natural XML/SVG measurements or change their Gold.

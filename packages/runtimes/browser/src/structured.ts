@@ -36,7 +36,7 @@ export class StructuredSpanDecoder {
   readonly #back: Uint16Array[] = [];
   readonly #starts: number[] = [];
   readonly #ends: number[] = [];
-  readonly #modifiers: Float32Array[] = [];
+  readonly #modifiers: Float64Array[] = [];
   #scores: Float64Array;
 
   constructor(model: BrowserModel) {
@@ -86,7 +86,7 @@ export class StructuredSpanDecoder {
     this.#starts.push(start);
     this.#ends.push(end);
     this.#modifiers.push(
-      Float32Array.from(this.#model.schema.modifiers, (_, i) => modifiers[modifierOffset + i]),
+      Float64Array.from(this.#model.schema.modifiers, (_, i) => modifiers[modifierOffset + i]),
     );
   }
 

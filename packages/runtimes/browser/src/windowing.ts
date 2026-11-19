@@ -52,7 +52,8 @@ export async function windowLogits(
   for (let i = 0; i < count; i++)
     for (let head = 0; head < widths.length; head++)
       for (let column = 0; column < widths[head]; column++)
-        values[head][i * widths[head] + column] *= (1 - policy.adaptiveWeight) / counts[i];
+        values[head][i * widths[head] + column] =
+          (values[head][i * widths[head] + column] / counts[i]) * (1 - policy.adaptiveWeight);
   if (policy.adaptiveWeight) {
     begin = 0;
     while (begin < count) {
