@@ -18,13 +18,6 @@
           "modifiers": [
             "declaration"
           ]
-        },
-        {
-          "start": 45,
-          "end": 50,
-          "text": "count",
-          "tokenType": "property",
-          "modifiers": []
         }
       ],
       "unexpected": [
@@ -33,13 +26,6 @@
           "end": 21,
           "text": "count",
           "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
-          "start": 45,
-          "end": 50,
-          "text": "count",
-          "tokenType": "variable",
           "modifiers": []
         }
       ]
@@ -285,6 +271,13 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
+          "start": 12,
+          "end": 16,
+          "text": "from",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
           "start": 17,
           "end": 21,
           "text": "item",
@@ -302,6 +295,15 @@
         }
       ],
       "unexpected": [
+        {
+          "start": 12,
+          "end": 16,
+          "text": "from",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        },
         {
           "start": 17,
           "end": 21,
@@ -326,6 +328,15 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
+          "start": 4,
+          "end": 12,
+          "text": "template",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
           "start": 15,
           "end": 44,
           "text": "\"\"\"<p class=\"note\">raw</p>\"\"\"",
@@ -341,6 +352,15 @@
         }
       ],
       "unexpected": [
+        {
+          "start": 4,
+          "end": 12,
+          "text": "template",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
         {
           "start": 15,
           "end": 45,
@@ -507,22 +527,8 @@
       "unexpected": [
         {
           "start": 11,
-          "end": 20,
-          "text": "$\"Hello {",
-          "tokenType": "string",
-          "modifiers": []
-        },
-        {
-          "start": 20,
-          "end": 25,
-          "text": "name.",
-          "tokenType": "string",
-          "modifiers": []
-        },
-        {
-          "start": 25,
           "end": 38,
-          "text": "ToUpper()}!\";",
+          "text": "$\"Hello {name.ToUpper()}!\";",
           "tokenType": "string",
           "modifiers": []
         }
@@ -571,7 +577,7 @@
           "start": 40,
           "end": 46,
           "text": "@class",
-          "tokenType": "comment",
+          "tokenType": "string",
           "modifiers": []
         }
       ]
@@ -605,36 +611,13 @@
       "id": "unicode-crlf",
       "profile": "csharp",
       "documentKind": "csharp",
-      "source": "// 中文 🌙\r\nclass 记录 { string 内容 = \"你好 🌿\"; }\r\n",
+      "source": "// \u4e2d\u6587 \ud83c\udf19\r\nclass \u8bb0\u5f55 { string \u5185\u5bb9 = \"\u4f60\u597d \ud83c\udf3f\"; }\r\n",
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 0,
-          "end": 8,
-          "text": "// 中文 🌙",
-          "tokenType": "comment",
-          "modifiers": []
-        },
-        {
-          "start": 16,
-          "end": 18,
-          "text": "记录",
-          "tokenType": "class",
-          "modifiers": [
-            "declaration"
-          ]
-        },
-        {
-          "start": 21,
-          "end": 27,
-          "text": "string",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
           "start": 28,
           "end": 30,
-          "text": "内容",
+          "text": "\u5185\u5bb9",
           "tokenType": "property",
           "modifiers": [
             "declaration"
@@ -643,41 +626,9 @@
       ],
       "unexpected": [
         {
-          "start": 0,
-          "end": 3,
-          "text": "// ",
-          "tokenType": "comment",
-          "modifiers": []
-        },
-        {
-          "start": 3,
-          "end": 8,
-          "text": "中文 🌙",
-          "tokenType": "comment",
-          "modifiers": [
-            "declaration"
-          ]
-        },
-        {
-          "start": 16,
-          "end": 17,
-          "text": "记",
-          "tokenType": "class",
-          "modifiers": [
-            "declaration"
-          ]
-        },
-        {
-          "start": 21,
-          "end": 28,
-          "text": "string ",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
           "start": 28,
           "end": 30,
-          "text": "内容",
+          "text": "\u5185\u5bb9",
           "tokenType": "comment",
           "modifiers": []
         }
@@ -732,49 +683,49 @@
       "documents": 22,
       "exactDocumentsIncludingModifiers": 6,
       "exactSpan": {
-        "precision": 0.8846153846153846,
-        "recall": 0.8812260536398467,
-        "f1": 0.8829174664107485,
-        "tp": 230,
-        "fp": 30,
-        "fn": 31,
+        "precision": 0.9066147859922179,
+        "recall": 0.89272030651341,
+        "f1": 0.8996138996138996,
+        "tp": 233,
+        "fp": 24,
+        "fn": 28,
         "support": 261
       },
-      "exactSpanMacroF1": 0.8157681228189567,
+      "exactSpanMacroF1": 0.8583111912815905,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8807692307692307,
-        "recall": 0.8773946360153256,
-        "f1": 0.8790786948176583,
-        "tp": 229,
-        "fp": 31,
-        "fn": 32,
+        "precision": 0.8988326848249028,
+        "recall": 0.8850574712643678,
+        "f1": 0.8918918918918919,
+        "tp": 231,
+        "fp": 26,
+        "fn": 30,
         "support": 261
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.921875,
-          "recall": 0.9833333333333333,
-          "f1": 0.9516129032258065,
-          "tp": 59,
-          "fp": 5,
-          "fn": 1,
+          "precision": 0.9375,
+          "recall": 1.0,
+          "f1": 0.967741935483871,
+          "tp": 60,
+          "fp": 4,
+          "fn": 0,
           "support": 60
         },
         "comment": {
-          "precision": 0.0,
-          "recall": 0.0,
-          "f1": 0.0,
-          "tp": 0,
-          "fp": 4,
-          "fn": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
           "support": 1
         },
         "string": {
-          "precision": 0.2,
+          "precision": 0.2222222222222222,
           "recall": 0.2857142857142857,
-          "f1": 0.23529411764705882,
+          "f1": 0.25,
           "tp": 2,
-          "fp": 8,
+          "fp": 7,
           "fn": 5,
           "support": 7
         },
@@ -824,12 +775,12 @@
           "support": 4
         },
         "class": {
-          "precision": 0.8181818181818182,
-          "recall": 0.8181818181818182,
-          "f1": 0.8181818181818182,
-          "tp": 9,
-          "fp": 2,
-          "fn": 2,
+          "precision": 0.9090909090909091,
+          "recall": 0.9090909090909091,
+          "f1": 0.9090909090909091,
+          "tp": 10,
+          "fp": 1,
+          "fn": 1,
           "support": 11
         },
         "interface": {
@@ -887,21 +838,21 @@
           "support": 11
         },
         "variable": {
-          "precision": 0.8181818181818182,
-          "recall": 0.6,
-          "f1": 0.6923076923076923,
-          "tp": 9,
-          "fp": 2,
-          "fn": 6,
+          "precision": 0.8888888888888888,
+          "recall": 0.5333333333333333,
+          "f1": 0.6666666666666666,
+          "tp": 8,
+          "fp": 1,
+          "fn": 7,
           "support": 15
         },
         "property": {
-          "precision": 0.7142857142857143,
-          "recall": 0.35714285714285715,
-          "f1": 0.47619047619047616,
-          "tp": 5,
-          "fp": 2,
-          "fn": 9,
+          "precision": 0.6666666666666666,
+          "recall": 0.42857142857142855,
+          "f1": 0.5217391304347826,
+          "tp": 6,
+          "fp": 3,
+          "fn": 8,
           "support": 14
         },
         "decorator": {
@@ -930,49 +881,49 @@
       "documents": 22,
       "exactDocumentsIncludingModifiers": 6,
       "exactSpan": {
-        "precision": 0.8846153846153846,
-        "recall": 0.8812260536398467,
-        "f1": 0.8829174664107485,
-        "tp": 230,
-        "fp": 30,
-        "fn": 31,
+        "precision": 0.9066147859922179,
+        "recall": 0.89272030651341,
+        "f1": 0.8996138996138996,
+        "tp": 233,
+        "fp": 24,
+        "fn": 28,
         "support": 261
       },
-      "exactSpanMacroF1": 0.8157681228189567,
+      "exactSpanMacroF1": 0.8583111912815905,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8807692307692307,
-        "recall": 0.8773946360153256,
-        "f1": 0.8790786948176583,
-        "tp": 229,
-        "fp": 31,
-        "fn": 32,
+        "precision": 0.8988326848249028,
+        "recall": 0.8850574712643678,
+        "f1": 0.8918918918918919,
+        "tp": 231,
+        "fp": 26,
+        "fn": 30,
         "support": 261
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.921875,
-          "recall": 0.9833333333333333,
-          "f1": 0.9516129032258065,
-          "tp": 59,
-          "fp": 5,
-          "fn": 1,
+          "precision": 0.9375,
+          "recall": 1.0,
+          "f1": 0.967741935483871,
+          "tp": 60,
+          "fp": 4,
+          "fn": 0,
           "support": 60
         },
         "comment": {
-          "precision": 0.0,
-          "recall": 0.0,
-          "f1": 0.0,
-          "tp": 0,
-          "fp": 4,
-          "fn": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
           "support": 1
         },
         "string": {
-          "precision": 0.2,
+          "precision": 0.2222222222222222,
           "recall": 0.2857142857142857,
-          "f1": 0.23529411764705882,
+          "f1": 0.25,
           "tp": 2,
-          "fp": 8,
+          "fp": 7,
           "fn": 5,
           "support": 7
         },
@@ -1022,12 +973,12 @@
           "support": 4
         },
         "class": {
-          "precision": 0.8181818181818182,
-          "recall": 0.8181818181818182,
-          "f1": 0.8181818181818182,
-          "tp": 9,
-          "fp": 2,
-          "fn": 2,
+          "precision": 0.9090909090909091,
+          "recall": 0.9090909090909091,
+          "f1": 0.9090909090909091,
+          "tp": 10,
+          "fp": 1,
+          "fn": 1,
           "support": 11
         },
         "interface": {
@@ -1085,21 +1036,21 @@
           "support": 11
         },
         "variable": {
-          "precision": 0.8181818181818182,
-          "recall": 0.6,
-          "f1": 0.6923076923076923,
-          "tp": 9,
-          "fp": 2,
-          "fn": 6,
+          "precision": 0.8888888888888888,
+          "recall": 0.5333333333333333,
+          "f1": 0.6666666666666666,
+          "tp": 8,
+          "fp": 1,
+          "fn": 7,
           "support": 15
         },
         "property": {
-          "precision": 0.7142857142857143,
-          "recall": 0.35714285714285715,
-          "f1": 0.47619047619047616,
-          "tp": 5,
-          "fp": 2,
-          "fn": 9,
+          "precision": 0.6666666666666666,
+          "recall": 0.42857142857142855,
+          "f1": 0.5217391304347826,
+          "tp": 6,
+          "fp": 3,
+          "fn": 8,
           "support": 14
         },
         "decorator": {
@@ -1123,7 +1074,7 @@
       }
     }
   },
-  "checkpointHash": "ef3bbf44d6be013f55d910e2f9da7a6c8fd44474e0796a5e498ebe65707a4026",
-  "checkpointEpoch": 3,
-  "device": "mps"
+  "checkpointHash": "698050800af7bb1860c666f5b0184f14d7398a5f976a9fbccab6df3e2608e8fa",
+  "checkpointEpoch": 4,
+  "device": "cpu"
 }

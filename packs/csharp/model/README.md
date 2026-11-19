@@ -25,3 +25,9 @@ read [KNOWN_ISSUES.md](KNOWN_ISSUES.md) for measured role/pattern/string limits.
 Inference consumes only original text and learned weights, with no compiler,
 reflection, regex source repair, source execution or SDK lookup. The `.pt` export
 is inference-only; full resumable checkpoints remain under `artifacts/csharp`.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
