@@ -24,3 +24,9 @@ was introduced. Base-only local reference:
 [Evidence](BENCHMARKS.md) separates natural/focus/base/composed scores.
 [Known issues](KNOWN_ISSUES.md) record controlled limits. Selected `.pt` is
 inference-only; resumable checkpoints stay under `artifacts/svelte`.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).

@@ -1,0 +1,1117 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "72972874178173af36bfe9e9852f3b2d5e6e0a2651f41dba32583c71ef9dfbde",
+  "cases": [
+    {
+      "id": "markup",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<h1 class=\"title\">Hello 🌌</h1>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "entity",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<p>A &amp; B</p>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "<",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 2,
+          "text": "p",
+          "tokenType": "tag",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 10,
+          "text": "&amp;",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 10,
+          "end": 12,
+          "text": " B",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "<p",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 12,
+          "text": "&amp; B",
+          "tokenType": "embedded-expression",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "comment",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<!-- 星 🌌 -->",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "interpolation",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<p>{user.name}</p>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "if",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "{#if ready}Yes{:else}No{/if}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 10,
+          "text": "ready",
+          "tokenType": "embedded-expression",
+          "modifiers": []
+        },
+        {
+          "start": 10,
+          "end": 11,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 11,
+          "end": 14,
+          "text": "Yes",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 20,
+          "text": ":else",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 20,
+          "end": 21,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 23,
+          "text": "No",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 23,
+          "end": 24,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 24,
+          "end": 27,
+          "text": "/if",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 28,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 11,
+          "text": "ready}",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 11,
+          "end": 14,
+          "text": "Yes",
+          "tokenType": "attribute",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 28,
+          "text": ":else}No{/if}",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "each",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "{#each rows as row, i (row.id)}{row.name}{/each}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 22,
+          "end": 23,
+          "text": "(",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 23,
+          "end": 29,
+          "text": "row.id",
+          "tokenType": "embedded-expression",
+          "modifiers": []
+        },
+        {
+          "start": 29,
+          "end": 30,
+          "text": ")",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 30,
+          "end": 31,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 31,
+          "end": 32,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 32,
+          "end": 40,
+          "text": "row.name",
+          "tokenType": "embedded-expression",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 22,
+          "end": 31,
+          "text": "(row.id)}",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 31,
+          "end": 40,
+          "text": "{row.name",
+          "tokenType": "attribute",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "await",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "{#await promise then value}{value}{/await}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 16,
+          "end": 20,
+          "text": "then",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 16,
+          "end": 20,
+          "text": "then",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "key",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "{#key revision}Refresh{/key}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 14,
+          "text": "revision",
+          "tokenType": "embedded-expression",
+          "modifiers": []
+        },
+        {
+          "start": 14,
+          "end": 15,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 22,
+          "text": "Refresh",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 23,
+          "end": 27,
+          "text": "/key",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 28,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "{",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 15,
+          "text": "revision}",
+          "tokenType": "attribute",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 22,
+          "text": "Refresh",
+          "tokenType": "attribute",
+          "modifiers": []
+        },
+        {
+          "start": 23,
+          "end": 28,
+          "text": "/key}",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "snippet",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "{#snippet row(item)}{item}{/snippet}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 9,
+          "text": "#snippet",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 10,
+          "end": 13,
+          "text": "row",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 13,
+          "end": 14,
+          "text": "(",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 14,
+          "end": 18,
+          "text": "item",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 18,
+          "end": 19,
+          "text": ")",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 19,
+          "end": 20,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 20,
+          "end": 21,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 25,
+          "text": "item",
+          "tokenType": "embedded-expression",
+          "modifiers": []
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 36,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 9,
+          "text": "{#snippet",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 10,
+          "end": 26,
+          "text": "row(item)}{item}",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 36,
+          "text": "}",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "render",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "{@render row(item)}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 8,
+          "text": "@render",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 9,
+          "end": 18,
+          "text": "row(item)",
+          "tokenType": "embedded-expression",
+          "modifiers": []
+        },
+        {
+          "start": 18,
+          "end": 19,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 19,
+          "text": "{@render row(item)}",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "html",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "{@html markup}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 6,
+          "text": "@html",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 7,
+          "end": 13,
+          "text": "markup",
+          "tokenType": "embedded-expression",
+          "modifiers": []
+        },
+        {
+          "start": 13,
+          "end": 14,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 6,
+          "text": "{@html",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 7,
+          "end": 14,
+          "text": "markup}",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "attributes",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<input bind:value class:active={ready} {disabled} title=\"Hi {name}\" {...props}/>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "javascript",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<script>let n = $state(1);</script>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "module-ts",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<script module lang=\"ts\">export const n: number = 1;</script>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 25,
+          "end": 52,
+          "text": "export const n: number = 1;",
+          "tokenType": "embedded-typescript",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 25,
+          "end": 52,
+          "text": "export const n: number = 1;",
+          "tokenType": "embedded-javascript",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "css",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<style>p { color: red; }</style>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "scss",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<style lang=\"scss\">$tone: red; p { color: $tone; }</style>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 18,
+          "end": 19,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 19,
+          "end": 50,
+          "text": "$tone: red; p { color: $tone; }",
+          "tokenType": "embedded-scss",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 18,
+          "end": 50,
+          "text": ">$tone: red; p { color: $tone; }",
+          "tokenType": "embedded-scss",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "less-crlf",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<style lang=\"less\">\r\n@space: 4px; .x { gap: @space; }\r\n</style>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "opaque-style",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<style lang=\"stylus\">p\n  color red</style>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 21,
+          "end": 34,
+          "text": "p\n  color red",
+          "tokenType": "embedded-data",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 21,
+          "end": 34,
+          "text": "p\n  color red",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "bom",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "﻿<b>星</b>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "﻿",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 3,
+          "end": 4,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 4,
+          "end": 5,
+          "text": "星",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "﻿",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 3,
+          "end": 5,
+          "text": ">星",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "options",
+      "profile": "svelte",
+      "documentKind": "svelte",
+      "source": "<svelte:options immutable={true} />",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    }
+  ],
+  "profiles": {
+    "svelte": {
+      "documents": 20,
+      "exactDocumentsIncludingModifiers": 8,
+      "exactSpan": {
+        "precision": 0.847682119205298,
+        "recall": 0.7111111111111111,
+        "f1": 0.7734138972809668,
+        "tp": 128,
+        "fp": 23,
+        "fn": 52,
+        "support": 180
+      },
+      "exactSpanMacroF1": 0.5695496044470375,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.847682119205298,
+        "recall": 0.7111111111111111,
+        "f1": 0.7734138972809668,
+        "tp": 128,
+        "fp": 23,
+        "fn": 52,
+        "support": 180
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8888888888888888,
+          "recall": 0.5333333333333333,
+          "f1": 0.6666666666666666,
+          "tp": 8,
+          "fp": 1,
+          "fn": 7,
+          "support": 15
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.4444444444444444,
+          "recall": 1.0,
+          "f1": 0.6153846153846154,
+          "tp": 8,
+          "fp": 10,
+          "fn": 0,
+          "support": 8
+        },
+        "number": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "punctuation": {
+          "precision": 0.9850746268656716,
+          "recall": 0.717391304347826,
+          "f1": 0.8301886792452831,
+          "tp": 66,
+          "fp": 1,
+          "fn": 26,
+          "support": 92
+        },
+        "tag": {
+          "precision": 1.0,
+          "recall": 0.9545454545454546,
+          "f1": 0.9767441860465116,
+          "tp": 21,
+          "fp": 0,
+          "fn": 1,
+          "support": 22
+        },
+        "attribute": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 12,
+          "fp": 4,
+          "fn": 0,
+          "support": 12
+        },
+        "text": {
+          "precision": 0.4,
+          "recall": 0.2857142857142857,
+          "f1": 0.3333333333333333,
+          "tp": 2,
+          "fp": 3,
+          "fn": 5,
+          "support": 7
+        },
+        "entity": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        },
+        "variable": {
+          "precision": 0.75,
+          "recall": 0.6,
+          "f1": 0.6666666666666666,
+          "tp": 3,
+          "fp": 1,
+          "fn": 2,
+          "support": 5
+        },
+        "embedded-javascript": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-typescript": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        },
+        "embedded-css": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-scss": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "support": 1
+        },
+        "embedded-less": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-expression": {
+          "precision": 0.8,
+          "recall": 0.36363636363636365,
+          "f1": 0.5,
+          "tp": 4,
+          "fp": 1,
+          "fn": 7,
+          "support": 11
+        },
+        "embedded-data": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "svelte": {
+      "documents": 20,
+      "exactDocumentsIncludingModifiers": 8,
+      "exactSpan": {
+        "precision": 0.847682119205298,
+        "recall": 0.7111111111111111,
+        "f1": 0.7734138972809668,
+        "tp": 128,
+        "fp": 23,
+        "fn": 52,
+        "support": 180
+      },
+      "exactSpanMacroF1": 0.5695496044470375,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.847682119205298,
+        "recall": 0.7111111111111111,
+        "f1": 0.7734138972809668,
+        "tp": 128,
+        "fp": 23,
+        "fn": 52,
+        "support": 180
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.8888888888888888,
+          "recall": 0.5333333333333333,
+          "f1": 0.6666666666666666,
+          "tp": 8,
+          "fp": 1,
+          "fn": 7,
+          "support": 15
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.4444444444444444,
+          "recall": 1.0,
+          "f1": 0.6153846153846154,
+          "tp": 8,
+          "fp": 10,
+          "fn": 0,
+          "support": 8
+        },
+        "number": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "operator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "punctuation": {
+          "precision": 0.9850746268656716,
+          "recall": 0.717391304347826,
+          "f1": 0.8301886792452831,
+          "tp": 66,
+          "fp": 1,
+          "fn": 26,
+          "support": 92
+        },
+        "tag": {
+          "precision": 1.0,
+          "recall": 0.9545454545454546,
+          "f1": 0.9767441860465116,
+          "tp": 21,
+          "fp": 0,
+          "fn": 1,
+          "support": 22
+        },
+        "attribute": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "tp": 12,
+          "fp": 4,
+          "fn": 0,
+          "support": 12
+        },
+        "text": {
+          "precision": 0.4,
+          "recall": 0.2857142857142857,
+          "f1": 0.3333333333333333,
+          "tp": 2,
+          "fp": 3,
+          "fn": 5,
+          "support": 7
+        },
+        "entity": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        },
+        "variable": {
+          "precision": 0.75,
+          "recall": 0.6,
+          "f1": 0.6666666666666666,
+          "tp": 3,
+          "fp": 1,
+          "fn": 2,
+          "support": 5
+        },
+        "embedded-javascript": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-typescript": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        },
+        "embedded-css": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-scss": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "support": 1
+        },
+        "embedded-less": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "embedded-expression": {
+          "precision": 0.8,
+          "recall": 0.36363636363636365,
+          "f1": 0.5,
+          "tp": 4,
+          "fp": 1,
+          "fn": 7,
+          "support": 11
+        },
+        "embedded-data": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        }
+      }
+    }
+  },
+  "checkpointHash": "7e68dd44cac16de8afe8b5d48e871a36efbe537ea1a2241463a3afdae8557556",
+  "checkpointEpoch": 7,
+  "device": "mps"
+}
