@@ -24,3 +24,9 @@ Worker with `{ language: "sql" }`, without a Python provider; see
 [consumer integration](../../../README.md#highlight-code). The native CLI's
 `--checkpoint path/to/candidate.pt` selects compatible development weights,
 without changing the Playground's browser model.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
