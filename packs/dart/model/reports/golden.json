@@ -895,13 +895,13 @@
       "id": "plain-string",
       "profile": "dart",
       "documentKind": "dart",
-      "source": "const text = '星空 🌌' ;",
+      "source": "const text = '\u661f\u7a7a \ud83c\udf0c' ;",
       "exactIncludingModifiers": false,
       "missing": [
         {
           "start": 13,
           "end": 20,
-          "text": "'星空 🌌'",
+          "text": "'\u661f\u7a7a \ud83c\udf0c'",
           "tokenType": "string",
           "modifiers": []
         }
@@ -910,14 +910,14 @@
         {
           "start": 13,
           "end": 16,
-          "text": "'星空",
+          "text": "'\u661f\u7a7a",
           "tokenType": "string",
           "modifiers": []
         },
         {
           "start": 17,
           "end": 21,
-          "text": "🌌' ",
+          "text": "\ud83c\udf0c' ",
           "tokenType": "string",
           "modifiers": []
         }
@@ -973,13 +973,13 @@
       "id": "multiline",
       "profile": "dart",
       "documentKind": "dart",
-      "source": "const text = '''first\n星 🌌\nlast''';",
+      "source": "const text = '''first\n\u661f \ud83c\udf0c\nlast''';",
       "exactIncludingModifiers": false,
       "missing": [
         {
           "start": 13,
           "end": 34,
-          "text": "'''first\n星 🌌\nlast'''",
+          "text": "'''first\n\u661f \ud83c\udf0c\nlast'''",
           "tokenType": "string",
           "modifiers": []
         }
@@ -995,14 +995,14 @@
         {
           "start": 22,
           "end": 23,
-          "text": "星",
+          "text": "\u661f",
           "tokenType": "keyword",
           "modifiers": []
         },
         {
           "start": 24,
           "end": 26,
-          "text": "🌌",
+          "text": "\ud83c\udf0c",
           "tokenType": "string",
           "modifiers": []
         },
@@ -1051,7 +1051,7 @@
       "id": "unicode-bom-crlf",
       "profile": "dart",
       "documentKind": "dart",
-      "source": "﻿// original 🌌\r\nconst value=\"星 🌌\";\r\n",
+      "source": "\ufeff// original \ud83c\udf0c\r\nconst value=\"\u661f \ud83c\udf0c\";\r\n",
       "exactIncludingModifiers": false,
       "missing": [
         {
@@ -1064,7 +1064,7 @@
         {
           "start": 29,
           "end": 35,
-          "text": "\"星 🌌\"",
+          "text": "\"\u661f \ud83c\udf0c\"",
           "tokenType": "string",
           "modifiers": []
         }
@@ -1073,7 +1073,7 @@
         {
           "start": 28,
           "end": 35,
-          "text": "=\"星 🌌\"",
+          "text": "=\"\u661f \ud83c\udf0c\"",
           "tokenType": "string",
           "modifiers": []
         }
@@ -1896,7 +1896,7 @@
       }
     }
   },
-  "checkpointHash": "166fa7d2be3dc1fc967cd83d36ce94e5d4ba05b5c2f87795f6899da145164bfc",
+  "checkpointHash": "ba8229733d1bce3866ba538bc414bbee5e8d10db87cf989a590505d0972a967d",
   "checkpointEpoch": 6,
-  "device": "mps"
+  "device": "cpu"
 }

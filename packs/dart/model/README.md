@@ -20,3 +20,9 @@ Previous models, data snapshots, experiments and licenses are preserved.
 [Flutter](FLUTTER.md) also has a dedicated Playground entry and public
 `language: "flutter"` alias. Selective `@nsh/highlighter/languages/flutter`
 re-exports this same descriptor and emits one Dart model asset.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).

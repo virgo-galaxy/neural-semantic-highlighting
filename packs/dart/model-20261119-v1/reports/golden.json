@@ -1,0 +1,1902 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "7a4c45550fb1ca4a3eeff52a8cb513a7ec971348e70b1297b3efa7ebedf106bf",
+  "cases": [
+    {
+      "id": "empty",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "function",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "int f ( int n ) { return n ; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 5,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 12,
+          "end": 13,
+          "text": "n",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "text": "n",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 5,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 13,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "text": "n",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "local",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "void f ( ) { var n = 2 ; n += 1 ; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "constant",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "const limit = 8 ;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "field",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "class Box { int count = 0 ; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "constructor",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "class Box { final int n ; Box ( this . n ) ; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 22,
+          "end": 23,
+          "text": "n",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 26,
+          "end": 29,
+          "text": "Box",
+          "tokenType": "constructor",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 37,
+          "end": 38,
+          "text": ".",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 39,
+          "end": 40,
+          "text": "n",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 22,
+          "end": 23,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 26,
+          "end": 29,
+          "text": "Box",
+          "tokenType": "type-parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 37,
+          "end": 38,
+          "text": ".",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 39,
+          "end": 40,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "getter",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "class Box { int n = 1 ; int get count => n ; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 41,
+          "end": 42,
+          "text": "n",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 41,
+          "end": 42,
+          "text": "n",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "generic",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "T id < T > ( T v ) => v ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 2,
+          "end": 4,
+          "text": "id",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 7,
+          "end": 8,
+          "text": "T",
+          "tokenType": "type-parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 15,
+          "end": 16,
+          "text": "v",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 22,
+          "end": 23,
+          "text": "v",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 2,
+          "end": 4,
+          "text": "id",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 7,
+          "end": 8,
+          "text": "T",
+          "tokenType": "type-parameter",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 16,
+          "text": "v",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 22,
+          "end": 23,
+          "text": "v",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "enum",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "enum State { idle , ready }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 13,
+          "end": 17,
+          "text": "idle",
+          "tokenType": "enum-member",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 17,
+          "text": "idle",
+          "tokenType": "enum-member",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "local-construction",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "class Box { } final box = Box ( ) ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 26,
+          "end": 29,
+          "text": "Box",
+          "tokenType": "constructor",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 26,
+          "end": 29,
+          "text": "Box",
+          "tokenType": "type-parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "external-call",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "void f ( ) => print ( \"hello\" ) ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 14,
+          "end": 19,
+          "text": "print",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 14,
+          "end": 19,
+          "text": "print",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "member-call",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "void f ( String s ) => s . trim ( ) ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": "s",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "text": ".",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 31,
+          "text": "trim",
+          "tokenType": "method",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": "s",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "text": ".",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 31,
+          "text": "trim",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "named-argument",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "final widget = Text ( \"Hi\" , maxLines : 2 ) ;",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "import",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "import 'dart:math' as math show max ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 22,
+          "end": 26,
+          "text": "math",
+          "tokenType": "namespace",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 32,
+          "end": 35,
+          "text": "max",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 22,
+          "end": 26,
+          "text": "math",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 32,
+          "end": 35,
+          "text": "max",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "record",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "final pair = ( name : 'Ada' , count : 2 ) ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 15,
+          "end": 19,
+          "text": "name",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 30,
+          "end": 35,
+          "text": "count",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 15,
+          "end": 19,
+          "text": "name",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 30,
+          "end": 35,
+          "text": "count",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "record-pattern",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "void f ( ) { final ( a , b ) = ( 1 , 2 ) ; print ( a ) ; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 21,
+          "end": 22,
+          "text": "a",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 43,
+          "end": 48,
+          "text": "print",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 22,
+          "text": "a",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 43,
+          "end": 48,
+          "text": "print",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "if-pattern",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "void f ( Object v ) { if ( v case [ int n ] ) { print ( n ) ; } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": "v",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 27,
+          "end": 28,
+          "text": "v",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 29,
+          "end": 33,
+          "text": "case",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 39,
+          "text": "int",
+          "tokenType": "type",
+          "modifiers": []
+        },
+        {
+          "start": 40,
+          "end": 41,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 48,
+          "end": 53,
+          "text": "print",
+          "tokenType": "function",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": "v",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 27,
+          "end": 28,
+          "text": "v",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 29,
+          "end": 33,
+          "text": "case",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 39,
+          "text": "int",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 40,
+          "end": 41,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 48,
+          "end": 53,
+          "text": "print",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "catch",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "void f ( ) { try { } catch ( e , s ) { print ( e ) ; } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 29,
+          "end": 30,
+          "text": "e",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 33,
+          "end": 34,
+          "text": "s",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 39,
+          "end": 44,
+          "text": "print",
+          "tokenType": "function",
+          "modifiers": []
+        },
+        {
+          "start": 47,
+          "end": 48,
+          "text": "e",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 29,
+          "end": 30,
+          "text": "e",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 33,
+          "end": 34,
+          "text": "s",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 39,
+          "end": 44,
+          "text": "print",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 47,
+          "end": 48,
+          "text": "e",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "async",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "Future < int > f ( Future < int > v ) async => await v ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 15,
+          "end": 16,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 34,
+          "end": 35,
+          "text": "v",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 38,
+          "end": 43,
+          "text": "async",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 15,
+          "end": 16,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 34,
+          "end": 35,
+          "text": "v",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 38,
+          "end": 43,
+          "text": "async",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "annotation",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "@Deprecated('old') class Box {}",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "plain-string",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "const text = '星空 🌌' ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 13,
+          "end": 20,
+          "text": "'星空 🌌'",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 16,
+          "text": "'星空",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 21,
+          "text": "🌌' ",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "raw-string",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "const text = r'$name // literal' ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 13,
+          "end": 32,
+          "text": "r'$name // literal'",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 15,
+          "text": "r'",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 16,
+          "text": "$",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 20,
+          "text": "name",
+          "tokenType": "constant",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 33,
+          "text": "// literal' ",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "multiline",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "const text = '''first\n星 🌌\nlast''';",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 13,
+          "end": 34,
+          "text": "'''first\n星 🌌\nlast'''",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 13,
+          "end": 21,
+          "text": "'''first",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 22,
+          "end": 23,
+          "text": "星",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 24,
+          "end": 26,
+          "text": "🌌",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 34,
+          "text": "last'''",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "interpolation",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "String f(String name) => \"Hi $name!\";",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 34,
+          "end": 36,
+          "text": "!\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 34,
+          "end": 35,
+          "text": "!",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 36,
+          "text": "\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-bom-crlf",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "﻿// original 🌌\r\nconst value=\"星 🌌\";\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 28,
+          "end": 29,
+          "text": "=",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 29,
+          "end": 35,
+          "text": "\"星 🌌\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 28,
+          "end": 35,
+          "text": "=\"星 🌌\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "label",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "void f ( ) { outer : while ( true ) { break outer ; } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 13,
+          "end": 18,
+          "text": "outer",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 44,
+          "end": 49,
+          "text": "outer",
+          "tokenType": "label",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 13,
+          "end": 18,
+          "text": "outer",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 44,
+          "end": 49,
+          "text": "outer",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "primary",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "class Point ( var int x ) ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 22,
+          "end": 23,
+          "text": "x",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 22,
+          "end": 23,
+          "text": "x",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "extension-type",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "extension type Id ( int value ) { }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 24,
+          "end": 29,
+          "text": "value",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 24,
+          "end": 29,
+          "text": "value",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wildcard",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "int f ( int _ ) { final _ = 1 ; return 2 ; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 5,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 24,
+          "end": 25,
+          "text": "_",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 5,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 24,
+          "end": 25,
+          "text": "_",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "dot-shorthand",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "Object f ( ) => . ready ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 8,
+          "text": "f",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": ".",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 18,
+          "end": 23,
+          "text": "ready",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 8,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": ".",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 18,
+          "end": 23,
+          "text": "ready",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "nested-comment",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "/* outer /* nested */ end */\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "symbol",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "const key = #title ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 18,
+          "text": "#title",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 18,
+          "text": "#title",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "explicit-construction",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "final box = const Box ( 1 ) ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 18,
+          "end": 21,
+          "text": "Box",
+          "tokenType": "constructor",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 18,
+          "end": 21,
+          "text": "Box",
+          "tokenType": "type",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "closure",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "final apply = ( value ) => value ;",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "value",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 27,
+          "end": 32,
+          "text": "value",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "value",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 27,
+          "end": 32,
+          "text": "value",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "local-function",
+      "profile": "dart",
+      "documentKind": "dart",
+      "source": "class Box { void f ( ) { int inner ( int n ) => n ; } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 17,
+          "end": 18,
+          "text": "f",
+          "tokenType": "method",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 29,
+          "end": 34,
+          "text": "inner",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 37,
+          "end": 40,
+          "text": "int",
+          "tokenType": "type",
+          "modifiers": []
+        },
+        {
+          "start": 41,
+          "end": 42,
+          "text": "n",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 48,
+          "end": 49,
+          "text": "n",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 17,
+          "end": 18,
+          "text": "f",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 29,
+          "end": 34,
+          "text": "inner",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 37,
+          "end": 40,
+          "text": "int",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 41,
+          "end": 42,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 48,
+          "end": 49,
+          "text": "n",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "dart": {
+      "documents": 35,
+      "exactDocumentsIncludingModifiers": 6,
+      "exactSpan": {
+        "precision": 0.821882951653944,
+        "recall": 0.8367875647668394,
+        "f1": 0.8292682926829268,
+        "tp": 323,
+        "fp": 70,
+        "fn": 63,
+        "support": 386
+      },
+      "exactSpanMacroF1": 0.6057173018994921,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8091603053435115,
+        "recall": 0.8238341968911918,
+        "f1": 0.8164313222079589,
+        "tp": 318,
+        "fp": 75,
+        "fn": 68,
+        "support": 386
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.6329113924050633,
+          "recall": 0.9433962264150944,
+          "f1": 0.7575757575757576,
+          "tp": 50,
+          "fp": 29,
+          "fn": 3,
+          "support": 53
+        },
+        "comment": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.42857142857142855,
+          "recall": 0.5,
+          "f1": 0.46153846153846156,
+          "tp": 6,
+          "fp": 8,
+          "fn": 6,
+          "support": 12
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "operator": {
+          "precision": 0.8214285714285714,
+          "recall": 0.9583333333333334,
+          "f1": 0.8846153846153846,
+          "tp": 23,
+          "fp": 5,
+          "fn": 1,
+          "support": 24
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9822485207100592,
+          "f1": 0.991044776119403,
+          "tp": 166,
+          "fp": 0,
+          "fn": 3,
+          "support": 169
+        },
+        "namespace": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        },
+        "type": {
+          "precision": 0.9655172413793104,
+          "recall": 0.9333333333333333,
+          "f1": 0.9491525423728814,
+          "tp": 28,
+          "fp": 1,
+          "fn": 2,
+          "support": 30
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 0.10526315789473684,
+          "f1": 0.19047619047619047,
+          "tp": 2,
+          "fp": 0,
+          "fn": 17,
+          "support": 19
+        },
+        "method": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        },
+        "constructor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "support": 3
+        },
+        "parameter": {
+          "precision": 0.7,
+          "recall": 0.35,
+          "f1": 0.4666666666666667,
+          "tp": 7,
+          "fp": 3,
+          "fn": 13,
+          "support": 20
+        },
+        "variable": {
+          "precision": 0.3548387096774194,
+          "recall": 0.9166666666666666,
+          "f1": 0.5116279069767442,
+          "tp": 11,
+          "fp": 20,
+          "fn": 1,
+          "support": 12
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 0.2727272727272727,
+          "f1": 0.42857142857142855,
+          "tp": 3,
+          "fp": 0,
+          "fn": 8,
+          "support": 11
+        },
+        "type-parameter": {
+          "precision": 0.6,
+          "recall": 1.0,
+          "f1": 0.75,
+          "tp": 3,
+          "fp": 2,
+          "fn": 0,
+          "support": 3
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "constant": {
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
+          "support": 6
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "dart": {
+      "documents": 35,
+      "exactDocumentsIncludingModifiers": 6,
+      "exactSpan": {
+        "precision": 0.821882951653944,
+        "recall": 0.8367875647668394,
+        "f1": 0.8292682926829268,
+        "tp": 323,
+        "fp": 70,
+        "fn": 63,
+        "support": 386
+      },
+      "exactSpanMacroF1": 0.6057173018994921,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8091603053435115,
+        "recall": 0.8238341968911918,
+        "f1": 0.8164313222079589,
+        "tp": 318,
+        "fp": 75,
+        "fn": 68,
+        "support": 386
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.6329113924050633,
+          "recall": 0.9433962264150944,
+          "f1": 0.7575757575757576,
+          "tp": 50,
+          "fp": 29,
+          "fn": 3,
+          "support": 53
+        },
+        "comment": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.42857142857142855,
+          "recall": 0.5,
+          "f1": 0.46153846153846156,
+          "tp": 6,
+          "fp": 8,
+          "fn": 6,
+          "support": 12
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12
+        },
+        "operator": {
+          "precision": 0.8214285714285714,
+          "recall": 0.9583333333333334,
+          "f1": 0.8846153846153846,
+          "tp": 23,
+          "fp": 5,
+          "fn": 1,
+          "support": 24
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9822485207100592,
+          "f1": 0.991044776119403,
+          "tp": 166,
+          "fp": 0,
+          "fn": 3,
+          "support": 169
+        },
+        "namespace": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        },
+        "type": {
+          "precision": 0.9655172413793104,
+          "recall": 0.9333333333333333,
+          "f1": 0.9491525423728814,
+          "tp": 28,
+          "fp": 1,
+          "fn": 2,
+          "support": 30
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 0.10526315789473684,
+          "f1": 0.19047619047619047,
+          "tp": 2,
+          "fp": 0,
+          "fn": 17,
+          "support": 19
+        },
+        "method": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        },
+        "constructor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "support": 3
+        },
+        "parameter": {
+          "precision": 0.7,
+          "recall": 0.35,
+          "f1": 0.4666666666666667,
+          "tp": 7,
+          "fp": 3,
+          "fn": 13,
+          "support": 20
+        },
+        "variable": {
+          "precision": 0.3548387096774194,
+          "recall": 0.9166666666666666,
+          "f1": 0.5116279069767442,
+          "tp": 11,
+          "fp": 20,
+          "fn": 1,
+          "support": 12
+        },
+        "property": {
+          "precision": 1.0,
+          "recall": 0.2727272727272727,
+          "f1": 0.42857142857142855,
+          "tp": 3,
+          "fp": 0,
+          "fn": 8,
+          "support": 11
+        },
+        "type-parameter": {
+          "precision": 0.6,
+          "recall": 1.0,
+          "f1": 0.75,
+          "tp": 3,
+          "fp": 2,
+          "fn": 0,
+          "support": 3
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "constant": {
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
+          "support": 6
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        }
+      }
+    }
+  },
+  "checkpointHash": "166fa7d2be3dc1fc967cd83d36ce94e5d4ba05b5c2f87795f6899da145164bfc",
+  "checkpointEpoch": 6,
+  "device": "mps"
+}

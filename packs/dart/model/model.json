@@ -3,16 +3,19 @@
   "artifact": {
     "file": "model.pt",
     "format": "nsh-dart-model-v1",
-    "sha256": "99482c849e62090e07ff86bc2dcb06bcb984482df55a837aaddc454a322dbde5",
-    "bytes": 3640693,
+    "sha256": "17877bfddc8523e3e1a15ff8255cc5a97490a73dc48573ae88079a7ff3790022",
+    "bytes": 3641141,
     "parameterCount": 894872,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "selection": {
     "epoch": 6,
-    "metric": "mean per-profile natural real-source validation exact-span macro F1",
-    "score": 0.7537401693630205
+    "metric": "Maximum minimum natural VALIDATION profile F1; role macro decrease at most .01; unchanged runtime eligible",
+    "score": 0.9574893506041902,
+    "validationReportSha256": "2fc3bf2f6848c25584b6426b333f4c930537e4b31870e35b54db4ea22f301343",
+    "trainingSelectionMetric": "profile-macro",
+    "trainingBestFixedScore": 0.7537401693630205
   },
   "checkpointConfig": {
     "context_bytes": 512,
@@ -78,7 +81,13 @@
       "modifier_roles": null
     },
     "modifierThreshold": 0.6,
-    "parserRequired": false
+    "parserRequired": false,
+    "windowingPolicy": {
+      "format": "nsh-overlap-logits-v1",
+      "strideBytes": 128,
+      "edgeWeightCap": 128,
+      "adaptiveWeight": 0
+    }
   },
   "scope": "dart-local-semantic-spans",
   "modelSchema": {
@@ -94,8 +103,8 @@
     "manifestHash": "56e0e0ebf57b04e266515b7bace722523435f430ffd8f5c42ac39663c85a1285"
   },
   "provenance": {
-    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/dart/context512-literals-20261110-01/candidates/epoch-0006.pt",
-    "sourceCheckpointSha256": "166fa7d2be3dc1fc967cd83d36ce94e5d4ba05b5c2f87795f6899da145164bfc",
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/remaining/dart/greedy-window.pt",
+    "sourceCheckpointSha256": "ba8229733d1bce3866ba538bc414bbee5e8d10db87cf989a590505d0972a967d",
     "training": {
       "codeHashes": {
         "training/dart/challenge.py": "b99ea0ad4b355149f11dd726cee4a577192d4d89c77f6f5e4de1d0a52edb22a2",
@@ -180,15 +189,28 @@
       ],
       "optimizerAndTrainingState": "fresh pack run"
     },
-    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+    "exporterSha256": "273c7f803cc1684d62f43d31a02229aec085228310c73833358d56f369593c72",
+    "windowingCalibration": {
+      "validationReport": "artifacts/quality-20261119/remaining/dart/greedy-window.windowing.json",
+      "validationReportHash": "2fc3bf2f6848c25584b6426b333f4c930537e4b31870e35b54db4ea22f301343",
+      "testPredictionsUsed": false
+    }
   },
   "reports": {
     "test-metrics.json": {
       "file": "reports/test-metrics.json",
-      "sha256": "9d6ffaea71f4e6f7d5fb6caf89cd19f7d1a36493690ba97e1d48a8b641f6a41d",
-      "checkpointHash": "166fa7d2be3dc1fc967cd83d36ce94e5d4ba05b5c2f87795f6899da145164bfc",
+      "sha256": "c8f712c3f9bff080ccca9c5f68d22cb431c1377d09239f6bf407918f7030037a",
+      "checkpointHash": "ba8229733d1bce3866ba538bc414bbee5e8d10db87cf989a590505d0972a967d",
       "split": "test",
       "inference": "predicted-adaptive-cursor"
+    },
+    "windowingCalibration.json": {
+      "file": "reports/windowingCalibration.json",
+      "sha256": "bf2eb1bdeaadc59537fe75cb26f52ae1daf3e1e4870f863688368ed43abb3421"
+    },
+    "golden.json": {
+      "file": "reports/golden.json",
+      "sha256": "8371907262fd2c112764e99d195febf7d2c971d64f55930360f99f0584c5aeea"
     }
   }
 }

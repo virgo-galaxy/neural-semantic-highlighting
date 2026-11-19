@@ -11,7 +11,7 @@ const model: BrowserModel = {
       },
     ],
   },
-  sha256: "a91121120cccbde17d5e0c59865523ea3b2eaee269a3016ac8ab8a40845efc5d",
+  sha256: "31dfbf21797034a626167837b3a1fa686c20759696e7e5d9bd56dfde31c0d7f7",
   contextBytes: 512,
   schema: {
     tokenTypes: [
@@ -40,6 +40,12 @@ const model: BrowserModel = {
   },
   modifierThreshold: 0.6,
   decoder: {},
+  inferenceWindowing: {
+    format: "nsh-overlap-logits-v1",
+    strideBytes: 128,
+    edgeWeightCap: 128,
+    adaptiveWeight: 0,
+  },
   modelUrl: () => new URL("../models/dart.onnx", import.meta.url).href,
 };
 export default model;
