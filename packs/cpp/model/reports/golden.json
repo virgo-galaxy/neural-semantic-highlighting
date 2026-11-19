@@ -180,13 +180,6 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 19,
-          "end": 27,
-          "text": "\"hello \"",
-          "tokenType": "string",
-          "modifiers": []
-        },
-        {
           "start": 28,
           "end": 35,
           "text": "\"world\"",
@@ -202,20 +195,6 @@
         }
       ],
       "unexpected": [
-        {
-          "start": 19,
-          "end": 25,
-          "text": "\"hello",
-          "tokenType": "string",
-          "modifiers": []
-        },
-        {
-          "start": 26,
-          "end": 27,
-          "text": "\"",
-          "tokenType": "string",
-          "modifiers": []
-        },
         {
           "start": 28,
           "end": 36,
@@ -284,7 +263,7 @@
       "id": "unicode-crlf",
       "profile": "cpp",
       "documentKind": "cpp",
-      "source": "// 中文 🌙\r\nconst char *text = \"你好 🌿\";\r\n",
+      "source": "// \u4e2d\u6587 \ud83c\udf19\r\nconst char *text = \"\u4f60\u597d \ud83c\udf3f\";\r\n",
       "exactIncludingModifiers": true,
       "missing": [],
       "unexpected": []
@@ -335,15 +314,6 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 39,
-          "end": 42,
-          "text": "get",
-          "tokenType": "function",
-          "modifiers": [
-            "declaration"
-          ]
-        },
-        {
           "start": 63,
           "end": 68,
           "text": "value",
@@ -352,15 +322,6 @@
         }
       ],
       "unexpected": [
-        {
-          "start": 39,
-          "end": 42,
-          "text": "get",
-          "tokenType": "keyword",
-          "modifiers": [
-            "declaration"
-          ]
-        },
         {
           "start": 63,
           "end": 68,
@@ -484,22 +445,6 @@
           "modifiers": []
         },
         {
-          "start": 5,
-          "end": 6,
-          "text": "f",
-          "tokenType": "variable",
-          "modifiers": [
-            "declaration"
-          ]
-        },
-        {
-          "start": 6,
-          "end": 7,
-          "text": "=",
-          "tokenType": "operator",
-          "modifiers": []
-        },
-        {
           "start": 8,
           "end": 14,
           "text": "offset",
@@ -534,19 +479,17 @@
           ]
         },
         {
-          "start": 5,
-          "end": 7,
-          "text": "f=",
-          "tokenType": "variable",
-          "modifiers": [
-            "declaration"
-          ]
+          "start": 8,
+          "end": 14,
+          "text": "offset",
+          "tokenType": "function",
+          "modifiers": []
         },
         {
-          "start": 8,
+          "start": 14,
           "end": 15,
-          "text": "offset=",
-          "tokenType": "function",
+          "text": "=",
+          "tokenType": "punctuation",
           "modifiers": []
         },
         {
@@ -587,13 +530,13 @@
       "id": "raw-string",
       "profile": "cpp",
       "documentKind": "cpp",
-      "source": "auto text = R\"note(<tag name=\"🌌\">\nhello</tag>)note\";",
+      "source": "auto text = R\"note(<tag name=\"\ud83c\udf0c\">\nhello</tag>)note\";",
       "exactIncludingModifiers": false,
       "missing": [
         {
           "start": 12,
           "end": 52,
-          "text": "R\"note(<tag name=\"🌌\">\nhello</tag>)note\"",
+          "text": "R\"note(<tag name=\"\ud83c\udf0c\">\nhello</tag>)note\"",
           "tokenType": "string",
           "modifiers": []
         }
@@ -601,15 +544,8 @@
       "unexpected": [
         {
           "start": 12,
-          "end": 29,
-          "text": "R\"note(<tag name=",
-          "tokenType": "string",
-          "modifiers": []
-        },
-        {
-          "start": 29,
           "end": 34,
-          "text": "\"🌌\">",
+          "text": "R\"note(<tag name=\"\ud83c\udf0c\">",
           "tokenType": "string",
           "modifiers": []
         },
@@ -636,6 +572,15 @@
       "source": "enum class State { Ready }; State state=State::Ready;",
       "exactIncludingModifiers": false,
       "missing": [
+        {
+          "start": 11,
+          "end": 16,
+          "text": "State",
+          "tokenType": "enum",
+          "modifiers": [
+            "declaration"
+          ]
+        },
         {
           "start": 19,
           "end": 24,
@@ -670,6 +615,15 @@
         }
       ],
       "unexpected": [
+        {
+          "start": 11,
+          "end": 16,
+          "text": "State",
+          "tokenType": "class",
+          "modifiers": [
+            "declaration"
+          ]
+        },
         {
           "start": 19,
           "end": 24,
@@ -863,31 +817,31 @@
       "documents": 29,
       "exactDocumentsIncludingModifiers": 11,
       "exactSpan": {
-        "precision": 0.8805460750853242,
-        "recall": 0.8716216216216216,
-        "f1": 0.8760611205432938,
-        "tp": 258,
-        "fp": 35,
-        "fn": 38,
+        "precision": 0.8907849829351536,
+        "recall": 0.8817567567567568,
+        "f1": 0.8862478777589134,
+        "tp": 261,
+        "fp": 32,
+        "fn": 35,
         "support": 296
       },
-      "exactSpanMacroF1": 0.7713259009797345,
+      "exactSpanMacroF1": 0.7482322880492999,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8805460750853242,
-        "recall": 0.8716216216216216,
-        "f1": 0.8760611205432938,
-        "tp": 258,
-        "fp": 35,
-        "fn": 38,
+        "precision": 0.8907849829351536,
+        "recall": 0.8817567567567568,
+        "f1": 0.8862478777589134,
+        "tp": 261,
+        "fp": 32,
+        "fn": 35,
         "support": 296
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.9666666666666667,
+          "precision": 0.9830508474576272,
           "recall": 0.9206349206349206,
-          "f1": 0.943089430894309,
+          "f1": 0.9508196721311475,
           "tp": 58,
-          "fp": 2,
+          "fp": 1,
           "fn": 5,
           "support": 63
         },
@@ -901,12 +855,12 @@
           "support": 3
         },
         "string": {
-          "precision": 0.3333333333333333,
-          "recall": 0.5,
-          "f1": 0.4,
-          "tp": 4,
-          "fp": 8,
-          "fn": 4,
+          "precision": 0.5,
+          "recall": 0.625,
+          "f1": 0.5555555555555556,
+          "tp": 5,
+          "fp": 5,
+          "fn": 3,
           "support": 8
         },
         "number": {
@@ -920,19 +874,19 @@
         },
         "operator": {
           "precision": 1.0,
-          "recall": 0.9310344827586207,
-          "f1": 0.9642857142857143,
-          "tp": 27,
+          "recall": 0.9655172413793104,
+          "f1": 0.9824561403508771,
+          "tp": 28,
           "fp": 0,
-          "fn": 2,
+          "fn": 1,
           "support": 29
         },
         "punctuation": {
-          "precision": 0.963963963963964,
+          "precision": 0.9553571428571429,
           "recall": 0.9553571428571429,
-          "f1": 0.9596412556053812,
+          "f1": 0.9553571428571429,
           "tp": 107,
-          "fp": 4,
+          "fp": 5,
           "fn": 5,
           "support": 112
         },
@@ -955,21 +909,21 @@
           "support": 6
         },
         "class": {
-          "precision": 1.0,
+          "precision": 0.6666666666666666,
           "recall": 1.0,
-          "f1": 1.0,
+          "f1": 0.8,
           "tp": 2,
-          "fp": 0,
+          "fp": 1,
           "fn": 0,
           "support": 2
         },
         "enum": {
-          "precision": 1.0,
-          "recall": 0.3333333333333333,
-          "f1": 0.5,
-          "tp": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
           "fp": 0,
-          "fn": 2,
+          "fn": 3,
           "support": 3
         },
         "enum-member": {
@@ -982,12 +936,12 @@
           "support": 2
         },
         "function": {
-          "precision": 0.8888888888888888,
-          "recall": 0.7272727272727273,
-          "f1": 0.8,
-          "tp": 8,
+          "precision": 0.9,
+          "recall": 0.8181818181818182,
+          "f1": 0.8571428571428571,
+          "tp": 9,
           "fp": 1,
-          "fn": 3,
+          "fn": 2,
           "support": 11
         },
         "constructor": {
@@ -1018,12 +972,12 @@
           "support": 3
         },
         "variable": {
-          "precision": 0.6666666666666666,
-          "recall": 0.5454545454545454,
-          "f1": 0.6,
-          "tp": 12,
-          "fp": 6,
-          "fn": 10,
+          "precision": 0.7222222222222222,
+          "recall": 0.5909090909090909,
+          "f1": 0.65,
+          "tp": 13,
+          "fp": 5,
+          "fn": 9,
           "support": 22
         },
         "property": {
@@ -1061,31 +1015,31 @@
       "documents": 29,
       "exactDocumentsIncludingModifiers": 11,
       "exactSpan": {
-        "precision": 0.8805460750853242,
-        "recall": 0.8716216216216216,
-        "f1": 0.8760611205432938,
-        "tp": 258,
-        "fp": 35,
-        "fn": 38,
+        "precision": 0.8907849829351536,
+        "recall": 0.8817567567567568,
+        "f1": 0.8862478777589134,
+        "tp": 261,
+        "fp": 32,
+        "fn": 35,
         "support": 296
       },
-      "exactSpanMacroF1": 0.7713259009797345,
+      "exactSpanMacroF1": 0.7482322880492999,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8805460750853242,
-        "recall": 0.8716216216216216,
-        "f1": 0.8760611205432938,
-        "tp": 258,
-        "fp": 35,
-        "fn": 38,
+        "precision": 0.8907849829351536,
+        "recall": 0.8817567567567568,
+        "f1": 0.8862478777589134,
+        "tp": 261,
+        "fp": 32,
+        "fn": 35,
         "support": 296
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.9666666666666667,
+          "precision": 0.9830508474576272,
           "recall": 0.9206349206349206,
-          "f1": 0.943089430894309,
+          "f1": 0.9508196721311475,
           "tp": 58,
-          "fp": 2,
+          "fp": 1,
           "fn": 5,
           "support": 63
         },
@@ -1099,12 +1053,12 @@
           "support": 3
         },
         "string": {
-          "precision": 0.3333333333333333,
-          "recall": 0.5,
-          "f1": 0.4,
-          "tp": 4,
-          "fp": 8,
-          "fn": 4,
+          "precision": 0.5,
+          "recall": 0.625,
+          "f1": 0.5555555555555556,
+          "tp": 5,
+          "fp": 5,
+          "fn": 3,
           "support": 8
         },
         "number": {
@@ -1118,19 +1072,19 @@
         },
         "operator": {
           "precision": 1.0,
-          "recall": 0.9310344827586207,
-          "f1": 0.9642857142857143,
-          "tp": 27,
+          "recall": 0.9655172413793104,
+          "f1": 0.9824561403508771,
+          "tp": 28,
           "fp": 0,
-          "fn": 2,
+          "fn": 1,
           "support": 29
         },
         "punctuation": {
-          "precision": 0.963963963963964,
+          "precision": 0.9553571428571429,
           "recall": 0.9553571428571429,
-          "f1": 0.9596412556053812,
+          "f1": 0.9553571428571429,
           "tp": 107,
-          "fp": 4,
+          "fp": 5,
           "fn": 5,
           "support": 112
         },
@@ -1153,21 +1107,21 @@
           "support": 6
         },
         "class": {
-          "precision": 1.0,
+          "precision": 0.6666666666666666,
           "recall": 1.0,
-          "f1": 1.0,
+          "f1": 0.8,
           "tp": 2,
-          "fp": 0,
+          "fp": 1,
           "fn": 0,
           "support": 2
         },
         "enum": {
-          "precision": 1.0,
-          "recall": 0.3333333333333333,
-          "f1": 0.5,
-          "tp": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
           "fp": 0,
-          "fn": 2,
+          "fn": 3,
           "support": 3
         },
         "enum-member": {
@@ -1180,12 +1134,12 @@
           "support": 2
         },
         "function": {
-          "precision": 0.8888888888888888,
-          "recall": 0.7272727272727273,
-          "f1": 0.8,
-          "tp": 8,
+          "precision": 0.9,
+          "recall": 0.8181818181818182,
+          "f1": 0.8571428571428571,
+          "tp": 9,
           "fp": 1,
-          "fn": 3,
+          "fn": 2,
           "support": 11
         },
         "constructor": {
@@ -1216,12 +1170,12 @@
           "support": 3
         },
         "variable": {
-          "precision": 0.6666666666666666,
-          "recall": 0.5454545454545454,
-          "f1": 0.6,
-          "tp": 12,
-          "fp": 6,
-          "fn": 10,
+          "precision": 0.7222222222222222,
+          "recall": 0.5909090909090909,
+          "f1": 0.65,
+          "tp": 13,
+          "fp": 5,
+          "fn": 9,
           "support": 22
         },
         "property": {
@@ -1254,7 +1208,7 @@
       }
     }
   },
-  "checkpointHash": "2a130edcb8d264652aea1f864adb406c69a26d50a4f0a4997735ea594d97e117",
-  "checkpointEpoch": 2,
-  "device": "mps"
+  "checkpointHash": "43b2ebf973e24740f529e42fb2df2c305ad3bd476416501c9727cf5f781c4f52",
+  "checkpointEpoch": 4,
+  "device": "cpu"
 }

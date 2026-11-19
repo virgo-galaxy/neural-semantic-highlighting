@@ -19,3 +19,9 @@ inference. Local development: `.venv/bin/python -m packs.cpp.runtime.local --fil
 See [BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
 The selected `.pt` is inference-only; resume complete checkpoints under
 `artifacts/cpp`. Previous datasets, experiments and C/other models are preserved.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
