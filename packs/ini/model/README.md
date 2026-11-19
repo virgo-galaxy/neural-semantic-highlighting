@@ -16,3 +16,9 @@ Collected configurations are never executed or built.
 [known limits](KNOWN_ISSUES.md) retain measured errors and source-local scope.
 Selected .pt/ONNX are inference-only. Resume full artifacts/ini checkpoints only.
 All previous data, experiments and formal models remain preserved.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).

@@ -1,0 +1,1313 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "8ee0d5ac6652df0b9af3d8fcc6a9379a25c64887543d86a2ff3c8f19d7a89d88",
+  "cases": [
+    {
+      "id": "empty",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "whitespace",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": " \r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "hash",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "# settings \ud83c\udf0c\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "semicolon",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "  ; disabled setting\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 2,
+          "end": 20,
+          "text": "; disabled setting",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 2,
+          "end": 20,
+          "text": "; disabled setting",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "root",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "name = preview",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "section",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "[server]\nport = 8080",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 16,
+          "end": 20,
+          "text": "8080",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 16,
+          "end": 20,
+          "text": "8080",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "default",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "[DEFAULT]\nenabled = true",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 20,
+          "end": 24,
+          "text": "true",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 20,
+          "end": 24,
+          "text": "true",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "dotted-section",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "[tool.preview]\npath = ./docs",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "subsection",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "[remote \"origin\"]\nurl = https://example.test/repo",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "glob-section",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "[*.{js,ts}]\nindent_size = 2",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 1,
+          "end": 10,
+          "text": "*.{js,ts}",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 1,
+          "end": 3,
+          "text": "*.",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 3,
+          "end": 10,
+          "text": "{js,ts}",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "nested-glob",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "[[ab]*.py]\ntrim_trailing_whitespace = true",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 1,
+          "end": 9,
+          "text": "[ab]*.py",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 38,
+          "end": 42,
+          "text": "true",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 1,
+          "end": 2,
+          "text": "[",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 4,
+          "text": "ab",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 4,
+          "end": 5,
+          "text": "]",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 9,
+          "text": "*.py",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 38,
+          "end": 42,
+          "text": "true",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "section-tail",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "[app] ; header note",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 1,
+          "end": 4,
+          "text": "app",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 4,
+          "end": 5,
+          "text": "]",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 19,
+          "text": "; header note",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 1,
+          "end": 19,
+          "text": "app] ; header note",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "colon",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "timeout : 30",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 7,
+          "text": "timeout",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 9,
+          "text": ":",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 10,
+          "end": 12,
+          "text": "30",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 12,
+          "text": "timeout : 30",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "first-delimiter",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "url=https://example.test:8080/a=b",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "url",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "url",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "space-key",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "display name = Code examples",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 12,
+          "text": "display name",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 7,
+          "text": "display",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 12,
+          "text": "name",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "case-keys",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "Name = upper\nname = lower",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "numeric-key",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "123 = 45",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "123",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "123",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "array-key",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "paths[] = ./docs\npaths[] = ./assets",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 7,
+          "text": "paths[]",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 24,
+          "text": "paths[]",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 5,
+          "text": "paths",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 6,
+          "text": "[",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 7,
+          "text": "]",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 22,
+          "text": "paths",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 22,
+          "end": 23,
+          "text": "[",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 23,
+          "end": 24,
+          "text": "]",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "valueless",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "[flags]\nskip-networking",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 23,
+          "text": "skip-networking",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 23,
+          "text": "skip-networking",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "empty-value",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "empty =\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "duplicate",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "x = 1\nx = 2",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "duplicate-section",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "[app]\nx = 1\n[app]\ny = 2",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "booleans",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "on = YES\noff = False",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 8,
+          "text": "YES",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 20,
+          "text": "False",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 8,
+          "text": "YES",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 20,
+          "text": "False",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "quoted-bool",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "enabled = \"true\"",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "signed-number",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "amount = -125",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "scientific",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "threshold = +1.25e-3",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 20,
+          "text": "+1.25e-3",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 20,
+          "text": "+1.25e-3",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "hex",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "mask = 0xFF",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 11,
+          "text": "0xFF",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 11,
+          "text": "0xFF",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "units",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "delay = 30s",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 11,
+          "text": "30s",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 11,
+          "text": "30s",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "date-text",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "date = 2026-11-15",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "null-text",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "value = null",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 12,
+          "text": "null",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 12,
+          "text": "null",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "quoted",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "title = \"A # value; with = and :\"",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "path",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "root = C:\\workspace\\docs",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "=",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "=",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "regex",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "pattern = ^\\w+\\d+$",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 7,
+          "text": "pattern",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "pattern ",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "interpolation",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "path = %(here)s/data/${USER}",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "fragment",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "url = https://example.test/#section",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "url",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "url",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "inline-data",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "text = literal # data ; kept",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 28,
+          "text": "literal # data ; kept",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 15,
+          "text": "literal ",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 28,
+          "text": "# data ; kept",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "continuation",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "message = first line\n  second line\n  third # data\nready = true",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 37,
+          "end": 49,
+          "text": "third # data",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 37,
+          "end": 43,
+          "text": "third ",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 43,
+          "end": 49,
+          "text": "# data",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "continuation-comment",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "items = alpha\n  # full-line comment\n  beta=true\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 38,
+          "end": 47,
+          "text": "beta=true",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 38,
+          "end": 42,
+          "text": "beta",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 42,
+          "end": 43,
+          "text": "=",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 43,
+          "end": 47,
+          "text": "true",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "[\u8bbe\u7f6e\ud83c\udf0c]\r\n\u6807\u9898 = \u661f\u7a7a \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "bom",
+      "profile": "ini",
+      "documentKind": "ini",
+      "source": "\ufeffname = preview\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    }
+  ],
+  "profiles": {
+    "ini": {
+      "documents": 40,
+      "exactDocumentsIncludingModifiers": 17,
+      "exactSpan": {
+        "precision": 0.7705882352941177,
+        "recall": 0.8136645962732919,
+        "f1": 0.7915407854984894,
+        "tp": 131,
+        "fp": 39,
+        "fn": 30,
+        "support": 161
+      },
+      "exactSpanMacroF1": 0.6455244590177652,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.7705882352941177,
+        "recall": 0.8136645962732919,
+        "f1": 0.7915407854984894,
+        "tp": 131,
+        "fp": 39,
+        "fn": 30,
+        "support": 161
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.25,
+          "recall": 0.2,
+          "f1": 0.2222222222222222,
+          "tp": 1,
+          "fp": 3,
+          "fn": 4,
+          "support": 5
+        },
+        "comment": {
+          "precision": 0.6666666666666666,
+          "recall": 0.5,
+          "f1": 0.5714285714285714,
+          "tp": 2,
+          "fp": 1,
+          "fn": 2,
+          "support": 4
+        },
+        "string": {
+          "precision": 0.5833333333333334,
+          "recall": 0.8076923076923077,
+          "f1": 0.6774193548387096,
+          "tp": 21,
+          "fp": 15,
+          "fn": 5,
+          "support": 26
+        },
+        "number": {
+          "precision": 0.7777777777777778,
+          "recall": 0.6363636363636364,
+          "f1": 0.7,
+          "tp": 7,
+          "fp": 2,
+          "fn": 4,
+          "support": 11
+        },
+        "operator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "punctuation": {
+          "precision": 0.9375,
+          "recall": 0.9523809523809523,
+          "f1": 0.9448818897637795,
+          "tp": 60,
+          "fp": 4,
+          "fn": 3,
+          "support": 63
+        },
+        "namespace": {
+          "precision": 0.5,
+          "recall": 0.7272727272727273,
+          "f1": 0.5925925925925926,
+          "tp": 8,
+          "fp": 8,
+          "fn": 3,
+          "support": 11
+        },
+        "type": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "method": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constructor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "property": {
+          "precision": 0.8421052631578947,
+          "recall": 0.7804878048780488,
+          "f1": 0.810126582278481,
+          "tp": 32,
+          "fp": 6,
+          "fn": 9,
+          "support": 41
+        },
+        "type-parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "ini": {
+      "documents": 40,
+      "exactDocumentsIncludingModifiers": 17,
+      "exactSpan": {
+        "precision": 0.7705882352941177,
+        "recall": 0.8136645962732919,
+        "f1": 0.7915407854984894,
+        "tp": 131,
+        "fp": 39,
+        "fn": 30,
+        "support": 161
+      },
+      "exactSpanMacroF1": 0.6455244590177652,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.7705882352941177,
+        "recall": 0.8136645962732919,
+        "f1": 0.7915407854984894,
+        "tp": 131,
+        "fp": 39,
+        "fn": 30,
+        "support": 161
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.25,
+          "recall": 0.2,
+          "f1": 0.2222222222222222,
+          "tp": 1,
+          "fp": 3,
+          "fn": 4,
+          "support": 5
+        },
+        "comment": {
+          "precision": 0.6666666666666666,
+          "recall": 0.5,
+          "f1": 0.5714285714285714,
+          "tp": 2,
+          "fp": 1,
+          "fn": 2,
+          "support": 4
+        },
+        "string": {
+          "precision": 0.5833333333333334,
+          "recall": 0.8076923076923077,
+          "f1": 0.6774193548387096,
+          "tp": 21,
+          "fp": 15,
+          "fn": 5,
+          "support": 26
+        },
+        "number": {
+          "precision": 0.7777777777777778,
+          "recall": 0.6363636363636364,
+          "f1": 0.7,
+          "tp": 7,
+          "fp": 2,
+          "fn": 4,
+          "support": 11
+        },
+        "operator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "punctuation": {
+          "precision": 0.9375,
+          "recall": 0.9523809523809523,
+          "f1": 0.9448818897637795,
+          "tp": 60,
+          "fp": 4,
+          "fn": 3,
+          "support": 63
+        },
+        "namespace": {
+          "precision": 0.5,
+          "recall": 0.7272727272727273,
+          "f1": 0.5925925925925926,
+          "tp": 8,
+          "fp": 8,
+          "fn": 3,
+          "support": 11
+        },
+        "type": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "method": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constructor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "property": {
+          "precision": 0.8421052631578947,
+          "recall": 0.7804878048780488,
+          "f1": 0.810126582278481,
+          "tp": 32,
+          "fp": 6,
+          "fn": 9,
+          "support": 41
+        },
+        "type-parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "checkpointHash": "ad760bada3d9329f10eb5c186d7a3460f16395b2c4ec8e2fa598803b79010172",
+  "checkpointEpoch": 2,
+  "device": "mps"
+}

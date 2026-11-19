@@ -3,16 +3,20 @@
   "artifact": {
     "file": "model.pt",
     "format": "nsh-ini-model-v1",
-    "sha256": "a9e14c2c188ed0b36f07f7af4e359ac9145f86a1c1e58ca853bfdca022364226",
-    "bytes": 3638709,
+    "sha256": "02946dae4e86c5ee5f07b135876a849deb4b21470a1f4f1cfc2bc37c07d81e6f",
+    "bytes": 3649013,
     "parameterCount": 894872,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "selection": {
     "epoch": 2,
-    "metric": "mean per-profile natural real-source validation exact-span macro F1",
-    "score": 0.8423562316173153
+    "metric": "Mean per-profile natural adaptive role macro F1; minimum profile micro F1 breaks ties",
+    "score": 0.9235927412918935,
+    "validationReportSha256": "07135bb5b728a491ac172b77943c1c95a48571de4bfd140b7496aaf593571cc9",
+    "trainingBestEpoch": 2,
+    "trainingSelectionMetric": "profile-macro",
+    "trainingBestFixedScore": 0.8423562316173153
   },
   "checkpointConfig": {
     "context_bytes": 512,
@@ -72,7 +76,7 @@
   },
   "inference": {
     "windowing": "predicted-adaptive-cursor",
-    "decoder": "greedy-mean-logit",
+    "decoder": "joint-bio-viterbi",
     "packPolicy": {
       "coalesce_types": [],
       "modifier_roles": null
@@ -94,8 +98,8 @@
     "manifestHash": "39385fc7fa88f7e82d61e7448caf84a66eb40244043247443c8894a9f8c243b1"
   },
   "provenance": {
-    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/ini/context512-refine-20261115-01/candidates/epoch-0002.pt",
-    "sourceCheckpointSha256": "ad760bada3d9329f10eb5c186d7a3460f16395b2c4ec8e2fa598803b79010172",
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/ini/early-reviewed.pt",
+    "sourceCheckpointSha256": "4525691ba869d108f1f41040ea692976760aa530d50532498be07ecd15a1299f",
     "training": {
       "codeHashes": {
         "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
@@ -181,15 +185,30 @@
       ],
       "optimizerAndTrainingState": "fresh pack run"
     },
-    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+    "exporterSha256": "7e5b6e4e4ccb8ff2748ebbf639531a90c90d716df400f66e2d08f07b663af247",
+    "decoderCalibration": {
+      "sourceCheckpointHash": "ad760bada3d9329f10eb5c186d7a3460f16395b2c4ec8e2fa598803b79010172",
+      "validationReport": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/ini/baseline-calibrated.calibration.json",
+      "validationReportHash": "07135bb5b728a491ac172b77943c1c95a48571de4bfd140b7496aaf593571cc9",
+      "selection": "Mean per-profile natural adaptive role macro F1; minimum profile micro F1 breaks ties",
+      "primaryTestUsed": false
+    }
   },
   "reports": {
     "test-metrics.json": {
       "file": "reports/test-metrics.json",
-      "sha256": "ffc25f1a9691b615485ea1ce0c8c61993151c82c48048badd4037d779e1503e0",
-      "checkpointHash": "ad760bada3d9329f10eb5c186d7a3460f16395b2c4ec8e2fa598803b79010172",
+      "sha256": "d9a77bde10752c7c860fcb91f49813693bf0c35f1c3ac54672138ebb920e21a3",
+      "checkpointHash": "4525691ba869d108f1f41040ea692976760aa530d50532498be07ecd15a1299f",
       "split": "test",
       "inference": "predicted-adaptive-cursor"
+    },
+    "decoderCalibration.json": {
+      "file": "reports/decoderCalibration.json",
+      "sha256": "eff9981d0f7f4cb4d149f66de8cdc7f1ca315e58405c0b48a694d0e17dc1e91d"
+    },
+    "golden.json": {
+      "file": "reports/golden.json",
+      "sha256": "390be0256ad998b86e001b8a2540bc71d58ca0d0044f04c4f523e90258b6c176"
     }
   }
 }
