@@ -11,7 +11,7 @@ const model: BrowserModel = {
       },
     ],
   },
-  sha256: "acdfb92204bd0fe725aa27391eeabb6358be38bf3f7d8d57e76120eb6e4bdd62",
+  sha256: "c49fa9d6a1bf01004921521b9138c2b9fe9657b8874760027f9376c44afe2f7b",
   contextBytes: 512,
   schema: {
     tokenTypes: [
@@ -37,6 +37,12 @@ const model: BrowserModel = {
   },
   modifierThreshold: 0.6,
   decoder: {},
+  inferenceWindowing: {
+    format: "nsh-overlap-logits-v1",
+    strideBytes: 128,
+    edgeWeightCap: 128,
+    adaptiveWeight: 0,
+  },
   modelUrl: () => new URL("../models/zig.onnx", import.meta.url).href,
 };
 export default model;

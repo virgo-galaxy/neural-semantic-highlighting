@@ -3,16 +3,19 @@
   "artifact": {
     "file": "model.pt",
     "format": "nsh-zig-model-v1",
-    "sha256": "d6d1fa6391b0ca1fd1fdfe08d980504a94b5e65938b8d8510321fb88e9697c24",
-    "bytes": 3625845,
+    "sha256": "728a52bd3f9de3c7ecacacd46e74ed7605b2359462e4e07006149a7cedde31bf",
+    "bytes": 3626293,
     "parameterCount": 894485,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "selection": {
     "epoch": 6,
-    "metric": "mean per-profile natural real-source validation exact-span macro F1",
-    "score": 0.7795761739847589
+    "metric": "Maximum minimum natural VALIDATION profile F1; role macro decrease at most .01; unchanged runtime eligible",
+    "score": 0.9524528618469347,
+    "validationReportSha256": "d25db625eb1e774fef77001e4b2e7d111f56e5bc08cea28c4bb31c6bf8edc62e",
+    "trainingSelectionMetric": "profile-macro",
+    "trainingBestFixedScore": 0.7795761739847589
   },
   "checkpointConfig": {
     "context_bytes": 512,
@@ -75,7 +78,13 @@
       "modifier_roles": null
     },
     "modifierThreshold": 0.6,
-    "parserRequired": false
+    "parserRequired": false,
+    "windowingPolicy": {
+      "format": "nsh-overlap-logits-v1",
+      "strideBytes": 128,
+      "edgeWeightCap": 128,
+      "adaptiveWeight": 0
+    }
   },
   "scope": "zig-0.17.1-local-semantic-spans",
   "modelSchema": {
@@ -91,8 +100,8 @@
     "manifestHash": "6d7a8bbe60679025069e0b590707120275ddd50ef8f1fe04c3bd29fa358c2b8d"
   },
   "provenance": {
-    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/zig/context512-contextual-20261110-01/candidates/epoch-0006.pt",
-    "sourceCheckpointSha256": "a4a5dc389598cc1d9d4ed29ee0d21e5a7234671ad475696510bed82751f8b1f6",
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/remaining/zig/greedy-window.pt",
+    "sourceCheckpointSha256": "34b028852efc9e7b791c490f78d0a75b93d2f1d6fd6b95161b3f201746644322",
     "training": {
       "codeHashes": {
         "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
@@ -174,15 +183,28 @@
       ],
       "optimizerAndTrainingState": "fresh pack run"
     },
-    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+    "exporterSha256": "273c7f803cc1684d62f43d31a02229aec085228310c73833358d56f369593c72",
+    "windowingCalibration": {
+      "validationReport": "artifacts/quality-20261119/remaining/zig/greedy-window.windowing.json",
+      "validationReportHash": "d25db625eb1e774fef77001e4b2e7d111f56e5bc08cea28c4bb31c6bf8edc62e",
+      "testPredictionsUsed": false
+    }
   },
   "reports": {
     "test-metrics.json": {
       "file": "reports/test-metrics.json",
-      "sha256": "e8c3ff490d7868d865680a9c6f0b35c47629e28c3ba23f564d986e47257f5529",
-      "checkpointHash": "a4a5dc389598cc1d9d4ed29ee0d21e5a7234671ad475696510bed82751f8b1f6",
+      "sha256": "22f935f636d7efd7ba89596f8c35e316fce9c2106cfb30cbd3fa522f8c53b090",
+      "checkpointHash": "34b028852efc9e7b791c490f78d0a75b93d2f1d6fd6b95161b3f201746644322",
       "split": "test",
       "inference": "predicted-adaptive-cursor"
+    },
+    "windowingCalibration.json": {
+      "file": "reports/windowingCalibration.json",
+      "sha256": "87ba30eb50a54367db2374640d8a4f4030074d516011ff450cbca37b7dda402d"
+    },
+    "golden.json": {
+      "file": "reports/golden.json",
+      "sha256": "305ff30b1ab11951f3edf4bb19314830b64755b6044fa6f029b40c82b2f74623"
     }
   }
 }

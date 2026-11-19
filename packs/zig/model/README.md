@@ -19,3 +19,9 @@ evidence. [Known issues](KNOWN_ISSUES.md) record quoted identifiers, literal
 boundaries and approximate local roles. Selected `.pt` is inference-only;
 resumable full checkpoints stay under `artifacts/zig`. All earlier data,
 experiments and selected models are preserved.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).

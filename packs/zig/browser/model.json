@@ -14,12 +14,12 @@
   },
   "model": {
     "file": "model.onnx",
-    "sha256": "acdfb92204bd0fe725aa27391eeabb6358be38bf3f7d8d57e76120eb6e4bdd62",
+    "sha256": "c49fa9d6a1bf01004921521b9138c2b9fe9657b8874760027f9376c44afe2f7b",
     "bytes": 3706571
   },
   "source": {
     "file": "packs/zig/model/model.pt",
-    "sha256": "d6d1fa6391b0ca1fd1fdfe08d980504a94b5e65938b8d8510321fb88e9697c24"
+    "sha256": "728a52bd3f9de3c7ecacacd46e74ed7605b2359462e4e07006149a7cedde31bf"
   },
   "contextBytes": 512,
   "schema": {
@@ -52,6 +52,13 @@
   "resumableTrainingCheckpoint": false,
   "input": "original-utf8-bytes",
   "output": "original-utf16-spans",
-  "exporterSha256": "889577b2dc24ad6a2cbb1179fdfc7f9afcbc5a5906cde6c5835a64e8bb8ed2f5",
-  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+  "exporterSha256": "a3f74491abadb9228e2633749ddd380c5e43a103ef446fef4d1cd630b3378148",
+  "graphSha256": "1c61aaeb68ebe2bfb375afb3b73a28b05e80c48b5d414133ab8b9ebe3069044d",
+  "attentionGraphSha256": "b13cad168b9ffe63f3adef4142124943a12df22f2bb1dd081883fd121d90cc1a",
+  "inferenceWindowing": {
+    "format": "nsh-overlap-logits-v1",
+    "strideBytes": 128,
+    "edgeWeightCap": 128,
+    "adaptiveWeight": 0
+  }
 }

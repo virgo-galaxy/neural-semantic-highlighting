@@ -325,7 +325,7 @@
       "id": "string",
       "profile": "zig",
       "documentKind": "zig",
-      "source": "const text=\"星空 🌌\";",
+      "source": "const text=\"\u661f\u7a7a \ud83c\udf0c\";",
       "exactIncludingModifiers": false,
       "missing": [
         {
@@ -354,7 +354,7 @@
       "id": "character",
       "profile": "zig",
       "documentKind": "zig",
-      "source": "const c='星';",
+      "source": "const c='\u661f';",
       "exactIncludingModifiers": true,
       "missing": [],
       "unexpected": []
@@ -363,7 +363,7 @@
       "id": "multiline",
       "profile": "zig",
       "documentKind": "zig",
-      "source": "const text =\n\\\\first 🌌\n\\\\second\n;",
+      "source": "const text =\n\\\\first \ud83c\udf0c\n\\\\second\n;",
       "exactIncludingModifiers": false,
       "missing": [
         {
@@ -378,7 +378,7 @@
         {
           "start": 13,
           "end": 23,
-          "text": "\\\\first 🌌",
+          "text": "\\\\first \ud83c\udf0c",
           "tokenType": "string",
           "modifiers": []
         }
@@ -396,7 +396,7 @@
         {
           "start": 13,
           "end": 24,
-          "text": "\\\\first 🌌\n",
+          "text": "\\\\first \ud83c\udf0c\n",
           "tokenType": "string",
           "modifiers": []
         }
@@ -406,13 +406,13 @@
       "id": "line-comment",
       "profile": "zig",
       "documentKind": "zig",
-      "source": "// ordinary 星空 🌌\r\nconst x=1;",
+      "source": "// ordinary \u661f\u7a7a \ud83c\udf0c\r\nconst x=1;",
       "exactIncludingModifiers": false,
       "missing": [
         {
           "start": 0,
           "end": 17,
-          "text": "// ordinary 星空 🌌",
+          "text": "// ordinary \u661f\u7a7a \ud83c\udf0c",
           "tokenType": "comment",
           "modifiers": []
         },
@@ -435,7 +435,7 @@
         {
           "start": 0,
           "end": 18,
-          "text": "// ordinary 星空 🌌\r",
+          "text": "// ordinary \u661f\u7a7a \ud83c\udf0c\r",
           "tokenType": "comment",
           "modifiers": []
         },
@@ -461,13 +461,13 @@
       "id": "bom",
       "profile": "zig",
       "documentKind": "zig",
-      "source": "﻿const x:u8=1;",
+      "source": "\ufeffconst x:u8=1;",
       "exactIncludingModifiers": false,
       "missing": [
         {
           "start": 0,
           "end": 1,
-          "text": "﻿",
+          "text": "\ufeff",
           "tokenType": "punctuation",
           "modifiers": []
         },
@@ -492,7 +492,7 @@
         {
           "start": 0,
           "end": 6,
-          "text": "﻿const",
+          "text": "\ufeffconst",
           "tokenType": "keyword",
           "modifiers": []
         },
@@ -920,8 +920,7 @@
       }
     }
   },
-  "checkpointHash": "a4a5dc389598cc1d9d4ed29ee0d21e5a7234671ad475696510bed82751f8b1f6",
+  "checkpointHash": "34b028852efc9e7b791c490f78d0a75b93d2f1d6fd6b95161b3f201746644322",
   "checkpointEpoch": 6,
-  "device": "cpu",
-  "fixtureCorrection": "After first test, contextual-call fixture declares its generic Thing type, resolving an ast-check undeclared-name error. No training, data or model changed."
+  "device": "cpu"
 }
