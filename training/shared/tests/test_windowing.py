@@ -66,6 +66,26 @@ class WindowingTests(unittest.TestCase):
         self.assertFalse(model.training)
         torch.testing.assert_close(actual.token_type,expected.token_type,rtol=0,atol=0)
 
+    def test_validation_window_cache_preserves_logits_and_reuses_neural_calls(self):
+        from training.shared.windowing import overlap_logits
+        class CountingToy(ToyModel):
+            calls=0
+            def forward(self,ids,mask):
+                self.calls+=1
+                return super().forward(ids,mask)
+        model=CountingToy().eval();source='original α🌌 '*150;cache={}
+        first=dict(format='nsh-overlap-logits-v1',strideBytes=256,edgeWeightCap=128,adaptiveWeight=0)
+        second=dict(first,strideBytes=128)
+        overlap_logits(model,source,torch.device('cpu'),first,window_cache=cache)
+        previous=model.calls
+        cached=overlap_logits(model,source,torch.device('cpu'),second,window_cache=cache)
+        reused=model.calls-previous
+        previous=model.calls
+        plain=overlap_logits(model,source,torch.device('cpu'),second)
+        self.assertLess(reused,model.calls-previous)
+        for a,b in zip([cached.boundary,cached.token_type,cached.modifier],[plain.boundary,plain.token_type,plain.modifier]):
+            torch.testing.assert_close(a,b,rtol=0,atol=0)
+
     def test_unicode_reference_fixture_matches_frozen_native_output(self):
         saved=json.loads(Path('tests/fixtures/window-fusion.json').read_text())
         self.assertEqual(saved,fixture())

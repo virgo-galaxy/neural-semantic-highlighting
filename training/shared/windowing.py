@@ -16,7 +16,7 @@ def validate(policy):
 
 
 @torch.inference_mode()
-def overlap_logits(model, source, device, policy):
+def overlap_logits(model, source, device, policy, *, window_cache=None):
     from training.shared.inference import character_map
     from training.shared.model import ModelOutput
     validate(policy)
@@ -28,8 +28,14 @@ def overlap_logits(model, source, device, policy):
     cursor = 0
     while cursor < len(raw):
         end = starts[bisect_right(starts, min(cursor + 512, len(raw))) - 1]
-        ids = torch.tensor([list(raw[cursor:end])], dtype=torch.long, device=device)
-        output = model(ids, torch.ones_like(ids, dtype=torch.bool))
+        key = (cursor, end)
+        if window_cache is not None and key in window_cache:
+            output = window_cache[key]
+        else:
+            ids = torch.tensor([list(raw[cursor:end])], dtype=torch.long, device=device)
+            output = model(ids, torch.ones_like(ids, dtype=torch.bool))
+            if window_cache is not None:
+                window_cache[key] = output
         length = end - cursor
         weights = torch.minimum(torch.arange(1, length + 1), torch.arange(length, 0, -1)).clamp(max=128).double().reshape(-1, 1)
         for total, values in zip(sums, [output.boundary, output.token_type, output.modifier]):
