@@ -19,3 +19,9 @@ Local reference: `.venv/bin/python -m packs.rust.runtime.local --file example.rs
 [Known issues](KNOWN_ISSUES.md) include raw/format-string boundaries and local
 semantic approximations. Selected `.pt` is inference-only; resumable checkpoints
 stay under `artifacts/rust`. Existing models and historical data/runs are preserved.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).

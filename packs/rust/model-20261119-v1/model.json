@@ -1,0 +1,192 @@
+{
+  "id": "rust",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-rust-model-v1",
+    "sha256": "2bed2cf3dc495274d8c4fc0a0cfadd6ed6d7f39f49efa1515084ba9e625fa44d",
+    "bytes": 3640437,
+    "parameterCount": 894743,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 4,
+    "metric": "mean per-profile natural real-source validation exact-span macro F1",
+    "score": 0.7891055276483657
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1,
+    "local_kernel": 1
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "namespace",
+      "type",
+      "trait",
+      "enum",
+      "enum-member",
+      "function",
+      "parameter",
+      "variable",
+      "property",
+      "type-parameter",
+      "decorator",
+      "label",
+      "constant"
+    ],
+    "modifiers": [
+      "declaration"
+    ]
+  },
+  "documentKinds": [
+    "rust"
+  ],
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy-mean-logit",
+    "packPolicy": {
+      "coalesce_types": [],
+      "modifier_roles": null
+    },
+    "modifierThreshold": 0.6,
+    "parserRequired": false
+  },
+  "scope": "rust-local-semantic-spans",
+  "modelSchema": {
+    "file": "../schema.json",
+    "sha256": "7f1144b4a8781d8ac44a51bbcd2fb7a370710918dbc1c8dcd3d12e9026f0f6c1"
+  },
+  "publicSchema": {
+    "file": "../schema.json",
+    "sha256": "7f1144b4a8781d8ac44a51bbcd2fb7a370710918dbc1c8dcd3d12e9026f0f6c1"
+  },
+  "dataset": {
+    "snapshot": "5af4d189866e41be83ee5c18607226f92f7eace79cb9e0d8c600f73314a2c7f1",
+    "manifestHash": "d044435d2fe67e0d1bb1ef038f49e9754869c7936e60239b0c3a26114b091214"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/rust/context512-literals-20261110-01/candidates/epoch-0004.pt",
+    "sourceCheckpointSha256": "00c6d0119ff6d4a0d01339f1eb56a3ecd714b91f9ae01508ca854d6f92ff8598",
+    "training": {
+      "codeHashes": {
+        "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+        "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+        "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/rust/challenge.py": "d28d2e48d251799b24d7f8893cc97e8610cd48fe048b5941fb19943f9bef0764",
+        "training/rust/evaluate.py": "2cd72e5c57f374197ac4bb2f567d17b1df3a24cc9e8cf5ca830c00fac7854bf8",
+        "training/rust/export_model.py": "0e195ac8ed7c6a8e3b1bc7ccfc112e6f5a91bc68bab883c34772c4a022cb7d66",
+        "training/rust/predict.py": "cfad42f61f54ddd6f8f97ca91c404f0fd7960d7bc6c3572b635d1daea2b1d34f",
+        "training/rust/prepare.py": "4e99f9d806283ad49b021ac15bd6e84be206de585743ae8274d9e78103c1df56",
+        "training/rust/train.py": "e5269688fd8a9735b22d84d4950d4937595cfc37068d50a7aa25d78bdd192fbf",
+        "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+        "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+        "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+        "training/shared/encoding.py": "56c8ecba2b66d518eb031167647e5deb366cd53f642657170faae97601ed991c",
+        "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
+        "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+        "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+        "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+        "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+        "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+        "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+        "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+        "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+        "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+        "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+        "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+        "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+        "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+        "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+        "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+        "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+        "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
+      },
+      "semanticsHash": "33fb53d5e47fe06a69724b5786edbe5e5ef4dd1d7c842cfcc6355023d0e4eb13",
+      "packConfigHash": "ed73868d28b77f29c4f33d883d8be97371e944f3cb0f26172b99587a8b21ed4f",
+      "decoderPolicy": {
+        "coalesce_types": [],
+        "modifier_roles": null
+      },
+      "pythonTorch": "2.14.0",
+      "repositoryDirty": true,
+      "repositoryCommit": "151fd9c1790cc7463c1ad91bb6e60a3883978791"
+    },
+    "initialization": {
+      "mode": "rust-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/rust/context512-20261110-01/candidates/epoch-0009.pt",
+      "checkpointHash": "dd048eccfcfd768c310b85cb6e79e4a63d3bd711997246569399f80b5833d55c",
+      "sourceEpoch": 9,
+      "sourceDataset": {
+        "snapshot": "90b0db2f8860f63910293cf994dafd83685749890256100108e656b0951074d0",
+        "manifestHash": "5c37d94b69dd2449eaf005be977071030307a7df9af5402e8ad5385196a586ea",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/rust/prepared/90b0db2f8860f63910293cf994dafd83685749890256100108e656b0951074d0"
+      },
+      "copiedTokenTypes": [
+        "keyword",
+        "comment",
+        "string",
+        "number",
+        "operator",
+        "punctuation",
+        "namespace",
+        "type",
+        "trait",
+        "enum",
+        "enum-member",
+        "function",
+        "parameter",
+        "variable",
+        "property",
+        "type-parameter",
+        "decorator",
+        "label",
+        "constant"
+      ],
+      "newTokenTypes": [],
+      "newTensors": [],
+      "copiedModifiers": [
+        "declaration"
+      ],
+      "optimizerAndTrainingState": "fresh pack run"
+    },
+    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "6b7b2a77708a465e9db302a3729c3e14b21c2056ddf7e00b56041f91ebcb273a",
+      "checkpointHash": "00c6d0119ff6d4a0d01339f1eb56a3ecd714b91f9ae01508ca854d6f92ff8598",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    }
+  }
+}

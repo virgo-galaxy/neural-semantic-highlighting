@@ -1,0 +1,548 @@
+{
+  "pack": "rust",
+  "sourceCheckpoint": "artifacts/rust/context512-quality-sweep-20261119-01/best.pt",
+  "sourceCheckpointHash": "f9e441b79e0954031ad27897d8e20311ffa55c31ecec24f8a4f2caf6c28945a5",
+  "dataset": {
+    "snapshot": "5af4d189866e41be83ee5c18607226f92f7eace79cb9e0d8c600f73314a2c7f1",
+    "manifestHash": "d044435d2fe67e0d1bb1ef038f49e9754869c7936e60239b0c3a26114b091214",
+    "path": "/Users/mystic/Datasets/neural-semantic-highlighting/rust/prepared/5af4d189866e41be83ee5c18607226f92f7eace79cb9e0d8c600f73314a2c7f1"
+  },
+  "fit": "Natural TRAIN Gold only; source-family disjoint VALIDATION selection",
+  "selection": "profile-f1; natural adaptive validation only",
+  "searchGrid": {
+    "typeWeights": [
+      0.1,
+      0.25,
+      0.5,
+      1.0
+    ],
+    "transitionWeights": [
+      0.1,
+      0.3,
+      0.5
+    ]
+  },
+  "testUsed": false,
+  "primaryTestUsed": false,
+  "trials": [
+    {
+      "index": 0,
+      "parameters": null,
+      "selectionKey": [
+        0.9106997005172883,
+        0.7953012538470864
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.8993748739665255,
+            "recall": 0.9223133659612601,
+            "f1": 0.9106997005172883,
+            "tp": 13380,
+            "fp": 1497,
+            "fn": 1127,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.7953012538470864
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.8993748739665255,
+          "recall": 0.9223133659612601,
+          "f1": 0.9106997005172883,
+          "tp": 13380,
+          "fp": 1497,
+          "fn": 1127,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.7953012538470864
+      }
+    },
+    {
+      "index": 1,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.1,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.917108302758527,
+        0.8010997274787021
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9041462924509345,
+            "recall": 0.930447370235059,
+            "f1": 0.917108302758527,
+            "tp": 13498,
+            "fp": 1431,
+            "fn": 1009,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.8010997274787021
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9041462924509345,
+          "recall": 0.930447370235059,
+          "f1": 0.917108302758527,
+          "tp": 13498,
+          "fp": 1431,
+          "fn": 1009,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.8010997274787021
+      }
+    },
+    {
+      "index": 2,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.1,
+        "transitionWeight": 0.3
+      },
+      "selectionKey": [
+        0.9079023526607879,
+        0.7941389589627253
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.8969994617868676,
+            "recall": 0.9190735506996622,
+            "f1": 0.9079023526607879,
+            "tp": 13333,
+            "fp": 1531,
+            "fn": 1174,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.7941389589627253
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.8969994617868676,
+          "recall": 0.9190735506996622,
+          "f1": 0.9079023526607879,
+          "tp": 13333,
+          "fp": 1531,
+          "fn": 1174,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.7941389589627253
+      }
+    },
+    {
+      "index": 3,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.1,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.8861710849959005,
+        0.7777883777369481
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.8784287165594311,
+            "recall": 0.8940511477217895,
+            "f1": 0.8861710849959005,
+            "tp": 12970,
+            "fp": 1795,
+            "fn": 1537,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.7777883777369481
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.8784287165594311,
+          "recall": 0.8940511477217895,
+          "f1": 0.8861710849959005,
+          "tp": 12970,
+          "fp": 1795,
+          "fn": 1537,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.7777883777369481
+      }
+    },
+    {
+      "index": 4,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.25,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9238227616367766,
+        0.8106389140427516
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9089392928619079,
+            "recall": 0.939201764665334,
+            "f1": 0.9238227616367766,
+            "tp": 13625,
+            "fp": 1365,
+            "fn": 882,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.8106389140427516
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9089392928619079,
+          "recall": 0.939201764665334,
+          "f1": 0.9238227616367766,
+          "tp": 13625,
+          "fp": 1365,
+          "fn": 882,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.8106389140427516
+      }
+    },
+    {
+      "index": 5,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.25,
+        "transitionWeight": 0.3
+      },
+      "selectionKey": [
+        0.9224032586558045,
+        0.8074720309817507
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9086470942285829,
+            "recall": 0.9365823395602123,
+            "f1": 0.9224032586558045,
+            "tp": 13587,
+            "fp": 1366,
+            "fn": 920,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.8074720309817507
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9086470942285829,
+          "recall": 0.9365823395602123,
+          "f1": 0.9224032586558045,
+          "tp": 13587,
+          "fp": 1366,
+          "fn": 920,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.8074720309817507
+      }
+    },
+    {
+      "index": 6,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.25,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.9165248178661402,
+        0.8049290294222949
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9054281294141387,
+            "recall": 0.9278968773695457,
+            "f1": 0.9165248178661402,
+            "tp": 13461,
+            "fp": 1406,
+            "fn": 1046,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.8049290294222949
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9054281294141387,
+          "recall": 0.9278968773695457,
+          "f1": 0.9165248178661402,
+          "tp": 13461,
+          "fp": 1406,
+          "fn": 1046,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.8049290294222949
+      }
+    },
+    {
+      "index": 7,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.5,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9257502879208725,
+        0.8126060742421106
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9100899100899101,
+            "recall": 0.9419590542496725,
+            "f1": 0.9257502879208725,
+            "tp": 13665,
+            "fp": 1350,
+            "fn": 842,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.8126060742421106
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9100899100899101,
+          "recall": 0.9419590542496725,
+          "f1": 0.9257502879208725,
+          "tp": 13665,
+          "fp": 1350,
+          "fn": 842,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.8126060742421106
+      }
+    },
+    {
+      "index": 8,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.5,
+        "transitionWeight": 0.3
+      },
+      "selectionKey": [
+        0.9255895906749797,
+        0.8101663141634908
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9102299233588804,
+            "recall": 0.9414765285724133,
+            "f1": 0.9255895906749797,
+            "tp": 13658,
+            "fp": 1347,
+            "fn": 849,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.8101663141634908
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9102299233588804,
+          "recall": 0.9414765285724133,
+          "f1": 0.9255895906749797,
+          "tp": 13658,
+          "fp": 1347,
+          "fn": 849,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.8101663141634908
+      }
+    },
+    {
+      "index": 9,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.5,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.924966078697422,
+        0.8091768099545744
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9105723635877914,
+            "recall": 0.9398221548218102,
+            "f1": 0.924966078697422,
+            "tp": 13634,
+            "fp": 1339,
+            "fn": 873,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.8091768099545744
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9105723635877914,
+          "recall": 0.9398221548218102,
+          "f1": 0.924966078697422,
+          "tp": 13634,
+          "fp": 1339,
+          "fn": 873,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.8091768099545744
+      }
+    },
+    {
+      "index": 10,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 1.0,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9260726743201598,
+        0.8122636454395255
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9101983757156171,
+            "recall": 0.9425105121665402,
+            "f1": 0.9260726743201598,
+            "tp": 13673,
+            "fp": 1349,
+            "fn": 834,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.8122636454395255
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9101983757156171,
+          "recall": 0.9425105121665402,
+          "f1": 0.9260726743201598,
+          "tp": 13673,
+          "fp": 1349,
+          "fn": 834,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.8122636454395255
+      }
+    },
+    {
+      "index": 11,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 1.0,
+        "transitionWeight": 0.3
+      },
+      "selectionKey": [
+        0.9265582655826559,
+        0.813009796129837
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9109438486644907,
+            "recall": 0.9427173088853656,
+            "f1": 0.9265582655826559,
+            "tp": 13676,
+            "fp": 1337,
+            "fn": 831,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.813009796129837
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9109438486644907,
+          "recall": 0.9427173088853656,
+          "f1": 0.9265582655826559,
+          "tp": 13676,
+          "fp": 1337,
+          "fn": 831,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.813009796129837
+      }
+    },
+    {
+      "index": 12,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 1.0,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.926647467389463,
+        0.8108415793466099
+      ],
+      "profiles": {
+        "rust": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9111807036247335,
+            "recall": 0.9426483766457572,
+            "f1": 0.926647467389463,
+            "tp": 13675,
+            "fp": 1333,
+            "fn": 832,
+            "support": 14507
+          },
+          "exactSpanMacroF1": 0.8108415793466099
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9111807036247335,
+          "recall": 0.9426483766457572,
+          "f1": 0.926647467389463,
+          "tp": 13675,
+          "fp": 1333,
+          "fn": 832,
+          "support": 14507
+        },
+        "exactSpanMacroF1": 0.8108415793466099
+      }
+    }
+  ],
+  "selected": 12,
+  "detailPolicy": "Compact validation search table; repeated decoder matrices and per-role diagnostics remain in the original immutable experiment report",
+  "fullReportSha256": "470ec198df320ad42e8bf475c4ccf0bea444d07b93c1c96ea874dfe1c16a53aa"
+}

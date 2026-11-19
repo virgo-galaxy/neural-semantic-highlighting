@@ -113,13 +113,6 @@
           ]
         },
         {
-          "start": 22,
-          "end": 25,
-          "text": "let",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
           "start": 26,
           "end": 27,
           "text": "e",
@@ -141,6 +134,13 @@
           "text": "E",
           "tokenType": "enum",
           "modifiers": []
+        },
+        {
+          "start": 31,
+          "end": 32,
+          "text": "A",
+          "tokenType": "enum-member",
+          "modifiers": []
         }
       ],
       "unexpected": [
@@ -157,14 +157,7 @@
           "start": 9,
           "end": 10,
           "text": "A",
-          "tokenType": "type-parameter",
-          "modifiers": []
-        },
-        {
-          "start": 22,
-          "end": 25,
-          "text": "let",
-          "tokenType": "function",
+          "tokenType": "trait",
           "modifiers": []
         },
         {
@@ -172,9 +165,7 @@
           "end": 27,
           "text": "e",
           "tokenType": "namespace",
-          "modifiers": [
-            "declaration"
-          ]
+          "modifiers": []
         },
         {
           "start": 27,
@@ -187,6 +178,13 @@
           "start": 28,
           "end": 29,
           "text": "E",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 31,
+          "end": 32,
+          "text": "A",
           "tokenType": "namespace",
           "modifiers": []
         }
@@ -302,13 +300,13 @@
       "id": "macro",
       "profile": "rust",
       "documentKind": "rust",
-      "source": "fn main() { println!(\"Hello 🌌\"); }",
+      "source": "fn main() { println!(\"Hello \ud83c\udf0c\"); }",
       "exactIncludingModifiers": false,
       "missing": [
         {
           "start": 21,
           "end": 31,
-          "text": "\"Hello 🌌\"",
+          "text": "\"Hello \ud83c\udf0c\"",
           "tokenType": "string",
           "modifiers": []
         },
@@ -337,15 +335,8 @@
       "unexpected": [
         {
           "start": 21,
-          "end": 33,
-          "text": "\"Hello 🌌\");",
-          "tokenType": "string",
-          "modifiers": []
-        },
-        {
-          "start": 34,
           "end": 35,
-          "text": "}",
+          "text": "\"Hello \ud83c\udf0c\"); }",
           "tokenType": "string",
           "modifiers": []
         }
@@ -414,13 +405,13 @@
       "id": "raw-string",
       "profile": "rust",
       "documentKind": "rust",
-      "source": "const TEXT: &str = r##\"{ \\\"name\\\": \\\"星 🌌\\\" }\"##;",
+      "source": "const TEXT: &str = r##\"{ \\\"name\\\": \\\"\u661f \ud83c\udf0c\\\" }\"##;",
       "exactIncludingModifiers": false,
       "missing": [
         {
           "start": 19,
           "end": 48,
-          "text": "r##\"{ \\\"name\\\": \\\"星 🌌\\\" }\"##",
+          "text": "r##\"{ \\\"name\\\": \\\"\u661f \ud83c\udf0c\\\" }\"##",
           "tokenType": "string",
           "modifiers": []
         },
@@ -436,7 +427,7 @@
         {
           "start": 19,
           "end": 49,
-          "text": "r##\"{ \\\"name\\\": \\\"星 🌌\\\" }\"##;",
+          "text": "r##\"{ \\\"name\\\": \\\"\u661f \ud83c\udf0c\\\" }\"##;",
           "tokenType": "string",
           "modifiers": []
         }
@@ -482,13 +473,6 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 8,
-          "end": 11,
-          "text": "let",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
           "start": 24,
           "end": 25,
           "text": "}",
@@ -497,13 +481,6 @@
         }
       ],
       "unexpected": [
-        {
-          "start": 8,
-          "end": 11,
-          "text": "let",
-          "tokenType": "variable",
-          "modifiers": []
-        },
         {
           "start": 24,
           "end": 25,
@@ -588,31 +565,15 @@
       "profile": "rust",
       "documentKind": "rust",
       "source": "fn r#type(){}",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 12,
-          "end": 13,
-          "text": "}",
-          "tokenType": "punctuation",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 12,
-          "end": 13,
-          "text": "}",
-          "tokenType": "string",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "nested-comment",
       "profile": "rust",
       "documentKind": "rust",
-      "source": "/* outer /* inner 🌌 */ end */",
+      "source": "/* outer /* inner \ud83c\udf0c */ end */",
       "exactIncludingModifiers": true,
       "missing": [],
       "unexpected": []
@@ -630,23 +591,9 @@
       "id": "bom",
       "profile": "rust",
       "documentKind": "rust",
-      "source": "﻿const X:u8=1;",
+      "source": "\ufeffconst X:u8=1;",
       "exactIncludingModifiers": false,
       "missing": [
-        {
-          "start": 0,
-          "end": 1,
-          "text": "﻿",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
-          "start": 1,
-          "end": 6,
-          "text": "const",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
         {
           "start": 7,
           "end": 8,
@@ -673,13 +620,6 @@
       ],
       "unexpected": [
         {
-          "start": 0,
-          "end": 6,
-          "text": "﻿const",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
           "start": 7,
           "end": 8,
           "text": "X",
@@ -690,9 +630,16 @@
         },
         {
           "start": 8,
+          "end": 9,
+          "text": ":",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 9,
           "end": 11,
-          "text": ":u8",
-          "tokenType": "constant",
+          "text": "u8",
+          "tokenType": "type",
           "modifiers": []
         }
       ]
@@ -726,34 +673,34 @@
   "profiles": {
     "rust": {
       "documents": 23,
-      "exactDocumentsIncludingModifiers": 7,
+      "exactDocumentsIncludingModifiers": 8,
       "exactSpan": {
-        "precision": 0.8928571428571429,
-        "recall": 0.872093023255814,
-        "f1": 0.8823529411764706,
-        "tp": 225,
-        "fp": 27,
-        "fn": 33,
+        "precision": 0.9051383399209486,
+        "recall": 0.8875968992248062,
+        "f1": 0.8962818003913894,
+        "tp": 229,
+        "fp": 24,
+        "fn": 29,
         "support": 258
       },
-      "exactSpanMacroF1": 0.8006758458401223,
+      "exactSpanMacroF1": 0.7815142082353435,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8849206349206349,
-        "recall": 0.8643410852713178,
-        "f1": 0.8745098039215686,
-        "tp": 223,
-        "fp": 29,
-        "fn": 35,
+        "precision": 0.8972332015810277,
+        "recall": 0.8798449612403101,
+        "f1": 0.8884540117416829,
+        "tp": 227,
+        "fp": 26,
+        "fn": 31,
         "support": 258
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.851063829787234,
-          "recall": 0.8695652173913043,
-          "f1": 0.8602150537634409,
-          "tp": 40,
-          "fp": 7,
-          "fn": 6,
+          "precision": 0.8775510204081632,
+          "recall": 0.9347826086956522,
+          "f1": 0.9052631578947369,
+          "tp": 43,
+          "fp": 6,
+          "fn": 3,
           "support": 46
         },
         "comment": {
@@ -766,11 +713,11 @@
           "support": 2
         },
         "string": {
-          "precision": 0.14285714285714285,
+          "precision": 0.2,
           "recall": 0.25,
-          "f1": 0.18181818181818182,
+          "f1": 0.2222222222222222,
           "tp": 1,
-          "fp": 6,
+          "fp": 4,
           "fn": 3,
           "support": 4
         },
@@ -793,38 +740,38 @@
           "support": 34
         },
         "punctuation": {
-          "precision": 0.9895833333333334,
-          "recall": 0.9223300970873787,
-          "f1": 0.9547738693467337,
-          "tp": 95,
-          "fp": 1,
-          "fn": 8,
+          "precision": 0.9797979797979798,
+          "recall": 0.941747572815534,
+          "f1": 0.9603960396039604,
+          "tp": 97,
+          "fp": 2,
+          "fn": 6,
           "support": 103
         },
         "namespace": {
-          "precision": 0.42857142857142855,
+          "precision": 0.375,
           "recall": 1.0,
-          "f1": 0.6,
+          "f1": 0.5454545454545454,
           "tp": 3,
-          "fp": 4,
+          "fp": 5,
           "fn": 0,
           "support": 3
         },
         "type": {
-          "precision": 1.0,
+          "precision": 0.6666666666666666,
           "recall": 0.6666666666666666,
-          "f1": 0.8,
+          "f1": 0.6666666666666666,
           "tp": 2,
-          "fp": 0,
+          "fp": 1,
           "fn": 1,
           "support": 3
         },
         "trait": {
-          "precision": 1.0,
+          "precision": 0.5,
           "recall": 1.0,
-          "f1": 1.0,
+          "f1": 0.6666666666666666,
           "tp": 1,
-          "fp": 0,
+          "fp": 1,
           "fn": 0,
           "support": 1
         },
@@ -839,19 +786,19 @@
         },
         "enum-member": {
           "precision": 1.0,
-          "recall": 0.75,
-          "f1": 0.8571428571428571,
-          "tp": 3,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 2,
           "fp": 0,
-          "fn": 1,
+          "fn": 2,
           "support": 4
         },
         "function": {
-          "precision": 0.9333333333333333,
+          "precision": 1.0,
           "recall": 0.9333333333333333,
-          "f1": 0.9333333333333333,
+          "f1": 0.9655172413793104,
           "tp": 14,
-          "fp": 1,
+          "fp": 0,
           "fn": 1,
           "support": 15
         },
@@ -865,11 +812,11 @@
           "support": 14
         },
         "variable": {
-          "precision": 0.5,
+          "precision": 0.5714285714285714,
           "recall": 0.8,
-          "f1": 0.6153846153846154,
+          "f1": 0.6666666666666666,
           "tp": 4,
-          "fp": 4,
+          "fp": 3,
           "fn": 1,
           "support": 5
         },
@@ -883,11 +830,11 @@
           "support": 1
         },
         "type-parameter": {
-          "precision": 0.75,
+          "precision": 0.8571428571428571,
           "recall": 1.0,
-          "f1": 0.8571428571428571,
+          "f1": 0.9230769230769231,
           "tp": 6,
-          "fp": 2,
+          "fp": 1,
           "fn": 0,
           "support": 6
         },
@@ -910,11 +857,11 @@
           "support": 2
         },
         "constant": {
-          "precision": 0.75,
+          "precision": 1.0,
           "recall": 0.75,
-          "f1": 0.75,
+          "f1": 0.8571428571428571,
           "tp": 3,
-          "fp": 1,
+          "fp": 0,
           "fn": 1,
           "support": 4
         }
@@ -924,34 +871,34 @@
   "documentKinds": {
     "rust": {
       "documents": 23,
-      "exactDocumentsIncludingModifiers": 7,
+      "exactDocumentsIncludingModifiers": 8,
       "exactSpan": {
-        "precision": 0.8928571428571429,
-        "recall": 0.872093023255814,
-        "f1": 0.8823529411764706,
-        "tp": 225,
-        "fp": 27,
-        "fn": 33,
+        "precision": 0.9051383399209486,
+        "recall": 0.8875968992248062,
+        "f1": 0.8962818003913894,
+        "tp": 229,
+        "fp": 24,
+        "fn": 29,
         "support": 258
       },
-      "exactSpanMacroF1": 0.8006758458401223,
+      "exactSpanMacroF1": 0.7815142082353435,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8849206349206349,
-        "recall": 0.8643410852713178,
-        "f1": 0.8745098039215686,
-        "tp": 223,
-        "fp": 29,
-        "fn": 35,
+        "precision": 0.8972332015810277,
+        "recall": 0.8798449612403101,
+        "f1": 0.8884540117416829,
+        "tp": 227,
+        "fp": 26,
+        "fn": 31,
         "support": 258
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.851063829787234,
-          "recall": 0.8695652173913043,
-          "f1": 0.8602150537634409,
-          "tp": 40,
-          "fp": 7,
-          "fn": 6,
+          "precision": 0.8775510204081632,
+          "recall": 0.9347826086956522,
+          "f1": 0.9052631578947369,
+          "tp": 43,
+          "fp": 6,
+          "fn": 3,
           "support": 46
         },
         "comment": {
@@ -964,11 +911,11 @@
           "support": 2
         },
         "string": {
-          "precision": 0.14285714285714285,
+          "precision": 0.2,
           "recall": 0.25,
-          "f1": 0.18181818181818182,
+          "f1": 0.2222222222222222,
           "tp": 1,
-          "fp": 6,
+          "fp": 4,
           "fn": 3,
           "support": 4
         },
@@ -991,38 +938,38 @@
           "support": 34
         },
         "punctuation": {
-          "precision": 0.9895833333333334,
-          "recall": 0.9223300970873787,
-          "f1": 0.9547738693467337,
-          "tp": 95,
-          "fp": 1,
-          "fn": 8,
+          "precision": 0.9797979797979798,
+          "recall": 0.941747572815534,
+          "f1": 0.9603960396039604,
+          "tp": 97,
+          "fp": 2,
+          "fn": 6,
           "support": 103
         },
         "namespace": {
-          "precision": 0.42857142857142855,
+          "precision": 0.375,
           "recall": 1.0,
-          "f1": 0.6,
+          "f1": 0.5454545454545454,
           "tp": 3,
-          "fp": 4,
+          "fp": 5,
           "fn": 0,
           "support": 3
         },
         "type": {
-          "precision": 1.0,
+          "precision": 0.6666666666666666,
           "recall": 0.6666666666666666,
-          "f1": 0.8,
+          "f1": 0.6666666666666666,
           "tp": 2,
-          "fp": 0,
+          "fp": 1,
           "fn": 1,
           "support": 3
         },
         "trait": {
-          "precision": 1.0,
+          "precision": 0.5,
           "recall": 1.0,
-          "f1": 1.0,
+          "f1": 0.6666666666666666,
           "tp": 1,
-          "fp": 0,
+          "fp": 1,
           "fn": 0,
           "support": 1
         },
@@ -1037,19 +984,19 @@
         },
         "enum-member": {
           "precision": 1.0,
-          "recall": 0.75,
-          "f1": 0.8571428571428571,
-          "tp": 3,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "tp": 2,
           "fp": 0,
-          "fn": 1,
+          "fn": 2,
           "support": 4
         },
         "function": {
-          "precision": 0.9333333333333333,
+          "precision": 1.0,
           "recall": 0.9333333333333333,
-          "f1": 0.9333333333333333,
+          "f1": 0.9655172413793104,
           "tp": 14,
-          "fp": 1,
+          "fp": 0,
           "fn": 1,
           "support": 15
         },
@@ -1063,11 +1010,11 @@
           "support": 14
         },
         "variable": {
-          "precision": 0.5,
+          "precision": 0.5714285714285714,
           "recall": 0.8,
-          "f1": 0.6153846153846154,
+          "f1": 0.6666666666666666,
           "tp": 4,
-          "fp": 4,
+          "fp": 3,
           "fn": 1,
           "support": 5
         },
@@ -1081,11 +1028,11 @@
           "support": 1
         },
         "type-parameter": {
-          "precision": 0.75,
+          "precision": 0.8571428571428571,
           "recall": 1.0,
-          "f1": 0.8571428571428571,
+          "f1": 0.9230769230769231,
           "tp": 6,
-          "fp": 2,
+          "fp": 1,
           "fn": 0,
           "support": 6
         },
@@ -1108,18 +1055,18 @@
           "support": 2
         },
         "constant": {
-          "precision": 0.75,
+          "precision": 1.0,
           "recall": 0.75,
-          "f1": 0.75,
+          "f1": 0.8571428571428571,
           "tp": 3,
-          "fp": 1,
+          "fp": 0,
           "fn": 1,
           "support": 4
         }
       }
     }
   },
-  "checkpointHash": "00c6d0119ff6d4a0d01339f1eb56a3ecd714b91f9ae01508ca854d6f92ff8598",
-  "checkpointEpoch": 4,
-  "device": "mps"
+  "checkpointHash": "20560c6a142747d3b2cda68491b11957ca8c0f1c87614563d5d1d71798caaca9",
+  "checkpointEpoch": 1,
+  "device": "cpu"
 }
