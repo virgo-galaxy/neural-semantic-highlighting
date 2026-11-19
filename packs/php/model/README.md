@@ -20,3 +20,9 @@ project dependencies are required. Base-only local reference:
 visible template results. [Known issues](KNOWN_ISSUES.md) retain measured limits.
 Selected `.pt` is inference-only; full checkpoints stay under `artifacts/php`.
 All previous language data, experiments and models remain preserved.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).

@@ -43,13 +43,6 @@
           "modifiers": []
         },
         {
-          "start": 10,
-          "end": 11,
-          "text": ";",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
           "start": 12,
           "end": 14,
           "text": "$x",
@@ -69,47 +62,26 @@
           "text": "2",
           "tokenType": "number",
           "modifiers": []
-        },
-        {
-          "start": 16,
-          "end": 17,
-          "text": ";",
-          "tokenType": "punctuation",
-          "modifiers": []
         }
       ],
       "unexpected": [
         {
           "start": 6,
-          "end": 9,
-          "text": "$x=",
+          "end": 10,
+          "text": "$x=1",
           "tokenType": "variable",
           "modifiers": [
             "declaration"
           ]
         },
         {
-          "start": 9,
-          "end": 11,
-          "text": "1;",
-          "tokenType": "embedded-html",
-          "modifiers": []
-        },
-        {
           "start": 12,
           "end": 16,
           "text": "$x=2",
-          "tokenType": "embedded-html",
+          "tokenType": "variable",
           "modifiers": [
             "declaration"
           ]
-        },
-        {
-          "start": 16,
-          "end": 17,
-          "text": ";",
-          "tokenType": "embedded-html",
-          "modifiers": []
         }
       ]
     },
@@ -354,8 +326,10 @@
           "start": 11,
           "end": 16,
           "text": "State",
-          "tokenType": "enum",
-          "modifiers": []
+          "tokenType": "class",
+          "modifiers": [
+            "declaration"
+          ]
         },
         {
           "start": 32,
@@ -420,20 +394,6 @@
           "text": "$n",
           "tokenType": "parameter",
           "modifiers": []
-        },
-        {
-          "start": 23,
-          "end": 24,
-          "text": "1",
-          "tokenType": "number",
-          "modifiers": []
-        },
-        {
-          "start": 24,
-          "end": 25,
-          "text": ";",
-          "tokenType": "punctuation",
-          "modifiers": []
         }
       ],
       "unexpected": [
@@ -451,7 +411,9 @@
           "end": 17,
           "text": "$n",
           "tokenType": "variable",
-          "modifiers": []
+          "modifiers": [
+            "declaration"
+          ]
         },
         {
           "start": 18,
@@ -464,14 +426,7 @@
           "start": 20,
           "end": 22,
           "text": "$n",
-          "tokenType": "embedded-html",
-          "modifiers": []
-        },
-        {
-          "start": 23,
-          "end": 25,
-          "text": "1;",
-          "tokenType": "embedded-html",
+          "tokenType": "variable",
           "modifiers": []
         }
       ]
@@ -512,7 +467,7 @@
           "start": 11,
           "end": 12,
           "text": "?",
-          "tokenType": "keyword",
+          "tokenType": "operator",
           "modifiers": []
         },
         {
@@ -529,39 +484,9 @@
       "profile": "php",
       "documentKind": "php",
       "source": "<?php $user->save();",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 17,
-          "end": 18,
-          "text": "(",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
-        {
-          "start": 18,
-          "end": 19,
-          "text": ")",
-          "tokenType": "punctuation",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 17,
-          "end": 18,
-          "text": "(",
-          "tokenType": "function",
-          "modifiers": []
-        },
-        {
-          "start": 18,
-          "end": 19,
-          "text": ")",
-          "tokenType": "function",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "constant",
@@ -585,13 +510,6 @@
           "text": "LIMIT",
           "tokenType": "constant",
           "modifiers": []
-        },
-        {
-          "start": 31,
-          "end": 32,
-          "text": ";",
-          "tokenType": "punctuation",
-          "modifiers": []
         }
       ],
       "unexpected": [
@@ -606,9 +524,9 @@
         },
         {
           "start": 26,
-          "end": 32,
-          "text": "LIMIT;",
-          "tokenType": "string",
+          "end": 31,
+          "text": "LIMIT",
+          "tokenType": "class",
           "modifiers": []
         }
       ]
@@ -637,13 +555,6 @@
           "modifiers": []
         },
         {
-          "start": 15,
-          "end": 18,
-          "text": "Box",
-          "tokenType": "class",
-          "modifiers": []
-        },
-        {
           "start": 22,
           "end": 27,
           "text": "Store",
@@ -664,13 +575,6 @@
           ]
         },
         {
-          "start": 15,
-          "end": 18,
-          "text": "Box",
-          "tokenType": "type",
-          "modifiers": []
-        },
-        {
           "start": 22,
           "end": 27,
           "text": "Store",
@@ -688,13 +592,6 @@
       "source": "<?php #[Route(\"/home\")] class Page {}",
       "exactIncludingModifiers": false,
       "missing": [
-        {
-          "start": 22,
-          "end": 23,
-          "text": "]",
-          "tokenType": "punctuation",
-          "modifiers": []
-        },
         {
           "start": 30,
           "end": 34,
@@ -721,24 +618,10 @@
       ],
       "unexpected": [
         {
-          "start": 22,
-          "end": 23,
-          "text": "]",
-          "tokenType": "string",
-          "modifiers": []
-        },
-        {
           "start": 30,
-          "end": 34,
-          "text": "Page",
-          "tokenType": "class",
-          "modifiers": []
-        },
-        {
-          "start": 35,
           "end": 37,
-          "text": "{}",
-          "tokenType": "embedded-html",
+          "text": "Page {}",
+          "tokenType": "class",
           "modifiers": []
         }
       ]
@@ -798,7 +681,7 @@
           "start": 11,
           "end": 28,
           "text": "\"Hello {$name}!\";",
-          "tokenType": "embedded-html",
+          "tokenType": "string",
           "modifiers": []
         }
       ]
@@ -810,13 +693,6 @@
       "source": "<?php $text=<<<TXT\nHello $name\nTXT;",
       "exactIncludingModifiers": false,
       "missing": [
-        {
-          "start": 12,
-          "end": 18,
-          "text": "<<<TXT",
-          "tokenType": "string",
-          "modifiers": []
-        },
         {
           "start": 19,
           "end": 25,
@@ -848,24 +724,17 @@
       ],
       "unexpected": [
         {
-          "start": 12,
-          "end": 18,
-          "text": "<<<TXT",
-          "tokenType": "embedded-html",
-          "modifiers": []
-        },
-        {
           "start": 19,
           "end": 24,
           "text": "Hello",
-          "tokenType": "embedded-html",
+          "tokenType": "class",
           "modifiers": []
         },
         {
           "start": 25,
           "end": 30,
           "text": "$name",
-          "tokenType": "embedded-html",
+          "tokenType": "keyword",
           "modifiers": [
             "declaration"
           ]
@@ -874,7 +743,7 @@
           "start": 31,
           "end": 35,
           "text": "TXT;",
-          "tokenType": "embedded-html",
+          "tokenType": "string",
           "modifiers": [
             "declaration"
           ]
@@ -888,13 +757,6 @@
       "source": "<?php $text=<<<'RAW'\nHello $name\nRAW;",
       "exactIncludingModifiers": false,
       "missing": [
-        {
-          "start": 12,
-          "end": 20,
-          "text": "<<<'RAW'",
-          "tokenType": "string",
-          "modifiers": []
-        },
         {
           "start": 21,
           "end": 32,
@@ -918,20 +780,6 @@
         }
       ],
       "unexpected": [
-        {
-          "start": 12,
-          "end": 13,
-          "text": "<",
-          "tokenType": "operator",
-          "modifiers": []
-        },
-        {
-          "start": 13,
-          "end": 20,
-          "text": "<<'RAW'",
-          "tokenType": "string",
-          "modifiers": []
-        },
         {
           "start": 21,
           "end": 26,
@@ -962,46 +810,9 @@
       "profile": "php",
       "documentKind": "php",
       "source": "<h1><?= $title ?></h1>",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 0,
-          "end": 4,
-          "text": "<h1>",
-          "tokenType": "embedded-html",
-          "modifiers": []
-        },
-        {
-          "start": 4,
-          "end": 7,
-          "text": "<?=",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
-          "start": 8,
-          "end": 14,
-          "text": "$title",
-          "tokenType": "variable",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 0,
-          "end": 7,
-          "text": "<h1><?=",
-          "tokenType": "embedded-html",
-          "modifiers": []
-        },
-        {
-          "start": 8,
-          "end": 14,
-          "text": "$title",
-          "tokenType": "embedded-html",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "comments",
@@ -1069,13 +880,13 @@
       "id": "unicode-crlf",
       "profile": "php",
       "documentKind": "php",
-      "source": "<?php\r\n// 原始 🌙\r\necho \"星空 🌌\";\r\n",
+      "source": "<?php\r\n// \u539f\u59cb \ud83c\udf19\r\necho \"\u661f\u7a7a \ud83c\udf0c\";\r\n",
       "exactIncludingModifiers": false,
       "missing": [
         {
           "start": 7,
           "end": 15,
-          "text": "// 原始 🌙",
+          "text": "// \u539f\u59cb \ud83c\udf19",
           "tokenType": "comment",
           "modifiers": []
         }
@@ -1084,7 +895,7 @@
         {
           "start": 7,
           "end": 16,
-          "text": "// 原始 🌙\r",
+          "text": "// \u539f\u59cb \ud83c\udf19\r",
           "tokenType": "comment",
           "modifiers": []
         }
@@ -1103,34 +914,34 @@
   "profiles": {
     "php": {
       "documents": 23,
-      "exactDocumentsIncludingModifiers": 5,
+      "exactDocumentsIncludingModifiers": 7,
       "exactSpan": {
-        "precision": 0.7543859649122807,
-        "recall": 0.6581632653061225,
-        "f1": 0.7029972752043597,
-        "tp": 129,
-        "fp": 42,
-        "fn": 67,
+        "precision": 0.8197674418604651,
+        "recall": 0.7193877551020408,
+        "f1": 0.7663043478260869,
+        "tp": 141,
+        "fp": 31,
+        "fn": 55,
         "support": 196
       },
-      "exactSpanMacroF1": 0.4931470460619945,
+      "exactSpanMacroF1": 0.5049175605472007,
       "exactSpanIncludingModifiers": {
-        "precision": 0.7368421052631579,
-        "recall": 0.6428571428571429,
-        "f1": 0.6866485013623979,
-        "tp": 126,
-        "fp": 45,
-        "fn": 70,
+        "precision": 0.813953488372093,
+        "recall": 0.7142857142857143,
+        "f1": 0.7608695652173914,
+        "tp": 140,
+        "fp": 32,
+        "fn": 56,
         "support": 196
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.9607843137254902,
-          "recall": 0.9607843137254902,
-          "f1": 0.9607843137254902,
-          "tp": 49,
+          "precision": 0.9615384615384616,
+          "recall": 0.9803921568627451,
+          "f1": 0.970873786407767,
+          "tp": 50,
           "fp": 2,
-          "fn": 2,
+          "fn": 1,
           "support": 51
         },
         "comment": {
@@ -1143,21 +954,21 @@
           "support": 3
         },
         "string": {
-          "precision": 0.16666666666666666,
-          "recall": 0.13333333333333333,
-          "f1": 0.14814814814814814,
-          "tp": 2,
-          "fp": 10,
-          "fn": 13,
+          "precision": 0.3076923076923077,
+          "recall": 0.26666666666666666,
+          "f1": 0.2857142857142857,
+          "tp": 4,
+          "fp": 9,
+          "fn": 11,
           "support": 15
         },
         "number": {
           "precision": 1.0,
-          "recall": 0.42857142857142855,
-          "f1": 0.6,
-          "tp": 3,
+          "recall": 0.5714285714285714,
+          "f1": 0.7272727272727273,
+          "tp": 4,
           "fp": 0,
-          "fn": 4,
+          "fn": 3,
           "support": 7
         },
         "operator": {
@@ -1171,11 +982,11 @@
         },
         "punctuation": {
           "precision": 1.0,
-          "recall": 0.7017543859649122,
-          "f1": 0.8247422680412371,
-          "tp": 40,
+          "recall": 0.8245614035087719,
+          "f1": 0.9038461538461539,
+          "tp": 47,
           "fp": 0,
-          "fn": 17,
+          "fn": 10,
           "support": 57
         },
         "namespace": {
@@ -1192,16 +1003,16 @@
           "recall": 0.0,
           "f1": 0.0,
           "tp": 0,
-          "fp": 2,
+          "fp": 1,
           "fn": 0,
           "support": 0
         },
         "class": {
-          "precision": 0.5,
+          "precision": 0.25,
           "recall": 0.5,
-          "f1": 0.5,
+          "f1": 0.3333333333333333,
           "tp": 2,
-          "fp": 2,
+          "fp": 6,
           "fn": 2,
           "support": 4
         },
@@ -1224,12 +1035,12 @@
           "support": 1
         },
         "enum": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
-          "tp": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
           "fp": 0,
-          "fn": 0,
+          "fn": 1,
           "support": 1
         },
         "enum-member": {
@@ -1242,11 +1053,11 @@
           "support": 1
         },
         "function": {
-          "precision": 0.5714285714285714,
+          "precision": 0.8,
           "recall": 1.0,
-          "f1": 0.7272727272727273,
+          "f1": 0.8888888888888888,
           "tp": 4,
-          "fp": 3,
+          "fp": 1,
           "fn": 0,
           "support": 4
         },
@@ -1269,12 +1080,12 @@
           "support": 6
         },
         "variable": {
-          "precision": 0.6363636363636364,
-          "recall": 0.5,
-          "f1": 0.56,
-          "tp": 7,
-          "fp": 4,
-          "fn": 7,
+          "precision": 0.5714285714285714,
+          "recall": 0.5714285714285714,
+          "f1": 0.5714285714285714,
+          "tp": 8,
+          "fp": 6,
+          "fn": 6,
           "support": 14
         },
         "property": {
@@ -1314,12 +1125,12 @@
           "support": 1
         },
         "embedded-html": {
-          "precision": 0.07142857142857142,
-          "recall": 0.5,
-          "f1": 0.125,
-          "tp": 1,
-          "fp": 13,
-          "fn": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
           "support": 2
         }
       }
@@ -1328,34 +1139,34 @@
   "documentKinds": {
     "php": {
       "documents": 23,
-      "exactDocumentsIncludingModifiers": 5,
+      "exactDocumentsIncludingModifiers": 7,
       "exactSpan": {
-        "precision": 0.7543859649122807,
-        "recall": 0.6581632653061225,
-        "f1": 0.7029972752043597,
-        "tp": 129,
-        "fp": 42,
-        "fn": 67,
+        "precision": 0.8197674418604651,
+        "recall": 0.7193877551020408,
+        "f1": 0.7663043478260869,
+        "tp": 141,
+        "fp": 31,
+        "fn": 55,
         "support": 196
       },
-      "exactSpanMacroF1": 0.4931470460619945,
+      "exactSpanMacroF1": 0.5049175605472007,
       "exactSpanIncludingModifiers": {
-        "precision": 0.7368421052631579,
-        "recall": 0.6428571428571429,
-        "f1": 0.6866485013623979,
-        "tp": 126,
-        "fp": 45,
-        "fn": 70,
+        "precision": 0.813953488372093,
+        "recall": 0.7142857142857143,
+        "f1": 0.7608695652173914,
+        "tp": 140,
+        "fp": 32,
+        "fn": 56,
         "support": 196
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.9607843137254902,
-          "recall": 0.9607843137254902,
-          "f1": 0.9607843137254902,
-          "tp": 49,
+          "precision": 0.9615384615384616,
+          "recall": 0.9803921568627451,
+          "f1": 0.970873786407767,
+          "tp": 50,
           "fp": 2,
-          "fn": 2,
+          "fn": 1,
           "support": 51
         },
         "comment": {
@@ -1368,21 +1179,21 @@
           "support": 3
         },
         "string": {
-          "precision": 0.16666666666666666,
-          "recall": 0.13333333333333333,
-          "f1": 0.14814814814814814,
-          "tp": 2,
-          "fp": 10,
-          "fn": 13,
+          "precision": 0.3076923076923077,
+          "recall": 0.26666666666666666,
+          "f1": 0.2857142857142857,
+          "tp": 4,
+          "fp": 9,
+          "fn": 11,
           "support": 15
         },
         "number": {
           "precision": 1.0,
-          "recall": 0.42857142857142855,
-          "f1": 0.6,
-          "tp": 3,
+          "recall": 0.5714285714285714,
+          "f1": 0.7272727272727273,
+          "tp": 4,
           "fp": 0,
-          "fn": 4,
+          "fn": 3,
           "support": 7
         },
         "operator": {
@@ -1396,11 +1207,11 @@
         },
         "punctuation": {
           "precision": 1.0,
-          "recall": 0.7017543859649122,
-          "f1": 0.8247422680412371,
-          "tp": 40,
+          "recall": 0.8245614035087719,
+          "f1": 0.9038461538461539,
+          "tp": 47,
           "fp": 0,
-          "fn": 17,
+          "fn": 10,
           "support": 57
         },
         "namespace": {
@@ -1417,16 +1228,16 @@
           "recall": 0.0,
           "f1": 0.0,
           "tp": 0,
-          "fp": 2,
+          "fp": 1,
           "fn": 0,
           "support": 0
         },
         "class": {
-          "precision": 0.5,
+          "precision": 0.25,
           "recall": 0.5,
-          "f1": 0.5,
+          "f1": 0.3333333333333333,
           "tp": 2,
-          "fp": 2,
+          "fp": 6,
           "fn": 2,
           "support": 4
         },
@@ -1449,12 +1260,12 @@
           "support": 1
         },
         "enum": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
-          "tp": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
           "fp": 0,
-          "fn": 0,
+          "fn": 1,
           "support": 1
         },
         "enum-member": {
@@ -1467,11 +1278,11 @@
           "support": 1
         },
         "function": {
-          "precision": 0.5714285714285714,
+          "precision": 0.8,
           "recall": 1.0,
-          "f1": 0.7272727272727273,
+          "f1": 0.8888888888888888,
           "tp": 4,
-          "fp": 3,
+          "fp": 1,
           "fn": 0,
           "support": 4
         },
@@ -1494,12 +1305,12 @@
           "support": 6
         },
         "variable": {
-          "precision": 0.6363636363636364,
-          "recall": 0.5,
-          "f1": 0.56,
-          "tp": 7,
-          "fp": 4,
-          "fn": 7,
+          "precision": 0.5714285714285714,
+          "recall": 0.5714285714285714,
+          "f1": 0.5714285714285714,
+          "tp": 8,
+          "fp": 6,
+          "fn": 6,
           "support": 14
         },
         "property": {
@@ -1539,18 +1350,18 @@
           "support": 1
         },
         "embedded-html": {
-          "precision": 0.07142857142857142,
-          "recall": 0.5,
-          "f1": 0.125,
-          "tp": 1,
-          "fp": 13,
-          "fn": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
           "support": 2
         }
       }
     }
   },
-  "checkpointHash": "c0d54666cd8db746b6d4ba76bd9aedc0234b527f593c9e48556a78615b20b890",
-  "checkpointEpoch": 1,
-  "device": "mps"
+  "checkpointHash": "89096772f857e3154a592308e0a237e36adb06cdfd7de3a95501547d5d749906",
+  "checkpointEpoch": 3,
+  "device": "cpu"
 }
