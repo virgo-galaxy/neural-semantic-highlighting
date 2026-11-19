@@ -1,0 +1,1125 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "aee8c25e7ba75b3c66a6575f50ba6af4a6a29b5ed2e4aab25bb124d2fbdd48b5",
+  "cases": [
+    {
+      "id": "field-and-parameter",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "class Box { int size; void set(int value) { size = value; } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 44,
+          "end": 48,
+          "text": "size",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 44,
+          "end": 48,
+          "text": "size",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "record-components",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "record Point(int x, int y) {}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 17,
+          "end": 18,
+          "text": "x",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 17,
+          "end": 18,
+          "text": "x",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "generic-interface",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "interface Store<T> { T get(String key); }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 10,
+          "end": 15,
+          "text": "Store",
+          "tokenType": "interface",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 10,
+          "end": 15,
+          "text": "Store",
+          "tokenType": "interface",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "enum-constants",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "enum State { READY, DONE }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "annotation",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "@Deprecated class Cache {}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "@",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 11,
+          "text": "Deprecated",
+          "tokenType": "decorator",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 17,
+          "text": "class",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 24,
+          "end": 25,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "@",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 17,
+          "text": "Deprecated class",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 24,
+          "end": 26,
+          "text": "{}",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "constructor",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "class Entry { Entry() {} Entry copy() { return new Entry(); } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 14,
+          "end": 19,
+          "text": "Entry",
+          "tokenType": "constructor",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 14,
+          "end": 19,
+          "text": "Entry",
+          "tokenType": "class",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sealed",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "sealed interface Shape permits Circle {}\nrecord Circle(double radius) implements Shape {}",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "lambda",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "class Mapper { Object fn = (item) -> item.toString(); }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 28,
+          "end": 32,
+          "text": "item",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 28,
+          "end": 32,
+          "text": "item",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "instanceof-binding",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "class Check { boolean test(Object item) { return item instanceof String text && text.isBlank(); } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 49,
+          "end": 53,
+          "text": "item",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 72,
+          "end": 76,
+          "text": "text",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 80,
+          "end": 84,
+          "text": "text",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 49,
+          "end": 53,
+          "text": "item",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 72,
+          "end": 76,
+          "text": "text",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 80,
+          "end": 84,
+          "text": "text",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "module",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "open module sample.core { requires transitive java.sql; exports sample.api to client; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 4,
+          "text": "open",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 11,
+          "text": "module",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 18,
+          "text": "sample",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 19,
+          "end": 23,
+          "text": "core",
+          "tokenType": "namespace",
+          "modifiers": []
+        },
+        {
+          "start": 24,
+          "end": 25,
+          "text": "{",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 26,
+          "end": 34,
+          "text": "requires",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 45,
+          "text": "transitive",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 78,
+          "end": 84,
+          "text": "client",
+          "tokenType": "namespace",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 18,
+          "text": "open module sample",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 19,
+          "end": 23,
+          "text": "core",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 24,
+          "end": 45,
+          "text": "{ requires transitive",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 78,
+          "end": 84,
+          "text": "client",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "// 中文 🌙\r\nclass 记录 { String 内容 = \"你好 🌿\"; }\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "// 中文 🌙",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 18,
+          "text": "记录",
+          "tokenType": "class",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 28,
+          "end": 30,
+          "text": "内容",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "// ",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 3,
+          "end": 8,
+          "text": "中文 🌙",
+          "tokenType": "comment",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": "记",
+          "tokenType": "class",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 17,
+          "end": 18,
+          "text": "录",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 28,
+          "end": 29,
+          "text": "内",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 29,
+          "end": 30,
+          "text": "容",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unicode-escape",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "cl\\u0061ss A { int \\u0078 = 1; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 19,
+          "end": 25,
+          "text": "\\u0078",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 19,
+          "end": 25,
+          "text": "\\u0078",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "contextual-identifiers",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "class Names { int record, yield, sealed, permits, when, module; }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 26,
+          "end": 31,
+          "text": "yield",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 33,
+          "end": 39,
+          "text": "sealed",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 41,
+          "end": 48,
+          "text": "permits",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 50,
+          "end": 54,
+          "text": "when",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 56,
+          "end": 62,
+          "text": "module",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 26,
+          "end": 31,
+          "text": "yield",
+          "tokenType": "comment",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 33,
+          "end": 39,
+          "text": "sealed",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 41,
+          "end": 48,
+          "text": "permits",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 50,
+          "end": 54,
+          "text": "when",
+          "tokenType": "property",
+          "modifiers": []
+        },
+        {
+          "start": 56,
+          "end": 62,
+          "text": "module",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "char-and-number",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "class Values { char quote = 'a'; double value = 0x1.8p2; }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "comments",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "/** A description. */\nclass Doc { /* inner */ }// tail",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 34,
+          "end": 45,
+          "text": "/* inner */",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 46,
+          "end": 47,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 47,
+          "end": 54,
+          "text": "// tail",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 34,
+          "end": 36,
+          "text": "/*",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 37,
+          "end": 54,
+          "text": "inner */ }// tail",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "compact-constructor",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "record Label(String text) { Label { text = text.trim(); } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 28,
+          "end": 33,
+          "text": "Label",
+          "tokenType": "constructor",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 36,
+          "end": 40,
+          "text": "text",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 43,
+          "end": 47,
+          "text": "text",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 28,
+          "end": 33,
+          "text": "Label",
+          "tokenType": "type",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 40,
+          "text": "text",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 43,
+          "end": 47,
+          "text": "text",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "local-inference",
+      "profile": "java",
+      "documentKind": "java",
+      "source": "class Local { void run() { var name = \"ready\"; name.trim(); } }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 31,
+          "end": 35,
+          "text": "name",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 47,
+          "end": 51,
+          "text": "name",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 31,
+          "end": 35,
+          "text": "name",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 47,
+          "end": 51,
+          "text": "name",
+          "tokenType": "property",
+          "modifiers": []
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "java": {
+      "documents": 17,
+      "exactDocumentsIncludingModifiers": 3,
+      "exactSpan": {
+        "precision": 0.891566265060241,
+        "recall": 0.8774703557312253,
+        "f1": 0.8844621513944223,
+        "tp": 222,
+        "fp": 27,
+        "fn": 31,
+        "support": 253
+      },
+      "exactSpanMacroF1": 0.7455321374118042,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8634538152610441,
+        "recall": 0.849802371541502,
+        "f1": 0.8565737051792829,
+        "tp": 215,
+        "fp": 34,
+        "fn": 38,
+        "support": 253
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9743589743589743,
+          "recall": 0.8837209302325582,
+          "f1": 0.926829268292683,
+          "tp": 38,
+          "fp": 1,
+          "fn": 5,
+          "support": 43
+        },
+        "comment": {
+          "precision": 0.08333333333333333,
+          "recall": 0.25,
+          "f1": 0.125,
+          "tp": 1,
+          "fp": 11,
+          "fn": 3,
+          "support": 4
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "operator": {
+          "precision": 0.9230769230769231,
+          "recall": 1.0,
+          "f1": 0.96,
+          "tp": 12,
+          "fp": 1,
+          "fn": 0,
+          "support": 12
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9541284403669725,
+          "f1": 0.9765258215962441,
+          "tp": 104,
+          "fp": 0,
+          "fn": 5,
+          "support": 109
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 0.5714285714285714,
+          "f1": 0.7272727272727273,
+          "tp": 4,
+          "fp": 0,
+          "fn": 3,
+          "support": 7
+        },
+        "type": {
+          "precision": 0.9166666666666666,
+          "recall": 1.0,
+          "f1": 0.9565217391304348,
+          "tp": 11,
+          "fp": 1,
+          "fn": 0,
+          "support": 11
+        },
+        "class": {
+          "precision": 0.8666666666666667,
+          "recall": 0.9285714285714286,
+          "f1": 0.896551724137931,
+          "tp": 13,
+          "fp": 2,
+          "fn": 1,
+          "support": 14
+        },
+        "interface": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "constructor": {
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "f1": 0.5,
+          "tp": 1,
+          "fp": 0,
+          "fn": 2,
+          "support": 3
+        },
+        "method": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 9,
+          "fp": 0,
+          "fn": 0,
+          "support": 9
+        },
+        "parameter": {
+          "precision": 0.6666666666666666,
+          "recall": 0.6666666666666666,
+          "f1": 0.6666666666666666,
+          "tp": 6,
+          "fp": 3,
+          "fn": 3,
+          "support": 9
+        },
+        "variable": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 4,
+          "support": 4
+        },
+        "property": {
+          "precision": 0.6190476190476191,
+          "recall": 0.7647058823529411,
+          "f1": 0.6842105263157895,
+          "tp": 13,
+          "fp": 8,
+          "fn": 4,
+          "support": 17
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "java": {
+      "documents": 17,
+      "exactDocumentsIncludingModifiers": 3,
+      "exactSpan": {
+        "precision": 0.891566265060241,
+        "recall": 0.8774703557312253,
+        "f1": 0.8844621513944223,
+        "tp": 222,
+        "fp": 27,
+        "fn": 31,
+        "support": 253
+      },
+      "exactSpanMacroF1": 0.7455321374118042,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8634538152610441,
+        "recall": 0.849802371541502,
+        "f1": 0.8565737051792829,
+        "tp": 215,
+        "fp": 34,
+        "fn": 38,
+        "support": 253
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9743589743589743,
+          "recall": 0.8837209302325582,
+          "f1": 0.926829268292683,
+          "tp": 38,
+          "fp": 1,
+          "fn": 5,
+          "support": 43
+        },
+        "comment": {
+          "precision": 0.08333333333333333,
+          "recall": 0.25,
+          "f1": 0.125,
+          "tp": 1,
+          "fp": 11,
+          "fn": 3,
+          "support": 4
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "operator": {
+          "precision": 0.9230769230769231,
+          "recall": 1.0,
+          "f1": 0.96,
+          "tp": 12,
+          "fp": 1,
+          "fn": 0,
+          "support": 12
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 0.9541284403669725,
+          "f1": 0.9765258215962441,
+          "tp": 104,
+          "fp": 0,
+          "fn": 5,
+          "support": 109
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 0.5714285714285714,
+          "f1": 0.7272727272727273,
+          "tp": 4,
+          "fp": 0,
+          "fn": 3,
+          "support": 7
+        },
+        "type": {
+          "precision": 0.9166666666666666,
+          "recall": 1.0,
+          "f1": 0.9565217391304348,
+          "tp": 11,
+          "fp": 1,
+          "fn": 0,
+          "support": 11
+        },
+        "class": {
+          "precision": 0.8666666666666667,
+          "recall": 0.9285714285714286,
+          "f1": 0.896551724137931,
+          "tp": 13,
+          "fp": 2,
+          "fn": 1,
+          "support": 14
+        },
+        "interface": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "constructor": {
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "f1": 0.5,
+          "tp": 1,
+          "fp": 0,
+          "fn": 2,
+          "support": 3
+        },
+        "method": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 9,
+          "fp": 0,
+          "fn": 0,
+          "support": 9
+        },
+        "parameter": {
+          "precision": 0.6666666666666666,
+          "recall": 0.6666666666666666,
+          "f1": 0.6666666666666666,
+          "tp": 6,
+          "fp": 3,
+          "fn": 3,
+          "support": 9
+        },
+        "variable": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 4,
+          "support": 4
+        },
+        "property": {
+          "precision": 0.6190476190476191,
+          "recall": 0.7647058823529411,
+          "f1": 0.6842105263157895,
+          "tp": 13,
+          "fp": 8,
+          "fn": 4,
+          "support": 17
+        },
+        "decorator": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        }
+      }
+    }
+  },
+  "checkpointHash": "7604ac8483f1ef65155579d1c84d21c402de652747cddb7f5ffbb1bca9a779b2",
+  "checkpointEpoch": 1,
+  "device": "mps"
+}

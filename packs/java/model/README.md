@@ -28,3 +28,9 @@ Inference consumes only original text and learned weights. There is no parser,
 Gold teacher, regular-expression source repair, SDK invocation or source execution.
 The float32 `.pt` artifact is inference-only. Training continues only from complete
 checkpoints under `artifacts/java`, preserving original data and historical runs.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
