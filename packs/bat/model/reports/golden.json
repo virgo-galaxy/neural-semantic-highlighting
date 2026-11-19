@@ -44,27 +44,9 @@
       "profile": "bat",
       "documentKind": "bat",
       "source": "for /l %%N in (1,1,8) do echo %%N\n",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 30,
-          "end": 33,
-          "text": "%%N",
-          "tokenType": "variable",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 30,
-          "end": 33,
-          "text": "%%N",
-          "tokenType": "variable",
-          "modifiers": [
-            "declaration"
-          ]
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "quoted-path",
@@ -86,7 +68,7 @@
           "start": 11,
           "end": 16,
           "text": "input",
-          "tokenType": "parameter",
+          "tokenType": "string",
           "modifiers": []
         },
         {
@@ -115,33 +97,19 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 0,
-          "end": 2,
-          "text": "if",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
-          "start": 3,
-          "end": 13,
-          "text": "errorlevel",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
-          "start": 14,
-          "end": 15,
-          "text": "1",
-          "tokenType": "number",
+          "start": 21,
+          "end": 27,
+          "text": "failed",
+          "tokenType": "function",
           "modifiers": []
         }
       ],
       "unexpected": [
         {
-          "start": 0,
-          "end": 16,
-          "text": "if errorlevel 1 ",
-          "tokenType": "comment",
+          "start": 21,
+          "end": 27,
+          "text": "failed",
+          "tokenType": "string",
           "modifiers": []
         }
       ]
@@ -176,32 +144,9 @@
       "profile": "bat",
       "documentKind": "bat",
       "source": "rem \u661f\u7a7a \ud83c\udf0c\r\n:: source note\r\necho Ready\r\n",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 11,
-          "end": 25,
-          "text": ":: source note",
-          "tokenType": "comment",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 11,
-          "end": 21,
-          "text": ":: source ",
-          "tokenType": "comment",
-          "modifiers": []
-        },
-        {
-          "start": 21,
-          "end": 25,
-          "text": "note",
-          "tokenType": "function",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "external-command",
@@ -225,61 +170,61 @@
   "profiles": {
     "bat": {
       "documents": 12,
-      "exactDocumentsIncludingModifiers": 7,
+      "exactDocumentsIncludingModifiers": 9,
       "exactSpan": {
-        "precision": 0.92,
-        "recall": 0.92,
-        "f1": 0.92,
-        "tp": 69,
-        "fp": 6,
-        "fn": 6,
+        "precision": 0.9473684210526315,
+        "recall": 0.96,
+        "f1": 0.9536423841059603,
+        "tp": 72,
+        "fp": 4,
+        "fn": 3,
         "support": 75
       },
-      "exactSpanMacroF1": 0.8550587326903116,
+      "exactSpanMacroF1": 0.9417989417989419,
       "exactSpanIncludingModifiers": {
-        "precision": 0.9066666666666666,
-        "recall": 0.9066666666666666,
-        "f1": 0.9066666666666666,
-        "tp": 68,
-        "fp": 7,
-        "fn": 7,
+        "precision": 0.9473684210526315,
+        "recall": 0.96,
+        "f1": 0.9536423841059603,
+        "tp": 72,
+        "fp": 4,
+        "fn": 3,
         "support": 75
       },
       "byTokenType": {
         "keyword": {
           "precision": 1.0,
-          "recall": 0.9130434782608695,
-          "f1": 0.9545454545454546,
-          "tp": 21,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 23,
           "fp": 0,
-          "fn": 2,
+          "fn": 0,
           "support": 23
         },
         "comment": {
-          "precision": 0.3333333333333333,
-          "recall": 0.5,
-          "f1": 0.4,
-          "tp": 1,
-          "fp": 2,
-          "fn": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
           "support": 2
         },
         "string": {
-          "precision": 0.875,
+          "precision": 0.7,
           "recall": 0.875,
-          "f1": 0.875,
+          "f1": 0.7777777777777778,
           "tp": 7,
-          "fp": 1,
+          "fp": 3,
           "fn": 1,
           "support": 8
         },
         "number": {
           "precision": 1.0,
-          "recall": 0.9,
-          "f1": 0.9473684210526315,
-          "tp": 9,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 10,
           "fp": 0,
-          "fn": 1,
+          "fn": 0,
           "support": 10
         },
         "operator": {
@@ -301,12 +246,12 @@
           "support": 10
         },
         "function": {
-          "precision": 0.8333333333333334,
-          "recall": 1.0,
-          "f1": 0.9090909090909091,
-          "tp": 5,
-          "fp": 1,
-          "fn": 0,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8888888888888888,
+          "tp": 4,
+          "fp": 0,
+          "fn": 1,
           "support": 5
         },
         "variable": {
@@ -319,11 +264,11 @@
           "support": 11
         },
         "parameter": {
-          "precision": 0.6666666666666666,
+          "precision": 1.0,
           "recall": 1.0,
-          "f1": 0.8,
+          "f1": 1.0,
           "tp": 2,
-          "fp": 1,
+          "fp": 0,
           "fn": 0,
           "support": 2
         }
@@ -333,61 +278,61 @@
   "documentKinds": {
     "bat": {
       "documents": 12,
-      "exactDocumentsIncludingModifiers": 7,
+      "exactDocumentsIncludingModifiers": 9,
       "exactSpan": {
-        "precision": 0.92,
-        "recall": 0.92,
-        "f1": 0.92,
-        "tp": 69,
-        "fp": 6,
-        "fn": 6,
+        "precision": 0.9473684210526315,
+        "recall": 0.96,
+        "f1": 0.9536423841059603,
+        "tp": 72,
+        "fp": 4,
+        "fn": 3,
         "support": 75
       },
-      "exactSpanMacroF1": 0.8550587326903116,
+      "exactSpanMacroF1": 0.9417989417989419,
       "exactSpanIncludingModifiers": {
-        "precision": 0.9066666666666666,
-        "recall": 0.9066666666666666,
-        "f1": 0.9066666666666666,
-        "tp": 68,
-        "fp": 7,
-        "fn": 7,
+        "precision": 0.9473684210526315,
+        "recall": 0.96,
+        "f1": 0.9536423841059603,
+        "tp": 72,
+        "fp": 4,
+        "fn": 3,
         "support": 75
       },
       "byTokenType": {
         "keyword": {
           "precision": 1.0,
-          "recall": 0.9130434782608695,
-          "f1": 0.9545454545454546,
-          "tp": 21,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 23,
           "fp": 0,
-          "fn": 2,
+          "fn": 0,
           "support": 23
         },
         "comment": {
-          "precision": 0.3333333333333333,
-          "recall": 0.5,
-          "f1": 0.4,
-          "tp": 1,
-          "fp": 2,
-          "fn": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
           "support": 2
         },
         "string": {
-          "precision": 0.875,
+          "precision": 0.7,
           "recall": 0.875,
-          "f1": 0.875,
+          "f1": 0.7777777777777778,
           "tp": 7,
-          "fp": 1,
+          "fp": 3,
           "fn": 1,
           "support": 8
         },
         "number": {
           "precision": 1.0,
-          "recall": 0.9,
-          "f1": 0.9473684210526315,
-          "tp": 9,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 10,
           "fp": 0,
-          "fn": 1,
+          "fn": 0,
           "support": 10
         },
         "operator": {
@@ -409,12 +354,12 @@
           "support": 10
         },
         "function": {
-          "precision": 0.8333333333333334,
-          "recall": 1.0,
-          "f1": 0.9090909090909091,
-          "tp": 5,
-          "fp": 1,
-          "fn": 0,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8888888888888888,
+          "tp": 4,
+          "fp": 0,
+          "fn": 1,
           "support": 5
         },
         "variable": {
@@ -427,17 +372,18 @@
           "support": 11
         },
         "parameter": {
-          "precision": 0.6666666666666666,
+          "precision": 1.0,
           "recall": 1.0,
-          "f1": 0.8,
+          "f1": 1.0,
           "tp": 2,
-          "fp": 1,
+          "fp": 0,
           "fn": 0,
           "support": 2
         }
       }
     }
   },
-  "checkpointHash": "8e626d938158bd7be1dc5048b9afbb8e77da1b4f49a23ddf71571dfd37b72afb",
-  "checkpointEpoch": 3
+  "checkpointHash": "d5986d4d301a514ea6569a475805fa95adda162c438c332e0454b593d9e5bcfd",
+  "checkpointEpoch": 12,
+  "device": "cpu"
 }
