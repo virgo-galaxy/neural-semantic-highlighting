@@ -1,0 +1,64 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "ruby",
+  "manifest": {
+    "id": "ruby",
+    "documentKinds": [
+      {
+        "id": "ruby",
+        "extensions": [
+          ".rb",
+          ".rake",
+          ".gemspec",
+          "Gemfile",
+          "Rakefile"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "f918254527025d7959a009a6a02a9d016ffe04457efe607e66c14260486b5ca1",
+    "bytes": 3708119
+  },
+  "source": {
+    "file": "packs/ruby/model/model.pt",
+    "sha256": "b0789ad388aa23f214193b279fb0fe5a71127919c0fcd42ee5e7e167584536cb"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "namespace",
+      "type",
+      "enum",
+      "enum-member",
+      "function",
+      "method",
+      "constructor",
+      "parameter",
+      "variable",
+      "property",
+      "type-parameter",
+      "decorator",
+      "constant",
+      "label"
+    ],
+    "modifiers": [
+      "declaration"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {},
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "889577b2dc24ad6a2cbb1179fdfc7f9afcbc5a5906cde6c5835a64e8bb8ed2f5",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}

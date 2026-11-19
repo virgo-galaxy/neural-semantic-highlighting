@@ -3,16 +3,19 @@
   "artifact": {
     "file": "model.pt",
     "format": "nsh-ruby-model-v1",
-    "sha256": "b0789ad388aa23f214193b279fb0fe5a71127919c0fcd42ee5e7e167584536cb",
-    "bytes": 3633141,
-    "parameterCount": 894872,
+    "sha256": "794d4b6edec48f28e9000f3a7cd88fb8f18d58b6221338cf387e77c2c54cdc79",
+    "bytes": 3648428,
+    "parameterCount": 895656,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "selection": {
-    "epoch": 5,
-    "metric": "mean per-profile natural real-source validation exact-span macro F1",
-    "score": 0.8218430576023762
+    "epoch": 12,
+    "metric": "Maximum minimum natural VALIDATION profile F1; role macro decrease at most .01; unchanged runtime eligible",
+    "score": 0.9373895976447497,
+    "validationReportSha256": "1661c019ae7c45c54c9c368f80ea2992b56e549dd17576efd4fc1ccf83d9c1b7",
+    "trainingSelectionMetric": "profile-f1",
+    "trainingBestFixedScore": 0.9036493531569801
   },
   "checkpointConfig": {
     "context_bytes": 512,
@@ -21,7 +24,8 @@
     "layers": 4,
     "feed_forward": 512,
     "dropout": 0.1,
-    "local_kernel": 1
+    "local_kernel": 5,
+    "relative_attention": true
   },
   "orderedLabels": {
     "boundary": [
@@ -72,13 +76,19 @@
   },
   "inference": {
     "windowing": "predicted-adaptive-cursor",
-    "decoder": "greedy-mean-logit",
+    "decoder": "joint-bio-viterbi",
     "packPolicy": {
       "coalesce_types": [],
       "modifier_roles": null
     },
     "modifierThreshold": 0.6,
-    "parserRequired": false
+    "parserRequired": false,
+    "windowingPolicy": {
+      "format": "nsh-overlap-logits-v1",
+      "strideBytes": 128,
+      "edgeWeightCap": 128,
+      "adaptiveWeight": 0
+    }
   },
   "scope": "ruby-local-semantic-spans",
   "modelSchema": {
@@ -90,18 +100,18 @@
     "sha256": "eb38e5b2accf349dd3c6cf65e6af0e8da46c8bdb13a6840e3a690ae7e47d803d"
   },
   "dataset": {
-    "snapshot": "eac5401f3798c11f531a1d95f6d5033e6cc66f3eda50b95d1131e601d6bc5412",
-    "manifestHash": "47856c6ff09403a001e0b5d8d20d38f9e875e9070f4c72934d9d7b6ac429aefb"
+    "snapshot": "b660a19aa7f3802d116dcf1bccd66793a0b30903c72ffdeb7b1e671746e98e56",
+    "manifestHash": "6048b2c2a7436f3542f7eca0c0dd7000da6f1112c1d71ccb0b850fc0a24422d3"
   },
   "provenance": {
-    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/ruby/context512-mixed-20261111-01/candidates/epoch-0005.pt",
-    "sourceCheckpointSha256": "3580472f6f5ebef2208dd38114cd721694c11551c95d7dd716f18f78421a5311",
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/ruby/expanded-window.pt",
+    "sourceCheckpointSha256": "2d9269f84ca9da5869ab215634f20e46f040d48a0790f427e2603b23ddd1bd81",
     "training": {
       "codeHashes": {
         "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
         "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
         "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
-        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/html/model.py": "b13cad168b9ffe63f3adef4142124943a12df22f2bb1dd081883fd121d90cc1a",
         "training/ruby/challenge.py": "9a8b20979c276f661ecdf9e5b32b88f1d8b251476dfc023a52ae3d98a58a80d3",
         "training/ruby/evaluate.py": "6a0b9ede81c070c9be3026a9988f18ef7b40dc49dd1683e9f57ddf880a2a0a09",
         "training/ruby/export_model.py": "9939cfc5c4669d11584209abf1743362c602cbd3af6d3e7ac51f5443c0b64862",
@@ -109,28 +119,33 @@
         "training/ruby/prepare.py": "098cde4733dbe731525eef92fbe80a7366176ac9aae50e944fcced30ad0efe74",
         "training/ruby/review.py": "45fb56dea0b0400daa72a46b64c1626a3cbfbfcbb1171c50c4db798269158ddb",
         "training/ruby/train.py": "ead6faf466f7a7740ab50c8d2d7b471af240134ee5be1b2ba71e58f20d728124",
+        "training/shared/average.py": "1ed6c6f2b698ca079af8cce5a7d0a96a39fa298e7d5a3d9a56da2bf23f6a1b1b",
+        "training/shared/calibrate.py": "b0d6e48389ec9ab44526671fc68d7dc90a3d1e2513e0cdd7e101500975abc1ce",
+        "training/shared/calibrate_windowing.py": "151ad7ebe949c121bec56322d4893b1a3b44a1f7c2511f61e7a79fa140f15b9c",
         "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
-        "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+        "training/shared/checkpoints.py": "5cf9aa46bcfe4d9cde4a03200d19509a44131f147307e7b6c701dcee56b05097",
         "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
-        "training/shared/encoding.py": "56c8ecba2b66d518eb031167647e5deb366cd53f642657170faae97601ed991c",
-        "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
-        "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+        "training/shared/encoding.py": "998536a816ea0fe135e9a6c2c61c6a213d20207f9bd80c69eff01b7ae272a1b6",
+        "training/shared/evaluate.py": "6d9f8dedbcb231fc0a8ce0fe02796035772dda74ba978c281ff597c505cab8bf",
+        "training/shared/export_model.py": "273c7f803cc1684d62f43d31a02229aec085228310c73833358d56f369593c72",
         "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
-        "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
-        "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+        "training/shared/inference.py": "9b97430873979ef4e265d918513b6dc131fd7967cf9827e3c5eb739f79c12a9e",
+        "training/shared/initialization.py": "5f508f4c185f7d77b14141c5fd9a24acd13d974ef5d2b2f6b50cf773bf23a39f",
         "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
         "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
-        "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+        "training/shared/metrics.py": "4f4e93230e9ec0620896d3607d2e5a0263b3247cb900f21ebc86166b6ca684a8",
         "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
         "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
         "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
         "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
         "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
         "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
-        "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+        "training/shared/runtime.py": "c36728b98f1e7ae2068a21bf71b9c19b04ab9398acd0988d95b2ba0013074fca",
         "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
-        "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
-        "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
+        "training/shared/structured.py": "617d9dd571111b41fd3988e6c88f2f359e747cf1f11286bdf1a20c2428c830a1",
+        "training/shared/train.py": "6d30ad31c89f11f21298abf8ff01214994537e70c5fce90fc1efa13958d97e26",
+        "training/shared/trainer_data.py": "6b2fac9d5ce910cbcf131bee29818ce9b38f88cffd060cfbcf6baebc259b8fbc",
+        "training/shared/windowing.py": "aa12662795f2834431632b1820082926e4ea22a13508f76da037f29bcb5b2fc3"
       },
       "semanticsHash": "6a8b4a762e51dbcd4d0ba18ab5e0b3bf851b0a7658bc11d1b53f33e2f2be67ac",
       "packConfigHash": "72c1e27c1a65e35cb09a54f41d0536289ba54c84e316f9117283c7125a86d2c3",
@@ -140,17 +155,17 @@
       },
       "pythonTorch": "2.14.0",
       "repositoryDirty": true,
-      "repositoryCommit": "c08751e23067dbc9b4fcd2de4a19228090cd4918"
+      "repositoryCommit": "02a09a67b0e409386071b174813f4bbb0abfd8b5"
     },
     "initialization": {
       "mode": "ruby-weights-only-transfer",
-      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/ruby/context512-20261111-01/candidates/epoch-0008.pt",
-      "checkpointHash": "7e4f1d828d485629e49890e862fd077b11cc40b3d2a913945fa8d6cd73fab87a",
-      "sourceEpoch": 8,
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/ruby/natural-calibrated.pt",
+      "checkpointHash": "9318a4ff403f22427101c580b30228273ffb9e0640af1e208009374ca1729725",
+      "sourceEpoch": 5,
       "sourceDataset": {
-        "snapshot": "939b0cb0c444c0c116094fa328afc6fde481d999e7ac575133ee3825df647c44",
-        "manifestHash": "3f20dd400f7bace97c6814403a1719ec1838a9adfff807badf995c8b016eaca3",
-        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/ruby/prepared/939b0cb0c444c0c116094fa328afc6fde481d999e7ac575133ee3825df647c44"
+        "snapshot": "eac5401f3798c11f531a1d95f6d5033e6cc66f3eda50b95d1131e601d6bc5412",
+        "manifestHash": "47856c6ff09403a001e0b5d8d20d38f9e875e9070f4c72934d9d7b6ac429aefb",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/ruby/prepared/eac5401f3798c11f531a1d95f6d5033e6cc66f3eda50b95d1131e601d6bc5412"
       },
       "copiedTokenTypes": [
         "keyword",
@@ -181,15 +196,39 @@
       ],
       "optimizerAndTrainingState": "fresh pack run"
     },
-    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+    "exporterSha256": "273c7f803cc1684d62f43d31a02229aec085228310c73833358d56f369593c72",
+    "decoderCalibration": {
+      "sourceCheckpointHash": "4447d2259e8f8eb9313d791e35ddc2363c55f87ba00c96357dfae4d6b1d78b7c",
+      "validationReport": "artifacts/quality-20261119/ruby/expanded-calibrated.calibration.json",
+      "validationReportHash": "708cc2006dede33011001507caf52dc4415113939e770d471c977d9c602e26ab",
+      "selection": "profile-f1; natural adaptive validation only",
+      "primaryTestUsed": false
+    },
+    "windowingCalibration": {
+      "validationReport": "artifacts/quality-20261119/ruby/expanded-window.windowing.json",
+      "validationReportHash": "1661c019ae7c45c54c9c368f80ea2992b56e549dd17576efd4fc1ccf83d9c1b7",
+      "testPredictionsUsed": false
+    }
   },
   "reports": {
     "test-metrics.json": {
       "file": "reports/test-metrics.json",
-      "sha256": "85a73c6de8b9a8eb6839c5a682454ee64877d81a22a9ad19663ecb9ce72b3d93",
-      "checkpointHash": "3580472f6f5ebef2208dd38114cd721694c11551c95d7dd716f18f78421a5311",
+      "sha256": "d5df7a6aaf1ee8bded88bedffda6d0353f618f72821cbb263e87029f6637c670",
+      "checkpointHash": "2d9269f84ca9da5869ab215634f20e46f040d48a0790f427e2603b23ddd1bd81",
       "split": "test",
       "inference": "predicted-adaptive-cursor"
+    },
+    "windowingCalibration.json": {
+      "file": "reports/windowingCalibration.json",
+      "sha256": "2a66256bf9cdad6aead36cdada3b26b79a3c33e1e26a0a1ca685ff11baaf7213"
+    },
+    "decoderCalibration.json": {
+      "file": "reports/decoderCalibration.json",
+      "sha256": "82c3cd1567ff5bd6a3f69e1fdca56337d415b0ae7c42350865fc358a607d0e89"
+    },
+    "golden.json": {
+      "file": "reports/golden.json",
+      "sha256": "d0d8ced28461250f1a55785f7c4738c0aa06dd941aa281dd4695987769ec27dc"
     }
   }
 }
