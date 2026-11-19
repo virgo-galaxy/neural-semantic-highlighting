@@ -62,7 +62,16 @@ def export_model(source: Path, report_path: Path, output: Path) -> dict:
     reports = output.parent / 'reports'
     reports.mkdir(exist_ok=True)
     target = reports / 'quality-test.json'
-    atomic_json(target, report)
+    public_report = copy.deepcopy(report)
+    public_report['detailPolicy'] = 'Per-file diagnostics compacted; aggregate metrics unchanged; full report retained with the experiment'
+    public_report['fullReportSha256'] = file_hash(report_path)
+    for cohort in public_report['corpora'].values():
+        for result in cohort.values():
+            for row in result['files']:
+                metrics = row.pop('metrics')
+                row['f1'] = metrics['exactSpan']['f1']
+                row['roleMacroF1'] = metrics['exactSpanMacroF1']
+    atomic_json(target, public_report)
     metadata['reports'] = {'quality-test.json': dict(file='reports/quality-test.json', sha256=file_hash(target),
         checkpointHash=source_hash, scope=report['scope'])}
     metadata.pop('exportVerification', None)
