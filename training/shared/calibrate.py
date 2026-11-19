@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import math
 from pathlib import Path
 
 from training.shared.checkpoints import atomic_json, load_checkpoint, save_checkpoint
@@ -36,7 +37,9 @@ def selection_key(reports, strategy='profile-macro'):
             min(v['exactSpan']['f1'] for v in values))
 
 
-def calibrate(checkpoint_path: Path, output: Path, device: str):
+def calibrate(checkpoint_path: Path, output: Path, device: str, *, type_weights=(.1,.25,.5,1.), transition_weights=(.1,.3,.5)):
+    if not type_weights or not transition_weights or any(not math.isfinite(w)or w<=0 for w in (*type_weights,*transition_weights)):
+        raise ValueError('Calibration grid requires positive finite weights')
     report_path = output.with_suffix('.calibration.json')
     if output.exists() or report_path.exists():
         raise ValueError('Preserve existing checkpoint and calibration evidence')
@@ -57,7 +60,7 @@ def calibrate(checkpoint_path: Path, output: Path, device: str):
     # Include the unchanged decoder. Calibration may never force a worse choice.
     candidates = [checkpoint.get('structuredDecoder')]
     candidates += [{**parameters, 'typeWeight': alpha, 'transitionWeight': weight}
-                   for alpha in (.1, .25, .5, 1.) for weight in (.1, .3, .5)]
+                   for alpha in type_weights for weight in transition_weights]
     trials = []
     for index, candidate in enumerate(candidates):
         metrics = {p: SpanMetrics(checkpoint['schema']) for p in current().profiles}
@@ -79,6 +82,7 @@ def calibrate(checkpoint_path: Path, output: Path, device: str):
                   sourceCheckpointHash=source_hash, dataset=checkpoint['dataset'],
                   fit='Natural TRAIN Gold only; source-family disjoint VALIDATION selection',
                   selection=checkpoint['trainingConfig'].get('selection_metric', 'profile-macro') + '; natural adaptive validation only',
+                  searchGrid=dict(typeWeights=list(type_weights),transitionWeights=list(transition_weights)),
                   testUsed=False, primaryTestUsed=False, trials=trials, selected=selected['index'])
     if file_hash(checkpoint_path) != source_hash:
         raise ValueError('Source checkpoint changed during calibration')
@@ -101,9 +105,11 @@ def main():
     parser.add_argument('--checkpoint', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--device', choices=['auto', 'mps', 'cpu', 'cuda'], default='auto')
+    parser.add_argument('--type-weights',type=float,nargs='+',default=[.1,.25,.5,1.])
+    parser.add_argument('--transition-weights',type=float,nargs='+',default=[.1,.3,.5])
     args = parser.parse_args()
     with using(args.pack):
-        calibrate(args.checkpoint, args.output, args.device)
+        calibrate(args.checkpoint, args.output, args.device,type_weights=args.type_weights,transition_weights=args.transition_weights)
 
 
 if __name__ == '__main__':

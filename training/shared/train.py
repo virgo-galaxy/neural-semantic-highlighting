@@ -46,8 +46,11 @@ class TrainingConfig:
     focus_batch_size: int = 16
     loss_weight_stream: str = 'all'
     selection_metric: str = 'profile-macro'
+    ascii_case_tied: bool = False
 
     def validate(self):
+        if type(self.ascii_case_tied) is not bool:
+            raise ValueError('Case tying must be an explicit boolean training policy')
         if min(self.batch_size, self.smoke_batches, self.smoke_eval_windows, self.focus_every, self.focus_batch_size) < 1 or self.patience < 0:
             raise ValueError("Invalid training budget")
         if (not all(math.isfinite(x) and x > 0 for x in (self.learning_rate, self.modifier_loss_weight))
@@ -79,6 +82,15 @@ def epoch_batches(split: WindowSplit, config: TrainingConfig, epoch: int) -> lis
     return batches[:config.smoke_batches] if config.smoke else batches
 
 
+def tie_ascii_case(model, *, gradients=False):
+    """BAT-only training constraint; inference still consumes original bytes."""
+    values=model.byte_embedding.weight.grad if gradients else model.byte_embedding.weight
+    if values is None:raise ValueError('Expected dense byte embedding gradients')
+    with torch.no_grad():
+        shared=(values[65:91]+values[97:123])*.5 if gradients else values[97:123].clone()
+        values[65:91].copy_(shared);values[97:123].copy_(shared)
+
+
 def train_epoch(model, split, optimizer, weights, config, device, epoch, log_every):
     batches = epoch_batches(split, config, epoch)
     model.train()
@@ -94,6 +106,8 @@ def train_epoch(model, split, optimizer, weights, config, device, epoch, log_eve
         if not bool(torch.isfinite(loss)):
             raise ValueError("Non-finite loss; checkpoint was not advanced")
         loss.backward()
+        if config.ascii_case_tied:
+            tie_ascii_case(model,gradients=True)
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1., error_if_nonfinite=True)
         optimizer.step()
         total += parts["total"]
@@ -135,7 +149,7 @@ def run(args) -> Path:
     checkpoint = load_checkpoint(args.resume.resolve()) if args.resume else None
     if checkpoint:current().verify_config(checkpoint.get('provenance',{}))
     values = checkpoint["trainingConfig"].copy() if checkpoint else asdict(TrainingConfig())
-    for name in ("batch_size", "learning_rate", "patience", "smoke", "focus_batch_size", "focus_every", "loss_weight_stream", "sampling", "selection_metric"):
+    for name in ("batch_size", "learning_rate", "patience", "smoke", "focus_batch_size", "focus_every", "loss_weight_stream", "sampling", "selection_metric", "ascii_case_tied"):
         value = getattr(args, name)
         if value is not None:
             if checkpoint and values.get(name, getattr(TrainingConfig(), name)) != value:
@@ -143,6 +157,8 @@ def run(args) -> Path:
             values[name] = value
     config = TrainingConfig(**values)
     config.validate()
+    if config.ascii_case_tied and current().id!='bat':
+        raise ValueError('ASCII case tying is currently reviewed only for BAT/CMD')
     snapshot_path = args.snapshot
     if checkpoint:
         snapshot_path = snapshot_path or Path(checkpoint["dataset"]["path"])
@@ -161,11 +177,18 @@ def run(args) -> Path:
         local_kernel = args.local_kernel
         if checkpoint and local_kernel is not None and local_kernel != checkpoint["modelConfig"].get("local_kernel", 1):
             raise ValueError("Resume must preserve model configuration")
+        if checkpoint and args.relative_attention is not None and args.relative_attention != checkpoint['modelConfig'].get('relative_attention',False):
+            raise ValueError('Resume must preserve relative attention')
         model = model_from_checkpoint(checkpoint, device) if checkpoint else SemanticTransformer(
-            ModelConfig(local_kernel=local_kernel or 1), len(snapshot.schema["tokenTypes"]), len(snapshot.schema["modifiers"])).to(device)
+            ModelConfig(local_kernel=local_kernel or 1, relative_attention=bool(args.relative_attention)), len(snapshot.schema["tokenTypes"]), len(snapshot.schema["modifiers"])).to(device)
         initialization = checkpoint.get("initialization") if checkpoint else None
         if args.init_from:
             initialization = initialize_from_checkpoint(model, args.init_from)
+        if config.ascii_case_tied:
+            if checkpoint:
+                if not torch.equal(model.byte_embedding.weight[65:91],model.byte_embedding.weight[97:123]):
+                    raise ValueError('Resume must preserve the embedding constraint')
+            else:tie_ascii_case(model)
         # Calibration belongs to frozen weights; optimizer updates require a
         # new train/validation-only fit rather than reusing stale transitions.
         model.structured_decoder = None
@@ -289,10 +312,14 @@ def main():
                         help='Fresh experiment: all windows once, or bounded rotating focus batches')
     parser.add_argument('--selection-metric', choices=['profile-macro', 'profile-f1', 'minimum-profile-f1'],
                         help='Fresh experiment: explicit profile-balanced natural validation selection policy')
+    parser.add_argument('--ascii-case-tied', action='store_true', default=None,
+                        help='BAT-only experiment: tie uppercase/lowercase learned byte embeddings during training')
     parser.add_argument('--loss-weight-stream', choices=['all', 'natural'],
                         help='Fresh experiment: fit class weights on all or only real-source training windows')
     parser.add_argument("--local-kernel", type=int, choices=[1, 3, 5],
                         help="Fresh bounded experiment: optional learned adjacent-byte residual; default historical backbone")
+    parser.add_argument('--relative-attention', action='store_true', default=None,
+                        help='Fresh experiment: zero-initialized learned per-layer/head distance bias')
     parser.add_argument("--smoke", action="store_true", default=None)
     parser.add_argument("--device", choices=["auto", "cpu", "mps", "cuda"], default="auto")
     parser.add_argument("--snapshot", type=Path)

@@ -42,3 +42,37 @@ and strips optimizer/RNG while preserving every selected weight.
 
 The repository remains private. External corpora and ignored training artifacts
 are not committed or published; reviewed inference bundles and reports are tracked.
+
+## Bounded quality refinement
+
+Use a full `artifacts/<pack>/<run>/best.pt` for `--init-from`, or its `last.pt`
+for an exact run resume. Never initialize training from an inference bundle.
+`--sampling shuffled-windows` replays every prepared training window;
+`natural-plus-curriculum` retains bounded rotating focus exposure. Record
+`--selection-metric profile-f1` (or `minimum-profile-f1` for dialects) explicitly
+when selecting by natural exact-span F1 instead of the historical role-macro score.
+
+`--relative-attention` adds one learned distance slope per layer/head, initialized
+at zero. Existing tensors and context remain intact. The portable native and ONNX
+graphs share the same attention implementation. `--ascii-case-tied` is BAT-only:
+training ties upper/lower ASCII byte embeddings and their gradients. Inference
+still receives original bytes and returns original UTF-16 offsets.
+
+Optional validation-only post-training stages:
+
+```sh
+.venv/bin/python -m training.shared.average --pack ruby \
+  --checkpoints artifacts/ruby/<primary>/best.pt artifacts/ruby/<other>/best.pt \
+  --output artifacts/ruby/<new-stage>/averaged.pt
+.venv/bin/python -m training.shared.calibrate --pack ruby \
+  --checkpoint artifacts/ruby/<new-stage>/averaged.pt \
+  --output artifacts/ruby/<new-stage>/calibrated.pt --device cpu
+```
+
+Averaging checks every parent's training families against target holdouts, selects
+convex weights on natural validation, and explicitly resets the optimizer/RNG.
+Calibration fits transitions on natural training Gold and selects its positive
+weight grid on natural validation; the unchanged decoder remains a candidate.
+Neither stage uses test predictions. Preserve their reports and hashes for export.
+Historical tests already inspected during development are regression evidence;
+keep any newly frozen family holdout and first-read result separate.

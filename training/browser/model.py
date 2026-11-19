@@ -8,6 +8,7 @@ import math
 import torch
 from torch import nn
 from torch.nn import functional as F
+from training.html.model import relative_layer
 
 
 class BrowserTransformer(nn.Module):
@@ -16,6 +17,7 @@ class BrowserTransformer(nn.Module):
         self.byte_embedding = selected.byte_embedding
         self.position_embedding = selected.position_embedding
         self.local_context = getattr(selected, 'local_context', None)
+        self.relative_bias = getattr(selected, 'relative_bias', None)
         self.layers = selected.encoder.layers if hasattr(selected, 'encoder') else selected.layers
         self.norm = selected.final_norm if hasattr(selected, 'final_norm') else selected.norm
         self.boundary_head = selected.boundary_head
@@ -28,7 +30,12 @@ class BrowserTransformer(nn.Module):
         if self.local_context is not None:
             hidden = hidden + self.local_context(hidden.transpose(1, 2)).transpose(1, 2)
         hidden = hidden + self.position_embedding(torch.arange(length, device=input_ids.device).unsqueeze(0))
-        for layer in self.layers:
+        for index, layer in enumerate(self.layers):
+            if self.relative_bias is not None:
+                positions=torch.arange(length,device=input_ids.device)
+                distance=(positions[:,None]-positions[None,:]).abs().to(hidden.dtype)
+                hidden=relative_layer(hidden,layer,distance,self.relative_bias[index])
+                continue
             normalized = layer.norm1(hidden)
             query, key, value = F.linear(normalized, layer.self_attn.in_proj_weight,
                                          layer.self_attn.in_proj_bias).chunk(3, dim=-1)

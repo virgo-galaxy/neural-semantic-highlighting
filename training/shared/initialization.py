@@ -27,6 +27,10 @@ def initialize_from_checkpoint(model: SemanticTransformer, path: Path) -> dict:
     source_dimensions = source_config.to_dict()
     target_kernel = target_dimensions.pop("local_kernel")
     source_kernel = source_dimensions.pop("local_kernel")
+    target_relative = target_dimensions.pop('relative_attention')
+    source_relative = source_dimensions.pop('relative_attention')
+    if source_relative and not target_relative:
+        raise ValueError('Transfer must preserve learned relative attention')
     if source_dimensions != target_dimensions or source_kernel not in (1, target_kernel):
         raise ValueError("Initialization requires identical model dimensions")
     schema = source["schema"]
@@ -39,12 +43,13 @@ def initialize_from_checkpoint(model: SemanticTransformer, path: Path) -> dict:
               "modifier_head": (list(target_schema.modifiers), schema["modifiers"])}
     target_state, original = model.state_dict(), source["model"]
     fresh_local = {name for name in target_state if name.startswith("local_context.") and source_kernel == 1}
+    if target_relative and not source_relative:fresh_local.add('relative_bias')
     if set(target_state) - fresh_local != set(original):
         raise ValueError("Incompatible initialization checkpoint tensor names")
     for name, tensor in target_state.items():
         if name in fresh_local:
             if bool(tensor.any()):
-                raise ValueError("New local context must start as an identity residual")
+                raise ValueError("New residual and attention parameters must start at zero")
             continue
         head = name.split(".")[0]
         shape = ((len(labels[head][1]), *tensor.shape[1:]) if head in labels else tensor.shape)

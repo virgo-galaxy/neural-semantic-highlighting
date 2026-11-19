@@ -33,3 +33,18 @@ Promote only reviewed candidates, archive preceding inference bundles, export
 browser models, verify native/browser parity and consumer behavior, and update
 the README with actual scores and remaining limitations. Unsuccessful experiments
 stay in ignored artifacts and do not replace a better selected model.
+
+Additional bounded source captures are explicit opt-in steps, without SDK installs:
+`python -m packs.perl.dataset.capture_quality` and
+`python -m packs.python.dataset.capture_quality`. The latter uses the already
+available CPython 3.15 source tree and installed package metadata, copies original
+licenses, and never imports/executes collected modules. Each collector freezes
+paths and family folds before capture; prior configurations live under
+`packs/<pack>/dataset/history/`. Rebuild the usual collect/label/validate/prepare
+steps after capture. BAT's `generate_quality` projects only natural TRAIN source
+into case variants in the same family/fold; validation/test bytes remain unchanged.
+
+Optional learned relative-distance slopes retain the 512-byte architecture and
+all parent tensors at transfer time. BAT-only ASCII embedding tying encodes case
+invariance in trained weights without normalizing runtime text. These are
+measured candidate experiments, not guarantees that every pack reaches 90/95%.

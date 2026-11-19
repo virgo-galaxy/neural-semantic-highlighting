@@ -34,6 +34,19 @@ def calibration_selection(calibration: dict) -> float:
 
 
 
+def verify_averaging(evidence: dict) -> None:
+    if evidence.get('testPredictionsUsed') is not False:
+        raise ValueError('Weight averaging must not use test predictions')
+    path = Path(evidence['report'])
+    if file_hash(path) != evidence['reportHash']:
+        raise ValueError('Weight averaging requires intact validation evidence')
+    report = json.loads(path.read_text())
+    if (report.get('testPredictionsUsed') is not False
+            or report.get('parents') != evidence['parents']
+            or report.get('selected', {}).get('weights') != evidence['weights']):
+        raise ValueError('Weight averaging provenance differs from its report')
+
+
 def export_model(source: Path, test_report: Path, output: Path) -> dict:
     source_hash = file_hash(source)
     checkpoint = load_checkpoint(source)
@@ -86,6 +99,9 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
             raise ValueError('Calibrated export requires intact validation-only selection evidence')
         calibration = json.loads(calibration_path.read_text())
         calibration_score = calibration_selection(calibration)
+    if checkpoint.get("weightAveraging"):
+        verify_averaging(checkpoint["weightAveraging"])
+        artifact["weightAveraging"] = checkpoint["weightAveraging"]
     save_checkpoint(output, artifact)
     # Verify the stored float32 tensors; export performs no quantization/retraining.
     reloaded = torch.load(output, map_location="cpu", weights_only=True)
@@ -123,6 +139,8 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
         "reports": {"test-metrics.json": {"file": "reports/test-metrics.json", "sha256": file_hash(report_target),
             "checkpointHash": source_hash, "split": "test", "inference": "predicted-adaptive-cursor"}},
     }
+    if artifact.get('weightAveraging'):
+        metadata['provenance']['weightAveraging'] = artifact['weightAveraging']
     if artifact.get('decoderCalibration'):
         metadata['provenance']['decoderCalibration'] = artifact['decoderCalibration']
         metadata['selection'] = dict(epoch=checkpoint['epoch'],

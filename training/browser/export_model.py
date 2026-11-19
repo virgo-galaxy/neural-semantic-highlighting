@@ -19,27 +19,27 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def open_pack(pack_id):
+def open_pack(pack_id, source=None):
     if pack_id == 'typescript':
         from packs.typescript.runtime.local import TypeScriptLocalPack
-        return TypeScriptLocalPack(device=torch.device('cpu'))
+        return TypeScriptLocalPack(device=torch.device('cpu'), **(dict(model_path=source, model_metadata_path=source.with_name('model.json')) if source else {}))
     if pack_id in {'go', 'css', 'html', 'vue'}:
         classes = {'go': 'GoLocalPack', 'css': 'CssLocalPack', 'html': 'HtmlLocalPack', 'vue': 'VueLocalPack'}
         module = importlib.import_module(f'packs.{pack_id}.runtime.local')
         return getattr(module, classes[pack_id])(device_name='cpu')
     from training.shared.runtime import LocalPack
-    return LocalPack(pack_id=pack_id, device_name='cpu')
+    return LocalPack(pack_id=pack_id, device_name='cpu', **(dict(checkpoint_path=source) if source else {}))
 
 
-def export(pack_id, output):
-    source = ROOT / 'packs' / pack_id / 'model/model.pt'
+def export(pack_id, output, source=None):
+    source = (source or ROOT / 'packs' / pack_id / 'model/model.pt').resolve()
     source_hash = digest(source)
     if output.exists():
         raise ValueError('Preserve existing browser export; choose a new target')
     output.mkdir(parents=True)
     torch.set_num_threads(4)
     torch.manual_seed(1729)
-    pack = open_pack(pack_id)
+    pack = open_pack(pack_id, source)
     model = BrowserTransformer(pack.model).eval()
     metadata = json.loads((source.parent / 'model.json').read_text())
     if pack_id == 'typescript':
@@ -53,7 +53,7 @@ def export(pack_id, output):
         context = pack.checkpoint['modelConfig']['context_bytes']
     manifest = json.loads((ROOT / 'packs' / pack_id / 'manifest.json').read_text())
     policy = {}
-    config_path = source.parents[1] / 'pack.json'
+    config_path = ROOT / 'packs' / pack_id / 'pack.json'
     if config_path.exists():
         policy = json.loads(config_path.read_text()).get('decoder', {})
     if pack_id in {'html', 'vue'}:
@@ -89,7 +89,8 @@ def export(pack_id, output):
               'contextBytes': context, 'schema': schema, 'modifierThreshold': threshold,
               'decoder': policy, 'quantized': False, 'resumableTrainingCheckpoint': False,
               'input': 'original-utf8-bytes', 'output': 'original-utf16-spans',
-              'exporterSha256': digest(Path(__file__)), 'graphSha256': digest(Path(__file__).with_name('model.py'))}
+              'exporterSha256': digest(Path(__file__)), 'graphSha256': digest(Path(__file__).with_name('model.py')),
+              'attentionGraphSha256': digest(ROOT / 'training/html/model.py')}
     if pack.checkpoint.get('structuredDecoder') is not None:
         record['structuredDecoder'] = pack.checkpoint['structuredDecoder']
     (output / 'model.json').write_text(json.dumps(record, indent=2) + '\n')
@@ -103,5 +104,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--pack', required=True)
     parser.add_argument('--output', type=Path)
+    parser.add_argument('--model-path', type=Path, help='A staged native inference model; historical bundles remain intact')
     args = parser.parse_args()
-    export(args.pack, args.output or ROOT / 'packs' / args.pack / 'browser')
+    export(args.pack, args.output or ROOT / 'packs' / args.pack / 'browser', args.model_path)
