@@ -70,7 +70,10 @@ BASH_EPOCHS ?= 3
 BASH_BATCH_SIZE ?= 32
 BASH_EVAL_SPLIT ?= validation
 
-.PHONY: dataset-bash dataset-bash-sources dataset-bash-curriculum dataset-bash-collect dataset-bash-label dataset-bash-validate dataset-bash-prepare test-labeling-bash train-bash-smoke train-bash continue-bash predict-bash evaluate-bash challenge-bash export-bash-model
+.PHONY: dataset-bash-quality-sources dataset-bash dataset-bash-sources dataset-bash-curriculum dataset-bash-collect dataset-bash-label dataset-bash-validate dataset-bash-prepare test-labeling-bash train-bash-smoke train-bash continue-bash predict-bash evaluate-bash challenge-bash export-bash-model
+
+dataset-bash-quality-sources:
+	$(PYTHON) -m packs.bash.dataset.capture_quality
 
 dataset-bash-sources:
 	$(PYTHON) -m training.shared.offline_tools

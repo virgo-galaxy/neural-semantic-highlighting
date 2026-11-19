@@ -48,3 +48,9 @@ Optional learned relative-distance slopes retain the 512-byte architecture and
 all parent tensors at transfer time. BAT-only ASCII embedding tying encodes case
 invariance in trained weights without normalizing runtime text. These are
 measured candidate experiments, not guarantees that every pack reaches 90/95%.
+
+Shell's additional source-only capture is `make dataset-bash-quality-sources`.
+It freezes at most 96 existing macOS Zsh 5.9 function paths, excludes the original
+named families, retains upstream licensing and per-file notices, and never runs
+the captured functions. One duplicate is excluded by the usual dataset builder.
+All 4,423 original prepared documents retain source, Gold and fold membership.
