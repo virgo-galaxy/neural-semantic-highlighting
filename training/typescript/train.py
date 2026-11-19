@@ -43,6 +43,7 @@ from model import (
     SemanticTransformer,
     count_parameters,
 )
+from losses import weighted_token_loss
 
 
 DEFAULT_OUTPUT_PATH = DEFAULT_BEST_CHECKPOINT_PATH
@@ -1017,14 +1018,9 @@ def _optimizer_step(
         attention_mask=attention_mask,
     )
 
-    boundary_loss = boundary_loss_function(
-        output.boundary_logits.reshape(-1, output.boundary_logits.shape[-1]),
-        boundary_labels.reshape(-1),
-    )
-    token_type_loss = token_type_loss_function(
-        output.token_type_logits.reshape(-1, output.token_type_logits.shape[-1]),
-        token_type_labels.reshape(-1),
-    )
+    position_weights=batch.get('position_weights')
+    boundary_loss = weighted_token_loss(output.boundary_logits,boundary_labels,boundary_loss_function,position_weights)
+    token_type_loss = weighted_token_loss(output.token_type_logits,token_type_labels,token_type_loss_function,position_weights)
 
     begin_mask = boundary_labels == BOUNDARY_BEGIN_ID
     if include_modifier and begin_mask.any():
@@ -1246,6 +1242,7 @@ def save_checkpoint(
                     dataset.schema.modifiers
                 ),
                 "max_length": max_length,
+                "local_kernel": model.local_context.kernel_size[0] if model.local_context is not None else 1,
                 "train_windowing": "adaptive-cursor",
                 "embedding_dimension": MODEL_EMBEDDING_DIMENSION,
                 "number_of_heads": MODEL_NUMBER_OF_HEADS,
@@ -1458,6 +1455,7 @@ def parse_arguments() -> argparse.Namespace:
         type=int,
         default=DEFAULT_MAX_LENGTH,
     )
+    parser.add_argument('--local-kernel', type=int, choices=[1, 3, 5])
 
     parser.add_argument(
         "--modifier-loss-weight",
@@ -1603,6 +1601,12 @@ def main() -> None:
         num_workers=0,
     )
 
+    local_kernel = args.local_kernel or 1
+    if args.resume is not None:
+        saved_kernel = torch.load(args.resume, map_location='cpu', weights_only=True)['config'].get('local_kernel', 1)
+        if args.local_kernel is not None and args.local_kernel != saved_kernel:
+            raise ValueError('Resume must preserve local context kernel')
+        local_kernel = saved_kernel
     model = SemanticTransformer(
         vocab_size=257,
         number_of_boundary_classes=(
@@ -1618,6 +1622,7 @@ def main() -> None:
         max_length=(
             args.max_length
         ),
+        local_kernel=local_kernel,
     ).to(device)
 
     optimizer = torch.optim.AdamW(

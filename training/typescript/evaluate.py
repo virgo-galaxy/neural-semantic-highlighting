@@ -128,6 +128,7 @@ def load_model(
 
     model = SemanticTransformer(
         vocab_size=config["vocab_size"],
+        local_kernel=config.get("local_kernel", 1),
         number_of_boundary_classes=(
             config[
                 "number_of_boundary_classes"

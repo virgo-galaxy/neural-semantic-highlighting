@@ -108,6 +108,7 @@ def load_model(
                 "feed_forward_dimension"
             ]
         ),
+        local_kernel=config.get('local_kernel', 1),
     )
 
     model.load_state_dict(

@@ -46,15 +46,24 @@ class SemanticTransformer(nn.Module):
         number_of_layers: int,
         feed_forward_dimension: int,
         padding_id: int = PAD_BYTE_ID,
+        local_kernel: int = 1,
     ) -> None:
         super().__init__()
 
         self.max_length = max_length
+        if local_kernel not in (1, 3, 5):
+            raise ValueError('Local context kernel must be 1, 3 or 5')
         self.byte_embedding = nn.Embedding(
             vocab_size,
             embedding_dimension,
             padding_idx=padding_id,
         )
+        self.local_context = None
+        if local_kernel > 1:
+            self.local_context = nn.Conv1d(embedding_dimension, embedding_dimension, local_kernel,
+                                           padding=local_kernel // 2, groups=embedding_dimension)
+            nn.init.zeros_(self.local_context.weight)
+            nn.init.zeros_(self.local_context.bias)
         self.position_embedding = nn.Embedding(max_length, embedding_dimension)
 
         encoder_layer = nn.TransformerEncoderLayer(
@@ -112,7 +121,10 @@ class SemanticTransformer(nn.Module):
         ).unsqueeze(0)
         positions = positions.expand(batch_size, active_length)
 
-        hidden_states = self.byte_embedding(input_ids) + self.position_embedding(positions)
+        hidden_states = self.byte_embedding(input_ids)
+        if self.local_context is not None:
+            hidden_states = hidden_states + self.local_context(hidden_states.transpose(1, 2)).transpose(1, 2)
+        hidden_states = hidden_states + self.position_embedding(positions)
         hidden_states = self.encoder(
             hidden_states,
             src_key_padding_mask=~attention_mask,
@@ -258,6 +270,7 @@ def load_model(
         number_of_heads=config["number_of_heads"],
         number_of_layers=config["number_of_layers"],
         feed_forward_dimension=config["feed_forward_dimension"],
+        local_kernel=config.get('local_kernel', 1),
     )
     model.load_state_dict(checkpoint["model_state_dict"])
     model.to(device)

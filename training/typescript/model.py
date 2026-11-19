@@ -37,16 +37,25 @@ class SemanticTransformer(nn.Module):
         feed_forward_dimension: int = MODEL_FEED_FORWARD_DIMENSION,
         dropout: float = MODEL_DROPOUT,
         padding_id: int = 256,
+        local_kernel: int = 1,
     ) -> None:
         super().__init__()
 
         self.max_length = max_length
+        if local_kernel not in (1, 3, 5):
+            raise ValueError('Local context kernel must be 1, 3 or 5')
 
         self.byte_embedding = nn.Embedding(
             vocab_size,
             embedding_dimension,
             padding_idx=padding_id,
         )
+        self.local_context = None
+        if local_kernel > 1:
+            self.local_context = nn.Conv1d(embedding_dimension, embedding_dimension, local_kernel,
+                                           padding=local_kernel // 2, groups=embedding_dimension)
+            nn.init.zeros_(self.local_context.weight)
+            nn.init.zeros_(self.local_context.bias)
 
         self.position_embedding = nn.Embedding(
             max_length,
@@ -125,10 +134,10 @@ class SemanticTransformer(nn.Module):
             active_length,
         )
 
-        hidden_states = (
-            self.byte_embedding(input_ids)
-            + self.position_embedding(positions)
-        )
+        hidden_states = self.byte_embedding(input_ids)
+        if self.local_context is not None:
+            hidden_states = hidden_states + self.local_context(hidden_states.transpose(1, 2)).transpose(1, 2)
+        hidden_states = hidden_states + self.position_embedding(positions)
 
         hidden_states = self.encoder(
             hidden_states,

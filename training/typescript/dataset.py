@@ -212,13 +212,18 @@ class RegExpFocusDataset(Dataset):
         token_type_labels[local_start:local_end] = document.token_type_labels[focus_slice]
         modifier_labels[local_start:local_end] = document.modifier_labels[focus_slice].float()
 
-        return {
+        result = {
             "input_ids": input_ids,
             "attention_mask": attention_mask,
             "boundary_labels": boundary_labels,
             "token_type_labels": token_type_labels,
             "modifier_labels": modifier_labels,
         }
+        if getattr(self,'eof_loss_weight',1)>1:
+            weights=torch.ones(self.max_length)
+            if window.end==len(document.input_ids):weights[max(0,length-1):length]=self.eof_loss_weight
+            result['position_weights']=weights
+        return result
 
 
 def _bounded_focus_window_start(

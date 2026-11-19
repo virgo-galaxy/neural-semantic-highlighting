@@ -54,3 +54,31 @@ It freezes at most 96 existing macOS Zsh 5.9 function paths, excludes the origin
 named families, retains upstream licensing and per-file notices, and never runs
 the captured functions. One duplicate is excluded by the usual dataset builder.
 All 4,423 original prepared documents retain source, Gold and fold membership.
+
+## JS/TS refinement recipe
+
+`node --import tsx packs/typescript/dataset/generate-quality.ts` writes a new,
+versioned external focus corpus, preserving previous versions. Compiler-AST Gold,
+syntax-only RegExp construction, fixed context-family folds, EOF/newline variants
+and real slash negatives are recorded in its manifest. No input source is run.
+
+```sh
+PYTHONPATH=. caffeinate -i .venv/bin/python training/typescript/refine.py \
+  --init-from artifacts/typescript/<full-run>/best.pt --local-kernel 5 \
+  --focus /absolute/path/to/versioned/focus.json --eof-loss-weight 8 \
+  --run artifacts/typescript/<new-run> --epochs 4
+# Resume this same refinement run (not the legacy trainer):
+PYTHONPATH=. caffeinate -i .venv/bin/python training/typescript/refine.py \
+  --resume artifacts/typescript/<new-run>/last.pt --local-kernel 5 \
+  --focus /absolute/path/to/versioned/focus.json --eof-loss-weight 8 \
+  --run artifacts/typescript/<new-run> --epochs 4
+```
+
+This uses deterministic 100-RegExp/200-other TRAIN-document replay. All natural
+validation files and authored validation contexts remain outside the optimizer.
+The unchanged initial weights are eligible for selection; micro/macro natural
+regression guards constrain focused gains. Optional EOF loss weighting only uses
+true document-end positions, never source spelling or Gold token roles. Runtime
+consumes the original text without appending a newline or repairing punctuation.
+The historical RegExp challenge is exposed development evidence, separately from
+filtered authored holdouts and 24 read-only real Virgo Design TSX test files.
