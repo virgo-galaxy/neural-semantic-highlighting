@@ -17,3 +17,9 @@ For local development: `.venv/bin/python -m packs.c.runtime.local --file example
 See [BENCHMARKS.md](BENCHMARKS.md) for measured evidence and
 [KNOWN_ISSUES.md](KNOWN_ISSUES.md) for remaining limits. The selected `.pt` is
 inference-only; resume full training checkpoints under ignored `artifacts/c`.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).

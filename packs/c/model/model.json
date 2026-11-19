@@ -3,16 +3,19 @@
   "artifact": {
     "file": "model.pt",
     "format": "nsh-c-model-v1",
-    "sha256": "6418250639758349b43f8182f958d838b277abdfd7575220d9ba104226219c8c",
-    "bytes": 3625013,
+    "sha256": "732d6cbfcf1c5289cf1e59abc7b1f59082c407ee431f992266c93966e0a0084f",
+    "bytes": 3625461,
     "parameterCount": 894227,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "selection": {
     "epoch": 2,
-    "metric": "mean per-profile natural real-source validation exact-span macro F1",
-    "score": 0.8678193373510849
+    "metric": "Maximum minimum natural VALIDATION profile F1; role macro decrease at most .01; unchanged runtime eligible",
+    "score": 0.9508585788077621,
+    "validationReportSha256": "7cb5da981fc365b719d3209905cb4408fe44539e509822b6ff7d31f89087ff56",
+    "trainingSelectionMetric": "profile-macro",
+    "trainingBestFixedScore": 0.8678193373510849
   },
   "checkpointConfig": {
     "context_bytes": 512,
@@ -73,7 +76,13 @@
       "modifier_roles": null
     },
     "modifierThreshold": 0.6,
-    "parserRequired": false
+    "parserRequired": false,
+    "windowingPolicy": {
+      "format": "nsh-overlap-logits-v1",
+      "strideBytes": 128,
+      "edgeWeightCap": 128,
+      "adaptiveWeight": 0.5
+    }
   },
   "scope": "c-local-semantic-spans",
   "modelSchema": {
@@ -89,8 +98,8 @@
     "manifestHash": "91af5ce058eadf710844711a1fc4b015795b947213ffca4dc5ed901fc175bd95"
   },
   "provenance": {
-    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/c/context512-mixed-20261109-01/candidates/epoch-0002.pt",
-    "sourceCheckpointSha256": "b2c63931b2b3c1531b2455299e352e0ca7b6a291566c0b1129130fbe05c05e5f",
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/remaining/c/greedy-window.pt",
+    "sourceCheckpointSha256": "9884c8eeb6223e235e9aefde92158c234e0405155daab96ab89d5a3109db9860",
     "training": {
       "codeHashes": {
         "training/c/challenge.py": "f7c0263e71f4638a40d45a4e20ed0399957798a55c9100253291581cb610ba78",
@@ -170,15 +179,28 @@
       ],
       "optimizerAndTrainingState": "fresh pack run"
     },
-    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+    "exporterSha256": "273c7f803cc1684d62f43d31a02229aec085228310c73833358d56f369593c72",
+    "windowingCalibration": {
+      "validationReport": "artifacts/quality-20261119/remaining/c/greedy-window.windowing.json",
+      "validationReportHash": "7cb5da981fc365b719d3209905cb4408fe44539e509822b6ff7d31f89087ff56",
+      "testPredictionsUsed": false
+    }
   },
   "reports": {
     "test-metrics.json": {
       "file": "reports/test-metrics.json",
-      "sha256": "54adf809ed1025e8cba9361085ea2cea8cf5c2d7e34b7e511413e51246bf863d",
-      "checkpointHash": "b2c63931b2b3c1531b2455299e352e0ca7b6a291566c0b1129130fbe05c05e5f",
+      "sha256": "2c8b0958e2a184f9b2f3a76cc9ac5d31dfa0a1323ada3a75b6fa620d2ead10ad",
+      "checkpointHash": "9884c8eeb6223e235e9aefde92158c234e0405155daab96ab89d5a3109db9860",
       "split": "test",
       "inference": "predicted-adaptive-cursor"
+    },
+    "windowingCalibration.json": {
+      "file": "reports/windowingCalibration.json",
+      "sha256": "fb9c16385d36c3a18af5be0db6bb333feeddf1de21da161f6dff07c3780160b7"
+    },
+    "golden.json": {
+      "file": "reports/golden.json",
+      "sha256": "7fc6ad703bf40cfebbe8ae9fb61291a6f05aef3199d90cfa85e46033d110eaee"
     }
   }
 }

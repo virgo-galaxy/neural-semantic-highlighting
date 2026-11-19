@@ -11,7 +11,7 @@ const model: BrowserModel = {
       },
     ],
   },
-  sha256: "07834638820dcb384d816104f547cb400a09234e7c795c94db7cbf299a7209bb",
+  sha256: "0f38eea262588ed4127b3121dd76652698040a42e4082f2b6a2a00d3f28b60f6",
   contextBytes: 512,
   schema: {
     tokenTypes: [
@@ -35,6 +35,12 @@ const model: BrowserModel = {
   },
   modifierThreshold: 0.6,
   decoder: {},
+  inferenceWindowing: {
+    format: "nsh-overlap-logits-v1",
+    strideBytes: 128,
+    edgeWeightCap: 128,
+    adaptiveWeight: 0.5,
+  },
   modelUrl: () => new URL("../models/c.onnx", import.meta.url).href,
 };
 export default model;
