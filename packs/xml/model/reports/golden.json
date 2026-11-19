@@ -62,46 +62,9 @@
       "profile": "xml",
       "documentKind": "xml",
       "source": "<p>Read <b>this</b> now.</p>",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 3,
-          "end": 8,
-          "text": "Read ",
-          "tokenType": "text",
-          "modifiers": []
-        },
-        {
-          "start": 19,
-          "end": 24,
-          "text": " now.",
-          "tokenType": "text",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 3,
-          "end": 7,
-          "text": "Read",
-          "tokenType": "text",
-          "modifiers": []
-        },
-        {
-          "start": 19,
-          "end": 20,
-          "text": " ",
-          "tokenType": "text",
-          "modifiers": []
-        },
-        {
-          "start": 20,
-          "end": 24,
-          "text": "now.",
-          "tokenType": "text",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "xml-double-attribute",
@@ -129,19 +92,26 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
-          "start": 7,
-          "end": 10,
-          "text": "key",
-          "tokenType": "attribute",
+          "start": 11,
+          "end": 12,
+          "text": "=",
+          "tokenType": "punctuation",
           "modifiers": []
         }
       ],
       "unexpected": [
         {
-          "start": 7,
-          "end": 10,
-          "text": "key",
-          "tokenType": "tag",
+          "start": 11,
+          "end": 12,
+          "text": "=",
+          "tokenType": "attribute",
+          "modifiers": []
+        },
+        {
+          "start": 12,
+          "end": 13,
+          "text": " ",
+          "tokenType": "punctuation",
           "modifiers": []
         }
       ]
@@ -173,8 +143,8 @@
       "unexpected": [
         {
           "start": 3,
-          "end": 4,
-          "text": "a",
+          "end": 5,
+          "text": "a ",
           "tokenType": "tag",
           "modifiers": []
         },
@@ -182,21 +152,14 @@
           "start": 5,
           "end": 6,
           "text": "=",
-          "tokenType": "text",
+          "tokenType": "punctuation",
           "modifiers": []
         },
         {
           "start": 6,
-          "end": 18,
-          "text": " b / c ? yes",
-          "tokenType": "text",
-          "modifiers": []
-        },
-        {
-          "start": 18,
           "end": 19,
-          "text": "!",
-          "tokenType": "keyword",
+          "text": " b / c ? yes!",
+          "tokenType": "text",
           "modifiers": []
         }
       ]
@@ -209,19 +172,61 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
+          "start": 0,
+          "end": 1,
+          "text": "<",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
           "start": 1,
           "end": 2,
           "text": "r",
           "tokenType": "tag",
           "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 22,
+          "end": 28,
+          "text": "&apos;",
+          "tokenType": "entity",
+          "modifiers": []
         }
       ],
       "unexpected": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "<",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
         {
           "start": 1,
           "end": 2,
           "text": "r",
           "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "text": ">",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 22,
+          "end": 28,
+          "text": "&apos;",
+          "tokenType": "tag",
           "modifiers": []
         }
       ]
@@ -231,9 +236,39 @@
       "profile": "xml",
       "documentKind": "xml",
       "source": "<r>&#65;&#x1F30C;</r>",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 3,
+          "end": 8,
+          "text": "&#65;",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 17,
+          "text": "&#x1F30C;",
+          "tokenType": "entity",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 3,
+          "end": 8,
+          "text": "&#65;",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 17,
+          "text": "&#x1F30C;",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "xml-entity-text",
@@ -247,13 +282,6 @@
           "end": 2,
           "text": "r",
           "tokenType": "tag",
-          "modifiers": []
-        },
-        {
-          "start": 2,
-          "end": 3,
-          "text": ">",
-          "tokenType": "punctuation",
           "modifiers": []
         },
         {
@@ -280,17 +308,10 @@
           "modifiers": []
         },
         {
-          "start": 2,
-          "end": 3,
-          "text": ">",
-          "tokenType": "text",
-          "modifiers": []
-        },
-        {
           "start": 5,
           "end": 12,
           "text": "&amp; B",
-          "tokenType": "entity",
+          "tokenType": "text",
           "modifiers": []
         }
       ]
@@ -354,20 +375,20 @@
           "modifiers": [
             "closing"
           ]
+        },
+        {
+          "start": 32,
+          "end": 33,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
         }
       ],
       "unexpected": [
         {
           "start": 0,
-          "end": 29,
-          "text": "<r><![CDATA[a < b && c > d]]>",
-          "tokenType": "string",
-          "modifiers": []
-        },
-        {
-          "start": 29,
-          "end": 32,
-          "text": "</r",
+          "end": 33,
+          "text": "<r><![CDATA[a < b && c > d]]></r>",
           "tokenType": "string",
           "modifiers": []
         }
@@ -378,9 +399,43 @@
       "profile": "xml",
       "documentKind": "xml",
       "source": "<r><![CDATA[&amp; <tag/>]]></r>",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 29,
+          "end": 30,
+          "text": "r",
+          "tokenType": "tag",
+          "modifiers": [
+            "closing"
+          ]
+        },
+        {
+          "start": 30,
+          "end": 31,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 29,
+          "end": 30,
+          "text": "r",
+          "tokenType": "punctuation",
+          "modifiers": [
+            "closing"
+          ]
+        },
+        {
+          "start": 30,
+          "end": 31,
+          "text": ">",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "xml-default-namespace",
@@ -436,7 +491,7 @@
           "start": 40,
           "end": 43,
           "text": "r/>",
-          "tokenType": "punctuation",
+          "tokenType": "tag",
           "modifiers": []
         }
       ]
@@ -446,71 +501,18 @@
       "profile": "xml",
       "documentKind": "xml",
       "source": "<?xml-stylesheet href=\"preview.xsl\" type=\"text/xsl\"?>\n<r/>",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 0,
-          "end": 53,
-          "text": "<?xml-stylesheet href=\"preview.xsl\" type=\"text/xsl\"?>",
-          "tokenType": "keyword",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 0,
-          "end": 35,
-          "text": "<?xml-stylesheet href=\"preview.xsl\"",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
-          "start": 36,
-          "end": 40,
-          "text": "type",
-          "tokenType": "attribute",
-          "modifiers": []
-        },
-        {
-          "start": 40,
-          "end": 41,
-          "text": "=",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
-          "start": 41,
-          "end": 53,
-          "text": "\"text/xsl\"?>",
-          "tokenType": "keyword",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "xml-unicode-crlf",
       "profile": "xml",
       "documentKind": "xml",
       "source": "\ufeff<\u6807\u9898>\u661f\u7a7a \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb</\u6807\u9898>\r\n",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 2,
-          "end": 4,
-          "text": "\u6807\u9898",
-          "tokenType": "tag",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 2,
-          "end": 4,
-          "text": "\u6807\u9898",
-          "tokenType": "text",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "svg-basic",
@@ -601,6 +603,20 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
+          "start": 11,
+          "end": 13,
+          "text": "A ",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 13,
+          "end": 18,
+          "text": "&amp;",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
           "start": 18,
           "end": 20,
           "text": " B",
@@ -610,10 +626,24 @@
       ],
       "unexpected": [
         {
-          "start": 19,
+          "start": 11,
+          "end": 13,
+          "text": "A ",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 13,
+          "end": 18,
+          "text": "&amp;",
+          "tokenType": "tag",
+          "modifiers": []
+        },
+        {
+          "start": 18,
           "end": 20,
-          "text": "B",
-          "tokenType": "text",
+          "text": " B",
+          "tokenType": "punctuation",
           "modifiers": []
         }
       ]
@@ -659,9 +689,39 @@
       "profile": "svg",
       "documentKind": "svg",
       "source": "<svg><g transform=\"translate(2 3) rotate(45)\"><rect width=\"12\"/></g></svg>",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "<",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 7,
+          "text": "g",
+          "tokenType": "tag",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 5,
+          "end": 6,
+          "text": "<",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 7,
+          "text": "g",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ]
     },
     {
       "id": "svg-filter",
@@ -704,32 +764,9 @@
       "profile": "svg",
       "documentKind": "svg",
       "source": "<!DOCTYPE svg [<!ELEMENT svg ANY>]><svg/>",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 0,
-          "end": 35,
-          "text": "<!DOCTYPE svg [<!ELEMENT svg ANY>]>",
-          "tokenType": "keyword",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 0,
-          "end": 15,
-          "text": "<!DOCTYPE svg [",
-          "tokenType": "keyword",
-          "modifiers": []
-        },
-        {
-          "start": 15,
-          "end": 35,
-          "text": "<!ELEMENT svg ANY>]>",
-          "tokenType": "keyword",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "svg-unicode",
@@ -763,42 +800,79 @@
       "profile": "svg",
       "documentKind": "svg",
       "source": "<svg><text>&#x3C;icon&#x3E;</text></svg>",
-      "exactIncludingModifiers": true,
-      "missing": [],
-      "unexpected": []
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 11,
+          "end": 17,
+          "text": "&#x3C;",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 21,
+          "text": "icon",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 27,
+          "text": "&#x3E;",
+          "tokenType": "entity",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 11,
+          "end": 21,
+          "text": "&#x3C;icon",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 21,
+          "end": 27,
+          "text": "&#x3E;",
+          "tokenType": "tag",
+          "modifiers": []
+        }
+      ]
     }
   ],
   "profiles": {
     "xml": {
       "documents": 24,
-      "exactDocumentsIncludingModifiers": 15,
+      "exactDocumentsIncludingModifiers": 16,
       "exactSpan": {
-        "precision": 0.8857142857142857,
-        "recall": 0.8908045977011494,
-        "f1": 0.8882521489971347,
-        "tp": 155,
-        "fp": 20,
-        "fn": 19,
+        "precision": 0.8994082840236687,
+        "recall": 0.8735632183908046,
+        "f1": 0.8862973760932945,
+        "tp": 152,
+        "fp": 17,
+        "fn": 22,
         "support": 174
       },
-      "exactSpanMacroF1": 0.7789750459827186,
+      "exactSpanMacroF1": 0.8378343253519451,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8857142857142857,
-        "recall": 0.8908045977011494,
-        "f1": 0.8882521489971347,
-        "tp": 155,
-        "fp": 20,
-        "fn": 19,
+        "precision": 0.8994082840236687,
+        "recall": 0.8735632183908046,
+        "f1": 0.8862973760932945,
+        "tp": 152,
+        "fp": 17,
+        "fn": 22,
         "support": 174
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.2,
-          "recall": 0.5,
-          "f1": 0.2857142857142857,
-          "tp": 1,
-          "fp": 4,
-          "fn": 1,
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
           "support": 2
         },
         "comment": {
@@ -820,82 +894,82 @@
           "support": 11
         },
         "punctuation": {
-          "precision": 0.9886363636363636,
-          "recall": 0.9456521739130435,
-          "f1": 0.9666666666666667,
-          "tp": 87,
-          "fp": 1,
-          "fn": 5,
+          "precision": 0.9651162790697675,
+          "recall": 0.9021739130434783,
+          "f1": 0.9325842696629213,
+          "tp": 83,
+          "fp": 3,
+          "fn": 9,
           "support": 92
         },
         "tag": {
-          "precision": 0.9459459459459459,
+          "precision": 0.9210526315789473,
           "recall": 0.8536585365853658,
-          "f1": 0.8974358974358975,
+          "f1": 0.8860759493670886,
           "tp": 35,
-          "fp": 2,
+          "fp": 3,
           "fn": 6,
           "support": 41
         },
         "attribute": {
-          "precision": 0.8888888888888888,
-          "recall": 0.8888888888888888,
-          "f1": 0.8888888888888888,
-          "tp": 8,
+          "precision": 0.9,
+          "recall": 1.0,
+          "f1": 0.9473684210526315,
+          "tp": 9,
           "fp": 1,
-          "fn": 1,
+          "fn": 0,
           "support": 9
         },
         "text": {
-          "precision": 0.42857142857142855,
-          "recall": 0.6,
-          "f1": 0.5,
-          "tp": 6,
-          "fp": 8,
-          "fn": 4,
+          "precision": 0.6153846153846154,
+          "recall": 0.8,
+          "f1": 0.6956521739130435,
+          "tp": 8,
+          "fp": 5,
+          "fn": 2,
           "support": 10
         },
         "entity": {
-          "precision": 0.7777777777777778,
-          "recall": 0.875,
-          "f1": 0.8235294117647058,
-          "tp": 7,
+          "precision": 0.6666666666666666,
+          "recall": 0.5,
+          "f1": 0.5714285714285714,
+          "tp": 4,
           "fp": 2,
-          "fn": 1,
+          "fn": 4,
           "support": 8
         }
       }
     },
     "svg": {
       "documents": 24,
-      "exactDocumentsIncludingModifiers": 22,
+      "exactDocumentsIncludingModifiers": 21,
       "exactSpan": {
-        "precision": 0.9912536443148688,
-        "recall": 0.9941520467836257,
-        "f1": 0.9927007299270073,
-        "tp": 340,
-        "fp": 3,
-        "fn": 2,
+        "precision": 0.9794721407624634,
+        "recall": 0.9766081871345029,
+        "f1": 0.9780380673499268,
+        "tp": 334,
+        "fp": 7,
+        "fn": 8,
         "support": 342
       },
-      "exactSpanMacroF1": 0.9071428571428571,
+      "exactSpanMacroF1": 0.8232418350342878,
       "exactSpanIncludingModifiers": {
-        "precision": 0.9912536443148688,
-        "recall": 0.9941520467836257,
-        "f1": 0.9927007299270073,
-        "tp": 340,
-        "fp": 3,
-        "fn": 2,
+        "precision": 0.9794721407624634,
+        "recall": 0.9766081871345029,
+        "f1": 0.9780380673499268,
+        "tp": 334,
+        "fp": 7,
+        "fn": 8,
         "support": 342
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.3333333333333333,
-          "recall": 0.5,
-          "f1": 0.4,
-          "tp": 1,
-          "fp": 2,
-          "fn": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
           "support": 2
         },
         "comment": {
@@ -917,21 +991,21 @@
           "support": 32
         },
         "punctuation": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
-          "tp": 188,
-          "fp": 0,
-          "fn": 0,
+          "precision": 0.9842105263157894,
+          "recall": 0.9946808510638298,
+          "f1": 0.9894179894179894,
+          "tp": 187,
+          "fp": 3,
+          "fn": 1,
           "support": 188
         },
         "tag": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
-          "tp": 79,
-          "fp": 0,
-          "fn": 0,
+          "precision": 0.975,
+          "recall": 0.9873417721518988,
+          "f1": 0.9811320754716981,
+          "tp": 78,
+          "fp": 2,
+          "fn": 1,
           "support": 79
         },
         "attribute": {
@@ -944,21 +1018,21 @@
           "support": 30
         },
         "text": {
-          "precision": 0.8571428571428571,
-          "recall": 0.8571428571428571,
-          "f1": 0.8571428571428571,
-          "tp": 6,
-          "fp": 1,
-          "fn": 1,
+          "precision": 0.6666666666666666,
+          "recall": 0.5714285714285714,
+          "f1": 0.6153846153846154,
+          "tp": 4,
+          "fp": 2,
+          "fn": 3,
           "support": 7
         },
         "entity": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
-          "tp": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
           "fp": 0,
-          "fn": 0,
+          "fn": 3,
           "support": 3
         }
       }
@@ -967,34 +1041,34 @@
   "documentKinds": {
     "xml": {
       "documents": 24,
-      "exactDocumentsIncludingModifiers": 15,
+      "exactDocumentsIncludingModifiers": 16,
       "exactSpan": {
-        "precision": 0.8857142857142857,
-        "recall": 0.8908045977011494,
-        "f1": 0.8882521489971347,
-        "tp": 155,
-        "fp": 20,
-        "fn": 19,
+        "precision": 0.8994082840236687,
+        "recall": 0.8735632183908046,
+        "f1": 0.8862973760932945,
+        "tp": 152,
+        "fp": 17,
+        "fn": 22,
         "support": 174
       },
-      "exactSpanMacroF1": 0.7789750459827186,
+      "exactSpanMacroF1": 0.8378343253519451,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8857142857142857,
-        "recall": 0.8908045977011494,
-        "f1": 0.8882521489971347,
-        "tp": 155,
-        "fp": 20,
-        "fn": 19,
+        "precision": 0.8994082840236687,
+        "recall": 0.8735632183908046,
+        "f1": 0.8862973760932945,
+        "tp": 152,
+        "fp": 17,
+        "fn": 22,
         "support": 174
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.2,
-          "recall": 0.5,
-          "f1": 0.2857142857142857,
-          "tp": 1,
-          "fp": 4,
-          "fn": 1,
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
           "support": 2
         },
         "comment": {
@@ -1016,82 +1090,82 @@
           "support": 11
         },
         "punctuation": {
-          "precision": 0.9886363636363636,
-          "recall": 0.9456521739130435,
-          "f1": 0.9666666666666667,
-          "tp": 87,
-          "fp": 1,
-          "fn": 5,
+          "precision": 0.9651162790697675,
+          "recall": 0.9021739130434783,
+          "f1": 0.9325842696629213,
+          "tp": 83,
+          "fp": 3,
+          "fn": 9,
           "support": 92
         },
         "tag": {
-          "precision": 0.9459459459459459,
+          "precision": 0.9210526315789473,
           "recall": 0.8536585365853658,
-          "f1": 0.8974358974358975,
+          "f1": 0.8860759493670886,
           "tp": 35,
-          "fp": 2,
+          "fp": 3,
           "fn": 6,
           "support": 41
         },
         "attribute": {
-          "precision": 0.8888888888888888,
-          "recall": 0.8888888888888888,
-          "f1": 0.8888888888888888,
-          "tp": 8,
+          "precision": 0.9,
+          "recall": 1.0,
+          "f1": 0.9473684210526315,
+          "tp": 9,
           "fp": 1,
-          "fn": 1,
+          "fn": 0,
           "support": 9
         },
         "text": {
-          "precision": 0.42857142857142855,
-          "recall": 0.6,
-          "f1": 0.5,
-          "tp": 6,
-          "fp": 8,
-          "fn": 4,
+          "precision": 0.6153846153846154,
+          "recall": 0.8,
+          "f1": 0.6956521739130435,
+          "tp": 8,
+          "fp": 5,
+          "fn": 2,
           "support": 10
         },
         "entity": {
-          "precision": 0.7777777777777778,
-          "recall": 0.875,
-          "f1": 0.8235294117647058,
-          "tp": 7,
+          "precision": 0.6666666666666666,
+          "recall": 0.5,
+          "f1": 0.5714285714285714,
+          "tp": 4,
           "fp": 2,
-          "fn": 1,
+          "fn": 4,
           "support": 8
         }
       }
     },
     "svg": {
       "documents": 24,
-      "exactDocumentsIncludingModifiers": 22,
+      "exactDocumentsIncludingModifiers": 21,
       "exactSpan": {
-        "precision": 0.9912536443148688,
-        "recall": 0.9941520467836257,
-        "f1": 0.9927007299270073,
-        "tp": 340,
-        "fp": 3,
-        "fn": 2,
+        "precision": 0.9794721407624634,
+        "recall": 0.9766081871345029,
+        "f1": 0.9780380673499268,
+        "tp": 334,
+        "fp": 7,
+        "fn": 8,
         "support": 342
       },
-      "exactSpanMacroF1": 0.9071428571428571,
+      "exactSpanMacroF1": 0.8232418350342878,
       "exactSpanIncludingModifiers": {
-        "precision": 0.9912536443148688,
-        "recall": 0.9941520467836257,
-        "f1": 0.9927007299270073,
-        "tp": 340,
-        "fp": 3,
-        "fn": 2,
+        "precision": 0.9794721407624634,
+        "recall": 0.9766081871345029,
+        "f1": 0.9780380673499268,
+        "tp": 334,
+        "fp": 7,
+        "fn": 8,
         "support": 342
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.3333333333333333,
-          "recall": 0.5,
-          "f1": 0.4,
-          "tp": 1,
-          "fp": 2,
-          "fn": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
           "support": 2
         },
         "comment": {
@@ -1113,21 +1187,21 @@
           "support": 32
         },
         "punctuation": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
-          "tp": 188,
-          "fp": 0,
-          "fn": 0,
+          "precision": 0.9842105263157894,
+          "recall": 0.9946808510638298,
+          "f1": 0.9894179894179894,
+          "tp": 187,
+          "fp": 3,
+          "fn": 1,
           "support": 188
         },
         "tag": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
-          "tp": 79,
-          "fp": 0,
-          "fn": 0,
+          "precision": 0.975,
+          "recall": 0.9873417721518988,
+          "f1": 0.9811320754716981,
+          "tp": 78,
+          "fp": 2,
+          "fn": 1,
           "support": 79
         },
         "attribute": {
@@ -1140,27 +1214,27 @@
           "support": 30
         },
         "text": {
-          "precision": 0.8571428571428571,
-          "recall": 0.8571428571428571,
-          "f1": 0.8571428571428571,
-          "tp": 6,
-          "fp": 1,
-          "fn": 1,
+          "precision": 0.6666666666666666,
+          "recall": 0.5714285714285714,
+          "f1": 0.6153846153846154,
+          "tp": 4,
+          "fp": 2,
+          "fn": 3,
           "support": 7
         },
         "entity": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
-          "tp": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
           "fp": 0,
-          "fn": 0,
+          "fn": 3,
           "support": 3
         }
       }
     }
   },
-  "checkpointHash": "796002fbb207a2258755f62bce864856d22799a2a7823d0e6863a1bdc2eacf12",
-  "checkpointEpoch": 3,
-  "device": "mps"
+  "checkpointHash": "9e4540033f96f676fb756771b299b35a6e595cb404c01d4afb0812f4571f850c",
+  "checkpointEpoch": 1,
+  "device": "cpu"
 }

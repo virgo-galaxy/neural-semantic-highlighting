@@ -3,16 +3,19 @@
   "artifact": {
     "file": "model.pt",
     "format": "nsh-xml-model-v1",
-    "sha256": "8cec5bc23f637523c9221602a46b98ebeecf38457b14b05cf3d5da81fb88146d",
-    "bytes": 3618357,
-    "parameterCount": 893324,
+    "sha256": "7737657ae090416ced2b67638753cab78b313daadbe3ad155bd1a34718aca1e9",
+    "bytes": 3625900,
+    "parameterCount": 894108,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "selection": {
-    "epoch": 3,
-    "metric": "mean per-profile natural real-source validation exact-span macro F1",
-    "score": 0.8369677633110367
+    "epoch": 1,
+    "metric": "Maximum minimum natural VALIDATION profile F1; role macro decrease at most .01; unchanged runtime eligible",
+    "score": 0.9833698030634573,
+    "validationReportSha256": "164c7a7eb03446f99d0a569c31d6258fccb6cd292911f15785421b5c3d0e2e10",
+    "trainingSelectionMetric": "minimum-profile-f1",
+    "trainingBestFixedScore": 0.9603810348560294
   },
   "checkpointConfig": {
     "context_bytes": 512,
@@ -21,7 +24,8 @@
     "layers": 4,
     "feed_forward": 512,
     "dropout": 0.1,
-    "local_kernel": 1
+    "local_kernel": 5,
+    "relative_attention": true
   },
   "orderedLabels": {
     "boundary": [
@@ -61,13 +65,19 @@
   },
   "inference": {
     "windowing": "predicted-adaptive-cursor",
-    "decoder": "greedy-mean-logit",
+    "decoder": "joint-bio-viterbi",
     "packPolicy": {
       "coalesce_types": [],
       "modifier_roles": null
     },
     "modifierThreshold": 0.6,
-    "parserRequired": false
+    "parserRequired": false,
+    "windowingPolicy": {
+      "format": "nsh-overlap-logits-v1",
+      "strideBytes": 256,
+      "edgeWeightCap": 128,
+      "adaptiveWeight": 0.5
+    }
   },
   "scope": "xml-source-semantic-spans",
   "modelSchema": {
@@ -79,40 +89,45 @@
     "sha256": "f895659f5969e17fd4bc5a8104e75f5d65dd006cb3481a2cf4766a96946e2866"
   },
   "dataset": {
-    "snapshot": "8a7196c3f20c715d8db0471dde4f5ba83ad03fb75c64d5df83aa10c5f72de8b5",
-    "manifestHash": "1c14ad54112fb3f1a13544a085b75bceb6597e66fc0c682de409d453966a2abc"
+    "snapshot": "1209cc2d87d62f66da350c77350e7e49d19e661f3918531b54868ea826fa6cba",
+    "manifestHash": "63a7e4882634296960a0a86dae8b4a85f5f2c82f9a68882dd40fdd59068e2bc0"
   },
   "provenance": {
-    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/xml/context512-refine-20261116-01/candidates/epoch-0003.pt",
-    "sourceCheckpointSha256": "796002fbb207a2258755f62bce864856d22799a2a7823d0e6863a1bdc2eacf12",
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/xml/opacity-window.pt",
+    "sourceCheckpointSha256": "9e4540033f96f676fb756771b299b35a6e595cb404c01d4afb0812f4571f850c",
     "training": {
       "codeHashes": {
         "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
         "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
         "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
-        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/html/model.py": "b13cad168b9ffe63f3adef4142124943a12df22f2bb1dd081883fd121d90cc1a",
+        "training/shared/average.py": "1ed6c6f2b698ca079af8cce5a7d0a96a39fa298e7d5a3d9a56da2bf23f6a1b1b",
+        "training/shared/calibrate.py": "b0d6e48389ec9ab44526671fc68d7dc90a3d1e2513e0cdd7e101500975abc1ce",
+        "training/shared/calibrate_windowing.py": "151ad7ebe949c121bec56322d4893b1a3b44a1f7c2511f61e7a79fa140f15b9c",
         "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
-        "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+        "training/shared/checkpoints.py": "5cf9aa46bcfe4d9cde4a03200d19509a44131f147307e7b6c701dcee56b05097",
         "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
-        "training/shared/encoding.py": "56c8ecba2b66d518eb031167647e5deb366cd53f642657170faae97601ed991c",
-        "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
-        "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+        "training/shared/encoding.py": "998536a816ea0fe135e9a6c2c61c6a213d20207f9bd80c69eff01b7ae272a1b6",
+        "training/shared/evaluate.py": "6d9f8dedbcb231fc0a8ce0fe02796035772dda74ba978c281ff597c505cab8bf",
+        "training/shared/export_model.py": "273c7f803cc1684d62f43d31a02229aec085228310c73833358d56f369593c72",
         "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
-        "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
-        "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+        "training/shared/inference.py": "9b97430873979ef4e265d918513b6dc131fd7967cf9827e3c5eb739f79c12a9e",
+        "training/shared/initialization.py": "5f508f4c185f7d77b14141c5fd9a24acd13d974ef5d2b2f6b50cf773bf23a39f",
         "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
         "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
-        "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+        "training/shared/metrics.py": "4f4e93230e9ec0620896d3607d2e5a0263b3247cb900f21ebc86166b6ca684a8",
         "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
         "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
         "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
         "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
         "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
         "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
-        "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+        "training/shared/runtime.py": "c36728b98f1e7ae2068a21bf71b9c19b04ab9398acd0988d95b2ba0013074fca",
         "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
-        "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
-        "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc",
+        "training/shared/structured.py": "617d9dd571111b41fd3988e6c88f2f359e747cf1f11286bdf1a20c2428c830a1",
+        "training/shared/train.py": "6d30ad31c89f11f21298abf8ff01214994537e70c5fce90fc1efa13958d97e26",
+        "training/shared/trainer_data.py": "6b2fac9d5ce910cbcf131bee29818ce9b38f88cffd060cfbcf6baebc259b8fbc",
+        "training/shared/windowing.py": "aa12662795f2834431632b1820082926e4ea22a13508f76da037f29bcb5b2fc3",
         "training/xml/challenge.py": "e379997567a6953cee69b36e11ff090eff92c3a2180478e9103e2d2960343bee",
         "training/xml/evaluate.py": "ae23e75cca04e4a22cbfd5d385f0407c6c9a2fa6434234689e265327dedca331",
         "training/xml/export_model.py": "daf7b79f6edeaf7ad5ccd9937c8f87b243306b90615646f0eeab9bbc69415031",
@@ -129,13 +144,13 @@
       },
       "pythonTorch": "2.14.0",
       "repositoryDirty": true,
-      "repositoryCommit": "46530360ca4a3f447b24c4e3f26e2cce98bee125"
+      "repositoryCommit": "02a09a67b0e409386071b174813f4bbb0abfd8b5"
     },
     "initialization": {
       "mode": "xml-weights-only-transfer",
-      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/xml/context512-shared-20261116-01/candidates/epoch-0005.pt",
-      "checkpointHash": "270232de2b2cd63105c2be9667c9e0ebd5220062817088326d369f39b11a9b5b",
-      "sourceEpoch": 5,
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/xml/natural-calibrated.pt",
+      "checkpointHash": "1dbad2273b79d39c7034e0ac57b5e1620693fb1b532610bf052bce356ae3aa30",
+      "sourceEpoch": 9,
       "sourceDataset": {
         "snapshot": "8a7196c3f20c715d8db0471dde4f5ba83ad03fb75c64d5df83aa10c5f72de8b5",
         "manifestHash": "1c14ad54112fb3f1a13544a085b75bceb6597e66fc0c682de409d453966a2abc",
@@ -158,15 +173,39 @@
       ],
       "optimizerAndTrainingState": "fresh pack run"
     },
-    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+    "exporterSha256": "273c7f803cc1684d62f43d31a02229aec085228310c73833358d56f369593c72",
+    "decoderCalibration": {
+      "sourceCheckpointHash": "4cf9bee547ad2c43e0d53d24eb4f221af50e40792558fdcc6fc54832ba5ede1e",
+      "validationReport": "artifacts/quality-20261119/xml/opacity-calibrated.calibration.json",
+      "validationReportHash": "623ee409c6dfc44fdb98ee658d6f7db94fec015870366f57086756bea3157113",
+      "selection": "minimum-profile-f1; natural adaptive validation only",
+      "primaryTestUsed": false
+    },
+    "windowingCalibration": {
+      "validationReport": "artifacts/quality-20261119/xml/opacity-window.windowing.json",
+      "validationReportHash": "164c7a7eb03446f99d0a569c31d6258fccb6cd292911f15785421b5c3d0e2e10",
+      "testPredictionsUsed": false
+    }
   },
   "reports": {
     "test-metrics.json": {
       "file": "reports/test-metrics.json",
-      "sha256": "4d642825074165a419f867ee078f3257944876e86f543dc909bd9733768854ae",
-      "checkpointHash": "796002fbb207a2258755f62bce864856d22799a2a7823d0e6863a1bdc2eacf12",
+      "sha256": "fc6ab1c63d85e7cefe8d3658e656bcfa9209fb2a5267601b4fa5eb14d68c434f",
+      "checkpointHash": "9e4540033f96f676fb756771b299b35a6e595cb404c01d4afb0812f4571f850c",
       "split": "test",
       "inference": "predicted-adaptive-cursor"
+    },
+    "windowingCalibration.json": {
+      "file": "reports/windowingCalibration.json",
+      "sha256": "0aaf3bdba2297c8276440de65ddfd47fbfb771f8c28da1f1cd16cf0d7abb2702"
+    },
+    "decoderCalibration.json": {
+      "file": "reports/decoderCalibration.json",
+      "sha256": "4c88ed239c3f18ae2ee2f7354a2d0a364fbf29d8ac323f288fb337b0ee5ec304"
+    },
+    "golden.json": {
+      "file": "reports/golden.json",
+      "sha256": "150c3c74b82dc06e1d832ae477beb4532fe48e0215d2c8f6922ec6d3561a2740"
     }
   }
 }

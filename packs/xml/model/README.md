@@ -22,3 +22,9 @@ same descriptor as `languages/xml`; both kinds retain their name but share one
 asset and inference weights. [Separate XML/SVG test results](BENCHMARKS.md) are
 85.87% on seven XML files and 100% on six SVG files; the small SVG sample is not a
 universal guarantee. Neither kind executes XML/SVG, external DTDs or code bodies.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).

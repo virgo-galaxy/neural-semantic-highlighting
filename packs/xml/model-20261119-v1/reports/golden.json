@@ -1,0 +1,1166 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "afd8d71d330ac1681e3d5edfbe10eee319c2baea3a5b25c75276a2e0e9c45d3d",
+  "cases": [
+    {
+      "id": "xml-empty",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-whitespace",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": " \r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-comment",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<!-- Source \ud83c\udf0c -->",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-empty-tag",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<record/>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-paired",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<record></record>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-text",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<name>Code preview</name>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-mixed",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<p>Read <b>this</b> now.</p>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 3,
+          "end": 8,
+          "text": "Read ",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 19,
+          "end": 24,
+          "text": " now.",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 3,
+          "end": 7,
+          "text": "Read",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 19,
+          "end": 20,
+          "text": " ",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 20,
+          "end": 24,
+          "text": "now.",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "xml-double-attribute",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<item name=\"preview\"/>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-single-attribute",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<item name='preview'/>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-spaces",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<item\n key = \"value\" />",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 10,
+          "text": "key",
+          "tokenType": "attribute",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 10,
+          "text": "key",
+          "tokenType": "tag",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "xml-case",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<Record><record>Exact case</record></Record>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-punctuation",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<r>a = b / c ? yes!</r>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 3,
+          "end": 19,
+          "text": "a = b / c ? yes!",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 3,
+          "end": 4,
+          "text": "a",
+          "tokenType": "tag",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 6,
+          "text": "=",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 18,
+          "text": " b / c ? yes",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 18,
+          "end": 19,
+          "text": "!",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "xml-five-entities",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<r>&amp;&lt;&gt;&quot;&apos;</r>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 1,
+          "end": 2,
+          "text": "r",
+          "tokenType": "tag",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 1,
+          "end": 2,
+          "text": "r",
+          "tokenType": "entity",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "xml-numeric-entities",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<r>&#65;&#x1F30C;</r>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-entity-text",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<r>A &amp; B</r>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 1,
+          "end": 2,
+          "text": "r",
+          "tokenType": "tag",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 10,
+          "text": "&amp;",
+          "tokenType": "entity",
+          "modifiers": []
+        },
+        {
+          "start": 10,
+          "end": 12,
+          "text": " B",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 1,
+          "end": 2,
+          "text": "r",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "text": ">",
+          "tokenType": "text",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 12,
+          "text": "&amp; B",
+          "tokenType": "entity",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "xml-attribute-entities",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<r value=\"A &amp; B &#x41;\"/>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-cdata",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<r><![CDATA[a < b && c > d]]></r>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "<",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 2,
+          "text": "r",
+          "tokenType": "tag",
+          "modifiers": []
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 3,
+          "end": 29,
+          "text": "<![CDATA[a < b && c > d]]>",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 29,
+          "end": 31,
+          "text": "</",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 31,
+          "end": 32,
+          "text": "r",
+          "tokenType": "tag",
+          "modifiers": [
+            "closing"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 29,
+          "text": "<r><![CDATA[a < b && c > d]]>",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 29,
+          "end": 32,
+          "text": "</r",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "xml-cdata-entities",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<r><![CDATA[&amp; <tag/>]]></r>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-default-namespace",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<r xmlns=\"urn:example\"><child/></r>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-prefixed-namespace",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<m:r xmlns:m=\"urn:module\"><m:child m:id=\"42\"/></m:r>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-xml-attributes",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<r xml:lang=\"zh\" xml:space=\"preserve\"> spaced </r>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "xml-declaration",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<r/>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 40,
+          "end": 41,
+          "text": "r",
+          "tokenType": "tag",
+          "modifiers": []
+        },
+        {
+          "start": 41,
+          "end": 43,
+          "text": "/>",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 40,
+          "end": 43,
+          "text": "r/>",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "xml-instruction",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "<?xml-stylesheet href=\"preview.xsl\" type=\"text/xsl\"?>\n<r/>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 53,
+          "text": "<?xml-stylesheet href=\"preview.xsl\" type=\"text/xsl\"?>",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 35,
+          "text": "<?xml-stylesheet href=\"preview.xsl\"",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 36,
+          "end": 40,
+          "text": "type",
+          "tokenType": "attribute",
+          "modifiers": []
+        },
+        {
+          "start": 40,
+          "end": 41,
+          "text": "=",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 41,
+          "end": 53,
+          "text": "\"text/xsl\"?>",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "xml-unicode-crlf",
+      "profile": "xml",
+      "documentKind": "xml",
+      "source": "\ufeff<\u6807\u9898>\u661f\u7a7a \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb</\u6807\u9898>\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 2,
+          "end": 4,
+          "text": "\u6807\u9898",
+          "tokenType": "tag",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 2,
+          "end": 4,
+          "text": "\u6807\u9898",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "svg-basic",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg xmlns=\"http://www.w3.org/2000/svg\"/>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-path",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><path d=\"M0 0h24v24H0z\"/></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-viewbox",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg viewBox=\"0 0 24 24\"/>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-circle",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><circle cx=\"12\" cy=\"12\" r=\"8\"/></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-namespaces",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg xmlns:xlink=\"http://www.w3.org/1999/xlink\"><use xlink:href=\"#shape\"/></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-style-attribute",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg style=\"fill: red; stroke: currentColor\"/>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-class",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg class=\"size-6 hover:fill-blue-500\"/>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-presentation",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<path fill=\"none\" stroke-width=\"2\"/>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-title",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><title>Accessible icon</title></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-text-entity",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><text>A &amp; B</text></svg>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 18,
+          "end": 20,
+          "text": " B",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 19,
+          "end": 20,
+          "text": "B",
+          "tokenType": "text",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "svg-cdata-style",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><style><![CDATA[.shape { fill: red; }]]></style></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-script-text",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><script><![CDATA[const n = 1 < 2;]]></script></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-comment",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><!-- Keep original paths --><path d=\"M1 2L3 4\"/></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-gradient",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><defs><linearGradient id=\"g\"><stop offset=\"0%\" stop-color=\"#06f\"/></linearGradient></defs></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-transform",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><g transform=\"translate(2 3) rotate(45)\"><rect width=\"12\"/></g></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-filter",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><filter id=\"blur\"><feGaussianBlur stdDeviation=\"2\"/></filter></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-animation",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><animate attributeName=\"opacity\" values=\"0;1;0\" dur=\"2s\"/></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-foreign-object",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><foreignObject><div xmlns=\"http://www.w3.org/1999/xhtml\">Preview</div></foreignObject></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-doctype",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"https://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<svg/>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-internal-subset",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<!DOCTYPE svg [<!ELEMENT svg ANY>]><svg/>",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 35,
+          "text": "<!DOCTYPE svg [<!ELEMENT svg ANY>]>",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 15,
+          "text": "<!DOCTYPE svg [",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 15,
+          "end": 35,
+          "text": "<!ELEMENT svg ANY>]>",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "svg-unicode",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><text>\u661f\u7a7a \ud83c\udf0c</text></svg>\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-aria",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg role=\"img\" aria-labelledby=\"title\"><title id=\"title\">Preview</title></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-masked",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><mask id=\"m\"><rect fill=\"white\"/></mask><path mask=\"url(#m)\"/></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "svg-escaped",
+      "profile": "svg",
+      "documentKind": "svg",
+      "source": "<svg><text>&#x3C;icon&#x3E;</text></svg>",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    }
+  ],
+  "profiles": {
+    "xml": {
+      "documents": 24,
+      "exactDocumentsIncludingModifiers": 15,
+      "exactSpan": {
+        "precision": 0.8857142857142857,
+        "recall": 0.8908045977011494,
+        "f1": 0.8882521489971347,
+        "tp": 155,
+        "fp": 20,
+        "fn": 19,
+        "support": 174
+      },
+      "exactSpanMacroF1": 0.7789750459827186,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8857142857142857,
+        "recall": 0.8908045977011494,
+        "f1": 0.8882521489971347,
+        "tp": 155,
+        "fp": 20,
+        "fn": 19,
+        "support": 174
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.2,
+          "recall": 0.5,
+          "f1": 0.2857142857142857,
+          "tp": 1,
+          "fp": 4,
+          "fn": 1,
+          "support": 2
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.8333333333333334,
+          "recall": 0.9090909090909091,
+          "f1": 0.8695652173913043,
+          "tp": 10,
+          "fp": 2,
+          "fn": 1,
+          "support": 11
+        },
+        "punctuation": {
+          "precision": 0.9886363636363636,
+          "recall": 0.9456521739130435,
+          "f1": 0.9666666666666667,
+          "tp": 87,
+          "fp": 1,
+          "fn": 5,
+          "support": 92
+        },
+        "tag": {
+          "precision": 0.9459459459459459,
+          "recall": 0.8536585365853658,
+          "f1": 0.8974358974358975,
+          "tp": 35,
+          "fp": 2,
+          "fn": 6,
+          "support": 41
+        },
+        "attribute": {
+          "precision": 0.8888888888888888,
+          "recall": 0.8888888888888888,
+          "f1": 0.8888888888888888,
+          "tp": 8,
+          "fp": 1,
+          "fn": 1,
+          "support": 9
+        },
+        "text": {
+          "precision": 0.42857142857142855,
+          "recall": 0.6,
+          "f1": 0.5,
+          "tp": 6,
+          "fp": 8,
+          "fn": 4,
+          "support": 10
+        },
+        "entity": {
+          "precision": 0.7777777777777778,
+          "recall": 0.875,
+          "f1": 0.8235294117647058,
+          "tp": 7,
+          "fp": 2,
+          "fn": 1,
+          "support": 8
+        }
+      }
+    },
+    "svg": {
+      "documents": 24,
+      "exactDocumentsIncludingModifiers": 22,
+      "exactSpan": {
+        "precision": 0.9912536443148688,
+        "recall": 0.9941520467836257,
+        "f1": 0.9927007299270073,
+        "tp": 340,
+        "fp": 3,
+        "fn": 2,
+        "support": 342
+      },
+      "exactSpanMacroF1": 0.9071428571428571,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9912536443148688,
+        "recall": 0.9941520467836257,
+        "f1": 0.9927007299270073,
+        "tp": 340,
+        "fp": 3,
+        "fn": 2,
+        "support": 342
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "support": 2
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "support": 32
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 188,
+          "fp": 0,
+          "fn": 0,
+          "support": 188
+        },
+        "tag": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 79,
+          "fp": 0,
+          "fn": 0,
+          "support": 79
+        },
+        "attribute": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 30,
+          "fp": 0,
+          "fn": 0,
+          "support": 30
+        },
+        "text": {
+          "precision": 0.8571428571428571,
+          "recall": 0.8571428571428571,
+          "f1": 0.8571428571428571,
+          "tp": 6,
+          "fp": 1,
+          "fn": 1,
+          "support": 7
+        },
+        "entity": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "xml": {
+      "documents": 24,
+      "exactDocumentsIncludingModifiers": 15,
+      "exactSpan": {
+        "precision": 0.8857142857142857,
+        "recall": 0.8908045977011494,
+        "f1": 0.8882521489971347,
+        "tp": 155,
+        "fp": 20,
+        "fn": 19,
+        "support": 174
+      },
+      "exactSpanMacroF1": 0.7789750459827186,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8857142857142857,
+        "recall": 0.8908045977011494,
+        "f1": 0.8882521489971347,
+        "tp": 155,
+        "fp": 20,
+        "fn": 19,
+        "support": 174
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.2,
+          "recall": 0.5,
+          "f1": 0.2857142857142857,
+          "tp": 1,
+          "fp": 4,
+          "fn": 1,
+          "support": 2
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 0.8333333333333334,
+          "recall": 0.9090909090909091,
+          "f1": 0.8695652173913043,
+          "tp": 10,
+          "fp": 2,
+          "fn": 1,
+          "support": 11
+        },
+        "punctuation": {
+          "precision": 0.9886363636363636,
+          "recall": 0.9456521739130435,
+          "f1": 0.9666666666666667,
+          "tp": 87,
+          "fp": 1,
+          "fn": 5,
+          "support": 92
+        },
+        "tag": {
+          "precision": 0.9459459459459459,
+          "recall": 0.8536585365853658,
+          "f1": 0.8974358974358975,
+          "tp": 35,
+          "fp": 2,
+          "fn": 6,
+          "support": 41
+        },
+        "attribute": {
+          "precision": 0.8888888888888888,
+          "recall": 0.8888888888888888,
+          "f1": 0.8888888888888888,
+          "tp": 8,
+          "fp": 1,
+          "fn": 1,
+          "support": 9
+        },
+        "text": {
+          "precision": 0.42857142857142855,
+          "recall": 0.6,
+          "f1": 0.5,
+          "tp": 6,
+          "fp": 8,
+          "fn": 4,
+          "support": 10
+        },
+        "entity": {
+          "precision": 0.7777777777777778,
+          "recall": 0.875,
+          "f1": 0.8235294117647058,
+          "tp": 7,
+          "fp": 2,
+          "fn": 1,
+          "support": 8
+        }
+      }
+    },
+    "svg": {
+      "documents": 24,
+      "exactDocumentsIncludingModifiers": 22,
+      "exactSpan": {
+        "precision": 0.9912536443148688,
+        "recall": 0.9941520467836257,
+        "f1": 0.9927007299270073,
+        "tp": 340,
+        "fp": 3,
+        "fn": 2,
+        "support": 342
+      },
+      "exactSpanMacroF1": 0.9071428571428571,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9912536443148688,
+        "recall": 0.9941520467836257,
+        "f1": 0.9927007299270073,
+        "tp": 340,
+        "fp": 3,
+        "fn": 2,
+        "support": 342
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "support": 2
+        },
+        "comment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "support": 32
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 188,
+          "fp": 0,
+          "fn": 0,
+          "support": 188
+        },
+        "tag": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 79,
+          "fp": 0,
+          "fn": 0,
+          "support": 79
+        },
+        "attribute": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 30,
+          "fp": 0,
+          "fn": 0,
+          "support": 30
+        },
+        "text": {
+          "precision": 0.8571428571428571,
+          "recall": 0.8571428571428571,
+          "f1": 0.8571428571428571,
+          "tp": 6,
+          "fp": 1,
+          "fn": 1,
+          "support": 7
+        },
+        "entity": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        }
+      }
+    }
+  },
+  "checkpointHash": "796002fbb207a2258755f62bce864856d22799a2a7823d0e6863a1bdc2eacf12",
+  "checkpointEpoch": 3,
+  "device": "mps"
+}

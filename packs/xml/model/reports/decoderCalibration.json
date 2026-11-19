@@ -1,0 +1,1409 @@
+{
+  "pack": "xml",
+  "sourceCheckpoint": "artifacts/xml/context512-quality-opacity-20261119-01/best.pt",
+  "sourceCheckpointHash": "4cf9bee547ad2c43e0d53d24eb4f221af50e40792558fdcc6fc54832ba5ede1e",
+  "dataset": {
+    "snapshot": "1209cc2d87d62f66da350c77350e7e49d19e661f3918531b54868ea826fa6cba",
+    "manifestHash": "63a7e4882634296960a0a86dae8b4a85f5f2c82f9a68882dd40fdd59068e2bc0",
+    "path": "/Users/mystic/Datasets/neural-semantic-highlighting/xml/prepared/1209cc2d87d62f66da350c77350e7e49d19e661f3918531b54868ea826fa6cba"
+  },
+  "fit": "Natural TRAIN Gold only; source-family disjoint VALIDATION selection",
+  "selection": "minimum-profile-f1; natural adaptive validation only",
+  "searchGrid": {
+    "typeWeights": [
+      0.05,
+      0.1,
+      0.25,
+      0.5,
+      1.0
+    ],
+    "transitionWeights": [
+      0.1,
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ]
+  },
+  "testUsed": false,
+  "primaryTestUsed": false,
+  "trials": [
+    {
+      "index": 0,
+      "parameters": null,
+      "selectionKey": [
+        0.963236893626278,
+        0.8617637938456691
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9538991813873331,
+            "recall": 0.9727592267135325,
+            "f1": 0.963236893626278,
+            "tp": 2214,
+            "fp": 107,
+            "fn": 62,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7235275876913383
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9593155893536122,
+          "recall": 0.9760154738878143,
+          "f1": 0.9675934803451582,
+          "tp": 2523,
+          "fp": 107,
+          "fn": 62,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7264147066678831
+      }
+    },
+    {
+      "index": 1,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.05,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9688656651426083,
+        0.8751415499476486
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9602934829520933,
+            "recall": 0.9775922671353251,
+            "f1": 0.9688656651426083,
+            "tp": 2225,
+            "fp": 92,
+            "fn": 51,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7502830998952972
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.964965727341965,
+          "recall": 0.9802707930367505,
+          "f1": 0.9725580502782575,
+          "tp": 2534,
+          "fp": 92,
+          "fn": 51,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7523414822250426
+      }
+    },
+    {
+      "index": 2,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.05,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.9759720401922237,
+        0.730875929349355
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9704604691572546,
+            "recall": 0.9815465729349736,
+            "f1": 0.9759720401922237,
+            "tp": 2234,
+            "fp": 68,
+            "fn": 42,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.6765035266008596
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9805825242718447,
+            "recall": 0.9805825242718447,
+            "f1": 0.9805825242718447,
+            "tp": 303,
+            "fp": 6,
+            "fn": 6,
+            "support": 309
+          },
+          "exactSpanMacroF1": 0.7852483320978503
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9716583684412102,
+          "recall": 0.981431334622824,
+          "f1": 0.9765204003079292,
+          "tp": 2537,
+          "fp": 74,
+          "fn": 48,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.6763005475038507
+      }
+    },
+    {
+      "index": 3,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.05,
+        "transitionWeight": 1.0
+      },
+      "selectionKey": [
+        0.9611650485436893,
+        0.7271568631332268
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9746170678336981,
+            "recall": 0.9784710017574693,
+            "f1": 0.9765402324051743,
+            "tp": 2227,
+            "fp": 58,
+            "fn": 49,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.6862009879409492
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9611650485436893,
+            "recall": 0.9611650485436893,
+            "f1": 0.9611650485436893,
+            "tp": 297,
+            "fp": 12,
+            "fn": 12,
+            "support": 309
+          },
+          "exactSpanMacroF1": 0.7681127383255043
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9730146491904395,
+          "recall": 0.9764023210831722,
+          "f1": 0.9747055416103495,
+          "tp": 2524,
+          "fp": 70,
+          "fn": 61,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.6845815248626611
+      }
+    },
+    {
+      "index": 4,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.05,
+        "transitionWeight": 2.0
+      },
+      "selectionKey": [
+        0.948051948051948,
+        0.771810691444075
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9724933451641526,
+            "recall": 0.9630931458699473,
+            "f1": 0.9677704194260486,
+            "tp": 2192,
+            "fp": 62,
+            "fn": 84,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7844907437904055
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9511400651465798,
+            "recall": 0.9449838187702265,
+            "f1": 0.948051948051948,
+            "tp": 292,
+            "fp": 15,
+            "fn": 17,
+            "support": 309
+          },
+          "exactSpanMacroF1": 0.7591306390977444
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9699336196798126,
+          "recall": 0.9609284332688588,
+          "f1": 0.9654100272055965,
+          "tp": 2484,
+          "fp": 77,
+          "fn": 101,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.781866710321079
+      }
+    },
+    {
+      "index": 5,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.05,
+        "transitionWeight": 4.0
+      },
+      "selectionKey": [
+        0.8364888123924269,
+        0.8010036697948515
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9125239005736138,
+            "recall": 0.8387521968365553,
+            "f1": 0.8740842490842491,
+            "tp": 1909,
+            "fp": 183,
+            "fn": 367,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.8129717934625235
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.8933823529411765,
+            "recall": 0.7864077669902912,
+            "f1": 0.8364888123924269,
+            "tp": 243,
+            "fp": 29,
+            "fn": 66,
+            "support": 309
+          },
+          "exactSpanMacroF1": 0.7890355461271796
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9103214890016921,
+          "recall": 0.832495164410058,
+          "f1": 0.8696706405334411,
+          "tp": 2152,
+          "fp": 212,
+          "fn": 433,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.8199929497491328
+      }
+    },
+    {
+      "index": 6,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.1,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9684439608269858,
+        0.8738947851447184
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9594652867615352,
+            "recall": 0.9775922671353251,
+            "f1": 0.9684439608269858,
+            "tp": 2225,
+            "fp": 94,
+            "fn": 51,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7477895702894368
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9642313546423136,
+          "recall": 0.9802707930367505,
+          "f1": 0.9721849223096106,
+          "tp": 2534,
+          "fp": 94,
+          "fn": 51,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7498437238203179
+      }
+    },
+    {
+      "index": 7,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.1,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.9753328967474351,
+        0.8389270596386239
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9691973969631237,
+            "recall": 0.9815465729349736,
+            "f1": 0.9753328967474351,
+            "tp": 2234,
+            "fp": 71,
+            "fn": 42,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.6778541192772478
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9728385615914308,
+          "recall": 0.983752417794971,
+          "f1": 0.9782650509713406,
+          "tp": 2543,
+          "fp": 71,
+          "fn": 42,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.6796306087869068
+      }
+    },
+    {
+      "index": 8,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.1,
+        "transitionWeight": 1.0
+      },
+      "selectionKey": [
+        0.9776413853572994,
+        0.7367342096075905
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9755030621172354,
+            "recall": 0.9797891036906854,
+            "f1": 0.9776413853572994,
+            "tp": 2230,
+            "fp": 56,
+            "fn": 46,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.6882200871173307
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9805825242718447,
+            "recall": 0.9805825242718447,
+            "f1": 0.9805825242718447,
+            "tp": 303,
+            "fp": 6,
+            "fn": 6,
+            "support": 309
+          },
+          "exactSpanMacroF1": 0.7852483320978503
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9761078998073218,
+          "recall": 0.9798839458413926,
+          "f1": 0.977992277992278,
+          "tp": 2533,
+          "fp": 62,
+          "fn": 52,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.6879822283924503
+      }
+    },
+    {
+      "index": 9,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.1,
+        "transitionWeight": 2.0
+      },
+      "selectionKey": [
+        0.9642857142857143,
+        0.7795951879557197
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9766004415011037,
+            "recall": 0.9718804920913884,
+            "f1": 0.974234750055054,
+            "tp": 2212,
+            "fp": 53,
+            "fn": 64,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7902825744929997
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9674267100977199,
+            "recall": 0.9611650485436893,
+            "f1": 0.9642857142857143,
+            "tp": 297,
+            "fp": 10,
+            "fn": 12,
+            "support": 309
+          },
+          "exactSpanMacroF1": 0.7689078014184397
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9755054432348367,
+          "recall": 0.9705996131528046,
+          "f1": 0.9730463447740935,
+          "tp": 2509,
+          "fp": 63,
+          "fn": 76,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7882418617319497
+      }
+    },
+    {
+      "index": 10,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.1,
+        "transitionWeight": 4.0
+      },
+      "selectionKey": [
+        0.8711864406779661,
+        0.7891593491741629
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9563805104408353,
+            "recall": 0.905536028119508,
+            "f1": 0.930264048747461,
+            "tp": 2061,
+            "fp": 94,
+            "fn": 215,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7533251729048974
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9145907473309609,
+            "recall": 0.8317152103559871,
+            "f1": 0.8711864406779661,
+            "tp": 257,
+            "fp": 24,
+            "fn": 52,
+            "support": 309
+          },
+          "exactSpanMacroF1": 0.8249935254434282
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.951559934318555,
+          "recall": 0.8967117988394584,
+          "f1": 0.9233220474009162,
+          "tp": 2318,
+          "fp": 118,
+          "fn": 267,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7534324107974946
+      }
+    },
+    {
+      "index": 11,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.25,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9656671012603216,
+        0.8692213546535368
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9552880481513327,
+            "recall": 0.976274165202109,
+            "f1": 0.9656671012603216,
+            "tp": 2222,
+            "fp": 104,
+            "fn": 54,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7384427093070736
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9605313092979127,
+          "recall": 0.979110251450677,
+          "f1": 0.9697318007662835,
+          "tp": 2531,
+          "fp": 104,
+          "fn": 54,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7406627400451916
+      }
+    },
+    {
+      "index": 12,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.25,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.9731967748964916,
+        0.8821855938994569
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9654128837008215,
+            "recall": 0.9811072056239016,
+            "f1": 0.9731967748964916,
+            "tp": 2233,
+            "fp": 80,
+            "fn": 43,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.764371187798914
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.969488939740656,
+          "recall": 0.9833655705996132,
+          "f1": 0.9763779527559056,
+          "tp": 2542,
+          "fp": 80,
+          "fn": 43,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7663637829678135
+      }
+    },
+    {
+      "index": 13,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.25,
+        "transitionWeight": 1.0
+      },
+      "selectionKey": [
+        0.9772528433945756,
+        0.8911578120145507
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9729965156794426,
+            "recall": 0.9815465729349736,
+            "f1": 0.9772528433945756,
+            "tp": 2234,
+            "fp": 62,
+            "fn": 42,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7823156240291015
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9761996161228407,
+          "recall": 0.983752417794971,
+          "f1": 0.9799614643545279,
+          "tp": 2543,
+          "fp": 62,
+          "fn": 42,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7840070151448951
+      }
+    },
+    {
+      "index": 14,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.25,
+        "transitionWeight": 2.0
+      },
+      "selectionKey": [
+        0.9771428571428571,
+        0.8949945760755293
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9775725593667546,
+            "recall": 0.976713532513181,
+            "f1": 0.9771428571428571,
+            "tp": 2223,
+            "fp": 51,
+            "fn": 53,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7972828007874634
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9967532467532467,
+            "recall": 0.9935275080906149,
+            "f1": 0.9951377633711507,
+            "tp": 307,
+            "fp": 1,
+            "fn": 2,
+            "support": 309
+          },
+          "exactSpanMacroF1": 0.9927063513635952
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9798605731990705,
+          "recall": 0.9787234042553191,
+          "f1": 0.9792916586026708,
+          "tp": 2530,
+          "fp": 52,
+          "fn": 55,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7991240688441064
+      }
+    },
+    {
+      "index": 15,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.25,
+        "transitionWeight": 4.0
+      },
+      "selectionKey": [
+        0.9063545150501672,
+        0.8237605723982732
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.970681100586378,
+            "recall": 0.945518453427065,
+            "f1": 0.9579345648787002,
+            "tp": 2152,
+            "fp": 65,
+            "fn": 124,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7783815726941204
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9377162629757786,
+            "recall": 0.8770226537216829,
+            "f1": 0.9063545150501672,
+            "tp": 271,
+            "fp": 18,
+            "fn": 38,
+            "support": 309
+          },
+          "exactSpanMacroF1": 0.8691395721024259
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.966879489225858,
+          "recall": 0.937330754352031,
+          "f1": 0.9518758593596542,
+          "tp": 2423,
+          "fp": 83,
+          "fn": 162,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7764819726555635
+      }
+    },
+    {
+      "index": 16,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.5,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9654873019318428,
+        0.8672406683476214
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.954096954096954,
+            "recall": 0.9771528998242531,
+            "f1": 0.9654873019318428,
+            "tp": 2224,
+            "fp": 107,
+            "fn": 52,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7344813366952427
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.959469696969697,
+          "recall": 0.9798839458413926,
+          "f1": 0.9695693779904306,
+          "tp": 2533,
+          "fp": 107,
+          "fn": 52,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7367672699334474
+      }
+    },
+    {
+      "index": 17,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.5,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.9708315193730953,
+        0.8759863188238655
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9620362381363244,
+            "recall": 0.9797891036906854,
+            "f1": 0.9708315193730953,
+            "tp": 2230,
+            "fp": 88,
+            "fn": 46,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7519726376477308
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9665017129805862,
+          "recall": 0.9822050290135397,
+          "f1": 0.9742900997697621,
+          "tp": 2539,
+          "fp": 88,
+          "fn": 46,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7541542626220507
+      }
+    },
+    {
+      "index": 18,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.5,
+        "transitionWeight": 1.0
+      },
+      "selectionKey": [
+        0.9735980798603535,
+        0.8859323746210614
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9670567837017772,
+            "recall": 0.9802284710017575,
+            "f1": 0.9735980798603535,
+            "tp": 2231,
+            "fp": 76,
+            "fn": 45,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.771864749242123
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9709480122324159,
+          "recall": 0.9825918762088974,
+          "f1": 0.9767352432224572,
+          "tp": 2540,
+          "fp": 76,
+          "fn": 45,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7740077378966409
+      }
+    },
+    {
+      "index": 19,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.5,
+        "transitionWeight": 2.0
+      },
+      "selectionKey": [
+        0.976143576274896,
+        0.8922292467595562
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9725250763192325,
+            "recall": 0.9797891036906854,
+            "f1": 0.976143576274896,
+            "tp": 2230,
+            "fp": 63,
+            "fn": 46,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7844584935191123
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9757878554957725,
+          "recall": 0.9822050290135397,
+          "f1": 0.9789859263543474,
+          "tp": 2539,
+          "fp": 63,
+          "fn": 46,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.786405651472325
+      }
+    },
+    {
+      "index": 20,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.5,
+        "transitionWeight": 4.0
+      },
+      "selectionKey": [
+        0.9504950495049505,
+        0.8713993843081256
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9734630694383016,
+            "recall": 0.9670474516695958,
+            "f1": 0.9702446550584086,
+            "tp": 2201,
+            "fp": 60,
+            "fn": 75,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7939416806408381
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9696969696969697,
+            "recall": 0.9320388349514563,
+            "f1": 0.9504950495049505,
+            "tp": 288,
+            "fp": 9,
+            "fn": 21,
+            "support": 309
+          },
+          "exactSpanMacroF1": 0.948857087975413
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9730258014073495,
+          "recall": 0.962862669245648,
+          "f1": 0.9679175578456154,
+          "tp": 2489,
+          "fp": 69,
+          "fn": 96,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7941456672244982
+      }
+    },
+    {
+      "index": 21,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 1.0,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9653078924544666,
+        0.8670641981873747
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9529109589041096,
+            "recall": 0.9780316344463972,
+            "f1": 0.9653078924544666,
+            "tp": 2226,
+            "fp": 110,
+            "fn": 50,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7341283963747494
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9584120982986768,
+          "recall": 0.9806576402321083,
+          "f1": 0.9694072657743786,
+          "tp": 2535,
+          "fp": 110,
+          "fn": 50,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7363515220893643
+      }
+    },
+    {
+      "index": 22,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 1.0,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.9708695652173913,
+        0.875816312825632
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9608433734939759,
+            "recall": 0.9811072056239016,
+            "f1": 0.9708695652173913,
+            "tp": 2233,
+            "fp": 91,
+            "fn": 43,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7516326256512641
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9654386631219142,
+          "recall": 0.9833655705996132,
+          "f1": 0.9743196627060177,
+          "tp": 2542,
+          "fp": 91,
+          "fn": 43,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7539450900747376
+      }
+    },
+    {
+      "index": 23,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 1.0,
+        "transitionWeight": 1.0
+      },
+      "selectionKey": [
+        0.9723492270846941,
+        0.880185822346671
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9637462235649547,
+            "recall": 0.9811072056239016,
+            "f1": 0.9723492270846941,
+            "tp": 2233,
+            "fp": 84,
+            "fn": 43,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7603716446933421
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.968012185833968,
+          "recall": 0.9833655705996132,
+          "f1": 0.9756284782191518,
+          "tp": 2542,
+          "fp": 84,
+          "fn": 43,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7626323033039278
+      }
+    },
+    {
+      "index": 24,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 1.0,
+        "transitionWeight": 2.0
+      },
+      "selectionKey": [
+        0.9714036236629557,
+        0.8865126334911309
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.96529284164859,
+            "recall": 0.9775922671353251,
+            "f1": 0.9714036236629557,
+            "tp": 2225,
+            "fp": 80,
+            "fn": 51,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7730252669822618
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 309,
+            "fp": 0,
+            "fn": 0,
+            "support": 309
+          },
+          "exactSpanMacroF1": 1.0
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9693955623565417,
+          "recall": 0.9802707930367505,
+          "f1": 0.9748028467012887,
+          "tp": 2534,
+          "fp": 80,
+          "fn": 51,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7753674880608752
+      }
+    },
+    {
+      "index": 25,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 1.0,
+        "transitionWeight": 4.0
+      },
+      "selectionKey": [
+        0.9638157894736842,
+        0.8771779603571317
+      ],
+      "profiles": {
+        "xml": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.9706911636045494,
+            "recall": 0.9749560632688928,
+            "f1": 0.972818939061815,
+            "tp": 2219,
+            "fp": 67,
+            "fn": 57,
+            "support": 2276
+          },
+          "exactSpanMacroF1": 0.7863655476697385
+        },
+        "svg": {
+          "documents": 6,
+          "exactSpan": {
+            "precision": 0.979933110367893,
+            "recall": 0.948220064724919,
+            "f1": 0.9638157894736842,
+            "tp": 293,
+            "fp": 6,
+            "fn": 16,
+            "support": 309
+          },
+          "exactSpanMacroF1": 0.9679903730445247
+        }
+      },
+      "natural": {
+        "documents": 12,
+        "exactSpan": {
+          "precision": 0.9717601547388781,
+          "recall": 0.9717601547388781,
+          "f1": 0.9717601547388781,
+          "tp": 2512,
+          "fp": 73,
+          "fn": 73,
+          "support": 2585
+        },
+        "exactSpanMacroF1": 0.7868098953300201
+      }
+    }
+  ],
+  "selected": 8,
+  "detailPolicy": "Compact validation search table; repeated decoder matrices and per-role diagnostics remain in the original immutable experiment report",
+  "fullReportSha256": "623ee409c6dfc44fdb98ee658d6f7db94fec015870366f57086756bea3157113"
+}
