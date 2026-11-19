@@ -1,68 +1,40 @@
-# Shell Here Document follow-up
+# bash quality evaluation
 
-Exact-span F1 requires UTF-16 start, end and role to match. Modifier-aware scores
-also require the complete modifier set. Natural and original focused source stay
-separate; small sample counts do not establish broad dialect/version coverage.
+Exact-span F1 requires original UTF-16 start, end and semantic role to match;
+modifier scores remain separate. Historical tests have been exposed during
+development and are **regression evidence**, not new unseen accuracy claims.
 
-| Profile | Natural validation F1 | Natural test docs | Known natural test F1 | Known natural test macro F1 | Focus test F1 |
-| ------- | --------------------: | ----------------: | --------------------: | --------------------------: | ------------: |
-| POSIX   |                79.20% |                 1 |                88.32% |                      90.83% |        98.63% |
-| Bash    |                90.37% |                 5 |                93.20% |                      92.04% |        98.57% |
-| Zsh     |                86.35% |                 1 |                73.76% |                      74.94% |        98.66% |
-| Csh     |                83.46% |                 4 |                89.29% |                      90.96% |        95.84% |
+| Natural cohort           | Files | Exact-span F1 | Role macro F1 |
+| ------------------------ | ----: | ------------: | ------------: |
+| legacy                   |    11 |        87.12% |        87.32% |
+| additionalFrozenFamilies |    12 |        90.91% |        92.99% |
 
-Actual predicted-adaptive MPS inference gives pooled natural F1
-84.78% and focused F1
-98.19%. The original natural/focus test
-was already read for the preceding model. These rows are known-test comparisons,
-not new unseen evidence. The original 88 real source files and their family
-assignments are unchanged; Gold changed only for one natural training file.
+Across all 23 natural files, F1 is 88.94%;
+the separate 536-document authored focus stream is 98.14%.
+Do not substitute focus or combined scores for natural-code accuracy.
 
-## New Here Document evidence
+| Coverage profile | Natural files | Natural exact-span F1 |
+| ---------------- | ------------: | --------------------: |
+| posix            |             1 |                92.97% |
+| bash             |             5 |                94.29% |
+| zsh              |            13 |                86.77% |
+| csh              |             4 |                90.22% |
 
-Eight original mixed task families add 576 source files; twelve short structural
-families add 864. Delimiter quoting, `<<-`, code-like/variable-first bodies,
-function-keyword forms and post-delimiter redirections appear across families.
-Profiles share related families before windows and normalized-copy checks.
-Sources, scripts and prior snapshots are preserved, including unused revisions.
-No full corpus recrawl or architecture change was needed.
+Visible Golden: **8/19** cases fully exact including modifiers.
+This is a strict development probe, not a percentage of correct natural files.
 
-The selected candidate was frozen before inspecting three new held-out task
-families: query-input, number-lines and repeat-input. Their 216 profile-addressed
-documents score 96.76% exact-span F1, versus 58.84% for the previous model on the
-same new tasks. These are original focused tasks, not 216 independent real
-projects. The 144 Here Document validation tasks score 86.99%, with harder
-post-delimiter redirections. See `reports/heredoc-first-holdout.json` and
-`reports/heredoc-validation.json` for the separate evidence.
+## Selection and preserved history
 
-## Selection, data and checks
+Selected full checkpoint: `/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/bash/expanded-window.pt`.
+Parameters: **894,366**; context: **512 UTF-8 bytes**.
+Refinement starts from complete historical training checkpoints, retaining
+original source-family assignments, schemas, Gold and experiments.
+Calibration/averaging/window policies use natural validation; train-fitted
+decoder transitions use natural TRAIN Gold. Read their hash-bound provenance
+and selection evidence in `model.json` and `reports/`.
 
-The two preserved follow-up runs completed 20 and 24 epochs, about 11 seconds per
-epoch after warmup, using `caffeinate -i` and explicit weights-only transfer from
-full checkpoints. Epoch 20 of the second run maximizes mean per-profile natural
-fixed-validation role macro F1 (0.8675), followed by adaptive real-code, Golden
-and actual Playground review. Runtime cursors never consult Gold boundaries.
+The 12 additional installed Zsh function files are held-out family evidence, not new independent projects. Bash natural F1 is 94.29%; all strict Golden pass/fail outcomes retain their previous state. The original 4,423 prepared documents retain Gold and folds.
 
-All 4,664 captured files receive coordinate-valid Gold. Duplicate merging retains
-4,423 profile-addressed documents representing 3,524 distinct source texts; no
-cross-family copies remain in this prepared snapshot. Identical profile aliases
-are not independent programs. Existing holdouts never move into training.
-
-| Split      | Natural docs | Focus docs | Windows |
-| ---------- | -----------: | ---------: | ------: |
-| Train      |           65 |      3,145 |   3,637 |
-| Validation |           12 |        654 |     719 |
-| Test       |           11 |        536 |     591 |
-
-Nineteen independently marked Golden cases remain visible development probes,
-excluded from collection. 8 are entirely exact including modifiers. Failures
-include short-snippet string-end overruns and existing name/modifier errors;
-Golden is not a held-out corpus benchmark. Six actual Playground examples were
-checked and rendered through the existing HTML/theme path. The combined Here
-Document example gets ordinary, literal and tab-stripped body roles correct,
-with a measured two-newline overrun on its first string span.
-
-The previous formal bundle and complete first-test report remain preserved under
-`../model-20261108-e16`. Current checkpoint, dataset and code hashes accompany the
-new export. Natural Csh training still consists of one intact large completion
-program; Zsh and POSIX natural tests each contain only one file.
+The inference artifact excludes optimizer/RNG state. Resume training only from
+full `artifacts` checkpoints. Previous inference weights, reports and original
+documentation are preserved in [the preceding bundle](../model-20261119-v1/BENCHMARKS.md).

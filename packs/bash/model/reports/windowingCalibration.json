@@ -1,0 +1,411 @@
+{
+  "format": "nsh-windowing-validation-v1",
+  "sourceCheckpointHash": "60b1258166459fd7c204bf32edaedbf28c408fc5e6732a1e5f827439d9dcd36d",
+  "dataset": {
+    "snapshot": "878dd7d78deff000a9175d46e7a19f93b36f8924b179fc31eda164134cacd08d",
+    "manifestHash": "2c0c93a0ff0fed5062d4eca0ea95608c04c478b30caf38a109ca7dafd110f8b3",
+    "path": "/Users/mystic/Datasets/neural-semantic-highlighting/bash/prepared/878dd7d78deff000a9175d46e7a19f93b36f8924b179fc31eda164134cacd08d"
+  },
+  "selection": "Maximum minimum natural VALIDATION profile F1; role macro decrease at most .01; unchanged runtime eligible",
+  "testPredictionsUsed": false,
+  "trials": [
+    {
+      "index": 0,
+      "policy": null,
+      "selectionKey": [
+        0.8343685300207039,
+        0.895465243374073
+      ],
+      "profiles": {
+        "posix": {
+          "documents": 1,
+          "exactSpan": {
+            "precision": 0.8092369477911646,
+            "recall": 0.8611111111111112,
+            "f1": 0.8343685300207039,
+            "tp": 403,
+            "fp": 95,
+            "fn": 65,
+            "support": 468
+          },
+          "exactSpanMacroF1": 0.897975960895114
+        },
+        "bash": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.8784440842787682,
+            "recall": 0.9393414211438474,
+            "f1": 0.9078726968174204,
+            "tp": 542,
+            "fp": 75,
+            "fn": 35,
+            "support": 577
+          },
+          "exactSpanMacroF1": 0.9086074075873984
+        },
+        "zsh": {
+          "documents": 16,
+          "exactSpan": {
+            "precision": 0.89804604372219,
+            "recall": 0.8853709708182338,
+            "f1": 0.8916634652324241,
+            "tp": 4642,
+            "fp": 527,
+            "fn": 601,
+            "support": 5243
+          },
+          "exactSpanMacroF1": 0.9165525857598023
+        },
+        "csh": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.824486301369863,
+            "recall": 0.8469656992084432,
+            "f1": 0.8355748373101952,
+            "tp": 963,
+            "fp": 205,
+            "fn": 174,
+            "support": 1137
+          },
+          "exactSpanMacroF1": 0.8587250192539772
+        }
+      },
+      "natural": {
+        "documents": 25,
+        "exactSpan": {
+          "precision": 0.8789586688137413,
+          "recall": 0.8821548821548821,
+          "f1": 0.880553875109229,
+          "tp": 6550,
+          "fp": 902,
+          "fn": 875,
+          "support": 7425
+        },
+        "exactSpanMacroF1": 0.9082259648438666
+      }
+    },
+    {
+      "index": 1,
+      "policy": {
+        "format": "nsh-overlap-logits-v1",
+        "strideBytes": 256,
+        "edgeWeightCap": 128,
+        "adaptiveWeight": 0
+      },
+      "selectionKey": [
+        0.8270676691729323,
+        0.8902714036610064
+      ],
+      "profiles": {
+        "posix": {
+          "documents": 1,
+          "exactSpan": {
+            "precision": 0.8315334773218143,
+            "recall": 0.8226495726495726,
+            "f1": 0.8270676691729323,
+            "tp": 385,
+            "fp": 78,
+            "fn": 83,
+            "support": 468
+          },
+          "exactSpanMacroF1": 0.8834173430664659
+        },
+        "bash": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.8758169934640523,
+            "recall": 0.92894280762565,
+            "f1": 0.9015979814970564,
+            "tp": 536,
+            "fp": 76,
+            "fn": 41,
+            "support": 577
+          },
+          "exactSpanMacroF1": 0.8781588888631251
+        },
+        "zsh": {
+          "documents": 16,
+          "exactSpan": {
+            "precision": 0.9093696110365971,
+            "recall": 0.9052069425901201,
+            "f1": 0.9072835021984325,
+            "tp": 4746,
+            "fp": 473,
+            "fn": 497,
+            "support": 5243
+          },
+          "exactSpanMacroF1": 0.9284352412596615
+        },
+        "csh": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.8477112676056338,
+            "recall": 0.8469656992084432,
+            "f1": 0.8473383194016718,
+            "tp": 963,
+            "fp": 173,
+            "fn": 174,
+            "support": 1137
+          },
+          "exactSpanMacroF1": 0.871074141454773
+        }
+      },
+      "natural": {
+        "documents": 25,
+        "exactSpan": {
+          "precision": 0.892328398384926,
+          "recall": 0.8929292929292929,
+          "f1": 0.8926287445304611,
+          "tp": 6630,
+          "fp": 800,
+          "fn": 795,
+          "support": 7425
+        },
+        "exactSpanMacroF1": 0.9171143297037069
+      }
+    },
+    {
+      "index": 2,
+      "policy": {
+        "format": "nsh-overlap-logits-v1",
+        "strideBytes": 256,
+        "edgeWeightCap": 128,
+        "adaptiveWeight": 0.5
+      },
+      "selectionKey": [
+        0.8426724137931034,
+        0.9010408210991938
+      ],
+      "profiles": {
+        "posix": {
+          "documents": 1,
+          "exactSpan": {
+            "precision": 0.85,
+            "recall": 0.8354700854700855,
+            "f1": 0.8426724137931034,
+            "tp": 391,
+            "fp": 69,
+            "fn": 77,
+            "support": 468
+          },
+          "exactSpanMacroF1": 0.8971804457459278
+        },
+        "bash": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.8821603927986906,
+            "recall": 0.9341421143847487,
+            "f1": 0.9074074074074074,
+            "tp": 539,
+            "fp": 72,
+            "fn": 38,
+            "support": 577
+          },
+          "exactSpanMacroF1": 0.9081926398668221
+        },
+        "zsh": {
+          "documents": 16,
+          "exactSpan": {
+            "precision": 0.9133037265881444,
+            "recall": 0.9021552546252146,
+            "f1": 0.9076952600268663,
+            "tp": 4730,
+            "fp": 449,
+            "fn": 513,
+            "support": 5243
+          },
+          "exactSpanMacroF1": 0.9277063031941553
+        },
+        "csh": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.8446180555555556,
+            "recall": 0.8557607739665787,
+            "f1": 0.8501529051987767,
+            "tp": 973,
+            "fp": 179,
+            "fn": 164,
+            "support": 1137
+          },
+          "exactSpanMacroF1": 0.8710838955898702
+        }
+      },
+      "natural": {
+        "documents": 25,
+        "exactSpan": {
+          "precision": 0.8961091596865712,
+          "recall": 0.8933333333333333,
+          "f1": 0.8947190935455588,
+          "tp": 6633,
+          "fp": 769,
+          "fn": 792,
+          "support": 7425
+        },
+        "exactSpanMacroF1": 0.9182252091358118
+      }
+    },
+    {
+      "index": 3,
+      "policy": {
+        "format": "nsh-overlap-logits-v1",
+        "strideBytes": 128,
+        "edgeWeightCap": 128,
+        "adaptiveWeight": 0
+      },
+      "selectionKey": [
+        0.8382288469969311,
+        0.8997137671033946
+      ],
+      "profiles": {
+        "posix": {
+          "documents": 1,
+          "exactSpan": {
+            "precision": 0.8450106157112527,
+            "recall": 0.8504273504273504,
+            "f1": 0.8477103301384451,
+            "tp": 398,
+            "fp": 73,
+            "fn": 70,
+            "support": 468
+          },
+          "exactSpanMacroF1": 0.9055814536459545
+        },
+        "bash": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.8854337152209493,
+            "recall": 0.9376083188908145,
+            "f1": 0.9107744107744108,
+            "tp": 541,
+            "fp": 70,
+            "fn": 36,
+            "support": 577
+          },
+          "exactSpanMacroF1": 0.9001143441593731
+        },
+        "zsh": {
+          "documents": 16,
+          "exactSpan": {
+            "precision": 0.9138096150162804,
+            "recall": 0.9099752050352852,
+            "f1": 0.911888379204893,
+            "tp": 4771,
+            "fp": 450,
+            "fn": 472,
+            "support": 5243
+          },
+          "exactSpanMacroF1": 0.9327274768971721
+        },
+        "csh": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.8356643356643356,
+            "recall": 0.8408091468777484,
+            "f1": 0.8382288469969311,
+            "tp": 956,
+            "fp": 188,
+            "fn": 181,
+            "support": 1137
+          },
+          "exactSpanMacroF1": 0.8604317937110785
+        }
+      },
+      "natural": {
+        "documents": 25,
+        "exactSpan": {
+          "precision": 0.8951255539143279,
+          "recall": 0.8977777777777778,
+          "f1": 0.8964497041420119,
+          "tp": 6666,
+          "fp": 781,
+          "fn": 759,
+          "support": 7425
+        },
+        "exactSpanMacroF1": 0.9207690552316434
+      }
+    },
+    {
+      "index": 4,
+      "policy": {
+        "format": "nsh-overlap-logits-v1",
+        "strideBytes": 128,
+        "edgeWeightCap": 128,
+        "adaptiveWeight": 0.5
+      },
+      "selectionKey": [
+        0.8468085106382979,
+        0.9051948220324437
+      ],
+      "profiles": {
+        "posix": {
+          "documents": 1,
+          "exactSpan": {
+            "precision": 0.8432203389830508,
+            "recall": 0.8504273504273504,
+            "f1": 0.8468085106382979,
+            "tp": 398,
+            "fp": 74,
+            "fn": 70,
+            "support": 468
+          },
+          "exactSpanMacroF1": 0.90726649436801
+        },
+        "bash": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.8876221498371335,
+            "recall": 0.9445407279029463,
+            "f1": 0.9151973131821999,
+            "tp": 545,
+            "fp": 69,
+            "fn": 32,
+            "support": 577
+          },
+          "exactSpanMacroF1": 0.9146356684773411
+        },
+        "zsh": {
+          "documents": 16,
+          "exactSpan": {
+            "precision": 0.9137300211823609,
+            "recall": 0.9050162120923135,
+            "f1": 0.9093522422384055,
+            "tp": 4745,
+            "fp": 448,
+            "fn": 498,
+            "support": 5243
+          },
+          "exactSpanMacroF1": 0.9304529138513171
+        },
+        "csh": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.8401037165082109,
+            "recall": 0.8548812664907651,
+            "f1": 0.8474280732345248,
+            "tp": 972,
+            "fp": 185,
+            "fn": 165,
+            "support": 1137
+          },
+          "exactSpanMacroF1": 0.8684242114331066
+        }
+      },
+      "natural": {
+        "documents": 25,
+        "exactSpan": {
+          "precision": 0.8956428187197418,
+          "recall": 0.896969696969697,
+          "f1": 0.8963057667720881,
+          "tp": 6660,
+          "fp": 776,
+          "fn": 765,
+          "support": 7425
+        },
+        "exactSpanMacroF1": 0.9207662725731137
+      }
+    }
+  ],
+  "selected": 4,
+  "detailPolicy": "Compact validation search table; repeated decoder matrices and per-role diagnostics remain in the original immutable experiment report",
+  "fullReportSha256": "59b48f65ad7204d8916510450be3e98d519b443a05b11d739cdb8fa822424c64"
+}

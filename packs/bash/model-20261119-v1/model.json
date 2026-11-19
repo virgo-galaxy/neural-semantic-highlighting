@@ -1,0 +1,194 @@
+{
+  "id": "bash",
+  "artifact": {
+    "file": "model.pt",
+    "format": "nsh-bash-model-v1",
+    "sha256": "04187850e1b0683d9c4550ad864df6150628ebde0aeb4390acc23f3894f1398a",
+    "bytes": 3630581,
+    "parameterCount": 893582,
+    "containsOptimizerState": false,
+    "resumableTrainingCheckpoint": false
+  },
+  "selection": {
+    "epoch": 20,
+    "metric": "mean per-profile natural real-source validation exact-span macro F1",
+    "score": 0.8674887246386958
+  },
+  "checkpointConfig": {
+    "context_bytes": 512,
+    "width": 128,
+    "heads": 4,
+    "layers": 4,
+    "feed_forward": 512,
+    "dropout": 0.1,
+    "local_kernel": 1
+  },
+  "orderedLabels": {
+    "boundary": [
+      "O",
+      "B",
+      "I"
+    ],
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "function",
+      "variable",
+      "parameter"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "documentKinds": [
+    "bash"
+  ],
+  "input": {
+    "encoding": "utf-8",
+    "unit": "byte",
+    "vocabSize": 257,
+    "paddingId": 256,
+    "maxLengthBytes": 512
+  },
+  "output": {
+    "offsetEncoding": "utf-16",
+    "interval": "[start,end)",
+    "contract": "../SEMANTICS.md"
+  },
+  "inference": {
+    "windowing": "predicted-adaptive-cursor",
+    "decoder": "greedy-mean-logit",
+    "packPolicy": {
+      "coalesce_types": [
+        "string"
+      ],
+      "modifier_roles": {
+        "declaration": [
+          "function",
+          "variable"
+        ],
+        "default-library": [
+          "function"
+        ]
+      }
+    },
+    "modifierThreshold": 0.6,
+    "parserRequired": false
+  },
+  "scope": "shell-local-semantic-spans",
+  "modelSchema": {
+    "file": "../schema.json",
+    "sha256": "ad4242dc321aba45310a7fe47003dabb496f7fd7dd3b6f9cbb9af22c7c2e6bd7"
+  },
+  "publicSchema": {
+    "file": "../schema.json",
+    "sha256": "ad4242dc321aba45310a7fe47003dabb496f7fd7dd3b6f9cbb9af22c7c2e6bd7"
+  },
+  "dataset": {
+    "snapshot": "43fd4dffbf0e456271547b79fbb76c9610bc6b8f083397925c9fa802d2aae619",
+    "manifestHash": "4a04fac1fdec9554fd7de2cf1feae90db38c3e1e42f0ca3b934d3c6a013bebdd"
+  },
+  "provenance": {
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/bash/context512-heredoc-fragments-20261108-01/candidates/epoch-0020.pt",
+    "sourceCheckpointSha256": "a48d62548a33cd6d97ce0d240dd1bdd780de99fd52fbb0e3416a81ebf456b3ac",
+    "training": {
+      "codeHashes": {
+        "training/bash/challenge.py": "6e743b34ccab95ff1c725f2857d6dab9f20dc32544bde959dc69201385b72a78",
+        "training/bash/evaluate.py": "6f69761cbdab17fdca97aaa932102b9a7a82b908ddacb435317e06e73f497790",
+        "training/bash/export_model.py": "3a07a8534d3c52c21f67d89d41ce064c705e6afc4da99f6cafbb42683b6cd3f7",
+        "training/bash/predict.py": "c0c23adfa8b0e8376dcdb279b9567f23e193ab7ed7b803ac090e90c142430293",
+        "training/bash/prepare.py": "92cb40a9dd5f8a634058c5ca67633abf90d3ffe56c495893de35bf8cab2ee573",
+        "training/bash/train.py": "2eb8888d528ddf64b503a7da2d283df1157fa0095cf0bd83fdc7eef23b1180ab",
+        "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
+        "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
+        "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
+        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
+        "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+        "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
+        "training/shared/encoding.py": "cb7a2e784b3e96fcc7b12671f780549e29183be4ae24727e961f78574ad27602",
+        "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
+        "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+        "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
+        "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
+        "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+        "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
+        "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
+        "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+        "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
+        "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
+        "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
+        "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
+        "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
+        "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
+        "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+        "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
+        "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
+        "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
+      },
+      "semanticsHash": "9fe0c250f731ea21771fe4ea9f46898974dd937c934f2fd06fc917ffbe8bf72c",
+      "packConfigHash": "7b084729fcd70d384bb1c0b7d0838c344390c4bb470dfe8e4c9c98d20c8abc6e",
+      "decoderPolicy": {
+        "coalesce_types": [
+          "string"
+        ],
+        "modifier_roles": {
+          "declaration": [
+            "function",
+            "variable"
+          ],
+          "default-library": [
+            "function"
+          ]
+        }
+      },
+      "pythonTorch": "2.14.0",
+      "repositoryDirty": true,
+      "repositoryCommit": "8175f82cb2b3f8bfd37441152309b304d0067d1a"
+    },
+    "initialization": {
+      "mode": "bash-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/bash/context512-heredoc-20261108-01/candidates/epoch-0020.pt",
+      "checkpointHash": "b7c929633793e364eb664bfc9d9ad61643ab5bd00d10f5c119762abef54712e4",
+      "sourceEpoch": 20,
+      "sourceDataset": {
+        "snapshot": "2a57b6dc988f4891cd682843e599d72246b300d110e254cf9c824a85b1436ac1",
+        "manifestHash": "cc1e5e371962a8cde68aeab0339aa8ac21b7ca81aa2fac78107cca6a491edad5",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/bash/prepared/2a57b6dc988f4891cd682843e599d72246b300d110e254cf9c824a85b1436ac1"
+      },
+      "copiedTokenTypes": [
+        "keyword",
+        "comment",
+        "string",
+        "number",
+        "operator",
+        "punctuation",
+        "function",
+        "variable",
+        "parameter"
+      ],
+      "newTokenTypes": [],
+      "newTensors": [],
+      "copiedModifiers": [
+        "declaration",
+        "default-library"
+      ],
+      "optimizerAndTrainingState": "fresh pack run"
+    },
+    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+  },
+  "reports": {
+    "test-metrics.json": {
+      "file": "reports/test-metrics.json",
+      "sha256": "be0141925eaf2ad7362e423451abc4e78cc0f7b565aba6a5aa9a8df9b6f68f3d",
+      "checkpointHash": "a48d62548a33cd6d97ce0d240dd1bdd780de99fd52fbb0e3416a81ebf456b3ac",
+      "split": "test",
+      "inference": "predicted-adaptive-cursor"
+    }
+  }
+}
