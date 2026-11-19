@@ -23,3 +23,9 @@ source-spelling/regex/parser repair is added. Old
 See [evaluation](BENCHMARKS.md), [known limits](KNOWN_ISSUES.md) and
 [semantics](../SEMANTICS.md). Continue training only from complete artifacts
 checkpoints. Repository/packages remain private; no npm publication occurs.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).

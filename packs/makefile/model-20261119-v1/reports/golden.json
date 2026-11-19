@@ -1,0 +1,1166 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "dc11517cdef69466fe1f8c4f828f82e6b615f77ed9bc2a65001c7b4703450cab",
+  "cases": [
+    {
+      "id": "empty",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "comment",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "# Original build source\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "assignment-0",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "CC = cc\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "assignment-1",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "CC := cc\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "assignment-2",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "CC ::= cc\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "assignment-3",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "CC ?= cc\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "assignment-4",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "CC += cc\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "numeric-value",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "JOBS = 4\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "references",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "FLAGS = $(BASE) ${MODE} $X\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "automatic",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "all:\n\t$(CC) $@ $< $^ $? $* $(@D)\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "targets-order-only",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "app tool: main.o | build\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "app",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "app",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phony",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": ".PHONY: all clean\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "pattern",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "%.o: %.c\n\t$(CC) -c $< -o $@\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "double-colon",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "clean::\n\techo ready\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "grouped-targets",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "one two&: source\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "one",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 4,
+          "end": 7,
+          "text": "two",
+          "tokenType": "label",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 7,
+          "end": 9,
+          "text": "&:",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "one",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        },
+        {
+          "start": 4,
+          "end": 7,
+          "text": "two",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 7,
+          "end": 8,
+          "text": "&",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 8,
+          "end": 9,
+          "text": ":",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "inline-recipe",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "ready: ; echo ready\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "recipe-prefixes",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "clean:\n\t@-+echo ready\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 9,
+          "end": 10,
+          "text": "-",
+          "tokenType": "operator",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 9,
+          "end": 10,
+          "text": "-",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "make-function",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "SRC := $(wildcard src/*.c)\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "nested-function",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "OBJ = $(addprefix build/,$(SRC:.c=.o))\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "shell-function",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "VALUE := $(shell echo ready)\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "shell-assignment",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "VALUE != echo ready\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 9,
+          "end": 13,
+          "text": "echo",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 9,
+          "end": 13,
+          "text": "echo",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "include",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "-include config.mk local.mk\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "-include",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "-include",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "export",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "export MODE = release\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 6,
+          "text": "export",
+          "tokenType": "keyword",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 6,
+          "text": "export",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unexport",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "unexport SECRET TOKEN\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "unexport",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 9,
+          "end": 15,
+          "text": "SECRET",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 21,
+          "text": "TOKEN",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "unexport",
+          "tokenType": "function",
+          "modifiers": []
+        },
+        {
+          "start": 9,
+          "end": 15,
+          "text": "SECRET",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 21,
+          "text": "TOKEN",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "ifdef",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "ifdef DEBUG\nFLAGS += -g\nelse\nFLAGS += -O2\nendif\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 6,
+          "end": 11,
+          "text": "DEBUG",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 6,
+          "end": 11,
+          "text": "DEBUG",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ifeq",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "ifeq ($(MODE),debug)\nTRACE = 1\nendif\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "define",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "define MESSAGE\n# literal comment\nhello $(NAME)\nendef\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 15,
+          "end": 47,
+          "text": "# literal comment\nhello $(NAME)\n",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 15,
+          "end": 32,
+          "text": "# literal comment",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 33,
+          "end": 38,
+          "text": "hello",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 39,
+          "end": 46,
+          "text": "$(NAME)",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "custom-recipe-prefix",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": ".RECIPEPREFIX = >\nall:\n> @echo ready\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 13,
+          "text": ".RECIPEPREFIX",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": ">",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 13,
+          "text": ".RECIPEPREFIX",
+          "tokenType": "variable",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": ">",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "escaped-shell-variable",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "all:\n\t@echo \"$$HOME\"\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "escaped-make-value",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "LITERAL = $$HOME\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 10,
+          "end": 16,
+          "text": "$$HOME",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 10,
+          "end": 16,
+          "text": "$$HOME",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "foreign-shell",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "SHELL := cmd.exe\nall:\n\techo %PATH%\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 23,
+          "end": 34,
+          "text": "echo %PATH%",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 23,
+          "end": 27,
+          "text": "echo",
+          "tokenType": "function",
+          "modifiers": [
+            "default-library"
+          ]
+        },
+        {
+          "start": 28,
+          "end": 34,
+          "text": "%PATH%",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "unicode-crlf",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "\ufeff# \u539f\u6587 \ud83c\udf0c\r\nNAME = \"\u4f60\u597d \ud83c\udf0c\"\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "\ufeff",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 1,
+          "end": 8,
+          "text": "# \u539f\u6587 \ud83c\udf0c",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "\ufeff# \u539f\u6587 \ud83c\udf0c",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "no-final-newline",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "MODE = release",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "make-inline-comment",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "FLAGS = -O2 # release build\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "make-quoted-hash",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "TEXT = \"literal # Make comments ignore quotes\"\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 7,
+          "end": 15,
+          "text": "\"literal",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 46,
+          "text": "# Make comments ignore quotes\"",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 7,
+          "end": 46,
+          "text": "\"literal # Make comments ignore quotes\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "escaped-hash",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "TEXT = one\\#two\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "hash-in-function",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "VALUE = $(subst #,x,$(INPUT))\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 16,
+          "end": 17,
+          "text": "#",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 18,
+          "text": ",",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 18,
+          "end": 19,
+          "text": "x",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 16,
+          "end": 19,
+          "text": "#,x",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "continued-comment",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "# original \\\n still a comment\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 29,
+          "text": "# original \\\n still a comment",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 12,
+          "text": "# original \\",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 14,
+          "end": 21,
+          "text": "still a",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 22,
+          "end": 29,
+          "text": "comment",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "continuation",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "FILES = one.c \\\n  two.c\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "recipe-comment",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "all:\n\t# original recipe comment\n\techo \"# literal\"\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "adjacent-assignment-0",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "ITEM=source\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 5,
+          "text": "=",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 5,
+          "end": 11,
+          "text": "source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 11,
+          "text": "=source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "adjacent-assignment-1",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "ITEM?=source\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 6,
+          "text": "?=",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 12,
+          "text": "source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 12,
+          "text": "?=source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "adjacent-assignment-2",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "ITEM+=source\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 6,
+          "text": "+=",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 12,
+          "text": "source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 12,
+          "text": "+=source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "adjacent-assignment-3",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "ITEM:=source\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 6,
+          "text": ":=",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 6,
+          "end": 12,
+          "text": "source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 12,
+          "text": ":=source",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "adjacent-assignment-4",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "ITEM::=source\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "target-specific-adjacent",
+      "profile": "makefile",
+      "documentKind": "makefile",
+      "source": "debug: FLAGS+=-g\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    }
+  ],
+  "profiles": {
+    "makefile": {
+      "documents": 46,
+      "exactDocumentsIncludingModifiers": 26,
+      "exactSpan": {
+        "precision": 0.8663594470046083,
+        "recall": 0.8584474885844748,
+        "f1": 0.8623853211009175,
+        "tp": 188,
+        "fp": 29,
+        "fn": 31,
+        "support": 219
+      },
+      "exactSpanMacroF1": 0.8299684902910709,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8571428571428571,
+        "recall": 0.8493150684931506,
+        "f1": 0.8532110091743119,
+        "tp": 186,
+        "fp": 31,
+        "fn": 33,
+        "support": 219
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.875,
+          "recall": 0.7,
+          "f1": 0.7777777777777778,
+          "tp": 7,
+          "fp": 1,
+          "fn": 3,
+          "support": 10
+        },
+        "comment": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5,
+          "tp": 3,
+          "fp": 3,
+          "fn": 3,
+          "support": 6
+        },
+        "string": {
+          "precision": 0.7254901960784313,
+          "recall": 0.7708333333333334,
+          "f1": 0.7474747474747475,
+          "tp": 37,
+          "fp": 14,
+          "fn": 11,
+          "support": 48
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.8780487804878049,
+          "f1": 0.935064935064935,
+          "tp": 36,
+          "fp": 0,
+          "fn": 5,
+          "support": 41
+        },
+        "punctuation": {
+          "precision": 0.9032258064516129,
+          "recall": 0.9032258064516129,
+          "f1": 0.9032258064516129,
+          "tp": 28,
+          "fp": 3,
+          "fn": 3,
+          "support": 31
+        },
+        "function": {
+          "precision": 0.6875,
+          "recall": 0.9166666666666666,
+          "f1": 0.7857142857142857,
+          "tp": 11,
+          "fp": 5,
+          "fn": 1,
+          "support": 12
+        },
+        "variable": {
+          "precision": 0.9615384615384616,
+          "recall": 0.9615384615384616,
+          "f1": 0.9615384615384616,
+          "tp": 50,
+          "fp": 2,
+          "fn": 2,
+          "support": 52
+        },
+        "parameter": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "support": 2
+        },
+        "label": {
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8888888888888888,
+          "tp": 12,
+          "fp": 0,
+          "fn": 3,
+          "support": 15
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "makefile": {
+      "documents": 46,
+      "exactDocumentsIncludingModifiers": 26,
+      "exactSpan": {
+        "precision": 0.8663594470046083,
+        "recall": 0.8584474885844748,
+        "f1": 0.8623853211009175,
+        "tp": 188,
+        "fp": 29,
+        "fn": 31,
+        "support": 219
+      },
+      "exactSpanMacroF1": 0.8299684902910709,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.8571428571428571,
+        "recall": 0.8493150684931506,
+        "f1": 0.8532110091743119,
+        "tp": 186,
+        "fp": 31,
+        "fn": 33,
+        "support": 219
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.875,
+          "recall": 0.7,
+          "f1": 0.7777777777777778,
+          "tp": 7,
+          "fp": 1,
+          "fn": 3,
+          "support": 10
+        },
+        "comment": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5,
+          "tp": 3,
+          "fp": 3,
+          "fn": 3,
+          "support": 6
+        },
+        "string": {
+          "precision": 0.7254901960784313,
+          "recall": 0.7708333333333334,
+          "f1": 0.7474747474747475,
+          "tp": 37,
+          "fp": 14,
+          "fn": 11,
+          "support": 48
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.8780487804878049,
+          "f1": 0.935064935064935,
+          "tp": 36,
+          "fp": 0,
+          "fn": 5,
+          "support": 41
+        },
+        "punctuation": {
+          "precision": 0.9032258064516129,
+          "recall": 0.9032258064516129,
+          "f1": 0.9032258064516129,
+          "tp": 28,
+          "fp": 3,
+          "fn": 3,
+          "support": 31
+        },
+        "function": {
+          "precision": 0.6875,
+          "recall": 0.9166666666666666,
+          "f1": 0.7857142857142857,
+          "tp": 11,
+          "fp": 5,
+          "fn": 1,
+          "support": 12
+        },
+        "variable": {
+          "precision": 0.9615384615384616,
+          "recall": 0.9615384615384616,
+          "f1": 0.9615384615384616,
+          "tp": 50,
+          "fp": 2,
+          "fn": 2,
+          "support": 52
+        },
+        "parameter": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "support": 2
+        },
+        "label": {
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8888888888888888,
+          "tp": 12,
+          "fp": 0,
+          "fn": 3,
+          "support": 15
+        }
+      }
+    }
+  },
+  "checkpointHash": "556be927b35f06b506d7aa92d3ae122af2038bb92a9ccf8a8f33ab90beec9cb6",
+  "checkpointEpoch": 10,
+  "device": "cpu"
+}

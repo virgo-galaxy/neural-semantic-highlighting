@@ -3,19 +3,19 @@
   "artifact": {
     "file": "model.pt",
     "format": "nsh-makefile-model-v1",
-    "sha256": "a49438e43d8611f3b06d14f387054e285a4b336435088ab3a046074652f1101e",
-    "bytes": 3628911,
+    "sha256": "4360a9171772d6c70de40e22ce60c9e056672745e3bd0edbba36c3e21eaa4a42",
+    "bytes": 3629359,
     "parameterCount": 894479,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "selection": {
     "epoch": 10,
-    "metric": "Maximum minimum original exact-span F1 GAIN over the frozen baseline on all/fresh/legacy natural VALIDATION; role macro breaks ties",
-    "score": 0.03502227853648132,
-    "validationReportSha256": "19cfee79c2f2638ab1ce4b76ae636bba7451d5600a782498337e3c4c5d7a0966",
-    "trainingBestEpoch": 5,
-    "trainingBestFixedMacroF1": 0.8405327673792934
+    "metric": "Maximum minimum natural VALIDATION profile F1; role macro decrease at most .01; unchanged runtime eligible",
+    "score": 0.8797049081601928,
+    "validationReportSha256": "22182f50ca561d2c702624c0f00d44e42c28a789842c0d6cfc5748589a57474a",
+    "trainingSelectionMetric": "profile-macro",
+    "trainingBestFixedScore": 0.8405327673792934
   },
   "checkpointConfig": {
     "context_bytes": 512,
@@ -83,7 +83,13 @@
       }
     },
     "modifierThreshold": 0.6,
-    "parserRequired": false
+    "parserRequired": false,
+    "windowingPolicy": {
+      "format": "nsh-overlap-logits-v1",
+      "strideBytes": 128,
+      "edgeWeightCap": 128,
+      "adaptiveWeight": 0
+    }
   },
   "scope": "makefile-source-semantic-spans",
   "modelSchema": {
@@ -99,8 +105,8 @@
     "manifestHash": "d500d36856f5ce21be8f91de09c61250a620ca0338d38039a2a6518bb844dc23"
   },
   "provenance": {
-    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/makefile/optimization-20261118/contexts-e10-balanced.pt",
-    "sourceCheckpointSha256": "556be927b35f06b506d7aa92d3ae122af2038bb92a9ccf8a8f33ab90beec9cb6",
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/remaining/makefile/greedy-window.pt",
+    "sourceCheckpointSha256": "64625f53feae80c2469239de67df12c6a9f1ce51e98de743ca52daa15972ccdc",
     "training": {
       "codeHashes": {
         "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
@@ -191,7 +197,7 @@
       ],
       "optimizerAndTrainingState": "fresh pack run"
     },
-    "exporterSha256": "38674e566783f403fd461133d38f4764251001cdf8883f9b079701a4be368ade",
+    "exporterSha256": "273c7f803cc1684d62f43d31a02229aec085228310c73833358d56f369593c72",
     "decoderCalibration": {
       "sourceCheckpointHash": "ca0c736170de127f32fe9435e35a4603bc41ac9d310b7ac3a90e768c56e35b89",
       "validationReport": "artifacts/makefile/optimization-20261118/contexts-e10-balanced.calibration.json",
@@ -200,15 +206,32 @@
       "selection": "Maximum minimum original exact-span F1 GAIN over the frozen baseline on all/fresh/legacy natural VALIDATION; role macro breaks ties",
       "calibratorSha256": "a5774736b31667aa5fe5511d7ab0576aaf45bbaa98333fbc9121796cafd83632",
       "primaryTestUsed": false
+    },
+    "windowingCalibration": {
+      "validationReport": "artifacts/quality-20261119/remaining/makefile/greedy-window.windowing.json",
+      "validationReportHash": "22182f50ca561d2c702624c0f00d44e42c28a789842c0d6cfc5748589a57474a",
+      "testPredictionsUsed": false
     }
   },
   "reports": {
     "test-metrics.json": {
       "file": "reports/test-metrics.json",
-      "sha256": "4c35d8446d0c73de1f73de9d7676abbfbe4fc45381ef177b71d5adf26017c142",
-      "checkpointHash": "556be927b35f06b506d7aa92d3ae122af2038bb92a9ccf8a8f33ab90beec9cb6",
+      "sha256": "83096e13e7ebecbf76c30bf3d1350f867c2bcf2c5a914a68a0bafe872b7d2d6f",
+      "checkpointHash": "64625f53feae80c2469239de67df12c6a9f1ce51e98de743ca52daa15972ccdc",
       "split": "test",
       "inference": "predicted-adaptive-cursor"
+    },
+    "windowingCalibration.json": {
+      "file": "reports/windowingCalibration.json",
+      "sha256": "22182f50ca561d2c702624c0f00d44e42c28a789842c0d6cfc5748589a57474a"
+    },
+    "decoderCalibration.json": {
+      "file": "reports/decoderCalibration.json",
+      "sha256": "19cfee79c2f2638ab1ce4b76ae636bba7451d5600a782498337e3c4c5d7a0966"
+    },
+    "golden.json": {
+      "file": "reports/golden.json",
+      "sha256": "fd7ddc56b90ceeccf13c7409fe684be8f38967940094e666f23957d04ff825b4"
     }
   }
 }

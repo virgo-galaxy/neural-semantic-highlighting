@@ -11,7 +11,7 @@ const model: BrowserModel = {
       },
     ],
   },
-  sha256: "faf7b90ab47eb140f7501ed1bdbdcc2274b40d9d89880c5ecd16a9c55fddfb7b",
+  sha256: "149fd0d4645a901ac594be0e3b85fe126874121ac49b68a49fb38702f9cadbee",
   contextBytes: 512,
   schema: {
     tokenTypes: [
@@ -35,6 +35,12 @@ const model: BrowserModel = {
       declaration: ["variable", "label", "function"],
       "default-library": ["function"],
     },
+  },
+  inferenceWindowing: {
+    format: "nsh-overlap-logits-v1",
+    strideBytes: 128,
+    edgeWeightCap: 128,
+    adaptiveWeight: 0,
   },
   structuredDecoder: {
     format: "nsh-joint-bio-v1",

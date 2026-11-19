@@ -18,12 +18,12 @@
   },
   "model": {
     "file": "model.onnx",
-    "sha256": "faf7b90ab47eb140f7501ed1bdbdcc2274b40d9d89880c5ecd16a9c55fddfb7b",
+    "sha256": "149fd0d4645a901ac594be0e3b85fe126874121ac49b68a49fb38702f9cadbee",
     "bytes": 3710546
   },
   "source": {
     "file": "packs/makefile/model/model.pt",
-    "sha256": "a49438e43d8611f3b06d14f387054e285a4b336435088ab3a046074652f1101e"
+    "sha256": "4360a9171772d6c70de40e22ce60c9e056672745e3bd0edbba36c3e21eaa4a42"
   },
   "contextBytes": 512,
   "schema": {
@@ -64,8 +64,15 @@
   "resumableTrainingCheckpoint": false,
   "input": "original-utf8-bytes",
   "output": "original-utf16-spans",
-  "exporterSha256": "2e81ab4df2e2bc9328f5bcd529a3b8c85f11257bc42a819ae544ad9270670ab9",
-  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6",
+  "exporterSha256": "a3f74491abadb9228e2633749ddd380c5e43a103ef446fef4d1cd630b3378148",
+  "graphSha256": "1c61aaeb68ebe2bfb375afb3b73a28b05e80c48b5d414133ab8b9ebe3069044d",
+  "attentionGraphSha256": "b13cad168b9ffe63f3adef4142124943a12df22f2bb1dd081883fd121d90cc1a",
+  "inferenceWindowing": {
+    "format": "nsh-overlap-logits-v1",
+    "strideBytes": 128,
+    "edgeWeightCap": 128,
+    "adaptiveWeight": 0
+  },
   "structuredDecoder": {
     "format": "nsh-joint-bio-v1",
     "tokenTypes": [
