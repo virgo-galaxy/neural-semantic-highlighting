@@ -98,3 +98,19 @@ and folds; duplicate exclusion leaves 40 additional training, three validation a
 `make dataset-xml-quality-curriculum` adds separately grouped long opaque-content
 tasks while preserving all 2,964 earlier prepared documents. These focus tasks do
 not substitute for natural XML/SVG measurements or change their Gold.
+
+## Reporting and release acceptance
+
+Release tables compare the same exposed historical natural-source cohort before
+and after. Additional frozen families remain separate, including results below
+90%; a pooled or authored score never replaces them. The later window revision
+reuses Python/BAT additional tests after their first read, explicitly labelled as
+exposed follow-up evidence. Perl's additional 16 files are first read after final
+validation-only window selection. Golden, role macro and individual profiles
+remain acceptance checks alongside micro F1. A worse candidate can be rejected.
+
+Selection reports in inference bundles contain compact search tables and their
+full immutable experiment-report hashes; repeated matrices and complete role
+diagnostics remain in ignored `artifacts/quality-20261119`. Dated native/browser
+bundles retain all original files and hashes. No distribution, visibility change
+or external push is part of this optimization.
