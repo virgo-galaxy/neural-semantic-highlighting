@@ -3,16 +3,19 @@
   "artifact": {
     "file": "model.pt",
     "format": "nsh-swift-model-v1",
-    "sha256": "ce0fdffc24b11754876801fd1c1cbf6edcaafe1abf8525bde2e832be5ef0d5db",
-    "bytes": 3650485,
+    "sha256": "fe3d2cd78bc8532525c9c7ed464d1a76408c04de71e03bc4bafac23657f7e976",
+    "bytes": 3661109,
     "parameterCount": 894872,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "selection": {
     "epoch": 6,
-    "metric": "mean per-profile natural real-source validation exact-span macro F1",
-    "score": 0.7580982396296502
+    "metric": "Maximum minimum natural VALIDATION profile F1; role macro decrease at most .01; unchanged runtime eligible",
+    "score": 0.9474491218288263,
+    "validationReportSha256": "376e82d325f43f6c345760d2e1dca383256583ce0f41fb34649068d42b0797c4",
+    "trainingSelectionMetric": "profile-macro",
+    "trainingBestFixedScore": 0.7580982396296502
   },
   "checkpointConfig": {
     "context_bytes": 512,
@@ -72,13 +75,19 @@
   },
   "inference": {
     "windowing": "predicted-adaptive-cursor",
-    "decoder": "greedy-mean-logit",
+    "decoder": "joint-bio-viterbi",
     "packPolicy": {
       "coalesce_types": [],
       "modifier_roles": null
     },
     "modifierThreshold": 0.6,
-    "parserRequired": false
+    "parserRequired": false,
+    "windowingPolicy": {
+      "format": "nsh-overlap-logits-v1",
+      "strideBytes": 128,
+      "edgeWeightCap": 128,
+      "adaptiveWeight": 0
+    }
   },
   "scope": "swift-local-semantic-spans",
   "modelSchema": {
@@ -94,8 +103,8 @@
     "manifestHash": "d4e0ffb3b26d485bbcc4e2387a2c83401f6c097f0dffcb8cfac066acac8a051f"
   },
   "provenance": {
-    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/swift/context512-mixed-20261111-01/candidates/epoch-0006.pt",
-    "sourceCheckpointSha256": "134d8c8d39a2fd13211d52ac94d71f4e439ddb66f94f3cd2ed6896d5518724ad",
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/remaining/swift/window-reviewed.pt",
+    "sourceCheckpointSha256": "9f5b01353e678b3c6bc83b7803bccd6e28a859b72429fb6fc2ce83d8240ca2da",
     "training": {
       "codeHashes": {
         "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
@@ -181,15 +190,39 @@
       ],
       "optimizerAndTrainingState": "fresh pack run"
     },
-    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+    "exporterSha256": "273c7f803cc1684d62f43d31a02229aec085228310c73833358d56f369593c72",
+    "decoderCalibration": {
+      "sourceCheckpointHash": "134d8c8d39a2fd13211d52ac94d71f4e439ddb66f94f3cd2ed6896d5518724ad",
+      "validationReport": "artifacts/quality-20261119/remaining/swift/baseline-calibrated.calibration.json",
+      "validationReportHash": "58a0ab69f6c18d3ade5d67eb44fdc627663459101ae46e6b89d942bfe87f0b07",
+      "selection": "profile-macro; natural adaptive validation only",
+      "primaryTestUsed": false
+    },
+    "windowingCalibration": {
+      "validationReport": "artifacts/quality-20261119/remaining/swift/window-reviewed.windowing.json",
+      "validationReportHash": "376e82d325f43f6c345760d2e1dca383256583ce0f41fb34649068d42b0797c4",
+      "testPredictionsUsed": false
+    }
   },
   "reports": {
     "test-metrics.json": {
       "file": "reports/test-metrics.json",
-      "sha256": "350185c527e290c42d040d4b8f3333cce60e4f0a1e87fd1636ce243e1b6fd8b1",
-      "checkpointHash": "134d8c8d39a2fd13211d52ac94d71f4e439ddb66f94f3cd2ed6896d5518724ad",
+      "sha256": "849899d5a814d86c1db6de971c31061fb97f79713343b8dddb8fc1dfc9790cbd",
+      "checkpointHash": "9f5b01353e678b3c6bc83b7803bccd6e28a859b72429fb6fc2ce83d8240ca2da",
       "split": "test",
       "inference": "predicted-adaptive-cursor"
+    },
+    "windowingCalibration.json": {
+      "file": "reports/windowingCalibration.json",
+      "sha256": "3c5cc45d1c2c696bd9311d1314b531199f16c29de5df84ce38236902626a465b"
+    },
+    "decoderCalibration.json": {
+      "file": "reports/decoderCalibration.json",
+      "sha256": "5f87a800ac6809cb308058c862bb260103a230f00a81a2af305319846acfb407"
+    },
+    "golden.json": {
+      "file": "reports/golden.json",
+      "sha256": "b2965579be17c02a0a3f2a519d95fb00754256d1f9584dd0f73345208cbe1cc2"
     }
   }
 }

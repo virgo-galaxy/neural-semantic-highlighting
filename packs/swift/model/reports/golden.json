@@ -248,6 +248,15 @@
       "exactIncludingModifiers": false,
       "missing": [
         {
+          "start": 23,
+          "end": 27,
+          "text": "item",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
           "start": 31,
           "end": 35,
           "text": "item",
@@ -256,6 +265,15 @@
         }
       ],
       "unexpected": [
+        {
+          "start": 23,
+          "end": 27,
+          "text": "item",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        },
         {
           "start": 31,
           "end": 35,
@@ -351,25 +369,9 @@
       "profile": "swift",
       "documentKind": "swift",
       "source": "display(title: \"Orbit\")",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 0,
-          "end": 7,
-          "text": "display",
-          "tokenType": "function",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 0,
-          "end": 7,
-          "text": "display",
-          "tokenType": "decorator",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "tuple-label",
@@ -464,7 +466,7 @@
           "start": 18,
           "end": 25,
           "text": "nothing",
-          "tokenType": "string",
+          "tokenType": "parameter",
           "modifiers": []
         },
         {
@@ -627,7 +629,7 @@
   "profiles": {
     "swift": {
       "documents": 28,
-      "exactDocumentsIncludingModifiers": 13,
+      "exactDocumentsIncludingModifiers": 14,
       "exactSpan": {
         "precision": 0.9094650205761317,
         "recall": 0.9246861924686193,
@@ -637,7 +639,7 @@
         "fn": 18,
         "support": 239
       },
-      "exactSpanMacroF1": 0.7510739453813458,
+      "exactSpanMacroF1": 0.7580666803152571,
       "exactSpanIncludingModifiers": {
         "precision": 0.9012345679012346,
         "recall": 0.9163179916317992,
@@ -649,11 +651,11 @@
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.925,
+          "precision": 0.9024390243902439,
           "recall": 1.0,
-          "f1": 0.961038961038961,
+          "f1": 0.9487179487179487,
           "tp": 37,
-          "fp": 3,
+          "fp": 4,
           "fn": 0,
           "support": 37
         },
@@ -667,11 +669,11 @@
           "support": 2
         },
         "string": {
-          "precision": 0.6,
+          "precision": 0.6666666666666666,
           "recall": 0.8571428571428571,
-          "f1": 0.7058823529411765,
+          "f1": 0.75,
           "tp": 6,
-          "fp": 4,
+          "fp": 3,
           "fn": 1,
           "support": 7
         },
@@ -740,11 +742,11 @@
         },
         "function": {
           "precision": 1.0,
-          "recall": 0.7142857142857143,
-          "f1": 0.8333333333333334,
-          "tp": 5,
+          "recall": 0.8571428571428571,
+          "f1": 0.9230769230769231,
+          "tp": 6,
           "fp": 0,
-          "fn": 2,
+          "fn": 1,
           "support": 7
         },
         "method": {
@@ -766,12 +768,12 @@
           "support": 2
         },
         "parameter": {
-          "precision": 0.8181818181818182,
-          "recall": 0.8181818181818182,
-          "f1": 0.8181818181818182,
-          "tp": 9,
-          "fp": 2,
-          "fn": 2,
+          "precision": 0.7272727272727273,
+          "recall": 0.7272727272727273,
+          "f1": 0.7272727272727273,
+          "tp": 8,
+          "fp": 3,
+          "fn": 3,
           "support": 11
         },
         "variable": {
@@ -802,11 +804,11 @@
           "support": 3
         },
         "decorator": {
-          "precision": 0.5,
+          "precision": 0.6666666666666666,
           "recall": 0.6666666666666666,
-          "f1": 0.5714285714285714,
+          "f1": 0.6666666666666666,
           "tp": 2,
-          "fp": 2,
+          "fp": 1,
           "fn": 1,
           "support": 3
         },
@@ -834,7 +836,7 @@
   "documentKinds": {
     "swift": {
       "documents": 28,
-      "exactDocumentsIncludingModifiers": 13,
+      "exactDocumentsIncludingModifiers": 14,
       "exactSpan": {
         "precision": 0.9094650205761317,
         "recall": 0.9246861924686193,
@@ -844,7 +846,7 @@
         "fn": 18,
         "support": 239
       },
-      "exactSpanMacroF1": 0.7510739453813458,
+      "exactSpanMacroF1": 0.7580666803152571,
       "exactSpanIncludingModifiers": {
         "precision": 0.9012345679012346,
         "recall": 0.9163179916317992,
@@ -856,11 +858,11 @@
       },
       "byTokenType": {
         "keyword": {
-          "precision": 0.925,
+          "precision": 0.9024390243902439,
           "recall": 1.0,
-          "f1": 0.961038961038961,
+          "f1": 0.9487179487179487,
           "tp": 37,
-          "fp": 3,
+          "fp": 4,
           "fn": 0,
           "support": 37
         },
@@ -874,11 +876,11 @@
           "support": 2
         },
         "string": {
-          "precision": 0.6,
+          "precision": 0.6666666666666666,
           "recall": 0.8571428571428571,
-          "f1": 0.7058823529411765,
+          "f1": 0.75,
           "tp": 6,
-          "fp": 4,
+          "fp": 3,
           "fn": 1,
           "support": 7
         },
@@ -947,11 +949,11 @@
         },
         "function": {
           "precision": 1.0,
-          "recall": 0.7142857142857143,
-          "f1": 0.8333333333333334,
-          "tp": 5,
+          "recall": 0.8571428571428571,
+          "f1": 0.9230769230769231,
+          "tp": 6,
           "fp": 0,
-          "fn": 2,
+          "fn": 1,
           "support": 7
         },
         "method": {
@@ -973,12 +975,12 @@
           "support": 2
         },
         "parameter": {
-          "precision": 0.8181818181818182,
-          "recall": 0.8181818181818182,
-          "f1": 0.8181818181818182,
-          "tp": 9,
-          "fp": 2,
-          "fn": 2,
+          "precision": 0.7272727272727273,
+          "recall": 0.7272727272727273,
+          "f1": 0.7272727272727273,
+          "tp": 8,
+          "fp": 3,
+          "fn": 3,
           "support": 11
         },
         "variable": {
@@ -1009,11 +1011,11 @@
           "support": 3
         },
         "decorator": {
-          "precision": 0.5,
+          "precision": 0.6666666666666666,
           "recall": 0.6666666666666666,
-          "f1": 0.5714285714285714,
+          "f1": 0.6666666666666666,
           "tp": 2,
-          "fp": 2,
+          "fp": 1,
           "fn": 1,
           "support": 3
         },
@@ -1038,7 +1040,7 @@
       }
     }
   },
-  "checkpointHash": "134d8c8d39a2fd13211d52ac94d71f4e439ddb66f94f3cd2ed6896d5518724ad",
+  "checkpointHash": "9f5b01353e678b3c6bc83b7803bccd6e28a859b72429fb6fc2ce83d8240ca2da",
   "checkpointEpoch": 6,
   "device": "cpu"
 }

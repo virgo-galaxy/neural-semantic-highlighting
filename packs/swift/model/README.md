@@ -18,3 +18,9 @@ or project execution. [Evaluation](BENCHMARKS.md) separates natural/focus/visibl
 evidence; [known issues](KNOWN_ISSUES.md) retain measured literal and role limits.
 Selected .pt/ONNX are inference-only. Resume full checkpoints under artifacts/swift;
 all previous data snapshots, runs and formal models remain preserved.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
