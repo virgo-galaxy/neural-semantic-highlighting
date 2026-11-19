@@ -1,0 +1,45 @@
+{
+  "format": "nsh-bat-quality-protocol-v1",
+  "target": {
+    "desiredF1": 0.95,
+    "minimumDesiredF1": 0.9
+  },
+  "selection": "Repository-level folds fixed from paths/sizes before capture; unchanged original folds",
+  "historicalTest": "Exposed regression; do not call it unseen",
+  "freshValidationSourceGroups": [
+    "quality-apache-maven-20261119:project"
+  ],
+  "freshTestSourceGroups": [
+    "quality-microsoft-vcpkg-20261119:project"
+  ],
+  "sources": [
+    {
+      "repository": "apache/ant",
+      "revision": "e75209d539f7076223d8dbd5946fd0d403cf9a56",
+      "sourceGroup": "quality-apache-ant-20261119:project",
+      "split": "train",
+      "documents": 9
+    },
+    {
+      "repository": "apache/maven",
+      "revision": "fa42171ca281c9c1f05bd5927a1f39e721fc6460",
+      "sourceGroup": "quality-apache-maven-20261119:project",
+      "split": "validation",
+      "documents": 6
+    },
+    {
+      "repository": "microsoft/vcpkg",
+      "revision": "d13c536672dced4b8c671955ea7d057a1b7a1ff8",
+      "sourceGroup": "quality-microsoft-vcpkg-20261119:project",
+      "split": "test",
+      "documents": 6
+    },
+    {
+      "repository": "python/cpython",
+      "revision": "03e7a8854d714fabb3ab5b8c8f984fc1214f65b0",
+      "sourceGroup": "quality-python-cpython-20261119:project",
+      "split": "train",
+      "documents": 24
+    }
+  ]
+}
