@@ -20,3 +20,9 @@ typecheck collected projects, run scripts or load compiler plugins.
 [known issues](KNOWN_ISSUES.md) retain measured literal and source-local role limits.
 Selected .pt/ONNX are inference-only. Resume full artifacts/kotlin checkpoints.
 All previous datasets, experiments and formal models remain preserved.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).

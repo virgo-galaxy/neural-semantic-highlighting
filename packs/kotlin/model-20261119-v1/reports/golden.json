@@ -1,0 +1,1344 @@
+{
+  "inference": "predicted-adaptive-cursor",
+  "purpose": "visible development probes, not held-out corpus test",
+  "fixtureHash": "9a2c3f13c8e2ade358a0bb681f15ba3b44fd48e434603d4bbb4249a926e30725",
+  "cases": [
+    {
+      "id": "empty",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "function",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "fun double(n: Int): Int = n * 2",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 26,
+          "end": 27,
+          "text": "n",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 28,
+          "end": 29,
+          "text": "*",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 30,
+          "end": 31,
+          "text": "2",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 26,
+          "end": 31,
+          "text": "n * 2",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "bindings",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "val limit = 4; var next = limit + 2",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "constant",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "const val LIMIT = 9",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 18,
+          "end": 19,
+          "text": "9",
+          "tokenType": "number",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 18,
+          "end": 19,
+          "text": "9",
+          "tokenType": "constant",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "generic",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "fun <T> keep(item: T): T = item",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 8,
+          "end": 12,
+          "text": "keep",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 27,
+          "end": 31,
+          "text": "item",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 8,
+          "end": 12,
+          "text": "keep",
+          "tokenType": "method",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 27,
+          "end": 31,
+          "text": "item",
+          "tokenType": "parameter",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "constructor-property",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "data class Parcel(val code: String)",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "method",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "class Parcel { fun size() = 3 }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "constructor-call",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "class Parcel; val value = Parcel()",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "enum",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "enum class Phase { Idle, Active }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "enum-reference",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "enum class Phase { Idle }; val current = Phase.Idle",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 31,
+          "end": 38,
+          "text": "current",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 41,
+          "end": 46,
+          "text": "Phase",
+          "tokenType": "enum",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 31,
+          "end": 38,
+          "text": "current",
+          "tokenType": "property",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 41,
+          "end": 46,
+          "text": "Phase",
+          "tokenType": "type",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "lambda",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "val transform = { n: Int -> n + 1 }",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "implicit-it",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "val result = listOf(3).map { it * 4 }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 29,
+          "end": 31,
+          "text": "it",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 29,
+          "end": 31,
+          "text": "it",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "named-argument",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "val label = render(title = \"Orbit\")",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 19,
+          "end": 24,
+          "text": "title",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 19,
+          "end": 24,
+          "text": "title",
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "extension",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "fun String.width() = length",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "nullable",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "val title: String? = null",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "plain-string",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "val title = \"\u661f\u7a7a \ud83c\udf0c\"",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 19,
+          "text": "\"\u661f\u7a7a \ud83c\udf0c\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 16,
+          "text": "\"\u661f\u7a7a ",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 16,
+          "end": 19,
+          "text": "\ud83c\udf0c\"",
+          "tokenType": "string",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "raw-string",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "val literal = \"\"\"C:\\data\\source // literal\"\"\"",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 14,
+          "end": 45,
+          "text": "\"\"\"C:\\data\\source // literal\"\"\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 14,
+          "end": 31,
+          "text": "\"\"\"C:\\data\\source",
+          "tokenType": "string",
+          "modifiers": []
+        },
+        {
+          "start": 32,
+          "end": 45,
+          "text": "// literal\"\"\"",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "simple-template",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "fun greet(name: String) = \"Hello $name\"",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 34,
+          "end": 38,
+          "text": "name",
+          "tokenType": "parameter",
+          "modifiers": []
+        },
+        {
+          "start": 38,
+          "end": 39,
+          "text": "\"",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 34,
+          "end": 39,
+          "text": "name\"",
+          "tokenType": "parameter",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "block-template",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "val text = \"Count: ${3 + 2}\"",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "multi-dollar",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "val text = $$\"\"\"$literal $${2 + 3}\"\"\"",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 30,
+          "end": 31,
+          "text": "+",
+          "tokenType": "operator",
+          "modifiers": []
+        },
+        {
+          "start": 32,
+          "end": 33,
+          "text": "3",
+          "tokenType": "number",
+          "modifiers": []
+        },
+        {
+          "start": 33,
+          "end": 34,
+          "text": "}",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 30,
+          "end": 34,
+          "text": "+ 3}",
+          "tokenType": "string",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "nested-comment",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "/* outer /* inner */ remaining */\r\n// \u661f\u7a7a \ud83c\udf0c\r\n",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 33,
+          "text": "/* outer /* inner */ remaining */",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 43,
+          "text": "// \u661f\u7a7a \ud83c\udf0c",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 34,
+          "text": "/* outer /* inner */ remaining */\r",
+          "tokenType": "comment",
+          "modifiers": []
+        },
+        {
+          "start": 35,
+          "end": 44,
+          "text": "// \u661f\u7a7a \ud83c\udf0c\r",
+          "tokenType": "comment",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "import",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "import example.Widget",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "package",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "package example.tools",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "annotation",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "@Composable fun Panel() {}",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "Panel",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 16,
+          "end": 21,
+          "text": "Panel",
+          "tokenType": "type",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "use-site",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "@file:JvmName(\"Example\")\nfun run() {}",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "suspend",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "suspend fun fetch(): Int = 4",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 12,
+          "end": 17,
+          "text": "fetch",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 12,
+          "end": 17,
+          "text": "fetch",
+          "tokenType": "keyword",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context-parameter",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "context(logger: Logger) fun report() = logger.log(\"ready\")",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 0,
+          "end": 7,
+          "text": "context",
+          "tokenType": "keyword",
+          "modifiers": []
+        },
+        {
+          "start": 28,
+          "end": 34,
+          "text": "report",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 0,
+          "end": 7,
+          "text": "context",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 28,
+          "end": 34,
+          "text": "report",
+          "tokenType": "method",
+          "modifiers": [
+            "declaration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backticks",
+      "profile": "kotlin",
+      "documentKind": "kotlin",
+      "source": "fun `when ready`() = 7",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 4,
+          "end": 16,
+          "text": "`when ready`",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "text": "(",
+          "tokenType": "punctuation",
+          "modifiers": []
+        },
+        {
+          "start": 17,
+          "end": 18,
+          "text": ")",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 4,
+          "end": 9,
+          "text": "`when",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 10,
+          "end": 16,
+          "text": "ready`",
+          "tokenType": "function",
+          "modifiers": [
+            "declaration"
+          ]
+        },
+        {
+          "start": 16,
+          "end": 18,
+          "text": "()",
+          "tokenType": "punctuation",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "script-call",
+      "profile": "kotlin-script",
+      "documentKind": "kotlin",
+      "source": "println(\"Orbit\")",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "script-plugins",
+      "profile": "kotlin-script",
+      "documentKind": "kotlin",
+      "source": "plugins { kotlin(\"jvm\") version \"2.4.21\" }",
+      "exactIncludingModifiers": false,
+      "missing": [
+        {
+          "start": 24,
+          "end": 31,
+          "text": "version",
+          "tokenType": "method",
+          "modifiers": []
+        }
+      ],
+      "unexpected": [
+        {
+          "start": 24,
+          "end": 31,
+          "text": "version",
+          "tokenType": "variable",
+          "modifiers": []
+        }
+      ]
+    },
+    {
+      "id": "script-crlf",
+      "profile": "kotlin-script",
+      "documentKind": "kotlin",
+      "source": "val name = \"\u661f\u7a7a \ud83c\udf0c\"\r\nprintln(name)\r\n",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "script-annotation",
+      "profile": "kotlin-script",
+      "documentKind": "kotlin",
+      "source": "@file:DependsOn(\"missing:package:1\")\nprintln(1)",
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
+    }
+  ],
+  "profiles": {
+    "kotlin": {
+      "documents": 28,
+      "exactDocumentsIncludingModifiers": 13,
+      "exactSpan": {
+        "precision": 0.9090909090909091,
+        "recall": 0.8979591836734694,
+        "f1": 0.9034907597535934,
+        "tp": 220,
+        "fp": 22,
+        "fn": 25,
+        "support": 245
+      },
+      "exactSpanMacroF1": 0.8186537424279079,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9049586776859504,
+        "recall": 0.8938775510204081,
+        "f1": 0.8993839835728953,
+        "tp": 219,
+        "fp": 23,
+        "fn": 26,
+        "support": 245
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.9743589743589743,
+          "recall": 0.9743589743589743,
+          "f1": 0.9743589743589743,
+          "tp": 38,
+          "fp": 1,
+          "fn": 1,
+          "support": 39
+        },
+        "comment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 4,
+          "fn": 2,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.6666666666666666,
+          "recall": 0.7272727272727273,
+          "f1": 0.6956521739130435,
+          "tp": 8,
+          "fp": 4,
+          "fn": 3,
+          "support": 11
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 0.7857142857142857,
+          "f1": 0.88,
+          "tp": 11,
+          "fp": 0,
+          "fn": 3,
+          "support": 14
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.9333333333333333,
+          "f1": 0.9655172413793104,
+          "tp": 28,
+          "fp": 0,
+          "fn": 2,
+          "support": 30
+        },
+        "punctuation": {
+          "precision": 0.9868421052631579,
+          "recall": 0.9615384615384616,
+          "f1": 0.974025974025974,
+          "tp": 75,
+          "fp": 1,
+          "fn": 3,
+          "support": 78
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "type": {
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 12,
+          "fp": 2,
+          "fn": 0,
+          "support": 12
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 0,
+          "fn": 1,
+          "support": 3
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "function": {
+          "precision": 0.6666666666666666,
+          "recall": 0.5454545454545454,
+          "f1": 0.6,
+          "tp": 6,
+          "fp": 3,
+          "fn": 5,
+          "support": 11
+        },
+        "method": {
+          "precision": 0.6,
+          "recall": 1.0,
+          "f1": 0.75,
+          "tp": 3,
+          "fp": 2,
+          "fn": 0,
+          "support": 3
+        },
+        "constructor": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "parameter": {
+          "precision": 0.8888888888888888,
+          "recall": 0.6666666666666666,
+          "f1": 0.7619047619047619,
+          "tp": 8,
+          "fp": 1,
+          "fn": 4,
+          "support": 12
+        },
+        "variable": {
+          "precision": 0.8666666666666667,
+          "recall": 0.9285714285714286,
+          "f1": 0.896551724137931,
+          "tp": 13,
+          "fp": 2,
+          "fn": 1,
+          "support": 14
+        },
+        "property": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "type-parameter": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "constant": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    },
+    "kotlin-script": {
+      "documents": 4,
+      "exactDocumentsIncludingModifiers": 3,
+      "exactSpan": {
+        "precision": 0.96875,
+        "recall": 0.96875,
+        "f1": 0.96875,
+        "tp": 31,
+        "fp": 1,
+        "fn": 1,
+        "support": 32
+      },
+      "exactSpanMacroF1": 0.8666666666666667,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.96875,
+        "recall": 0.96875,
+        "f1": 0.96875,
+        "tp": 31,
+        "fp": 1,
+        "fn": 1,
+        "support": 32
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "support": 2
+        },
+        "comment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "string": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "punctuation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 14,
+          "fp": 0,
+          "fn": 0,
+          "support": 14
+        },
+        "namespace": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "enum-member": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "function": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "support": 5
+        },
+        "method": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "support": 1
+        },
+        "constructor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "variable": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "support": 2
+        },
+        "property": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "type-parameter": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "constant": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "documentKinds": {
+    "kotlin": {
+      "documents": 32,
+      "exactDocumentsIncludingModifiers": 16,
+      "exactSpan": {
+        "precision": 0.916058394160584,
+        "recall": 0.9061371841155235,
+        "f1": 0.911070780399274,
+        "tp": 251,
+        "fp": 23,
+        "fn": 26,
+        "support": 277
+      },
+      "exactSpanMacroF1": 0.8261965282655459,
+      "exactSpanIncludingModifiers": {
+        "precision": 0.9124087591240876,
+        "recall": 0.9025270758122743,
+        "f1": 0.9074410163339383,
+        "tp": 250,
+        "fp": 24,
+        "fn": 27,
+        "support": 277
+      },
+      "byTokenType": {
+        "keyword": {
+          "precision": 0.975609756097561,
+          "recall": 0.975609756097561,
+          "f1": 0.975609756097561,
+          "tp": 40,
+          "fp": 1,
+          "fn": 1,
+          "support": 41
+        },
+        "comment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 4,
+          "fn": 2,
+          "support": 2
+        },
+        "string": {
+          "precision": 0.7647058823529411,
+          "recall": 0.8125,
+          "f1": 0.7878787878787878,
+          "tp": 13,
+          "fp": 4,
+          "fn": 3,
+          "support": 16
+        },
+        "number": {
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8888888888888888,
+          "tp": 12,
+          "fp": 0,
+          "fn": 3,
+          "support": 15
+        },
+        "operator": {
+          "precision": 1.0,
+          "recall": 0.9354838709677419,
+          "f1": 0.9666666666666667,
+          "tp": 29,
+          "fp": 0,
+          "fn": 2,
+          "support": 31
+        },
+        "punctuation": {
+          "precision": 0.9888888888888889,
+          "recall": 0.967391304347826,
+          "f1": 0.978021978021978,
+          "tp": 89,
+          "fp": 1,
+          "fn": 3,
+          "support": 92
+        },
+        "namespace": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "type": {
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "f1": 0.9230769230769231,
+          "tp": 12,
+          "fp": 2,
+          "fn": 0,
+          "support": 12
+        },
+        "enum": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "tp": 2,
+          "fp": 0,
+          "fn": 1,
+          "support": 3
+        },
+        "enum-member": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "function": {
+          "precision": 0.7857142857142857,
+          "recall": 0.6875,
+          "f1": 0.7333333333333333,
+          "tp": 11,
+          "fp": 3,
+          "fn": 5,
+          "support": 16
+        },
+        "method": {
+          "precision": 0.6,
+          "recall": 0.75,
+          "f1": 0.6666666666666666,
+          "tp": 3,
+          "fp": 2,
+          "fn": 1,
+          "support": 4
+        },
+        "constructor": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "parameter": {
+          "precision": 0.8888888888888888,
+          "recall": 0.6666666666666666,
+          "f1": 0.7619047619047619,
+          "tp": 8,
+          "fp": 1,
+          "fn": 4,
+          "support": 12
+        },
+        "variable": {
+          "precision": 0.8333333333333334,
+          "recall": 0.9375,
+          "f1": 0.8823529411764706,
+          "tp": 15,
+          "fp": 3,
+          "fn": 1,
+          "support": 16
+        },
+        "property": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "type-parameter": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "decorator": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "constant": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "label": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "support": 0
+        }
+      }
+    }
+  },
+  "checkpointHash": "ef8d69257c57b0ac29f04eda3aa762cc1a017fc826282608cd74fdb9e9344cc5",
+  "checkpointEpoch": 3,
+  "device": "cpu"
+}

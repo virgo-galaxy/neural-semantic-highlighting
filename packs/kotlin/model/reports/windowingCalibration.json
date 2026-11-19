@@ -1,0 +1,283 @@
+{
+  "format": "nsh-windowing-validation-v1",
+  "sourceCheckpointHash": "c50ea684194d01d06d76aa52de2647ed003be6d07838233a63f75a97f680e448",
+  "dataset": {
+    "snapshot": "128be8bef320fa9fa3d4b4f64dadaebe823c751170aa4862313f7757352cc5f5",
+    "manifestHash": "e15c6caae58cdc6eae32bd501a0a01a11b932728dab4658ae0f98ba1432da54d",
+    "path": "/Users/mystic/Datasets/neural-semantic-highlighting/kotlin/prepared/128be8bef320fa9fa3d4b4f64dadaebe823c751170aa4862313f7757352cc5f5"
+  },
+  "calibrationCodeSha256": "7861ef3bb759586d9d98e7d3c64806c629d6469c57822f9c330ead3ad3dd81fd",
+  "windowingCodeSha256": "5f0e6e72a2cf6ba27ef81d016e5d19a8728b21f346df9ab9bafdf6be06e35f25",
+  "selection": "Maximum minimum natural VALIDATION profile F1; role macro decrease at most .01; unchanged runtime eligible",
+  "testPredictionsUsed": false,
+  "trials": [
+    {
+      "index": 0,
+      "policy": null,
+      "selectionKey": [
+        0.9383720331565669,
+        0.8312749946787172
+      ],
+      "profiles": {
+        "kotlin": {
+          "documents": 21,
+          "exactSpan": {
+            "precision": 0.9234900689096068,
+            "recall": 0.9537414965986395,
+            "f1": 0.9383720331565669,
+            "tp": 9113,
+            "fp": 755,
+            "fn": 442,
+            "support": 9555
+          },
+          "exactSpanMacroF1": 0.8149451108652281
+        },
+        "kotlin-script": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.952054794520548,
+            "recall": 0.9660231660231661,
+            "f1": 0.9589881180528939,
+            "tp": 1251,
+            "fp": 63,
+            "fn": 44,
+            "support": 1295
+          },
+          "exactSpanMacroF1": 0.8476048784922062
+        }
+      },
+      "natural": {
+        "documents": 25,
+        "exactSpan": {
+          "precision": 0.9268467179395457,
+          "recall": 0.9552073732718894,
+          "f1": 0.9408133623819899,
+          "tp": 10364,
+          "fp": 818,
+          "fn": 486,
+          "support": 10850
+        },
+        "exactSpanMacroF1": 0.806188711155597
+      }
+    },
+    {
+      "index": 1,
+      "policy": {
+        "format": "nsh-overlap-logits-v1",
+        "strideBytes": 256,
+        "edgeWeightCap": 128,
+        "adaptiveWeight": 0
+      },
+      "selectionKey": [
+        0.94200659250103,
+        0.8605915201595481
+      ],
+      "profiles": {
+        "kotlin": {
+          "documents": 21,
+          "exactSpan": {
+            "precision": 0.9273907311631681,
+            "recall": 0.9570905285190999,
+            "f1": 0.94200659250103,
+            "tp": 9145,
+            "fp": 716,
+            "fn": 410,
+            "support": 9555
+          },
+          "exactSpanMacroF1": 0.8323620502349689
+        },
+        "kotlin-script": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.9498480243161094,
+            "recall": 0.9652509652509652,
+            "f1": 0.9574875526618154,
+            "tp": 1250,
+            "fp": 66,
+            "fn": 45,
+            "support": 1295
+          },
+          "exactSpanMacroF1": 0.8888209900841273
+        }
+      },
+      "natural": {
+        "documents": 25,
+        "exactSpan": {
+          "precision": 0.9300348930840118,
+          "recall": 0.9580645161290322,
+          "f1": 0.9438416488854587,
+          "tp": 10395,
+          "fp": 782,
+          "fn": 455,
+          "support": 10850
+        },
+        "exactSpanMacroF1": 0.8292738160563893
+      }
+    },
+    {
+      "index": 2,
+      "policy": {
+        "format": "nsh-overlap-logits-v1",
+        "strideBytes": 256,
+        "edgeWeightCap": 128,
+        "adaptiveWeight": 0.5
+      },
+      "selectionKey": [
+        0.9432912696368787,
+        0.8728202399881114
+      ],
+      "profiles": {
+        "kotlin": {
+          "documents": 21,
+          "exactSpan": {
+            "precision": 0.9287018255578093,
+            "recall": 0.9583464154892727,
+            "f1": 0.9432912696368787,
+            "tp": 9157,
+            "fp": 703,
+            "fn": 398,
+            "support": 9555
+          },
+          "exactSpanMacroF1": 0.8446064464792515
+        },
+        "kotlin-script": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.96327467482785,
+            "recall": 0.9722007722007722,
+            "f1": 0.96771714066103,
+            "tp": 1259,
+            "fp": 48,
+            "fn": 36,
+            "support": 1295
+          },
+          "exactSpanMacroF1": 0.9010340334969713
+        }
+      },
+      "natural": {
+        "documents": 25,
+        "exactSpan": {
+          "precision": 0.9327482761708605,
+          "recall": 0.96,
+          "f1": 0.9461779533996457,
+          "tp": 10416,
+          "fp": 751,
+          "fn": 434,
+          "support": 10850
+        },
+        "exactSpanMacroF1": 0.8420580401442658
+      }
+    },
+    {
+      "index": 3,
+      "policy": {
+        "format": "nsh-overlap-logits-v1",
+        "strideBytes": 128,
+        "edgeWeightCap": 128,
+        "adaptiveWeight": 0
+      },
+      "selectionKey": [
+        0.9444072337575352,
+        0.87318600933619
+      ],
+      "profiles": {
+        "kotlin": {
+          "documents": 21,
+          "exactSpan": {
+            "precision": 0.9300791556728232,
+            "recall": 0.9591836734693877,
+            "f1": 0.9444072337575352,
+            "tp": 9165,
+            "fp": 689,
+            "fn": 390,
+            "support": 9555
+          },
+          "exactSpanMacroF1": 0.8445870910535801
+        },
+        "kotlin-script": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.9513307984790874,
+            "recall": 0.9660231660231661,
+            "f1": 0.9586206896551724,
+            "tp": 1251,
+            "fp": 64,
+            "fn": 44,
+            "support": 1295
+          },
+          "exactSpanMacroF1": 0.9017849276187998
+        }
+      },
+      "natural": {
+        "documents": 25,
+        "exactSpan": {
+          "precision": 0.9325812516787537,
+          "recall": 0.96,
+          "f1": 0.9460920114446614,
+          "tp": 10416,
+          "fp": 753,
+          "fn": 434,
+          "support": 10850
+        },
+        "exactSpanMacroF1": 0.8458755349415753
+      }
+    },
+    {
+      "index": 4,
+      "policy": {
+        "format": "nsh-overlap-logits-v1",
+        "strideBytes": 128,
+        "edgeWeightCap": 128,
+        "adaptiveWeight": 0.5
+      },
+      "selectionKey": [
+        0.944527427246974,
+        0.869323023487783
+      ],
+      "profiles": {
+        "kotlin": {
+          "documents": 21,
+          "exactSpan": {
+            "precision": 0.9299188640973631,
+            "recall": 0.9596023024594453,
+            "f1": 0.944527427246974,
+            "tp": 9169,
+            "fp": 691,
+            "fn": 386,
+            "support": 9555
+          },
+          "exactSpanMacroF1": 0.8448389811878269
+        },
+        "kotlin-script": {
+          "documents": 4,
+          "exactSpan": {
+            "precision": 0.9594491201224178,
+            "recall": 0.9683397683397683,
+            "f1": 0.9638739431206764,
+            "tp": 1254,
+            "fp": 53,
+            "fn": 41,
+            "support": 1295
+          },
+          "exactSpanMacroF1": 0.8938070657877392
+        }
+      },
+      "natural": {
+        "documents": 25,
+        "exactSpan": {
+          "precision": 0.9333751231306529,
+          "recall": 0.9606451612903226,
+          "f1": 0.9468138256801563,
+          "tp": 10423,
+          "fp": 744,
+          "fn": 427,
+          "support": 10850
+        },
+        "exactSpanMacroF1": 0.8415464950613607
+      }
+    }
+  ],
+  "selected": 4,
+  "detailPolicy": "Compact validation search table; repeated decoder matrices and per-role diagnostics remain in the original immutable experiment report",
+  "fullReportSha256": "77a0b4477f359e06547fb424deb022715d5b8c9ae7a305beb95a9060a8420b4c"
+}
