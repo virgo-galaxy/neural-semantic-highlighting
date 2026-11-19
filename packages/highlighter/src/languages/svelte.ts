@@ -1,6 +1,7 @@
 import type { BrowserModel } from "@nsh/browser";
-import typescript from "./typescript.js";
+
 import css from "./css.js";
+import typescript from "./typescript.js";
 
 const model: BrowserModel = {
   id: "svelte",

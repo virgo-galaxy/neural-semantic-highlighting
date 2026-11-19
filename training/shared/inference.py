@@ -73,6 +73,7 @@ def cursor_logits(model: SemanticTransformer, source: str, device: torch.device,
 @torch.inference_mode()
 def document_logits(model: SemanticTransformer, source: str, device: torch.device,
                     *, adaptive: bool = True) -> ModelOutput:
+    model.eval()
     policy = getattr(model, 'inference_windowing', None)
     if not adaptive or policy is None or len(source.encode('utf-8')) <= model.config.context_bytes:
         return cursor_logits(model, source, device, adaptive=adaptive)

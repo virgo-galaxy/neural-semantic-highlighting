@@ -53,6 +53,19 @@ class WindowingTests(unittest.TestCase):
         empty=document_logits(model,'',torch.device('cpu'))
         self.assertEqual(empty.boundary.shape,(0,3))
 
+    def test_long_policy_inference_disables_dropout_before_its_first_window(self):
+        class DropoutToy(ToyModel):
+            def forward(self, ids, mask):
+                output=super().forward(ids,mask)
+                output.token_type=torch.nn.functional.dropout(output.token_type,p=.5,training=self.training)
+                return output
+        model=DropoutToy()
+        model.inference_windowing=dict(format='nsh-overlap-logits-v1',strideBytes=128,edgeWeightCap=128,adaptiveWeight=.5)
+        actual=document_logits(model,'alpha🌌 '*100,torch.device('cpu'))
+        expected=document_logits(model,'alpha🌌 '*100,torch.device('cpu'))
+        self.assertFalse(model.training)
+        torch.testing.assert_close(actual.token_type,expected.token_type,rtol=0,atol=0)
+
     def test_unicode_reference_fixture_matches_frozen_native_output(self):
         saved=json.loads(Path('tests/fixtures/window-fusion.json').read_text())
         self.assertEqual(saved,fixture())

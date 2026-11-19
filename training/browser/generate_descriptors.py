@@ -14,8 +14,8 @@ def generate(pack_id):
     if metadata.get('inferenceWindowing') is not None:record['inferenceWindowing']=metadata['inferenceWindowing']
     if metadata.get('structuredDecoder') is not None:record['structuredDecoder']=metadata['structuredDecoder']
     text='import type { BrowserModel } from "@nsh/browser";\n'
-    if pack_id=='php':text+='import html from "./html.js";\n'
-    if pack_id in {'html','vue','svelte'}:text+='import typescript from "./typescript.js";\nimport css from "./css.js";\n'
+    if pack_id=='php':text+='\nimport html from "./html.js";\n'
+    if pack_id in {'html','vue','svelte'}:text+='\nimport css from "./css.js";\nimport typescript from "./typescript.js";\n'
     text+='\nconst model: BrowserModel = {\n'+json.dumps(record,indent=2)[2:-2]+',\n  modelUrl: () => new URL("../models/'+pack_id+'.onnx", import.meta.url).href,\n'
     if pack_id=='php':text+='  dependencies: [html],\n'
     if pack_id in {'html','vue','svelte'}:text+='  dependencies: [typescript, css],\n'
