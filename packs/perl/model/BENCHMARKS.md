@@ -1,56 +1,39 @@
-# Perl baseline evaluation
+# perl quality evaluation
 
-Exact-span F1 requires UTF-16 start, end and role to match. Macro F1 averages
-represented roles; modifier-aware F1 additionally requires the modifier set.
-Natural core modules and original focused programs remain separate.
+Exact-span F1 requires original UTF-16 start, end and semantic role to match;
+modifier scores remain separate. Historical tests have been exposed during
+development and are **regression evidence**, not new unseen accuracy claims.
 
-| Evidence           | Documents | Exact-span F1 | Role macro F1 |
-| ------------------ | --------: | ------------: | ------------: |
-| Natural validation |         4 |        84.57% |        61.25% |
-| Focus validation   |       124 |        94.60% |        91.61% |
-| First natural test |         4 |        83.60% |        64.07% |
-| First focus test   |       188 |        88.21% |        80.75% |
+| Natural cohort           | Files | Exact-span F1 | Role macro F1 |
+| ------------------------ | ----: | ------------: | ------------: |
+| legacy                   |     4 |        91.00% |        86.54% |
+| additionalFrozenFamilies |    16 |        88.33% |        84.34% |
 
-The final first test uses actual predicted-adaptive MPS inference, without Gold
-cursor cuts or an inference parser. Validation review used the same adaptive
-algorithm on CPU. Selection uses natural fixed-validation role macro F1 (0.6910),
-then real-source/Golden/display review. Fixed and adaptive results differ. The
-test was read once after freezing this candidate; future evaluation is a known
-test comparison. Four core modules are not four independent real projects.
+Across all 20 natural files, F1 is 88.74%;
+the separate 188-document authored focus stream is 87.74%.
+Do not substitute focus or combined scores for natural-code accuracy.
 
-## Data and training
+| Coverage profile | Natural files | Natural exact-span F1 |
+| ---------------- | ------------: | --------------------: |
+| perl5            |            20 |                88.74% |
 
-Forty original host Perl 5.34 core module files are copied with original bytes,
-Perl Artistic/GPL texts, source hashes and complete capture locks. They are not
-imported or compiled. PPI 1.270 source/binary provenance is frozen separately;
-its LF coordinate view maps back to original CRLF, tabs and Unicode characters.
-Native parsing does not execute `BEGIN` or other sample code.
+Visible Golden: **5/12** cases fully exact including modifiers.
+This is a strict development probe, not a percentage of correct natural files.
 
-Six hundred original grammar/mixed programs and a 640-fragment revision add
-short positions, regex, declarations, functions, quotes, POD and Here Documents.
-The latter crosses indentation, body openings and prefixes independently.
-Earlier 400-fragment data and all snapshots/checkpoints remain preserved.
-All 1,280 captured documents receive valid complete Gold. Twenty-four duplicate
-records merge within families, retaining 1,256 distinct texts; no cross-family
-copies remain. Related directory/task families split before windows and retain
-their initial assignments. Golden and Playground are never collected.
+## Selection and preserved history
 
-| Split      | Natural docs | Focus docs | Windows |
-| ---------- | -----------: | ---------: | ------: |
-| Train      |           32 |        904 |   1,566 |
-| Validation |            4 |        124 |     204 |
-| Test       |            4 |        188 |     268 |
+Selected full checkpoint: `/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/perl/window-reviewed.pt`.
+Parameters: **894,995**; context: **512 UTF-8 bytes**.
+Refinement starts from complete historical training checkpoints, retaining
+original source-family assignments, schemas, Gold and experiments.
+Calibration/averaging/window policies use natural validation; train-fitted
+decoder transitions use natural TRAIN Gold. Read their hash-bound provenance
+and selection evidence in `model.json` and `reports/`.
 
-The initial Go-full-checkpoint transfer completed 3 measured epochs, then a
-bounded continuation stopped at epoch 21 after a validation plateau. Preserved
-fragment runs completed 18 and 12 epochs, using explicit weights-only transfer
-for changed data. Typical epochs take 9–10 seconds with `caffeinate -i`. The
-architecture remains four 128-wide Transformer layers, four heads, FF512 and
-512 UTF-8 bytes of context. No inference export was used for training.
+The 16 additional namespace files were frozen before training expansion and first
+read after final window selection. They are bounded same-distribution family
+holdouts, and their 88.33% F1 remains below the desired 90% floor.
 
-Twelve independently marked Golden cases remain visible development probes;
-5 are fully exact including modifiers. Most failures are a single
-role/modifier or range error. Five separately authored Playground examples were
-rendered through the real HTML/theme path. An additional combined Here Document
-challenge is retained in `reports/display-challenges.json`, including its failure
-on the second indented body's roles; it is not hidden by postprocessing.
+The inference artifact excludes optimizer/RNG state. Resume training only from
+full `artifacts` checkpoints. Previous inference weights, reports and original
+documentation are preserved in [the preceding bundle](../model-20261119-v1/BENCHMARKS.md).

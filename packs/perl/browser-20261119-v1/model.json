@@ -1,0 +1,71 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "perl",
+  "manifest": {
+    "id": "perl",
+    "documentKinds": [
+      {
+        "id": "perl",
+        "extensions": [
+          ".pl",
+          ".pm",
+          ".t",
+          ".perl"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "cbad629b7dee9e58d815a29ef59be1ef2ca9b3288f52082330e66a95a7dea2dd",
+    "bytes": 3705539
+  },
+  "source": {
+    "file": "packs/perl/model/model.pt",
+    "sha256": "7f2a77e4f3d7e767ea0cf0fdab9802bd0c68d370cb1590cb5c243c3cd4b463a1"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "regexp",
+      "operator",
+      "punctuation",
+      "namespace",
+      "function",
+      "method",
+      "parameter",
+      "variable",
+      "property",
+      "label"
+    ],
+    "modifiers": [
+      "declaration",
+      "default-library"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {
+    "modifierRoles": {
+      "declaration": [
+        "variable",
+        "function",
+        "namespace",
+        "parameter",
+        "label"
+      ],
+      "default-library": [
+        "function"
+      ]
+    }
+  },
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "889577b2dc24ad6a2cbb1179fdfc7f9afcbc5a5906cde6c5835a64e8bb8ed2f5",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}
