@@ -81,8 +81,8 @@ def train_epoch(model, split, optimizer, weights, config, device, epoch, log_eve
     batches = epoch_batches(split, config, epoch)
     model.train()
     start, total, presented = time.monotonic(), 0., 0
-    main_steps = sum(split.refs[b[0]].get("stream", "natural") == "natural" for b in batches)
-    focus_steps = len(batches) - main_steps
+    main_steps = sum(any(split.refs[i].get('stream', 'natural') == 'natural' for i in b) for b in batches)
+    focus_steps = sum(any(split.refs[i].get('stream', 'natural') == 'focus' for i in b) for b in batches)
     main_step = focus_step = natural_presented = focus_presented = 0
     for step, indices in enumerate(batches, 1):
         batch = split.batch(indices, device)
@@ -96,12 +96,12 @@ def train_epoch(model, split, optimizer, weights, config, device, epoch, log_eve
         optimizer.step()
         total += parts["total"]
         presented += len(indices)
-        if split.refs[indices[0]].get("stream", "natural") == "focus":
-            focus_step += 1
-            focus_presented += len(indices)
-        else:
-            main_step += 1
-            natural_presented += len(indices)
+        natural_count = sum(split.refs[i].get('stream', 'natural') == 'natural' for i in indices)
+        focus_count = len(indices) - natural_count
+        main_step += bool(natural_count)
+        focus_step += bool(focus_count)
+        natural_presented += natural_count
+        focus_presented += focus_count
         if step in (1, len(batches)) or step % log_every == 0:
             print(training_line(main_step, main_steps, focus_step, focus_steps, parts, presented, time.monotonic() - start), flush=True)
     return {"loss": total / len(batches), "seconds": time.monotonic() - start,
@@ -130,7 +130,7 @@ def run(args) -> Path:
     checkpoint = load_checkpoint(args.resume.resolve()) if args.resume else None
     if checkpoint:current().verify_config(checkpoint.get('provenance',{}))
     values = checkpoint["trainingConfig"].copy() if checkpoint else asdict(TrainingConfig())
-    for name in ("batch_size", "learning_rate", "patience", "smoke", "focus_batch_size", "focus_every", "loss_weight_stream"):
+    for name in ("batch_size", "learning_rate", "patience", "smoke", "focus_batch_size", "focus_every", "loss_weight_stream", "sampling"):
         value = getattr(args, name)
         if value is not None:
             if checkpoint and values.get(name, getattr(TrainingConfig(), name)) != value:
@@ -280,6 +280,8 @@ def main():
     parser.add_argument("--patience", type=int)
     parser.add_argument("--focus-batch-size", type=int)
     parser.add_argument("--focus-every", type=int)
+    parser.add_argument('--sampling', choices=['shuffled-windows', 'natural-plus-curriculum'],
+                        help='Fresh experiment: all windows once, or bounded rotating focus batches')
     parser.add_argument('--loss-weight-stream', choices=['all', 'natural'],
                         help='Fresh experiment: fit class weights on all or only real-source training windows')
     parser.add_argument("--local-kernel", type=int, choices=[1, 3, 5],
