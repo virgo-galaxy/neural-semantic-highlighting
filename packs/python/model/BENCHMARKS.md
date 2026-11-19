@@ -1,66 +1,39 @@
-# Python baseline evaluation
+# python quality evaluation
 
-Exact spans require UTF-16 start, end and role to match. Modifier-aware F1 also
-requires the complete modifier set. Macro F1 includes every role with Gold or
-predicted support. Natural source and original focused grammar are reported
-separately. Low or zero support is not evidence of broad language accuracy.
+Exact-span F1 requires original UTF-16 start, end and semantic role to match;
+modifier scores remain separate. Historical tests have been exposed during
+development and are **regression evidence**, not new unseen accuracy claims.
 
-| Adaptive MPS evaluation | Documents | Exact-span F1 | Role macro F1 | Including modifiers |
-| ----------------------- | --------: | ------------: | ------------: | ------------------: |
-| Natural validation      |         4 |        92.04% |        87.11% |      See raw report |
-| Natural test            |         4 |        87.52% |        78.05% |              85.90% |
-| Focus test              |        92 |        92.66% |        85.35% |              88.92% |
+| Natural cohort           | Files | Exact-span F1 | Role macro F1 |
+| ------------------------ | ----: | ------------: | ------------: |
+| legacy                   |     4 |        91.48% |        85.98% |
+| additionalFrozenFamilies |    19 |        90.87% |        88.23% |
 
-These are small, source-family-held-out estimates. The four test modules are not
-four independent projects. They do not prove equivalent quality across all
-Python libraries or versions. Natural test contains 5,119 Gold spans; common
-keyword, operator, punctuation, method and property F1 are above 93%, while name
-role distinctions are substantially weaker. Read the complete per-role report.
+Across all 23 natural files, F1 is 91.03%;
+the separate 92-document authored focus stream is 96.34%.
+Do not substitute focus or combined scores for natural-code accuracy.
 
-The first corpus freezes 40 CPython 3.15.0 standard-library modules, with PSF license
-and original byte hashes retained. Original grammar adds 378 examples and the
-short-fragment revision adds 576. Gold uses separately pinned CPython 3.15.0;
-training/inference retains Python 3.12.2 and the existing PyTorch environment.
-Source is parsed/tokenized offline, never imported or executed.
+| Coverage profile | Natural files | Natural exact-span F1 |
+| ---------------- | ------------: | --------------------: |
+| python3          |            23 |                91.03% |
 
-Exact, lexical and normalized-shape copies crossing source families are excluded.
-All 994 documents receive valid Gold; 32 cross-family copies are excluded. The
-remaining 962 split before windows, preserving the first frozen family map:
+Visible Golden: **4/10** cases fully exact including modifiers.
+This is a strict development probe, not a percentage of correct natural files.
 
-| Split      | Natural docs | Focus docs | Windows |
-| ---------- | -----------: | ---------: | ------: |
-| Train      |           32 |        690 |   1,456 |
-| Validation |            4 |         92 |     180 |
-| Test       |            4 |         92 |     179 |
+## Selection and preserved history
 
-Training visits every natural window and rotates bounded focus batches. Class
-weights count unique train labels. Padding and UTF-8 continuation bytes are
-ignored; modifiers are supervised only at span beginnings. Training cuts can use
-Gold; validation uses fixed character-safe windows and whole-document reassembly.
-Reported adaptive evaluation uses the actual predicted cursor with no parser,
-Gold boundaries, overlap fusion or source-specific runtime correction.
+Selected full checkpoint: `/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/python/window-reviewed.pt`.
+Parameters: **895,398**; context: **512 UTF-8 bytes**.
+Refinement starts from complete historical training checkpoints, retaining
+original source-family assignments, schemas, Gold and experiments.
+Calibration/averaging/window policies use natural validation; train-fitted
+decoder transitions use natural TRAIN Gold. Read their hash-bound provenance
+and selection evidence in `model.json` and `reports/`.
 
-Experiments: one smoke check, an initial 3+24-epoch transfer experiment, then a
-12-epoch fragment experiment. Epochs take roughly 9–14 seconds on this host.
-Selected fragment epoch 7 had natural fixed validation macro F1 0.8526 and was
-frozen after real-source/Golden inspection. The completed run's later fixed-score
-maximum was epoch 12; it is retained as an experiment, not substituted after
-testing. The first independent adaptive test of epoch 7 took about 1.20 seconds
-inside the evaluator; this is not a steady-state latency benchmark.
+Additional frozen-family tests were first read on an earlier candidate in this
+optimization session; the final values above are now exposed follow-up results.
+They must not be relabelled as another fresh independent test.
 
-Ten independently marked Golden probes remain visible development evidence,
-excluded from corpus collection. Only two are entirely exact including modifiers.
-Most remaining cases have one or two mismatched spans/modifier sets, including
-harmless whitespace-edge differences and real role errors; do not call these
-probes perfect. Raw differences are preserved in `reports/golden-probes.json`.
-
-Reproduce against the frozen source checkpoint and its external snapshot:
-
-```sh
-make evaluate-python PYTHON_CHECKPOINT=artifacts/python/context512-fragments-20261108-01/candidates/epoch-0007.pt
-make challenge-python PYTHON_CHECKPOINT=artifacts/python/context512-fragments-20261108-01/candidates/epoch-0007.pt
-```
-
-The archived test is the candidate's first independent evaluation. Do not tune
-against it and describe subsequent measurements on those same files as unseen.
-Full checkpoint, snapshot and code identities are archived with the bundle.
+The inference artifact excludes optimizer/RNG state. Resume training only from
+full `artifacts` checkpoints. Previous inference weights, reports and original
+documentation are preserved in [the preceding bundle](../model-20261119-v1/BENCHMARKS.md).

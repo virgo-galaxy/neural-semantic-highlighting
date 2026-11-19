@@ -1,0 +1,548 @@
+{
+  "pack": "python",
+  "sourceCheckpoint": "artifacts/python/context512-quality-relative-20261119-01/best.pt",
+  "sourceCheckpointHash": "40c96334a8e89e88f8f3a57b5e4b4fbe9be71751ef4dff2ec94c3479961a9c44",
+  "dataset": {
+    "snapshot": "39bc6a48cde7ab75cb5fc145bc7330eb95d5555596263ef3dd3f909cb593dc9c",
+    "manifestHash": "70eaca2fdf6dff2a22fabad4188014a59a2ceaa8842682a8205a26587228d3c1",
+    "path": "/Users/mystic/Datasets/neural-semantic-highlighting/python/prepared/39bc6a48cde7ab75cb5fc145bc7330eb95d5555596263ef3dd3f909cb593dc9c"
+  },
+  "fit": "Natural TRAIN Gold only; source-family disjoint VALIDATION selection",
+  "selection": "profile-f1; natural adaptive validation only",
+  "searchGrid": {
+    "typeWeights": [
+      0.1,
+      0.25,
+      0.5,
+      1.0
+    ],
+    "transitionWeights": [
+      0.1,
+      0.3,
+      0.5
+    ]
+  },
+  "testUsed": false,
+  "primaryTestUsed": false,
+  "trials": [
+    {
+      "index": 0,
+      "parameters": null,
+      "selectionKey": [
+        0.9205880715041488,
+        0.8737486770518466
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9117030664019413,
+            "recall": 0.9296479586098302,
+            "f1": 0.9205880715041488,
+            "tp": 16531,
+            "fp": 1601,
+            "fn": 1251,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.8737486770518466
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9117030664019413,
+          "recall": 0.9296479586098302,
+          "f1": 0.9205880715041488,
+          "tp": 16531,
+          "fp": 1601,
+          "fn": 1251,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.8737486770518466
+      }
+    },
+    {
+      "index": 1,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.1,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9271974949675688,
+        0.8817526068656224
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.92193928611142,
+            "recall": 0.9325160274434822,
+            "f1": 0.9271974949675688,
+            "tp": 16582,
+            "fp": 1404,
+            "fn": 1200,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.8817526068656224
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.92193928611142,
+          "recall": 0.9325160274434822,
+          "f1": 0.9271974949675688,
+          "tp": 16582,
+          "fp": 1404,
+          "fn": 1200,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.8817526068656224
+      }
+    },
+    {
+      "index": 2,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.1,
+        "transitionWeight": 0.3
+      },
+      "selectionKey": [
+        0.9256883560684575,
+        0.88375725761636
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.922149673530889,
+            "recall": 0.9292543021032504,
+            "f1": 0.9256883560684575,
+            "tp": 16524,
+            "fp": 1395,
+            "fn": 1258,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.88375725761636
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.922149673530889,
+          "recall": 0.9292543021032504,
+          "f1": 0.9256883560684575,
+          "tp": 16524,
+          "fp": 1395,
+          "fn": 1258,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.88375725761636
+      }
+    },
+    {
+      "index": 3,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.1,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.9168420757205804,
+        0.873418684105942
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9151212953106617,
+            "recall": 0.9185693397818018,
+            "f1": 0.9168420757205804,
+            "tp": 16334,
+            "fp": 1515,
+            "fn": 1448,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.873418684105942
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9151212953106617,
+          "recall": 0.9185693397818018,
+          "f1": 0.9168420757205804,
+          "tp": 16334,
+          "fp": 1515,
+          "fn": 1448,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.873418684105942
+      }
+    },
+    {
+      "index": 4,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.25,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9275257040679481,
+        0.8826833186742472
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9216546363131594,
+            "recall": 0.9334720503880328,
+            "f1": 0.9275257040679481,
+            "tp": 16599,
+            "fp": 1411,
+            "fn": 1183,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.8826833186742472
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9216546363131594,
+          "recall": 0.9334720503880328,
+          "f1": 0.9275257040679481,
+          "tp": 16599,
+          "fp": 1411,
+          "fn": 1183,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.8826833186742472
+      }
+    },
+    {
+      "index": 5,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.25,
+        "transitionWeight": 0.3
+      },
+      "selectionKey": [
+        0.928751329266245,
+        0.8848278655571786
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9243538324420677,
+            "recall": 0.9331908671690473,
+            "f1": 0.928751329266245,
+            "tp": 16594,
+            "fp": 1358,
+            "fn": 1188,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.8848278655571786
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9243538324420677,
+          "recall": 0.9331908671690473,
+          "f1": 0.928751329266245,
+          "tp": 16594,
+          "fp": 1358,
+          "fn": 1188,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.8848278655571786
+      }
+    },
+    {
+      "index": 6,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.25,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.9287196455611014,
+        0.8862441571667076
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9261744966442953,
+            "recall": 0.931278821279946,
+            "f1": 0.9287196455611014,
+            "tp": 16560,
+            "fp": 1320,
+            "fn": 1222,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.8862441571667076
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9261744966442953,
+          "recall": 0.931278821279946,
+          "f1": 0.9287196455611014,
+          "tp": 16560,
+          "fp": 1320,
+          "fn": 1222,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.8862441571667076
+      }
+    },
+    {
+      "index": 7,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.5,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9275839919568799,
+        0.8825204102576395
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9213314840499307,
+            "recall": 0.9339219435384096,
+            "f1": 0.9275839919568799,
+            "tp": 16607,
+            "fp": 1418,
+            "fn": 1175,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.8825204102576395
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9213314840499307,
+          "recall": 0.9339219435384096,
+          "f1": 0.9275839919568799,
+          "tp": 16607,
+          "fp": 1418,
+          "fn": 1175,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.8825204102576395
+      }
+    },
+    {
+      "index": 8,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.5,
+        "transitionWeight": 0.3
+      },
+      "selectionKey": [
+        0.9291387024608501,
+        0.8851406740098305
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9240738680609634,
+            "recall": 0.9342593634011922,
+            "f1": 0.9291387024608501,
+            "tp": 16613,
+            "fp": 1365,
+            "fn": 1169,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.8851406740098305
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9240738680609634,
+          "recall": 0.9342593634011922,
+          "f1": 0.9291387024608501,
+          "tp": 16613,
+          "fp": 1365,
+          "fn": 1169,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.8851406740098305
+      }
+    },
+    {
+      "index": 9,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 0.5,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.9291713325867861,
+        0.885219728314386
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9251310068012042,
+            "recall": 0.9332471038128445,
+            "f1": 0.9291713325867861,
+            "tp": 16595,
+            "fp": 1343,
+            "fn": 1187,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.885219728314386
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9251310068012042,
+          "recall": 0.9332471038128445,
+          "f1": 0.9291713325867861,
+          "tp": 16595,
+          "fp": 1343,
+          "fn": 1187,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.885219728314386
+      }
+    },
+    {
+      "index": 10,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 1.0,
+        "transitionWeight": 0.1
+      },
+      "selectionKey": [
+        0.9268510507660964,
+        0.8815767788682606
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9199955676214748,
+            "recall": 0.9338094702508154,
+            "f1": 0.9268510507660964,
+            "tp": 16605,
+            "fp": 1444,
+            "fn": 1177,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.8815767788682606
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9199955676214748,
+          "recall": 0.9338094702508154,
+          "f1": 0.9268510507660964,
+          "tp": 16605,
+          "fp": 1444,
+          "fn": 1177,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.8815767788682606
+      }
+    },
+    {
+      "index": 11,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 1.0,
+        "transitionWeight": 0.3
+      },
+      "selectionKey": [
+        0.9287790697674418,
+        0.8840423945775993
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9233077692564188,
+            "recall": 0.9343156000449894,
+            "f1": 0.9287790697674418,
+            "tp": 16614,
+            "fp": 1380,
+            "fn": 1168,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.8840423945775993
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9233077692564188,
+          "recall": 0.9343156000449894,
+          "f1": 0.9287790697674418,
+          "tp": 16614,
+          "fp": 1380,
+          "fn": 1168,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.8840423945775993
+      }
+    },
+    {
+      "index": 12,
+      "parameters": {
+        "format": "nsh-joint-bio-v1",
+        "typeWeight": 1.0,
+        "transitionWeight": 0.5
+      },
+      "selectionKey": [
+        0.9289571616441422,
+        0.8854714092046106
+      ],
+      "profiles": {
+        "python3": {
+          "documents": 15,
+          "exactSpan": {
+            "precision": 0.9244305841733029,
+            "recall": 0.93352828703183,
+            "f1": 0.9289571616441422,
+            "tp": 16600,
+            "fp": 1357,
+            "fn": 1182,
+            "support": 17782
+          },
+          "exactSpanMacroF1": 0.8854714092046106
+        }
+      },
+      "natural": {
+        "documents": 15,
+        "exactSpan": {
+          "precision": 0.9244305841733029,
+          "recall": 0.93352828703183,
+          "f1": 0.9289571616441422,
+          "tp": 16600,
+          "fp": 1357,
+          "fn": 1182,
+          "support": 17782
+        },
+        "exactSpanMacroF1": 0.8854714092046106
+      }
+    }
+  ],
+  "selected": 9,
+  "detailPolicy": "Compact validation search table; repeated decoder matrices and per-role diagnostics remain in the original immutable experiment report",
+  "fullReportSha256": "c27f8550e32316279b05303e05d14ff449a7f1f01706375a27670bab85123880"
+}

@@ -34,3 +34,9 @@ The Python CLI below is an optional native development/reference tool:
 Use the CLI's `--checkpoint path/to/candidate.pt` option to inspect compatible
 development weights without replacing this bundle or the Playground's browser
 model. Repository, datasets and historical experiments remain private.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
