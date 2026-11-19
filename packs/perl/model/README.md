@@ -1,38 +1,36 @@
 # Perl neural model
 
-The selected 894,227-parameter byte Transformer highlights Perl 5 through the
-browser Worker or optional native Python runtime. It returns original UTF-16
-spans without invoking
-Perl, PPI, a compiler, source regex repairs or command execution at inference.
+The selected 894,995-parameter byte Transformer highlights
+Perl 5 in the browser Worker or optional native Python runtime. Consumers use:
 
-Frozen epoch 9 of
-`artifacts/perl/context512-fragments-v2-20261108-01/candidates/epoch-0009.pt`
-was selected after short staged training, natural validation, Golden and actual
-code inspection. Full checkpoints remain under `artifacts/perl`; this float32
-export contains inference weights, not optimizer/RNG or resumable training state.
+```ts
+const { html } = await highlighter.highlight(source, { language: "perl" });
+```
 
-The first natural test measured 83.60% exact-span F1 on four host core modules;
-focused test F1 is 88.21%. These small samples are bounded evidence. Ordinary
-script, regex, object-call and standalone Here Document examples are usable;
-consecutive mixed Here Documents and rare name/modifier boundaries remain weaker.
-See [BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
+Inference returns original UTF-16 spans without Perl, PPI, compilation, source
+regex repairs or command execution. Context remains 512 original UTF-8 bytes;
+validated overlapping windows improve long-file edges with additional inference
+cost. Browser/Playground consumers require no Python provider or language SDK.
+
+The same exposed four-module cohort improves **83.60% → 91.00%**. The separately
+frozen 16-module namespace holdout reaches **88.33%** and remains below the desired
+90% floor. Keep both visible. Mixed Here Documents, regex/string boundaries,
+references and local role/modifier distinctions remain approximate; see
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
+
+`model.json` records the selected full checkpoint, validation-only averaging,
+decoder/window selection and report hashes. The export is inference-only; full
+optimizer/RNG checkpoints remain under `artifacts/perl`. Source, Gold, complete
+licenses and immutable snapshots stay external under
+`~/Datasets/neural-semantic-highlighting/perl`. Additional existing core source is
+captured as text without executing modules or installing a Perl environment.
+
+Optional native development/reference output:
 
 ```sh
 .venv/bin/python -m packs.perl.runtime.local --file example.pl
 ```
 
-Data/Gold/immutable snapshots stay external under
-`~/Datasets/neural-semantic-highlighting/perl`. Offline Gold uses already available
-host PPI 1.270; source is parsed as text, never compiled or executed. No additional
-language environment was installed. Existing datasets, experiments and formal
-models are preserved. The repository remains private. Playground and frontend
-consumers use the selected ONNX model in the browser Worker with
-`{ language: "perl" }`, without a Python provider; see [consumer integration](../../../README.md#highlight-code).
-The native CLI's `--checkpoint path/to/candidate.pt` selects compatible development
-weights, without changing the Playground's browser model.
-
-## Reviewed quality revision (2026-11-19)
-
-The current native/browser selection, separate corpus and Golden results,
-remaining limits and preserved preceding bundle are recorded in
-[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
+Use `--checkpoint` to inspect compatible full candidates. The preceding model and
+its complete original documentation are retained in
+[the dated bundle](../model-20261119-v1/README.md). The repository remains private.

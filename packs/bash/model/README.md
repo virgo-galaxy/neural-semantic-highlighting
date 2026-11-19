@@ -1,39 +1,39 @@
 # Shell neural model
 
-One 893,582-parameter, four-layer byte Transformer covers POSIX sh, Bash, Zsh and
-Csh/Tcsh through one Shell entry. Git Bash shares Bash syntax. Inference reads
-original UTF-8 source and returns UTF-16 spans, without shell execution, a lexer,
-command lookup or source-regex repairs.
+One 894,366-parameter, four-layer byte Transformer covers
+POSIX sh, Bash, Zsh and Csh/Tcsh through one Shell entry. Git Bash shares Bash
+syntax. `.sh` filenames and shell aliases resolve through the same descriptor.
 
-The selected full checkpoint is frozen epoch 20 of the 24-epoch short Here
-Document follow-up:
-`artifacts/bash/context512-heredoc-fragments-20261108-01/candidates/epoch-0020.pt`.
-It transfers from full training checkpoints under `artifacts/bash`, preserving the
-architecture and schema. No inference bundle was used to resume training.
+```ts
+const { html } = await highlighter.highlight(source, { language: "bash" });
+```
 
-The first evaluation of 216 new Here Document holdout tasks measured 96.76%
-exact-span F1, compared with 58.84% for the preserved previous model. The already
-known natural corpus scores 84.78% overall and 93.20% for Bash. These are distinct
-evidence sets; the old corpus is not newly unseen. Short-snippet terminator and
-name-role errors remain in [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
+Browser/Playground inference uses the selected ONNX model in a Worker, without
+Python, a shell SDK, command execution, lexer fallback or source-spelling repair.
+`function` forms and Here Documents remain represented. Bash is prioritized:
+its natural result is **94.29%**. The exposed 11-file legacy overall result is
+**87.12%**; 12 additional Zsh functions reach **90.91%** separately. These are
+bounded different cohorts, and complex dialects remain weaker.
+
+All 19 strict Golden pass/fail outcomes match the preceding model (eight entirely
+exact, including modifiers). Here Document terminators can still overrun into
+following commands. The original focused 96.76% Here Document result belongs to
+[the preceding archived selection](../model-20261119-v1/BENCHMARKS.md); it is not
+claimed as a new measurement of this revision.
+
+Current full checkpoint, window selection, corpus/profile and Golden details are
+recorded in [BENCHMARKS.md](BENCHMARKS.md), `model.json` and
+[KNOWN_ISSUES.md](KNOWN_ISSUES.md). Context remains 512 original UTF-8 bytes;
+selected overlapping windows add inference work for long documents. Input text
+and original UTF-16 offsets are preserved.
+
+Optional native development/reference output:
 
 ```sh
 .venv/bin/python -m packs.bash.runtime.local --file example.sh
 ```
 
-This is a float32 inference export, without optimizer or resumable state. Full
-checkpoints stay under `artifacts/bash`; immutable source, Gold and prepared
-snapshots stay external under `~/Datasets/neural-semantic-highlighting/bash`.
-The previous formal bundle is preserved at `../model-20261108-e16`, with its
-original semantic contract. The repository remains private. Playground runs the
-selected ONNX model in the browser Worker, including explicit function/Here
-Document examples. Frontend applications use `{ language: "bash" }` or the existing
-shell aliases without a Python provider; see [consumer integration](../../../README.md#highlight-code).
-The native CLI's `--checkpoint path/to/candidate.pt` selects compatible development
-weights, without changing the Playground's browser model.
-
-## Reviewed quality revision (2026-11-19)
-
-The current native/browser selection, separate corpus and Golden results,
-remaining limits and preserved preceding bundle are recorded in
-[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
+The float32 inference artifact excludes optimizer/RNG state. Resume complete
+`artifacts/bash` experiments only. External immutable source, Gold and prepared
+snapshots remain under `~/Datasets/neural-semantic-highlighting/bash`. All old
+experiments and formal bundles remain intact; the repository stays private.

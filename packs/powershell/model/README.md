@@ -1,6 +1,6 @@
 # PowerShell neural model
 
-One 893,969-parameter byte Transformer covers common PowerShell scripts, modules
+One 894,737-parameter byte Transformer covers common PowerShell scripts, modules
 and module-data source through one entry. Browser and optional native runtimes
 return original UTF-16 spans for existing renderers/themes. It neither requires nor
 installs Windows, pwsh or .NET; inference imports no offline lexer and never

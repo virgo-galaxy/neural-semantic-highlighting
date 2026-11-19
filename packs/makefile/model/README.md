@@ -1,8 +1,10 @@
 # Selected Makefile model
 
 Common GNU Make source highlighting in one standalone browser/local model.
-Fresh independent exact-span F1 is **93.79% on 16 new files**.
-On the same exposed 17-file legacy cohort, F1 improves **89.14% → 92.87%**.
+The same exposed 17-file legacy cohort reaches **94.12%**.
+The historical additional 16-file cohort reaches **94.57%** separately.
+The selected window revision retains the original neural weights and decoder,
+including all 26 previously exact Golden cases.
 
 ```ts
 const { html } = await highlighter.highlight(source, { language: "makefile" });

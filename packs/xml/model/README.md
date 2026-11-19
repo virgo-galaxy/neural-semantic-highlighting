@@ -20,7 +20,7 @@ All previous data, experiments and formal models remain preserved.
 Use `{ language: "svg" }` for SVG. The selective `languages/svg` export is the
 same descriptor as `languages/xml`; both kinds retain their name but share one
 asset and inference weights. [Separate XML/SVG test results](BENCHMARKS.md) are
-85.87% on seven XML files and 100% on six SVG files; the small SVG sample is not a
+87.72% on seven XML files and 100% on six SVG files; the small SVG sample is not a
 universal guarantee. Neither kind executes XML/SVG, external DTDs or code bodies.
 
 ## Reviewed quality revision (2026-11-19)

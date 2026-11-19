@@ -114,3 +114,80 @@ full immutable experiment-report hashes; repeated matrices and complete role
 diagnostics remain in ignored `artifacts/quality-20261119`. Dated native/browser
 bundles retain all original files and hashes. No distribution, visibility change
 or external push is part of this optimization.
+
+## Reviewed results (2026-11-19)
+
+All 40 packs were included in browser regression. This revision updates 24 selected
+model/decoder/window bundles; the same historical source cohorts are compared
+below. Different languages have different corpora and scopes. These are exposed
+regressions, not 24 new independent tests.
+
+| Name       | Same historical files | Before F1 | Selected F1 |
+| ---------- | --------------------: | --------: | ----------: |
+| bash       |                    11 |    84.78% |      87.12% |
+| bat        |                     3 |    74.29% |      90.61% |
+| c          |                    18 |    93.90% |      94.60% |
+| cpp        |                    14 |    92.67% |      94.16% |
+| csharp     |                    24 |    94.64% |      95.53% |
+| dart       |                    20 |    94.22% |      95.07% |
+| ini        |                     8 |    89.70% |      96.93% |
+| java       |                    29 |    92.60% |      93.59% |
+| kotlin     |                    31 |    94.57% |      96.28% |
+| lua        |                    15 |    91.78% |      94.36% |
+| makefile   |                    17 |    92.87% |      94.12% |
+| perl       |                     4 |    83.60% |      91.00% |
+| php        |                    21 |    94.05% |      95.55% |
+| powershell |                     3 |    90.67% |      91.96% |
+| python     |                     4 |    87.52% |      91.48% |
+| ruby       |                    15 |    86.96% |      90.60% |
+| rust       |                    15 |    94.90% |      95.93% |
+| scala      |                    30 |    89.00% |      90.23% |
+| sql        |                     7 |    88.41% |      90.08% |
+| svelte     |                     9 |    88.47% |      91.41% |
+| swift      |                    22 |    93.65% |      94.52% |
+| typescript |                    50 |    99.31% |      99.45% |
+| xml        |                     7 |    85.87% |      87.72% |
+| zig        |                    21 |    92.51% |      93.65% |
+
+The 95% target is not reached everywhere. XML remains **87.72%**, despite comment
+F1 improving from 51.28% to **85.71%**. SVG remains 100% on six bounded files.
+Shell's legacy overall result is **87.12%**; Bash is **94.29%**, and the additional
+12 Zsh function files reach **90.91%**. Bash strict Golden pass/fail states are
+unchanged. XML/Shell therefore still fall below the desired overall 90% floor.
+SQL's pooled 90.08% must not conceal weaker MySQL coverage.
+
+Additional cohorts remain separate: Python 19 files **90.87%**, Ruby 11 files
+**94.41%**, Perl 16 files **88.33%**, and BAT six harder project files **75.36%**.
+Python/BAT are now exposed follow-up evidence, and Perl/Ruby were first read only
+after their final validation-selected weights/window policy. These scopes cannot
+be replaced by the better historical percentages. Makefile's earlier 16-file
+additional cohort is now an exposed regression at **94.57%**, while its original
+17-file cohort reaches **94.12%**.
+
+JS/TS's RegExp development challenge improves **61.33% → 93.27%**, with a precision
+tradeoff (54/60 negative cases clean versus 59/60 before). First-read authored
+RegExp holdout F1 is **96.48%**; real read-only Virgo Design TSX is **99.39%** across
+24 files. A small product-comment regression remains recorded. No product source
+was executed, modified or put into training.
+
+C, Zig and Dart reject larger regressions in calibrated/fine-tuned candidates and
+retain the original neural weights with validated window improvements. Makefile
+also keeps its original weights/decoder: the fine-tuned candidate regressed
+inline recipes and no-final-newline probes. The selected window revision keeps
+all 26 previously exact Golden cases. INI's selected decoder retains its original
+weights. Short snippets continue to use their existing single-window path.
+
+Final verification: **182 frontend tests**, **36 shared training tests**, and
+**410/410 browser/native matches**. The independently installed local npm tarballs
+also produce **410/410 matches** in a production build served by a temporary
+GET-only static server, with all 40 selected ONNX assets verified and no Python
+inference service or workspace alias. The full project check passes with two
+pre-existing Go version-locked cases explicitly skipped (`TestFocusedCorpusReplay`
+and `TestModulePipelineOffline`): Gold requires 1.27.1 and the installed toolchain
+is 1.27.4; no toolchain was installed.
+
+All **85 original weight files** are preserved byte-for-byte, at their preceding
+paths or dated bundle archives. Complete external data, immutable reports and
+training checkpoints remain intact. The repository/packages stay private; this
+work does not publish or push. [Machine-readable results](quality-optimization-results.json)
+record selected asset hashes, cohort values and verification details.

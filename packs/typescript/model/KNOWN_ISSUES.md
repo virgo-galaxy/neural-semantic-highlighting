@@ -5,3 +5,7 @@
 - The small real-product cohort has one comment-boundary regression (comment F1 91.67% versus 100% previously), despite aggregate TSX F1 improving to 99.39%.
 - Authored holdouts, product files and archived tests have different scopes; their percentages are not interchangeable.
 - Inference consumes original text in the browser worker or local runtime. No source execution, parser or spelling-based repair hides neural errors.
+
+[Earlier detailed failure cases](../model-20261119-v1/KNOWN_ISSUES.md) remain
+preserved as historical evidence; use the current benchmark and raw reports for
+this selection.

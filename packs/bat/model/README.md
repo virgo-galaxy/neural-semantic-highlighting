@@ -1,6 +1,6 @@
 # BAT / CMD neural model
 
-One 893,582-parameter byte Transformer covers common cmd.exe batch source through
+One 894,350-parameter byte Transformer covers common cmd.exe batch source through
 one BAT / CMD entry. `.bat` and `.cmd` share the same model and document kind.
 It returns original UTF-16 spans through the browser Worker or optional native
 runtime, using the existing renderer and themes. No Windows environment is installed or invoked;
