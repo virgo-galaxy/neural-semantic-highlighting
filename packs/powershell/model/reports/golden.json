@@ -8,25 +8,9 @@
       "profile": "powershell",
       "documentKind": "powershell",
       "source": "Write-Host -ForegroundColor Green \"Ready\"\n",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 11,
-          "end": 27,
-          "text": "-ForegroundColor",
-          "tokenType": "parameter",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 11,
-          "end": 28,
-          "text": "-ForegroundColor ",
-          "tokenType": "parameter",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "typed-function",
@@ -89,22 +73,15 @@
       "unexpected": [
         {
           "start": 8,
-          "end": 11,
-          "text": "@'\n",
+          "end": 10,
+          "text": "@'",
           "tokenType": "string",
           "modifiers": []
         },
         {
           "start": 11,
-          "end": 16,
-          "text": "$HOME",
-          "tokenType": "string",
-          "modifiers": []
-        },
-        {
-          "start": 17,
           "end": 34,
-          "text": "# literal text\n'@",
+          "text": "$HOME # literal text\n'@",
           "tokenType": "string",
           "modifiers": []
         }
@@ -137,15 +114,17 @@
           "start": 12,
           "end": 17,
           "text": "Hello",
-          "tokenType": "string",
+          "tokenType": "keyword",
           "modifiers": []
         },
         {
           "start": 18,
           "end": 23,
           "text": "$name",
-          "tokenType": "string",
-          "modifiers": []
+          "tokenType": "variable",
+          "modifiers": [
+            "declaration"
+          ]
         },
         {
           "start": 25,
@@ -206,32 +185,9 @@
       "profile": "powershell",
       "documentKind": "powershell",
       "source": "$count = [int]::Parse('12')\n",
-      "exactIncludingModifiers": false,
-      "missing": [
-        {
-          "start": 14,
-          "end": 16,
-          "text": "::",
-          "tokenType": "operator",
-          "modifiers": []
-        },
-        {
-          "start": 16,
-          "end": 21,
-          "text": "Parse",
-          "tokenType": "function",
-          "modifiers": []
-        }
-      ],
-      "unexpected": [
-        {
-          "start": 14,
-          "end": 21,
-          "text": "::Parse",
-          "tokenType": "function",
-          "modifiers": []
-        }
-      ]
+      "exactIncludingModifiers": true,
+      "missing": [],
+      "unexpected": []
     },
     {
       "id": "unicode-crlf",
@@ -273,33 +229,33 @@
   "profiles": {
     "powershell": {
       "documents": 12,
-      "exactDocumentsIncludingModifiers": 5,
+      "exactDocumentsIncludingModifiers": 7,
       "exactSpan": {
-        "precision": 0.8734177215189873,
-        "recall": 0.92,
-        "f1": 0.8961038961038961,
-        "tp": 69,
-        "fp": 10,
-        "fn": 6,
+        "precision": 0.9113924050632911,
+        "recall": 0.96,
+        "f1": 0.935064935064935,
+        "tp": 72,
+        "fp": 7,
+        "fn": 3,
         "support": 75
       },
-      "exactSpanMacroF1": 0.85900826446281,
+      "exactSpanMacroF1": 0.9245969957432408,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8481012658227848,
-        "recall": 0.8933333333333333,
-        "f1": 0.8701298701298701,
-        "tp": 67,
-        "fp": 12,
-        "fn": 8,
+        "precision": 0.8860759493670886,
+        "recall": 0.9333333333333333,
+        "f1": 0.9090909090909091,
+        "tp": 70,
+        "fp": 9,
+        "fn": 5,
         "support": 75
       },
       "byTokenType": {
         "keyword": {
-          "precision": 1.0,
+          "precision": 0.75,
           "recall": 1.0,
-          "f1": 1.0,
+          "f1": 0.8571428571428571,
           "tp": 3,
-          "fp": 0,
+          "fp": 1,
           "fn": 0,
           "support": 3
         },
@@ -313,11 +269,11 @@
           "support": 2
         },
         "string": {
-          "precision": 0.5333333333333333,
+          "precision": 0.6666666666666666,
           "recall": 0.8,
-          "f1": 0.64,
+          "f1": 0.7272727272727273,
           "tp": 8,
-          "fp": 7,
+          "fp": 4,
           "fn": 2,
           "support": 10
         },
@@ -332,11 +288,11 @@
         },
         "operator": {
           "precision": 1.0,
-          "recall": 0.8333333333333334,
-          "f1": 0.9090909090909091,
-          "tp": 10,
+          "recall": 0.9166666666666666,
+          "f1": 0.9565217391304348,
+          "tp": 11,
           "fp": 0,
-          "fn": 2,
+          "fn": 1,
           "support": 12
         },
         "punctuation": {
@@ -358,29 +314,29 @@
           "support": 4
         },
         "function": {
-          "precision": 0.9,
-          "recall": 0.9,
-          "f1": 0.9,
-          "tp": 9,
-          "fp": 1,
-          "fn": 1,
-          "support": 10
-        },
-        "parameter": {
-          "precision": 0.0,
-          "recall": 0.0,
-          "f1": 0.0,
-          "tp": 0,
-          "fp": 2,
-          "fn": 1,
-          "support": 1
-        },
-        "variable": {
           "precision": 1.0,
           "recall": 1.0,
           "f1": 1.0,
-          "tp": 13,
+          "tp": 10,
           "fp": 0,
+          "fn": 0,
+          "support": 10
+        },
+        "parameter": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "variable": {
+          "precision": 0.9285714285714286,
+          "recall": 1.0,
+          "f1": 0.9629629629629629,
+          "tp": 13,
+          "fp": 1,
           "fn": 0,
           "support": 13
         },
@@ -408,33 +364,33 @@
   "documentKinds": {
     "powershell": {
       "documents": 12,
-      "exactDocumentsIncludingModifiers": 5,
+      "exactDocumentsIncludingModifiers": 7,
       "exactSpan": {
-        "precision": 0.8734177215189873,
-        "recall": 0.92,
-        "f1": 0.8961038961038961,
-        "tp": 69,
-        "fp": 10,
-        "fn": 6,
+        "precision": 0.9113924050632911,
+        "recall": 0.96,
+        "f1": 0.935064935064935,
+        "tp": 72,
+        "fp": 7,
+        "fn": 3,
         "support": 75
       },
-      "exactSpanMacroF1": 0.85900826446281,
+      "exactSpanMacroF1": 0.9245969957432408,
       "exactSpanIncludingModifiers": {
-        "precision": 0.8481012658227848,
-        "recall": 0.8933333333333333,
-        "f1": 0.8701298701298701,
-        "tp": 67,
-        "fp": 12,
-        "fn": 8,
+        "precision": 0.8860759493670886,
+        "recall": 0.9333333333333333,
+        "f1": 0.9090909090909091,
+        "tp": 70,
+        "fp": 9,
+        "fn": 5,
         "support": 75
       },
       "byTokenType": {
         "keyword": {
-          "precision": 1.0,
+          "precision": 0.75,
           "recall": 1.0,
-          "f1": 1.0,
+          "f1": 0.8571428571428571,
           "tp": 3,
-          "fp": 0,
+          "fp": 1,
           "fn": 0,
           "support": 3
         },
@@ -448,11 +404,11 @@
           "support": 2
         },
         "string": {
-          "precision": 0.5333333333333333,
+          "precision": 0.6666666666666666,
           "recall": 0.8,
-          "f1": 0.64,
+          "f1": 0.7272727272727273,
           "tp": 8,
-          "fp": 7,
+          "fp": 4,
           "fn": 2,
           "support": 10
         },
@@ -467,11 +423,11 @@
         },
         "operator": {
           "precision": 1.0,
-          "recall": 0.8333333333333334,
-          "f1": 0.9090909090909091,
-          "tp": 10,
+          "recall": 0.9166666666666666,
+          "f1": 0.9565217391304348,
+          "tp": 11,
           "fp": 0,
-          "fn": 2,
+          "fn": 1,
           "support": 12
         },
         "punctuation": {
@@ -493,29 +449,29 @@
           "support": 4
         },
         "function": {
-          "precision": 0.9,
-          "recall": 0.9,
-          "f1": 0.9,
-          "tp": 9,
-          "fp": 1,
-          "fn": 1,
-          "support": 10
-        },
-        "parameter": {
-          "precision": 0.0,
-          "recall": 0.0,
-          "f1": 0.0,
-          "tp": 0,
-          "fp": 2,
-          "fn": 1,
-          "support": 1
-        },
-        "variable": {
           "precision": 1.0,
           "recall": 1.0,
           "f1": 1.0,
-          "tp": 13,
+          "tp": 10,
           "fp": 0,
+          "fn": 0,
+          "support": 10
+        },
+        "parameter": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "support": 1
+        },
+        "variable": {
+          "precision": 0.9285714285714286,
+          "recall": 1.0,
+          "f1": 0.9629629629629629,
+          "tp": 13,
+          "fp": 1,
           "fn": 0,
           "support": 13
         },
@@ -540,6 +496,7 @@
       }
     }
   },
-  "checkpointHash": "daee9c4a1549780b0d55153972b10d19461d52abe07598e10842122cc2cccf37",
-  "checkpointEpoch": 26
+  "checkpointHash": "2d2871b9574a197bc5667757d6933b09983647d470ad4457c962c82e732dfe2b",
+  "checkpointEpoch": 2,
+  "device": "cpu"
 }

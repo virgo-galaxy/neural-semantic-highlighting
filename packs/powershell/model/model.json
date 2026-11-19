@@ -3,16 +3,19 @@
   "artifact": {
     "file": "model.pt",
     "format": "nsh-powershell-model-v1",
-    "sha256": "a45cec6dbe18161c4faaf99cf35fca11854dd301e773c3d2e8d76ebb8a20a0fe",
-    "bytes": 3620213,
-    "parameterCount": 893969,
+    "sha256": "2e310a8692bd0f0c611e656b1b3b203552c8202d540121f24c8083ec952a4e51",
+    "bytes": 3629487,
+    "parameterCount": 894737,
     "containsOptimizerState": false,
     "resumableTrainingCheckpoint": false
   },
   "selection": {
-    "epoch": 26,
-    "metric": "mean per-profile natural real-source validation exact-span macro F1",
-    "score": 0.8009453969566486
+    "epoch": 2,
+    "metric": "Maximum minimum natural VALIDATION profile F1; role macro decrease at most .01; unchanged runtime eligible",
+    "score": 0.8771583621114948,
+    "validationReportSha256": "0dbcfed9fbabe9a068d431846a8fdafb0e622f7e8897259db3378a2e90e5645a",
+    "trainingSelectionMetric": "profile-f1",
+    "trainingBestFixedScore": 0.823069403714565
   },
   "checkpointConfig": {
     "context_bytes": 512,
@@ -21,7 +24,8 @@
     "layers": 4,
     "feed_forward": 512,
     "dropout": 0.1,
-    "local_kernel": 1
+    "local_kernel": 5,
+    "relative_attention": false
   },
   "orderedLabels": {
     "boundary": [
@@ -65,7 +69,7 @@
   },
   "inference": {
     "windowing": "predicted-adaptive-cursor",
-    "decoder": "greedy-mean-logit",
+    "decoder": "joint-bio-viterbi",
     "packPolicy": {
       "coalesce_types": [
         "comment"
@@ -83,7 +87,13 @@
       }
     },
     "modifierThreshold": 0.6,
-    "parserRequired": false
+    "parserRequired": false,
+    "windowingPolicy": {
+      "format": "nsh-overlap-logits-v1",
+      "strideBytes": 128,
+      "edgeWeightCap": 128,
+      "adaptiveWeight": 0
+    }
   },
   "scope": "powershell-local-semantic-spans",
   "modelSchema": {
@@ -99,42 +109,47 @@
     "manifestHash": "d523a73e4768178cca398d16b6667c9e62b52dd480caa115586b027b6a8bdca9"
   },
   "provenance": {
-    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/powershell/context512-20261108-01/candidates/epoch-0026.pt",
-    "sourceCheckpointSha256": "daee9c4a1549780b0d55153972b10d19461d52abe07598e10842122cc2cccf37",
+    "sourceCheckpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/remaining/powershell/window-reviewed.pt",
+    "sourceCheckpointSha256": "2d2871b9574a197bc5667757d6933b09983647d470ad4457c962c82e732dfe2b",
     "training": {
       "codeHashes": {
         "training/html/inference.py": "70c1863b09723c696c172356c473b5be45709ceab25e6cd361f8494aadf74e35",
         "training/html/io.py": "d01c19d9ef99e641d1c2e70aad5877bf9256d33f9fce4e737be13b3f9402ca82",
         "training/html/losses.py": "99b80dd227e7ce2ad8b47c11c0007a7e2bcd0e8d0605be6d0f8bab3bf4ceb927",
-        "training/html/model.py": "1a714a9d5939906c5bb201c9c6ba68e4bb997d236a03227483943bb383042135",
+        "training/html/model.py": "b13cad168b9ffe63f3adef4142124943a12df22f2bb1dd081883fd121d90cc1a",
         "training/powershell/challenge.py": "268f4a97e7e913c0be5272b534095e79b122dc7b3faa59504a4e805a9c4d6a24",
         "training/powershell/evaluate.py": "4c664ab7d4407780efd4718a4878903099db68c8ccd4a0c219cec35f883701d5",
         "training/powershell/export_model.py": "190e1c91ea8975ba4ba5af4624923b0454e4bde1a3e037b49a7f94139971b139",
         "training/powershell/predict.py": "4cdc476e4d067aad93ab9188a2795101e7bc36c66c23a7e1ac7a250664ba62de",
         "training/powershell/prepare.py": "770830793a98c9bc400b5b48a72d0ca34eddbca8c0634277c9811769dad1dd10",
         "training/powershell/train.py": "3a4694fe4f97cb98c065a00dc1c8248e7c00c6ffd84f6ed3ac4784d5e100c6a8",
+        "training/shared/average.py": "1ed6c6f2b698ca079af8cce5a7d0a96a39fa298e7d5a3d9a56da2bf23f6a1b1b",
+        "training/shared/calibrate.py": "b0d6e48389ec9ab44526671fc68d7dc90a3d1e2513e0cdd7e101500975abc1ce",
+        "training/shared/calibrate_windowing.py": "151ad7ebe949c121bec56322d4893b1a3b44a1f7c2511f61e7a79fa140f15b9c",
         "training/shared/challenge.py": "43c26c2736b1947677c23bb88b7d8179732c1405b18f1e8d4dbfc76f55e661eb",
-        "training/shared/checkpoints.py": "16a8fa6dcd5855d7e08196a0bb4c3573a8029bcfaafa62525e46e3bebd74ebbc",
+        "training/shared/checkpoints.py": "5cf9aa46bcfe4d9cde4a03200d19509a44131f147307e7b6c701dcee56b05097",
         "training/shared/dataset.py": "ca22753c85cae9304067be9648aadf3e970bf578a37ca437663d2dc8aba2a388",
-        "training/shared/encoding.py": "cb7a2e784b3e96fcc7b12671f780549e29183be4ae24727e961f78574ad27602",
-        "training/shared/evaluate.py": "ca0e6273074cc06a6721731de9a0ef37af3ce338ac408186a1466ef5d4f13e9f",
-        "training/shared/export_model.py": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c",
+        "training/shared/encoding.py": "998536a816ea0fe135e9a6c2c61c6a213d20207f9bd80c69eff01b7ae272a1b6",
+        "training/shared/evaluate.py": "6d9f8dedbcb231fc0a8ce0fe02796035772dda74ba978c281ff597c505cab8bf",
+        "training/shared/export_model.py": "273c7f803cc1684d62f43d31a02229aec085228310c73833358d56f369593c72",
         "training/shared/golden.py": "036c7c290157157eed3632d2765f11ec81900c867d6a22c1fd54009d929b84ea",
-        "training/shared/inference.py": "39907f642c4702d999e9e05b9a71c29d62a92e660c1360411063c6fed30bca86",
-        "training/shared/initialization.py": "8196578d762fcb4ab9111dda25815765821533795ab03a6508503a2f4419ee61",
+        "training/shared/inference.py": "9b97430873979ef4e265d918513b6dc131fd7967cf9827e3c5eb739f79c12a9e",
+        "training/shared/initialization.py": "5f508f4c185f7d77b14141c5fd9a24acd13d974ef5d2b2f6b50cf773bf23a39f",
         "training/shared/io.py": "d5cdff6cc2ba14ed1dfa664dc4d9e419d203dd433a8887174ca21819152701ec",
         "training/shared/losses.py": "dcecdd2192bba6bb813191970f9309407297656ffc7688c6c0803f7c86334f86",
-        "training/shared/metrics.py": "d5a31cc2bec701c417a493d5a7996e997ea67e61864c3de590df938b850d6b32",
+        "training/shared/metrics.py": "4f4e93230e9ec0620896d3607d2e5a0263b3247cb900f21ebc86166b6ca684a8",
         "training/shared/model.py": "d967548c5a3a9e30141d34c8432f1859b9c5fea2547326655fd54bdb7d0f585b",
         "training/shared/offline_tools.py": "c0723071593d982141243acdcd6a7942bfc64cee99e1ab565dba73d336aa8430",
         "training/shared/pipeline.py": "46958ad756c1c5f6860208e6dd7a7ae36e95e5475289f810776f14bf87ae366b",
         "training/shared/prepare.py": "18c8977b830609a95be459d7a9ce7d08af0617f4b89c0adcd32f16cc8a8b4761",
         "training/shared/progress.py": "48ff5d4702815b7e426ad9e29d3b1b63dc0682b6e3937594ff074c0aad9910d0",
         "training/shared/provenance.py": "6093db0ca7a08a2db405e9120d04f3bc506bd8f2a59d9c556bc9561916178295",
-        "training/shared/runtime.py": "57e49c541fdd1f54f01dcd1ed2dff19ca3747a6395d460480135b60500440477",
+        "training/shared/runtime.py": "c36728b98f1e7ae2068a21bf71b9c19b04ab9398acd0988d95b2ba0013074fca",
         "training/shared/spec.py": "4fcb05c8c9dd9faee83e9dddb1f0ffdcc2a20848f56df9e5e157b369d8531595",
-        "training/shared/train.py": "9418076a311b040799675221df4411ac2a01de7d0a33dc7970ca6facbc7e6eed",
-        "training/shared/trainer_data.py": "d83a96108e243d60244949ca357a290dc9ec4ba9476b420d50ad6d093c7d68cc"
+        "training/shared/structured.py": "617d9dd571111b41fd3988e6c88f2f359e747cf1f11286bdf1a20c2428c830a1",
+        "training/shared/train.py": "6d30ad31c89f11f21298abf8ff01214994537e70c5fce90fc1efa13958d97e26",
+        "training/shared/trainer_data.py": "6b2fac9d5ce910cbcf131bee29818ce9b38f88cffd060cfbcf6baebc259b8fbc",
+        "training/shared/windowing.py": "aa12662795f2834431632b1820082926e4ea22a13508f76da037f29bcb5b2fc3"
       },
       "semanticsHash": "40be431e55242e0f3e2a5767446e42268b20c1526b70ceb99a50b266cfab5638",
       "packConfigHash": "2c3dc7e313131a05a1f229c3ddee361f71a73c8abf85132921013c7658c99d5c",
@@ -156,17 +171,17 @@
       },
       "pythonTorch": "2.14.0",
       "repositoryDirty": false,
-      "repositoryCommit": "617c82fd2f3b2a5ad31a0df22411ea57012abd11"
+      "repositoryCommit": "02a09a67b0e409386071b174813f4bbb0abfd8b5"
     },
     "initialization": {
-      "mode": "sql-weights-only-transfer",
-      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/sql/context512-literals-refine-20261108-01/candidates/epoch-0011.pt",
-      "checkpointHash": "b2468a31ce3930b74ecc5ddc028ea2c656b6a4c849b6d786c1939251bb389afc",
-      "sourceEpoch": 11,
+      "mode": "powershell-weights-only-transfer",
+      "checkpoint": "/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/powershell/context512-20261108-01/candidates/epoch-0026.pt",
+      "checkpointHash": "daee9c4a1549780b0d55153972b10d19461d52abe07598e10842122cc2cccf37",
+      "sourceEpoch": 26,
       "sourceDataset": {
-        "snapshot": "929c203d432efbe0cf60881759e629a8ef7ae56969d6fba96ecce98ac328d659",
-        "manifestHash": "5cc2e82e139ec7211e5ed05fe105175308f89652caf06b401071c0d8bf8075bd",
-        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/sql/prepared/929c203d432efbe0cf60881759e629a8ef7ae56969d6fba96ecce98ac328d659"
+        "snapshot": "d2aebc575f1aa407c2b5d9460f91ea099a638c12c116dc40ff2173b5259286d1",
+        "manifestHash": "d523a73e4768178cca398d16b6667c9e62b52dd480caa115586b027b6a8bdca9",
+        "path": "/Users/mystic/Datasets/neural-semantic-highlighting/powershell/prepared/d2aebc575f1aa407c2b5d9460f91ea099a638c12c116dc40ff2173b5259286d1"
       },
       "copiedTokenTypes": [
         "keyword",
@@ -183,22 +198,49 @@
         "namespace"
       ],
       "newTokenTypes": [],
-      "newTensors": [],
+      "newTensors": [
+        "local_context.bias",
+        "local_context.weight"
+      ],
       "copiedModifiers": [
         "declaration",
         "default-library"
       ],
       "optimizerAndTrainingState": "fresh pack run"
     },
-    "exporterSha256": "da4d59f97bd359246c610a1532e98c8d4afc49b7d1b474ba543dc5701f83039c"
+    "exporterSha256": "273c7f803cc1684d62f43d31a02229aec085228310c73833358d56f369593c72",
+    "decoderCalibration": {
+      "sourceCheckpointHash": "deb699d8e8466cd1e81bc4a3f747bed27b0ef3885bb835783d8114c6751a82b5",
+      "validationReport": "artifacts/quality-20261119/remaining/powershell/local-calibrated.calibration.json",
+      "validationReportHash": "476a55f8f27f24cdfef1f9bc247eb23bc386d4a638fda275250771c1d9d3dfd7",
+      "selection": "profile-f1; natural adaptive validation only",
+      "primaryTestUsed": false
+    },
+    "windowingCalibration": {
+      "validationReport": "artifacts/quality-20261119/remaining/powershell/window-reviewed.windowing.json",
+      "validationReportHash": "0dbcfed9fbabe9a068d431846a8fdafb0e622f7e8897259db3378a2e90e5645a",
+      "testPredictionsUsed": false
+    }
   },
   "reports": {
     "test-metrics.json": {
       "file": "reports/test-metrics.json",
-      "sha256": "416ff663b4c8a7aa3747e23be1b8f29139c5fd78ee93b422db2dc29e2a386b86",
-      "checkpointHash": "daee9c4a1549780b0d55153972b10d19461d52abe07598e10842122cc2cccf37",
+      "sha256": "7d967709024f9a56ee22c0cb5892e7f3e1e65ba7fedbac413a5103f19c8bad7e",
+      "checkpointHash": "2d2871b9574a197bc5667757d6933b09983647d470ad4457c962c82e732dfe2b",
       "split": "test",
       "inference": "predicted-adaptive-cursor"
+    },
+    "windowingCalibration.json": {
+      "file": "reports/windowingCalibration.json",
+      "sha256": "cd415006912e348e8591e8dc78ebeae4850a77b3bcfe3695f61c5e819459b482"
+    },
+    "decoderCalibration.json": {
+      "file": "reports/decoderCalibration.json",
+      "sha256": "b04a02f16f67267b8d331f3051f88ee11e5a0b9572c1f4492782ad4cb662eda4"
+    },
+    "golden.json": {
+      "file": "reports/golden.json",
+      "sha256": "ae67ec22f95e65a74f270fc3bf2608ce6f816f5b2281eb3bf61c142cd2dbfc3a"
     }
   }
 }
