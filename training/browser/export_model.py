@@ -91,6 +91,8 @@ def export(pack_id, output, source=None):
               'input': 'original-utf8-bytes', 'output': 'original-utf16-spans',
               'exporterSha256': digest(Path(__file__)), 'graphSha256': digest(Path(__file__).with_name('model.py')),
               'attentionGraphSha256': digest(ROOT / 'training/html/model.py')}
+    if pack.checkpoint.get('inferenceWindowing') is not None:
+        record['inferenceWindowing'] = pack.checkpoint['inferenceWindowing']
     if pack.checkpoint.get('structuredDecoder') is not None:
         record['structuredDecoder'] = pack.checkpoint['structuredDecoder']
     (output / 'model.json').write_text(json.dumps(record, indent=2) + '\n')

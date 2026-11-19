@@ -76,3 +76,13 @@ weight grid on natural validation; the unchanged decoder remains a candidate.
 Neither stage uses test predictions. Preserve their reports and hashes for export.
 Historical tests already inspected during development are regression evidence;
 keep any newly frozen family holdout and first-read result separate.
+
+`python -m training.shared.calibrate_windowing --pack ruby --checkpoint <full.pt>
+--output <new-full.pt>` optionally selects position-weighted overlapping neural
+windows on natural validation. Candidates retain 512-byte model inputs and original
+text/offsets; 128/256-byte strides and an optional adaptive-logit mixture are
+recorded. Short inputs keep the existing single-window path. The unchanged policy
+is eligible, role-macro degradation is bounded, and no source grammar or test
+predictions participate. More windows cost additional inference time. A matching
+native test report, policy hash and preserved validation report are required for
+export; browser/native code uses float64 fusion and shared Unicode reference tests.

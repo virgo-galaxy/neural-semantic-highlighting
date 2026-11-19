@@ -82,3 +82,10 @@ true document-end positions, never source spelling or Gold token roles. Runtime
 consumes the original text without appending a newline or repairing punctuation.
 The historical RegExp challenge is exposed development evidence, separately from
 filtered authored holdouts and 24 read-only real Virgo Design TSX test files.
+
+A validation-only windowing stage also compares the unchanged cursor with bounded
+overlapping logit fusion. It addresses edge-dependent predictions without editing
+source, changing labels, increasing model context or adding a parser. Its policy
+and report hashes travel with native/browser bundles. Short snippets retain the
+existing path; long documents require additional model windows. Original tests
+remain exposed regression evidence after this development review.

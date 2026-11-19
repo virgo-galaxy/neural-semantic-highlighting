@@ -11,6 +11,7 @@ def generate(pack_id):
     record={'id':pack_id,'manifest':metadata['manifest'],'sha256':metadata['model']['sha256'],
             'contextBytes':metadata['contextBytes'],'schema':metadata['schema'],
             'modifierThreshold':metadata['modifierThreshold'],'decoder':metadata['decoder']}
+    if metadata.get('inferenceWindowing') is not None:record['inferenceWindowing']=metadata['inferenceWindowing']
     if metadata.get('structuredDecoder') is not None:record['structuredDecoder']=metadata['structuredDecoder']
     text='import type { BrowserModel } from "@nsh/browser";\n'
     if pack_id=='php':text+='import html from "./html.js";\n'

@@ -118,5 +118,9 @@ def model_from_checkpoint(payload: dict, device: torch.device) -> SemanticTransf
         from training.shared.structured import validate
         validate(payload['structuredDecoder'], schema)
         model.structured_decoder = payload['structuredDecoder']
+    if payload.get("inferenceWindowing") is not None:
+        from training.shared.windowing import validate
+        validate(payload["inferenceWindowing"])
+        model.inference_windowing = payload["inferenceWindowing"]
     return model.to(device)
 

@@ -4,6 +4,7 @@ import * as ort from "onnxruntime-web/wasm";
 import { argmax, characterMap, SpanDecoder } from "./decode.js";
 import { StructuredSpanDecoder } from "./structured.js";
 import type { BrowserModel, ModelRequest } from "./types.js";
+import { windowLogits } from "./windowing.js";
 
 // One thread works without COOP/COEP or SharedArrayBuffer. Both files are shipped
 // with this package and resolved by the consumer's bundler; no CDN dependency.
@@ -46,6 +47,56 @@ export async function highlight(model: ModelRequest, source: string): Promise<Hi
   if (!source.length) return decoder.finish();
   const raw = new TextEncoder().encode(source);
   const session = await sessionFor(model);
+  if (model.inferenceWindowing && raw.length > model.contextBytes) {
+    const values = await windowLogits(
+      model as unknown as BrowserModel,
+      raw,
+      starts,
+      async (bytes) => {
+        const input = new ort.Tensor(
+          "int64",
+          BigInt64Array.from(bytes, (value) => BigInt(value)),
+          [1, bytes.length],
+        );
+        let output: Awaited<ReturnType<typeof session.run>> | undefined;
+        try {
+          output = await session.run({ input_ids: input });
+          return [
+            (output.boundary.data as Float32Array).slice(),
+            (output.token_type.data as Float32Array).slice(),
+            (output.modifier.data as Float32Array).slice(),
+          ];
+        } finally {
+          input.dispose();
+          for (const value of Object.values(output ?? {})) value.dispose();
+        }
+      },
+    );
+    for (let i = 0; i < starts.length - 1; i++) {
+      if (decoder instanceof StructuredSpanDecoder)
+        decoder.append(
+          units[i],
+          units[i + 1],
+          values[0],
+          i * 3,
+          values[1],
+          i * model.schema.tokenTypes.length,
+          values[2],
+          i * model.schema.modifiers.length,
+        );
+      else
+        decoder.append(
+          units[i],
+          units[i + 1],
+          argmax(values[0], i * 3, 3),
+          values[1],
+          i * model.schema.tokenTypes.length,
+          values[2],
+          i * model.schema.modifiers.length,
+        );
+    }
+    return decoder.finish();
+  }
   let cursorIndex = 0;
   while (cursorIndex < starts.length - 1) {
     const cursor = starts[cursorIndex];

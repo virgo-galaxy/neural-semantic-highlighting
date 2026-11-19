@@ -34,7 +34,7 @@ def predicted_cut(boundary: torch.Tensor, candidate: int, starts: list[int]) -> 
 
 
 @torch.inference_mode()
-def document_logits(model: SemanticTransformer, source: str, device: torch.device,
+def cursor_logits(model: SemanticTransformer, source: str, device: torch.device,
                     *, adaptive: bool = True) -> ModelOutput:
     raw = source.encode("utf-8")
     total, context = len(raw), model.config.context_bytes
@@ -68,6 +68,23 @@ def document_logits(model: SemanticTransformer, source: str, device: torch.devic
         result.modifier[cursor:commit] = local.modifier[:count]
         cursor = commit
     return result
+
+
+@torch.inference_mode()
+def document_logits(model: SemanticTransformer, source: str, device: torch.device,
+                    *, adaptive: bool = True) -> ModelOutput:
+    policy = getattr(model, 'inference_windowing', None)
+    if not adaptive or policy is None or len(source.encode('utf-8')) <= model.config.context_bytes:
+        return cursor_logits(model, source, device, adaptive=adaptive)
+    from training.shared.windowing import overlap_logits
+    overlap = overlap_logits(model, source, device, policy)
+    weight = policy['adaptiveWeight']
+    if not weight:
+        return overlap
+    original = cursor_logits(model, source, device)
+    return ModelOutput(*[a.double() * weight + b * (1 - weight) for a, b in zip(
+        [original.boundary, original.token_type, original.modifier],
+        [overlap.boundary, overlap.token_type, overlap.modifier])])
 
 
 def decode(source: str, logits: ModelOutput, schema: dict, *, threshold: float = .60,

@@ -58,6 +58,8 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
     if checkpoint["modelConfig"]["context_bytes"] != 512 or checkpoint.get("documentKinds") != list(current().document_kinds):
         raise ValueError("Expected the pack baseline configuration")
     report = json.loads(test_report.read_text())
+    if report.get('windowingPolicyHash') != parameters_hash(checkpoint.get('inferenceWindowing')):
+        raise ValueError('Test report must use the frozen neural windowing policy')
     if report.get('structuredDecoderHash') != parameters_hash(checkpoint.get('structuredDecoder')):
         raise ValueError('Test report must use the frozen structured decoder')
     identity = {key: checkpoint["dataset"][key] for key in ("snapshot", "manifestHash")}
@@ -102,6 +104,22 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
     if checkpoint.get("weightAveraging"):
         verify_averaging(checkpoint["weightAveraging"])
         artifact["weightAveraging"] = checkpoint["weightAveraging"]
+    if checkpoint.get('windowingCalibration'):
+        windowing_evidence = checkpoint['windowingCalibration']
+        windowing_path = Path(windowing_evidence['validationReport'])
+        if (windowing_evidence.get('testPredictionsUsed') is not False
+                or file_hash(windowing_path) != windowing_evidence['validationReportHash']):
+            raise ValueError('Windowing selection requires intact validation evidence')
+        windowing_report = json.loads(windowing_path.read_text())
+        windowing_selected = windowing_report['trials'][windowing_report['selected']]
+        if (windowing_report.get('testPredictionsUsed') is not False
+                or windowing_selected['policy'] != checkpoint.get('inferenceWindowing')):
+            raise ValueError('Frozen window policy differs from its validation report')
+        artifact['windowingCalibration'] = windowing_evidence
+        if checkpoint.get('inferenceWindowing') is not None:
+            from training.shared.windowing import validate as validate_windowing
+            validate_windowing(checkpoint['inferenceWindowing'])
+            artifact['inferenceWindowing'] = checkpoint['inferenceWindowing']
     save_checkpoint(output, artifact)
     # Verify the stored float32 tensors; export performs no quantization/retraining.
     reloaded = torch.load(output, map_location="cpu", weights_only=True)
@@ -147,6 +165,13 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
             metric=calibration['selection'], score=calibration_score,
             validationReportSha256=file_hash(calibration_path),
             trainingBestEpoch=checkpoint['trainingState']['bestEpoch'],
+            trainingSelectionMetric=checkpoint['trainingConfig'].get('selection_metric', 'profile-macro'),
+            trainingBestFixedScore=checkpoint['trainingState']['bestScore'])
+    if artifact.get('windowingCalibration'):
+        metadata['provenance']['windowingCalibration'] = artifact['windowingCalibration']
+        metadata['inference']['windowingPolicy'] = artifact.get('inferenceWindowing')
+        metadata['selection'] = dict(epoch=checkpoint['epoch'], metric=windowing_report['selection'],
+            score=windowing_selected['selectionKey'][0], validationReportSha256=file_hash(windowing_path),
             trainingSelectionMetric=checkpoint['trainingConfig'].get('selection_metric', 'profile-macro'),
             trainingBestFixedScore=checkpoint['trainingState']['bestScore'])
     atomic_json(output.with_name("model.json"), metadata)

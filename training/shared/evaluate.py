@@ -57,6 +57,8 @@ def main():
             decoderPolicy=current().decoder(),
             smokeCheckpoint=bool(payload["trainingConfig"].get("smoke")), dataset=snapshot.identity(),
             modelConfig=payload["modelConfig"], device=device.type, torchVersion=str(torch.__version__), codeHashes=code_hashes())
+        if payload.get('inferenceWindowing') is not None:
+            report['windowingPolicyHash'] = parameters_hash(payload['inferenceWindowing'])
         if payload.get('structuredDecoder') is not None:
             report['structuredDecoderHash'] = parameters_hash(payload['structuredDecoder'])
         if args.cohort_groups:
