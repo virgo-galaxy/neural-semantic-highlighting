@@ -4,41 +4,38 @@
   "pair_count": 40,
   "models": [
     {
-      "checkpoint_name": "candidate",
-      "checkpoint": "artifacts/typescript/context512-re/best.pt",
+      "checkpoint_name": "selected",
+      "checkpoint": "artifacts/quality-20261119/typescript/tail-reviewed.pt",
       "inference": {
         "max_length": 512,
         "windowing": "adaptive-cursor",
         "decoder": "greedy"
       },
       "isolated": {
-        "true_positive": 32,
-        "false_positive": 21,
-        "false_negative": 8,
-        "precision": 0.6037735849056604,
-        "recall": 0.8,
-        "f1": 0.6881720430107526,
-        "exact_cases": 30,
-        "exact_rate": 0.75,
+        "true_positive": 40,
+        "false_positive": 0,
+        "false_negative": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "exact_cases": 40,
+        "exact_rate": 1.0,
         "cases": 40
       },
       "contextual": {
-        "true_positive": 33,
-        "false_positive": 17,
-        "false_negative": 7,
-        "precision": 0.66,
-        "recall": 0.825,
-        "f1": 0.7333333333333334,
-        "exact_cases": 33,
-        "exact_rate": 0.825,
+        "true_positive": 40,
+        "false_positive": 0,
+        "false_negative": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "exact_cases": 40,
+        "exact_rate": 1.0,
         "cases": 40
       },
-      "context_exact_delta": 0.07499999999999996,
+      "context_exact_delta": 0.0,
       "transitions": {
-        "both_exact": 27,
-        "isolated_only": 3,
-        "contextual_only": 6,
-        "neither_exact": 4
+        "both_exact": 40
       },
       "families": {
         "basic": {
@@ -54,38 +51,38 @@
             "cases": 8
           },
           "contextual": {
-            "true_positive": 7,
-            "false_positive": 3,
-            "false_negative": 1,
-            "precision": 0.7,
-            "recall": 0.875,
-            "f1": 0.7777777777777777,
-            "exact_cases": 7,
-            "exact_rate": 0.875,
+            "true_positive": 8,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "exact_cases": 8,
+            "exact_rate": 1.0,
             "cases": 8
           }
         },
         "escape-class": {
           "isolated": {
-            "true_positive": 5,
-            "false_positive": 8,
-            "false_negative": 3,
-            "precision": 0.38461538461538464,
-            "recall": 0.625,
-            "f1": 0.4761904761904762,
-            "exact_cases": 4,
-            "exact_rate": 0.5,
+            "true_positive": 8,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "exact_cases": 8,
+            "exact_rate": 1.0,
             "cases": 8
           },
           "contextual": {
-            "true_positive": 7,
-            "false_positive": 3,
-            "false_negative": 1,
-            "precision": 0.7,
-            "recall": 0.875,
-            "f1": 0.7777777777777777,
-            "exact_cases": 7,
-            "exact_rate": 0.875,
+            "true_positive": 8,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "exact_cases": 8,
+            "exact_rate": 1.0,
             "cases": 8
           }
         },
@@ -102,62 +99,62 @@
             "cases": 8
           },
           "contextual": {
-            "true_positive": 7,
-            "false_positive": 2,
-            "false_negative": 1,
-            "precision": 0.7777777777777778,
-            "recall": 0.875,
-            "f1": 0.823529411764706,
-            "exact_cases": 7,
-            "exact_rate": 0.875,
+            "true_positive": 8,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "exact_cases": 8,
+            "exact_rate": 1.0,
             "cases": 8
           }
         },
         "group-assertion": {
           "isolated": {
-            "true_positive": 5,
-            "false_positive": 9,
-            "false_negative": 3,
-            "precision": 0.35714285714285715,
-            "recall": 0.625,
-            "f1": 0.45454545454545453,
-            "exact_cases": 4,
-            "exact_rate": 0.5,
+            "true_positive": 8,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "exact_cases": 8,
+            "exact_rate": 1.0,
             "cases": 8
           },
           "contextual": {
-            "true_positive": 6,
-            "false_positive": 4,
-            "false_negative": 2,
-            "precision": 0.6,
-            "recall": 0.75,
-            "f1": 0.6666666666666665,
-            "exact_cases": 6,
-            "exact_rate": 0.75,
+            "true_positive": 8,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "exact_cases": 8,
+            "exact_rate": 1.0,
             "cases": 8
           }
         },
         "realistic": {
           "isolated": {
-            "true_positive": 6,
-            "false_positive": 4,
-            "false_negative": 2,
-            "precision": 0.6,
-            "recall": 0.75,
-            "f1": 0.6666666666666665,
-            "exact_cases": 6,
-            "exact_rate": 0.75,
+            "true_positive": 8,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "exact_cases": 8,
+            "exact_rate": 1.0,
             "cases": 8
           },
           "contextual": {
-            "true_positive": 6,
-            "false_positive": 5,
-            "false_negative": 2,
-            "precision": 0.5454545454545454,
-            "recall": 0.75,
-            "f1": 0.631578947368421,
-            "exact_cases": 6,
-            "exact_rate": 0.75,
+            "true_positive": 8,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "exact_cases": 8,
+            "exact_rate": 1.0,
             "cases": 8
           }
         }
@@ -344,30 +341,20 @@
               "text": "/[A-F0-9]{6}/i"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 3,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 124,
-                  "end": 134,
-                  "text": "/[A-F0-9]{"
-                },
-                {
-                  "start": 134,
-                  "end": 135,
-                  "text": "6"
-                },
-                {
-                  "start": 135,
                   "end": 138,
-                  "text": "}/i"
+                  "text": "/[A-F0-9]{6}/i"
                 }
               ]
             }
           },
-          "transition": "isolated_only"
+          "transition": "both_exact"
         },
         {
           "id": "basic-005",
@@ -578,25 +565,15 @@
               "text": "/\\/api\\/v\\d+\\//"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 3,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
-                  "start": 1,
-                  "end": 2,
-                  "text": "o"
-                },
-                {
-                  "start": 6,
-                  "end": 17,
-                  "text": "pattern9 = "
-                },
-                {
                   "start": 17,
-                  "end": 33,
-                  "text": "/\\/api\\/v\\d+\\//;"
+                  "end": 32,
+                  "text": "/\\/api\\/v\\d+\\//"
                 }
               ]
             }
@@ -622,7 +599,7 @@
               ]
             }
           },
-          "transition": "contextual_only"
+          "transition": "both_exact"
         },
         {
           "id": "escape-002",
@@ -735,20 +712,15 @@
               "text": "/\\u{1F600}/u"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 2,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 18,
-                  "end": 22,
-                  "text": "/\\u{"
-                },
-                {
-                  "start": 22,
                   "end": 30,
-                  "text": "1F600}/u"
+                  "text": "/\\u{1F600}/u"
                 }
               ]
             }
@@ -761,30 +733,20 @@
               "text": "/\\u{1F600}/u"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 3,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 127,
-                  "end": 131,
-                  "text": "/\\u{"
-                },
-                {
-                  "start": 131,
-                  "end": 138,
-                  "text": "1F600}/"
-                },
-                {
-                  "start": 138,
                   "end": 139,
-                  "text": "u"
+                  "text": "/\\u{1F600}/u"
                 }
               ]
             }
           },
-          "transition": "neither_exact"
+          "transition": "both_exact"
         },
         {
           "id": "escape-005",
@@ -848,15 +810,15 @@
               "text": "/[^\\S\\r\\n]+/"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 1,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 18,
-                  "end": 31,
-                  "text": "/[^\\S\\r\\n]+/;"
+                  "end": 30,
+                  "text": "/[^\\S\\r\\n]+/"
                 }
               ]
             }
@@ -882,7 +844,7 @@
               ]
             }
           },
-          "transition": "contextual_only"
+          "transition": "both_exact"
         },
         {
           "id": "escape-007",
@@ -897,25 +859,15 @@
               "text": "/[\\[\\]{}()]/"
             },
             "result": {
-              "exact": false,
+              "exact": true,
               "tp": 1,
-              "fp": 2,
+              "fp": 0,
               "fn": 0,
               "predicted_regexp": [
-                {
-                  "start": 16,
-                  "end": 17,
-                  "text": "="
-                },
                 {
                   "start": 18,
                   "end": 30,
                   "text": "/[\\[\\]{}()]/"
-                },
-                {
-                  "start": 30,
-                  "end": 31,
-                  "text": ";"
                 }
               ]
             }
@@ -941,7 +893,7 @@
               ]
             }
           },
-          "transition": "contextual_only"
+          "transition": "both_exact"
         },
         {
           "id": "escape-008",
@@ -1005,20 +957,15 @@
               "text": "/(?:ab){2,4}/"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 2,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 18,
-                  "end": 26,
-                  "text": "/(?:ab){"
-                },
-                {
-                  "start": 26,
                   "end": 31,
-                  "text": "2,4}/"
+                  "text": "/(?:ab){2,4}/"
                 }
               ]
             }
@@ -1031,25 +978,20 @@
               "text": "/(?:ab){2,4}/"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 2,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 163,
-                  "end": 171,
-                  "text": "/(?:ab){"
-                },
-                {
-                  "start": 171,
                   "end": 176,
-                  "text": "2,4}/"
+                  "text": "/(?:ab){2,4}/"
                 }
               ]
             }
           },
-          "transition": "neither_exact"
+          "transition": "both_exact"
         },
         {
           "id": "group-002",
@@ -1113,20 +1055,15 @@
               "text": "/foo(?=bar)/"
             },
             "result": {
-              "exact": false,
+              "exact": true,
               "tp": 1,
-              "fp": 1,
+              "fp": 0,
               "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 18,
                   "end": 30,
                   "text": "/foo(?=bar)/"
-                },
-                {
-                  "start": 30,
-                  "end": 31,
-                  "text": ";"
                 }
               ]
             }
@@ -1152,7 +1089,7 @@
               ]
             }
           },
-          "transition": "contextual_only"
+          "transition": "both_exact"
         },
         {
           "id": "group-004",
@@ -1265,35 +1202,15 @@
               "text": "/(?<!un)happy/"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 5,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 18,
-                  "end": 19,
-                  "text": "/"
-                },
-                {
-                  "start": 19,
-                  "end": 20,
-                  "text": "("
-                },
-                {
-                  "start": 20,
-                  "end": 22,
-                  "text": "?<"
-                },
-                {
-                  "start": 23,
-                  "end": 25,
-                  "text": "un"
-                },
-                {
-                  "start": 25,
                   "end": 32,
-                  "text": ")happy/"
+                  "text": "/(?<!un)happy/"
                 }
               ]
             }
@@ -1306,25 +1223,20 @@
               "text": "/(?<!un)happy/"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 2,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
-                  "start": 118,
-                  "end": 120,
-                  "text": "un"
-                },
-                {
-                  "start": 120,
+                  "start": 113,
                   "end": 127,
-                  "text": ")happy/"
+                  "text": "/(?<!un)happy/"
                 }
               ]
             }
           },
-          "transition": "neither_exact"
+          "transition": "both_exact"
         },
         {
           "id": "group-007",
@@ -1388,15 +1300,15 @@
               "text": "/(?:^|,)\\s*([^,]+)\\s*(?=,|$)/g"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 1,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 18,
-                  "end": 49,
-                  "text": "/(?:^|,)\\s*([^,]+)\\s*(?=,|$)/g;"
+                  "end": 48,
+                  "text": "/(?:^|,)\\s*([^,]+)\\s*(?=,|$)/g"
                 }
               ]
             }
@@ -1422,7 +1334,7 @@
               ]
             }
           },
-          "transition": "contextual_only"
+          "transition": "both_exact"
         },
         {
           "id": "flags-001",
@@ -1703,25 +1615,20 @@
               "text": "/^.$/su"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 2,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 113,
-                  "end": 118,
-                  "text": "/^.$/"
-                },
-                {
-                  "start": 118,
                   "end": 120,
-                  "text": "su"
+                  "text": "/^.$/su"
                 }
               ]
             }
           },
-          "transition": "isolated_only"
+          "transition": "both_exact"
         },
         {
           "id": "flags-007",
@@ -1904,25 +1811,20 @@
               "text": "/#[0-9a-f]{3,8}\\b/i"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 2,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 113,
-                  "end": 124,
-                  "text": "/#[0-9a-f]{"
-                },
-                {
-                  "start": 124,
                   "end": 132,
-                  "text": "3,8}\\b/i"
+                  "text": "/#[0-9a-f]{3,8}\\b/i"
                 }
               ]
             }
           },
-          "transition": "isolated_only"
+          "transition": "both_exact"
         },
         {
           "id": "realistic-003",
@@ -1937,25 +1839,15 @@
               "text": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}/i"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 3,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 18,
-                  "end": 53,
-                  "text": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{"
-                },
-                {
-                  "start": 53,
-                  "end": 54,
-                  "text": "2"
-                },
-                {
-                  "start": 54,
                   "end": 58,
-                  "text": ",}/i"
+                  "text": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}/i"
                 }
               ]
             }
@@ -1968,30 +1860,20 @@
               "text": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}/i"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 3,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 132,
-                  "end": 162,
-                  "text": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.["
-                },
-                {
-                  "start": 162,
-                  "end": 167,
-                  "text": "a-z]{"
-                },
-                {
-                  "start": 168,
                   "end": 172,
-                  "text": ",}/i"
+                  "text": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}/i"
                 }
               ]
             }
           },
-          "transition": "neither_exact"
+          "transition": "both_exact"
         },
         {
           "id": "realistic-004",
@@ -2202,15 +2084,15 @@
               "text": "/\\{\\{[^{}]+\\}\\}/g"
             },
             "result": {
-              "exact": false,
-              "tp": 0,
-              "fp": 1,
-              "fn": 1,
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
               "predicted_regexp": [
                 {
                   "start": 18,
-                  "end": 36,
-                  "text": "/\\{\\{[^{}]+\\}\\}/g;"
+                  "end": 35,
+                  "text": "/\\{\\{[^{}]+\\}\\}/g"
                 }
               ]
             }
@@ -2236,7 +2118,7 @@
               ]
             }
           },
-          "transition": "contextual_only"
+          "transition": "both_exact"
         }
       ]
     }

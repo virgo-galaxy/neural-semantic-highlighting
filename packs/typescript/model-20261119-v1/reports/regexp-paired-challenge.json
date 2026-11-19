@@ -1,0 +1,2244 @@
+{
+  "format": "nsh-typescript-regexp-paired-context-challenge-result",
+  "challenge": "packs/typescript/challenges/regexp-paired-context.json",
+  "pair_count": 40,
+  "models": [
+    {
+      "checkpoint_name": "candidate",
+      "checkpoint": "artifacts/typescript/context512-re/best.pt",
+      "inference": {
+        "max_length": 512,
+        "windowing": "adaptive-cursor",
+        "decoder": "greedy"
+      },
+      "isolated": {
+        "true_positive": 32,
+        "false_positive": 21,
+        "false_negative": 8,
+        "precision": 0.6037735849056604,
+        "recall": 0.8,
+        "f1": 0.6881720430107526,
+        "exact_cases": 30,
+        "exact_rate": 0.75,
+        "cases": 40
+      },
+      "contextual": {
+        "true_positive": 33,
+        "false_positive": 17,
+        "false_negative": 7,
+        "precision": 0.66,
+        "recall": 0.825,
+        "f1": 0.7333333333333334,
+        "exact_cases": 33,
+        "exact_rate": 0.825,
+        "cases": 40
+      },
+      "context_exact_delta": 0.07499999999999996,
+      "transitions": {
+        "both_exact": 27,
+        "isolated_only": 3,
+        "contextual_only": 6,
+        "neither_exact": 4
+      },
+      "families": {
+        "basic": {
+          "isolated": {
+            "true_positive": 8,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "exact_cases": 8,
+            "exact_rate": 1.0,
+            "cases": 8
+          },
+          "contextual": {
+            "true_positive": 7,
+            "false_positive": 3,
+            "false_negative": 1,
+            "precision": 0.7,
+            "recall": 0.875,
+            "f1": 0.7777777777777777,
+            "exact_cases": 7,
+            "exact_rate": 0.875,
+            "cases": 8
+          }
+        },
+        "escape-class": {
+          "isolated": {
+            "true_positive": 5,
+            "false_positive": 8,
+            "false_negative": 3,
+            "precision": 0.38461538461538464,
+            "recall": 0.625,
+            "f1": 0.4761904761904762,
+            "exact_cases": 4,
+            "exact_rate": 0.5,
+            "cases": 8
+          },
+          "contextual": {
+            "true_positive": 7,
+            "false_positive": 3,
+            "false_negative": 1,
+            "precision": 0.7,
+            "recall": 0.875,
+            "f1": 0.7777777777777777,
+            "exact_cases": 7,
+            "exact_rate": 0.875,
+            "cases": 8
+          }
+        },
+        "flags-anchor": {
+          "isolated": {
+            "true_positive": 8,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "exact_cases": 8,
+            "exact_rate": 1.0,
+            "cases": 8
+          },
+          "contextual": {
+            "true_positive": 7,
+            "false_positive": 2,
+            "false_negative": 1,
+            "precision": 0.7777777777777778,
+            "recall": 0.875,
+            "f1": 0.823529411764706,
+            "exact_cases": 7,
+            "exact_rate": 0.875,
+            "cases": 8
+          }
+        },
+        "group-assertion": {
+          "isolated": {
+            "true_positive": 5,
+            "false_positive": 9,
+            "false_negative": 3,
+            "precision": 0.35714285714285715,
+            "recall": 0.625,
+            "f1": 0.45454545454545453,
+            "exact_cases": 4,
+            "exact_rate": 0.5,
+            "cases": 8
+          },
+          "contextual": {
+            "true_positive": 6,
+            "false_positive": 4,
+            "false_negative": 2,
+            "precision": 0.6,
+            "recall": 0.75,
+            "f1": 0.6666666666666665,
+            "exact_cases": 6,
+            "exact_rate": 0.75,
+            "cases": 8
+          }
+        },
+        "realistic": {
+          "isolated": {
+            "true_positive": 6,
+            "false_positive": 4,
+            "false_negative": 2,
+            "precision": 0.6,
+            "recall": 0.75,
+            "f1": 0.6666666666666665,
+            "exact_cases": 6,
+            "exact_rate": 0.75,
+            "cases": 8
+          },
+          "contextual": {
+            "true_positive": 6,
+            "false_positive": 5,
+            "false_negative": 2,
+            "precision": 0.5454545454545454,
+            "recall": 0.75,
+            "f1": 0.631578947368421,
+            "exact_cases": 6,
+            "exact_rate": 0.75,
+            "cases": 8
+          }
+        }
+      },
+      "pairs": [
+        {
+          "id": "basic-001",
+          "family": "basic",
+          "regexp": "/cats?|dogs?/i",
+          "note": "alternation plus optional suffix",
+          "isolated": {
+            "source_bytes": 33,
+            "expected": {
+              "start": 17,
+              "end": 31,
+              "text": "/cats?|dogs?/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 17,
+                  "end": 31,
+                  "text": "/cats?|dogs?/i"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 292,
+            "expected": {
+              "start": 161,
+              "end": 175,
+              "text": "/cats?|dogs?/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 161,
+                  "end": 175,
+                  "text": "/cats?|dogs?/i"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "basic-002",
+          "family": "basic",
+          "regexp": "/item-\\d{3}/",
+          "note": "numeric suffix",
+          "isolated": {
+            "source_bytes": 31,
+            "expected": {
+              "start": 17,
+              "end": 29,
+              "text": "/item-\\d{3}/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 17,
+                  "end": 29,
+                  "text": "/item-\\d{3}/"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 259,
+            "expected": {
+              "start": 111,
+              "end": 123,
+              "text": "/item-\\d{3}/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 111,
+                  "end": 123,
+                  "text": "/item-\\d{3}/"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "basic-003",
+          "family": "basic",
+          "regexp": "/^(?:dev|prod|test)$/",
+          "note": "anchored alternatives",
+          "isolated": {
+            "source_bytes": 40,
+            "expected": {
+              "start": 17,
+              "end": 38,
+              "text": "/^(?:dev|prod|test)$/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 17,
+                  "end": 38,
+                  "text": "/^(?:dev|prod|test)$/"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 277,
+            "expected": {
+              "start": 130,
+              "end": 151,
+              "text": "/^(?:dev|prod|test)$/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 130,
+                  "end": 151,
+                  "text": "/^(?:dev|prod|test)$/"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "basic-004",
+          "family": "basic",
+          "regexp": "/[A-F0-9]{6}/i",
+          "note": "hex-like token",
+          "isolated": {
+            "source_bytes": 33,
+            "expected": {
+              "start": 17,
+              "end": 31,
+              "text": "/[A-F0-9]{6}/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 17,
+                  "end": 31,
+                  "text": "/[A-F0-9]{6}/i"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 282,
+            "expected": {
+              "start": 124,
+              "end": 138,
+              "text": "/[A-F0-9]{6}/i"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 3,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 124,
+                  "end": 134,
+                  "text": "/[A-F0-9]{"
+                },
+                {
+                  "start": 134,
+                  "end": 135,
+                  "text": "6"
+                },
+                {
+                  "start": 135,
+                  "end": 138,
+                  "text": "}/i"
+                }
+              ]
+            }
+          },
+          "transition": "isolated_only"
+        },
+        {
+          "id": "basic-005",
+          "family": "basic",
+          "regexp": "/\\d{2}:\\d{2}(?::\\d{2})?/",
+          "note": "time-like value",
+          "isolated": {
+            "source_bytes": 43,
+            "expected": {
+              "start": 17,
+              "end": 41,
+              "text": "/\\d{2}:\\d{2}(?::\\d{2})?/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 17,
+                  "end": 41,
+                  "text": "/\\d{2}:\\d{2}(?::\\d{2})?/"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 302,
+            "expected": {
+              "start": 161,
+              "end": 185,
+              "text": "/\\d{2}:\\d{2}(?::\\d{2})?/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 161,
+                  "end": 185,
+                  "text": "/\\d{2}:\\d{2}(?::\\d{2})?/"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "basic-006",
+          "family": "basic",
+          "regexp": "/[._-]+/g",
+          "note": "separator run",
+          "isolated": {
+            "source_bytes": 28,
+            "expected": {
+              "start": 17,
+              "end": 26,
+              "text": "/[._-]+/g"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 17,
+                  "end": 26,
+                  "text": "/[._-]+/g"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 256,
+            "expected": {
+              "start": 111,
+              "end": 120,
+              "text": "/[._-]+/g"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 111,
+                  "end": 120,
+                  "text": "/[._-]+/g"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "basic-007",
+          "family": "basic",
+          "regexp": "/\\s{2,}/g",
+          "note": "repeated whitespace",
+          "isolated": {
+            "source_bytes": 28,
+            "expected": {
+              "start": 17,
+              "end": 26,
+              "text": "/\\s{2,}/g"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 17,
+                  "end": 26,
+                  "text": "/\\s{2,}/g"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 265,
+            "expected": {
+              "start": 130,
+              "end": 139,
+              "text": "/\\s{2,}/g"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 130,
+                  "end": 139,
+                  "text": "/\\s{2,}/g"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "basic-008",
+          "family": "basic",
+          "regexp": "/\\b(?:true|false|null)\\b/g",
+          "note": "keyword-like alternatives",
+          "isolated": {
+            "source_bytes": 45,
+            "expected": {
+              "start": 17,
+              "end": 43,
+              "text": "/\\b(?:true|false|null)\\b/g"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 17,
+                  "end": 43,
+                  "text": "/\\b(?:true|false|null)\\b/g"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 294,
+            "expected": {
+              "start": 124,
+              "end": 150,
+              "text": "/\\b(?:true|false|null)\\b/g"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 124,
+                  "end": 150,
+                  "text": "/\\b(?:true|false|null)\\b/g"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "escape-001",
+          "family": "escape-class",
+          "regexp": "/\\/api\\/v\\d+\\//",
+          "note": "escaped slash path",
+          "isolated": {
+            "source_bytes": 34,
+            "expected": {
+              "start": 17,
+              "end": 32,
+              "text": "/\\/api\\/v\\d+\\//"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 3,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 1,
+                  "end": 2,
+                  "text": "o"
+                },
+                {
+                  "start": 6,
+                  "end": 17,
+                  "text": "pattern9 = "
+                },
+                {
+                  "start": 17,
+                  "end": 33,
+                  "text": "/\\/api\\/v\\d+\\//;"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 293,
+            "expected": {
+              "start": 161,
+              "end": 176,
+              "text": "/\\/api\\/v\\d+\\//"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 161,
+                  "end": 176,
+                  "text": "/\\/api\\/v\\d+\\//"
+                }
+              ]
+            }
+          },
+          "transition": "contextual_only"
+        },
+        {
+          "id": "escape-002",
+          "family": "escape-class",
+          "regexp": "/\\\\(?:n|r|t)/g",
+          "note": "escaped backslash sequence",
+          "isolated": {
+            "source_bytes": 34,
+            "expected": {
+              "start": 18,
+              "end": 32,
+              "text": "/\\\\(?:n|r|t)/g"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 32,
+                  "text": "/\\\\(?:n|r|t)/g"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 264,
+            "expected": {
+              "start": 113,
+              "end": 127,
+              "text": "/\\\\(?:n|r|t)/g"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 113,
+                  "end": 127,
+                  "text": "/\\\\(?:n|r|t)/g"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "escape-003",
+          "family": "escape-class",
+          "regexp": "/[\\u0041-\\u005A]+/",
+          "note": "unicode escape range",
+          "isolated": {
+            "source_bytes": 38,
+            "expected": {
+              "start": 18,
+              "end": 36,
+              "text": "/[\\u0041-\\u005A]+/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 36,
+                  "text": "/[\\u0041-\\u005A]+/"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 278,
+            "expected": {
+              "start": 132,
+              "end": 150,
+              "text": "/[\\u0041-\\u005A]+/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 132,
+                  "end": 150,
+                  "text": "/[\\u0041-\\u005A]+/"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "escape-004",
+          "family": "escape-class",
+          "regexp": "/\\u{1F600}/u",
+          "note": "unicode code point escape",
+          "isolated": {
+            "source_bytes": 32,
+            "expected": {
+              "start": 18,
+              "end": 30,
+              "text": "/\\u{1F600}/u"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 2,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 22,
+                  "text": "/\\u{"
+                },
+                {
+                  "start": 22,
+                  "end": 30,
+                  "text": "1F600}/u"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 285,
+            "expected": {
+              "start": 127,
+              "end": 139,
+              "text": "/\\u{1F600}/u"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 3,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 127,
+                  "end": 131,
+                  "text": "/\\u{"
+                },
+                {
+                  "start": 131,
+                  "end": 138,
+                  "text": "1F600}/"
+                },
+                {
+                  "start": 138,
+                  "end": 139,
+                  "text": "u"
+                }
+              ]
+            }
+          },
+          "transition": "neither_exact"
+        },
+        {
+          "id": "escape-005",
+          "family": "escape-class",
+          "regexp": "/\\p{Number}+/u",
+          "note": "unicode property escape",
+          "isolated": {
+            "source_bytes": 34,
+            "expected": {
+              "start": 18,
+              "end": 32,
+              "text": "/\\p{Number}+/u"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 32,
+                  "text": "/\\p{Number}+/u"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 296,
+            "expected": {
+              "start": 163,
+              "end": 177,
+              "text": "/\\p{Number}+/u"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 163,
+                  "end": 177,
+                  "text": "/\\p{Number}+/u"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "escape-006",
+          "family": "escape-class",
+          "regexp": "/[^\\S\\r\\n]+/",
+          "note": "negated whitespace class",
+          "isolated": {
+            "source_bytes": 32,
+            "expected": {
+              "start": 18,
+              "end": 30,
+              "text": "/[^\\S\\r\\n]+/"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 1,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 31,
+                  "text": "/[^\\S\\r\\n]+/;"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 262,
+            "expected": {
+              "start": 113,
+              "end": 125,
+              "text": "/[^\\S\\r\\n]+/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 113,
+                  "end": 125,
+                  "text": "/[^\\S\\r\\n]+/"
+                }
+              ]
+            }
+          },
+          "transition": "contextual_only"
+        },
+        {
+          "id": "escape-007",
+          "family": "escape-class",
+          "regexp": "/[\\[\\]{}()]/",
+          "note": "escaped bracket characters",
+          "isolated": {
+            "source_bytes": 32,
+            "expected": {
+              "start": 18,
+              "end": 30,
+              "text": "/[\\[\\]{}()]/"
+            },
+            "result": {
+              "exact": false,
+              "tp": 1,
+              "fp": 2,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 16,
+                  "end": 17,
+                  "text": "="
+                },
+                {
+                  "start": 18,
+                  "end": 30,
+                  "text": "/[\\[\\]{}()]/"
+                },
+                {
+                  "start": 30,
+                  "end": 31,
+                  "text": ";"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 272,
+            "expected": {
+              "start": 132,
+              "end": 144,
+              "text": "/[\\[\\]{}()]/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 132,
+                  "end": 144,
+                  "text": "/[\\[\\]{}()]/"
+                }
+              ]
+            }
+          },
+          "transition": "contextual_only"
+        },
+        {
+          "id": "escape-008",
+          "family": "escape-class",
+          "regexp": "/\\x2f+/",
+          "note": "hex escape",
+          "isolated": {
+            "source_bytes": 27,
+            "expected": {
+              "start": 18,
+              "end": 25,
+              "text": "/\\x2f+/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 25,
+                  "text": "/\\x2f+/"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 280,
+            "expected": {
+              "start": 127,
+              "end": 134,
+              "text": "/\\x2f+/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 127,
+                  "end": 134,
+                  "text": "/\\x2f+/"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "group-001",
+          "family": "group-assertion",
+          "regexp": "/(?:ab){2,4}/",
+          "note": "noncapturing group quantifier",
+          "isolated": {
+            "source_bytes": 33,
+            "expected": {
+              "start": 18,
+              "end": 31,
+              "text": "/(?:ab){2,4}/"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 2,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 26,
+                  "text": "/(?:ab){"
+                },
+                {
+                  "start": 26,
+                  "end": 31,
+                  "text": "2,4}/"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 295,
+            "expected": {
+              "start": 163,
+              "end": 176,
+              "text": "/(?:ab){2,4}/"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 2,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 163,
+                  "end": 171,
+                  "text": "/(?:ab){"
+                },
+                {
+                  "start": 171,
+                  "end": 176,
+                  "text": "2,4}/"
+                }
+              ]
+            }
+          },
+          "transition": "neither_exact"
+        },
+        {
+          "id": "group-002",
+          "family": "group-assertion",
+          "regexp": "/(?<word>[a-z]+)-\\k<word>/i",
+          "note": "named capture and backreference",
+          "isolated": {
+            "source_bytes": 47,
+            "expected": {
+              "start": 18,
+              "end": 45,
+              "text": "/(?<word>[a-z]+)-\\k<word>/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 45,
+                  "text": "/(?<word>[a-z]+)-\\k<word>/i"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 277,
+            "expected": {
+              "start": 113,
+              "end": 140,
+              "text": "/(?<word>[a-z]+)-\\k<word>/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 113,
+                  "end": 140,
+                  "text": "/(?<word>[a-z]+)-\\k<word>/i"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "group-003",
+          "family": "group-assertion",
+          "regexp": "/foo(?=bar)/",
+          "note": "positive lookahead",
+          "isolated": {
+            "source_bytes": 32,
+            "expected": {
+              "start": 18,
+              "end": 30,
+              "text": "/foo(?=bar)/"
+            },
+            "result": {
+              "exact": false,
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 30,
+                  "text": "/foo(?=bar)/"
+                },
+                {
+                  "start": 30,
+                  "end": 31,
+                  "text": ";"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 272,
+            "expected": {
+              "start": 132,
+              "end": 144,
+              "text": "/foo(?=bar)/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 132,
+                  "end": 144,
+                  "text": "/foo(?=bar)/"
+                }
+              ]
+            }
+          },
+          "transition": "contextual_only"
+        },
+        {
+          "id": "group-004",
+          "family": "group-assertion",
+          "regexp": "/foo(?!bar)/",
+          "note": "negative lookahead",
+          "isolated": {
+            "source_bytes": 32,
+            "expected": {
+              "start": 18,
+              "end": 30,
+              "text": "/foo(?!bar)/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 30,
+                  "text": "/foo(?!bar)/"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 285,
+            "expected": {
+              "start": 127,
+              "end": 139,
+              "text": "/foo(?!bar)/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 127,
+                  "end": 139,
+                  "text": "/foo(?!bar)/"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "group-005",
+          "family": "group-assertion",
+          "regexp": "/(?<=pre)fix/",
+          "note": "positive lookbehind",
+          "isolated": {
+            "source_bytes": 33,
+            "expected": {
+              "start": 18,
+              "end": 31,
+              "text": "/(?<=pre)fix/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 31,
+                  "text": "/(?<=pre)fix/"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 295,
+            "expected": {
+              "start": 163,
+              "end": 176,
+              "text": "/(?<=pre)fix/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 163,
+                  "end": 176,
+                  "text": "/(?<=pre)fix/"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "group-006",
+          "family": "group-assertion",
+          "regexp": "/(?<!un)happy/",
+          "note": "negative lookbehind",
+          "isolated": {
+            "source_bytes": 34,
+            "expected": {
+              "start": 18,
+              "end": 32,
+              "text": "/(?<!un)happy/"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 5,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 19,
+                  "text": "/"
+                },
+                {
+                  "start": 19,
+                  "end": 20,
+                  "text": "("
+                },
+                {
+                  "start": 20,
+                  "end": 22,
+                  "text": "?<"
+                },
+                {
+                  "start": 23,
+                  "end": 25,
+                  "text": "un"
+                },
+                {
+                  "start": 25,
+                  "end": 32,
+                  "text": ")happy/"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 264,
+            "expected": {
+              "start": 113,
+              "end": 127,
+              "text": "/(?<!un)happy/"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 2,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 118,
+                  "end": 120,
+                  "text": "un"
+                },
+                {
+                  "start": 120,
+                  "end": 127,
+                  "text": ")happy/"
+                }
+              ]
+            }
+          },
+          "transition": "neither_exact"
+        },
+        {
+          "id": "group-007",
+          "family": "group-assertion",
+          "regexp": "/^(?:https?|ftp):\\/\\//i",
+          "note": "scheme group with escaped slashes",
+          "isolated": {
+            "source_bytes": 43,
+            "expected": {
+              "start": 18,
+              "end": 41,
+              "text": "/^(?:https?|ftp):\\/\\//i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 41,
+                  "text": "/^(?:https?|ftp):\\/\\//i"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 283,
+            "expected": {
+              "start": 132,
+              "end": 155,
+              "text": "/^(?:https?|ftp):\\/\\//i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 132,
+                  "end": 155,
+                  "text": "/^(?:https?|ftp):\\/\\//i"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "group-008",
+          "family": "group-assertion",
+          "regexp": "/(?:^|,)\\s*([^,]+)\\s*(?=,|$)/g",
+          "note": "capture with lookahead",
+          "isolated": {
+            "source_bytes": 50,
+            "expected": {
+              "start": 18,
+              "end": 48,
+              "text": "/(?:^|,)\\s*([^,]+)\\s*(?=,|$)/g"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 1,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 49,
+                  "text": "/(?:^|,)\\s*([^,]+)\\s*(?=,|$)/g;"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 303,
+            "expected": {
+              "start": 127,
+              "end": 157,
+              "text": "/(?:^|,)\\s*([^,]+)\\s*(?=,|$)/g"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 127,
+                  "end": 157,
+                  "text": "/(?:^|,)\\s*([^,]+)\\s*(?=,|$)/g"
+                }
+              ]
+            }
+          },
+          "transition": "contextual_only"
+        },
+        {
+          "id": "flags-001",
+          "family": "flags-anchor",
+          "regexp": "/alpha.beta/s",
+          "note": "dotAll flag",
+          "isolated": {
+            "source_bytes": 33,
+            "expected": {
+              "start": 18,
+              "end": 31,
+              "text": "/alpha.beta/s"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 31,
+                  "text": "/alpha.beta/s"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 295,
+            "expected": {
+              "start": 163,
+              "end": 176,
+              "text": "/alpha.beta/s"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 163,
+                  "end": 176,
+                  "text": "/alpha.beta/s"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "flags-002",
+          "family": "flags-anchor",
+          "regexp": "/^line$/m",
+          "note": "multiline anchors",
+          "isolated": {
+            "source_bytes": 29,
+            "expected": {
+              "start": 18,
+              "end": 27,
+              "text": "/^line$/m"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 27,
+                  "text": "/^line$/m"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 259,
+            "expected": {
+              "start": 113,
+              "end": 122,
+              "text": "/^line$/m"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 113,
+                  "end": 122,
+                  "text": "/^line$/m"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "flags-003",
+          "family": "flags-anchor",
+          "regexp": "/token/gy",
+          "note": "global sticky flags",
+          "isolated": {
+            "source_bytes": 29,
+            "expected": {
+              "start": 18,
+              "end": 27,
+              "text": "/token/gy"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 27,
+                  "text": "/token/gy"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 269,
+            "expected": {
+              "start": 132,
+              "end": 141,
+              "text": "/token/gy"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 132,
+                  "end": 141,
+                  "text": "/token/gy"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "flags-004",
+          "family": "flags-anchor",
+          "regexp": "/value/d",
+          "note": "indices flag",
+          "isolated": {
+            "source_bytes": 28,
+            "expected": {
+              "start": 18,
+              "end": 26,
+              "text": "/value/d"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 26,
+                  "text": "/value/d"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 281,
+            "expected": {
+              "start": 127,
+              "end": 135,
+              "text": "/value/d"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 127,
+                  "end": 135,
+                  "text": "/value/d"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "flags-005",
+          "family": "flags-anchor",
+          "regexp": "/straße/iu",
+          "note": "unicode ignore-case flags",
+          "isolated": {
+            "source_bytes": 31,
+            "expected": {
+              "start": 18,
+              "end": 28,
+              "text": "/straße/iu"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 28,
+                  "text": "/straße/iu"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 293,
+            "expected": {
+              "start": 163,
+              "end": 173,
+              "text": "/straße/iu"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 163,
+                  "end": 173,
+                  "text": "/straße/iu"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "flags-006",
+          "family": "flags-anchor",
+          "regexp": "/^.$/su",
+          "note": "dotAll unicode flags",
+          "isolated": {
+            "source_bytes": 27,
+            "expected": {
+              "start": 18,
+              "end": 25,
+              "text": "/^.$/su"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 25,
+                  "text": "/^.$/su"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 257,
+            "expected": {
+              "start": 113,
+              "end": 120,
+              "text": "/^.$/su"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 2,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 113,
+                  "end": 118,
+                  "text": "/^.$/"
+                },
+                {
+                  "start": 118,
+                  "end": 120,
+                  "text": "su"
+                }
+              ]
+            }
+          },
+          "transition": "isolated_only"
+        },
+        {
+          "id": "flags-007",
+          "family": "flags-anchor",
+          "regexp": "/[a-z]+/iy",
+          "note": "ignore-case sticky flags",
+          "isolated": {
+            "source_bytes": 30,
+            "expected": {
+              "start": 18,
+              "end": 28,
+              "text": "/[a-z]+/iy"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 28,
+                  "text": "/[a-z]+/iy"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 270,
+            "expected": {
+              "start": 132,
+              "end": 142,
+              "text": "/[a-z]+/iy"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 132,
+                  "end": 142,
+                  "text": "/[a-z]+/iy"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "flags-008",
+          "family": "flags-anchor",
+          "regexp": "/\\d+/dg",
+          "note": "indices global flags",
+          "isolated": {
+            "source_bytes": 27,
+            "expected": {
+              "start": 18,
+              "end": 25,
+              "text": "/\\d+/dg"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 25,
+                  "text": "/\\d+/dg"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 280,
+            "expected": {
+              "start": 127,
+              "end": 134,
+              "text": "/\\d+/dg"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 127,
+                  "end": 134,
+                  "text": "/\\d+/dg"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "realistic-001",
+          "family": "realistic",
+          "regexp": "/\\$?\\d+(?:\\.\\d{2})?/",
+          "note": "currency-like value",
+          "isolated": {
+            "source_bytes": 40,
+            "expected": {
+              "start": 18,
+              "end": 38,
+              "text": "/\\$?\\d+(?:\\.\\d{2})?/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 38,
+                  "text": "/\\$?\\d+(?:\\.\\d{2})?/"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 302,
+            "expected": {
+              "start": 163,
+              "end": 183,
+              "text": "/\\$?\\d+(?:\\.\\d{2})?/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 163,
+                  "end": 183,
+                  "text": "/\\$?\\d+(?:\\.\\d{2})?/"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "realistic-002",
+          "family": "realistic",
+          "regexp": "/#[0-9a-f]{3,8}\\b/i",
+          "note": "hex color-like value",
+          "isolated": {
+            "source_bytes": 39,
+            "expected": {
+              "start": 18,
+              "end": 37,
+              "text": "/#[0-9a-f]{3,8}\\b/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 37,
+                  "text": "/#[0-9a-f]{3,8}\\b/i"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 269,
+            "expected": {
+              "start": 113,
+              "end": 132,
+              "text": "/#[0-9a-f]{3,8}\\b/i"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 2,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 113,
+                  "end": 124,
+                  "text": "/#[0-9a-f]{"
+                },
+                {
+                  "start": 124,
+                  "end": 132,
+                  "text": "3,8}\\b/i"
+                }
+              ]
+            }
+          },
+          "transition": "isolated_only"
+        },
+        {
+          "id": "realistic-003",
+          "family": "realistic",
+          "regexp": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}/i",
+          "note": "email-like value",
+          "isolated": {
+            "source_bytes": 60,
+            "expected": {
+              "start": 18,
+              "end": 58,
+              "text": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}/i"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 3,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 53,
+                  "text": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{"
+                },
+                {
+                  "start": 53,
+                  "end": 54,
+                  "text": "2"
+                },
+                {
+                  "start": 54,
+                  "end": 58,
+                  "text": ",}/i"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 300,
+            "expected": {
+              "start": 132,
+              "end": 172,
+              "text": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}/i"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 3,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 132,
+                  "end": 162,
+                  "text": "/[a-z0-9._%+-]+@[a-z0-9.-]+\\.["
+                },
+                {
+                  "start": 162,
+                  "end": 167,
+                  "text": "a-z]{"
+                },
+                {
+                  "start": 168,
+                  "end": 172,
+                  "text": ",}/i"
+                }
+              ]
+            }
+          },
+          "transition": "neither_exact"
+        },
+        {
+          "id": "realistic-004",
+          "family": "realistic",
+          "regexp": "/\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b/",
+          "note": "IPv4-like value",
+          "isolated": {
+            "source_bytes": 49,
+            "expected": {
+              "start": 18,
+              "end": 47,
+              "text": "/\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 47,
+                  "text": "/\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b/"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 302,
+            "expected": {
+              "start": 127,
+              "end": 156,
+              "text": "/\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b/"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 127,
+                  "end": 156,
+                  "text": "/\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b/"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "realistic-005",
+          "family": "realistic",
+          "regexp": "/\\/(?:users|teams)\\/[a-z0-9_-]+/i",
+          "note": "route-like path",
+          "isolated": {
+            "source_bytes": 53,
+            "expected": {
+              "start": 18,
+              "end": 51,
+              "text": "/\\/(?:users|teams)\\/[a-z0-9_-]+/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 51,
+                  "text": "/\\/(?:users|teams)\\/[a-z0-9_-]+/i"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 315,
+            "expected": {
+              "start": 163,
+              "end": 196,
+              "text": "/\\/(?:users|teams)\\/[a-z0-9_-]+/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 163,
+                  "end": 196,
+                  "text": "/\\/(?:users|teams)\\/[a-z0-9_-]+/i"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "realistic-006",
+          "family": "realistic",
+          "regexp": "/\\.(?:ts|tsx|js|jsx)$/i",
+          "note": "source file extension",
+          "isolated": {
+            "source_bytes": 43,
+            "expected": {
+              "start": 18,
+              "end": 41,
+              "text": "/\\.(?:ts|tsx|js|jsx)$/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 41,
+                  "text": "/\\.(?:ts|tsx|js|jsx)$/i"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 273,
+            "expected": {
+              "start": 113,
+              "end": 136,
+              "text": "/\\.(?:ts|tsx|js|jsx)$/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 113,
+                  "end": 136,
+                  "text": "/\\.(?:ts|tsx|js|jsx)$/i"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "realistic-007",
+          "family": "realistic",
+          "regexp": "/^--[a-z][a-z0-9-]*$/i",
+          "note": "CSS custom property-like name",
+          "isolated": {
+            "source_bytes": 42,
+            "expected": {
+              "start": 18,
+              "end": 40,
+              "text": "/^--[a-z][a-z0-9-]*$/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 40,
+                  "text": "/^--[a-z][a-z0-9-]*$/i"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 282,
+            "expected": {
+              "start": 132,
+              "end": 154,
+              "text": "/^--[a-z][a-z0-9-]*$/i"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 132,
+                  "end": 154,
+                  "text": "/^--[a-z][a-z0-9-]*$/i"
+                }
+              ]
+            }
+          },
+          "transition": "both_exact"
+        },
+        {
+          "id": "realistic-008",
+          "family": "realistic",
+          "regexp": "/\\{\\{[^{}]+\\}\\}/g",
+          "note": "template placeholder-like value",
+          "isolated": {
+            "source_bytes": 37,
+            "expected": {
+              "start": 18,
+              "end": 35,
+              "text": "/\\{\\{[^{}]+\\}\\}/g"
+            },
+            "result": {
+              "exact": false,
+              "tp": 0,
+              "fp": 1,
+              "fn": 1,
+              "predicted_regexp": [
+                {
+                  "start": 18,
+                  "end": 36,
+                  "text": "/\\{\\{[^{}]+\\}\\}/g;"
+                }
+              ]
+            }
+          },
+          "contextual": {
+            "source_bytes": 290,
+            "expected": {
+              "start": 127,
+              "end": 144,
+              "text": "/\\{\\{[^{}]+\\}\\}/g"
+            },
+            "result": {
+              "exact": true,
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "predicted_regexp": [
+                {
+                  "start": 127,
+                  "end": 144,
+                  "text": "/\\{\\{[^{}]+\\}\\}/g"
+                }
+              ]
+            }
+          },
+          "transition": "contextual_only"
+        }
+      ]
+    }
+  ]
+}

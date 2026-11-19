@@ -1,0 +1,398 @@
+{
+  "format": "nsh-typescript-regexp-challenge-result",
+  "checkpoint": "artifacts/typescript/quality-regexp-tail-20261119-01/best.pt",
+  "challenge": "packs/typescript/challenges/regexp.json",
+  "inference": {
+    "max_length": 512,
+    "windowing": "adaptive-cursor",
+    "decoder": "greedy"
+  },
+  "summary": {
+    "true_positive": 104,
+    "false_positive": 14,
+    "false_negative": 1,
+    "precision": 0.8813559322033898,
+    "recall": 0.9904761904761905,
+    "f1": 0.9327354260089686,
+    "cases": 160,
+    "positive_cases": 100,
+    "negative_cases": 60,
+    "exact_cases": 147,
+    "exact_case_rate": 0.91875,
+    "positive_exact_cases": 93,
+    "positive_exact_rate": 0.93,
+    "negative_clean_cases": 54,
+    "negative_clean_rate": 0.9
+  },
+  "categories": {
+    "negative/comment": {
+      "true_positive": 0,
+      "false_positive": 1,
+      "false_negative": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "cases": 10,
+      "gold": 0,
+      "predicted": 1,
+      "exact_cases": 9,
+      "exact_case_rate": 0.9,
+      "negative_clean_cases": 9,
+      "negative_clean_rate": 0.9
+    },
+    "negative/division": {
+      "true_positive": 0,
+      "false_positive": 1,
+      "false_negative": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "cases": 25,
+      "gold": 0,
+      "predicted": 1,
+      "exact_cases": 24,
+      "exact_case_rate": 0.96,
+      "negative_clean_cases": 24,
+      "negative_clean_rate": 0.96
+    },
+    "negative/jsx-slash": {
+      "true_positive": 0,
+      "false_positive": 2,
+      "false_negative": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "cases": 10,
+      "gold": 0,
+      "predicted": 2,
+      "exact_cases": 8,
+      "exact_case_rate": 0.8,
+      "negative_clean_cases": 8,
+      "negative_clean_rate": 0.8
+    },
+    "negative/string-template": {
+      "true_positive": 0,
+      "false_positive": 4,
+      "false_negative": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "cases": 15,
+      "gold": 0,
+      "predicted": 4,
+      "exact_cases": 13,
+      "exact_case_rate": 0.8666666666666667,
+      "negative_clean_cases": 13,
+      "negative_clean_rate": 0.8666666666666667
+    },
+    "positive/basic": {
+      "true_positive": 15,
+      "false_positive": 0,
+      "false_negative": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "cases": 15,
+      "gold": 15,
+      "predicted": 15,
+      "exact_cases": 15,
+      "exact_case_rate": 1.0,
+      "negative_clean_cases": 0,
+      "negative_clean_rate": null
+    },
+    "positive/context": {
+      "true_positive": 27,
+      "false_positive": 1,
+      "false_negative": 1,
+      "precision": 0.9642857142857143,
+      "recall": 0.9642857142857143,
+      "f1": 0.9642857142857143,
+      "cases": 25,
+      "gold": 28,
+      "predicted": 28,
+      "exact_cases": 23,
+      "exact_case_rate": 0.92,
+      "negative_clean_cases": 0,
+      "negative_clean_rate": null
+    },
+    "positive/escape-class": {
+      "true_positive": 20,
+      "false_positive": 0,
+      "false_negative": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "cases": 20,
+      "gold": 20,
+      "predicted": 20,
+      "exact_cases": 20,
+      "exact_case_rate": 1.0,
+      "negative_clean_cases": 0,
+      "negative_clean_rate": null
+    },
+    "positive/group-assertion": {
+      "true_positive": 20,
+      "false_positive": 3,
+      "false_negative": 0,
+      "precision": 0.8695652173913043,
+      "recall": 1.0,
+      "f1": 0.9302325581395349,
+      "cases": 20,
+      "gold": 20,
+      "predicted": 23,
+      "exact_cases": 17,
+      "exact_case_rate": 0.85,
+      "negative_clean_cases": 0,
+      "negative_clean_rate": null
+    },
+    "positive/typescript-tsx": {
+      "true_positive": 22,
+      "false_positive": 2,
+      "false_negative": 0,
+      "precision": 0.9166666666666666,
+      "recall": 1.0,
+      "f1": 0.9565217391304348,
+      "cases": 20,
+      "gold": 22,
+      "predicted": 24,
+      "exact_cases": 18,
+      "exact_case_rate": 0.9,
+      "negative_clean_cases": 0,
+      "negative_clean_rate": null
+    }
+  },
+  "missed_regexp_overlapping_type": {
+    "comment": 1
+  },
+  "errors": [
+    {
+      "case_id": "positive-group-004",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher4 = /^foo(?=bar)/;",
+      "expected": null,
+      "predicted": {
+        "start": 30,
+        "end": 31,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "lookahead"
+    },
+    {
+      "case_id": "positive-group-005",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher5 = /^foo(?!bar)/;",
+      "expected": null,
+      "predicted": {
+        "start": 30,
+        "end": 31,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "negative lookahead"
+    },
+    {
+      "case_id": "positive-group-012",
+      "category": "positive/group-assertion",
+      "kind": "false-positive",
+      "source": "const matcher12 = /(?:a(?:b(?:c)))/;",
+      "expected": null,
+      "predicted": {
+        "start": 35,
+        "end": 36,
+        "text": ";",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "deep noncapture"
+    },
+    {
+      "case_id": "positive-context-016",
+      "category": "positive/context",
+      "kind": "false-positive",
+      "source": "for (const re of [/a/, /b/]) console.log(re);",
+      "expected": null,
+      "predicted": {
+        "start": 14,
+        "end": 17,
+        "text": "of ",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "for-of array"
+    },
+    {
+      "case_id": "positive-context-024",
+      "category": "positive/context",
+      "kind": "false-negative",
+      "source": "const re = /* lead */ /after-comment/ /* tail */;",
+      "expected": {
+        "start": 22,
+        "end": 37,
+        "text": "/after-comment/"
+      },
+      "predicted": {
+        "start": 22,
+        "end": 37,
+        "text": "/after-comment/",
+        "token_type": "comment"
+      },
+      "overlapping_predicted_type": "comment",
+      "note": "surrounded comments"
+    },
+    {
+      "case_id": "positive-special-008",
+      "category": "positive/typescript-tsx",
+      "kind": "false-positive",
+      "source": "const map = new Map([[\"x\", /map-value/]]);",
+      "expected": null,
+      "predicted": {
+        "start": 22,
+        "end": 25,
+        "text": "\"x\"",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "generic-ish call"
+    },
+    {
+      "case_id": "positive-special-010",
+      "category": "positive/typescript-tsx",
+      "kind": "false-positive",
+      "source": "const node = <>{/fragment/.exec(value)?.[0]}</>;",
+      "expected": null,
+      "predicted": {
+        "start": 43,
+        "end": 44,
+        "text": "}",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "jsx fragment expression"
+    },
+    {
+      "case_id": "negative-division-013",
+      "category": "negative/division",
+      "kind": "false-positive",
+      "source": "const x = a / awaitValue;",
+      "expected": null,
+      "predicted": {
+        "start": 12,
+        "end": 24,
+        "text": "/ awaitValue",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "identifier rhs"
+    },
+    {
+      "case_id": "negative-string-009",
+      "category": "negative/string-template",
+      "kind": "false-positive",
+      "source": "const s = String.raw`/foo\\/bar/`;",
+      "expected": null,
+      "predicted": {
+        "start": 17,
+        "end": 20,
+        "text": "raw",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "raw template"
+    },
+    {
+      "case_id": "negative-string-009",
+      "category": "negative/string-template",
+      "kind": "false-positive",
+      "source": "const s = String.raw`/foo\\/bar/`;",
+      "expected": null,
+      "predicted": {
+        "start": 20,
+        "end": 32,
+        "text": "`/foo\\/bar/`",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "raw template"
+    },
+    {
+      "case_id": "negative-string-010",
+      "category": "negative/string-template",
+      "kind": "false-positive",
+      "source": "const s = `<script>const x = a / b;</script>`;",
+      "expected": null,
+      "predicted": {
+        "start": 31,
+        "end": 32,
+        "text": "/",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "embedded js as text"
+    },
+    {
+      "case_id": "negative-string-010",
+      "category": "negative/string-template",
+      "kind": "false-positive",
+      "source": "const s = `<script>const x = a / b;</script>`;",
+      "expected": null,
+      "predicted": {
+        "start": 33,
+        "end": 34,
+        "text": "b",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "embedded js as text"
+    },
+    {
+      "case_id": "negative-comment-006",
+      "category": "negative/comment",
+      "kind": "false-positive",
+      "source": "/* regex examples: /a/, /b/g, /c/i */ const x = 1;",
+      "expected": null,
+      "predicted": {
+        "start": 24,
+        "end": 29,
+        "text": "/b/g,",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "many regex-looking comments"
+    },
+    {
+      "case_id": "negative-jsx-005",
+      "category": "negative/jsx-slash",
+      "kind": "false-positive",
+      "source": "const node = <div data-value={a / b} />;",
+      "expected": null,
+      "predicted": {
+        "start": 34,
+        "end": 35,
+        "text": "b",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "division jsx attr"
+    },
+    {
+      "case_id": "negative-jsx-007",
+      "category": "negative/jsx-slash",
+      "kind": "false-positive",
+      "source": "const node = <div>https://example.com/a/b</div>;",
+      "expected": null,
+      "predicted": {
+        "start": 23,
+        "end": 41,
+        "text": "://example.com/a/b",
+        "token_type": "regexp"
+      },
+      "overlapping_predicted_type": null,
+      "note": "url jsx text"
+    }
+  ]
+}

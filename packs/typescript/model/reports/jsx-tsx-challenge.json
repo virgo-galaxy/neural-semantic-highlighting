@@ -1,6 +1,6 @@
 {
   "format": "nsh-typescript-jsx-tsx-challenge-result",
-  "checkpoint": "packs/typescript/model/model.pt",
+  "checkpoint": "artifacts/quality-20261119/typescript/tail-reviewed.pt",
   "challenge": "packs/typescript/challenges/jsx-tsx.json",
   "inference": {
     "max_length": 512,
@@ -22,11 +22,11 @@
     "exact_case_rate": 1.0,
     "focus_span_metrics": {
       "true_positive": 151,
-      "false_positive": 1,
+      "false_positive": 0,
       "false_negative": 0,
-      "precision": 0.993421052631579,
+      "precision": 1.0,
       "recall": 1.0,
-      "f1": 0.9966996699669968
+      "f1": 1.0
     }
   },
   "focus_token_types": [
@@ -44,11 +44,11 @@
     },
     "tag": {
       "true_positive": 111,
-      "false_positive": 1,
+      "false_positive": 0,
       "false_negative": 0,
-      "precision": 0.9910714285714286,
+      "precision": 1.0,
       "recall": 1.0,
-      "f1": 0.9955156950672646
+      "f1": 1.0
     }
   },
   "document_kinds": {
@@ -165,24 +165,6 @@
       "exact_rate": 1.0
     }
   },
-  "error_kinds": {
-    "focus-false-positive": 1
-  },
-  "errors": [
-    {
-      "case_id": "jsx-attr-005",
-      "category": "jsx/attributes",
-      "document_kind": "jsx",
-      "kind": "focus-false-positive",
-      "source": "const node = <img src={url} alt=\"\" loading=\"lazy\" />;",
-      "expected": null,
-      "predicted": {
-        "start": 0,
-        "end": 5,
-        "text": "const",
-        "token_type": "tag"
-      },
-      "note": "multiple attributes"
-    }
-  ]
+  "error_kinds": {},
+  "errors": []
 }

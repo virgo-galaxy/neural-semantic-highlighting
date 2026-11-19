@@ -82,3 +82,9 @@ The test JSON's embedded validation block matches the supplied checkpoint. The o
 No frozen corpus manifest, corpus/split hash, original training commit, or training environment lock was supplied. Source hashes identify the code available at export, which is not asserted to be the exact code of every historical epoch. `exportRepositoryCommit`, when available, identifies the local repository at export, not the original training commit. Full-dataset scores were imported, not rerun by the exporter.
 
 No license or complete training-source license inventory was supplied in the review bundle. This directory does not invent a license grant for weights or upstream code snippets; complete that review before public distribution. Public model claims must disclose the RegExp weaknesses and coverage gaps below, rather than advertise universal 99% accuracy.
+
+## Reviewed quality revision (2026-11-19)
+
+The current native/browser selection, separate corpus and Golden results,
+remaining limits and preserved preceding bundle are recorded in
+[BENCHMARKS.md](BENCHMARKS.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
