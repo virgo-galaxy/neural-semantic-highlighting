@@ -498,7 +498,8 @@ and framework-profile conventions.
 
 The default entry requires explicit model selection and includes no ONNX files.
 For a small production asset set, install the optional `@nsh/models` resource
-package and select models explicitly:
+package and select models explicitly. [Model delivery](docs/model-delivery.md)
+records the independent TSX/SCSS installation and build checks:
 
 ```ts
 import { createHighlighter } from "@nsh/highlighter";
