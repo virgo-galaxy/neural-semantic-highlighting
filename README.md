@@ -37,8 +37,8 @@ pnpm pack:browser
 npm install /path/to/neural-semantic-highlighting/artifacts/browser/npm/*.tgz
 ```
 
-This installs the highlighter and its three internal dependencies from local
-archives. Use an ESM frontend bundler; Vite production builds have been verified.
+This installs the highlighter, its three internal dependencies and the optional
+`@nsh/models` resource package from local archives. Use an ESM frontend bundler; Vite production builds have been verified.
 Other bundlers have not yet been verified. No alias into this repository, Python
 setup, special Vite bridge or manual model URL configuration is required.
 
@@ -46,10 +46,12 @@ setup, special Vite bridge or manual model URL configuration is required.
 
 ```ts
 import { createHighlighter } from "@nsh/highlighter";
+import css from "@nsh/models/languages/css";
+import typescript from "@nsh/models/languages/typescript";
 import "@nsh/highlighter/theme.css";
 
 // Create once and reuse: models are fetched on first use, then kept in the worker.
-const highlighter = createHighlighter();
+const highlighter = createHighlighter({ languages: [typescript, css] });
 const result = await highlighter.highlight("export const App = () => <button>Hello</button>;", {
   language: "tsx",
 });
@@ -125,9 +127,11 @@ and a `<div id="example"></div>`:
 
 ```js
 import { createHighlighter } from "@nsh/highlighter";
+import css from "@nsh/models/languages/css";
+import typescript from "@nsh/models/languages/typescript";
 import "@nsh/highlighter/theme.css";
 
-const highlighter = createHighlighter();
+const highlighter = createHighlighter({ languages: [typescript, css] });
 const { html } = await highlighter.highlight("const answer = 42;", { language: "javascript" });
 document.querySelector("#example").innerHTML = html;
 ```
@@ -153,9 +157,11 @@ Create `src/highlighter.ts` from [examples/highlighter.ts](examples/highlighter.
 import "@nsh/highlighter/theme.css";
 
 import { createHighlighter } from "@nsh/highlighter";
+import css from "@nsh/models/languages/css";
+import typescript from "@nsh/models/languages/typescript";
 
 // One worker and model cache for the whole client application.
-export const highlighter = createHighlighter();
+export const highlighter = createHighlighter({ languages: [typescript, css] });
 ```
 
 Both components reuse this application-level instance. They stop updating after
@@ -327,8 +333,10 @@ import "@nsh/highlighter/theme.css";
 import "./style.css";
 
 import { createHighlighter } from "@nsh/highlighter";
+import css from "@nsh/models/languages/css";
+import typescript from "@nsh/models/languages/typescript";
 
-const highlighter = createHighlighter();
+const highlighter = createHighlighter({ languages: [typescript, css] });
 const source = document.querySelector("#source");
 const language = document.querySelector("#language");
 const preview = document.querySelector("#preview");
@@ -478,27 +486,34 @@ getContentType("yml"); // YAML entry; category === "formats"
 // are metadata rather than additional dropdown entries.
 ```
 
-Existing imports such as `@nsh/highlighter/languages/typescript` remain valid.
-The proposed standalone `@nsh/models` package and `modelBaseUrl` option are not
-implemented in this revision. Current local packaging still contains all weights;
-explicit imports control which assets enter your application's production build.
+Existing imports such as `@nsh/highlighter/languages/typescript` remain valid
+when the optional `@nsh/models` package is installed. The default highlighter
+package no longer contains ONNX files; the separate resource package contains
+all selected weights. Explicit imports control which assets enter your
+application's production build. Remote model loading is not implemented yet.
 See [content organization](docs/content-organization.md) for the catalog, paths
 and framework-profile conventions.
 
 ## Load only the languages you need
 
-The default entry registers all current models, but downloads weights only when
-used. For a smaller production asset set, select models explicitly:
+The default entry requires explicit model selection and includes no ONNX files.
+For a small production asset set, install the optional `@nsh/models` resource
+package and select models explicitly:
 
 ```ts
-import { createHighlighter } from "@nsh/highlighter/core";
-import typescript from "@nsh/highlighter/languages/typescript";
-import css from "@nsh/highlighter/languages/css";
+import { createHighlighter } from "@nsh/highlighter";
+import typescript from "@nsh/models/languages/typescript";
+import css from "@nsh/models/languages/css";
 import "@nsh/highlighter/theme.css";
 
 const highlighter = createHighlighter({ languages: [typescript, css] });
 await highlighter.highlight(source, { language: "tsx" });
 ```
+
+Use `@nsh/highlighter/bundled` instead when deliberately including every local
+model; it retains the zero-argument `createHighlighter()` convenience API and
+requires `@nsh/models`. The shared React/Vue initializer and vanilla examples
+select TypeScript and CSS; register additional models for other content types.
 
 The TypeScript descriptor covers JS, TS, JSX and TSX. CSS covers CSS, SCSS and
 Less. HTML and Vue descriptors automatically include the existing script/style
@@ -518,8 +533,9 @@ profile does not install or execute that shell.
 - The current float32 ONNX models are about **3.6 MB each, uncompressed**; exact
   per-model sizes are listed in the support tables below. The shared WASM binary
   is about **14.8 MB uncompressed** (about 3.8 MB with gzip). HTTP compression is
-  optional; cache static assets normally. Registration is lazy; the default package still
-  contains all models, so select descriptors to reduce deployment assets.
+  optional; cache static assets normally. Models load lazily; the
+  optional resource package contains all models, so select descriptors to reduce
+  deployment assets.
 - Inference requires a modern browser with WebAssembly SIMD, module Workers and
   Web Crypto, on HTTPS or localhost. It uses one WASM CPU thread, without requiring
   cross-origin isolation. WebGPU and a legacy-browser fallback are not implemented.

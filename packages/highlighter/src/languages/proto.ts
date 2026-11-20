@@ -1,2 +1,1 @@
-/** Protocol Buffers source aliases share one selected model and asset. */
-export { default } from "./protobuf.js";
+export { default } from "@nsh/models/languages/proto";

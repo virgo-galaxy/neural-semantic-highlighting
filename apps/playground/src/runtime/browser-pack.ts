@@ -1,5 +1,5 @@
 import type { SemanticPack } from "@nsh/core";
-import { createHighlighter } from "@nsh/highlighter";
+import { createHighlighter } from "@nsh/highlighter/bundled";
 
 export interface PlaygroundBrowserPack extends SemanticPack {
   close(): void;

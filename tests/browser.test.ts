@@ -516,7 +516,8 @@ describe("shipped browser artifacts", () => {
       const hash = (path: string) => createHash("sha256").update(readFileSync(path)).digest("hex");
       expect(hash(metadata.source.file)).toBe(metadata.source.sha256);
       expect(hash(`packs/${id}/browser/model.onnx`)).toBe(metadata.model.sha256);
-      expect(hash(`packages/highlighter/dist/models/${id}.onnx`)).toBe(metadata.model.sha256);
+      const asset = `packages/models/dist/assets/v1/${id}/${metadata.model.sha256}.onnx`;
+      expect(hash(asset)).toBe(metadata.model.sha256);
       expect(descriptor.sha256).toBe(metadata.model.sha256);
       expect(descriptor.schema).toEqual(metadata.schema);
       expect(descriptor.decoder).toEqual(metadata.decoder);

@@ -87,7 +87,9 @@ historical reports keep the paths recorded when those experiments ran.
 
 This organization is independent of local bundling versus remotely hosted model
 assets. Current selective imports already restrict the models emitted by the
-consumer bundler. The default entry and local npm archive still include all
-models. A separate model resource package, `modelBaseUrl`, and a deployable remote
-catalog are future distribution work; this revision does not claim they exist.
+consumer bundler. The default `@nsh/highlighter` entry contains no ONNX files. The optional
+`@nsh/models` package owns local model descriptors and content-addressed assets;
+`@nsh/highlighter/bundled` explicitly opts into all local models. Compatibility
+`@nsh/highlighter/languages/*` paths require the optional resource package.
+Remote model loading remains separate follow-up work.
 Themes, custom CSS, browser inference and shared model dependencies work as before.

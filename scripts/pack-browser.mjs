@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process";
 
 const destination = resolve("artifacts/browser/npm");
 mkdirSync(destination, { recursive: true });
-for (const name of ["core", "html", "browser", "highlighter"]) {
+for (const name of ["core", "html", "browser", "highlighter", "models"]) {
   const result = spawnSync(
     "pnpm",
     ["--filter", `@nsh/${name}`, "pack", "--pack-destination", destination],

@@ -2,8 +2,10 @@ import "@nsh/highlighter/theme.css";
 import "./style.css";
 
 import { createHighlighter } from "@nsh/highlighter";
+import css from "@nsh/models/languages/css";
+import typescript from "@nsh/models/languages/typescript";
 
-const highlighter = createHighlighter();
+const highlighter = createHighlighter({ languages: [typescript, css] });
 const source = document.querySelector("#source");
 const language = document.querySelector("#language");
 const preview = document.querySelector("#preview");

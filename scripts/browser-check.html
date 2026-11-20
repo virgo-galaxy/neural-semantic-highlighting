@@ -3,7 +3,7 @@
 <p id="status">Starting</p>
 <pre id="report"></pre>
 <script type="module">
-  import { createHighlighter } from "../packages/highlighter/dist/index.js";
+  import { createHighlighter } from "../packages/highlighter/dist/bundled.js";
   const highlighter = createHighlighter();
   const { cases } = await (await fetch("../artifacts/browser/reference.json")).json();
   const report = { total: cases.length, passed: 0, failures: [], timings: [] };

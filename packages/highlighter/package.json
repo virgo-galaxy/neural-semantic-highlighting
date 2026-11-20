@@ -27,6 +27,10 @@
     "./catalog": {
       "types": "./dist/catalog/index.d.ts",
       "import": "./dist/catalog/index.js"
+    },
+    "./bundled": {
+      "types": "./dist/bundled.d.ts",
+      "import": "./dist/bundled.js"
     }
   },
   "files": [
@@ -46,5 +50,13 @@
   },
   "devDependencies": {
     "@nsh/themes": "workspace:*"
+  },
+  "peerDependencies": {
+    "@nsh/models": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@nsh/models": {
+      "optional": true
+    }
   }
 }

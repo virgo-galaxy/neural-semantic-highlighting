@@ -1,0 +1,29 @@
+{
+  "name": "@nsh/models",
+  "version": "0.1.0",
+  "description": "Optional local ONNX model assets for Neural Semantic Highlighting",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./languages/*": {
+      "types": "./dist/languages/*.d.ts",
+      "import": "./dist/languages/*.js"
+    },
+    "./manifest.json": "./dist/assets/manifest.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "clean": "node --input-type=module -e \"import { rmSync } from 'node:fs'; rmSync('dist', { recursive: true, force: true })\"",
+    "build": "pnpm clean && tsc -p tsconfig.json && node scripts/copy-assets.mjs"
+  },
+  "dependencies": {
+    "@nsh/browser": "workspace:*"
+  }
+}

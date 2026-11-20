@@ -36,7 +36,7 @@ export interface BrowserHighlighter {
 }
 
 /** Configure selected models explicitly; no Node/Python imports or source uploads. */
-export function createHighlighter(options: HighlighterOptions): BrowserHighlighter {
+export function createHighlighter(options: HighlighterOptions = {}): BrowserHighlighter {
   const models = new Map<string, BrowserModel>();
   function collect(model: BrowserModel) {
     const previous = models.get(model.id);
@@ -47,7 +47,8 @@ export function createHighlighter(options: HighlighterOptions): BrowserHighlight
     for (const dependency of model.dependencies ?? []) collect(dependency);
   }
   for (const model of options.languages ?? []) collect(model);
-  if (!models.size) throw new Error("Register at least one language model");
+  if (!models.size)
+    throw new Error("Register at least one language model from @nsh/models/languages/<name>");
   const runtime = new BrowserRuntime();
   const base = new Map<string, SemanticPack>();
   for (const model of models.values()) base.set(model.id, runtime.createPack(model));
