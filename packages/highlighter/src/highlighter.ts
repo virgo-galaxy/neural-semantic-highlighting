@@ -1,4 +1,4 @@
-import { type BrowserModel, BrowserRuntime } from "@nsh/browser";
+import { type BrowserModel, BrowserRuntime, type BrowserRuntimeOptions } from "@nsh/browser";
 import {
   createHighlighter as createCoreHighlighter,
   type HighlightRequest,
@@ -15,8 +15,10 @@ import { renderCodeToHtml, renderToHtml } from "@nsh/html";
 
 import { type RemoteModelOptions, RemoteModelSource } from "./remote.js";
 export type { ModelAssetRequest, RemoteModelOptions } from "./remote.js";
+export type { BrowserRuntimeOptions, ModelCacheOptions } from "@nsh/browser";
+export { clearModelCache, ModelAssetError } from "@nsh/browser";
 
-export interface HighlighterOptions extends RemoteModelOptions {
+export interface HighlighterOptions extends RemoteModelOptions, BrowserRuntimeOptions {
   /** Local descriptors, or content IDs/aliases when a remote source is configured. */
   languages?: readonly (BrowserModel | string)[];
 }
@@ -41,7 +43,7 @@ export interface BrowserHighlighter {
 
 /** Configure selected models explicitly; no Node/Python imports or source uploads. */
 export function createHighlighter(options: HighlighterOptions = {}): BrowserHighlighter {
-  const runtime = new BrowserRuntime();
+  const runtime = new BrowserRuntime(options);
   const base = new Map<string, SemanticPack>();
   const remote =
     options.modelBaseUrl !== undefined || options.resolveAssetUrl !== undefined

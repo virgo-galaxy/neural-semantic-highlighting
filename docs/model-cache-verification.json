@@ -1,0 +1,49 @@
+{
+  "format": "nsh-model-cache-verification-v1",
+  "unitTests": 209,
+  "unitTestFiles": 25,
+  "browser": {
+    "nativeParity": {
+      "passed": 410,
+      "total": 410
+    },
+    "persistentColdCache": {
+      "entries": 22,
+      "bytes": 61258720
+    },
+    "warmCache": {
+      "entries": 26,
+      "bytes": 61253924
+    },
+    "afterReloadWithUnreachableModelHost": {
+      "passed": true,
+      "languages": ["tsx", "scss", "html", "vue"],
+      "cacheEntries": 26,
+      "cacheBytes": 61253924
+    }
+  },
+  "defaults": {
+    "maxBytes": 64000000,
+    "maxLoadedModels": 4,
+    "downloadTimeoutMs": 30000
+  },
+  "sourceHashes": {
+    "packages/runtimes/browser/src/assets.ts": "15a3d614a867728ad8ce96345890c59905ee6a98f3d178e6af011d72ee63cab8",
+    "packages/runtimes/browser/src/sessions.ts": "87cbc0edfb0b7fc767baecb9136f3cf9dd4762f6379227499cc335ecfc8e01bc",
+    "packages/runtimes/browser/src/engine.ts": "c6163c78471c24e20765ca1cd6df24dd70db89fb809ed8f00cfe13adb89f59df",
+    "packages/runtimes/browser/src/index.ts": "e55bf265ec283b0b3c5e8ad1eb6608c91d5bef934cb9c08f59556cb0498436e1",
+    "packages/runtimes/browser/src/worker.ts": "8cb56eb865f4bda0f6353a21c90ede6910f4982516b9a48ea71f57b63d6f46ec",
+    "packages/highlighter/src/remote.ts": "69ae0338def03285b37508e081671a5b0acf2ad0173b38c5d923f2cb496b266c"
+  },
+  "modelWeightsChanged": false,
+  "checks": [
+    "corrupt cache repair",
+    "network integrity rejection",
+    "quota fallback",
+    "HTTP and network errors",
+    "bounded timeout",
+    "session LRU and active work protection",
+    "failed session retry",
+    "typed Worker error round-trip"
+  ]
+}

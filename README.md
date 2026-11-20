@@ -580,6 +580,10 @@ for export layout, temporary URL examples and independent installation checks.
   cross-origin isolation. WebGPU and a legacy-browser fallback are not implemented.
 - First-use latency includes asset fetch, integrity verification and session
   initialization. Local smoke timings are not a mobile or network benchmark.
+- Verified model resources persist in a best-effort **64 MB** browser cache by
+  default. Each Worker keeps up to **4 model sessions**, releasing idle sessions
+  as languages change. Downloads time out after **30 seconds**. These limits,
+  persistence and error handling are configurable; see [model caching](docs/model-cache.md).
 
 ## Light / dark themes and custom CSS
 

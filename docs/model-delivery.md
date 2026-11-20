@@ -90,8 +90,9 @@ listing languages and highlighting empty input download no model resources.
 Composition registers required children, but their resources load only when
 inference reaches an embedded region. Loaded metadata, URLs and inference
 sessions are reused; failed requests can be retried. Calling `close()` rejects
-pending work and aborts metadata downloads. Persistent cache and eviction policy
-remain separate follow-up work.
+pending work and aborts metadata downloads. [Model caching](model-cache.md)
+documents hash-keyed persistent storage, session limits, download timeouts and
+typed errors.
 
 The frontend's source code remains in its local Worker. No highlighting endpoint,
 Python provider, S3 client or custom compression/decompression code is involved.

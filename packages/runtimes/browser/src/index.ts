@@ -1,6 +1,19 @@
 import type { HighlightResult, SemanticPack } from "@nsh/core";
 
+import {
+  type BrowserRuntimeOptions,
+  ModelAssetError,
+  type ModelAssetFailure,
+  runtimePolicy,
+} from "./assets.js";
 import type { BrowserModel } from "./types.js";
+export type {
+  BrowserRuntimeOptions,
+  ModelAssetFailure,
+  ModelCacheOptions,
+  RuntimePolicy,
+} from "./assets.js";
+export { clearModelCache, ModelAssetCache, ModelAssetError, runtimePolicy } from "./assets.js";
 export type { BrowserModel } from "./types.js";
 
 interface Pending {
@@ -16,6 +29,11 @@ export class BrowserRuntime {
   #id = 0;
   readonly #pending = new Map<number, Pending>();
   readonly #modelUrls = new Map<string, string | Promise<string>>();
+  readonly #policy;
+
+  constructor(options: BrowserRuntimeOptions = {}) {
+    this.#policy = runtimePolicy(options);
+  }
 
   createPack(model: BrowserModel): SemanticPack {
     return {
@@ -40,7 +58,12 @@ export class BrowserRuntime {
             if (!this.#pending.has(id)) return;
             try {
               const worker = this.#ensureWorker();
-              worker.postMessage({ id, source, model: { ...metadata, modelUrl: url } });
+              worker.postMessage({
+                id,
+                source,
+                model: { ...metadata, modelUrl: url },
+                runtime: this.#policy,
+              });
             } catch (error) {
               fail(error);
             }
@@ -87,14 +110,29 @@ export class BrowserRuntime {
     });
     worker.addEventListener(
       "message",
-      (event: MessageEvent<{ id: number; result?: HighlightResult; error?: string }>) => {
+      (
+        event: MessageEvent<{
+          id: number;
+          result?: HighlightResult;
+          error?: string | ModelAssetFailure;
+        }>,
+      ) => {
         const response = event.data;
         const pending = this.#pending.get(response.id);
         if (!pending) return;
         this.#pending.delete(response.id);
         if (response.error) {
           this.#modelUrls.delete(pending.modelKey);
-          pending.reject(new Error(response.error));
+          pending.reject(
+            typeof response.error === "string"
+              ? new Error(response.error)
+              : new ModelAssetError(
+                  response.error.code,
+                  response.error.modelId,
+                  response.error.kind,
+                  response.error.status,
+                ),
+          );
         } else if (response.result) pending.resolve(response.result);
         else pending.reject(new Error("Browser worker returned no result"));
       },

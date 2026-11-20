@@ -1,4 +1,9 @@
-import { type BrowserModel, BrowserRuntime } from "@nsh/browser";
+import {
+  type BrowserModel,
+  BrowserRuntime,
+  type BrowserRuntimeOptions,
+  ModelAssetCache,
+} from "@nsh/browser";
 import { normalizeLanguageId, type SemanticPack } from "@nsh/core";
 
 import { type ModelAsset, modelAssets } from "./model-assets.js";
@@ -45,9 +50,11 @@ export class RemoteModelSource {
   readonly #options: RemoteModelOptions;
   readonly #pending = new Map<string, Promise<BrowserModel>>();
   readonly #controller = new AbortController();
+  readonly #cache: ModelAssetCache;
 
-  constructor(options: RemoteModelOptions) {
+  constructor(options: RemoteModelOptions & BrowserRuntimeOptions) {
     this.#options = options;
+    this.#cache = new ModelAssetCache(options);
   }
 
   select(languages?: readonly string[]): readonly ModelAsset[] {
@@ -106,16 +113,13 @@ export class RemoteModelSource {
     const previous = this.#pending.get(asset.id);
     if (previous) return previous;
     const pending = (async () => {
-      const url = await this.#url(asset, "metadata");
-      const response = await fetch(url, { signal: this.#controller.signal });
-      if (!response.ok) throw new Error(`Unable to load ${asset.id} metadata (${response.status})`);
-      const raw = await response.arrayBuffer();
-      const digest = Array.from(
-        new Uint8Array(await crypto.subtle.digest("SHA-256", raw)),
-        (byte) => byte.toString(16).padStart(2, "0"),
-      ).join("");
-      if (digest !== asset.metadata.sha256)
-        throw new Error(`Browser model metadata integrity mismatch: ${asset.id}`);
+      const raw = await this.#cache.load({
+        modelId: asset.id,
+        kind: "metadata",
+        sha256: asset.metadata.sha256,
+        url: () => this.#url(asset, "metadata"),
+        signal: this.#controller.signal,
+      });
       const metadata = JSON.parse(new TextDecoder().decode(raw)) as ExportMetadata;
       if (
         metadata.format !== "nsh-browser-model-v1" ||

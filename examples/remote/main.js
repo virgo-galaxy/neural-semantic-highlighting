@@ -1,14 +1,16 @@
 import "@nsh/highlighter/theme.css";
 
-import { createHighlighter } from "@nsh/highlighter";
+import { clearModelCache, createHighlighter } from "@nsh/highlighter";
 
 // For example: ?models=https://storage.example.com/highlighting/
 // The resource root contains the v1/ directory from @nsh/models/dist/assets/.
 const query = new URLSearchParams(location.search);
 const modelBaseUrl = query.get("models") ?? "/models/";
 const reference = query.get("reference");
+if (query.has("clearCache")) await clearModelCache();
 const highlighter = createHighlighter({
   modelBaseUrl,
+  cache: { persistent: query.get("cache") !== "off" },
   ...(reference ? {} : { languages: ["tsx", "scss", "html", "vue"] }),
 });
 const report = { passed: false, checks: [], parity: { total: 0, passed: 0, failures: [] } };
@@ -57,5 +59,21 @@ try {
   document.querySelector("#status").textContent = "Failed";
 } finally {
   highlighter.close();
+  try {
+    const cache = await caches.open("nsh-model-assets-v1");
+    const keys = await cache.keys();
+    report.cache = {
+      entries: keys.length,
+      bytes: (
+        await Promise.all(
+          keys.map(async (key) =>
+            Number((await cache.match(key))?.headers.get("X-NSH-Bytes") ?? 0),
+          ),
+        )
+      ).reduce((a, b) => a + b, 0),
+    };
+  } catch {
+    report.cache = { available: false };
+  }
   document.querySelector("#report").textContent = JSON.stringify(report, null, 2);
 }
