@@ -68,11 +68,12 @@ available, including the internal TypeScript module/declaration variants.
 packs/<model-id>/                  Contracts, fixtures and selected models
 training/<model-id>/               Training and review tools
 artifacts/<model-id>/<run>/        Historical runs and resumable checkpoints
-<dataset-root>/<model-id>/         External corpora, Gold and prepared snapshots
+~/Datasets/neural-semantic-highlighting/<model-name>/
+                                  External corpora, Gold and prepared snapshots
 ```
 
 The default dataset root remains
-`/Users/mystic/Datasets/neural-semantic-highlighting`, with the existing
+`~/Datasets/neural-semantic-highlighting`, with the existing
 `NSH_DATASET_ROOT` override. Classification does not move or duplicate these
 assets. Continue training from full checkpoints under `artifacts`, not exported
 inference weights in `packs/*/model/model.pt`.

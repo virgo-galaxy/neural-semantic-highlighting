@@ -62,10 +62,10 @@ pnpm browser:reference
 pnpm dev
 ```
 
-Open this local harness (adjust the checkout path):
+Open this local harness, replacing `<checkout-path>` with the checkout's absolute path:
 
 ```text
-http://127.0.0.1:3000/@fs/Users/mystic/Codespace/neural-semantic-highlighting/scripts/browser-check.html
+http://127.0.0.1:3000/@fs/<checkout-path>/scripts/browser-check.html
 ```
 
 It compares original UTF-16 spans, semantic types and modifiers exactly, including

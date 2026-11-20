@@ -59,8 +59,8 @@ frontend installation requirement.
 
 ## Data, training and models
 
-- External datasets: `/Users/mystic/Datasets/neural-semantic-highlighting`, or the
-  configured `NSH_DATASET_ROOT`, partitioned by the existing pack names.
+- External datasets: `~/Datasets/neural-semantic-highlighting/<model-name>/`.
+  `NSH_DATASET_ROOT` overrides the shared parent directory.
 - Full training checkpoints and historical experiments: local `artifacts/<name>/`.
 - Selected formal inference artifacts: `packs/<name>/model/`.
 - Browser exports of the same selected weights: `packs/<name>/browser/`.
