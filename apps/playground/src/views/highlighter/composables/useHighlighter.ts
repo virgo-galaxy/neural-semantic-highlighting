@@ -1,8 +1,12 @@
-import { createHighlighter, type Highlighter } from "@nsh/core";
+import { clearModelCache } from "@nsh/highlighter";
 import { renderToHtml } from "@nsh/html";
 import { computed, onBeforeUnmount, ref } from "vue";
 
-import { createBrowserSemanticPack } from "@/runtime";
+import {
+  defaultModelSource,
+  type PlaygroundModelSource,
+  PlaygroundRuntimeManager,
+} from "@/runtime";
 import {
   examplesForContentType,
   highlighterContentTypes,
@@ -33,6 +37,10 @@ export function useHighlighter() {
   const previewHtml = ref("");
   const errorMessage = ref("");
   const lastHighlightMs = ref<number | null>(null);
+  const deliverySettings = ref<PlaygroundModelSource>({ ...defaultModelSource });
+  const cacheBusy = ref(false);
+  const cacheNotice = ref("");
+  const runtime = new PlaygroundRuntimeManager();
 
   const currentExamples = computed(() => examplesForContentType(currentContentTypeId.value));
 
@@ -43,29 +51,36 @@ export function useHighlighter() {
 
   let revision = 0;
   let disposed = false;
-  let closePack: (() => void) | undefined;
   onBeforeUnmount(() => {
     disposed = true;
     revision += 1;
-    closePack?.();
+    runtime.close();
   });
-  let highlighterPromise: Promise<Highlighter> | undefined;
 
   const currentFilename = computed(() => currentExample.value?.filename ?? "custom");
 
-  function getHighlighter(): Promise<Highlighter> {
-    highlighterPromise ??= createBrowserSemanticPack()
-      .then((pack) => {
-        closePack = () => pack.close();
-        if (disposed) pack.close();
-        return createHighlighter({ packs: [pack] });
-      })
-      .catch((error: unknown) => {
-        highlighterPromise = undefined;
-        throw error;
-      });
+  function setModelSource(settings: PlaygroundModelSource): void {
+    deliverySettings.value = { ...settings };
+    cacheNotice.value = "";
+    runtime.reset();
+    void highlightCurrentSource();
+  }
 
-    return highlighterPromise;
+  async function clearDownloadedModels(): Promise<void> {
+    if (cacheBusy.value) return;
+    cacheBusy.value = true;
+    revision++;
+    runtime.reset();
+    try {
+      const removed = await clearModelCache();
+      if (disposed) return;
+      cacheNotice.value = removed
+        ? "Downloaded model cache cleared."
+        : "No stored model cache, or browser storage is unavailable.";
+    } finally {
+      cacheBusy.value = false;
+    }
+    if (!disposed) void highlightCurrentSource();
   }
 
   function beginEditing(): void {
@@ -125,7 +140,7 @@ export function useHighlighter() {
   }
 
   async function highlightCurrentSource(): Promise<void> {
-    const requestRevision = revision;
+    const requestRevision = ++revision;
     const requestSource = source.value;
     const documentKind = currentExample.value?.documentKind ?? currentContentTypeId.value;
     const startedAt = performance.now();
@@ -134,14 +149,14 @@ export function useHighlighter() {
     errorMessage.value = "";
 
     try {
-      const highlighter = await getHighlighter();
+      const highlighter = await runtime.get(deliverySettings.value);
 
       const result = await highlighter.highlight({
         source: requestSource,
         documentKind,
       });
 
-      if (revision !== requestRevision) {
+      if (disposed || revision !== requestRevision) {
         return;
       }
 
@@ -154,7 +169,7 @@ export function useHighlighter() {
       lastHighlightMs.value = Math.max(1, Math.round(performance.now() - startedAt));
       state.value = "highlighted";
     } catch (error) {
-      if (revision !== requestRevision) {
+      if (disposed || revision !== requestRevision) {
         return;
       }
 
@@ -178,5 +193,10 @@ export function useHighlighter() {
     finishEditing,
     loadRandomExample,
     highlightCurrentSource,
+    deliverySettings,
+    cacheBusy,
+    cacheNotice,
+    setModelSource,
+    clearDownloadedModels,
   };
 }

@@ -1,12 +1,31 @@
 import type { SemanticPack } from "@nsh/core";
-import { createHighlighter } from "@nsh/highlighter/bundled";
+
+export interface PlaygroundModelSource {
+  mode: "local" | "remote";
+  modelBaseUrl: string;
+  persistent: boolean;
+}
+export const defaultModelSource: PlaygroundModelSource = {
+  mode: "local",
+  modelBaseUrl: "",
+  persistent: true,
+};
 
 export interface PlaygroundBrowserPack extends SemanticPack {
   close(): void;
 }
 
-export async function createBrowserSemanticPack(): Promise<PlaygroundBrowserPack> {
-  const highlighter = createHighlighter();
+export async function createBrowserSemanticPack(
+  options: PlaygroundModelSource = defaultModelSource,
+): Promise<PlaygroundBrowserPack> {
+  const cache = { persistent: options.persistent };
+  const highlighter =
+    options.mode === "remote"
+      ? (await import("@nsh/highlighter")).createHighlighter({
+          modelBaseUrl: options.modelBaseUrl,
+          cache,
+        })
+      : (await import("@nsh/highlighter/bundled")).createHighlighter({ cache });
   return {
     manifest: {
       id: "playground-browser",

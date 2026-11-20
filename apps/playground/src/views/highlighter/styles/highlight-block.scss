@@ -206,6 +206,7 @@
 
   display: flex;
   align-items: center;
+  gap: 12px;
 
   height: 56px;
 
@@ -226,6 +227,26 @@
 
   -webkit-user-select: none;
   user-select: none;
+}
+
+.highlight-block__retry {
+  flex-shrink: 0;
+  margin-inline-start: auto;
+  padding: 6px 9px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--foreground);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.highlight-block__retry:hover {
+  background: var(--button-hover);
+}
+.highlight-block__retry:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
 }
 
 .highlight-block__footer[data-state="error"] {

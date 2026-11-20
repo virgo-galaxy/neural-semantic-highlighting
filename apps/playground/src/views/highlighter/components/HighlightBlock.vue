@@ -27,6 +27,7 @@ const emit = defineEmits<{
   finishEditing: [];
   contentTypeChange: [contentTypeId: string];
   randomExample: [];
+  retry: [];
 }>();
 
 const editor = ref<HTMLTextAreaElement | null>(null);
@@ -130,6 +131,14 @@ watch(
       <p v-else class="highlight-block__hint">
         Click the block to edit. Highlighting runs when it loses focus.
       </p>
+      <button
+        v-if="state === 'error'"
+        type="button"
+        class="highlight-block__retry"
+        @click="emit('retry')"
+      >
+        Retry highlighting
+      </button>
     </div>
   </section>
 </template>

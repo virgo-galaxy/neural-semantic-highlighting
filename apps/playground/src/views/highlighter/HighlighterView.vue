@@ -4,6 +4,7 @@ import "@/views/highlighter/styles/index.scss";
 import { onMounted } from "vue";
 
 import HighlightBlock from "@/views/highlighter/components/HighlightBlock.vue";
+import ModelDeliveryControls from "@/views/highlighter/components/ModelDeliveryControls.vue";
 import { useHighlighter } from "@/views/highlighter/composables/useHighlighter";
 
 const {
@@ -21,6 +22,11 @@ const {
   finishEditing,
   loadRandomExample,
   highlightCurrentSource,
+  deliverySettings,
+  cacheBusy,
+  cacheNotice,
+  setModelSource,
+  clearDownloadedModels,
 } = useHighlighter();
 
 onMounted(() => {
@@ -29,6 +35,13 @@ onMounted(() => {
 </script>
 
 <template>
+  <ModelDeliveryControls
+    :settings="deliverySettings"
+    :busy="cacheBusy"
+    :notice="cacheNotice"
+    @apply="setModelSource"
+    @clear-cache="clearDownloadedModels"
+  />
   <HighlightBlock
     v-model="source"
     :state="state"
@@ -43,5 +56,6 @@ onMounted(() => {
     @begin-editing="beginEditing"
     @source-changed="markSourceChanged"
     @finish-editing="finishEditing"
+    @retry="highlightCurrentSource"
   />
 </template>
