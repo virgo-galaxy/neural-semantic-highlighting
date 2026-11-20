@@ -29,7 +29,7 @@ def main():
     with using('dockerfile'):
         pack=LocalPack(checkpoint_path=args.checkpoint,device_name=args.device)
         aggregate=SpanMetrics(pack.checkpoint['schema']); displays=[]; natural=[]
-        folder=args.examples or REPOSITORY/'apps/playground/src/views/highlighter/examples/dockerfile'
+        folder=args.examples or REPOSITORY/'apps/playground/src/views/highlighter/examples/formats/dockerfile'
         for file in sorted(p for p in folder.iterdir() if p.is_file()):
             source=file.read_bytes().decode('utf-8'); gold=label(source=source,profile='dockerfile')
             predicted,report=compare(pack,source,gold); aggregate.add(gold,predicted)

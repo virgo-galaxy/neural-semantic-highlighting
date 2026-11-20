@@ -1,3 +1,5 @@
+import { contentTypes, documentKindForFilename, getContentType } from "@nsh/highlighter/catalog";
+
 import assemblyIcon from "@/assets/document-kinds/assembly.svg";
 import awkIcon from "@/assets/document-kinds/awk.svg";
 import bashIcon from "@/assets/document-kinds/bash.svg";
@@ -43,261 +45,81 @@ import vueIcon from "@/assets/document-kinds/vue.svg";
 import xmlIcon from "@/assets/document-kinds/xml.svg";
 import yamlIcon from "@/assets/document-kinds/yaml.svg";
 import zigIcon from "@/assets/document-kinds/zig.svg";
-import type { HighlighterExample, HighlighterLanguage } from "@/views/highlighter/examples/types";
+import type {
+  HighlighterContentType,
+  HighlighterExample,
+} from "@/views/highlighter/examples/types";
 
-const sources = import.meta.glob(["./*/*", "./ini/.editorconfig"], {
+const icons: Readonly<Record<string, string>> = {
+  typescript: typescriptIcon,
+  javascript: javascriptIcon,
+  go: goIcon,
+  css: cssIcon,
+  scss: scssIcon,
+  less: lessIcon,
+  html: htmlIcon,
+  vue: vueIcon,
+  python: pythonIcon,
+  bash: bashIcon,
+  perl: perlIcon,
+  awk: awkIcon,
+  sql: sqlIcon,
+  powershell: powershellIcon,
+  bat: batIcon,
+  assembly: assemblyIcon,
+  java: javaIcon,
+  csharp: csharpIcon,
+  c: cIcon,
+  cpp: cppIcon,
+  php: phpIcon,
+  svelte: svelteIcon,
+  rust: rustIcon,
+  zig: zigIcon,
+  dart: dartIcon,
+  flutter: flutterIcon,
+  swift: swiftIcon,
+  kotlin: kotlinIcon,
+  r: rIcon,
+  scala: scalaIcon,
+  ruby: rubyIcon,
+  lua: luaIcon,
+  json: jsonIcon,
+  jsonc: jsonIcon,
+  yaml: yamlIcon,
+  toml: tomlIcon,
+  ini: iniIcon,
+  dotenv: dotenvIcon,
+  xml: xmlIcon,
+  svg: svgIcon,
+  markdown: markdownIcon,
+  dockerfile: dockerIcon,
+  makefile: makefileIcon,
+  graphql: graphqlIcon,
+  protobuf: protobufIcon,
+  diff: diffIcon,
+  jsx: javascriptIcon,
+  tsx: typescriptIcon,
+};
+
+const sources = import.meta.glob(["./code/*/*", "./formats/*/*", "./formats/ini/.editorconfig"], {
   eager: true,
   import: "default",
   query: "?raw",
 }) as Record<string, string>;
 
-const LANGUAGE_METADATA: Readonly<Record<string, Omit<HighlighterLanguage, "id">>> = {
-  typescript: {
-    label: "TypeScript",
-    icon: typescriptIcon,
-  },
-  javascript: {
-    label: "JavaScript",
-    icon: javascriptIcon,
-  },
-  go: {
-    label: "Go",
-    icon: goIcon,
-  },
-  css: {
-    label: "CSS",
-    icon: cssIcon,
-  },
-  scss: {
-    label: "SCSS",
-    icon: scssIcon,
-  },
-  less: {
-    label: "Less",
-    icon: lessIcon,
-  },
-  html: {
-    label: "HTML",
-    icon: htmlIcon,
-  },
-  vue: {
-    label: "Vue",
-    icon: vueIcon,
-  },
-  python: {
-    label: "Python",
-    icon: pythonIcon,
-  },
-  bash: {
-    label: "Shell",
-    icon: bashIcon,
-  },
-  perl: {
-    label: "Perl",
-    icon: perlIcon,
-  },
-  awk: {
-    label: "AWK",
-    icon: awkIcon,
-  },
-  sql: { label: "SQL", icon: sqlIcon },
-  powershell: { label: "PowerShell", icon: powershellIcon },
-  bat: { label: "BAT / CMD", icon: batIcon },
-  assembly: { label: "Assembly", icon: assemblyIcon },
-  java: { label: "Java", icon: javaIcon },
-  csharp: { label: "C#", icon: csharpIcon },
-  c: { label: "C", icon: cIcon },
-  cpp: { label: "C++", icon: cppIcon },
-  php: { label: "PHP", icon: phpIcon },
-  svelte: { label: "Svelte", icon: svelteIcon },
-  rust: { label: "Rust", icon: rustIcon },
-  zig: { label: "Zig", icon: zigIcon },
-  dart: { label: "Dart", icon: dartIcon },
-  flutter: { label: "Flutter", icon: flutterIcon },
-  swift: { label: "Swift", icon: swiftIcon },
-  kotlin: { label: "Kotlin", icon: kotlinIcon },
-  r: { label: "R", icon: rIcon },
-  scala: { label: "Scala", icon: scalaIcon },
-  ruby: { label: "Ruby", icon: rubyIcon },
-  lua: { label: "Lua", icon: luaIcon },
-  json: { label: "JSON", icon: jsonIcon },
-  jsonc: { label: "JSONC", icon: jsonIcon },
-  yaml: { label: "YAML", icon: yamlIcon },
-  toml: { label: "TOML", icon: tomlIcon },
-  ini: { label: "INI", icon: iniIcon },
-  dotenv: { label: ".env", icon: dotenvIcon },
-  xml: { label: "XML", icon: xmlIcon },
-  svg: { label: "SVG", icon: svgIcon },
-  markdown: { label: "Markdown", icon: markdownIcon },
-  dockerfile: { label: "Dockerfile", icon: dockerIcon },
-  makefile: { label: "Makefile", icon: makefileIcon },
-  graphql: { label: "GraphQL", icon: graphqlIcon },
-  protobuf: { label: "Protobuf", icon: protobufIcon },
-  diff: { label: "Diff/Patch", icon: diffIcon },
-};
-
-const DOCUMENT_KIND_SUFFIXES = [
-  [".d.mts", "typescript-esm-declaration"],
-  [".d.cts", "typescript-commonjs-declaration"],
-  [".d.ts", "typescript-declaration"],
-  [".mts", "typescript-esm"],
-  [".cts", "typescript-commonjs"],
-  [".tsx", "tsx"],
-  [".ts", "typescript"],
-  [".mjs", "javascript-esm"],
-  [".cjs", "javascript-commonjs"],
-  [".jsx", "jsx"],
-  [".js", "javascript"],
-  [".css", "css"],
-  [".scss", "scss"],
-  [".less", "less"],
-  [".html", "html"],
-  [".htm", "html"],
-  [".vue", "vue"],
-  [".py", "python"],
-  [".pyw", "python"],
-  [".pyi", "python"],
-  [".sh", "bash"],
-  [".bash", "bash"],
-  [".zsh", "bash"],
-  [".csh", "bash"],
-  [".tcsh", "bash"],
-  [".pl", "perl"],
-  [".pm", "perl"],
-  [".t", "perl"],
-  [".perl", "perl"],
-  [".awk", "awk"],
-  [".gawk", "awk"],
-  [".sql", "sql"],
-  [".psql", "sql"],
-  [".pgsql", "sql"],
-  [".plsql", "sql"],
-  [".ps1", "powershell"],
-  [".psm1", "powershell"],
-  [".psd1", "powershell"],
-  [".bat", "bat"],
-  [".cmd", "bat"],
-  [".asm", "assembly"],
-  [".ASM", "assembly"],
-  [".nasm", "assembly"],
-  [".masm", "assembly"],
-  [".s", "assembly"],
-  [".S", "assembly"],
-  [".inc", "assembly"],
-  [".java", "java"],
-  [".cs", "csharp"],
-  [".c", "c"],
-  [".h", "c"],
-  [".cpp", "cpp"],
-  [".cc", "cpp"],
-  [".cxx", "cpp"],
-  [".c++", "cpp"],
-  [".C", "cpp"],
-  [".hpp", "cpp"],
-  [".hh", "cpp"],
-  [".hxx", "cpp"],
-  [".h++", "cpp"],
-  [".ipp", "cpp"],
-  [".tpp", "cpp"],
-  [".php", "php"],
-  [".phtml", "php"],
-  [".svelte", "svelte"],
-  [".rs", "rust"],
-  [".zig", "zig"],
-  [".dart", "dart"],
-  [".swift", "swift"],
-  [".kt", "kotlin"],
-  [".kts", "kotlin"],
-  [".R", "r"],
-  [".r", "r"],
-  [".Rprofile", "r"],
-  [".scala", "scala"],
-  [".sc", "scala"],
-  [".sbt", "scala"],
-  [".rb", "ruby"],
-  [".rake", "ruby"],
-  [".gemspec", "ruby"],
-  ["Gemfile", "ruby"],
-  ["Rakefile", "ruby"],
-  [".lua", "lua"],
-  [".json", "json"],
-  [".jsonc", "jsonc"],
-  [".code-workspace", "jsonc"],
-  [".env", "dotenv"],
-  [".dotenv", "dotenv"],
-  [".ini", "ini"],
-  [".INI", "ini"],
-  [".cfg", "ini"],
-  [".CFG", "ini"],
-  [".editorconfig", "ini"],
-  [".toml", "toml"],
-  [".xml", "xml"],
-  [".xsd", "xml"],
-  [".xsl", "xml"],
-  [".xslt", "xml"],
-  [".wsdl", "xml"],
-  [".rss", "xml"],
-  [".atom", "xml"],
-  [".plist", "xml"],
-  [".csproj", "xml"],
-  [".props", "xml"],
-  [".targets", "xml"],
-  [".svg", "svg"],
-  [".dockerfile", "dockerfile"],
-  [".containerfile", "dockerfile"],
-  ["Dockerfile", "dockerfile"],
-  ["Containerfile", "dockerfile"],
-  [".diff", "diff"],
-  [".patch", "diff"],
-  [".proto", "protobuf"],
-  [".graphql", "graphql"],
-  [".gql", "graphql"],
-  [".mk", "makefile"],
-  [".mak", "makefile"],
-  ["GNUmakefile", "makefile"],
-  ["Makefile", "makefile"],
-  ["makefile", "makefile"],
-  [".md", "markdown"],
-  [".markdown", "markdown"],
-  [".mdown", "markdown"],
-  [".mkd", "markdown"],
-  [".yaml", "yaml"],
-  [".yml", "yaml"],
-] as const;
-
-function formatLanguageLabel(languageId: string): string {
-  return languageId
-    .split(/[-_]/u)
-    .filter(Boolean)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
-}
-
-function documentKindFor(filename: string, languageId: string): string {
-  // JSONC configurations may intentionally keep names such as tsconfig.json.
-  if (languageId === "jsonc") return "jsonc";
-  if (languageId === "dotenv") return "dotenv";
-  return DOCUMENT_KIND_SUFFIXES.find(([suffix]) => filename.endsWith(suffix))?.[1] ?? languageId;
-}
-
 function createExample(path: string, source: string): HighlighterExample {
-  const match = /^\.\/([^/]+)\/([^/]+)$/u.exec(path);
-
-  if (!match) {
-    throw new Error(`Invalid highlighter example path: ${path}`);
-  }
-
-  const [, languageId, filename] = match;
-
-  if (!languageId || !filename) {
-    throw new Error(`Invalid highlighter example path: ${path}`);
-  }
-
+  const match = /^\.\/(code|formats)\/([^/]+)\/([^/]+)$/u.exec(path);
+  if (!match) throw new Error(`Invalid highlighter example path: ${path}`);
+  const [, category, contentTypeId, filename] = match;
+  const entry = getContentType(contentTypeId);
+  if (!entry || entry.id !== contentTypeId || entry.category !== category)
+    throw new Error(`Example category does not match catalog: ${path}`);
   return {
-    id: `${languageId}/${filename}`,
-    languageId,
+    // Keep stable IDs so moving examples does not change reference/selection identity.
+    id: `${contentTypeId}/${filename}`,
+    contentTypeId,
     filename,
-    documentKind: documentKindFor(filename, languageId),
+    documentKind: documentKindForFilename(filename, contentTypeId)!,
     source,
   };
 }
@@ -306,25 +128,17 @@ export const highlighterExamples: readonly HighlighterExample[] = Object.entries
   .sort(([left], [right]) => left.localeCompare(right))
   .map(([path, source]) => createExample(path, source));
 
-const availableLanguageIds = new Set(highlighterExamples.map((example) => example.languageId));
-const metadataLanguageIds = new Set(Object.keys(LANGUAGE_METADATA));
+const availableIds = new Set(highlighterExamples.map((example) => example.contentTypeId));
 
-export const highlighterLanguages: readonly HighlighterLanguage[] = [
-  ...Object.entries(LANGUAGE_METADATA)
-    .filter(([id]) => availableLanguageIds.has(id))
-    .map(([id, metadata]) => ({
-      id,
-      ...metadata,
-    })),
-  ...Array.from(availableLanguageIds)
-    .filter((id) => !metadataLanguageIds.has(id))
-    .sort((left, right) => left.localeCompare(right))
-    .map((id) => ({
-      id,
-      label: formatLanguageLabel(id),
-    })),
-];
+export const highlighterContentTypes: readonly HighlighterContentType[] = contentTypes
+  .filter((entry) => availableIds.has(entry.id))
+  .map((entry) => ({
+    id: entry.id,
+    label: entry.label,
+    category: entry.category,
+    icon: icons[entry.id],
+  }));
 
-export function examplesForLanguage(languageId: string): readonly HighlighterExample[] {
-  return highlighterExamples.filter((example) => example.languageId === languageId);
+export function examplesForContentType(contentTypeId: string): readonly HighlighterExample[] {
+  return highlighterExamples.filter((example) => example.contentTypeId === contentTypeId);
 }

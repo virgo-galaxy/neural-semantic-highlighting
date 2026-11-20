@@ -7,6 +7,7 @@ import {
   type PackManifest,
   type SemanticPack,
 } from "@nsh/core";
+import { contentTypes, documentKindForFilename, getContentType } from "@nsh/core/catalog";
 import { createCompositeHtmlPack } from "@nsh/core/composition/html";
 import { createCompositeMarkdownPack } from "@nsh/core/composition/markdown";
 import { createCompositePhpPack } from "@nsh/core/composition/php";
@@ -15,48 +16,7 @@ import { createCompositeVuePack } from "@nsh/core/composition/vue";
 import { createLocalProcessPack, type LocalProcessPack } from "@nsh/local";
 
 const root = process.cwd();
-const ids = [
-  "typescript",
-  "go",
-  "css",
-  "html",
-  "vue",
-  "python",
-  "bash",
-  "perl",
-  "awk",
-  "sql",
-  "powershell",
-  "bat",
-  "assembly",
-  "java",
-  "csharp",
-  "c",
-  "cpp",
-  "php",
-  "svelte",
-  "rust",
-  "zig",
-  "dart",
-  "swift",
-  "kotlin",
-  "r",
-  "scala",
-  "ruby",
-  "lua",
-  "json",
-  "yaml",
-  "toml",
-  "ini",
-  "dotenv",
-  "xml",
-  "markdown",
-  "dockerfile",
-  "makefile",
-  "graphql",
-  "protobuf",
-  "diff",
-];
+const ids = [...new Set(contentTypes.map((entry) => entry.modelId))];
 const manifests = ids.map(
   (id) => JSON.parse(readFileSync(`packs/${id}/manifest.json`, "utf8")) as PackManifest,
 );
@@ -102,24 +62,15 @@ function getPack(kind: string): SemanticPack {
   packs.set(manifest.id, pack);
   return pack;
 }
-const suffixes = manifests
-  .flatMap((manifest) =>
-    manifest.documentKinds.flatMap((kind) =>
-      kind.extensions.map((extension) => ({ extension, kind: kind.id })),
-    ),
-  )
-  .sort((a, b) => b.extension.length - a.extension.length);
 const cases = [];
 const folder = resolve(root, "apps/playground/src/views/highlighter/examples");
 async function appendExamples(directory: string) {
-  for (const filename of readdirSync(resolve(folder, directory))) {
-    const source = readFileSync(resolve(folder, directory, filename), "utf8");
-    const kind =
-      directory === "jsonc"
-        ? "jsonc"
-        : directory === "dockerfile"
-          ? "dockerfile"
-          : suffixes.find((item) => filename.endsWith(item.extension))?.kind;
+  const entry = getContentType(directory);
+  if (!entry) throw new Error(`Unknown example content type: ${directory}`);
+  const path = resolve(folder, entry.category, directory);
+  for (const filename of readdirSync(path)) {
+    const source = readFileSync(resolve(path, filename), "utf8");
+    const kind = documentKindForFilename(filename, directory);
     if (!kind) throw new Error(`Unknown example suffix: ${filename}`);
     const result = await getPack(kind).highlight({ source, documentKind: kind });
     cases.push({ filename: directory + "/" + filename, source, documentKind: kind, result });
@@ -128,14 +79,16 @@ async function appendExamples(directory: string) {
   models.clear();
   packs.clear();
 }
-for (const entry of readdirSync(folder, { withFileTypes: true }).filter(
-  (entry) =>
-    entry.isDirectory() &&
-    entry.name !== "dockerfile" &&
-    entry.name !== "makefile" &&
-    entry.name !== "graphql" &&
-    entry.name !== "protobuf" &&
-    entry.name !== "diff",
+for (const entry of ["code", "formats"].flatMap((category) =>
+  readdirSync(resolve(folder, category), { withFileTypes: true }).filter(
+    (entry) =>
+      entry.isDirectory() &&
+      entry.name !== "dockerfile" &&
+      entry.name !== "makefile" &&
+      entry.name !== "graphql" &&
+      entry.name !== "protobuf" &&
+      entry.name !== "diff",
+  ),
 )) {
   await appendExamples(entry.name);
 }

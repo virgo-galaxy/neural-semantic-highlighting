@@ -28,7 +28,7 @@ def main():
     with using('diff'):
         pack=LocalPack(checkpoint_path=args.checkpoint,device_name=args.device)
         aggregate=SpanMetrics(pack.checkpoint['schema']); displays=[]; natural=[]
-        folder=REPOSITORY/'apps/playground/src/views/highlighter/examples/diff'
+        folder=REPOSITORY/'apps/playground/src/views/highlighter/examples/formats/diff'
         for file in sorted(p for p in folder.iterdir() if p.suffix in {".diff", ".patch"}):
             source=file.read_bytes().decode('utf-8'); gold=label(source=source,profile='diff')
             predicted,report=compare(pack,source,gold); aggregate.add(gold,predicted)

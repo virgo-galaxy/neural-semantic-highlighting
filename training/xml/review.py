@@ -28,7 +28,7 @@ def main():
     with using('xml'):
         pack=LocalPack(checkpoint_path=args.checkpoint,device_name=args.device)
         aggregate=SpanMetrics(pack.checkpoint['schema']); displays=[]; natural=[]
-        folder=REPOSITORY/'apps/playground/src/views/highlighter/examples'
+        folder=REPOSITORY/'apps/playground/src/views/highlighter/examples/formats'
         for file in sorted(p for kind in ["xml","svg"] for p in (folder/kind).iterdir()):
             kind=file.parent.name
             source=file.read_bytes().decode('utf-8'); gold=label(source=source,document_kind=kind,profile=kind)

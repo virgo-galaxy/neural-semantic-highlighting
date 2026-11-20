@@ -1,6 +1,9 @@
 export {
-  examplesForLanguage,
+  examplesForContentType,
+  highlighterContentTypes,
   highlighterExamples,
-  highlighterLanguages,
 } from "@/views/highlighter/examples/catalog";
-export type { HighlighterExample, HighlighterLanguage } from "@/views/highlighter/examples/types";
+export type {
+  HighlighterContentType,
+  HighlighterExample,
+} from "@/views/highlighter/examples/types";

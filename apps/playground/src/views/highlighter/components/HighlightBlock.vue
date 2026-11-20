@@ -4,9 +4,9 @@ import { computed, nextTick, ref, watch } from "vue";
 import AppIcon from "@/components/AppIcon.vue";
 import AppTag from "@/components/AppTag.vue";
 import AppTooltip from "@/components/AppTooltip.vue";
+import ContentTypeSelect from "@/views/highlighter/components/ContentTypeSelect.vue";
 import HighlightStatus from "@/views/highlighter/components/HighlightStatus.vue";
-import LanguageSelect from "@/views/highlighter/components/LanguageSelect.vue";
-import type { HighlighterLanguage } from "@/views/highlighter/examples";
+import type { HighlighterContentType } from "@/views/highlighter/examples";
 import type { HighlightState } from "@/views/highlighter/types";
 
 const source = defineModel<string>({ required: true });
@@ -17,22 +17,22 @@ const props = defineProps<{
   errorMessage: string;
   filename: string;
   lastHighlightMs: number | null;
-  languageId: string;
-  languages: readonly HighlighterLanguage[];
+  contentTypeId: string;
+  contentTypes: readonly HighlighterContentType[];
 }>();
 
 const emit = defineEmits<{
   beginEditing: [];
   sourceChanged: [];
   finishEditing: [];
-  languageChange: [languageId: string];
+  contentTypeChange: [contentTypeId: string];
   randomExample: [];
 }>();
 
 const editor = ref<HTMLTextAreaElement | null>(null);
 
-const languageLabel = computed(
-  () => props.languages.find((language) => language.id === props.languageId)?.label ?? "Code",
+const contentTypeLabel = computed(
+  () => props.contentTypes.find((language) => language.id === props.contentTypeId)?.label ?? "Code",
 );
 
 watch(
@@ -50,13 +50,13 @@ watch(
 </script>
 
 <template>
-  <section class="highlight-block" :aria-label="`${languageLabel} example`">
+  <section class="highlight-block" :aria-label="`${contentTypeLabel} example`">
     <div class="highlight-block__toolbar">
       <div class="highlight-block__meta">
-        <LanguageSelect
-          :model-value="languageId"
-          :languages="languages"
-          @update:model-value="emit('languageChange', $event)"
+        <ContentTypeSelect
+          :model-value="contentTypeId"
+          :content-types="contentTypes"
+          @update:model-value="emit('contentTypeChange', $event)"
         />
 
         <span class="highlight-block__divider" aria-hidden="true"></span>
@@ -91,8 +91,8 @@ watch(
       ref="editor"
       v-model="source"
       class="highlight-block__editor nsh"
-      :data-language="languageId"
-      :aria-label="`${languageLabel} source`"
+      :data-language="contentTypeId"
+      :aria-label="`${contentTypeLabel} source`"
       spellcheck="false"
       @input="emit('sourceChanged')"
       @blur="emit('finishEditing')"
@@ -104,7 +104,7 @@ watch(
       role="button"
       tabindex="0"
       :aria-busy="state === 'pending'"
-      :aria-label="`Click to edit ${languageLabel} source`"
+      :aria-label="`Click to edit ${contentTypeLabel} source`"
       @click="emit('beginEditing')"
       @keydown.enter="emit('beginEditing')"
       @keydown.space.prevent="emit('beginEditing')"
@@ -118,7 +118,7 @@ watch(
       <pre
         v-else
         class="highlight-block__source nsh"
-        :data-language="languageId"
+        :data-language="contentTypeId"
       ><code>{{ source }}</code></pre>
     </div>
 

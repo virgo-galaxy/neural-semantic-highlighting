@@ -12,10 +12,10 @@ const {
   previewHtml,
   errorMessage,
   lastHighlightMs,
-  languages,
-  currentLanguageId,
+  contentTypes,
+  currentContentTypeId,
   currentFilename,
-  setLanguage,
+  setContentType,
   beginEditing,
   markSourceChanged,
   finishEditing,
@@ -36,9 +36,9 @@ onMounted(() => {
     :error-message="errorMessage"
     :filename="currentFilename"
     :last-highlight-ms="lastHighlightMs"
-    :language-id="currentLanguageId"
-    :languages="languages"
-    @language-change="setLanguage"
+    :content-type-id="currentContentTypeId"
+    :content-types="contentTypes"
+    @content-type-change="setContentType"
     @random-example="loadRandomExample"
     @begin-editing="beginEditing"
     @source-changed="markSourceChanged"

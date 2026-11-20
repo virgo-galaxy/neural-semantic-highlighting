@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import {
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectItemIndicator,
   SelectItemText,
+  SelectLabel,
   SelectPortal,
   SelectRoot,
   SelectTrigger,
@@ -18,6 +20,7 @@ interface SelectOption {
   value: string;
   label: string;
   icon?: string;
+  group?: string;
 }
 
 const props = defineProps<{
@@ -31,6 +34,17 @@ const emit = defineEmits<{
 }>();
 
 const hasIcons = computed(() => props.options.some((option) => option.icon));
+
+const optionGroups = computed(() => {
+  const groups = new Map<string, SelectOption[]>();
+  for (const option of props.options) {
+    const label = option.group ?? "";
+    const items = groups.get(label) ?? [];
+    items.push(option);
+    groups.set(label, items);
+  }
+  return [...groups].map(([label, options]) => ({ label, options }));
+});
 
 const selectedOption = computed(() =>
   props.options.find((option) => option.value === props.modelValue),
@@ -74,32 +88,37 @@ function handleValueChange(value: unknown): void {
         :side-offset="7"
       >
         <SelectViewport class="app-select-viewport">
-          <SelectItem
-            v-for="option in props.options"
-            :key="option.value"
-            class="app-select-item"
-            :value="option.value"
-          >
-            <span v-if="hasIcons" class="app-select-item-icon-slot" aria-hidden="true">
-              <img
-                v-if="option.icon"
-                class="app-select-item-icon"
-                :src="option.icon"
-                :data-icon-name="option.value"
-                alt=""
-              />
-            </span>
+          <SelectGroup v-for="group in optionGroups" :key="group.label" class="app-select-group">
+            <SelectLabel v-if="group.label" class="app-select-group-label">
+              {{ group.label }}
+            </SelectLabel>
+            <SelectItem
+              v-for="option in group.options"
+              :key="option.value"
+              class="app-select-item"
+              :value="option.value"
+            >
+              <span v-if="hasIcons" class="app-select-item-icon-slot" aria-hidden="true">
+                <img
+                  v-if="option.icon"
+                  class="app-select-item-icon"
+                  :src="option.icon"
+                  :data-icon-name="option.value"
+                  alt=""
+                />
+              </span>
 
-            <SelectItemText class="app-select-item-label">
-              {{ option.label }}
-            </SelectItemText>
+              <SelectItemText class="app-select-item-label">
+                {{ option.label }}
+              </SelectItemText>
 
-            <span class="app-select-indicator-slot">
-              <SelectItemIndicator class="app-select-indicator">
-                <AppIcon name="check" :size="13" />
-              </SelectItemIndicator>
-            </span>
-          </SelectItem>
+              <span class="app-select-indicator-slot">
+                <SelectItemIndicator class="app-select-indicator">
+                  <AppIcon name="check" :size="13" />
+                </SelectItemIndicator>
+              </span>
+            </SelectItem>
+          </SelectGroup>
         </SelectViewport>
       </SelectContent>
     </SelectPortal>
@@ -224,6 +243,18 @@ html:has(.app-page[data-nsh-theme="dark"]) .app-select-item-icon[data-icon-name=
 
 .app-select-viewport {
   padding: 0;
+}
+
+.app-select-group + .app-select-group {
+  margin-top: 8px;
+}
+
+.app-select-group-label {
+  padding: 8px 8px 5px;
+  color: var(--foreground);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .app-select-item {

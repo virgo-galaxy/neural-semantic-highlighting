@@ -28,7 +28,7 @@ def main():
     with using('swift'):
         pack=LocalPack(checkpoint_path=args.checkpoint,device_name=args.device)
         aggregate=SpanMetrics(pack.checkpoint['schema']); displays=[]; natural=[]
-        folder=REPOSITORY/'apps/playground/src/views/highlighter/examples/swift'
+        folder=REPOSITORY/'apps/playground/src/views/highlighter/examples/code/swift'
         for file in sorted(folder.glob('*.swift')):
             source=file.read_bytes().decode('utf-8'); gold=label(source=source)
             predicted,report=compare(pack,source,gold); aggregate.add(gold,predicted)

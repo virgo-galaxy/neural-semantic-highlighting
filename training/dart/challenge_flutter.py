@@ -23,7 +23,7 @@ def main():
         for case in json.loads((spec.directory/'fixtures/flutter-golden.json').read_text()):
             gold=unmark(case['markedSource']);row,actual=review(gold['source'],gold);goldens.add(gold,actual);cases.append(dict(id=case['id'],**row))
         display=[]
-        for path in sorted((REPOSITORY/'apps/playground/src/views/highlighter/examples/flutter').glob('*.dart')):
+        for path in sorted((REPOSITORY/'apps/playground/src/views/highlighter/examples/code/flutter').glob('*.dart')):
             source=path.read_bytes().decode('utf-8');expected=label(source=source);row,actual=review(source,expected);displays.add(expected,actual);display.append(dict(filename=path.name,sourceSha256=file_hash(path),**row))
         report=dict(purpose='Visible independent Flutter framework probes; not unseen test or SDK compilation',canonicalDocumentKind='dart',modelSha256=file_hash(spec.directory/'model/model.pt'),golden=dict(fixtureSha256=file_hash(spec.directory/'fixtures/flutter-golden.json'),aggregate=goldens.report(),exactCases=sum(r['exactIncludingModifiers'] for r in cases),cases=cases),display=dict(aggregate=displays.report(),cases=display),sdkInstalled=False,trainingPerformed=False)
         args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')

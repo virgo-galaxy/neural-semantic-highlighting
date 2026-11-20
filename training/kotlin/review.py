@@ -28,7 +28,7 @@ def main():
     with using('kotlin'):
         pack=LocalPack(checkpoint_path=args.checkpoint,device_name=args.device)
         aggregate=SpanMetrics(pack.checkpoint['schema']); displays=[]; natural=[]
-        folder=REPOSITORY/'apps/playground/src/views/highlighter/examples/kotlin'
+        folder=REPOSITORY/'apps/playground/src/views/highlighter/examples/code/kotlin'
         for file in sorted(p for p in folder.iterdir() if p.suffix in {".kt",".kts"}):
             source=file.read_bytes().decode('utf-8'); gold=label(source=source,profile='kotlin-script' if file.suffix=='.kts' else 'kotlin')
             predicted,report=compare(pack,source,gold); aggregate.add(gold,predicted)

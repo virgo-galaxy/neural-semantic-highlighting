@@ -28,7 +28,7 @@ def main():
     with using('ruby'):
         pack=LocalPack(checkpoint_path=args.checkpoint,device_name=args.device)
         aggregate=SpanMetrics(pack.checkpoint['schema']); displays=[]; natural=[]
-        folder=REPOSITORY/'apps/playground/src/views/highlighter/examples/ruby'
+        folder=REPOSITORY/'apps/playground/src/views/highlighter/examples/code/ruby'
         for file in sorted(p for p in folder.iterdir() if p.suffix in {".rb",".rake",".gemspec"}):
             source=file.read_bytes().decode('utf-8'); gold=label(source=source,profile='ruby')
             predicted,report=compare(pack,source,gold); aggregate.add(gold,predicted)

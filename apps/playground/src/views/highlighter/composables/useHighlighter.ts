@@ -4,16 +4,16 @@ import { computed, onBeforeUnmount, ref } from "vue";
 
 import { createBrowserSemanticPack } from "@/runtime";
 import {
-  examplesForLanguage,
+  examplesForContentType,
+  highlighterContentTypes,
   type HighlighterExample,
-  highlighterLanguages,
 } from "@/views/highlighter/examples";
 import type { HighlightState } from "@/views/highlighter/types";
 
-function defaultLanguageId(): string {
+function defaultContentTypeId(): string {
   return (
-    highlighterLanguages.find((language) => language.id === "typescript")?.id ??
-    highlighterLanguages[0]?.id ??
+    highlighterContentTypes.find((language) => language.id === "typescript")?.id ??
+    highlighterContentTypes[0]?.id ??
     "typescript"
   );
 }
@@ -27,14 +27,14 @@ function defaultExampleIndex(examples: readonly HighlighterExample[]): number {
 }
 
 export function useHighlighter() {
-  const currentLanguageId = ref(defaultLanguageId());
+  const currentContentTypeId = ref(defaultContentTypeId());
   const exampleIndex = ref(0);
   const state = ref<HighlightState>("pending");
   const previewHtml = ref("");
   const errorMessage = ref("");
   const lastHighlightMs = ref<number | null>(null);
 
-  const currentExamples = computed(() => examplesForLanguage(currentLanguageId.value));
+  const currentExamples = computed(() => examplesForContentType(currentContentTypeId.value));
 
   exampleIndex.value = defaultExampleIndex(currentExamples.value);
 
@@ -82,18 +82,18 @@ export function useHighlighter() {
     void highlightCurrentSource();
   }
 
-  function setLanguage(languageId: string): void {
-    if (languageId === currentLanguageId.value) {
+  function setContentType(contentTypeId: string): void {
+    if (contentTypeId === currentContentTypeId.value) {
       return;
     }
 
-    const examples = examplesForLanguage(languageId);
+    const examples = examplesForContentType(contentTypeId);
 
     if (examples.length === 0) {
       return;
     }
 
-    currentLanguageId.value = languageId;
+    currentContentTypeId.value = contentTypeId;
     exampleIndex.value = defaultExampleIndex(examples);
     source.value = examples[exampleIndex.value]?.source ?? "";
 
@@ -127,7 +127,7 @@ export function useHighlighter() {
   async function highlightCurrentSource(): Promise<void> {
     const requestRevision = revision;
     const requestSource = source.value;
-    const documentKind = currentExample.value?.documentKind ?? currentLanguageId.value;
+    const documentKind = currentExample.value?.documentKind ?? currentContentTypeId.value;
     const startedAt = performance.now();
 
     state.value = "pending";
@@ -169,10 +169,10 @@ export function useHighlighter() {
     previewHtml,
     errorMessage,
     lastHighlightMs,
-    languages: highlighterLanguages,
-    currentLanguageId,
+    contentTypes: highlighterContentTypes,
+    currentContentTypeId,
     currentFilename,
-    setLanguage,
+    setContentType,
     beginEditing,
     markSourceChanged,
     finishEditing,

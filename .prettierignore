@@ -15,40 +15,9 @@ packs/**/model-*/**/*.json
 packs/**/browser/*.json
 packs/**/browser-*/**/*.json
 
-# Raw JSON/JSONC display probes retain evaluated whitespace, comments and trailing commas.
-apps/playground/src/views/highlighter/examples/json/*
-apps/playground/src/views/highlighter/examples/jsonc/*
-
-# Raw YAML display probes retain their evaluated scalar/indentation source ranges.
-apps/playground/src/views/highlighter/examples/yaml/*
-
-# Raw TOML probes retain reviewed literal and multiline ranges.
-apps/playground/src/views/highlighter/examples/toml/*
-
-# Raw INI probes retain evaluated key/value/continuation source ranges.
-apps/playground/src/views/highlighter/examples/ini/*
-
-# Raw dotenv probes retain evaluated quoted/multiline source ranges.
-apps/playground/src/views/highlighter/examples/dotenv/*
-
-# Raw XML/SVG probes retain original evaluated markup and whitespace.
-apps/playground/src/views/highlighter/examples/xml/*
-apps/playground/src/views/highlighter/examples/svg/*
-
-# Raw Markdown display probes retain evaluated delimiters and whitespace.
-apps/playground/src/views/highlighter/examples/markdown/*
-
-# Original Dockerfile probes retain reviewed escapes, heredocs and line endings.
-apps/playground/src/views/highlighter/examples/dockerfile/*
-
-# Original Makefile probes retain tabs, continuations and line endings.
-apps/playground/src/views/highlighter/examples/makefile/*
-
-apps/playground/src/views/highlighter/examples/graphql/*
-
-apps/playground/src/views/highlighter/examples/protobuf/*
-
-apps/playground/src/views/highlighter/examples/diff/*
+# Raw Playground examples retain original evaluated bytes and source ranges.
+apps/playground/src/views/highlighter/examples/code/**
+apps/playground/src/views/highlighter/examples/formats/**
 
 # Historical experiment/configuration bundles retain their original bytes.
 packs/**/dataset/history/**
