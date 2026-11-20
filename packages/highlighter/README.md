@@ -32,13 +32,30 @@ JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
 include their JS/TS/CSS dependencies automatically; PHP includes HTML and its
 child dependencies. The optional `@nsh/models` resource package contains all
 40 models; explicit subpath imports restrict the application's deployment assets.
-The default highlighter entry contains no ONNX files and requires model selection.
+The default highlighter entry contains no ONNX files and requires local model
+descriptors or a remote resource source.
 Use `@nsh/highlighter/bundled` for the all-model, zero-argument convenience entry.
 Existing `@nsh/highlighter/languages/*` imports remain compatibility forwards and
 require `@nsh/models`. Flutter shares Dart's model. Weights are fetched lazily.
 Models are about 3.6 MB each, with a shared 14.8 MB uncompressed WASM asset.
 Vite production bundling is verified; other bundlers are
 not yet verified. HTTPS or localhost and a modern WASM/Worker browser are required.
+
+For remote resources, the frontend does not need `@nsh/models`:
+
+```ts
+const highlighter = createHighlighter({
+  modelBaseUrl: "https://storage.example.com/highlighting/",
+  languages: ["tsx", "scss"], // Omit to register all supported types.
+});
+```
+
+The resource root contains the exported `v1/` paths, ONNX files and pinned JSON
+metadata. Downloads go directly to the resource host and require its normal
+access/CORS configuration. `resolveAssetUrl` can return asynchronous temporary
+URLs for private objects. Weights, decoders and browser inference are shared with
+local delivery; the frontend bundle contains no ONNX files in remote mode.
+See the repository's model delivery guide for export and signing examples.
 
 `theme.css` provides the Default preset. For all presets:
 

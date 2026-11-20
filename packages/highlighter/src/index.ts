@@ -3,4 +3,6 @@ export {
   createHighlighter,
   type HighlightedCode,
   type HighlighterOptions,
+  type ModelAssetRequest,
+  type RemoteModelOptions,
 } from "./highlighter.js";

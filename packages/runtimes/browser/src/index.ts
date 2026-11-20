@@ -6,6 +6,7 @@ export type { BrowserModel } from "./types.js";
 interface Pending {
   resolve(result: HighlightResult): void;
   reject(error: Error): void;
+  modelKey: string;
 }
 
 /** One reusable worker; models load lazily and source never leaves the browser. */
@@ -14,6 +15,7 @@ export class BrowserRuntime {
   #closed = false;
   #id = 0;
   readonly #pending = new Map<number, Pending>();
+  readonly #modelUrls = new Map<string, string | Promise<string>>();
 
   createPack(model: BrowserModel): SemanticPack {
     return {
@@ -24,18 +26,51 @@ export class BrowserRuntime {
         if (this.#closed) throw new Error("Browser highlighter is closed");
         if (typeof source !== "string") throw new Error("Source must be a string");
         if (!source.length) return { offsetEncoding: "utf-16", spans: [] };
-        const worker = this.#ensureWorker();
         const id = ++this.#id;
         const { modelUrl, dependencies: _dependencies, ...metadata } = model;
         void _dependencies;
-        const url = modelUrl();
+        const modelKey = model.id + ":" + model.sha256;
         return new Promise<HighlightResult>((resolve, reject) => {
-          this.#pending.set(id, { resolve, reject });
-          try {
-            worker.postMessage({ id, source, model: { ...metadata, modelUrl: url } });
-          } catch (error) {
+          this.#pending.set(id, { resolve, reject, modelKey });
+          const fail = (error: unknown) => {
             this.#pending.delete(id);
             reject(error);
+          };
+          const send = (url: string) => {
+            if (!this.#pending.has(id)) return;
+            try {
+              const worker = this.#ensureWorker();
+              worker.postMessage({ id, source, model: { ...metadata, modelUrl: url } });
+            } catch (error) {
+              fail(error);
+            }
+          };
+          try {
+            let url = this.#modelUrls.get(modelKey);
+            if (url === undefined) {
+              const value = modelUrl();
+              if (typeof value === "string") {
+                url = value;
+              } else {
+                const pending: Promise<string> = Promise.resolve(value)
+                  .then((resolved) => {
+                    if (typeof resolved !== "string") throw new Error("Invalid model URL");
+                    if (this.#modelUrls.get(modelKey) === pending)
+                      this.#modelUrls.set(modelKey, resolved);
+                    return resolved;
+                  })
+                  .catch((error: unknown) => {
+                    if (this.#modelUrls.get(modelKey) === pending) this.#modelUrls.delete(modelKey);
+                    throw error;
+                  });
+                url = pending;
+              }
+              this.#modelUrls.set(modelKey, url);
+            }
+            if (typeof url === "string") send(url);
+            else void url.then(send, fail);
+          } catch (error) {
+            fail(error);
           }
         });
       },
@@ -57,8 +92,10 @@ export class BrowserRuntime {
         const pending = this.#pending.get(response.id);
         if (!pending) return;
         this.#pending.delete(response.id);
-        if (response.error) pending.reject(new Error(response.error));
-        else if (response.result) pending.resolve(response.result);
+        if (response.error) {
+          this.#modelUrls.delete(pending.modelKey);
+          pending.reject(new Error(response.error));
+        } else if (response.result) pending.resolve(response.result);
         else pending.reject(new Error("Browser worker returned no result"));
       },
     );
@@ -74,6 +111,7 @@ export class BrowserRuntime {
   #fail(error: Error) {
     for (const pending of this.#pending.values()) pending.reject(error);
     this.#pending.clear();
+    this.#modelUrls.clear();
   }
 
   close(): void {

@@ -32,7 +32,8 @@
     "dataset:validate:vue": "tsx packs/vue/dataset/pipeline.ts validate",
     "pack:browser": "pnpm build:packages && node scripts/pack-browser.mjs",
     "browser:reference": "pnpm build:packages && node --import tsx scripts/browser-reference.ts",
-    "check:portable": "python3 -m training.sanitize_release"
+    "check:portable": "python3 -m training.sanitize_release",
+    "models:export": "node scripts/export-model-assets.mjs"
   },
   "devEngines": {
     "packageManager": {

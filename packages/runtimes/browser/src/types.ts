@@ -20,7 +20,7 @@ export interface BrowserModel {
   id: string;
   dependencies?: readonly BrowserModel[];
   manifest: PackManifest;
-  modelUrl(): string;
+  modelUrl(): string | Promise<string>;
   sha256: string;
   contextBytes: number;
   schema: { tokenTypes: readonly string[]; modifiers: readonly string[] };

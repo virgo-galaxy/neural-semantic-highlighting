@@ -23,6 +23,7 @@ const { values } = parseArgs({
     output: { type: "string", default: "artifacts/browser/delivery-check" },
     "seed-node-modules": { type: "string" },
     offline: { type: "boolean", default: false },
+    reference: { type: "string" },
   },
 });
 const output = resolve(values.output);
@@ -40,7 +41,7 @@ for (const archive of archives) {
   assert.equal(weights.length, archive.name === "@nsh/models" ? 40 : 0);
 }
 
-for (const mode of ["local", "base"]) {
+for (const mode of ["local", "base", "remote"]) {
   // Outside the checkout: package resolution cannot fall back to workspace links.
   const folder = mkdtempSync(join(tmpdir(), `nsh-${mode}-`));
   const dependencies = Object.fromEntries(
@@ -78,9 +79,11 @@ for (const mode of ["local", "base"]) {
     { cwd: folder, encoding: "utf8" },
   );
   if (installed.status !== 0) throw new Error(installed.stderr || installed.stdout);
-  if (mode === "base") assert.equal(existsSync(join(modules, "@nsh/models")), false);
+  if (mode !== "local") assert.equal(existsSync(join(modules, "@nsh/models")), false);
   if (mode === "local") {
     cpSync(resolve("examples/selective"), folder, { recursive: true });
+  } else if (mode === "remote") {
+    cpSync(resolve("examples/remote"), folder, { recursive: true });
   } else {
     writeFileSync(join(folder, "index.html"), '<script type="module" src="/main.js"></script>');
     writeFileSync(
@@ -120,6 +123,8 @@ for (const mode of ["local", "base"]) {
   mkdirSync(output, { recursive: true });
   rmSync(join(output, mode), { recursive: true, force: true });
   cpSync(dist, join(output, mode), { recursive: true });
+  if (mode === "remote" && values.reference)
+    cpSync(resolve(values.reference), join(output, mode, "reference.json"));
   report.consumers[mode] = {
     onnx: models.length,
     wasm: 1,
@@ -129,5 +134,6 @@ for (const mode of ["local", "base"]) {
   console.log(
     `${mode}: ${models.length} ONNX, one shared WASM; installed packages, no workspace links`,
   );
+  rmSync(folder, { recursive: true, force: true });
 }
 writeFileSync(join(output, "verification.json"), JSON.stringify(report, null, 2) + "\n");

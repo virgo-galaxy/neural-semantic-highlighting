@@ -13,8 +13,12 @@ import { createCompositeSveltePack } from "@nsh/core/composition/svelte";
 import { createCompositeVuePack } from "@nsh/core/composition/vue";
 import { renderCodeToHtml, renderToHtml } from "@nsh/html";
 
-export interface HighlighterOptions {
-  languages?: readonly BrowserModel[];
+import { type RemoteModelOptions, RemoteModelSource } from "./remote.js";
+export type { ModelAssetRequest, RemoteModelOptions } from "./remote.js";
+
+export interface HighlighterOptions extends RemoteModelOptions {
+  /** Local descriptors, or content IDs/aliases when a remote source is configured. */
+  languages?: readonly (BrowserModel | string)[];
 }
 
 export interface HighlightedCode {
@@ -37,6 +41,12 @@ export interface BrowserHighlighter {
 
 /** Configure selected models explicitly; no Node/Python imports or source uploads. */
 export function createHighlighter(options: HighlighterOptions = {}): BrowserHighlighter {
+  const runtime = new BrowserRuntime();
+  const base = new Map<string, SemanticPack>();
+  const remote =
+    options.modelBaseUrl !== undefined || options.resolveAssetUrl !== undefined
+      ? new RemoteModelSource(options)
+      : undefined;
   const models = new Map<string, BrowserModel>();
   function collect(model: BrowserModel) {
     const previous = models.get(model.id);
@@ -46,12 +56,24 @@ export function createHighlighter(options: HighlighterOptions = {}): BrowserHigh
     models.set(model.id, model);
     for (const dependency of model.dependencies ?? []) collect(dependency);
   }
-  for (const model of options.languages ?? []) collect(model);
-  if (!models.size)
+  if (remote) {
+    const languages = options.languages;
+    if (languages?.some((language) => typeof language !== "string"))
+      throw new Error(
+        "Remote model selection accepts content IDs; use local descriptors without a remote source",
+      );
+    for (const asset of remote.select(languages as readonly string[] | undefined))
+      base.set(asset.id, remote.createPack(asset, runtime));
+  } else {
+    for (const model of options.languages ?? []) {
+      if (typeof model === "string")
+        throw new Error("Set modelBaseUrl or resolveAssetUrl to select remote languages by name");
+      collect(model);
+    }
+    for (const model of models.values()) base.set(model.id, runtime.createPack(model));
+  }
+  if (!base.size)
     throw new Error("Register at least one language model from @nsh/models/languages/<name>");
-  const runtime = new BrowserRuntime();
-  const base = new Map<string, SemanticPack>();
-  for (const model of models.values()) base.set(model.id, runtime.createPack(model));
   const packs = [...base].map(([id, pack]) =>
     id === "markdown"
       ? createCompositeMarkdownPack({
@@ -85,13 +107,31 @@ export function createHighlighter(options: HighlighterOptions = {}): BrowserHigh
               : pack,
   );
   const core = createCoreHighlighter({ packs });
+  let closed = false;
+  const pending = new Set<(error: Error) => void>();
+  const infer = (request: HighlightRequest): Promise<HighlightResult> => {
+    if (closed) return Promise.reject(new Error("Browser highlighter is closed"));
+    return new Promise((resolve, reject) => {
+      pending.add(reject);
+      core.highlight(request).then(
+        (result) => {
+          pending.delete(reject);
+          resolve(result);
+        },
+        (error: unknown) => {
+          pending.delete(reject);
+          reject(error);
+        },
+      );
+    });
+  };
   const kindFor = normalizeLanguageId;
   const highlight = async (
     code: string,
     { language }: { language: string },
   ): Promise<HighlightedCode> => {
     const documentKind = kindFor(language);
-    const result = await core.highlight({ source: code, documentKind });
+    const result = await infer({ source: code, documentKind });
     const request = { source: code, documentKind, result };
     return {
       language: documentKind,
@@ -103,7 +143,7 @@ export function createHighlighter(options: HighlighterOptions = {}): BrowserHigh
   return {
     highlight,
     highlightTokens: ({ source, documentKind }) =>
-      core.highlight({ source, documentKind: kindFor(documentKind) }),
+      infer({ source, documentKind: kindFor(documentKind) }),
     async highlightElement(element, options = {}) {
       const language =
         options.language ??
@@ -121,6 +161,12 @@ export function createHighlighter(options: HighlighterOptions = {}): BrowserHigh
     },
     supports: (language) => core.supports(kindFor(language)),
     languages: () => core.documentKinds(),
-    close: () => runtime.close(),
+    close: () => {
+      closed = true;
+      for (const reject of pending) reject(new Error("Browser highlighter is closed"));
+      pending.clear();
+      remote?.close();
+      runtime.close();
+    },
   };
 }

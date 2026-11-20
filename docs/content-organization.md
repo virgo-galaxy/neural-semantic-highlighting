@@ -91,5 +91,8 @@ consumer bundler. The default `@nsh/highlighter` entry contains no ONNX files. T
 `@nsh/models` package owns local model descriptors and content-addressed assets;
 `@nsh/highlighter/bundled` explicitly opts into all local models. Compatibility
 `@nsh/highlighter/languages/*` paths require the optional resource package.
-Remote model loading remains separate follow-up work.
+Remote model loading uses `modelBaseUrl` or `resolveAssetUrl` and string content
+IDs; it bundles only a pinned catalog and fetches matching metadata/ONNX files on
+first use. The deployable resource directory is exported separately; see
+[model delivery](model-delivery.md).
 Themes, custom CSS, browser inference and shared model dependencies work as before.

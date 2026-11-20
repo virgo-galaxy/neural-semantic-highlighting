@@ -490,13 +490,15 @@ Existing imports such as `@nsh/highlighter/languages/typescript` remain valid
 when the optional `@nsh/models` package is installed. The default highlighter
 package no longer contains ONNX files; the separate resource package contains
 all selected weights. Explicit imports control which assets enter your
-application's production build. Remote model loading is not implemented yet.
+application's production build. Remote applications can instead configure a
+model resource URL without installing `@nsh/models`; see below.
 See [content organization](docs/content-organization.md) for the catalog, paths
 and framework-profile conventions.
 
 ## Load only the languages you need
 
-The default entry requires explicit model selection and includes no ONNX files.
+For local delivery, the default entry requires explicit model selection and
+includes no ONNX files.
 For a small production asset set, install the optional `@nsh/models` resource
 package and select models explicitly. [Model delivery](docs/model-delivery.md)
 records the independent TSX/SCSS installation and build checks:
@@ -526,6 +528,42 @@ Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scs
 `bat`, `assembly`, `java`, `csharp`, `swift`, `kotlin`, `r`, `scala`, `ruby`, `lua`, `json`, `jsonc`, `yaml`, `yml`, `toml`, `ini`, `dotenv`, `xml`, `svg`, `markdown`, `dockerfile`, `makefile`, `graphql`, `gql`, `protobuf`, `proto`, `diff`, `patch`. Aliases include `js`, `ts`, `py`, `shell`, `sh`, `ps1`, `pwsh`,
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
+
+## Load models from MinIO or a static resource host
+
+For an application with many selectable languages, deploy model resources
+separately and let the browser download them on first use. The frontend needs
+`@nsh/highlighter` and its normal dependencies, without `@nsh/models`:
+
+```ts
+import { createHighlighter } from "@nsh/highlighter";
+import "@nsh/highlighter/theme.css";
+
+const highlighter = createHighlighter({
+  modelBaseUrl: "https://storage.example.com/highlighting/",
+  // Omit languages to register all supported content types.
+  languages: ["tsx", "scss", "vue"],
+});
+const { html } = await highlighter.highlight(source, { language: "tsx" });
+```
+
+The browser fetches the original ONNX and its matching metadata directly from
+the resource host; inference stays in the local Worker. HTML/Vue/Svelte/PHP
+collect required child models automatically, and downloads occur only when used.
+The frontend build includes no ONNX assets in this mode; shared WASM remains an
+application asset. Existing themes, custom CSS and rendering APIs work unchanged.
+
+After building workspace packages, run `node scripts/export-model-assets.mjs`
+and upload the contents of `artifacts/browser/models/` to the chosen MinIO
+bucket/prefix. Preserve the `v1/` paths and include the metadata JSON files.
+Set `modelBaseUrl` to that directory's URL. For a separate origin, allow the
+application through the resource host's CORS configuration. Compression is optional.
+
+For private objects, `resolveAssetUrl` accepts an async function returning a
+signed download URL for each requested metadata/model path. Your backend only
+needs to provide those URLs; model data can go directly from MinIO to the browser.
+See [model delivery](docs/model-delivery.md#remote-assets-static-server-or-minio)
+for export layout, temporary URL examples and independent installation checks.
 
 ## Assets and performance
 
