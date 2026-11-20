@@ -26,7 +26,7 @@ def main():
     payload = load_model_artifact(args.checkpoint)
     if sha256_file(args.checkpoint) != checkpoint_hash:
         raise ValueError("Checkpoint changed while loading; evaluate a frozen checkpoint")
-    snapshot = Snapshot.open(args.snapshot or Path(payload["dataset"]["path"]))
+    snapshot = Snapshot.open(args.snapshot or Path(payload["dataset"]["path"]).expanduser())
     if snapshot.identity() != {name: payload["dataset"][name] for name in ("snapshot", "manifestHash")}:
         raise ValueError("Evaluation dataset differs from the checkpoint")
     if payload["schema"] != snapshot.schema:

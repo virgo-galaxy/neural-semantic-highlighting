@@ -33,6 +33,6 @@ constrain focused selection. No newline insertion, parser, RegExp coalescing or
 source-spelling repair is used at runtime. Context remains 512 original UTF-8
 bytes. The later negative-heavy run did not beat validation and was rejected.
 
-Selected full checkpoint: `/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/typescript/tail-reviewed.pt`. Parameters: **897,833**. Full source/RNG/optimizer experiments and all external data remain intact.
+Selected full checkpoint: `artifacts/quality-20261119/typescript/tail-reviewed.pt`. Parameters: **897,833**. Full source/RNG/optimizer experiments and all external data remain intact.
 
 Historical evidence is preserved in [the preceding bundle](../model-20261119-v1/BENCHMARKS.md).

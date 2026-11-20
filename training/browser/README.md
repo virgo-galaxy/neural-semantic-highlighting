@@ -39,6 +39,16 @@ schema, threshold and decoder policy. ONNX checker runs, followed by CPU ORT vs
 selected PyTorch comparisons at 1, 2, 7, 31, 64, 127, 511 and 512 bytes. Every
 head's maximum absolute error must be below `1e-4`.
 
+Exported ONNX files omit PyTorch debug annotations and source stack traces.
+Native release metadata uses repository-relative references and portable
+`~/Datasets/neural-semantic-highlighting/<model-name>/` paths. Model tensors,
+operators, labels and decoder settings are preserved.
+
+Run `pnpm check:portable` before distributing the repository or packages. It scans
+current repository files, including model bytes; it does not inspect Git history.
+The maintenance command and verification are documented in
+[portable release metadata](../../docs/portable-release.md).
+
 After reviewing/promoting exports, regenerate browser descriptors and format them:
 
 ```bash

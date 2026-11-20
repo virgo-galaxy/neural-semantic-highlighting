@@ -5,9 +5,13 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-import shutil
+import sys
 
 import torch
+
+# This exporter also supports direct script execution from the checkout.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from training.portable import portable_data
 
 from checkpoints import MODEL_FORMAT, atomic_json, load_checkpoint, save_checkpoint
 
@@ -64,6 +68,7 @@ def main() -> int:
     }
 
     output = args.output.expanduser()
+    artifact = portable_data(artifact)
     save_checkpoint(output, artifact)
     output_hash = sha256_file(output)
 
@@ -117,7 +122,7 @@ def main() -> int:
         reports_dir = output.parent / "reports"
         reports_dir.mkdir(parents=True, exist_ok=True)
         report_target = reports_dir / "test-metrics.json"
-        shutil.copyfile(args.test_report.expanduser(), report_target)
+        atomic_json(report_target, portable_data(report))
         metadata["reports"] = {
             "test-metrics.json": {
                 "file": "reports/test-metrics.json",
@@ -128,7 +133,7 @@ def main() -> int:
             }
         }
 
-    atomic_json(args.metadata.expanduser(), metadata)
+    atomic_json(args.metadata.expanduser(), portable_data(metadata))
     print(f"Go model exported: {output}")
     print(f"Metadata: {args.metadata.expanduser()}")
     print(f"SHA256: {output_hash}")

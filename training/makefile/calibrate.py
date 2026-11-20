@@ -22,7 +22,7 @@ def main():
     if args.output.exists():raise ValueError('Preserve existing calibrated checkpoints')
     source_hash=file_hash(args.checkpoint);checkpoint=load_checkpoint(args.checkpoint)
     pack=LocalPack(checkpoint_path=args.checkpoint,device_name=args.device)
-    snapshot=Path(checkpoint['dataset']['path'])
+    snapshot=Path(checkpoint['dataset']['path']).expanduser()
     def natural(split):return [d for line in(snapshot/split/'documents.jsonl').read_text().splitlines()if(d:=json.loads(line))['stream']=='natural']
     train,validation=natural('train'),natural('validation')
     protocol=Path('packs/makefile/dataset/optimization-protocol.json');allocation=json.loads(protocol.read_text());fresh=set(allocation['freshValidationSourceGroups'])

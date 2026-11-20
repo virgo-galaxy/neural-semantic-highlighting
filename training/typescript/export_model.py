@@ -8,6 +8,8 @@ from pathlib import Path
 
 import torch
 
+from training.portable import portable_data
+
 from training.shared.checkpoints import atomic_json, save_checkpoint
 from training.shared.spec import file_hash
 
@@ -41,6 +43,7 @@ def export_model(source: Path, report_path: Path, output: Path) -> dict:
             raise ValueError('Prepare model documentation before export')
     artifact = {key: checkpoint[key] for key in ['format', 'model_state_dict', 'schema', 'config', 'epoch']}
     artifact['validation'] = checkpoint['qualityValidation']
+    artifact = portable_data(artifact)
     save_checkpoint(output, artifact)
     reloaded = torch.load(output, map_location='cpu', weights_only=True)
     if any(not torch.equal(value, reloaded['model_state_dict'][key]) for key, value in artifact['model_state_dict'].items()):
@@ -71,11 +74,11 @@ def export_model(source: Path, report_path: Path, output: Path) -> dict:
                 metrics = row.pop('metrics')
                 row['f1'] = metrics['exactSpan']['f1']
                 row['roleMacroF1'] = metrics['exactSpanMacroF1']
-    atomic_json(target, public_report)
+    atomic_json(target, portable_data(public_report))
     metadata['reports'] = {'quality-test.json': dict(file='reports/quality-test.json', sha256=file_hash(target),
         checkpointHash=source_hash, scope=report['scope'])}
     metadata.pop('exportVerification', None)
-    atomic_json(output.with_name('model.json'), metadata)
+    atomic_json(output.with_name('model.json'), portable_data(metadata))
     return metadata
 
 

@@ -7,6 +7,8 @@ from pathlib import Path
 
 import torch
 
+from training.portable import portable_data
+
 from training.vue.checkpoints import MODEL_FORMAT, atomic_json, load_checkpoint, save_checkpoint
 from training.vue.prepare import REPOSITORY, file_hash
 
@@ -51,6 +53,7 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
         "trainingConfig": {"modifier_threshold": checkpoint["trainingConfig"]["modifier_threshold"]},
         "validation": checkpoint["validation"], "provenance": checkpoint["provenance"],
         "initialization": checkpoint.get("initialization")}
+    artifact = portable_data(artifact)
     save_checkpoint(output, artifact)
     # Verify the stored float32 tensors; export performs no quantization/retraining.
     reloaded = torch.load(output, map_location="cpu", weights_only=True)
@@ -61,7 +64,7 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
     reports.mkdir(exist_ok=True)
     report_target = reports / "test-metrics.json"
     if report_target.resolve() != test_report.resolve():
-        atomic_json(report_target, report)
+        atomic_json(report_target, portable_data(report))
     metadata = {
         "id": "vue",
         "artifact": {"file": output.name, "format": MODEL_FORMAT, "sha256": file_hash(output),
@@ -87,7 +90,7 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
         "reports": {"test-metrics.json": {"file": "reports/test-metrics.json", "sha256": file_hash(report_target),
             "checkpointHash": source_hash, "split": "test", "inference": "predicted-adaptive-cursor"}},
     }
-    atomic_json(output.with_name("model.json"), metadata)
+    atomic_json(output.with_name("model.json"), portable_data(metadata))
     return metadata
 
 

@@ -24,7 +24,7 @@ def main():
     source_hash = file_hash(args.checkpoint)
     checkpoint = load_checkpoint(args.checkpoint)
     pack = LocalPack(checkpoint_path=args.checkpoint, device_name=args.device)
-    snapshot = Path(checkpoint['dataset']['path'])
+    snapshot = Path(checkpoint['dataset']['path']).expanduser()
     def natural(split):
         return [d for line in (snapshot / split / 'documents.jsonl').read_text().splitlines()
                 if (d := json.loads(line))['stream'] == 'natural']

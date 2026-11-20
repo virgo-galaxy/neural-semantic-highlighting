@@ -841,6 +841,10 @@ External training data lives outside the repository at
 `~/Datasets/neural-semantic-highlighting/<model-name>/`. `NSH_DATASET_ROOT`
 overrides the shared parent directory.
 
+Release metadata uses portable paths and excludes local exporter stack traces.
+Run `pnpm check:portable` to check current project files and model artifacts;
+see [portable release metadata](docs/portable-release.md) for scope and verification.
+
 See [development](docs/development.md) for package boundaries, checks, native
 reference inference, datasets and checkpoint continuation. See
 [browser export and verification](training/browser/README.md) for reproducible

@@ -26,7 +26,7 @@ def main():
     with using(args.pack) as spec:
         source_hash=file_hash(args.checkpoint)
         checkpoint=load_checkpoint(args.checkpoint)
-        snapshot=Snapshot.open(Path(checkpoint['dataset']['path']))
+        snapshot=Snapshot.open(Path(checkpoint['dataset']['path']).expanduser())
         if snapshot.identity()!={k:checkpoint['dataset'][k]for k in ['snapshot','manifestHash']}:
             raise ValueError('Validation snapshot identity mismatch')
         snapshot.verify_split('validation')

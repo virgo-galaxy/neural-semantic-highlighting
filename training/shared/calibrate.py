@@ -45,7 +45,7 @@ def calibrate(checkpoint_path: Path, output: Path, device: str, *, type_weights=
         raise ValueError('Preserve existing checkpoint and calibration evidence')
     source_hash = file_hash(checkpoint_path)
     checkpoint = load_checkpoint(checkpoint_path)
-    snapshot = Snapshot.open(Path(checkpoint['dataset']['path']))
+    snapshot = Snapshot.open(Path(checkpoint['dataset']['path']).expanduser())
     if snapshot.identity() != {k: checkpoint['dataset'][k] for k in ('snapshot', 'manifestHash')}:
         raise ValueError('Calibration snapshot differs from checkpoint')
     def natural(split):

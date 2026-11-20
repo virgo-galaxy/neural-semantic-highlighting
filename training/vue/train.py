@@ -136,7 +136,7 @@ def run(args) -> Path:
     config.validate()
     snapshot_path = args.snapshot
     if checkpoint:
-        snapshot_path = snapshot_path or Path(checkpoint["dataset"]["path"])
+        snapshot_path = snapshot_path or Path(checkpoint["dataset"]["path"]).expanduser()
     snapshot = Snapshot.open(snapshot_path)
     if checkpoint and snapshot.identity() != {key: checkpoint["dataset"][key] for key in ("snapshot", "manifestHash")}:
         raise ValueError("Resume dataset identity mismatch")

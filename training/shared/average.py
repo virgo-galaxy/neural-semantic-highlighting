@@ -35,7 +35,7 @@ def assert_holdouts(train_groups,heldout_groups):
 def run(paths, output):
     if output.exists()or output.with_suffix('.averaging.json').exists():raise ValueError('Preserve previous weight-averaging experiments')
     checkpoints=[load_checkpoint(path)for path in paths]
-    target=checkpoints[0];snapshot=Snapshot.open(Path(target['dataset']['path']))
+    target=checkpoints[0];snapshot=Snapshot.open(Path(target['dataset']['path']).expanduser())
     if snapshot.identity()!={k:target['dataset'][k]for k in ['snapshot','manifestHash']}:raise ValueError('Target dataset identity mismatch')
     def documents(folder,split):return [json.loads(line)for line in(folder/split/'documents.jsonl').read_text().splitlines()]
     # Read only family identities from target holdouts; never their predictions.
@@ -52,7 +52,7 @@ def run(paths, output):
         a.pop('local_kernel');b.pop('local_kernel')
         a.pop('relative_attention');b.pop('relative_attention')
         if (checkpoint['trainingConfig'].get('smoke')or checkpoint['schema']!=target['schema']or a!=b):raise ValueError('Incompatible parent experiment')
-        assert_holdouts({d['sourceGroup']for d in documents(Path(checkpoint['dataset']['path']),'train')},heldout)
+        assert_holdouts({d['sourceGroup']for d in documents(Path(checkpoint['dataset']['path']).expanduser(),'train')},heldout)
         original=checkpoint['model'];state={}
         if 'relative_bias'in original and 'relative_bias'not in template:raise ValueError('Cannot discard learned relative attention')
         for key,value in template.items():

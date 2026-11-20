@@ -46,7 +46,7 @@ def main():
             expected=code_regions(source,gold);actual=code_regions(source,predicted)
             displays.append(dict(filename=file.name,sourceSha256=file_hash(file),predictedCodeRegions=dict(expected=expected,actual=actual,exact=expected==actual),**report))
             print(file.name,round(report['metrics']['exactSpan']['f1'],4),flush=True)
-        snapshot=Path(pack.checkpoint['dataset']['path'])
+        snapshot=Path(pack.checkpoint['dataset']['path']).expanduser()
         records=[r for r in map(json.loads,(snapshot/'validation/documents.jsonl').read_text().splitlines()) if r['stream']=='natural']
         buckets = {}
         for record in records:

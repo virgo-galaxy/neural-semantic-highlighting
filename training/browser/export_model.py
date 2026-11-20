@@ -11,6 +11,7 @@ import onnx
 import onnxruntime as ort
 import torch
 from training.browser.model import BrowserTransformer
+from training.portable import portable_data, strip_onnx_debug
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -65,7 +66,10 @@ def export(pack_id, output, source=None):
                       output_names=['boundary', 'token_type', 'modifier'],
                       dynamic_shapes={'input_ids': {1: torch.export.Dim('bytes', min=1, max=context)}},
                       opset_version=18, dynamo=True, external_data=False)
-    onnx.checker.check_model(onnx.load(path))
+    graph = onnx.load(path)
+    strip_onnx_debug(graph)
+    onnx.checker.check_model(graph)
+    onnx.save(graph, path)
     session = ort.InferenceSession(str(path), providers=['CPUExecutionProvider'])
     comparisons = []
     for length in [1, 2, 7, 31, 64, 127, context - 1, context]:
@@ -95,7 +99,7 @@ def export(pack_id, output, source=None):
         record['inferenceWindowing'] = pack.checkpoint['inferenceWindowing']
     if pack.checkpoint.get('structuredDecoder') is not None:
         record['structuredDecoder'] = pack.checkpoint['structuredDecoder']
-    (output / 'model.json').write_text(json.dumps(record, indent=2) + '\n')
+    (output / 'model.json').write_text(json.dumps(portable_data(record), indent=2) + '\n')
     (output / 'verification.json').write_text(json.dumps({'reference': 'selected PyTorch CPU inference',
         'torch': str(torch.__version__), 'onnx': onnx.__version__, 'onnxruntime': ort.__version__,
         'sourceSha256': source_hash, 'modelSha256': digest(path), 'comparisons': comparisons}, indent=2) + '\n')

@@ -23,7 +23,7 @@
     "dataset:collect:css": "tsx packs/css/dataset/pipeline.ts collect",
     "dataset:label:css": "tsx packs/css/dataset/pipeline.ts label",
     "dataset:validate:css": "tsx packs/css/dataset/pipeline.ts validate",
-    "all": "pnpm build && tsc -p tsconfig.json && pnpm lint && pnpm format:check && vitest run",
+    "all": "pnpm build && tsc -p tsconfig.json && pnpm lint && pnpm format:check && vitest run && pnpm check:portable",
     "dataset:collect:html": "tsx packs/html/dataset/pipeline.ts collect",
     "dataset:label:html": "tsx packs/html/dataset/pipeline.ts label",
     "dataset:validate:html": "tsx packs/html/dataset/pipeline.ts validate",
@@ -31,7 +31,8 @@
     "dataset:label:vue": "tsx packs/vue/dataset/pipeline.ts label",
     "dataset:validate:vue": "tsx packs/vue/dataset/pipeline.ts validate",
     "pack:browser": "pnpm build:packages && node scripts/pack-browser.mjs",
-    "browser:reference": "pnpm build:packages && node --import tsx scripts/browser-reference.ts"
+    "browser:reference": "pnpm build:packages && node --import tsx scripts/browser-reference.ts",
+    "check:portable": "python3 -m training.sanitize_release"
   },
   "devEngines": {
     "packageManager": {

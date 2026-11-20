@@ -11,7 +11,7 @@ const model: BrowserModel = {
       },
     ],
   },
-  sha256: "447c56e2546f1cd027a6b2e1cac79829c430d28de26bfdcad96e515c513ed64a",
+  sha256: "abee506b9266276e1e0cf4227ceca124f6f8e36bd30f6979a74c1a5e0c602b38",
   contextBytes: 512,
   schema: {
     tokenTypes: [

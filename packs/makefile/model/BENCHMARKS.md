@@ -22,7 +22,7 @@ This is a strict development probe, not a percentage of correct natural files.
 
 ## Selection and preserved history
 
-Selected full checkpoint: `/Users/mystic/Codespace/neural-semantic-highlighting/artifacts/quality-20261119/remaining/makefile/greedy-window.pt`.
+Selected full checkpoint: `artifacts/quality-20261119/remaining/makefile/greedy-window.pt`.
 Parameters: **894,479**; context: **512 UTF-8 bytes**.
 Refinement starts from complete historical training checkpoints, retaining
 original source-family assignments, schemas, Gold and experiments.

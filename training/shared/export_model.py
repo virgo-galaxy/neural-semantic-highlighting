@@ -10,6 +10,8 @@ from pathlib import Path
 
 import torch
 
+from training.portable import portable_data
+
 from training.shared.checkpoints import atomic_json, load_checkpoint, save_checkpoint
 from training.shared.prepare import REPOSITORY, file_hash
 from training.shared.structured import parameters_hash
@@ -120,6 +122,7 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
             from training.shared.windowing import validate as validate_windowing
             validate_windowing(checkpoint['inferenceWindowing'])
             artifact['inferenceWindowing'] = checkpoint['inferenceWindowing']
+    artifact = portable_data(artifact)
     save_checkpoint(output, artifact)
     # Verify the stored float32 tensors; export performs no quantization/retraining.
     reloaded = torch.load(output, map_location="cpu", weights_only=True)
@@ -130,7 +133,7 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
     reports.mkdir(exist_ok=True)
     report_target = reports / "test-metrics.json"
     if report_target.resolve() != test_report.resolve():
-        atomic_json(report_target, report)
+        atomic_json(report_target, portable_data(report))
     metadata = {
         "id": current().id,
         "artifact": {"file": output.name, "format": current().model_format, "sha256": file_hash(output),
@@ -174,7 +177,7 @@ def export_model(source: Path, test_report: Path, output: Path) -> dict:
             score=windowing_selected['selectionKey'][0], validationReportSha256=file_hash(windowing_path),
             trainingSelectionMetric=checkpoint['trainingConfig'].get('selection_metric', 'profile-macro'),
             trainingBestFixedScore=checkpoint['trainingState']['bestScore'])
-    atomic_json(output.with_name("model.json"), metadata)
+    atomic_json(output.with_name("model.json"), portable_data(metadata))
     return metadata
 
 

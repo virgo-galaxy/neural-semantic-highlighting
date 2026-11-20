@@ -161,7 +161,7 @@ def run(args) -> Path:
         raise ValueError('ASCII case tying is currently reviewed only for BAT/CMD')
     snapshot_path = args.snapshot
     if checkpoint:
-        snapshot_path = snapshot_path or Path(checkpoint["dataset"]["path"])
+        snapshot_path = snapshot_path or Path(checkpoint["dataset"]["path"]).expanduser()
     snapshot = Snapshot.open(snapshot_path)
     if checkpoint and snapshot.identity() != {key: checkpoint["dataset"][key] for key in ("snapshot", "manifestHash")}:
         raise ValueError("Resume dataset identity mismatch")
