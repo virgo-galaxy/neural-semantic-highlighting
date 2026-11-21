@@ -1,7 +1,6 @@
 import { contentCategories } from "@nsh/highlighter/catalog";
 import { themes } from "@nsh/highlighter/themes";
 import {
-  CodeIcon,
   CopyIcon,
   GithubIcon,
   MoonFilledIcon,
@@ -18,7 +17,7 @@ import {
   Tooltip,
 } from "@virgo-design/ui";
 import { enUS } from "@virgo-design/ui/locale";
-import { type KeyboardEvent, useEffect, useState } from "react";
+import { type KeyboardEvent, useEffect, useRef, useState } from "react";
 
 import { useHighlighter } from "@/views/highlighter/composables/useHighlighter";
 import { examplesForContentType, highlighterContentTypes } from "@/views/highlighter/examples";
@@ -56,6 +55,7 @@ export function Playground() {
   const [preset, setPreset] = useState("default");
   const [pane, setPane] = useState<Pane>("source");
   const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
+  const isComposing = useRef(false);
   const { example, source, preview, highlight, editSource, selectLanguage, selectExample } =
     useHighlighter();
   const examples = examplesForContentType(example.contentTypeId);
@@ -71,12 +71,13 @@ export function Playground() {
   }, [appearance]);
 
   function runHighlight() {
-    if (busy || !source.trim()) return;
+    if (!source.trim()) return;
     setPane("preview");
-    void highlight();
+    if (!busy) void highlight();
   }
 
   function handleEditorKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if (isComposing.current || event.nativeEvent.isComposing) return;
     if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
       event.preventDefault();
       runHighlight();
@@ -200,15 +201,19 @@ export function Playground() {
                 <SegmentedControl.Item value="preview">Preview</SegmentedControl.Item>
               </SegmentedControl>
             </div>
-            <Button
-              className="run-button"
-              size="small"
-              leadingIcon={<CodeIcon />}
-              disabled={busy || !source.trim()}
-              onClick={runHighlight}
-            >
-              {busy ? "Highlighting…" : "Highlight"}
-            </Button>
+            <div className="control control--theme">
+              <label htmlFor="code-theme">Code theme</label>
+              <Select id="code-theme" size="small" value={preset} onValueChange={setPreset}>
+                <Select.Trigger />
+                <Select.Content>
+                  {themes.map(({ id, name }) => (
+                    <Select.Option key={id} value={id}>
+                      {name}
+                    </Select.Option>
+                  ))}
+                </Select.Content>
+              </Select>
+            </div>
           </div>
 
           <div className="workpanes" data-pane={pane}>
@@ -261,7 +266,7 @@ export function Playground() {
                       )}
                     />
                     <Tooltip.Content size="small" placement="top">
-                      {copyState === "copied" ? "Copied" : "Copy source"}
+                      {copyState === "copied" ? "Copied!" : "Copy source"}
                     </Tooltip.Content>
                   </Tooltip>
                 </div>
@@ -269,12 +274,21 @@ export function Playground() {
               <Textarea
                 className="source-editor"
                 aria-label="Source code"
+                aria-keyshortcuts="Control+Enter Meta+Enter"
                 value={source}
                 spellCheck={false}
                 placeholder="Paste or type code"
                 wrap="off"
                 onChange={(event) => {
                   setCopyState("idle");
+                  editSource(event.currentTarget.value, isComposing.current);
+                }}
+                onCompositionStart={(event) => {
+                  isComposing.current = true;
+                  editSource(event.currentTarget.value, true);
+                }}
+                onCompositionEnd={(event) => {
+                  isComposing.current = false;
                   editSource(event.currentTarget.value);
                 }}
                 onKeyDown={handleEditorKeyDown}
@@ -284,19 +298,25 @@ export function Playground() {
             <section className="pane pane--preview" aria-labelledby="preview-title">
               <div className="pane__heading">
                 <h2 id="preview-title">Preview</h2>
-                <div className="control control--theme">
-                  <label htmlFor="code-theme">Code theme</label>
-                  <Select id="code-theme" size="small" value={preset} onValueChange={setPreset}>
-                    <Select.Trigger />
-                    <Select.Content>
-                      {themes.map(({ id, name }) => (
-                        <Select.Option key={id} value={id}>
-                          {name}
-                        </Select.Option>
-                      ))}
-                    </Select.Content>
-                  </Select>
-                </div>
+                <span
+                  className="highlight-status"
+                  data-state={preview.status}
+                  data-performance={performanceLevel(elapsedMs)}
+                  role="status"
+                >
+                  <span className="highlight-status__dot" aria-hidden="true" />
+                  <span className="highlight-status__label">{statusLabel}</span>
+                  <span className="highlight-status__divider" aria-hidden="true" />
+                  <span className="highlight-status__latency">
+                    {elapsedMs === undefined ? (
+                      <span aria-hidden="true">—</span>
+                    ) : (
+                      <>
+                        <strong>{elapsedMs}</strong> <span>ms</span>
+                      </>
+                    )}
+                  </span>
+                </span>
               </div>
               <div className="preview-code" aria-busy={busy}>
                 {preview.status === "highlighted" ? (
@@ -310,39 +330,23 @@ export function Playground() {
             </section>
           </div>
 
-          <div className="workspace__footer">
-            <span
-              className="highlight-status"
-              data-state={preview.status}
-              data-performance={performanceLevel(elapsedMs)}
-              role="status"
-            >
-              <span className="highlight-status__dot" aria-hidden="true" />
-              <span className="highlight-status__label">{statusLabel}</span>
-              <span className="highlight-status__divider" aria-hidden="true" />
-              <span className="highlight-status__latency">
-                {elapsedMs === undefined ? (
-                  <span aria-hidden="true">—</span>
-                ) : (
-                  <>
-                    <strong>{elapsedMs}</strong> <span>ms</span>
-                  </>
-                )}
-              </span>
-            </span>
-            {preview.status === "ready" && <span>Select Highlight to update the preview.</span>}
-            {preview.status === "error" && (
-              <span className="workspace__error" role="alert">
-                {preview.message}
-              </span>
-            )}
-            {copyState === "error" && (
-              <span role="alert">Select and copy the source manually.</span>
-            )}
-            <span className="keyboard-hint">
-              <kbd>Ctrl</kbd> / <kbd>⌘</kbd> + <kbd>Enter</kbd>
-            </span>
-          </div>
+          {(preview.status === "error" || copyState === "error") && (
+            <div className="workspace__footer">
+              {preview.status === "error" && (
+                <>
+                  <span className="workspace__error" role="alert">
+                    {preview.message}
+                  </span>
+                  <Button size="small" variant="text" onClick={runHighlight}>
+                    Retry
+                  </Button>
+                </>
+              )}
+              {copyState === "error" && (
+                <span role="alert">Select and copy the source manually.</span>
+              )}
+            </div>
+          )}
         </Surface>
       </main>
     </LocaleProvider>

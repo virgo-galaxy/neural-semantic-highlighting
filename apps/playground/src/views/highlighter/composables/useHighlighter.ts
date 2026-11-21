@@ -18,6 +18,7 @@ function firstExample(contentTypeId: string): HighlighterExample | undefined {
 }
 
 const initialExample = firstExample("typescript")!;
+const editDelayMs = 350;
 
 function initialPreview(): Preview {
   if (
@@ -42,9 +43,11 @@ export function useHighlighter() {
   const [preview, setPreview] = useState<Preview>(initialPreview);
   const runtime = useRef<PlaygroundRuntimeManager | null>(null);
   const revision = useRef(0);
+  const editTimer = useRef<number | undefined>(undefined);
 
   useEffect(
     () => () => {
+      window.clearTimeout(editTimer.current);
       revision.current++;
       runtime.current?.close();
       runtime.current = null;
@@ -53,8 +56,9 @@ export function useHighlighter() {
   );
 
   async function highlight(text = source, documentKind = example.documentKind): Promise<void> {
+    window.clearTimeout(editTimer.current);
     const request = ++revision.current;
-    if (!text) {
+    if (!text.trim()) {
       setPreview({ status: "ready" });
       return;
     }
@@ -64,6 +68,7 @@ export function useHighlighter() {
     try {
       runtime.current ??= new PlaygroundRuntimeManager();
       const highlighter = await runtime.current.get(defaultModelSource);
+      if (revision.current !== request) return;
       const result = await highlighter.highlight({ source: text, documentKind });
       if (revision.current !== request) return;
       setPreview({
@@ -98,10 +103,14 @@ export function useHighlighter() {
     }
   }
 
-  function editSource(text: string) {
+  function editSource(text: string, composing = false) {
+    window.clearTimeout(editTimer.current);
     revision.current++;
     setSource(text);
     setPreview({ status: "ready" });
+    if (!composing && text.trim()) {
+      editTimer.current = window.setTimeout(() => void highlight(text), editDelayMs);
+    }
   }
 
   return { example, source, preview, highlight, editSource, selectLanguage, selectExample };

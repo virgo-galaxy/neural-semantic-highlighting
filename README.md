@@ -27,9 +27,10 @@ pnpm dev
 Open <http://127.0.0.1:3000/>. The Playground uses browser inference, including in
 its production build. It does not start the Python provider.
 
-Choose a language or example, or paste source and select **Highlight**. The
-initial example has a precomputed preview. Live highlighting runs in a browser
-Worker and downloads models from the site as needed. See
+Choose a language or example, or type or paste source. The preview updates
+automatically after a short pause while editing. The initial example has a
+precomputed preview. Live highlighting runs in a browser Worker and downloads
+models from the site as needed. See
 [Playground build and model loading](docs/playground-model-loading.md).
 
 To use the highlighter in another project, install the
@@ -251,7 +252,7 @@ document.documentElement.dataset.nshPreset = "contrast";
 document.documentElement.dataset.nshTheme = "light";
 ```
 
-The Playground offers the same independent controls: a **Theme** selector and
+The Playground offers the same independent controls: a **Code theme** selector and
 light/dark buttons. It retains workspace dependencies and browser inference.
 Neither palette switching nor mode switching reruns the model.
 

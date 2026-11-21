@@ -6,9 +6,10 @@ runtime runs in a browser Worker.
 
 The first TypeScript example has a precomputed preview from the verified model
 reference. Changing languages or examples starts inference for that content.
-For edited code, select **Highlight** or press Control/Command + Enter. The
-browser downloads the needed ONNX files and shared WASM from the deployment's
-static assets. Previously used models can be served from the browser cache.
+After an edit, inference starts automatically when typing pauses for 350 ms.
+Press Control/Command + Enter to update the preview immediately. The browser
+downloads the needed ONNX files and shared WASM from the deployment's static
+assets. Previously used models can be served from the browser cache.
 
 Use a production build to verify the static output:
 
