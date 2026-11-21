@@ -15,6 +15,7 @@ import {
   Select,
   Surface,
   Textarea,
+  Tooltip,
 } from "@virgo-design/ui";
 import { enUS } from "@virgo-design/ui/locale";
 import { type KeyboardEvent, useEffect, useState } from "react";
@@ -215,29 +216,54 @@ export function Playground() {
               <div className="pane__heading">
                 <h2 id="source-title">Source</h2>
                 <div className="pane__actions">
-                  <Button
-                    size="small"
-                    variant="text"
-                    iconOnly
-                    aria-label="Reset to example"
-                    title="Reset to example"
-                    disabled={source === example.source}
-                    onClick={() => {
-                      setCopyState("idle");
-                      selectExample(example);
+                  <Tooltip>
+                    <Tooltip.Trigger
+                      disabled={source === example.source}
+                      onClick={() => {
+                        setCopyState("idle");
+                        selectExample(example);
+                      }}
+                      render={(triggerProps) => (
+                        <Button
+                          {...triggerProps}
+                          size="small"
+                          variant="text"
+                          iconOnly
+                          aria-label="Reset to example"
+                        >
+                          <ResetIcon />
+                        </Button>
+                      )}
+                    />
+                    <Tooltip.Content size="small" placement="top">
+                      Reset to example
+                    </Tooltip.Content>
+                  </Tooltip>
+                  <Tooltip
+                    closeOnClick={false}
+                    onOpenChange={(open) => {
+                      if (!open) setCopyState((state) => (state === "copied" ? "idle" : state));
                     }}
                   >
-                    <ResetIcon />
-                  </Button>
-                  <Button
-                    size="small"
-                    variant="text"
-                    leadingIcon={<CopyIcon />}
-                    disabled={!source}
-                    onClick={() => void copySource()}
-                  >
-                    {copyState === "copied" ? "Copied" : "Copy"}
-                  </Button>
+                    <Tooltip.Trigger
+                      disabled={!source}
+                      onClick={() => void copySource()}
+                      render={(triggerProps) => (
+                        <Button
+                          {...triggerProps}
+                          size="small"
+                          variant="text"
+                          iconOnly
+                          aria-label="Copy source"
+                        >
+                          <CopyIcon />
+                        </Button>
+                      )}
+                    />
+                    <Tooltip.Content size="small" placement="top">
+                      {copyState === "copied" ? "Copied" : "Copy source"}
+                    </Tooltip.Content>
+                  </Tooltip>
                 </div>
               </div>
               <Textarea
