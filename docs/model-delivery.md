@@ -23,6 +23,9 @@ pnpm install
 pnpm pack:browser
 ```
 
+For maintainers preparing a release candidate, follow the
+[clean build and archive checks](npm-release.md#build-and-verify-a-candidate).
+
 Run the following in your **own frontend project**, with an existing
 `package.json`. Set `NSH_ARCHIVES` to the actual archive directory. These
 commands assume there is one archive per package in that directory.

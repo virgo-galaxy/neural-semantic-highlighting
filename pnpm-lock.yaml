@@ -225,6 +225,9 @@ importers:
       '@nsh/local':
         specifier: workspace:*
         version: link:packages/runtimes/local
+      '@nsh/models':
+        specifier: workspace:*
+        version: link:packages/models
       '@types/node':
         specifier: ^26.4.1
         version: 26.4.1
@@ -282,6 +285,9 @@ importers:
       '@nsh/html':
         specifier: workspace:*
         version: link:../../packages/renderers/html
+      '@nsh/models':
+        specifier: workspace:*
+        version: link:../../packages/models
       '@nsh/themes':
         specifier: workspace:*
         version: link:../../packages/themes/web
@@ -322,9 +328,18 @@ importers:
         specifier: workspace:*
         version: link:../renderers/html
     devDependencies:
+      '@nsh/models':
+        specifier: workspace:*
+        version: link:../models
       '@nsh/themes':
         specifier: workspace:*
         version: link:../themes/web
+
+  packages/models:
+    dependencies:
+      '@nsh/browser':
+        specifier: workspace:*
+        version: link:../runtimes/browser
 
   packages/renderers/html:
     dependencies:

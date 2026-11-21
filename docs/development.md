@@ -37,9 +37,9 @@ make check           # Also checks Python compilation/imports
 pnpm pack:browser    # Local npm tarballs; does not publish
 ```
 
-`pnpm clean` removes only generated `dist` folders. Packages remain private and
-unpublished. Before any public release, review package naming, licenses, included
-files and distribution. Making the GitHub repository public is a separate action.
+`pnpm clean` removes only generated `dist` folders. For the clean-build procedure,
+package review and outstanding release decisions, see
+[npm release preparation](npm-release.md).
 
 ## Native reference runtime
 
