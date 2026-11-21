@@ -13,7 +13,7 @@ Frontend usage is documented in the [root README](../README.md).
 | `packages/renderers/html`   | Escaped HTML, full blocks and fragments                     |
 | `packages/themes`           | Validated theme JSON, CSS generation and language overrides |
 | `packages/runtimes/local`   | Development/native process adapter                          |
-| `apps/playground`           | Vue consumer; uses browser inference                        |
+| `apps/playground`           | React and Virgo Design UI for browser inference             |
 | `packs/<name>`              | Manifests, offline Gold tools, selected models and reports  |
 | `training/<name>`           | Training/evaluation tools                                   |
 | `training/browser`          | Export and native parity tools                              |

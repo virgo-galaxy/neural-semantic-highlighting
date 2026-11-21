@@ -27,10 +27,10 @@ pnpm dev
 Open <http://127.0.0.1:3000/>. The Playground uses browser inference, including in
 its production build. It does not start the Python provider.
 
-Expand **Model loading** above the code block to switch between **Website assets**
-and a **Remote host**, configure its resource URL, toggle persistent model caching
-or clear downloaded models. Failures preserve plain source and offer a retry.
-See [Playground model loading](docs/playground-model-loading.md) for details.
+Choose a language or example, or paste source and select **Highlight**. The
+initial example has a precomputed preview. Live highlighting runs in a browser
+Worker and downloads models from the site as needed. See
+[Playground build and model loading](docs/playground-model-loading.md).
 
 To use the highlighter in another project, install the
 [npm package](docs/model-delivery.md#install-from-npm).

@@ -17,7 +17,7 @@ export default defineConfig(
     "apps/playground/src/views/highlighter/examples/formats/**",
   ]),
   {
-    files: ["**/*.{js,ts}"],
+    files: ["**/*.{js,ts,tsx}"],
     extends: [eslint.configs.recommended, tseslint.configs.recommended],
     plugins: {
       "simple-import-sort": simpleImportSort,
