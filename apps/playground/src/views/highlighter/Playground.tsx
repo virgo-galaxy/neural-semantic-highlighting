@@ -36,6 +36,20 @@ const languageGroups = contentCategories.map((category) => ({
     ),
 }));
 
+const highlightStatusLabels = {
+  ready: "Editing",
+  loading: "Highlighting",
+  highlighted: "Highlighted",
+  error: "Error",
+};
+
+function performanceLevel(elapsedMs: number | undefined) {
+  if (elapsedMs === undefined) return undefined;
+  if (elapsedMs <= 100) return "fast";
+  if (elapsedMs <= 250) return "warning";
+  return "critical";
+}
+
 export function Playground() {
   const [appearance, setAppearance] = useState<Appearance>("light");
   const [preset, setPreset] = useState("default");
@@ -45,6 +59,11 @@ export function Playground() {
     useHighlighter();
   const examples = examplesForContentType(example.contentTypeId);
   const busy = preview.status === "loading";
+  const elapsedMs = preview.status === "highlighted" ? preview.elapsedMs : undefined;
+  const statusLabel =
+    preview.status === "highlighted" && elapsedMs === undefined
+      ? "Example preview"
+      : highlightStatusLabels[preview.status];
 
   useEffect(() => {
     document.documentElement.dataset.theme = appearance;
@@ -271,18 +290,29 @@ export function Playground() {
           </div>
 
           <div className="workspace__footer">
-            {preview.status === "error" ? (
+            <span
+              className="highlight-status"
+              data-state={preview.status}
+              data-performance={performanceLevel(elapsedMs)}
+              role="status"
+            >
+              <span className="highlight-status__dot" aria-hidden="true" />
+              <span className="highlight-status__label">{statusLabel}</span>
+              <span className="highlight-status__divider" aria-hidden="true" />
+              <span className="highlight-status__latency">
+                {elapsedMs === undefined ? (
+                  <span aria-hidden="true">—</span>
+                ) : (
+                  <>
+                    <strong>{elapsedMs}</strong> <span>ms</span>
+                  </>
+                )}
+              </span>
+            </span>
+            {preview.status === "ready" && <span>Select Highlight to update the preview.</span>}
+            {preview.status === "error" && (
               <span className="workspace__error" role="alert">
                 {preview.message}
-              </span>
-            ) : (
-              <span role="status">
-                {preview.status === "loading" && "Loading and highlighting…"}
-                {preview.status === "ready" && "Select Highlight to update the preview."}
-                {preview.status === "highlighted" &&
-                  (preview.elapsedMs
-                    ? `Highlighted in ${preview.elapsedMs} ms`
-                    : "Example preview")}
               </span>
             )}
             {copyState === "error" && (

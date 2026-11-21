@@ -268,13 +268,107 @@ body {
 .workspace__footer {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   gap: 6px 16px;
   min-height: 40px;
-  padding: 10px 16px;
+  padding: 7px var(--workspace-gutter);
   border-top: 1px solid var(--workspace-divider);
   color: var(--vd-text-secondary);
   font-size: 12px;
+}
+
+.highlight-status {
+  --status-color: var(--vd-text-secondary);
+
+  display: inline-grid;
+  grid-template-columns: 7px minmax(64px, max-content) 1px minmax(32px, max-content);
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding-inline: 8px;
+  border: 1px solid var(--vd-border-default);
+  border-radius: var(--vd-radius-full);
+  background: var(--vd-surface-default);
+  font-size: 11px;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.highlight-status[data-state="loading"] {
+  --status-color: var(--vd-brand-link);
+}
+
+.highlight-status[data-performance="fast"] {
+  --status-color: var(--vd-status-success-text);
+}
+
+.highlight-status[data-performance="warning"] {
+  --status-color: var(--vd-status-warning-text);
+}
+
+.highlight-status:is([data-state="error"], [data-performance="critical"]) {
+  --status-color: var(--vd-status-danger-text);
+}
+
+.highlight-status__dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--status-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--status-color) 20%, transparent);
+}
+
+.highlight-status__label {
+  font-weight: 500;
+}
+
+.highlight-status__divider {
+  height: 11px;
+  background: var(--vd-border-default);
+}
+
+.highlight-status__latency {
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.highlight-status__latency strong {
+  color: var(--status-color);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .highlight-status:is([data-state="loading"], [data-performance]) .highlight-status__dot::after {
+    position: absolute;
+    inset: -4px;
+    border: 1px solid var(--status-color);
+    border-radius: 50%;
+    content: "";
+    animation: highlight-status-breathe 1.8s ease-out infinite;
+  }
+}
+
+@keyframes highlight-status-breathe {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  30% {
+    opacity: 0.55;
+  }
+
+  70% {
+    opacity: 0.12;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.65);
+  }
 }
 
 .workspace__error {
