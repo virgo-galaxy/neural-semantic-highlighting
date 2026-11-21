@@ -11,7 +11,7 @@ The workspace uses `@nsh/*` imports for its development packages.
 
 [Install in your app](docs/model-delivery.md#install-from-local-archives) ·
 [React, Vue and vanilla JS](#react-vue-and-vanilla-javascript) ·
-[Remote models](#load-models-from-minio-or-a-static-resource-host) ·
+[Model deployment](#model-deployment) ·
 [Themes and custom CSS](#light--dark-themes-and-custom-css) ·
 [Content types and aliases](#content-types-names-and-aliases)
 
@@ -185,41 +185,17 @@ Common language IDs: `javascript`, `typescript`, `jsx`, `tsx`, `go`, `css`, `scs
 `cmd`, `asm`, `nasm`, `masm`, `gas`, `cs`, `c#`, `kt`, `kts` and `kotlin-script`. Shell profiles share one model; naming a
 profile does not install or execute that shell.
 
-## Load models from MinIO or a static resource host
+## Model deployment
 
-For an application with many selectable languages, deploy model resources
-separately and let the browser download them on first use. Install
-`neural-semantic-highlighting` in the frontend:
+- **Same-site assets.** Serve the model files with your app and set
+  `modelBaseUrl` to a path such as `/models/`.
+- **Separate model host.** Set `modelBaseUrl` to an HTTPS directory on a static
+  server or object storage. Allow cross-origin reads from the app.
+- **Private model files.** Provide `resolveAssetUrl` to return a download URL
+  for each requested file, such as a short-lived signed URL.
 
-```ts
-import { createHighlighter } from "neural-semantic-highlighting";
-import "neural-semantic-highlighting/theme.css";
-
-const highlighter = createHighlighter({
-  modelBaseUrl: "https://storage.example.com/highlighting/",
-  // Omit languages to register all supported content types.
-  languages: ["tsx", "scss", "vue"],
-});
-const { html } = await highlighter.highlight(source, { language: "tsx" });
-```
-
-The browser fetches the original ONNX and its matching metadata directly from
-the resource host; inference stays in the local Worker. HTML/Vue/Svelte/PHP
-collect required child models automatically, and downloads occur only when used.
-The frontend build includes no ONNX assets in this mode; shared WASM remains an
-application asset. Existing themes, custom CSS and rendering APIs work unchanged.
-
-After building workspace packages, run `node scripts/export-model-assets.mjs`
-and upload the contents of `artifacts/browser/models/` to the chosen MinIO
-bucket/prefix. Preserve the `v1/` paths and include the metadata JSON files.
-Set `modelBaseUrl` to that directory's URL. For a separate origin, allow the
-application through the resource host's CORS configuration. Compression is optional.
-
-For private objects, `resolveAssetUrl` accepts an async function returning a
-signed download URL for each requested metadata/model path. Your backend only
-needs to provide those URLs; model data can go directly from MinIO to the browser.
-See [model delivery](docs/model-delivery.md#remote-assets-static-server-or-minio)
-for export layout, temporary URL examples and independent installation checks.
+The browser loads the ONNX files and matching JSON metadata on first use.
+See [model delivery](docs/model-delivery.md) for exporting and serving these files.
 
 ## Assets and performance
 

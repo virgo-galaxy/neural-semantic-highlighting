@@ -43,10 +43,10 @@ models for the content types your app uses:
 node scripts/export-model-assets.mjs --models typescript,css
 ```
 
-The export goes to `artifacts/browser/models/`. Serve its contents at
-`/models/` on the app's site, or use the full URL of a static host or MinIO
-bucket as `modelBaseUrl`. Keep the exported `v1/` directory structure intact.
-A separate origin must allow browser GET requests from the app origin.
+The export goes to `artifacts/browser/models/`. Keep its `v1/` directory
+structure intact. Set `modelBaseUrl` to a same-site path such as `/models/` or
+an HTTPS URL on a separate host that allows cross-origin reads. For private
+models, use `resolveAssetUrl` to supply download URLs such as signed URLs.
 
 The npm archive includes the API, HTML renderer, CSS themes and inference
 runtime. It contains zero ONNX weights. The browser downloads each required
