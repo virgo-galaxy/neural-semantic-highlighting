@@ -17,6 +17,8 @@ Frontend apps use the `neural-semantic-highlighting` package. The workspace uses
 
 ## Try it now
 
+Open the [live NSH Playground](https://nsh.virgogalaxy.com/) to try highlighting in your browser.
+
 From this checkout, with Node.js 24 and pnpm 11:
 
 ```bash
