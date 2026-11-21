@@ -43,7 +43,6 @@ body {
 
 .site-brand,
 .site-actions,
-.repo-link,
 .pane__actions {
   display: flex;
   align-items: center;
@@ -59,10 +58,17 @@ body {
   flex: none;
 }
 
-.repo-link {
+.site-actions .site-action {
+  --button-icon-size: 22px;
+
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: var(--vd-sizing-32);
+  height: var(--vd-sizing-32);
+}
+
+.repo-link {
   color: var(--vd-text-primary);
   border-radius: var(--vd-radius-6);
 }
@@ -101,18 +107,18 @@ body {
 
 .workspace {
   --workspace-divider: var(--vd-border-subtle);
+  --workspace-gutter: 16px;
   --code-height: clamp(320px, 49vh, 640px);
 
   min-width: 0;
 }
 
 .workspace__toolbar {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 12px;
-  min-width: 0;
-  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+  gap: 12px calc(2 * var(--workspace-gutter));
+  padding: 14px var(--workspace-gutter);
   border-bottom: 1px solid var(--workspace-divider);
 }
 
@@ -120,7 +126,6 @@ body {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  width: min(100%, 480px);
   min-width: 0;
 }
 
@@ -149,7 +154,7 @@ body {
 }
 
 .language-menu[role="listbox"] {
-  width: min(360px, calc(100vw - 40px));
+  width: min(clamp(360px, 34vw, 460px), calc(100vw - 40px));
   max-height: min(520px, 65dvh);
   overscroll-behavior: contain;
 }
@@ -175,7 +180,7 @@ body {
 }
 
 .run-button {
-  flex: none;
+  justify-self: end;
 }
 
 .pane-switcher {
@@ -201,7 +206,7 @@ body {
   justify-content: space-between;
   gap: 8px;
   height: 44px;
-  padding-inline: 16px 10px;
+  padding-inline: var(--workspace-gutter) 10px;
   border-bottom: 1px solid var(--workspace-divider);
   background: var(--vd-surface-default);
 }
@@ -226,7 +231,7 @@ body {
   width: 100%;
   height: var(--code-height);
   min-height: var(--code-height);
-  padding: 16px;
+  padding: var(--workspace-gutter);
   border: none;
   border-radius: 0;
   box-shadow: none;
@@ -254,7 +259,7 @@ body {
   min-width: 100%;
   min-height: var(--code-height);
   margin: 0;
-  padding: 16px;
+  padding: var(--workspace-gutter);
   white-space: pre;
 }
 
@@ -290,20 +295,11 @@ body {
   }
 
   .workspace__toolbar {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 12px;
   }
 
   .workspace__controls {
     display: contents;
-  }
-
-  .control {
-    width: auto;
-  }
-
-  .run-button {
-    justify-self: end;
   }
 
   .pane-switcher {

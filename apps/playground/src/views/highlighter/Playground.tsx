@@ -1,6 +1,13 @@
 import { contentCategories } from "@nsh/highlighter/catalog";
 import { themes } from "@nsh/highlighter/themes";
-import { CodeIcon, CopyIcon, GithubIcon, MoonIcon, ResetIcon, SunIcon } from "@virgo-design/icons";
+import {
+  CodeIcon,
+  CopyIcon,
+  GithubIcon,
+  MoonFilledIcon,
+  ResetIcon,
+  SunFilledIcon,
+} from "@virgo-design/icons";
 import {
   Button,
   LocaleProvider,
@@ -69,20 +76,21 @@ export function Playground() {
           </div>
           <div className="site-actions">
             <Button
+              className="site-action"
               variant="text"
               size="small"
               iconOnly
               aria-label={appearance === "light" ? "Use dark appearance" : "Use light appearance"}
               onClick={() => setAppearance(appearance === "light" ? "dark" : "light")}
             >
-              {appearance === "light" ? <MoonIcon /> : <SunIcon />}
+              {appearance === "light" ? <MoonFilledIcon /> : <SunFilledIcon />}
             </Button>
             <a
-              className="repo-link"
+              className="site-action repo-link"
               href="https://github.com/virgo-galaxy/neural-semantic-highlighting"
               aria-label="GitHub repository"
             >
-              <GithubIcon />
+              <GithubIcon size={18} />
             </a>
           </div>
         </div>
