@@ -9,7 +9,7 @@ npm init -y
 npm install --save-dev vite@8.2.2
 ```
 
-Install the [release candidate](../../docs/model-delivery.md#install-from-local-archives).
+Install the [npm package](../../docs/model-delivery.md#install-from-npm).
 Replace the imports and initializer at the top of `main.js` with this block.
 
 ```js

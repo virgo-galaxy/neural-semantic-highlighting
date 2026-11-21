@@ -14,6 +14,20 @@ modern browser with WebAssembly SIMD, module Workers and Web Crypto. Serve the
 app over HTTPS or localhost. Vite resolves the package imports and emits the
 Worker and WASM assets.
 
+## Install from npm
+
+In your frontend project:
+
+```bash
+npm install neural-semantic-highlighting
+```
+
+The package includes the API, renderer, themes and browser runtime.
+[Export the matching models](#export-the-deployable-directory) and configure their
+URL in your app. See the [React](../examples/react/README.md),
+[Vue](../examples/vue/README.md) and [vanilla JS](../examples/vanilla/README.md)
+examples.
+
 ## Install from local archives
 
 Build the single release candidate in the NSH checkout with Node.js 24 and
@@ -30,11 +44,7 @@ From your own frontend project, install the generated archive:
 npm install /path/to/neural-semantic-highlighting/artifacts/browser/npm-release/neural-semantic-highlighting-0.1.0.tgz
 ```
 
-The archive includes the API, renderer, themes and browser runtime.
-[Export the matching models](#export-the-deployable-directory) and configure their
-URL in your app. Use the [React](../examples/react/README.md),
-[Vue 3](../examples/vue/README.md) or [vanilla JavaScript](../examples/vanilla/README.md)
-examples. For maintainers, see the [candidate checks](npm-release.md).
+For maintainers, see the [candidate checks](npm-release.md).
 
 ## Install workspace archives
 
@@ -166,9 +176,12 @@ optional. The highlighter ships its shared WASM as an application asset.
 
 ### Export the deployable directory
 
-After `pnpm pack:browser`, run this in the NSH checkout:
+Use the source revision linked from your installed package's README. In that
+checkout or snapshot, run:
 
 ```bash
+pnpm install --frozen-lockfile
+pnpm build:packages
 node scripts/export-model-assets.mjs
 # Optional subset; required child models are included automatically:
 node scripts/export-model-assets.mjs --models typescript,css --destination artifacts/browser/design-models

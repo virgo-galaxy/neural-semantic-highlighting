@@ -4,13 +4,12 @@ Highlight source code and file formats in the browser. A Web Worker runs
 inference using ONNX models. The highlighter returns escaped HTML and semantic
 spans.
 
-## Install a local candidate
+## Install
 
-In a frontend project with an ESM bundler such as Vite, install the archive from
-the NSH checkout:
+In a frontend project with an ESM bundler such as Vite:
 
 ```bash
-npm install /path/to/neural-semantic-highlighting-0.1.0.tgz
+npm install neural-semantic-highlighting
 ```
 
 ## Highlight a code block
@@ -36,10 +35,14 @@ Workers, WebAssembly SIMD and Web Crypto. Serve the app over HTTPS or localhost.
 
 ## Serve model assets
 
-From a matching NSH checkout with the workspace packages built, export the
-models for the content types your app uses:
+For version 0.1.0, download and unpack the
+[matching source snapshot](https://github.com/virgo-galaxy/neural-semantic-highlighting/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz).
+From its root, export the models for the content types your app uses. The
+export tools require Node.js 24 and pnpm 11.
 
 ```bash
+pnpm install --frozen-lockfile
+pnpm build:packages
 node scripts/export-model-assets.mjs --models typescript,css
 ```
 

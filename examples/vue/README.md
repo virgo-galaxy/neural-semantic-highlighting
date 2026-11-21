@@ -1,7 +1,7 @@
 # Vue 3 integration
 
 Use an existing Vue 3 + TypeScript app with Vite and install the
-[release candidate](../../docs/model-delivery.md#install-from-local-archives).
+[npm package](../../docs/model-delivery.md#install-from-npm).
 
 1. Copy [highlighter-remote.ts](../highlighter-remote.ts) to
    `src/highlighter.ts`. Set `modelBaseUrl` to your

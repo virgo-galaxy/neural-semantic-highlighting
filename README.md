@@ -5,11 +5,10 @@ Import a highlighter, pass text and its content type, and render the returned HT
 in a browser Web Worker using the existing models; consumers need no Python
 process, language SDK or highlighting server.
 
-**Distribution status:** `neural-semantic-highlighting` is available as a local
-release candidate. The repository is public and the npm package is unpublished.
-The workspace uses `@nsh/*` imports for its development packages.
+Frontend apps use the `neural-semantic-highlighting` package. The workspace uses
+`@nsh/*` imports for its development packages.
 
-[Install in your app](docs/model-delivery.md#install-from-local-archives) ·
+[Install in your app](docs/model-delivery.md#install-from-npm) ·
 [React, Vue and vanilla JS](#react-vue-and-vanilla-javascript) ·
 [Model deployment](#model-deployment) ·
 [Themes and custom CSS](#light--dark-themes-and-custom-css) ·
@@ -34,7 +33,7 @@ or clear downloaded models. Failures preserve plain source and offer a retry.
 See [Playground model loading](docs/playground-model-loading.md) for details.
 
 To use the highlighter in another project, install the
-[single local archive](docs/model-delivery.md#install-from-local-archives).
+[npm package](docs/model-delivery.md#install-from-npm).
 Serve the selected ONNX files at your site's `/models/` path or use a separate
 model host. The browser downloads each model on first use.
 
@@ -148,7 +147,7 @@ getContentType("yml"); // YAML entry; category === "formats"
 ```
 
 The workspace examples use descriptor imports such as
-`@nsh/highlighter/languages/typescript` with `@nsh/models`. The release candidate
+`@nsh/highlighter/languages/typescript` with `@nsh/models`. The npm package
 uses a model resource URL for the same weights.
 See [content organization](docs/content-organization.md) for the catalog, paths
 and framework-profile conventions.

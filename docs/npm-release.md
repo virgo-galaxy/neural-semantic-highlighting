@@ -10,7 +10,8 @@ host. [Model delivery](model-delivery.md) covers both deployments.
 The workspace retains its `@nsh/*` modules and the Playground uses them directly.
 The packer combines their compiled files in a staging directory and resolves
 internal JavaScript imports and TypeScript declarations within the archive.
-Candidate manifests retain `private: true`.
+The workspace root stays private. The generated single-package archive contains
+the manifest for npm publication.
 
 ## Build and verify a candidate
 
@@ -59,6 +60,7 @@ authentication. Confirm the archive contains the MIT `LICENSE`, the
 Document how users can obtain and serve matching models. Review model
 redistribution terms independently of the engine license.
 
-Once approved, update the candidate's version, installation command
-and resource links. Review the exact archive again. After release, test a
-registry install in a fresh frontend app.
+For each release, update the candidate's version and the model source link in
+the npm README. Review the exact archive and publish it from outside the
+workspace, which uses pnpm. After release, test a registry install in a fresh
+frontend app.
