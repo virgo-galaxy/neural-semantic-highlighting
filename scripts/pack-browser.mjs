@@ -122,6 +122,7 @@ function rewriteImports(file, entrypoints) {
 function packHighlighter() {
   const highlighter = packages.find(({ manifest }) => manifest.name === "@nsh/highlighter");
   const { description, version, type, exports, files, sideEffects } = highlighter.manifest;
+  const { license } = JSON.parse(readFileSync(resolve("package.json"), "utf8"));
   const name = "neural-semantic-highlighting";
   const staging = prepareStaging(name);
   const dist = resolve(staging, "dist");
@@ -132,6 +133,7 @@ function packHighlighter() {
     filter: (file) => !workspaceOnly.includes(relative(highlighterDist, file)),
   });
   cpSync(resolve(highlighter.directory, "README.npm.md"), resolve(staging, "README.md"));
+  cpSync(resolve("LICENSE"), resolve(staging, "LICENSE"));
 
   const entrypoints = new Map();
   const dependencies = {};
@@ -162,6 +164,7 @@ function packHighlighter() {
     name,
     version,
     description,
+    license,
     private: true,
     type,
     exports: publicExports,

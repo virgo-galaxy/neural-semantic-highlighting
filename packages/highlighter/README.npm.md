@@ -53,3 +53,8 @@ runtime. It contains zero ONNX weights. The browser downloads each required
 model and its metadata from your host when first used. Omit `languages` to
 offer the full catalog when hosting all models. Use the `/catalog` package
 entry to list content types or the `/themes.css` entry to load all theme presets.
+
+## License
+
+The project's code and documentation are licensed under MIT. The archive
+includes the `LICENSE` file and the original ONNX Runtime license notice.

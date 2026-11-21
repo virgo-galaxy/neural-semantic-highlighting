@@ -54,11 +54,11 @@ parameters).
 ## Before publishing
 
 Confirm the publishing account can claim the unscoped name and complete npm
-authentication. Confirm the project code license and include its text and
-applicable notices. Verify model redistribution rights for the hosted assets
-and deploy a matching model directory that users can access. An npm model
-package can be decided independently of the engine release.
+authentication. Confirm the archive contains the MIT `LICENSE`, the
+`"license": "MIT"` manifest field and the ONNX Runtime license notice.
+Document how users can obtain and serve matching models. Review model
+redistribution terms independently of the engine license.
 
-Once approved, update the candidate's license, version, installation command
+Once approved, update the candidate's version, installation command
 and resource links. Review the exact archive again. After release, test a
 registry install in a fresh frontend app.

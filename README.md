@@ -6,14 +6,15 @@ in a browser Web Worker using the existing models; consumers need no Python
 process, language SDK or highlighting server.
 
 **Distribution status:** `neural-semantic-highlighting` is available as a local
-release candidate. The repository is private and the package is unpublished.
+release candidate. The repository is public and the npm package is unpublished.
 The workspace uses `@nsh/*` imports for its development packages.
 
 [Install in your app](docs/model-delivery.md#install-from-local-archives) ·
 [React, Vue and vanilla JS](#react-vue-and-vanilla-javascript) ·
 [Model deployment](#model-deployment) ·
 [Themes and custom CSS](#light--dark-themes-and-custom-css) ·
-[Content types and aliases](#content-types-names-and-aliases)
+[Content types and aliases](#content-types-names-and-aliases) ·
+[License](#license)
 
 ## Try it now
 
@@ -829,3 +830,9 @@ model. All presets, light/dark modes and custom `--nsh-*` CSS apply. Register
 fences; default registration includes both. No Makefile, recipe, expansion or
 included file is executed or loaded. See [evaluation](packs/makefile/model/BENCHMARKS.md)
 and [known limits](packs/makefile/model/KNOWN_ISSUES.md).
+
+## License
+
+The [MIT License](LICENSE) covers project-authored source code and documentation.
+Review the applicable terms separately for model weights and third-party
+materials. Third-party license notices apply to their respective components.
