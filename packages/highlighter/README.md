@@ -1,7 +1,10 @@
 # @nsh/highlighter
 
-Neural code highlighting directly in the browser. Currently private and
-unpublished; see the repository README for local tarball installation.
+Neural code highlighting directly in the browser. The packages are private and
+unpublished. See the checkout's `docs/model-delivery.md` for separate archive
+installation commands for website assets and remote models. The checkout's
+`examples/` directory contains React, Vue 3 and vanilla JavaScript guides for
+both modes.
 
 ```ts
 import { createHighlighter } from "@nsh/highlighter";
@@ -19,14 +22,6 @@ Use explicit languages; there is no automatic detection. Inference is asynchrono
 and runs in a Web Worker. The consumer needs no Python process or server endpoint.
 Call `close()` to terminate the worker when finished. Inference is client-only;
 importing the module itself does not start a worker.
-
-To select deployment assets:
-
-```ts
-import { createHighlighter } from "@nsh/highlighter";
-import typescript from "@nsh/models/languages/typescript";
-const highlighter = createHighlighter({ languages: [typescript] });
-```
 
 JS/TS includes JSX/TSX. CSS includes SCSS/Less. HTML, Vue and Svelte descriptors
 include their JS/TS/CSS dependencies automatically; PHP includes HTML and its

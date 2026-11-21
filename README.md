@@ -10,8 +10,9 @@ process, language SDK or highlighting server.
 already published on npm**. Local tarball installation works today. Publication
 and repository visibility are separate release decisions.
 
-[Install](#try-it-now) · [Simple usage](#simple-integration-react-vue-and-vanilla-javascript) ·
-[Complete examples](#complete-integration-examples) ·
+[Install in your app](docs/model-delivery.md#install-from-local-archives) ·
+[React, Vue and vanilla JS](#react-vue-and-vanilla-javascript) ·
+[Remote models](#load-models-from-minio-or-a-static-resource-host) ·
 [Themes and custom CSS](#light--dark-themes-and-custom-css) ·
 [Content types and aliases](#content-types-names-and-aliases)
 
@@ -32,20 +33,11 @@ and a **Remote host**, configure its resource URL, toggle persistent model cachi
 or clear downloaded models. Failures preserve plain source and offer a retry.
 See [Playground model loading](docs/playground-model-loading.md) for details.
 
-To install the built packages into another frontend project before publication:
-
-```bash
-# In this repository; output goes to artifacts/browser/npm/.
-pnpm pack:browser
-
-# In the consuming project; use the actual path to this checkout.
-npm install /path/to/neural-semantic-highlighting/artifacts/browser/npm/*.tgz
-```
-
-This installs the highlighter, its three internal dependencies and the optional
-`@nsh/models` resource package from local archives. Use an ESM frontend bundler; Vite production builds have been verified.
-Other bundlers have not yet been verified. No alias into this repository, Python
-setup, special Vite bridge or manual model URL configuration is required.
+To use the highlighter in another project, choose **Website assets** to deploy
+selected ONNX files with your app, or **Remote host** to deploy the files
+separately. Both modes run inference in the browser. Follow the
+[local archive installation guide](docs/model-delivery.md#install-from-local-archives)
+for the packages each mode needs.
 
 ## Highlight code
 
@@ -91,378 +83,42 @@ Call `highlighter.close()` when the application no longer needs this instance;
 this terminates its worker and rejects pending requests. Create a new instance to
 start again. Module imports are safe during SSR, but call inference on the client.
 
-## Simple integration: React, Vue and vanilla JavaScript
+## React, Vue and vanilla JavaScript
 
-All three use the same asynchronous `highlighter.highlight(code, { language })`
-API. React and Vue have comparable integration steps. The short framework
-examples below use the complete `CodeBlock` components shown in the next section;
-they are application components you copy, not exports from the npm package.
+The framework controls how you render the result. The initializer controls where
+models come from. Each example uses the same async `highlight` API, shows plain
+source during loading and keeps it visible if the request fails.
 
-### React: simple usage
+| Frontend           | Step-by-step guide                       | Complete source                                                                                        |
+| ------------------ | ---------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| React + TypeScript | [React](examples/react/README.md)        | [CodeBlock.tsx](examples/react/CodeBlock.tsx)                                                          |
+| Vue 3 + TypeScript | [Vue](examples/vue/README.md)            | [CodeBlock.vue](examples/vue/CodeBlock.vue)                                                            |
+| HTML and JS        | [Vanilla JS](examples/vanilla/README.md) | [HTML](examples/vanilla/index.html), [JS](examples/vanilla/main.js), [CSS](examples/vanilla/style.css) |
 
-After copying the shared initializer and React component below, in `src/App.tsx`:
-
-```tsx
-import { CodeBlock } from "./components/CodeBlock";
-
-export default function App() {
-  return <CodeBlock code={"const answer = 42;"} language="typescript" />;
-}
-```
-
-### Vue 3: simple usage
-
-After copying the same shared initializer and Vue component below, in `src/App.vue`:
-
-```vue
-<script setup lang="ts">
-import CodeBlock from "./components/CodeBlock.vue";
-const source = "const answer = 42;";
-</script>
-
-<template>
-  <CodeBlock :code="source" language="typescript" />
-</template>
-```
-
-### Vanilla JavaScript: simple usage
-
-Use ordinary HTML with an ESM entry (`<script type="module" src="./main.js"></script>`)
-and a `<div id="example"></div>`:
-
-```js
-import { createHighlighter } from "@nsh/highlighter";
-import css from "@nsh/models/languages/css";
-import typescript from "@nsh/models/languages/typescript";
-import "@nsh/highlighter/theme.css";
-
-const highlighter = createHighlighter({ languages: [typescript, css] });
-const { html } = await highlighter.highlight("const answer = 42;", { language: "javascript" });
-document.querySelector("#example").innerHTML = html;
-```
-
-Vanilla JS means no React or Vue dependency. The current npm modules still need
-an ESM bundler to resolve package imports and emit Worker/model/WASM assets.
-The complete example below uses Vite. A direct CDN `<script src>` distribution
-without a build step is not currently provided.
-
-## Complete integration examples
-
-Install the local packages as described above. The React and Vue examples assume
-an existing TypeScript frontend project; keep its normal framework/Vite setup.
-Both handle loading, errors, changing source/language, obsolete asynchronous
-results and component unmounting. Ordinary escaped code remains visible while
-inference loads or fails. No framework adapter package is required.
-
-### Shared React / Vue initializer
-
-Create `src/highlighter.ts` from [examples/highlighter.ts](examples/highlighter.ts):
-
-```ts
-import "@nsh/highlighter/theme.css";
-
-import { createHighlighter } from "@nsh/highlighter";
-import css from "@nsh/models/languages/css";
-import typescript from "@nsh/models/languages/typescript";
-
-// One worker and model cache for the whole client application.
-export const highlighter = createHighlighter({ languages: [typescript, css] });
-```
-
-Both components reuse this application-level instance. They stop updating after
-unmount, while the shared worker remains available to other code blocks. Call
-`highlighter.close()` only when the whole application no longer needs it, not
-when one shared code block unmounts. Create a new instance after closing.
-
-### React: complete component
-
-Copy [examples/react/CodeBlock.tsx](examples/react/CodeBlock.tsx) to
-`src/components/CodeBlock.tsx`, then use the short React example above:
+For either framework, copy your chosen initializer to `src/highlighter.ts`.
+Use [the website-assets initializer](examples/highlighter.ts) to serve the TSX
+and SCSS models with the app, or [the remote initializer](examples/highlighter-remote.ts)
+to load them from a model host. Copy the component to `src/components/` and use
+it like any other component.
 
 ```tsx
-import { useEffect, useState } from "react";
-
-import { highlighter } from "../highlighter";
-
-type Highlighted = { code: string; language: string; value?: string; error?: string };
-
-export function CodeBlock({ code, language }: { code: string; language: string }) {
-  const [result, setResult] = useState<Highlighted>();
-  useEffect(() => {
-    let active = true;
-    highlighter.highlight(code, { language }).then(
-      ({ value }) => {
-        if (active) setResult({ code, language, value });
-      },
-      (reason: unknown) => {
-        if (active) setResult({ code, language, error: String(reason) });
-      },
-    );
-    return () => {
-      active = false;
-    };
-  }, [code, language]);
-  const current = result?.code === code && result.language === language ? result : undefined;
-  return (
-    <>
-      <pre className="nsh" data-language={language} aria-busy={current === undefined}>
-        {current?.value === undefined ? (
-          <code>{code}</code>
-        ) : (
-          <code dangerouslySetInnerHTML={{ __html: current.value }} />
-        )}
-      </pre>
-      {current?.error ? <p role="alert">{current.error}</p> : null}
-    </>
-  );
-}
+// React. Import CodeBlock from "./components/CodeBlock".
+<CodeBlock code={"const App = () => <button>Hello</button>;"} language="tsx" />
 ```
-
-React's `useEffect` starts inference on the client. For Next.js App Router, add
-`"use client"` at the top of this component. The `value` passed to
-`dangerouslySetInnerHTML` comes from the escaping NSH renderer.
-
-### Vue 3: complete component
-
-Copy [examples/vue/CodeBlock.vue](examples/vue/CodeBlock.vue) to
-`src/components/CodeBlock.vue`, then use the short Vue example above:
 
 ```vue
-<script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, watch, type WatchStopHandle } from "vue";
-
-import { highlighter } from "../highlighter";
-
-const props = defineProps<{ code: string; language: string }>();
-const markup = ref<string>();
-const error = ref("");
-let stopWatching: WatchStopHandle | undefined;
-
-// Start inference on the client, after hydration.
-onMounted(() => {
-  stopWatching = watch(
-    () => [props.code, props.language] as const,
-    ([code, language], _, onCleanup) => {
-      let active = true;
-      onCleanup(() => {
-        active = false;
-      });
-      markup.value = undefined;
-      error.value = "";
-      highlighter.highlight(code, { language }).then(
-        ({ value }) => {
-          if (active) markup.value = value;
-        },
-        (reason: unknown) => {
-          if (active) error.value = String(reason);
-        },
-      );
-    },
-    { immediate: true },
-  );
-});
-onBeforeUnmount(() => stopWatching?.());
-</script>
-
-<template>
-  <pre
-    class="nsh"
-    :data-language="language"
-    :aria-busy="markup === undefined && !error"
-  ><code v-if="markup !== undefined" v-html="markup"></code><code v-else>{{ code }}</code></pre>
-  <p v-if="error" role="alert">{{ error }}</p>
-</template>
+<!-- Vue. Import CodeBlock from "./components/CodeBlock.vue" in <script setup>. -->
+<CodeBlock code="const App = () => 42;" language="typescript" />
 ```
 
-Vue's `onMounted` starts inference on the client; the watcher handles prop
-changes. `v-html` receives only the renderer's escaped `value`. The extra lifecycle
-code serves the same purpose as React's effect and cleanup. It is not an extra
-model setup requirement. The existing Vue Playground is another working consumer.
+In plain HTML, use a `<script type="module" src="./main.js"></script>` entry and
+an ESM bundler such as Vite. The [vanilla guide](examples/vanilla/README.md)
+includes the local and remote setup and a minimal `highlightElement` example.
 
-### Vanilla JavaScript: complete HTML / CSS / JS
-
-Copy the three files from [examples/vanilla](examples/vanilla/README.md) into a
-new directory. With the local package archives already built:
-
-```bash
-npm init -y
-npm install /path/to/neural-semantic-highlighting/artifacts/browser/npm/*.tgz
-npm install --save-dev vite@8.2.2
-npx vite
-```
-
-Open the local URL Vite prints. Use `npx vite build` to produce static files in
-`dist`; this server is a development/build tool, not a required inference service.
-Deploy `dist` to ordinary static hosting. Only the NSH packages and Vite are
-needed; no React/Vue, Python or language SDK is installed.
-
-`index.html`:
-
-```html
-<!doctype html>
-<html lang="en" data-nsh-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NSH — Vanilla JavaScript</title>
-  </head>
-  <body>
-    <main>
-      <h1>Code highlighting</h1>
-      <button id="theme" type="button">Switch to dark</button>
-      <label
-        >Language
-        <select id="language">
-          <option value="typescript">TypeScript</option>
-          <option value="javascript">JavaScript</option>
-          <option value="css">CSS</option>
-        </select>
-      </label>
-      <label for="source">Source code</label>
-      <textarea id="source" rows="6" spellcheck="false">
-const greeting = "Hello, Virgo!";
-console.log(greeting);</textarea>
-      <button id="highlight" type="button">Highlight</button>
-      <p id="status" role="status"></p>
-      <div id="preview" aria-busy="false"></div>
-    </main>
-    <script type="module" src="./main.js"></script>
-  </body>
-</html>
-```
-
-`main.js`:
-
-```js
-import "@nsh/highlighter/theme.css";
-import "./style.css";
-
-import { createHighlighter } from "@nsh/highlighter";
-import css from "@nsh/models/languages/css";
-import typescript from "@nsh/models/languages/typescript";
-
-const highlighter = createHighlighter({ languages: [typescript, css] });
-const source = document.querySelector("#source");
-const language = document.querySelector("#language");
-const preview = document.querySelector("#preview");
-const status = document.querySelector("#status");
-const themeButton = document.querySelector("#theme");
-let revision = 0;
-
-function showPlainCode() {
-  const pre = document.createElement("pre");
-  pre.className = "nsh";
-  pre.dataset.language = language.value;
-  const code = document.createElement("code");
-  code.textContent = source.value;
-  pre.append(code);
-  preview.replaceChildren(pre);
-}
-
-function invalidate() {
-  revision += 1;
-  showPlainCode();
-  preview.setAttribute("aria-busy", "false");
-  status.textContent = "Ready to highlight";
-}
-
-async function highlight() {
-  const request = ++revision;
-  showPlainCode();
-  preview.setAttribute("aria-busy", "true");
-  status.textContent = "Highlighting…";
-  try {
-    const { html } = await highlighter.highlight(source.value, { language: language.value });
-    if (request !== revision) return;
-    preview.innerHTML = html; // Escaped by the NSH renderer.
-    status.textContent = "Highlighted";
-  } catch (reason) {
-    if (request !== revision) return;
-    status.textContent = `Unable to highlight: ${String(reason)}`;
-  } finally {
-    if (request === revision) preview.setAttribute("aria-busy", "false");
-  }
-}
-
-source.addEventListener("input", invalidate);
-language.addEventListener("change", invalidate);
-document.querySelector("#highlight").addEventListener("click", () => {
-  void highlight();
-});
-themeButton.addEventListener("click", () => {
-  const dark = document.documentElement.dataset.nshTheme !== "dark";
-  document.documentElement.dataset.nshTheme = dark ? "dark" : "light";
-  themeButton.textContent = dark ? "Switch to light" : "Switch to dark";
-});
-
-// Release the worker when leaving; restart normally if restored from back/forward cache.
-window.addEventListener("pagehide", (event) => {
-  if (!event.persisted) highlighter.close();
-});
-void highlight();
-```
-
-`style.css`:
-
-```css
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-}
-main {
-  max-width: 800px;
-  margin: 32px auto;
-  padding: 0 16px;
-}
-label,
-textarea {
-  display: block;
-  margin: 16px 0 8px;
-}
-textarea {
-  box-sizing: border-box;
-  width: 100%;
-  font:
-    14px/1.6 ui-monospace,
-    monospace;
-}
-button,
-select {
-  padding: 6px 12px;
-}
-
-/* Load after @nsh/highlighter/theme.css. These are example application colors. */
-.nsh {
-  --nsh-background: #fafafa;
-  --nsh-foreground: #24292f;
-  --nsh-keyword: #8250df;
-  --nsh-string: #0a3069;
-  --nsh-comment: #57606a;
-  --nsh-number: #0550ae;
-  --nsh-function: #8250df;
-
-  padding: 16px;
-  border-radius: 8px;
-  overflow: auto;
-  font:
-    14px/1.6 ui-monospace,
-    monospace;
-}
-.nsh[data-theme="dark"],
-[data-nsh-theme="dark"] .nsh:not([data-theme="light"]) {
-  --nsh-background: #18181b;
-  --nsh-foreground: #fafafa;
-  --nsh-keyword: #c084fc;
-  --nsh-string: #a5d6ff;
-  --nsh-comment: #a1a1aa;
-  --nsh-number: #79c0ff;
-  --nsh-function: #d2a8ff;
-}
-```
-
-This version includes editable source, language selection, safe plain-text
-fallback, loading/errors and protection against obsolete results. The theme
-button changes CSS attributes only; it does not rerun inference.
+All code blocks in an application can reuse the same highlighter. React starts
+inference in an effect and Vue starts it on mount. Call `close()` when the app
+is done with the instance. Component cleanup guards against late results while
+other blocks keep using the shared Worker.
 
 ## Content types, names and aliases
 
@@ -520,8 +176,8 @@ await highlighter.highlight(source, { language: "tsx" });
 
 Use `@nsh/highlighter/bundled` instead when deliberately including every local
 model; it retains the zero-argument `createHighlighter()` convenience API and
-requires `@nsh/models`. The shared React/Vue initializer and vanilla examples
-select TypeScript and CSS; register additional models for other content types.
+requires `@nsh/models`. The website-assets examples select the TypeScript and CSS
+model families. Register additional descriptors for other content types.
 
 The TypeScript descriptor covers JS, TS, JSX and TSX. CSS covers CSS, SCSS and
 Less. HTML and Vue descriptors automatically include the existing script/style
@@ -572,8 +228,9 @@ for export layout, temporary URL examples and independent installation checks.
 
 ## Assets and performance
 
-- Models and WASM are emitted as your application's static assets. Code is sent
-  only to its local worker; no source-upload endpoint or CDN is required.
+- WASM is an application asset in both modes. The app emits ONNX files when it
+  imports local descriptors. With a remote source, the browser fetches those
+  files directly from the resource host and sends source code only to its Worker.
 - The current float32 ONNX models are about **3.6 MB each, uncompressed**; exact
   per-model sizes are listed in the support tables below. The shared WASM binary
   is about **14.8 MB uncompressed** (about 3.8 MB with gzip). HTTP compression is
