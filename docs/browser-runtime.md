@@ -208,9 +208,8 @@ and initialization; recorded local timings are not a network or device benchmark
 Reuse a highlighter to reuse its worker and sessions. Close it to release them.
 
 Reproduce export and parity with [training/browser](../training/browser/README.md).
-Use `pnpm pack:browser` and the [React component](../examples/react/CodeBlock.tsx)
-to check a consumer against local packages. Nothing was published and repository
-visibility was not changed.
+Use `pnpm pack:browser` and the [React guide](../examples/react/README.md)
+to check a consumer against the local release candidate.
 
 ## Svelte addition
 

@@ -3,10 +3,11 @@
 Choose where the browser will download model files. Both modes use the same
 highlighter API, CSS themes and shared browser Worker/WASM runtime.
 
-| Mode           | Install                          | Production deployment                                     |
-| -------------- | -------------------------------- | --------------------------------------------------------- |
-| Website assets | Highlighter and `@nsh/models`    | The app contains the ONNX files selected by its imports   |
-| Remote host    | Highlighter and its dependencies | The app contains zero ONNX files. Serve models separately |
+| Mode                 | Install                        | Production deployment                                       |
+| -------------------- | ------------------------------ | ----------------------------------------------------------- |
+| Same-site model host | `neural-semantic-highlighting` | Serve the selected model files at a URL such as `/models/`  |
+| Separate model host  | `neural-semantic-highlighting` | Serve models on MinIO or another static host                |
+| Workspace bundling   | Local `@nsh` archives          | Vite includes the ONNX files selected by descriptor imports |
 
 Vite production builds have been verified. Run inference on the client in a
 modern browser with WebAssembly SIMD, module Workers and Web Crypto. Serve the
@@ -15,16 +16,33 @@ Worker and WASM assets.
 
 ## Install from local archives
 
-The `@nsh` packages are unpublished. Build the `.tgz` files in the NSH checkout
-with Node.js 24 and pnpm 11:
+Build the single release candidate in the NSH checkout with Node.js 24 and
+pnpm 11:
 
 ```bash
-pnpm install
+pnpm install --frozen-lockfile
 pnpm pack:browser
 ```
 
-For maintainers preparing a release candidate, follow the
-[clean build and archive checks](npm-release.md#build-and-verify-a-candidate).
+From your own frontend project, install the generated archive:
+
+```bash
+npm install /path/to/neural-semantic-highlighting/artifacts/browser/npm-release/neural-semantic-highlighting-0.1.0.tgz
+```
+
+The archive includes the API, renderer, themes and browser runtime.
+[Export the matching models](#export-the-deployable-directory) and configure their
+URL in your app. Use the [React](../examples/react/README.md),
+[Vue 3](../examples/vue/README.md) or [vanilla JavaScript](../examples/vanilla/README.md)
+examples. For maintainers, see the [candidate checks](npm-release.md).
+
+## Install workspace archives
+
+For local testing with descriptor imports, build the private `@nsh` archives:
+
+```bash
+pnpm pack:browser --workspace-packages
+```
 
 Run the following in your **own frontend project**, with an existing
 `package.json`. Set `NSH_ARCHIVES` to the actual archive directory. These
@@ -49,10 +67,8 @@ For example, TSX and SCSS together emit about **7.21 MB of ONNX files** before
 HTTP compression, plus one shared WASM and the application's JS/CSS. The browser
 requests each model as it is used.
 
-Once installed, use the [React](../examples/react/README.md),
-[Vue 3](../examples/vue/README.md) or [vanilla JavaScript](../examples/vanilla/README.md)
-guide. The rendering code stays the same for both modes. Change the highlighter
-initializer to select a model source.
+Use the [workspace initializer](../examples/highlighter.ts) with the React and
+Vue components or the [workspace vanilla entry](../examples/vanilla/main.js).
 
 ## Local application assets
 
@@ -83,14 +99,15 @@ resource package.
 
 ## Reproduce package and production-build checks
 
-Build the workspace packages first. The packer rewrites workspace dependency
-versions in temporary staging manifests and calls `npm pack` locally; no package
-is published and no repository manifest is modified by packing.
+The release check installs the single archive and verifies its public API types,
+zero bundled ONNX files and one shared WASM in the consumer build. Run
+`node scripts/check-model-delivery.mjs` after `pnpm pack:browser`.
+
+Use the workspace archive mode to also check descriptor-based delivery:
 
 ```bash
-pnpm build:packages
-node scripts/pack-browser.mjs
-node scripts/check-model-delivery.mjs
+pnpm pack:browser --workspace-packages
+node scripts/check-model-delivery.mjs --archives artifacts/browser/npm
 ```
 
 The consumer check installs actual archives into temporary projects outside the
@@ -105,13 +122,12 @@ compression; per-model sizes in the main README are original ONNX file sizes.
 
 ## Remote assets: static server or MinIO
 
-The frontend installs only `@nsh/highlighter` and its normal dependencies; it
-does not need the optional `@nsh/models` package. The same API accepts a resource
-root and optional content IDs/aliases instead of local descriptors:
+The frontend installs `neural-semantic-highlighting`. Pass a resource root and
+optional content IDs or aliases:
 
 ```ts
-import { createHighlighter } from "@nsh/highlighter";
-import "@nsh/highlighter/theme.css";
+import { createHighlighter } from "neural-semantic-highlighting";
+import "neural-semantic-highlighting/theme.css";
 
 const highlighter = createHighlighter({
   modelBaseUrl: "https://storage.example.com/highlighting/",
@@ -124,8 +140,8 @@ const { html } = await highlighter.highlight(source, { language: "tsx" });
 `modelBaseUrl` can be an absolute HTTP(S) URL or an application-relative URL such
 as `/models/`. It identifies the directory containing `v1/`; a trailing slash is
 optional. For MinIO, include the bucket and any prefix in that URL.
-Remote selection accepts the existing names and aliases. Local selection accepts
-the optional resource package's descriptors; combining those two forms is rejected.
+Model hosts use the existing names and aliases. Workspace bundling uses model
+descriptors.
 For example, `https://storage.example.com/model-bucket/highlighting/` points to
 `highlighting/` inside `model-bucket`. The browser appends the pinned `v1/...`
 paths to that base. With an HTTPS app, use an HTTPS resource host.
@@ -146,7 +162,7 @@ Python provider, S3 client or custom compression/decompression code is involved.
 For a different resource origin, configure MinIO/the static host's CORS policy to
 allow browser `GET` requests from the exact app origin for both `.onnx` and `.json`
 objects. Include the app's port for localhost development. HTTP compression is
-optional. Shared WASM ships with `@nsh/browser` as an application asset.
+optional. The highlighter ships its shared WASM as an application asset.
 
 ### Export the deployable directory
 

@@ -75,7 +75,7 @@ export function createHighlighter(options: HighlighterOptions = {}): BrowserHigh
     for (const model of models.values()) base.set(model.id, runtime.createPack(model));
   }
   if (!base.size)
-    throw new Error("Register at least one language model from @nsh/models/languages/<name>");
+    throw new Error("Provide language model descriptors, a modelBaseUrl or a resolveAssetUrl");
   const packs = [...base].map(([id, pack]) =>
     id === "markdown"
       ? createCompositeMarkdownPack({

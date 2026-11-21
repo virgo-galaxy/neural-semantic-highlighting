@@ -6,7 +6,8 @@ Frontend usage is documented in the [root README](../README.md).
 
 | Location                    | Responsibility                                              |
 | --------------------------- | ----------------------------------------------------------- |
-| `packages/highlighter`      | Consumer API, language descriptors and bundled models       |
+| `packages/highlighter`      | Consumer API, asset loading and theme exports               |
+| `packages/models`           | Workspace descriptors and ONNX assets                       |
 | `packages/core`             | Pack registry, result contracts and HTML/Vue composition    |
 | `packages/runtimes/browser` | Worker, WASM inference, cursor and decoding                 |
 | `packages/renderers/html`   | Escaped HTML, full blocks and fragments                     |
@@ -34,11 +35,12 @@ pnpm dev             # Browser Playground, port 3000; no Python process
 pnpm build           # Packages and production Playground
 pnpm all             # Build, typecheck, lint, formatting and TypeScript tests
 make check           # Also checks Python compilation/imports
-pnpm pack:browser    # Local npm tarballs; does not publish
+pnpm pack:browser    # Single local npm release candidate
 ```
 
-`pnpm clean` removes only generated `dist` folders. For the clean-build procedure,
-package review and outstanding release decisions, see
+`pnpm clean` removes only generated `dist` folders. Use
+`pnpm pack:browser --workspace-packages` when testing the private archives with
+local model imports. For the production candidate procedure, see
 [npm release preparation](npm-release.md).
 
 ## Native reference runtime

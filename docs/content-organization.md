@@ -19,7 +19,7 @@ packages/core/src/catalog/
   index.ts       Categories, lookup, aliases and filename helper
 
 packages/highlighter/src/catalog/index.ts
-                 Public metadata-only re-export: @nsh/highlighter/catalog
+                 Metadata-only re-export: neural-semantic-highlighting/catalog
 
 apps/playground/src/views/highlighter/examples/
   code/<content-id>/<filename>
@@ -41,12 +41,12 @@ or framework names. `fileVariants` records internal source kinds such as
 
 ## Names are not interchangeable everywhere
 
-| Name                           | Purpose                               | Example                                        |
-| ------------------------------ | ------------------------------------- | ---------------------------------------------- |
-| Package name                   | Installation                          | `@nsh/highlighter` (still private/unpublished) |
-| Model import path              | Select a concrete model descriptor    | `@nsh/highlighter/languages/typescript`        |
-| Content ID or registered alias | Tell `highlight` what the input is    | `typescript` / `ts`, `javascript` / `js`       |
-| Filename extension             | Metadata and explicit example routing | `.tsx`, `.d.ts`, `.mjs`                        |
+| Name                           | Purpose                               | Example                                  |
+| ------------------------------ | ------------------------------------- | ---------------------------------------- |
+| Package name                   | Install the release candidate         | `neural-semantic-highlighting`           |
+| Model import path              | Select a workspace model descriptor   | `@nsh/highlighter/languages/typescript`  |
+| Content ID or registered alias | Tell `highlight` what the input is    | `typescript` / `ts`, `javascript` / `js` |
+| Filename extension             | Metadata and explicit example routing | `.tsx`, `.d.ts`, `.mjs`                  |
 
 The `language` API option remains compatible for both categories. Input names are
 case-insensitive and only registered aliases are normalized. Unknown names stay
@@ -85,14 +85,11 @@ historical reports keep the paths recorded when those experiments ran.
 
 ## Distribution boundary
 
-This organization is independent of local bundling versus remotely hosted model
-assets. Current selective imports already restrict the models emitted by the
-consumer bundler. The default `@nsh/highlighter` entry contains no ONNX files. The optional
-`@nsh/models` package owns local model descriptors and content-addressed assets;
-`@nsh/highlighter/bundled` explicitly opts into all local models. Compatibility
-`@nsh/highlighter/languages/*` paths require the optional resource package.
-Remote model loading uses `modelBaseUrl` or `resolveAssetUrl` and string content
-IDs; it bundles only a pinned catalog and fetches matching metadata/ONNX files on
-first use. The deployable resource directory is exported separately; see
-[model delivery](model-delivery.md).
-Themes, custom CSS, browser inference and shared model dependencies work as before.
+The release candidate ships a pinned catalog with the browser runtime. Apps use
+`modelBaseUrl` or `resolveAssetUrl` with string content IDs to fetch matching
+metadata and ONNX files on first use. Export those files for either same-site or
+separate hosting. [Model delivery](model-delivery.md) describes both setups.
+
+Workspace builds can also use selective imports from `@nsh/models` to include
+model assets in the app build. The Playground uses `@nsh/highlighter/bundled`
+when it needs the complete local catalog.

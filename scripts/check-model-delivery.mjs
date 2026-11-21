@@ -19,15 +19,39 @@ import { parseArgs } from "node:util";
 
 const { values } = parseArgs({
   options: {
-    archives: { type: "string", default: "artifacts/browser/npm" },
-    output: { type: "string", default: "artifacts/browser/delivery-check" },
+    archives: { type: "string", default: "artifacts/browser/npm-release" },
+    output: { type: "string" },
     "seed-node-modules": { type: "string" },
     offline: { type: "boolean", default: false },
     reference: { type: "string" },
   },
 });
-const output = resolve(values.output);
 const archives = JSON.parse(readFileSync(resolve(values.archives, "archives.json"), "utf8"));
+const releaseName = "neural-semantic-highlighting";
+const release = archives.some((archive) => archive.name === releaseName);
+const highlighterName = release ? releaseName : "@nsh/highlighter";
+const output = resolve(
+  values.output ??
+    (release ? "artifacts/browser/npm-release-check" : "artifacts/browser/delivery-check"),
+);
+if (release) {
+  assert.deepEqual(
+    archives.map((archive) => archive.name),
+    [releaseName],
+  );
+  assert.ok(
+    archives[0].files.some((file) => file.path.endsWith("/ONNX-RUNTIME-LICENSE.txt")),
+    "Missing ONNX Runtime notice",
+  );
+} else {
+  assert.deepEqual(archives.map((archive) => archive.name).sort(), [
+    "@nsh/browser",
+    "@nsh/core",
+    "@nsh/highlighter",
+    "@nsh/html",
+    "@nsh/models",
+  ]);
+}
 const require = createRequire(new URL("../apps/playground/package.json", import.meta.url));
 const { build } = await import(pathToFileURL(require.resolve("vite")).href);
 const report = { packageModels: {}, consumers: {} };
@@ -41,7 +65,7 @@ for (const archive of archives) {
   assert.equal(weights.length, archive.name === "@nsh/models" ? 40 : 0);
 }
 
-for (const mode of ["local", "base", "remote"]) {
+for (const mode of release ? ["base", "remote"] : ["local", "base", "remote"]) {
   // Outside the checkout: package resolution cannot fall back to workspace links.
   const folder = mkdtempSync(join(tmpdir(), `nsh-${mode}-`));
   const dependencies = Object.fromEntries(
@@ -78,18 +102,49 @@ for (const mode of ["local", "base", "remote"]) {
     ],
     { cwd: folder, encoding: "utf8" },
   );
-  if (installed.status !== 0) throw new Error(installed.stderr || installed.stdout);
+  if (installed.status !== 0)
+    throw installed.error ?? new Error(installed.stderr || installed.stdout);
   if (mode !== "local") assert.equal(existsSync(join(modules, "@nsh/models")), false);
+  if (release) assert.equal(existsSync(join(modules, "@nsh")), false);
   if (mode === "local") {
     cpSync(resolve("examples/selective"), folder, { recursive: true });
   } else if (mode === "remote") {
     cpSync(resolve("examples/remote"), folder, { recursive: true });
+    if (release) {
+      const entry = join(folder, "main.js");
+      writeFileSync(
+        entry,
+        readFileSync(entry, "utf8").replaceAll('"@nsh/highlighter', `"${releaseName}`),
+      );
+    }
   } else {
     writeFileSync(join(folder, "index.html"), '<script type="module" src="/main.js"></script>');
     writeFileSync(
       join(folder, "main.js"),
-      'import { createHighlighter } from "@nsh/highlighter";\nglobalThis.nsh = { createHighlighter };\n',
+      `import { createHighlighter } from "${highlighterName}";\nglobalThis.nsh = { createHighlighter };\n`,
     );
+  }
+  if (release && mode === "base") {
+    const source = join(folder, "public-api.ts");
+    writeFileSync(
+      source,
+      `import { createHighlighter, type HighlighterOptions } from "${releaseName}";
+import { getContentType } from "${releaseName}/catalog";
+import { themes } from "${releaseName}/themes";
+const options: HighlighterOptions = { modelBaseUrl: "/models/", languages: ["tsx"] };
+export const highlighter = createHighlighter(options);
+export const supported = getContentType("tsx");
+export { themes };
+`,
+    );
+    const tsc = createRequire(import.meta.url).resolve("typescript/bin/tsc6");
+    const typecheck = spawnSync(
+      process.execPath,
+      [tsc, "--target", "es2022", "--module", "nodenext", "--strict", "--noEmit", source],
+      { cwd: folder, encoding: "utf8" },
+    );
+    if (typecheck.status !== 0)
+      throw typecheck.error ?? new Error(typecheck.stdout || typecheck.stderr);
   }
   await build({
     configFile: false,

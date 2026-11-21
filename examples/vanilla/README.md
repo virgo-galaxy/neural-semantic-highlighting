@@ -9,19 +9,14 @@ npm init -y
 npm install --save-dev vite@8.2.2
 ```
 
-Follow the [archive installation guide](../../docs/model-delivery.md#install-from-local-archives).
-For **Website assets**, install `@nsh/models` and use `main.js` as copied. It
-registers the TypeScript and CSS families.
-
-For **Remote host**, install the four base archives and replace the imports and
-initializer at the top of `main.js` with this block. Leave the rest of the file
-in place.
+Install the [release candidate](../../docs/model-delivery.md#install-from-local-archives).
+Replace the imports and initializer at the top of `main.js` with this block.
 
 ```js
-import "@nsh/highlighter/theme.css";
+import "neural-semantic-highlighting/theme.css";
 import "./style.css";
 
-import { createHighlighter } from "@nsh/highlighter";
+import { createHighlighter } from "neural-semantic-highlighting";
 
 const highlighter = createHighlighter({
   modelBaseUrl: "/models/",
@@ -36,9 +31,8 @@ at `/models/`, or use its full URL. Start the example and open the URL it prints
 npx vite
 ```
 
-For static deployment, run `npx vite build` and serve `dist/`. The app includes
-two ONNX files in local mode and zero when you serve the remote model directory
-separately.
+For static deployment, run `npx vite build` and serve `dist/`. Serve the
+TypeScript and CSS model files at the configured URL.
 
 Click **Highlight** after editing to render the source. The example keeps plain
 code visible while loading or after an error and skips obsolete results.

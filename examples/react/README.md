@@ -1,15 +1,13 @@
 # React integration
 
-Use an existing React + TypeScript app with Vite. Follow the
-[archive installation guide](../../docs/model-delivery.md#install-from-local-archives)
-for your chosen model source.
+Use an existing React + TypeScript app with Vite and install the
+[release candidate](../../docs/model-delivery.md#install-from-local-archives).
 
-1. Copy one initializer to `src/highlighter.ts`.
-   - **Website assets:** use [highlighter.ts](../highlighter.ts) and install `@nsh/models`.
-   - **Remote host:** use [highlighter-remote.ts](../highlighter-remote.ts). Set
-     `modelBaseUrl` to your [deployed model directory](../../docs/model-delivery.md#remote-assets-static-server-or-minio).
+1. Copy [highlighter-remote.ts](../highlighter-remote.ts) to
+   `src/highlighter.ts`. Set `modelBaseUrl` to your
+   [deployed model directory](../../docs/model-delivery.md#remote-assets-static-server-or-minio).
 2. Copy [CodeBlock.tsx](CodeBlock.tsx) to `src/components/CodeBlock.tsx`.
-3. Use the component in `src/App.tsx`. The same code works with either initializer:
+3. Use the component in `src/App.tsx`.
 
 ```tsx
 import { CodeBlock } from "./components/CodeBlock";
@@ -31,10 +29,9 @@ returned by NSH. An effect calls inference on the client.
 Multiple code blocks share one highlighter. Component cleanup stops updates;
 close the shared instance when the entire application is disposed.
 
-Run the app's normal `npm run dev` and `npm run build` commands. For the local
-initializer, the Vite build contains the TypeScript and CSS ONNX files. For the
-remote initializer, deploy the model directory separately so the app ships zero
-ONNX files. Both builds include the shared browser runtime.
+Run the app's normal `npm run dev` and `npm run build` commands. Serve the
+TypeScript and CSS model files at the selected URL. The browser downloads them
+as the code blocks need them.
 
 For themes and custom global CSS, follow the
 [root theme guide](../../README.md#light--dark-themes-and-custom-css). Copy

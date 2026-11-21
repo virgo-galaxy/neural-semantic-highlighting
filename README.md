@@ -5,10 +5,9 @@ Import a highlighter, pass text and its content type, and render the returned HT
 in a browser Web Worker using the existing models; consumers need no Python
 process, language SDK or highlighting server.
 
-**Distribution status:** this repository and all packages are still private.
-`@nsh/highlighter` is the current package name in this workspace, **not a package
-already published on npm**. Local tarball installation works today. Publication
-and repository visibility are separate release decisions.
+**Distribution status:** `neural-semantic-highlighting` is available as a local
+release candidate. The repository is private and the package is unpublished.
+The workspace uses `@nsh/*` imports for its development packages.
 
 [Install in your app](docs/model-delivery.md#install-from-local-archives) ·
 [React, Vue and vanilla JS](#react-vue-and-vanilla-javascript) ·
@@ -33,22 +32,19 @@ and a **Remote host**, configure its resource URL, toggle persistent model cachi
 or clear downloaded models. Failures preserve plain source and offer a retry.
 See [Playground model loading](docs/playground-model-loading.md) for details.
 
-To use the highlighter in another project, choose **Website assets** to deploy
-selected ONNX files with your app, or **Remote host** to deploy the files
-separately. Both modes run inference in the browser. Follow the
-[local archive installation guide](docs/model-delivery.md#install-from-local-archives)
-for the packages each mode needs.
+To use the highlighter in another project, install the
+[single local archive](docs/model-delivery.md#install-from-local-archives).
+Serve the selected ONNX files at your site's `/models/` path or use a separate
+model host. The browser downloads each model on first use.
 
 ## Highlight code
 
 ```ts
-import { createHighlighter } from "@nsh/highlighter";
-import css from "@nsh/models/languages/css";
-import typescript from "@nsh/models/languages/typescript";
-import "@nsh/highlighter/theme.css";
+import { createHighlighter } from "neural-semantic-highlighting";
+import "neural-semantic-highlighting/theme.css";
 
 // Create once and reuse: models are fetched on first use, then kept in the worker.
-const highlighter = createHighlighter({ languages: [typescript, css] });
+const highlighter = createHighlighter({ modelBaseUrl: "/models/", languages: ["tsx", "scss"] });
 const result = await highlighter.highlight("export const App = () => <button>Hello</button>;", {
   language: "tsx",
 });
@@ -95,11 +91,10 @@ source during loading and keeps it visible if the request fails.
 | Vue 3 + TypeScript | [Vue](examples/vue/README.md)            | [CodeBlock.vue](examples/vue/CodeBlock.vue)                                                            |
 | HTML and JS        | [Vanilla JS](examples/vanilla/README.md) | [HTML](examples/vanilla/index.html), [JS](examples/vanilla/main.js), [CSS](examples/vanilla/style.css) |
 
-For either framework, copy your chosen initializer to `src/highlighter.ts`.
-Use [the website-assets initializer](examples/highlighter.ts) to serve the TSX
-and SCSS models with the app, or [the remote initializer](examples/highlighter-remote.ts)
-to load them from a model host. Copy the component to `src/components/` and use
-it like any other component.
+For React and Vue, copy [the initializer](examples/highlighter-remote.ts) to
+`src/highlighter.ts`. It loads models from `/models/` on the same site by
+default. Copy the component to `src/components/` and use it like any other
+component.
 
 ```tsx
 // React. Import CodeBlock from "./components/CodeBlock".
@@ -138,7 +133,11 @@ The metadata-only entry can populate a categorized selector without importing
 models, WASM or a Worker:
 
 ```ts
-import { contentCategories, contentTypes, getContentType } from "@nsh/highlighter/catalog";
+import {
+  contentCategories,
+  contentTypes,
+  getContentType,
+} from "neural-semantic-highlighting/catalog";
 
 getContentType("TS"); // TypeScript entry; modelId === "typescript"
 getContentType("tsx"); // TSX entry; same modelId
@@ -147,22 +146,18 @@ getContentType("yml"); // YAML entry; category === "formats"
 // are metadata rather than additional dropdown entries.
 ```
 
-Existing imports such as `@nsh/highlighter/languages/typescript` remain valid
-when the optional `@nsh/models` package is installed. The default highlighter
-package no longer contains ONNX files; the separate resource package contains
-all selected weights. Explicit imports control which assets enter your
-application's production build. Remote applications can instead configure a
-model resource URL without installing `@nsh/models`; see below.
+The workspace examples use descriptor imports such as
+`@nsh/highlighter/languages/typescript` with `@nsh/models`. The release candidate
+uses a model resource URL for the same weights.
 See [content organization](docs/content-organization.md) for the catalog, paths
 and framework-profile conventions.
 
-## Load only the languages you need
+## Bundle selected models in workspace builds
 
-For local delivery, the default entry requires explicit model selection and
-includes no ONNX files.
-For a small production asset set, install the optional `@nsh/models` resource
-package and select models explicitly. [Model delivery](docs/model-delivery.md)
-records the independent TSX/SCSS installation and build checks:
+For the Playground or applications testing the workspace archives, install the
+optional `@nsh/models` resource package and import only the descriptors you need.
+[Model delivery](docs/model-delivery.md#install-workspace-archives) records the
+independent TSX/SCSS installation and build checks:
 
 ```ts
 import { createHighlighter } from "@nsh/highlighter";
@@ -193,12 +188,12 @@ profile does not install or execute that shell.
 ## Load models from MinIO or a static resource host
 
 For an application with many selectable languages, deploy model resources
-separately and let the browser download them on first use. The frontend needs
-`@nsh/highlighter` and its normal dependencies, without `@nsh/models`:
+separately and let the browser download them on first use. Install
+`neural-semantic-highlighting` in the frontend:
 
 ```ts
-import { createHighlighter } from "@nsh/highlighter";
-import "@nsh/highlighter/theme.css";
+import { createHighlighter } from "neural-semantic-highlighting";
+import "neural-semantic-highlighting/theme.css";
 
 const highlighter = createHighlighter({
   modelBaseUrl: "https://storage.example.com/highlighting/",
@@ -262,8 +257,8 @@ Three built-in presets are available:
 For a theme selector, import all presets once:
 
 ```ts
-import "@nsh/highlighter/themes.css";
-import { themes } from "@nsh/highlighter/themes";
+import "neural-semantic-highlighting/themes.css";
+import { themes } from "neural-semantic-highlighting/themes";
 // themes contains { id, name, description } for each preset.
 ```
 
@@ -284,7 +279,7 @@ The Playground offers the same independent controls: a **Theme** selector and
 light/dark buttons. It retains workspace dependencies and browser inference.
 Neither palette switching nor mode switching reruns the model.
 
-To include only one preset, use `@nsh/highlighter/themes/muted.css` and select
+To include only one preset, use `neural-semantic-highlighting/themes/muted.css` and select
 `data-nsh-preset="muted"`. Import the corresponding CSS before selecting a
 preset; importing the metadata catalog alone does not load styles.
 
@@ -307,7 +302,7 @@ consumers use the generated CSS directly.
 ### Import the default theme once
 
 ```ts
-import "@nsh/highlighter/theme.css";
+import "neural-semantic-highlighting/theme.css";
 ```
 
 This existing entry includes the Default preset with light and dark palettes.
@@ -383,7 +378,7 @@ If the app already has a user-selected theme, use that theme as the source of tr
 Import your **global** stylesheet after the default theme:
 
 ```ts
-import "@nsh/highlighter/theme.css";
+import "neural-semantic-highlighting/theme.css";
 import "./theme.css";
 ```
 
@@ -392,7 +387,7 @@ theme import in `src/highlighter.ts`. Start with
 [examples/theme.css](examples/theme.css) as `src/theme.css`:
 
 ```css
-/* Load after @nsh/highlighter/theme.css. These are example application colors. */
+/* Load after the default theme. These are example application colors. */
 .nsh {
   --nsh-background: #fafafa;
   --nsh-foreground: #24292f;

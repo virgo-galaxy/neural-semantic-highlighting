@@ -1,27 +1,21 @@
 # npm release preparation
 
-This runbook prepares and verifies local release candidates. The GitHub
-repository and the workspace packages are currently private. Candidate `.tgz`
-files retain `private: true` and can be installed into a test project.
+The first release candidate is a single unscoped package,
+`neural-semantic-highlighting`. Its archive includes the frontend API, Core,
+HTML renderer, browser Worker/WASM and generated themes. ONNX Runtime Web is a
+normal npm dependency. The archive contains zero model weights. The app can
+serve selected models alongside its own assets or load them from a separate
+host. [Model delivery](model-delivery.md) covers both deployments.
 
-## Decisions for the first release
-
-| Decision            | Confirm before preparing the final artifacts                                                                                                                                           |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| npm namespace       | Confirm the publishing account controls the chosen scope and can complete npm's publishing authentication. The workspace currently uses `@nsh`.                                        |
-| Distribution rights | Confirm the license for the project code and distribution rights for the model assets in scope. Include the approved license text and applicable third-party notices in the artifacts. |
-| Model delivery      | Decide whether to include the optional model package in the first release. Remote apps also need access to independently hosted ONNX and JSON resources from the matching build.       |
-
-The runtime packages are `@nsh/core`, `@nsh/html`, `@nsh/browser` and
-`@nsh/highlighter`. Local bundling uses the optional `@nsh/models` package.
-The themes ship through the highlighter. The Playground and Python tooling stay
-in the workspace. See [model delivery](model-delivery.md) for the two modes.
+The workspace retains its `@nsh/*` modules and the Playground uses them directly.
+The packer combines their compiled files in a staging directory and resolves
+internal JavaScript imports and TypeScript declarations within the archive.
+Candidate manifests retain `private: true`.
 
 ## Build and verify a candidate
 
-Use a fresh checkout of the candidate revision with Node.js 24 and the pnpm
-version recorded in the lockfile. Keep the frozen lockfile check enabled so a
-manifest change is visible before packaging.
+Use a fresh checkout with Node.js 24 and the pnpm version recorded in the
+lockfile:
 
 ```bash
 pnpm install --frozen-lockfile
@@ -30,48 +24,41 @@ pnpm pack:browser
 node scripts/check-model-delivery.mjs
 ```
 
-`pnpm all` runs the workspace builds, type checking, lint, formatting, tests and
-the portable-path check. `pnpm pack:browser` writes five local archives under
-`artifacts/browser/npm/`. The packer resolves `workspace:` ranges to concrete
-versions in the staged manifests. Building all five candidates exercises both
-delivery modes while the scope of the first release is pending.
+`pnpm all` runs builds, type checking, lint, formatting, tests and the
+portable-path check. `pnpm pack:browser` writes the single local archive
+and its file inventory to `artifacts/browser/npm-release/`.
 
-Review `artifacts/browser/npm/archives.json` and
-`artifacts/browser/delivery-check/verification.json`. Confirm the following in
-the candidate files and consumer builds:
+Review `artifacts/browser/npm-release/archives.json` and
+`artifacts/browser/npm-release-check/verification.json`. The check installs
+the archive in independent projects, type-checks the public API and builds
+Vite examples. Each build emits zero ONNX files and one shared WASM.
+Review the file list for built runtime assets, license notices and accidental
+training files, credentials or machine-specific paths.
 
-- All `@nsh` runtime dependencies use matching versions. The direct install of
-  the four base archives works with `@nsh/models` absent.
-- The local TSX/SCSS build emits exactly two ONNX files with the expected model
-  hashes. The remote build emits zero ONNX files. Each emits one shared WASM.
-- Archives contain the expected runtime files and notices. ONNX weights belong
-  in the model archive. Check for accidental training files, credentials and host paths.
-- Serve `artifacts/browser/delivery-check/local/` and `remote/` each as its own
-  site root, and confirm that both highlight source. For the remote example,
-  configure `?models=<URL>` to point at the separately served
-  [exported directory](model-delivery.md#export-the-deployable-directory).
-
-To prepare the matching assets for that check, run this from the checkout:
+Export models from the same revision:
 
 ```bash
 node scripts/export-model-assets.mjs
 ```
 
-Keep model and metadata paths together when serving the export. For public
-remote delivery, verify the real resource URL from a consuming browser,
-including CORS if the app and host are on different origins.
+Serve `artifacts/browser/npm-release-check/remote/` as the app root and
+point `?models=<URL>` at the exported model directory. The default model URL is
+`/models/`. Check highlighting in the browser. For a separate origin, verify
+CORS on both the JSON metadata and the ONNX files. Keep their paths together.
 
-With an existing `reference.json`, pass `--reference <path>` to the consumer
-check and open the remote example with `&reference=reference.json` to compare
-browser output with the recorded reference.
+To compare browser output with a recorded reference, pass `--reference <path>`
+to the consumer check and open the remote example with
+`&reference=reference.json` (or `?reference=reference.json` without other
+parameters).
 
-## Final artifact review
+## Before publishing
 
-After the three release decisions are made, apply the approved package names,
-versions, licenses and access to the intended npm artifacts. Update the npm
-README with registry installation commands and links usable by recipients.
-Review the exact file list and hashes again after these changes.
+Confirm the publishing account can claim the unscoped name and complete npm
+authentication. Confirm the project code license and include its text and
+applicable notices. Verify model redistribution rights for the hosted assets
+and deploy a matching model directory that users can access. An npm model
+package can be decided independently of the engine release.
 
-The package dependency order is core, then html and browser, then highlighter.
-If the optional model package is in scope, it depends on browser. Once the
-approved release is available, test a registry install in a new consumer app.
+Once approved, update the candidate's license, version, installation command
+and resource links. Review the exact archive again. After release, test a
+registry install in a fresh frontend app.
