@@ -83,7 +83,7 @@ body {
 }
 
 .playground {
-  padding-block: clamp(20px, 2.5vw, 34px) 32px;
+  padding-block: clamp(28px, 2.5vw + 8px, 42px) 32px;
 }
 
 .playground__intro {
@@ -386,6 +386,10 @@ body {
 }
 
 @media (max-width: 760px) {
+  .playground {
+    padding-block-start: 20px;
+  }
+
   .workspace {
     --code-height: clamp(300px, 48vh, 500px);
   }
