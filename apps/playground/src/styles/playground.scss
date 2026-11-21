@@ -154,26 +154,18 @@ body {
 }
 
 .language-menu[role="listbox"] {
+  --language-menu-inset: var(--vd-spacing-12);
+
   width: min(420px, calc(100vw - 40px));
   max-height: min(520px, 65dvh);
+  padding-inline: var(--language-menu-inset);
   overscroll-behavior: contain;
 }
 
 .language-group__options {
-  position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2px 20px;
-}
-
-.language-group__options::after {
-  content: "";
-  position: absolute;
-  inset-block: 0;
-  inset-inline-start: calc(50% - 0.5px);
-  width: 1px;
-  background: var(--vd-border-default);
-  pointer-events: none;
+  gap: 2px var(--language-menu-inset);
 }
 
 .language-group + .language-group {

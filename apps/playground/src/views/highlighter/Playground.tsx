@@ -27,7 +27,13 @@ type Pane = "source" | "preview";
 
 const languageGroups = contentCategories.map((category) => ({
   ...category,
-  entries: highlighterContentTypes.filter((entry) => entry.category === category.id),
+  entries: highlighterContentTypes
+    .filter((entry) => entry.category === category.id)
+    .sort(
+      (left, right) =>
+        left.label.localeCompare(right.label, "en", { ignorePunctuation: true }) ||
+        left.label.localeCompare(right.label, "en"),
+    ),
 }));
 
 export function Playground() {
