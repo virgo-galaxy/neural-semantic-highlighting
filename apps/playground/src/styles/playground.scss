@@ -124,7 +124,7 @@ body {
 
 .workspace__controls {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   min-width: 0;
 }
@@ -143,6 +143,12 @@ body {
 
 .control button {
   width: 100%;
+}
+
+.control--theme {
+  grid-template-columns: max-content minmax(0, 128px);
+  align-items: center;
+  gap: 8px;
 }
 
 .language-icon {
@@ -391,17 +397,16 @@ body {
   }
 
   .workspace__toolbar {
+    grid-template-columns: minmax(0, 1fr) auto;
     column-gap: 12px;
   }
 
   .workspace__controls {
-    display: contents;
+    grid-column: 1 / -1;
   }
 
   .pane-switcher {
     display: flex;
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--workspace-divider);
   }
 
   .workpanes {

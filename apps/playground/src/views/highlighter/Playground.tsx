@@ -185,19 +185,19 @@ export function Playground() {
                   </Select.Content>
                 </Select>
               </div>
-              <div className="control control--theme">
-                <label htmlFor="code-theme">Code theme</label>
-                <Select id="code-theme" size="small" value={preset} onValueChange={setPreset}>
-                  <Select.Trigger />
-                  <Select.Content>
-                    {themes.map(({ id, name }) => (
-                      <Select.Option key={id} value={id}>
-                        {name}
-                      </Select.Option>
-                    ))}
-                  </Select.Content>
-                </Select>
-              </div>
+            </div>
+            <div className="pane-switcher">
+              <SegmentedControl
+                aria-label="Workspace view"
+                size="small"
+                value={pane}
+                onValueChange={(value) => {
+                  if (value === "source" || value === "preview") setPane(value);
+                }}
+              >
+                <SegmentedControl.Item value="source">Source</SegmentedControl.Item>
+                <SegmentedControl.Item value="preview">Preview</SegmentedControl.Item>
+              </SegmentedControl>
             </div>
             <Button
               className="run-button"
@@ -208,20 +208,6 @@ export function Playground() {
             >
               {busy ? "Highlighting…" : "Highlight"}
             </Button>
-          </div>
-
-          <div className="pane-switcher">
-            <SegmentedControl
-              aria-label="Workspace view"
-              size="small"
-              value={pane}
-              onValueChange={(value) => {
-                if (value === "source" || value === "preview") setPane(value);
-              }}
-            >
-              <SegmentedControl.Item value="source">Source</SegmentedControl.Item>
-              <SegmentedControl.Item value="preview">Preview</SegmentedControl.Item>
-            </SegmentedControl>
           </div>
 
           <div className="workpanes" data-pane={pane}>
@@ -269,15 +255,24 @@ export function Playground() {
               />
             </section>
 
-            <section
-              className="pane pane--preview"
-              aria-labelledby="preview-title"
-              aria-busy={busy}
-            >
+            <section className="pane pane--preview" aria-labelledby="preview-title">
               <div className="pane__heading">
                 <h2 id="preview-title">Preview</h2>
+                <div className="control control--theme">
+                  <label htmlFor="code-theme">Code theme</label>
+                  <Select id="code-theme" size="small" value={preset} onValueChange={setPreset}>
+                    <Select.Trigger />
+                    <Select.Content>
+                      {themes.map(({ id, name }) => (
+                        <Select.Option key={id} value={id}>
+                          {name}
+                        </Select.Option>
+                      ))}
+                    </Select.Content>
+                  </Select>
+                </div>
               </div>
-              <div className="preview-code">
+              <div className="preview-code" aria-busy={busy}>
                 {preview.status === "highlighted" ? (
                   <div dangerouslySetInnerHTML={{ __html: preview.html }} />
                 ) : (
