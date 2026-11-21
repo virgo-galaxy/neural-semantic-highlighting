@@ -123,12 +123,14 @@ export function Playground() {
                         <div className="language-group__label" aria-hidden="true">
                           {label}
                         </div>
-                        {entries.map(({ id: value, label: name, icon }) => (
-                          <Select.Option key={value} value={value}>
-                            {icon && <img className="language-icon" alt="" src={icon} />}
-                            {name}
-                          </Select.Option>
-                        ))}
+                        <div className="language-group__options">
+                          {entries.map(({ id: value, label: name, icon }) => (
+                            <Select.Option key={value} value={value}>
+                              {icon && <img className="language-icon" alt="" src={icon} />}
+                              {name}
+                            </Select.Option>
+                          ))}
+                        </div>
                       </div>
                     ))}
                   </Select.Content>
