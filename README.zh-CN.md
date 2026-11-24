@@ -11,7 +11,7 @@
     <img src="https://github.com/virgo-galaxy/virgo-nsh/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI status" />
   </a>
   <a href="https://www.npmjs.com/package/@virgo-nsh/highlighter">
-    <img src="https://badgen.net/npm/v/@virgo-nsh/highlighter" alt="npm version" />
+    <img src="https://img.shields.io/npm/v/@virgo-nsh/highlighter?logo=npm&amp;cacheSeconds=300" alt="npm version" />
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license" />
