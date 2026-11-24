@@ -3,11 +3,11 @@
 Choose where the browser will download model files. Both modes use the same
 highlighter API, CSS themes and shared browser Worker/WASM runtime.
 
-| Mode                 | Install                        | Production deployment                                       |
-| -------------------- | ------------------------------ | ----------------------------------------------------------- |
-| Same-site model host | `neural-semantic-highlighting` | Serve the selected model files at a URL such as `/models/`  |
-| Separate model host  | `neural-semantic-highlighting` | Serve models on MinIO or another static host                |
-| Workspace bundling   | Local `@nsh` archives          | Vite includes the ONNX files selected by descriptor imports |
+| Mode                 | Install                  | Production deployment                                       |
+| -------------------- | ------------------------ | ----------------------------------------------------------- |
+| Same-site model host | `@virgo-nsh/highlighter` | Serve the selected model files at a URL such as `/models/`  |
+| Separate model host  | `@virgo-nsh/highlighter` | Serve models on MinIO or another static host                |
+| Workspace bundling   | Local `@nsh` archives    | Vite includes the ONNX files selected by descriptor imports |
 
 Vite production builds have been verified. Run inference on the client in a
 modern browser with WebAssembly SIMD, module Workers and Web Crypto. Serve the
@@ -19,7 +19,7 @@ Worker and WASM assets.
 In your frontend project:
 
 ```bash
-npm install neural-semantic-highlighting
+npm install @virgo-nsh/highlighter
 ```
 
 The package includes the API, renderer, themes and browser runtime.
@@ -27,6 +27,24 @@ The package includes the API, renderer, themes and browser runtime.
 URL in your app. See the [React](../examples/react/README.md),
 [Vue](../examples/vue/README.md) and [vanilla JS](../examples/vanilla/README.md)
 examples.
+
+## Highlighting results and runtime assets
+
+`highlighter.highlight(source, { language })` returns a Promise with these fields.
+
+| Field    | Use it for                                                                |
+| -------- | ------------------------------------------------------------------------- |
+| `html`   | A complete `<pre class="nsh"><code>…</code></pre>` block                  |
+| `value`  | Escaped token markup to put inside an existing `<code>` element           |
+| `result` | Theme-independent semantic spans with offsets in the original UTF-16 text |
+
+- The current ONNX files are about **3.6 MB each** before HTTP compression. The
+  shared WASM asset is about **14.8 MB** uncompressed. First-use latency includes
+  downloads, integrity checks and model initialization.
+- Verified models use a best-effort **64 MB** browser cache by default. Each
+  Worker keeps up to **4 model sessions** and releases idle sessions as languages
+  change. Downloads time out after **30 seconds**. See [model caching](model-cache.md)
+  for the settings and loading errors.
 
 ## Install from local archives
 
@@ -41,7 +59,7 @@ pnpm pack:browser
 From your own frontend project, install the generated archive:
 
 ```bash
-npm install /path/to/virgo-nsh/artifacts/browser/npm-release/neural-semantic-highlighting-0.1.0.tgz
+npm install /path/to/virgo-nsh/artifacts/browser/npm-release/virgo-nsh-highlighter-0.1.0.tgz
 ```
 
 For maintainers, see the [candidate checks](npm-release.md).
@@ -132,12 +150,12 @@ compression; per-model sizes in the main README are original ONNX file sizes.
 
 ## Remote assets: static server or MinIO
 
-The frontend installs `neural-semantic-highlighting`. Pass a resource root and
+The frontend installs `@virgo-nsh/highlighter`. Pass a resource root and
 optional content IDs or aliases:
 
 ```ts
-import { createHighlighter } from "neural-semantic-highlighting";
-import "neural-semantic-highlighting/theme.css";
+import { createHighlighter } from "@virgo-nsh/highlighter";
+import "@virgo-nsh/highlighter/theme.css";
 
 const highlighter = createHighlighter({
   modelBaseUrl: "https://storage.example.com/highlighting/",

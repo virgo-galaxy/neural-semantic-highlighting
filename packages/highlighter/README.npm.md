@@ -1,22 +1,49 @@
-# Neural Semantic Highlighting
+# Virgo NSH
 
-Highlight source code and file formats in the browser. A Web Worker runs
-inference using ONNX models. The highlighter returns escaped HTML and semantic
-spans.
+Neural semantic highlighting for source code and file formats. NSH runs ONNX
+inference in a browser Web Worker and returns escaped HTML and semantic spans.
+
+[Try the live Playground](https://nsh.virgogalaxy.com/) ·
+[React, Vue and vanilla JS](https://github.com/virgo-galaxy/virgo-nsh#react-vue-and-vanilla-javascript) ·
+[简体中文](https://github.com/virgo-galaxy/virgo-nsh/blob/main/README.zh-CN.md)
 
 ## Install
 
 In a frontend project with an ESM bundler such as Vite:
 
 ```bash
-npm install neural-semantic-highlighting
+npm install @virgo-nsh/highlighter
 ```
+
+## Serve model assets
+
+The npm package includes the API, HTML renderer, CSS themes and browser runtime.
+Serve the ONNX models and their JSON metadata from your app or a static host.
+The browser downloads the files on first use and runs inference locally.
+
+For version 0.1.0, download and unpack the
+[matching model source snapshot](https://github.com/virgo-galaxy/virgo-nsh/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz).
+From its root, export the model families you need with Node.js 24 and pnpm 11:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm build:packages
+node scripts/export-model-assets.mjs --models typescript,css
+```
+
+For a Vite app, copy the contents of `artifacts/browser/models/` to
+`public/models/` and keep the `v1/` directory intact. Set `modelBaseUrl` to
+`/models/`. For a separate host, set it to the HTTPS directory that contains
+`v1/` and allow cross-origin reads. Use `resolveAssetUrl` for signed URLs.
+See the [model delivery guide](https://github.com/virgo-galaxy/virgo-nsh/blob/main/docs/model-delivery.md).
 
 ## Highlight a code block
 
+Add `<div id="example"></div>` to the page and use this in your client entry:
+
 ```js
-import { createHighlighter } from "neural-semantic-highlighting";
-import "neural-semantic-highlighting/theme.css";
+import { createHighlighter } from "@virgo-nsh/highlighter";
+import "@virgo-nsh/highlighter/theme.css";
 
 const highlighter = createHighlighter({
   modelBaseUrl: "/models/",
@@ -30,34 +57,15 @@ document.querySelector("#example").innerHTML = html;
 ```
 
 Reuse the highlighter across code blocks and call `highlighter.close()` when the
-app no longer needs it. Call inference on the client. The browser needs module
-Workers, WebAssembly SIMD and Web Crypto. Serve the app over HTTPS or localhost.
+app is done with it. Serve the app over HTTPS or localhost in a browser with
+module Workers, WebAssembly SIMD and Web Crypto.
 
-## Serve model assets
-
-For version 0.1.0, download and unpack the
-[matching source snapshot](https://github.com/virgo-galaxy/virgo-nsh/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz).
-From its root, export the models for the content types your app uses. The
-export tools require Node.js 24 and pnpm 11.
-
-```bash
-pnpm install --frozen-lockfile
-pnpm build:packages
-node scripts/export-model-assets.mjs --models typescript,css
-```
-
-The export goes to `artifacts/browser/models/`. Keep its `v1/` directory
-structure intact. Set `modelBaseUrl` to a same-site path such as `/models/` or
-an HTTPS URL on a separate host that allows cross-origin reads. For private
-models, use `resolveAssetUrl` to supply download URLs such as signed URLs.
-
-The npm archive includes the API, HTML renderer, CSS themes and inference
-runtime. It contains zero ONNX weights. The browser downloads each required
-model and its metadata from your host when first used. Omit `languages` to
-offer the full catalog when hosting all models. Use the `/catalog` package
-entry to list content types or the `/themes.css` entry to load all theme presets.
+Use `@virgo-nsh/highlighter/catalog` to list content types. Load all presets with
+`@virgo-nsh/highlighter/themes.css` and see the
+[theme guide](https://github.com/virgo-galaxy/virgo-nsh/blob/main/docs/themes.md)
+for light and dark modes and custom CSS.
 
 ## License
 
-The project's code and documentation are licensed under MIT. The archive
+The project's code and documentation are licensed under MIT. The package
 includes the `LICENSE` file and the original ONNX Runtime license notice.

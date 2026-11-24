@@ -34,6 +34,6 @@ TypeScript and CSS model files at the selected URL. The browser downloads them
 as the code blocks need them.
 
 For themes and custom global CSS, follow the
-[root theme guide](../../README.md#light--dark-themes-and-custom-css). Copy
+[theme guide](../../docs/themes.md). Copy
 [theme.css](../theme.css) to `src/theme.css` and import `"./theme.css"` after the
 default theme in `src/highlighter.ts` to try the example palette and layout.

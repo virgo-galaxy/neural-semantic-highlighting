@@ -35,7 +35,7 @@ highlights TSX and SCSS. To highlight `.vue` source, add `"vue"` to
 `languages` and export the matching model resources.
 
 For light/dark switching, per-block overrides and customization, follow the
-[root theme guide](../../README.md#light--dark-themes-and-custom-css). Copy
+[theme guide](../../docs/themes.md). Copy
 [theme.css](../theme.css) to `src/theme.css` and import it after the default theme
 in the initializer. Use a global stylesheet; scoped selectors do not automatically
 reach token elements inserted with `v-html`. `:deep()` is an option for those

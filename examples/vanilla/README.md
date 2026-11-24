@@ -13,10 +13,10 @@ Install the [npm package](../../docs/model-delivery.md#install-from-npm).
 Replace the imports and initializer at the top of `main.js` with this block.
 
 ```js
-import "neural-semantic-highlighting/theme.css";
+import "@virgo-nsh/highlighter/theme.css";
 import "./style.css";
 
-import { createHighlighter } from "neural-semantic-highlighting";
+import { createHighlighter } from "@virgo-nsh/highlighter";
 
 const highlighter = createHighlighter({
   modelBaseUrl: "/models/",
@@ -57,5 +57,5 @@ if (element) {
 ```
 
 `style.css` includes an example custom light/dark palette. See the
-[root theme guide](../../README.md#light--dark-themes-and-custom-css) for all
+[theme guide](../../docs/themes.md) for all
 supported theme attributes, CSS variables and optional system preference syncing.

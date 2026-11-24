@@ -1,7 +1,7 @@
 # npm release preparation
 
-The first release candidate is a single unscoped package,
-`neural-semantic-highlighting`. Its archive includes the frontend API, Core,
+The public release is a single package in the `virgo-nsh` npm organization,
+`@virgo-nsh/highlighter`. Its archive includes the frontend API, Core,
 HTML renderer, browser Worker/WASM and generated themes. ONNX Runtime Web is a
 normal npm dependency. The archive contains zero model weights. The app can
 serve selected models alongside its own assets or load them from a separate
@@ -54,13 +54,18 @@ parameters).
 
 ## Before publishing
 
-Confirm the publishing account can claim the unscoped name and complete npm
-authentication. Confirm the archive contains the MIT `LICENSE`, the
+Confirm the publishing account can publish to the `virgo-nsh` npm organization
+and complete npm authentication. Confirm the archive contains the MIT `LICENSE`, the
 `"license": "MIT"` manifest field and the ONNX Runtime license notice.
 Document how users can obtain and serve matching models. Review model
 redistribution terms independently of the engine license.
 
 For each release, update the candidate's version and the model source link in
 the npm README. Review the exact archive and publish it from outside the
-workspace, which uses pnpm. After release, test a registry install in a fresh
-frontend app.
+workspace with public access. For the 0.1.0 archive:
+
+```bash
+npm publish /path/to/virgo-nsh-highlighter-0.1.0.tgz --access public
+```
+
+After release, test `npm install @virgo-nsh/highlighter` in a fresh frontend app.

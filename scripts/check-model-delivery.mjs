@@ -27,7 +27,9 @@ const { values } = parseArgs({
   },
 });
 const archives = JSON.parse(readFileSync(resolve(values.archives, "archives.json"), "utf8"));
-const releaseName = "neural-semantic-highlighting";
+const { name: releaseName } = JSON.parse(
+  readFileSync(new URL("../package.json", import.meta.url), "utf8"),
+);
 const release = archives.some((archive) => archive.name === releaseName);
 const highlighterName = release ? releaseName : "@nsh/highlighter";
 const output = resolve(

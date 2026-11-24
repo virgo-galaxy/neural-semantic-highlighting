@@ -19,7 +19,7 @@ packages/core/src/catalog/
   index.ts       Categories, lookup, aliases and filename helper
 
 packages/highlighter/src/catalog/index.ts
-                 Metadata-only re-export: neural-semantic-highlighting/catalog
+                 Metadata-only re-export: @virgo-nsh/highlighter/catalog
 
 apps/playground/src/views/highlighter/examples/
   code/<content-id>/<filename>
@@ -43,7 +43,7 @@ or framework names. `fileVariants` records internal source kinds such as
 
 | Name                           | Purpose                               | Example                                  |
 | ------------------------------ | ------------------------------------- | ---------------------------------------- |
-| Package name                   | Install the release candidate         | `neural-semantic-highlighting`           |
+| Package name                   | Install the public npm package        | `@virgo-nsh/highlighter`                 |
 | Model import path              | Select a workspace model descriptor   | `@nsh/highlighter/languages/typescript`  |
 | Content ID or registered alias | Tell `highlight` what the input is    | `typescript` / `ts`, `javascript` / `js` |
 | Filename extension             | Metadata and explicit example routing | `.tsx`, `.d.ts`, `.mjs`                  |
@@ -61,6 +61,25 @@ detection. Explicit JSONC selection allows files named `tsconfig.json`; explicit
 dotenv selection allows `.env.local`. A chosen source family disambiguates
 extensions such as `.h`. Existing source kinds and descriptor import paths remain
 available, including the internal TypeScript module/declaration variants.
+
+## Use the public catalog
+
+Use a content ID or alias such as `typescript` / `ts` or `yaml` / `yml`.
+Aliases are case-insensitive. Use the model ID from the
+[support tables](model-benchmarks.md)
+when exporting assets. For example, pass `tsx` to `highlight` and `typescript`
+to the exporter. To inspect the configured highlighter, call
+`highlighter.supports("tsx")` or `highlighter.languages()`.
+
+Use the metadata-only catalog to build a selector without importing the Worker,
+WASM or models:
+
+```ts
+import { contentCategories, contentTypes, getContentType } from "@virgo-nsh/highlighter/catalog";
+
+getContentType("tsx")?.modelId; // "typescript"
+getContentType("yml")?.category; // "formats"
+```
 
 ## Training and model paths
 
