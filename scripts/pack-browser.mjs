@@ -133,6 +133,7 @@ function packHighlighter() {
   });
   cpSync(resolve(highlighter.directory, "README.npm.md"), resolve(staging, "README.md"));
   cpSync(resolve("LICENSE"), resolve(staging, "LICENSE"));
+  cpSync(resolve("CHANGELOG.md"), resolve(staging, "CHANGELOG.md"));
 
   const entrypoints = new Map();
   const dependencies = {};
@@ -168,7 +169,7 @@ function packHighlighter() {
     publishConfig: { access: "public" },
     type,
     exports: publicExports,
-    files,
+    files: [...files, "CHANGELOG.md"],
     sideEffects,
     dependencies,
   });

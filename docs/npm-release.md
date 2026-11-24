@@ -60,8 +60,8 @@ and complete npm authentication. Confirm the archive contains the MIT `LICENSE`,
 Document how users can obtain and serve matching models. Review model
 redistribution terms independently of the engine license.
 
-For each release, update the candidate's version and the model source link in
-the npm README. Review the exact archive and publish it from outside the
+For each release, update the candidate's version and [changelog](../CHANGELOG.md),
+and check the model source link in the npm README. Review the exact archive and publish it from outside the
 workspace with public access. For the 0.1.1 archive:
 
 ```bash
