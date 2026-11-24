@@ -62,10 +62,10 @@ redistribution terms independently of the engine license.
 
 For each release, update the candidate's version and the model source link in
 the npm README. Review the exact archive and publish it from outside the
-workspace with public access. For the 0.1.0 archive:
+workspace with public access. For the 0.1.1 archive:
 
 ```bash
-npm publish /path/to/virgo-nsh-highlighter-0.1.0.tgz --access public
+npm publish /path/to/virgo-nsh-highlighter-0.1.1.tgz --access public
 ```
 
 After release, test `npm install @virgo-nsh/highlighter` in a fresh frontend app.

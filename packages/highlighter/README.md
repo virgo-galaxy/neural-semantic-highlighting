@@ -18,6 +18,8 @@ container.innerHTML = html;
 
 `html` is an escaped complete `<pre class="nsh"><code>` block; `value` is the token
 markup alone. `highlightElement(codeElement)` reads `language-*` or `data-language`.
+Use `observeElement(codeElement, { rootMargin: "128px" })` to start when an existing
+block approaches the viewport. It highlights once and returns a cleanup function.
 Use explicit languages; there is no automatic detection. Inference is asynchronous
 and runs in a Web Worker. The consumer needs no Python process or server endpoint.
 Call `close()` to terminate the worker when finished. Inference is client-only;

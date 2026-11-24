@@ -62,6 +62,117 @@ afterEach(() => {
   FakeWorker.instances = [];
 });
 
+describe("viewport highlighting", () => {
+  function codeElement() {
+    const element = {
+      tagName: "CODE",
+      textContent: "const value = 1;",
+      innerHTML: "const value = 1;",
+      dataset: { language: "javascript" },
+      classList: new Set<string>(),
+    };
+    return element as unknown as HTMLElement;
+  }
+
+  function mockObserver() {
+    const observe = vi.fn();
+    const disconnect = vi.fn();
+    const initialize =
+      vi.fn<(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) => void>();
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+          initialize(callback, options);
+        }
+
+        observe = observe;
+        disconnect = disconnect;
+      },
+    );
+    return {
+      observe,
+      disconnect,
+      initialize,
+      emit(isIntersecting: boolean) {
+        initialize.mock.lastCall![0](
+          [{ isIntersecting } as IntersectionObserverEntry],
+          {} as IntersectionObserver,
+        );
+      },
+    };
+  }
+
+  it("uses the supplied scroll root and margin and highlights once when the block intersects", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const observer = mockObserver();
+    const highlighter = createHighlighter({ languages: [model] });
+    const target = codeElement();
+    const root = {} as HTMLElement;
+
+    highlighter.observeElement(target, { root, rootMargin: "128px" });
+    expect(observer.initialize).toHaveBeenCalledWith(expect.any(Function), {
+      root,
+      rootMargin: "128px",
+    });
+    expect(observer.observe).toHaveBeenCalledWith(target);
+    observer.emit(false);
+    expect(FakeWorker.instances).toHaveLength(0);
+
+    observer.emit(true);
+    observer.emit(true);
+    const worker = FakeWorker.instances[0]!;
+    expect(worker.messages).toHaveLength(1);
+    expect(observer.disconnect).toHaveBeenCalled();
+    worker.reply(worker.messages[0].id, {
+      offsetEncoding: "utf-16",
+      spans: [{ start: 0, end: 5, tokenType: "keyword" }],
+    });
+
+    await vi.waitFor(() => expect(target.innerHTML).toContain('data-token-type="keyword"'));
+    highlighter.close();
+  });
+
+  it("ignores intersections after cleanup and discards an in-flight result after cleanup", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    const observer = mockObserver();
+    const highlighter = createHighlighter({ languages: [model] });
+    const target = codeElement();
+
+    highlighter.observeElement(target)();
+    observer.emit(true);
+    expect(FakeWorker.instances).toHaveLength(0);
+
+    const stop = highlighter.observeElement(target);
+    observer.emit(true);
+    const worker = FakeWorker.instances[0]!;
+    stop();
+    target.textContent = "const next = 2;";
+    target.innerHTML = "const next = 2;";
+    worker.reply(worker.messages[0].id, {
+      offsetEncoding: "utf-16",
+      spans: [{ start: 0, end: 5, tokenType: "keyword" }],
+    });
+
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(target.innerHTML).toBe("const next = 2;");
+    highlighter.close();
+  });
+
+  it("starts without an observer and reports failures while preserving source text", async () => {
+    vi.stubGlobal("Worker", FakeWorker);
+    vi.stubGlobal("IntersectionObserver", undefined);
+    const highlighter = createHighlighter({ languages: [model] });
+    const target = codeElement();
+    const onError = vi.fn();
+
+    highlighter.observeElement(target, { language: "bash", onError });
+    await vi.waitFor(() => expect(onError).toHaveBeenCalledWith(expect.any(Error)));
+    expect(target.innerHTML).toBe("const value = 1;");
+    highlighter.close();
+  });
+});
+
 describe("browser decoder", () => {
   it("maps original UTF-8 characters to UTF-16, preserving CRLF", () => {
     expect(characterMap("A星🌌\r\n")).toEqual({

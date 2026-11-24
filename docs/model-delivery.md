@@ -59,7 +59,7 @@ pnpm pack:browser
 From your own frontend project, install the generated archive:
 
 ```bash
-npm install /path/to/virgo-nsh/artifacts/browser/npm-release/virgo-nsh-highlighter-0.1.0.tgz
+npm install /path/to/virgo-nsh/artifacts/browser/npm-release/virgo-nsh-highlighter-0.1.1.tgz
 ```
 
 For maintainers, see the [candidate checks](npm-release.md).

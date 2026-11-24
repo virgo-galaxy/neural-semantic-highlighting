@@ -48,7 +48,7 @@ npm install @virgo-nsh/highlighter
 npm 包提供高亮引擎和主题。应用需要提供匹配的 ONNX 模型及 JSON 元数据，
 浏览器会在首次使用对应模型时下载。
 
-使用 `0.1.0` 时，下载并解压[对应的模型源码快照](https://github.com/virgo-galaxy/virgo-nsh/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz)。
+使用 `0.1.0` 或 `0.1.1` 时，下载并解压[对应的模型源码快照](https://github.com/virgo-galaxy/virgo-nsh/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz)。
 在解压后的目录下使用 Node.js 24 和 pnpm 11 运行以下命令。
 
 ```bash
@@ -108,6 +108,9 @@ try {
 - [Vue 示例](examples/vue/README.md)提供可复用的 `CodeBlock.vue`。
 - [原生 JavaScript 示例](examples/vanilla/README.md)提供完整的 Vite 页面，并演示如何
   使用 `highlightElement` 高亮已有代码块。
+
+使用 [`observeElement()`](packages/highlighter/README.npm.md#highlight-on-scroll)
+可以在已有代码块接近视口时才触发高亮。
 
 ## 主题
 

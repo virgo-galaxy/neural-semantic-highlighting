@@ -21,7 +21,7 @@ The npm package includes the API, HTML renderer, CSS themes and browser runtime.
 Serve the ONNX models and their JSON metadata from your app or a static host.
 The browser downloads the files on first use and runs inference locally.
 
-For version 0.1.0, download and unpack the
+For versions 0.1.0 and 0.1.1, download and unpack the
 [matching model source snapshot](https://github.com/virgo-galaxy/virgo-nsh/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz).
 From its root, export the model families you need with Node.js 24 and pnpm 11:
 
@@ -64,6 +64,24 @@ Use `@virgo-nsh/highlighter/catalog` to list content types. Load all presets wit
 `@virgo-nsh/highlighter/themes.css` and see the
 [theme guide](https://github.com/virgo-galaxy/virgo-nsh/blob/main/docs/themes.md)
 for light and dark modes and custom CSS.
+
+## Highlight on scroll
+
+Use `observeElement()` to highlight an existing `<code>` or `<pre><code>` block
+once, when it comes into view.
+
+```ts
+const stop = highlighter.observeElement(codeElement, {
+  language: "tsx",
+  rootMargin: "128px",
+});
+
+// Call stop() when the block is removed or reused.
+```
+
+The default root is the viewport and the default margin is `0px`. Set `root`
+to use a scroll container. Without Intersection Observer, highlighting starts
+immediately. The optional `onError` callback receives inference errors.
 
 ## License
 

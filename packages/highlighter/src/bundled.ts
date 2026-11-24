@@ -5,7 +5,12 @@ import {
   type HighlighterOptions,
 } from "./highlighter.js";
 
-export type { BrowserHighlighter, HighlightedCode, HighlighterOptions } from "./highlighter.js";
+export type {
+  BrowserHighlighter,
+  HighlightedCode,
+  HighlighterOptions,
+  ObserveElementOptions,
+} from "./highlighter.js";
 
 /** Opt in to all local model assets. Requires the optional @nsh/models package. */
 export function createHighlighter(options: HighlighterOptions = {}) {

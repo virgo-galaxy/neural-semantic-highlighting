@@ -32,13 +32,31 @@ export interface HighlightedCode {
   result: HighlightResult;
 }
 
+export interface ObserveElementOptions extends Pick<
+  IntersectionObserverInit,
+  "root" | "rootMargin"
+> {
+  language?: string;
+  /** Called if highlighting fails. The original source stays in the code block. */
+  onError?: (error: unknown) => void;
+}
+
 export interface BrowserHighlighter {
   highlight(code: string, options: { language: string }): Promise<HighlightedCode>;
   highlightTokens(request: HighlightRequest): Promise<HighlightResult>;
   highlightElement(element: HTMLElement, options?: { language?: string }): Promise<HighlightedCode>;
+  /** Highlight once on intersection and return a function that stops observation and rendering. */
+  observeElement(element: HTMLElement, options?: ObserveElementOptions): () => void;
   supports(language: string): boolean;
   languages(): readonly string[];
   close(): void;
+}
+
+function applyElementHighlight(element: HTMLElement, result: HighlightedCode): void {
+  element.innerHTML = result.value;
+  const wrapper = element.parentElement?.tagName === "PRE" ? element.parentElement : element;
+  wrapper.classList.add("nsh");
+  wrapper.dataset.language = result.language;
 }
 
 /** Configure selected models explicitly; no Node/Python imports or source uploads. */
@@ -111,6 +129,7 @@ export function createHighlighter(options: HighlighterOptions = {}): BrowserHigh
   const core = createCoreHighlighter({ packs });
   let closed = false;
   const pending = new Set<(error: Error) => void>();
+  const observations = new Set<() => void>();
   const infer = (request: HighlightRequest): Promise<HighlightResult> => {
     if (closed) return Promise.reject(new Error("Browser highlighter is closed"));
     return new Promise((resolve, reject) => {
@@ -142,29 +161,81 @@ export function createHighlighter(options: HighlighterOptions = {}): BrowserHigh
       html: renderToHtml(request),
     };
   };
+  const highlightElementSource = async (
+    element: HTMLElement,
+    language: string | undefined,
+    source = element.textContent ?? "",
+  ): Promise<HighlightedCode> => {
+    const kind =
+      language ??
+      element.dataset.language ??
+      [...element.classList].find((name) => name.startsWith("language-"))?.slice(9) ??
+      element.parentElement?.dataset.language;
+    if (!kind) throw new Error("Set a language, for example language-tsx or data-language=tsx");
+    return highlight(source, { language: kind });
+  };
   return {
     highlight,
     highlightTokens: ({ source, documentKind }) =>
       infer({ source, documentKind: kindFor(documentKind) }),
-    async highlightElement(element, options = {}) {
-      const language =
-        options.language ??
-        element.dataset.language ??
-        [...element.classList].find((name) => name.startsWith("language-"))?.slice(9) ??
-        element.parentElement?.dataset.language;
-      if (!language)
-        throw new Error("Set a language, for example language-tsx or data-language=tsx");
-      const result = await highlight(element.textContent ?? "", { language });
-      element.innerHTML = result.value;
-      const wrapper = element.parentElement?.tagName === "PRE" ? element.parentElement : element;
-      wrapper.classList.add("nsh");
-      wrapper.dataset.language = result.language;
+    async highlightElement(element, { language } = {}) {
+      const result = await highlightElementSource(element, language);
+      applyElementHighlight(element, result);
       return result;
+    },
+    observeElement(element, { language, root, rootMargin, onError } = {}) {
+      if (closed) throw new Error("Browser highlighter is closed");
+      let observer: IntersectionObserver | undefined;
+      let started = false;
+      let stopped = false;
+      const stop = () => {
+        stopped = true;
+        observer?.disconnect();
+        observations.delete(stop);
+      };
+      const highlightOnce = async () => {
+        if (started || stopped) return;
+        started = true;
+        observer?.disconnect();
+        const code =
+          (element.tagName === "PRE" && element.querySelector<HTMLElement>(":scope > code")) ||
+          element;
+        const source = code.textContent ?? "";
+        try {
+          const result = await highlightElementSource(code, language, source);
+          // The consumer can replace the code node or update its text during inference.
+          if (
+            !stopped &&
+            (code === element || code.parentElement === element) &&
+            (code.textContent ?? "") === source
+          ) {
+            applyElementHighlight(code, result);
+          }
+        } catch (error) {
+          if (!stopped) onError?.(error);
+        } finally {
+          stop();
+        }
+      };
+
+      if (typeof IntersectionObserver !== "undefined") {
+        observer = new IntersectionObserver(
+          (entries) => {
+            if (entries.some((entry) => entry.isIntersecting)) void highlightOnce();
+          },
+          { root, rootMargin },
+        );
+      }
+      observations.add(stop);
+      if (observer) observer.observe(element);
+      else void highlightOnce();
+      return stop;
     },
     supports: (language) => core.supports(kindFor(language)),
     languages: () => core.documentKinds(),
     close: () => {
       closed = true;
+      for (const stop of observations) stop();
       for (const reject of pending) reject(new Error("Browser highlighter is closed"));
       pending.clear();
       remote?.close();

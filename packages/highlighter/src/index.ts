@@ -8,5 +8,6 @@ export {
   ModelAssetError,
   type ModelAssetRequest,
   type ModelCacheOptions,
+  type ObserveElementOptions,
   type RemoteModelOptions,
 } from "./highlighter.js";
