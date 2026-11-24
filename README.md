@@ -1,7 +1,7 @@
 # Neural Semantic Highlighting
 
 [![CI](https://github.com/virgo-galaxy/virgo-nsh/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/virgo-galaxy/virgo-nsh/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/neural-semantic-highlighting)](https://www.npmjs.com/package/neural-semantic-highlighting)
+[![npm version](https://badgen.net/npm/v/neural-semantic-highlighting)](https://www.npmjs.com/package/neural-semantic-highlighting)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 Semantic highlighting for source code and file formats. NSH runs ONNX inference
