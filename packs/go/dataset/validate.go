@@ -13,7 +13,7 @@ import (
 	"sort"
 	"unicode/utf16"
 
-	"github.com/virgo-galaxy/neural-semantic-highlighting/packs/go/labeling"
+	"github.com/virgo-galaxy/virgo-nsh/packs/go/labeling"
 )
 
 type packSchema struct {

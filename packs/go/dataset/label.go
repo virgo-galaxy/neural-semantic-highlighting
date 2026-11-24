@@ -11,7 +11,7 @@ import (
 	"runtime"
 	"sort"
 
-	"github.com/virgo-galaxy/neural-semantic-highlighting/packs/go/labeling"
+	"github.com/virgo-galaxy/virgo-nsh/packs/go/labeling"
 )
 
 func LabelStdlib(root string, progress ProgressFunc) (LabelSummary, error) {

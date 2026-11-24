@@ -10,7 +10,7 @@ import (
 	"os"
 	"sort"
 
-	"github.com/virgo-galaxy/neural-semantic-highlighting/packs/go/labeling"
+	"github.com/virgo-galaxy/virgo-nsh/packs/go/labeling"
 )
 
 func labelModule(outputRoot, sourceRoot string, sample SampleManifest, packages []goListPackage, progress ProgressFunc) error {

@@ -14,7 +14,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/virgo-galaxy/neural-semantic-highlighting/packs/go/labeling"
+	"github.com/virgo-galaxy/virgo-nsh/packs/go/labeling"
 )
 
 type focusedRecord struct {

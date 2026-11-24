@@ -1,6 +1,6 @@
 package dataset
 
-import "github.com/virgo-galaxy/neural-semantic-highlighting/packs/go/labeling"
+import "github.com/virgo-galaxy/virgo-nsh/packs/go/labeling"
 
 const (
 	FormatVersion = 1

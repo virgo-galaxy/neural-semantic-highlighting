@@ -1,3 +1,3 @@
-module github.com/virgo-galaxy/neural-semantic-highlighting/packs/go
+module github.com/virgo-galaxy/virgo-nsh/packs/go
 
 go 1.27.1

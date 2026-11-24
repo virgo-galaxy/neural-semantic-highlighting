@@ -114,7 +114,7 @@ export function Playground() {
             </Button>
             <a
               className="site-action repo-link"
-              href="https://github.com/virgo-galaxy/neural-semantic-highlighting"
+              href="https://github.com/virgo-galaxy/virgo-nsh"
               aria-label="GitHub repository"
             >
               <GithubIcon size={18} />

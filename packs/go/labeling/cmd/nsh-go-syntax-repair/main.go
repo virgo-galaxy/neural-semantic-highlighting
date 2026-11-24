@@ -8,7 +8,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/virgo-galaxy/neural-semantic-highlighting/packs/go/labeling"
+	"github.com/virgo-galaxy/virgo-nsh/packs/go/labeling"
 )
 
 func run(input io.Reader, output io.Writer) error {

@@ -41,7 +41,7 @@ pnpm pack:browser
 From your own frontend project, install the generated archive:
 
 ```bash
-npm install /path/to/neural-semantic-highlighting/artifacts/browser/npm-release/neural-semantic-highlighting-0.1.0.tgz
+npm install /path/to/virgo-nsh/artifacts/browser/npm-release/neural-semantic-highlighting-0.1.0.tgz
 ```
 
 For maintainers, see the [candidate checks](npm-release.md).
@@ -59,7 +59,7 @@ Run the following in your **own frontend project**, with an existing
 commands assume there is one archive per package in that directory.
 
 ```bash
-NSH_ARCHIVES="/absolute/path/to/neural-semantic-highlighting/artifacts/browser/npm"
+NSH_ARCHIVES="/absolute/path/to/virgo-nsh/artifacts/browser/npm"
 npm install "$NSH_ARCHIVES"/nsh-core-*.tgz "$NSH_ARCHIVES"/nsh-html-*.tgz \
   "$NSH_ARCHIVES"/nsh-browser-*.tgz "$NSH_ARCHIVES"/nsh-highlighter-*.tgz
 ```

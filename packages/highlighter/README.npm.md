@@ -36,7 +36,7 @@ Workers, WebAssembly SIMD and Web Crypto. Serve the app over HTTPS or localhost.
 ## Serve model assets
 
 For version 0.1.0, download and unpack the
-[matching source snapshot](https://github.com/virgo-galaxy/neural-semantic-highlighting/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz).
+[matching source snapshot](https://github.com/virgo-galaxy/virgo-nsh/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz).
 From its root, export the models for the content types your app uses. The
 export tools require Node.js 24 and pnpm 11.
 

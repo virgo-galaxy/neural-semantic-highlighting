@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/virgo-galaxy/neural-semantic-highlighting/packs/go/dataset"
+	"github.com/virgo-galaxy/virgo-nsh/packs/go/dataset"
 )
 
 func main() {
