@@ -21,8 +21,8 @@ The npm package includes the API, HTML renderer, CSS themes and browser runtime.
 Serve the ONNX models and their JSON metadata from your app or a static host.
 The browser downloads the files on first use and runs inference locally.
 
-For versions 0.1.0 and 0.1.1, download and unpack the
-[matching model source snapshot](https://github.com/virgo-galaxy/virgo-nsh/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz).
+Download and unpack the
+[model source snapshot for the latest release](https://github.com/virgo-galaxy/virgo-nsh/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz).
 From its root, export the model families you need with Node.js 24 and pnpm 11:
 
 ```bash

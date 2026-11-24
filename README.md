@@ -49,7 +49,7 @@ npm install @virgo-nsh/highlighter
 The package ships the highlighter and themes. Serve the matching ONNX and JSON
 files so the browser can load each model on first use.
 
-For versions `0.1.0` and `0.1.1`, download the [model source snapshot](https://github.com/virgo-galaxy/virgo-nsh/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz).
+Download the [model source snapshot for the latest release](https://github.com/virgo-galaxy/virgo-nsh/archive/7109bac49340b94ad5350778e32ee0d4196c5698.tar.gz).
 From the unpacked snapshot, run these commands with Node.js 24 and pnpm 11.
 
 ```bash
