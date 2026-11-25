@@ -117,7 +117,7 @@ export function Playground() {
               href="https://github.com/virgo-galaxy/virgo-nsh"
               aria-label="GitHub repository"
             >
-              <GithubIcon size={18} />
+              <GithubIcon size={20} />
             </a>
           </div>
         </div>
